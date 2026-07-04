@@ -24,7 +24,7 @@ plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
 
-def cepstrogram(x, wlen, hop, fs, win_type='kaiser'):
+def cepstrogram(x, wlen, hop, fs, win_type='rect'):
     """短时倒谱图（内联，无外部依赖）。"""
     x = np.asarray(x).flatten()
     xlen = len(x)
@@ -466,7 +466,7 @@ def _plot_fft_panel(
     ax.plot(frequencies[mask_f], magnitude[mask_f], 'b-', lw=1.2, label='FFT 幅值')
     f0 = wavespeed / (2.0 * wellbore_length)
     ax.axvline(f0, color='orange', ls=':', lw=1.0, alpha=0.8,
-               label=f'往返基频 f₀={f0:.3f} Hz')
+               label=f'往返基频 $f_0$={f0:.3f} Hz')
     ax.set_xlabel('频率 [Hz]')
     ax.set_ylabel('幅值 [m]')
     ax.set_title(f'井口水头频域曲线 (FFT) | 有效范围 0–{f_display_max:.2f} Hz')
@@ -528,6 +528,47 @@ def _mark_fractures_on_depth_axis(
                     bbox=dict(facecolor='black', alpha=0.4, pad=1))
 
 
+def _mark_fractures_side_arrows(
+    ax,
+    fracture_positions: List[float],
+    side: str = 'right',
+) -> None:
+    """在 2D 倒谱图侧边用箭头标注裂缝深度。"""
+    if not fracture_positions:
+        return
+
+    from matplotlib.transforms import blended_transform_factory
+
+    if side == 'right':
+        x_point, x_text, ha = 1.0, 1.04, 'left'
+    else:
+        x_point, x_text, ha = 0.0, -0.04, 'right'
+
+    trans = blended_transform_factory(ax.transAxes, ax.transData)
+    for i, depth in enumerate(fracture_positions):
+        ax.annotate(
+            f'Frac{i + 1}: {depth:.0f}m',
+            xy=(x_point, depth),
+            xycoords=trans,
+            xytext=(x_text, depth),
+            textcoords=trans,
+            fontsize=9,
+            color='yellow',
+            va='center',
+            ha=ha,
+            arrowprops=dict(
+                arrowstyle='->',
+                color='yellow',
+                lw=1.5,
+                shrinkA=2,
+                shrinkB=2,
+            ),
+            bbox=dict(facecolor='black', alpha=0.55, pad=2, edgecolor='none'),
+            clip_on=False,
+            zorder=10,
+        )
+
+
 def plot_moc_cepstrum_1d_analysis(
     time: np.ndarray,
     head: np.ndarray,
@@ -578,7 +619,7 @@ def plot_moc_cepstrum_analysis(
     depth_min: float = 0.0,
     lifter: bool = True,
     lifter_cutoff: Optional[float] = None,
-    derivative: bool = True,
+    derivative: bool = False,
     derivative_order: int = 1,
     fft_fmax: Optional[float] = None,
     show: bool = False,
@@ -733,18 +774,14 @@ def plot_moc_cepstrum_analysis(
     y_hi = min(depth_max_2d, lim4 * v / 2.0)
     if y_hi > y_lo:
         ax4.set_ylim([y_lo, y_hi])
-    cbar = plt.colorbar(im, ax=ax4)
+    _mark_fractures_side_arrows(ax4, fracture_positions, side='right')
+    cbar = fig.colorbar(
+        im, ax=ax4, orientation='horizontal',
+        pad=0.12, fraction=0.05, aspect=40,
+    )
     cbar.set_label('倒谱能量 (-C)', fontsize=10)
-    for i, depth in enumerate(fracture_positions):
-        ax4.axhline(y=depth, color='white', ls='--', lw=1.5, alpha=0.85)
-        ax4.text(
-            t_cep[0] if len(t_cep) else 0, depth,
-            f' Frac{i + 1}: {depth:.0f}m',
-            color='white', fontsize=9, va='center',
-            bbox=dict(facecolor='black', alpha=0.4, pad=1),
-        )
 
-    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    plt.tight_layout(rect=[0, 0, 0.90, 0.96])
     if save_path is not None:
         os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
         plt.savefig(save_path, dpi=150, bbox_inches='tight')

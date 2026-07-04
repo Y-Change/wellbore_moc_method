@@ -56,7 +56,7 @@ def run_validation():
 
     L = 5000.0; a = 1450.0; V0 = 1.0; H0 = 300.0
     ts = 1.0; dt = 1.0e-3; tf = 100.0
-    x_f = 4500.0; Cf = 1.0e-5
+    x_f = 4300.0; Cf = 1.0e-5
     kleak = 0.0001         # 滤失系数 [m²/s/√m]
     H_ext = 100.0           # 地层孔隙压力水头 [m]
 
@@ -243,8 +243,8 @@ def run_validation():
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
     fig.suptitle(
         f"测试 B — 含单缝 + 稳态摩阻 + 滤失\n"
-        f"L={L}m, x_f={x_f}m, Cf={Cf}m², k_leak={kleak}, H_ext={H_ext}m, tf={tf}s\n"
-        f"阻尼比={damping_ratio:.3f}, Q_steady={Q_steady:.5f} m³/s",
+        f"L={L}m, x_f={x_f}m, Cf={Cf} m$^2$, k_leak={kleak}, H_ext={H_ext}m, tf={tf}s\n"
+        f"阻尼比={damping_ratio:.3f}, Q_steady={Q_steady:.5f} m$^3$/s",
         fontsize=13, fontweight='bold'
     )
 
@@ -298,7 +298,7 @@ def run_validation():
     ax.axvline(ts + x_f_aligned / cfg.a_adj, color='m', ls=':', lw=1,
                label=f'波到达缝 {ts + x_f_aligned/cfg.a_adj:.2f}s')
     ax.set_xlabel('时间 [s]'); ax.set_ylabel('缝节点水头 [m]')
-    ax2.set_ylabel('缝侧向流量 [m³/s]')
+    ax2.set_ylabel('缝侧向流量 [m$^3$/s]')
     ax.set_title(f'缝节点 (x={x_f_aligned:.0f}m) H 与 Q_f (Q_steady={Q_steady:.5f})')
     ax.legend(fontsize=8, loc='upper left'); ax2.legend(fontsize=8, loc='upper right')
     ax.grid(True, ls='--', alpha=0.6)
@@ -324,7 +324,8 @@ def run_validation():
             f"测试 B — 井口水头倒谱分析\n"
             f"x_f={x_f_aligned:.0f}m, k_leak={kleak}, steady 摩阻"
         ),
-        hop_sec=0.1,
+        wlen_sec=30,      # 不写则仍自动 4L/v
+        hop_sec=0.5,
     )
 
     # JSON
