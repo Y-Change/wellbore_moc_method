@@ -33,7 +33,7 @@ _METHOD_DIR = os.path.dirname(os.path.abspath(__file__))
 if _METHOD_DIR not in sys.path:
     sys.path.insert(0, _METHOD_DIR)
 
-from paths import moc_output_dir
+from paths import output_path, SERIES_TEST_B, CASE_SINGLE
 from wellbore_moc import MocConfig, simulate_wellbore, G
 from cepstrum_mocdata import plot_moc_cepstrum_analysis
 
@@ -238,8 +238,6 @@ def run_validation():
     print("=" * 72)
 
     # ── 可视化 ────────────────────────────────────────────
-    out_dir = moc_output_dir()
-
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
     fig.suptitle(
         f"测试 B — 含单缝 + 稳态摩阻 + 滤失\n"
@@ -305,13 +303,13 @@ def run_validation():
     ax.set_xlim([0, tf])
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
-    out_path = os.path.join(out_dir, "test_b_fracture_leakoff.png")
+    out_path = output_path(SERIES_TEST_B, CASE_SINGLE, "moc_leakoff.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
     plt.close(fig)
 
     # ── 井口水头倒谱合并图（时域 / FFT / 1D + 2D 倒谱）────────
-    cep_path = os.path.join(out_dir, "test_b_cepstrum.png")
+    cep_path = output_path(SERIES_TEST_B, CASE_SINGLE, "cepstrum_standard.png")
     plot_moc_cepstrum_analysis(
         t_sim, H_wh,
         wavespeed=cfg.a_adj,
@@ -324,7 +322,7 @@ def run_validation():
             f"测试 B — 井口水头倒谱分析\n"
             f"x_f={x_f_aligned:.0f}m, k_leak={kleak}, steady 摩阻"
         ),
-        wlen_sec=30,      # 不写则仍自动 4L/v
+        wlen_sec=50,      # 不写则仍自动 4L/v
         hop_sec=0.5,
     )
 
@@ -356,7 +354,7 @@ def run_validation():
             "x_f": x_f, "Cf": Cf, "kleak": kleak, "H_ext": H_ext, "friction": "steady",
         },
     }
-    json_path = os.path.join(out_dir, "test_b_fracture_leakoff.json")
+    json_path = output_path(SERIES_TEST_B, CASE_SINGLE, "moc_leakoff.json")
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"结果 JSON: {json_path}")

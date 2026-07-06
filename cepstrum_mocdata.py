@@ -528,6 +528,76 @@ def _mark_fractures_on_depth_axis(
                     bbox=dict(facecolor='black', alpha=0.4, pad=1))
 
 
+def _assign_fracture_label_levels(
+    depths: List[float],
+    x_span: float,
+    min_gap_frac: float = 0.055,
+    min_gap_abs: float = 80.0,
+) -> List[int]:
+    """为横轴下方标签分配纵向错开层级，避免相邻裂缝标注互相遮挡。"""
+    if not depths:
+        return []
+    min_gap = max(min_gap_frac * x_span, min_gap_abs)
+    order = sorted(range(len(depths)), key=lambda i: depths[i])
+    level_slots: List[List[float]] = []
+    levels = [0] * len(depths)
+    for i in order:
+        d = depths[i]
+        for lev, slots in enumerate(level_slots):
+            if all(abs(d - sd) >= min_gap for sd in slots):
+                slots.append(d)
+                levels[i] = lev
+                break
+        else:
+            level_slots.append([d])
+            levels[i] = len(level_slots) - 1
+    return levels
+
+
+def _mark_fractures_below_1d_axis(
+    ax,
+    fracture_positions: List[float],
+) -> None:
+    """在 1D 实倒谱横轴下方用箭头标注裂缝深度（无图内竖线）。"""
+    if not fracture_positions:
+        return
+
+    from matplotlib.transforms import blended_transform_factory
+
+    trans = blended_transform_factory(ax.transData, ax.transAxes)
+    xlim = ax.get_xlim()
+    x_span = xlim[1] - xlim[0]
+    depths = list(fracture_positions)
+    levels = _assign_fracture_label_levels(depths, x_span)
+
+    base_y = -0.09
+    level_dy = 0.065
+    y_tip = 0.012
+
+    for i, depth in enumerate(depths):
+        y_label = base_y - levels[i] * level_dy
+        ax.annotate(
+            f'{depth:.0f}m',
+            xy=(depth, y_tip),
+            xycoords=trans,
+            xytext=(depth, y_label),
+            textcoords=trans,
+            fontsize=8,
+            color='darkred',
+            ha='center',
+            va='top',
+            arrowprops=dict(
+                arrowstyle='->',
+                color='darkred',
+                lw=1.2,
+                shrinkA=0,
+                shrinkB=1,
+            ),
+            clip_on=False,
+            zorder=10,
+        )
+
+
 def _mark_fractures_side_arrows(
     ax,
     fracture_positions: List[float],
@@ -752,7 +822,7 @@ def plot_moc_cepstrum_analysis(
     ax3.set_xlim([depth_min, depth_max_1d])
     ax3.grid(True, ls='--', alpha=0.6)
     ax3.legend(fontsize=9)
-    _mark_fractures_on_depth_axis(ax3, fracture_positions, orientation='horizontal')
+    _mark_fractures_below_1d_axis(ax3, fracture_positions)
 
     # Row 4: 2D 倒谱图
     ax4 = plt.subplot(4, 1, 4)

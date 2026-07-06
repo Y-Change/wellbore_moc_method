@@ -32,7 +32,7 @@ _METHOD_DIR = os.path.dirname(os.path.abspath(__file__))
 if _METHOD_DIR not in sys.path:
     sys.path.insert(0, _METHOD_DIR)
 
-from paths import moc_output_dir
+from paths import output_path, SERIES_STEP03B_BRUNONE
 from wellbore_moc import MocConfig, simulate_wellbore, G
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
@@ -270,8 +270,6 @@ def run_validation():
     print("=" * 72)
 
     # ── 可视化 ────────────────────────────────────────────
-    out_dir = moc_output_dir()
-
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
     fig.suptitle(
         f"Brunone 非定常摩阻验证 — L={L}m, tf={tf}s, x_f={x_f}m, Cf={Cf}m²\n"
@@ -337,7 +335,7 @@ def run_validation():
     ax.set_xlim([0, L])
 
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-    out_path = os.path.join(out_dir, "brunone_validation.png")
+    out_path = output_path(SERIES_STEP03B_BRUNONE, None, "validation.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
 
@@ -380,7 +378,7 @@ def run_validation():
             "steady_sim_sec": float(t_elapsed3),
         },
     }
-    json_path = os.path.join(out_dir, "brunone_validation.json")
+    json_path = output_path(SERIES_STEP03B_BRUNONE, None, "validation.json")
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"结果 JSON: {json_path}")

@@ -16,39 +16,46 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
 
-from dataset_builder.wellbore_moc import MocConfig, simulate_wellbore, G
-from dataset_builder.cepstrum_mocdata import (
+from wellbore_moc import MocConfig, simulate_wellbore, G
+from cepstrum_mocdata import (
     preprocess_moc_head, prepare_cepstrum_signal,
-    _resolve_cepstrum_params, _quefrency_to_depth,
+    _resolve_cepstrum_params, cepstrogram,
 )
-from dataset_builder.cepstrum_analyzer import cepstrogram
+from paths import output_path, SERIES_ANALYSIS_WINDOW
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
 
-
-def add_side_arrow(ax, depth, label, x_pos, arrow_length, color='#FF4444', lw=2.0):
-    """Draw a side arrow pointing from the right edge to a fracture depth line."""
-    ax.axhline(y=depth, color=color, ls='--', lw=lw, alpha=0.85)
+def add_side_arrow(ax, depth, label, t_span, side='left', color='#FF4444', lw=2.0):
+    """Draw a side arrow at the plot edge pointing to a fracture depth, no in-plot line."""
+    t_min, t_max = t_span
+    if side == 'left':
+        arrow_tip = t_min
+        text_t = t_min - (t_max - t_min) * 0.08
+        arrow_dir = '->'
+        ha = 'right'
+    else:
+        arrow_tip = t_max
+        text_t = t_max + (t_max - t_min) * 0.08
+        arrow_dir = '<-'
+        ha = 'left'
     ax.annotate(
-        '', xy=(x_pos, depth), xytext=(x_pos + arrow_length, depth),
-        arrowprops=dict(arrowstyle='<-', color=color, lw=2.0,
+        '', xy=(arrow_tip, depth), xytext=(text_t, depth),
+        arrowprops=dict(arrowstyle=arrow_dir, color=color, lw=2.0,
                         connectionstyle='arc3'),
         annotation_clip=False,
     )
-    ax.text(x_pos + arrow_length + 0.5, depth, label,
-            color=color, fontsize=9, va='center', ha='left',
+    ax.text(text_t, depth, label,
+            color=color, fontsize=9, va='center', ha=ha,
             fontweight='bold')
 
 
 def run():
     L = 5000.0; a = 1450.0; V0 = 1.0; H0 = 300.0
     ts = 1.0; dt = 1.0e-3; tf = 100.0
-    x_f = 4500.0; Cf = 1.0e-5
+    x_f = 4100.0; Cf = 1.0e-5
     kleak = 0.0001; H_ext = 100.0
 
     cfg = MocConfig(
@@ -137,13 +144,12 @@ def run():
         im = ax.pcolormesh(T_mesh, Q_mesh, -C, shading='auto', cmap='jet',
                            vmin=vmin, vmax=vmax)
 
-        # Fracture + toe markers as side arrows
-        x_max = t_cep[-1]
-        arrow_len = (t_cep[-1] - t_cep[0]) * 0.06
+        # Fracture + toe markers as left-side arrows (no in-plot lines)
+        t_span = (t_cep[0], t_cep[-1])
         add_side_arrow(ax, x_f_aligned, f'Frac {x_f_aligned:.0f}m',
-                       x_max, arrow_len, color='#FF2222', lw=2.0)
+                       t_span, side='left', color='#FF2222')
         add_side_arrow(ax, L, f'Toe {L:.0f}m',
-                       x_max, arrow_len, color='#FF8800', lw=2.0)
+                       t_span, side='left', color='#FF8800')
 
         ax.set_title(label, fontsize=13, fontweight='bold', color=color)
         ax.set_xlabel('Time [s]', fontsize=10)
@@ -186,8 +192,7 @@ def run():
     )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
 
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    out_path = os.path.join(OUTPUT_DIR, 'window_comparison_2d_cepstrum.png')
+    out_path = output_path(SERIES_ANALYSIS_WINDOW, None, 'compare_2d.png')
     plt.savefig(out_path, dpi=150, bbox_inches='tight')
     print(f'Figure saved: {out_path}')
 
@@ -199,12 +204,11 @@ def run():
         T_mesh, Q_mesh = np.meshgrid(t_cep, Q_depth_all)
         im2 = ax2.pcolormesh(T_mesh, Q_mesh, -C, shading='auto', cmap='jet',
                              vmin=vmin, vmax=vmax)
-        x_max = t_cep[-1] if len(t_cep) else 0
-        arrow_len = (t_cep[-1] - t_cep[0]) * 0.06 if len(t_cep) > 1 else 0.5
+        t_span2 = (t_cep[0], t_cep[-1]) if len(t_cep) > 1 else (0, 1)
         add_side_arrow(ax2, x_f_aligned, f'Frac {x_f_aligned:.0f}m',
-                       x_max, arrow_len, color='#FF2222', lw=2.5)
+                       t_span2, side='left', color='#FF2222')
         add_side_arrow(ax2, L, f'Toe {L:.0f}m',
-                       x_max, arrow_len, color='#FF8800', lw=2.5)
+                       t_span2, side='left', color='#FF8800')
         ax2.set_title(f'2D Cepstrogram — {label}', fontsize=14, fontweight='bold')
         ax2.set_xlabel('Time [s]', fontsize=11)
         ax2.set_ylabel('Depth [m]', fontsize=11)
@@ -213,7 +217,7 @@ def run():
         cbar2 = plt.colorbar(im2, ax=ax2)
         cbar2.set_label('-C', fontsize=10)
 
-        single_path = os.path.join(OUTPUT_DIR, f'cepstrum_{win_type}.png')
+        single_path = output_path(SERIES_ANALYSIS_WINDOW, None, f'cepstrum_{win_type}.png')
         plt.tight_layout()
         plt.savefig(single_path, dpi=150, bbox_inches='tight')
         plt.close(fig2)

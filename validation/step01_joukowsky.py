@@ -38,7 +38,7 @@ _METHOD_DIR = os.path.dirname(os.path.abspath(__file__))
 if _METHOD_DIR not in sys.path:
     sys.path.insert(0, _METHOD_DIR)
 
-from paths import moc_output_dir
+from paths import output_path, SERIES_STEP01_JOUKOWSKY
 from wellbore_moc import MocConfig, simulate_wellbore, G
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
@@ -226,8 +226,6 @@ def run_validation():
     print("=" * 72)
 
     # ── 可视化 ────────────────────────────────────────────
-    out_dir = moc_output_dir()
-
     fig, axes = plt.subplots(2, 2, figsize=(16, 10))
     fig.suptitle(f"Joukowsky 验证 — 单管水库趾端 + 井口流速阶跃（源头截断型）\n"
                  f"L={L}m, a={cfg.a_adj:.1f}m/s, V0={V0}m/s, |ΔH|_ana={dH_mag:.2f}m",
@@ -281,7 +279,7 @@ def run_validation():
     ax.set_xlim([0, tf])
 
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-    out_path = os.path.join(out_dir, "joukowsky_validation.png")
+    out_path = output_path(SERIES_STEP01_JOUKOWSKY, None, "validation.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
 
@@ -309,7 +307,7 @@ def run_validation():
             "ts": ts, "dt": dt, "tf": tf, "N": cfg.N, "dx": float(cfg.dx),
         },
     }
-    json_path = os.path.join(out_dir, "joukowsky_validation.json")
+    json_path = output_path(SERIES_STEP01_JOUKOWSKY, None, "validation.json")
     import json
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
