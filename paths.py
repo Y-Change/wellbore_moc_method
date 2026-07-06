@@ -18,6 +18,7 @@ SERIES_STEP04A_DUAL = "step04a_dual_fracture"
 SERIES_STEP04A_FRICTION = "step04a_friction_only"
 SERIES_TEST_B = "test_b"
 SERIES_CEPSTRUM_KB = "cepstrum/kaiser_bessel"
+SERIES_CEPSTRUM_WLEN_SWEEP = "cepstrum/wlen_sweep"
 SERIES_ANALYSIS_WINDOW = "analysis/window_comparison"
 
 # L2 用例（缝数）

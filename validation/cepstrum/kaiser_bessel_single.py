@@ -104,6 +104,13 @@ def run_validation():
     print("-" * 72)
     print(f"真实缝深: {x_f_aligned:.1f} m")
 
+    non_ar_panels = [
+        (kb.depth_axis(q_ax, v), C)
+        for name, (t_ax, q_ax, C, note) in methods.items()
+        if not kb.is_ar_cepstrum_method(name)
+    ]
+    shared_vmin, shared_vmax = kb.compute_shared_vrange(non_ar_panels, L)
+
     fig, axes = plt.subplots(2, 3, figsize=(20, 11))
     fig.suptitle(
         f'测试 B — 2D 倒谱优化方案对比\n'
@@ -112,9 +119,14 @@ def run_validation():
     )
     for ax, (name, (t_ax, q_ax, C, note)) in zip(axes.flat, methods.items()):
         depth = kb.depth_axis(q_ax, v)
+        if kb.is_ar_cepstrum_method(name):
+            panel_vmin, panel_vmax = None, None
+        else:
+            panel_vmin, panel_vmax = shared_vmin, shared_vmax
         kb.plot_2d_panel_single(
             ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, 0.0, L,
             mark_t_max=COMPARE_2D_FRAC_MARK_T_MAX,
+            vmin=panel_vmin, vmax=panel_vmax,
         )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
     path_2d = output_path(SERIES_CEPSTRUM_KB, CASE_SINGLE, 'compare_2d.png')

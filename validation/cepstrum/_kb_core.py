@@ -2,7 +2,7 @@
 """Kaiser-Bessel / AR 2D 倒谱核心算法（供 kaiser_bessel_single / multi 共用）。"""
 from __future__ import annotations
 
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -348,29 +348,88 @@ def plot_1d_depth_profile(
     ax.legend(fontsize=7, loc='upper right')
 
 
-def _fracture_mark_t_span(t: np.ndarray, mark_t_max: float = 10.0) -> Tuple[float, float]:
-    """2D 倒谱图上裂缝标注的时间范围 [t_start, min(t_end, mark_t_max)]。"""
-    t_start = float(t[0]) if len(t) else 0.0
-    t_end = float(t[-1]) if len(t) else mark_t_max
-    return t_start, max(t_start, min(mark_t_max, t_end))
+AR_CEPSTRUM_METHOD_NAME = '方案4 AR倒谱'
+
+
+def is_ar_cepstrum_method(name: str) -> bool:
+    return name == AR_CEPSTRUM_METHOD_NAME or 'AR' in name
+
+
+def cepstrum_display_data(
+    C: np.ndarray,
+    depth: np.ndarray,
+    depth_min: float = 0.0,
+    depth_max: float = 5000.0,
+) -> np.ndarray:
+    """倒谱热力图显示矩阵：深度裁剪后的 -C。"""
+    mask = (depth >= depth_min) & (depth <= depth_max)
+    if not np.any(mask):
+        return -C
+    return -C[mask, :]
+
+
+def compute_panel_vrange(
+    C: np.ndarray,
+    depth: np.ndarray,
+    depth_max: float,
+    depth_min: float = 0.0,
+    vmin_pct: float = 2.0,
+    vmax_pct: float = 98.0,
+) -> Tuple[float, float]:
+    data = cepstrum_display_data(C, depth, depth_min, depth_max)
+    vmin = float(np.percentile(data, vmin_pct))
+    vmax = float(np.percentile(data, vmax_pct))
+    if vmax <= vmin:
+        vmax = vmin + 1e-6
+    return vmin, vmax
+
+
+def compute_shared_vrange(
+    panels: List[Tuple[np.ndarray, np.ndarray]],
+    depth_max: float,
+    depth_min: float = 0.0,
+    vmin_pct: float = 2.0,
+    vmax_pct: float = 98.0,
+) -> Tuple[float, float]:
+    """多 panel 共用色标：在全部 panel 的显示数据上取联合分位数。"""
+    chunks = [
+        cepstrum_display_data(C, depth, depth_min, depth_max).ravel()
+        for depth, C in panels
+    ]
+    if not chunks:
+        return 0.0, 1.0
+    pooled = np.concatenate(chunks)
+    vmin = float(np.percentile(pooled, vmin_pct))
+    vmax = float(np.percentile(pooled, vmax_pct))
+    if vmax <= vmin:
+        vmax = vmin + 1e-6
+    return vmin, vmax
+
+
+def _fracture_mark_t_span(mark_t_max: float = 10.0) -> Tuple[float, float]:
+    """裂缝标注使用绝对仿真时间 [0, mark_t_max]（与停泵后反射到达时段对齐）。"""
+    return 0.0, mark_t_max
 
 
 def _plot_fracture_depth_marks(
     ax,
-    t: np.ndarray,
     fracture_depths,
     mark_t_max: float = 10.0,
 ) -> None:
-    """在 2D 倒谱热力图上用前 mark_t_max 秒的黑色实线标注裂缝深度。"""
+    """在 2D 倒谱热力图上用 0~mark_t_max 秒的黑色实线标注裂缝深度。"""
     if fracture_depths is None:
         return
     if isinstance(fracture_depths, (int, float, np.floating)):
         depths = [float(fracture_depths)]
     else:
         depths = [float(d) for d in fracture_depths]
-    t0, t1 = _fracture_mark_t_span(t, mark_t_max)
+    t0, t1 = _fracture_mark_t_span(mark_t_max)
     for fd in depths:
-        ax.plot([t0, t1], [fd, fd], color='k', ls='-', lw=1.0, alpha=0.9, zorder=5)
+        ax.plot(
+            [t0, t1], [fd, fd],
+            color='k', ls='-', lw=1.8, solid_capstyle='butt',
+            alpha=1.0, zorder=10, clip_on=True,
+        )
 
 
 def plot_2d_panel_single(
@@ -383,20 +442,22 @@ def plot_2d_panel_single(
     depth_min: float = 0.0,
     depth_max: float = 5000.0,
     mark_t_max: float = 10.0,
+    vmin: Optional[float] = None,
+    vmax: Optional[float] = None,
 ) -> None:
     mask = (depth >= depth_min) & (depth <= depth_max)
     depth_plot = depth[mask]
     C_plot = C[mask, :]
     T, D = np.meshgrid(t, depth_plot)
     data = -C_plot
-    vmin = float(np.percentile(data, 2))
-    vmax = float(np.percentile(data, 98))
-    if vmax <= vmin:
-        vmax = vmin + 1e-6
+    if vmin is None or vmax is None:
+        vmin, vmax = compute_panel_vrange(C, depth, depth_max, depth_min)
     im = ax.pcolormesh(T, D, data, shading='auto', cmap='jet', vmin=vmin, vmax=vmax)
-    _plot_fracture_depth_marks(ax, t, fracture_depth, mark_t_max=mark_t_max)
+    _plot_fracture_depth_marks(ax, fracture_depth, mark_t_max=mark_t_max)
     ax.invert_yaxis()
     ax.set_ylim([depth_max, depth_min])
+    t_right = float(t[-1]) if len(t) else mark_t_max
+    ax.set_xlim(0.0, max(t_right, mark_t_max))
     ax.set_xlabel('时间 [s]')
     ax.set_ylabel('深度 [m]')
     ax.set_title(title, fontsize=10)
@@ -412,20 +473,22 @@ def plot_2d_panel_multi(
     fracture_depths: Optional[list],
     depth_max: float,
     mark_t_max: float = 10.0,
+    vmin: Optional[float] = None,
+    vmax: Optional[float] = None,
 ) -> None:
     mask = (depth >= 0) & (depth <= depth_max)
     depth_plot = depth[mask]
     C_plot = C[mask, :]
     T, D = np.meshgrid(t, depth_plot)
     data = -C_plot
-    vmin = float(np.percentile(data, 2))
-    vmax = float(np.percentile(data, 98))
-    if vmax <= vmin:
-        vmax = vmin + 1e-6
+    if vmin is None or vmax is None:
+        vmin, vmax = compute_panel_vrange(C, depth, depth_max, depth_min=0.0)
     im = ax.pcolormesh(T, D, data, shading='auto', cmap='jet', vmin=vmin, vmax=vmax)
-    _plot_fracture_depth_marks(ax, t, fracture_depths, mark_t_max=mark_t_max)
+    _plot_fracture_depth_marks(ax, fracture_depths, mark_t_max=mark_t_max)
     ax.invert_yaxis()
     ax.set_ylim([depth_max, 0])
+    t_right = float(t[-1]) if len(t) else mark_t_max
+    ax.set_xlim(0.0, max(t_right, mark_t_max))
     ax.set_xlabel('时间 [s]')
     ax.set_ylabel('深度 [m]')
     ax.set_title(title, fontsize=9)
