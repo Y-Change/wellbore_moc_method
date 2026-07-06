@@ -47,7 +47,7 @@ from validation.cepstrum import _kb_core as kb
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-FRAC_LINE_COLORS = ['yellow', 'cyan', 'lime', 'orange', 'magenta', 'white']
+COMPARE_2D_FRAC_MARK_T_MAX = 10.0  # compare_2d.png 裂缝标注：前 10s 黑色实线
 
 CASES = {
     CASE_DUAL: {
@@ -280,7 +280,10 @@ def run_case(case_key: str) -> Dict:
     )
     for ax, (name, (t_ax, q_ax, C, note)) in zip(axes.flat, methods.items()):
         depth = kb.depth_axis(q_ax, v)
-        kb.plot_2d_panel_multi(ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, L, FRAC_LINE_COLORS)
+        kb.plot_2d_panel_multi(
+            ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, L,
+            mark_t_max=COMPARE_2D_FRAC_MARK_T_MAX,
+        )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
     path_2d = output_path(SERIES_CEPSTRUM_KB, case_key, 'compare_2d.png')
     fig.savefig(path_2d, dpi=150, bbox_inches='tight')

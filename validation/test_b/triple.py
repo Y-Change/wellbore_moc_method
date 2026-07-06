@@ -33,9 +33,16 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 
-_METHOD_DIR = os.path.dirname(os.path.abspath(__file__))
-if _METHOD_DIR not in sys.path:
-    sys.path.insert(0, _METHOD_DIR)
+_d = os.path.dirname(os.path.abspath(__file__))
+while True:
+    if os.path.isfile(os.path.join(_d, 'paths.py')):
+        if _d not in sys.path:
+            sys.path.insert(0, _d)
+        break
+    _parent = os.path.dirname(_d)
+    if _parent == _d:
+        raise RuntimeError('Cannot find wellbore_moc_method root')
+    _d = _parent
 
 from paths import output_path, SERIES_TEST_B, CASE_TRIPLE
 from wellbore_moc import MocConfig, simulate_wellbore, G

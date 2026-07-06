@@ -35,6 +35,8 @@ from validation.cepstrum import _kb_core as kb
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
+COMPARE_2D_FRAC_MARK_T_MAX = 10.0
+
 
 def run_validation():
     print("=" * 72)
@@ -110,7 +112,10 @@ def run_validation():
     )
     for ax, (name, (t_ax, q_ax, C, note)) in zip(axes.flat, methods.items()):
         depth = kb.depth_axis(q_ax, v)
-        kb.plot_2d_panel_single(ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, 0.0, L)
+        kb.plot_2d_panel_single(
+            ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, 0.0, L,
+            mark_t_max=COMPARE_2D_FRAC_MARK_T_MAX,
+        )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
     path_2d = output_path(SERIES_CEPSTRUM_KB, CASE_SINGLE, 'compare_2d.png')
     fig.savefig(path_2d, dpi=150, bbox_inches='tight')

@@ -348,6 +348,31 @@ def plot_1d_depth_profile(
     ax.legend(fontsize=7, loc='upper right')
 
 
+def _fracture_mark_t_span(t: np.ndarray, mark_t_max: float = 10.0) -> Tuple[float, float]:
+    """2D 倒谱图上裂缝标注的时间范围 [t_start, min(t_end, mark_t_max)]。"""
+    t_start = float(t[0]) if len(t) else 0.0
+    t_end = float(t[-1]) if len(t) else mark_t_max
+    return t_start, max(t_start, min(mark_t_max, t_end))
+
+
+def _plot_fracture_depth_marks(
+    ax,
+    t: np.ndarray,
+    fracture_depths,
+    mark_t_max: float = 10.0,
+) -> None:
+    """在 2D 倒谱热力图上用前 mark_t_max 秒的黑色实线标注裂缝深度。"""
+    if fracture_depths is None:
+        return
+    if isinstance(fracture_depths, (int, float, np.floating)):
+        depths = [float(fracture_depths)]
+    else:
+        depths = [float(d) for d in fracture_depths]
+    t0, t1 = _fracture_mark_t_span(t, mark_t_max)
+    for fd in depths:
+        ax.plot([t0, t1], [fd, fd], color='k', ls='-', lw=1.0, alpha=0.9, zorder=5)
+
+
 def plot_2d_panel_single(
     ax,
     t: np.ndarray,
@@ -357,6 +382,7 @@ def plot_2d_panel_single(
     fracture_depth: float,
     depth_min: float = 0.0,
     depth_max: float = 5000.0,
+    mark_t_max: float = 10.0,
 ) -> None:
     mask = (depth >= depth_min) & (depth <= depth_max)
     depth_plot = depth[mask]
@@ -368,7 +394,7 @@ def plot_2d_panel_single(
     if vmax <= vmin:
         vmax = vmin + 1e-6
     im = ax.pcolormesh(T, D, data, shading='auto', cmap='jet', vmin=vmin, vmax=vmax)
-    ax.axhline(fracture_depth, color='yellow', ls='--', lw=0.8, alpha=0.7)
+    _plot_fracture_depth_marks(ax, t, fracture_depth, mark_t_max=mark_t_max)
     ax.invert_yaxis()
     ax.set_ylim([depth_max, depth_min])
     ax.set_xlabel('时间 [s]')
@@ -383,9 +409,9 @@ def plot_2d_panel_multi(
     depth: np.ndarray,
     C: np.ndarray,
     title: str,
-    fracture_depths: list,
+    fracture_depths: Optional[list],
     depth_max: float,
-    line_colors: list,
+    mark_t_max: float = 10.0,
 ) -> None:
     mask = (depth >= 0) & (depth <= depth_max)
     depth_plot = depth[mask]
@@ -397,8 +423,7 @@ def plot_2d_panel_multi(
     if vmax <= vmin:
         vmax = vmin + 1e-6
     im = ax.pcolormesh(T, D, data, shading='auto', cmap='jet', vmin=vmin, vmax=vmax)
-    for i, fd in enumerate(fracture_depths):
-        ax.axhline(fd, color=line_colors[i % len(line_colors)], ls='--', lw=0.8, alpha=0.85)
+    _plot_fracture_depth_marks(ax, t, fracture_depths, mark_t_max=mark_t_max)
     ax.invert_yaxis()
     ax.set_ylim([depth_max, 0])
     ax.set_xlabel('时间 [s]')
