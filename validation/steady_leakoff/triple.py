@@ -1,10 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-测试 B 五缝 — 3700m / 3900m / 4100m / 4300m / 4500m + 稳态摩阻 + 滤失
+测试 B 三缝 — 4100m / 4300m / 4500m + 稳态摩阻 + 滤失
+
+目的
+----
+在 validate_moc_test_b_dual.py 基础上，验证三缝 ODE 求解器
+在相同 Cf / k_leak 条件下是否可靠：三反射可分辨、滤失增阻尼、长期稳定。
+
+配置
+----
+- L=5000m, a=1450 m/s, V0=1.0 m/s, ts=1.0s, tf=100s
+- 三缝 x_f=[4100, 4300, 4500]m, Cf=1e-5 m², k_leak=1e-4 m²/s/√m, H_ext=100m（三缝相同）
+- friction_model='steady'（稳态达西，无 Brunone 干扰）
+- 趾端=水库 H=300m
+
+预期反射时序
+------------
+- 缝1 (4100m): ts + 2×4100/a ≈ 6.66s
+- 缝2 (4300m): ts + 2×4300/a ≈ 6.93s
+- 缝3 (4500m): ts + 2×4500/a ≈ 7.21s
+- 趾端 (5000m): ts + 2×5000/a ≈ 7.90s
 
 运行
 ----
-    python validation/test_b/quint.py
+    python validation/steady_leakoff/triple.py
+    python legacy/wrappers/validate_moc_test_b_triple.py
 """
 import os
 import sys
@@ -25,14 +45,14 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import output_path, SERIES_TEST_B, CASE_QUINT
+from paths import output_path, SERIES_STEADY_LEAKOFF, CASE_TRIPLE
 from wellbore_moc import MocConfig, simulate_wellbore, G
 from cepstrum_mocdata import plot_moc_cepstrum_analysis
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-FRAC_COLORS = ['b', 'r', 'g', 'm', 'c', 'orange']
+FRAC_COLORS = ['b', 'r', 'g', 'm', 'c']
 
 
 def osc_rms(H_arr, t_arr, t_start, t_end):
@@ -55,7 +75,7 @@ def check_diff_step(diff_signal, t_sim, t_arrive, half_win=0.15, min_step=5.0):
 
 def run_validation():
     print("=" * 72)
-    print("测试 B 五缝 — 3700m/3900m/4100m/4300m/4500m + 稳态摩阻 + 滤失")
+    print("测试 B 三缝 — 4100m/4300m/4500m + 稳态摩阻 + 滤失")
     print("=" * 72)
 
     L = 5000.0
@@ -65,7 +85,7 @@ def run_validation():
     ts = 1.0
     dt = 1.0e-3
     tf = 100.0
-    x_f_list = [3700.0, 3900.0, 4100.0, 4300.0, 4500.0]
+    x_f_list = [4100.0, 4300.0, 4500.0]
     Cf = 1.0e-5
     kleak = 0.0001
     H_ext = 100.0
@@ -88,17 +108,17 @@ def run_validation():
 
     print(f"\n物理参数:")
     print(f"  L={L}m, a_adj={cfg.a_adj:.4f} m/s, V0={V0} m/s, ts={ts} s")
-    print(f"  五缝 x_f={x_f_list}m, Cf={Cf} m², k_leak={kleak} m²/s/√m, H_ext={H_ext}m")
+    print(f"  三缝 x_f={x_f_list}m, Cf={Cf} m², k_leak={kleak} m²/s/√m, H_ext={H_ext}m")
     print(f"  摩阻: steady（稳态达西，无 Brunone）")
     print(f"  ΔH = aV0/g = {dH_ana:.4f} m")
     print(f"  趾端反射周期 2L/a = {T_toe:.4f} s")
     print(f"  dx={cfg.dx:.4f} m, N={cfg.N}, n_steps={cfg.n_steps}")
 
-    snap_times = [0.0, ts, 5.0, 6.5, 7.0, 7.25, 7.5, 7.75, 8.0, 10.0, 30.0, 50.0, 100.0]
+    snap_times = [0.0, ts, 5.0, 6.5, 7.0, 7.5, 8.0, 10.0, 30.0, 50.0, 100.0]
     frac_Cf = [Cf] * n_frac
     frac_kleak = [kleak] * n_frac
 
-    print(f"\n运行含五缝仿真 (steady, kleak={kleak}, tf={tf}s)...")
+    print(f"\n运行含三缝仿真 (steady, kleak={kleak}, tf={tf}s)...")
     t0 = time_module.time()
     res = simulate_wellbore(
         cfg,
@@ -162,8 +182,8 @@ def run_validation():
     verdict_dH = "PASS" if err_dH < 0.1 else "FAIL"
     print(f"  结论: {verdict_dH}")
 
-    # ── 判定 2: 五缝 + 趾端反射（差信号）──────────────────
-    print(f"\n[判定 2] 五缝+趾端反射（差信号 step）:")
+    # ── 判定 2: 三缝 + 趾端反射（差信号）──────────────────
+    print(f"\n[判定 2] 三缝+趾端反射（差信号 step）:")
     frac_steps = []
     all_frac_pass = True
     for k in range(n_frac):
@@ -265,7 +285,7 @@ def run_validation():
     print("\n" + "=" * 72)
     print(f"总评: {n_pass}/{n_total} 项 PASS")
     if n_pass == n_total:
-        print("[OK] 测试 B 五缝（含滤失）通过 — 五缝+稳态摩阻+滤失可靠")
+        print("[OK] 测试 B 三缝（含滤失）通过 — 三缝+稳态摩阻+滤失可靠")
     else:
         print("[FAIL] 验证未全部通过")
     print("=" * 72)
@@ -275,31 +295,31 @@ def run_validation():
 
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
     fig.suptitle(
-        f"测试 B 五缝 — {x_f_label}m + 稳态摩阻 + 滤失\n"
+        f"测试 B 三缝 — {x_f_label}m + 稳态摩阻 + 滤失\n"
         f"L={L}m, Cf={Cf} m$^2$, k_leak={kleak}, H_ext={H_ext}m, tf={tf}s\n"
         f"阻尼比={damping_ratio:.3f}, Q_steady≈{Q_steady_ana:.5f} m$^3$/s/缝",
         fontsize=13, fontweight='bold'
     )
 
     ax = axes[0, 0]
-    ax.plot(t_sim, H_wh, 'b-', label='含五缝+滤失 steady')
+    ax.plot(t_sim, H_wh, 'b-', label='含三缝+滤失 steady')
     ax.plot(t_sim, H_wh_pure, 'r-', label='纯柔度(无滤失)')
     ax.plot(t_sim, H_wh_noFrac, 'k--', label='无缝 steady')
     ax.axvline(ts, color='g', ls=':', lw=1, label=f'停泵 ts={ts}s')
     for k, ta in enumerate(t_arrive_frac):
         ax.axvline(ta, color=FRAC_COLORS[k % len(FRAC_COLORS)], ls=':', lw=1,
-                   label=f'缝{k + 1} {ta:.2f}s')
+                   label=f'缝{k + 1}反射 {ta:.2f}s')
     ax.axvline(t_arrive_toe, color='orange', ls=':', lw=1, label=f'趾端 {t_arrive_toe:.2f}s')
     ax.set_xlabel('时间 [s]')
     ax.set_ylabel('井口水头 [m]')
-    ax.set_title(f'全时程 ({tf}s) — 含五缝 vs 无缝 (steady)')
-    ax.legend(fontsize=5, ncol=2)
+    ax.set_title(f'全时程 ({tf}s) — 含三缝 vs 无缝 (steady)')
+    ax.legend(fontsize=6)
     ax.grid(True, ls='--', alpha=0.6)
     ax.set_xlim([0, tf])
 
     ax = axes[0, 1]
     mask_12 = t_sim <= 12.0
-    ax.plot(t_sim[mask_12], H_wh[mask_12], 'b-', label='含五缝+滤失')
+    ax.plot(t_sim[mask_12], H_wh[mask_12], 'b-', label='含三缝+滤失')
     ax.plot(t_sim[mask_12], H_wh_pure[mask_12], 'r-', label='纯柔度(无滤失)')
     ax.plot(t_sim[mask_12], H_wh_noFrac[mask_12], 'k--', label='无缝')
     ax.axvline(ts, color='g', ls=':', lw=1)
@@ -309,8 +329,8 @@ def run_validation():
     ax.axvline(t_arrive_toe, color='orange', ls=':', lw=1, label=f'趾端 {t_arrive_toe:.2f}s')
     ax.set_xlabel('时间 [s]')
     ax.set_ylabel('井口水头 [m]')
-    ax.set_title('前 12s 特写 — 五缝反射 + 滤失增阻尼')
-    ax.legend(fontsize=5, ncol=2)
+    ax.set_title('前 12s 特写 — 三缝反射 + 滤失增阻尼')
+    ax.legend(fontsize=6)
     ax.grid(True, ls='--', alpha=0.6)
     ax.set_xlim([0, 12])
 
@@ -340,19 +360,19 @@ def run_validation():
     ax.set_xlabel('时间 [s]')
     ax.set_ylabel('缝节点水头 [m]')
     ax2.set_ylabel('缝侧向流量 [m$^3$/s]')
-    ax.set_title(f'五缝节点 H 与 Q_f (Q_steady≈{Q_steady_ana:.5f}/缝)')
-    ax.legend(fontsize=6, loc='upper left')
-    ax2.legend(fontsize=6, loc='upper right')
+    ax.set_title(f'三缝节点 H 与 Q_f (Q_steady≈{Q_steady_ana:.5f}/缝)')
+    ax.legend(fontsize=7, loc='upper left')
+    ax2.legend(fontsize=7, loc='upper right')
     ax.grid(True, ls='--', alpha=0.6)
     ax.set_xlim([0, tf])
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
-    out_path = output_path(SERIES_TEST_B, CASE_QUINT, "moc_leakoff.png")
+    out_path = output_path(SERIES_STEADY_LEAKOFF, CASE_TRIPLE, "moc_leakoff.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
     plt.close(fig)
 
-    cep_path = output_path(SERIES_TEST_B, CASE_QUINT, "cepstrum_standard.png")
+    cep_path = output_path(SERIES_STEADY_LEAKOFF, CASE_TRIPLE, "cepstrum_standard.png")
     plot_moc_cepstrum_analysis(
         t_sim, H_wh,
         wavespeed=cfg.a_adj,
@@ -362,7 +382,7 @@ def run_validation():
         fracture_positions=x_f_aligned,
         save_path=cep_path,
         title_prefix=(
-            f"测试 B 五缝 — 井口水头倒谱分析\n"
+            f"测试 B 三缝 — 井口水头倒谱分析\n"
             f"x_f={[round(x) for x in x_f_aligned]}m, k_leak={kleak}, steady 摩阻"
         ),
         wlen_sec=30,
@@ -372,7 +392,7 @@ def run_validation():
     result = {
         "verdicts": {
             "joukowsky": verdict_dH,
-            "quad_fracture_reflection": verdict_frac,
+            "triple_fracture_reflection": verdict_frac,
             "leakoff_damping": verdict_damp,
             "leakoff_steady_Q": verdict_qss,
             "smoothness": verdict_smooth,
@@ -399,7 +419,7 @@ def run_validation():
             "x_f": x_f_list, "Cf": Cf, "kleak": kleak, "H_ext": H_ext, "friction": "steady",
         },
     }
-    json_path = output_path(SERIES_TEST_B, CASE_QUINT, "moc_leakoff.json")
+    json_path = output_path(SERIES_STEADY_LEAKOFF, CASE_TRIPLE, "moc_leakoff.json")
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"结果 JSON: {json_path}")

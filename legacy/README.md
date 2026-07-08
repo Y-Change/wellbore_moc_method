@@ -17,7 +17,7 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 | legacy wrapper | 新入口 |
 |----------------|--------|
 | `wrappers/validate_moc_joukowsky.py` | `validation/step01_joukowsky.py` |
-| `wrappers/validate_moc_test_b.py` | `validation/test_b/single.py` |
+| `wrappers/validate_moc_test_b.py` | `validation/steady_leakoff/single.py` |
 | `wrappers/validate_moc_test_b_Kaiser-Bessel.py` | `validation/cepstrum/kaiser_bessel_single.py` |
 | `wrappers/plot_window_comparison.py` | `analysis/window_comparison.py` |
 

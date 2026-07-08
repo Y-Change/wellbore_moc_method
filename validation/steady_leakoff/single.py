@@ -23,7 +23,8 @@
 
 运行
 ----
-    python dataset_builder/validate_moc_test_b.py
+    python validation/steady_leakoff/single.py
+    python legacy/wrappers/validate_moc_test_b.py
 """
 import os, sys, time as time_module
 import numpy as np
@@ -40,7 +41,7 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import output_path, SERIES_TEST_B, CASE_SINGLE
+from paths import output_path, SERIES_STEADY_LEAKOFF, CASE_SINGLE
 from wellbore_moc import MocConfig, simulate_wellbore, G
 from cepstrum_mocdata import plot_moc_cepstrum_analysis
 
@@ -310,13 +311,13 @@ def run_validation():
     ax.set_xlim([0, tf])
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
-    out_path = output_path(SERIES_TEST_B, CASE_SINGLE, "moc_leakoff.png")
+    out_path = output_path(SERIES_STEADY_LEAKOFF, CASE_SINGLE, "moc_leakoff.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
     plt.close(fig)
 
     # ── 井口水头倒谱合并图（时域 / FFT / 1D + 2D 倒谱）────────
-    cep_path = output_path(SERIES_TEST_B, CASE_SINGLE, "cepstrum_standard.png")
+    cep_path = output_path(SERIES_STEADY_LEAKOFF, CASE_SINGLE, "cepstrum_standard.png")
     plot_moc_cepstrum_analysis(
         t_sim, H_wh,
         wavespeed=cfg.a_adj,
@@ -361,7 +362,7 @@ def run_validation():
             "x_f": x_f, "Cf": Cf, "kleak": kleak, "H_ext": H_ext, "friction": "steady",
         },
     }
-    json_path = output_path(SERIES_TEST_B, CASE_SINGLE, "moc_leakoff.json")
+    json_path = output_path(SERIES_STEADY_LEAKOFF, CASE_SINGLE, "moc_leakoff.json")
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"结果 JSON: {json_path}")

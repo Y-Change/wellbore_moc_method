@@ -16,7 +16,7 @@ SERIES_STEP03_FRACTURE = "step03_fracture"
 SERIES_STEP03B_BRUNONE = "step03b_brunone"
 SERIES_STEP04A_DUAL = "step04a_dual_fracture"
 SERIES_STEP04A_FRICTION = "step04a_friction_only"
-SERIES_TEST_B = "test_b"
+SERIES_STEADY_LEAKOFF = "steady_leakoff"
 SERIES_CEPSTRUM_KB = "cepstrum/kaiser_bessel"
 SERIES_CEPSTRUM_WLEN_SWEEP = "cepstrum/wlen_sweep"
 SERIES_ANALYSIS_WINDOW = "analysis/window_comparison"
@@ -63,7 +63,7 @@ def moc_output_subdir(series: str, case: Optional[str] = None) -> str:
 
     Parameters
     ----------
-    series : 验证系列，如 ``test_b``、``cepstrum/kaiser_bessel``、``step01_joukowsky``
+    series : 验证系列，如 ``steady_leakoff``、``cepstrum/kaiser_bessel``、``step01_joukowsky``
     case : 用例名，如 ``single``；Step 验证传 None
     """
     moc_output_dir()

@@ -17,7 +17,7 @@ wellbore_moc_method/
 ├── paths.py                     # 分级 output 路径工厂
 ├── validation/                  # 验证脚本（推荐入口）
 │   ├── step01_joukowsky.py … step04a_*.py
-│   ├── test_b/                  # 单/双/三/四/五缝 MOC + 标准倒谱
+│   ├── steady_leakoff/          # 稳态摩阻 + 滤失：单/双/三/四/五缝 MOC + 标准倒谱
 │   └── cepstrum/                # Kaiser-Bessel 倒谱方法对比
 ├── analysis/
 │   └── window_comparison.py
@@ -36,7 +36,7 @@ wellbore_moc_method/
 
 ```bash
 # 新路径（推荐）
-python validation/test_b/single.py
+python validation/steady_leakoff/single.py
 python validation/cepstrum/kaiser_bessel_multi.py --case triple
 
 # 旧版兼容（legacy/wrappers/）
@@ -46,7 +46,7 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 
 结果写入 `output/{系列}/{用例}/`，例如：
 
-- `output/test_b/single/moc_leakoff.png`
+- `output/steady_leakoff/single/moc_leakoff.png`
 - `output/cepstrum/kaiser_bessel/dual/compare_2d.png`
 - `output/step01_joukowsky/validation.json`
 
@@ -55,8 +55,8 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 | 旧 wrapper（`legacy/wrappers/`） | 新路径 | 输出目录 |
 |----------------------------------|--------|----------|
 | `validate_moc_joukowsky.py` | `validation/step01_joukowsky.py` | `output/step01_joukowsky/` |
-| `validate_moc_test_b.py` | `validation/test_b/single.py` | `output/test_b/single/` |
-| `validate_moc_test_b_dual.py` | `validation/test_b/dual.py` | `output/test_b/dual/` |
+| `validate_moc_test_b.py` | `validation/steady_leakoff/single.py` | `output/steady_leakoff/single/` |
+| `validate_moc_test_b_dual.py` | `validation/steady_leakoff/dual.py` | `output/steady_leakoff/dual/` |
 | `validate_moc_test_b_Kaiser-Bessel.py` | `validation/cepstrum/kaiser_bessel_single.py` | `output/cepstrum/kaiser_bessel/single/` |
 | `validate_moc_test_b_multi_Kaiser-Bessel.py` | `validation/cepstrum/kaiser_bessel_multi.py` | `output/cepstrum/kaiser_bessel/{case}/` |
 | `plot_window_comparison.py` | `analysis/window_comparison.py` | `output/analysis/window_comparison/` |
@@ -66,7 +66,7 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 - Joukowsky 解析解（Step 1）
 - 单缝 / 双缝反射（Step 3–4a）
 - 稳态 vs Brunone 摩阻
-- 滤失 + 稳态摩阻（测试 B：single → quint）
+- 滤失 + 稳态摩阻（steady_leakoff：single → quint）
 - Kaiser-Bessel / AR 倒谱方法对比
 
 详细进度见 [`docs/计划及完成进度.md`](docs/计划及完成进度.md)。

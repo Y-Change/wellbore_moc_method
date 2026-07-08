@@ -12,9 +12,9 @@
 | `step04a_dual_fracture/` | 同上 |
 | `step04a_friction_only/` | 同上 |
 
-## 测试 B — MOC + 标准倒谱
+## 测试 B — 稳态摩阻 + 滤失（`steady_leakoff/`）
 
-目录：`test_b/{single|dual|triple|quad|quint}/`
+目录：`steady_leakoff/{single|dual|triple|quad|quint}/`
 
 | 文件 | 内容 |
 |------|------|
