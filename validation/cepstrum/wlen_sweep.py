@@ -54,12 +54,7 @@ from paths import (
 from cepstrum_mocdata import preprocess_moc_head
 from wellbore_moc import MocConfig, simulate_wellbore
 from validation.cepstrum import _kb_core as kb
-from validation.cepstrum.kaiser_bessel_multi import (
-    CASES,
-    FRICTION_PARAMS,
-    evaluate_multi_fracture_peaks,
-    _peak_find_params,
-)
+from validation.cepstrum.kaiser_bessel_multi import CASES, FRICTION_PARAMS
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
@@ -212,7 +207,7 @@ def _sweep_one_case(
         )
         elapsed = time_module.time() - t0
 
-        metrics = evaluate_multi_fracture_peaks(
+        metrics = kb.evaluate_multi_fracture_peaks(
             C, q_ax, v, x_f_aligned, fs=fs, depth_min=100.0, depth_max=L,
         )
         depth_kept = metrics['profile_depth']

@@ -227,6 +227,187 @@ def compute_time_avg_depth_profile(
     return depth[mask], profile
 
 
+def peak_find_params(
+    true_depths_m: List[float],
+    v: float,
+    fs: float,
+) -> Tuple[float, int, int]:
+    depth_step = v / (2.0 * fs)
+    sorted_d = sorted(true_depths_m)
+    min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
+    match_tol_m = float(np.clip(min_spacing * 0.45, 80.0, 250.0))
+    peak_distance = max(5, int(min_spacing / depth_step * 0.35))
+    top_n = len(true_depths_m) + 4
+    return match_tol_m, peak_distance, top_n
+
+
+def _empty_fracture_peak_metrics(
+    depth_kept: np.ndarray,
+    profile: np.ndarray,
+    true_depths_m: List[float],
+) -> Dict:
+    matches = [{
+        'frac_id': i + 1,
+        'true_depth_m': float(d),
+        'peak_depth_m': np.nan,
+        'peak_val': np.nan,
+        'error_m': np.nan,
+        'matched': False,
+    } for i, d in enumerate(true_depths_m)]
+    return {
+        'matches': matches,
+        'n_matched': 0,
+        'n_fracs': len(true_depths_m),
+        'mean_error_m': np.nan,
+        'max_error_m': np.nan,
+        'snr': np.nan,
+        'match_tol_m': np.nan,
+        'profile_depth': depth_kept,
+        'profile': profile,
+        'all_peak_depths': [],
+    }
+
+
+def evaluate_profile_fracture_peaks(
+    depth: np.ndarray,
+    profile: np.ndarray,
+    true_depths_m: List[float],
+    fs: float,
+    v: float,
+    depth_min: float = 100.0,
+    depth_max: Optional[float] = None,
+) -> Dict:
+    """在 1D 深度剖面（已为 -C 响应）上检测峰并与真实缝深匹配。"""
+    depth = np.asarray(depth, dtype=float)
+    profile = np.asarray(profile, dtype=float)
+    if depth_max is None:
+        depth_max = float(depth[-1]) if len(depth) else 5000.0
+    mask = (depth >= depth_min) & (depth <= depth_max)
+    depth_kept = depth[mask]
+    profile_kept = profile[mask]
+
+    n_fracs = len(true_depths_m)
+    if len(profile_kept) < 10:
+        return _empty_fracture_peak_metrics(depth_kept, profile_kept, true_depths_m)
+
+    match_tol_m, peak_distance, top_n = peak_find_params(true_depths_m, v, fs)
+    height_thresh = max(float(np.percentile(profile_kept, 88)), 1e-6)
+    peaks, props = signal.find_peaks(
+        profile_kept, height=height_thresh, distance=peak_distance,
+    )
+
+    if len(peaks) == 0:
+        i_max = int(np.argmax(profile_kept))
+        peaks = np.array([i_max])
+        props = {'peak_heights': np.array([profile_kept[i_max]])}
+
+    order = np.argsort(props['peak_heights'])[::-1]
+    top_peaks = peaks[order[:top_n]]
+    peak_depths = depth_kept[top_peaks]
+    peak_heights = profile_kept[top_peaks]
+
+    matches = []
+    used_peak_idx = set()
+    for i, true_d in enumerate(true_depths_m):
+        best_j, best_err = None, np.inf
+        for j, pd in enumerate(peak_depths):
+            if j in used_peak_idx:
+                continue
+            err = abs(pd - true_d)
+            if err < best_err:
+                best_err = err
+                best_j = j
+        if best_j is not None and best_err <= match_tol_m:
+            used_peak_idx.add(best_j)
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': float(peak_depths[best_j]),
+                'peak_val': float(peak_heights[best_j]),
+                'error_m': float(best_err),
+                'matched': True,
+            })
+        else:
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': np.nan,
+                'peak_val': np.nan,
+                'error_m': np.nan,
+                'matched': False,
+            })
+
+    matched_errs = [m['error_m'] for m in matches if m['matched']]
+    mean_err = float(np.mean(matched_errs)) if matched_errs else np.nan
+    max_err = float(np.max(matched_errs)) if matched_errs else np.nan
+    n_matched = sum(1 for m in matches if m['matched'])
+    bg = np.percentile(profile_kept, 50)
+    snr = float(np.max(profile_kept) / max(abs(bg), 1e-12))
+
+    return {
+        'matches': matches,
+        'n_matched': n_matched,
+        'n_fracs': n_fracs,
+        'mean_error_m': mean_err,
+        'max_error_m': max_err,
+        'snr': snr,
+        'match_tol_m': match_tol_m,
+        'profile_depth': depth_kept,
+        'profile': profile_kept,
+        'all_peak_depths': peak_depths.tolist(),
+    }
+
+
+def evaluate_multi_fracture_peaks(
+    C: np.ndarray,
+    q: np.ndarray,
+    v: float,
+    true_depths_m: List[float],
+    fs: float,
+    depth_min: float = 100.0,
+    depth_max: Optional[float] = None,
+) -> Dict:
+    """2D 倒谱沿时间平均后，在 1D 深度剖面上匹配裂缝峰。"""
+    depth_kept, profile = compute_time_avg_depth_profile(
+        C, q, v, depth_min=depth_min, depth_max=depth_max,
+    )
+    return evaluate_profile_fracture_peaks(
+        depth_kept, profile, true_depths_m, fs, v,
+        depth_min=depth_min, depth_max=depth_max,
+    )
+
+
+def cepstrum_metrics_for_json(metrics: Dict) -> Dict:
+    """提取可 JSON 序列化的倒谱缝深匹配摘要。"""
+
+    def _json_float(x):
+        if isinstance(x, (float, np.floating)):
+            if np.isnan(x) or np.isinf(x):
+                return None
+            return float(x)
+        return x
+
+    matches = []
+    for mt in metrics['matches']:
+        row = {}
+        for k, v in mt.items():
+            if k in ('peak_depth_m', 'peak_val', 'error_m', 'true_depth_m'):
+                row[k] = _json_float(v)
+            else:
+                row[k] = v
+        matches.append(row)
+
+    return {
+        'n_matched': int(metrics['n_matched']),
+        'n_fracs': int(metrics['n_fracs']),
+        'mean_error_m': _json_float(metrics['mean_error_m']),
+        'max_error_m': _json_float(metrics['max_error_m']),
+        'snr': _json_float(metrics.get('snr')),
+        'match_tol_m': _json_float(metrics.get('match_tol_m')),
+        'matches': matches,
+    }
+
+
 def evaluate_fracture_peak(
     C: np.ndarray,
     q: np.ndarray,
@@ -311,12 +492,6 @@ def build_all_methods(
         use_preemphasis=True, use_lifter=True,
     )
     methods['方案1+2+3 全复合'] = (t4, q4, C4, 'Kaiser + eps + 预加重 + Lifter')
-
-    t5, q5, C5 = ar_2d_cepstrogram(
-        x_work, fs, wlen_sec, hop_ratio=hop_ratio, p_order=60,
-        wavespeed=v, wellbore_length=L,
-    )
-    methods['方案4 AR倒谱'] = (t5, q5, C5, f'AR p=60, n={len(q5)}')
     return methods
 
 

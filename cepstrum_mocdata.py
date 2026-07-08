@@ -476,6 +476,165 @@ def _plot_fft_panel(
     return f_display_max
 
 
+def _fracture_match_tol_m(
+    fracture_depths_m: List[float],
+    v: float,
+    fs: float = 1000.0,
+) -> float:
+    """缝深匹配容差 [m]（与 validation/cepstrum/_kb_core.peak_find_params 一致）。"""
+    sorted_d = sorted(fracture_depths_m)
+    min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
+    return float(np.clip(min_spacing * 0.45, 80.0, 250.0))
+
+
+def detect_1d_cepstrum_peaks(
+    depth: np.ndarray,
+    response: np.ndarray,
+) -> List[Dict]:
+    """1D 实倒谱峰检测（与 plot_moc_cepstrum_analysis 第 3 子图同一套参数）。"""
+    depth_arr = np.asarray(depth, dtype=float)
+    resp_arr = np.asarray(response, dtype=float)
+    if len(resp_arr) <= 20:
+        return []
+
+    peak_height_thresh = max(float(np.percentile(resp_arr, 95)), 0.01)
+    distance = max(3, len(resp_arr) // 200)
+    peaks, props = scipy_signal.find_peaks(
+        resp_arr,
+        height=peak_height_thresh,
+        distance=distance,
+    )
+    if len(peaks) == 0:
+        return []
+
+    top_n = min(15, len(peaks))
+    top_peaks = peaks[np.argsort(props['peak_heights'])[-top_n:]]
+    order = top_peaks[np.argsort(resp_arr[top_peaks])[::-1]]
+    return [
+        {
+            'depth_m': float(depth_arr[pi]),
+            'response': float(resp_arr[pi]),
+            'rank': rank,
+        }
+        for rank, pi in enumerate(order, start=1)
+    ]
+
+
+def evaluate_1d_cepstrum_fracture_match(
+    depth: np.ndarray,
+    response: np.ndarray,
+    fracture_nominal_m: List[float],
+    v: float,
+    fs: float = 1000.0,
+) -> Dict:
+    """将 1D 实倒谱检测峰与名义缝深匹配，输出 JSON 友好摘要。"""
+    detected = detect_1d_cepstrum_peaks(depth, response)
+    n_fracs = len(fracture_nominal_m)
+    match_tol_m = _fracture_match_tol_m(fracture_nominal_m, v, fs)
+
+    if not detected:
+        matches = [{
+            'frac_id': i + 1,
+            'true_depth_m': float(d),
+            'peak_depth_m': None,
+            'peak_val': None,
+            'error_m': None,
+            'matched': False,
+        } for i, d in enumerate(fracture_nominal_m)]
+        return {
+            'detected_peaks': [],
+            'matches': matches,
+            'n_matched': 0,
+            'n_fracs': n_fracs,
+            'mean_error_m': None,
+            'max_error_m': None,
+            'snr': None,
+            'match_tol_m': match_tol_m,
+        }
+
+    peak_depths = np.array([p['depth_m'] for p in detected], dtype=float)
+    peak_heights = np.array([p['response'] for p in detected], dtype=float)
+    resp_arr = np.asarray(response, dtype=float)
+    bg = float(np.percentile(resp_arr, 50))
+    snr = float(np.max(resp_arr) / max(abs(bg), 1e-12))
+
+    matches = []
+    used = set()
+    for i, true_d in enumerate(fracture_nominal_m):
+        best_j, best_err = None, np.inf
+        for j, pd in enumerate(peak_depths):
+            if j in used:
+                continue
+            err = abs(float(pd) - float(true_d))
+            if err < best_err:
+                best_err = err
+                best_j = j
+        if best_j is not None and best_err <= match_tol_m:
+            used.add(best_j)
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': float(peak_depths[best_j]),
+                'peak_val': float(peak_heights[best_j]),
+                'error_m': float(best_err),
+                'matched': True,
+            })
+        else:
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': None,
+                'peak_val': None,
+                'error_m': None,
+                'matched': False,
+            })
+
+    matched_errs = [m['error_m'] for m in matches if m['matched']]
+    mean_err = float(np.mean(matched_errs)) if matched_errs else None
+    max_err = float(np.max(matched_errs)) if matched_errs else None
+    n_matched = sum(1 for m in matches if m['matched'])
+
+    return {
+        'detected_peaks': detected,
+        'matches': matches,
+        'n_matched': n_matched,
+        'n_fracs': n_fracs,
+        'mean_error_m': mean_err,
+        'max_error_m': max_err,
+        'snr': snr,
+        'match_tol_m': match_tol_m,
+    }
+
+
+def cepstrum_match_summary_for_json(metrics: Dict) -> Dict:
+    """提取 1d_real 倒谱匹配 JSON 字段。"""
+
+    def _json_float(x):
+        if x is None:
+            return None
+        if isinstance(x, (float, np.floating)):
+            if np.isnan(x) or np.isinf(x):
+                return None
+            return float(x)
+        return x
+
+    return {
+        'n_matched': int(metrics['n_matched']),
+        'n_fracs': int(metrics['n_fracs']),
+        'mean_error_m': _json_float(metrics['mean_error_m']),
+        'max_error_m': _json_float(metrics['max_error_m']),
+        'snr': _json_float(metrics.get('snr')),
+        'match_tol_m': _json_float(metrics.get('match_tol_m')),
+        'detected_peaks': metrics.get('detected_peaks', []),
+        'matches': [
+            {k: _json_float(v) if k in (
+                'true_depth_m', 'peak_depth_m', 'peak_val', 'error_m',
+            ) else v for k, v in mt.items()}
+            for mt in metrics['matches']
+        ],
+    }
+
+
 def _robust_response_ylim(
     response: np.ndarray,
     pct: tuple[float, float] = (1.0, 99.0),
@@ -494,13 +653,12 @@ def _robust_response_ylim(
 
     if len(peaks) > 0:
         ph = np.sort(props['peak_heights'])
-        if len(ph) >= 2 and ph[-1] > 5.0 * ph[-2]:
-            ph = ph[:-1]
-        hi = float(ph[-1])
         lo = float(min(np.percentile(r, pct[0]), np.min(ph)))
+        hi = float(max(ph[-1], np.max(r)))
     else:
         lo = float(np.percentile(r, pct[0]))
         hi = float(np.percentile(r, pct[1]))
+        hi = max(hi, float(np.max(r)))
 
     if hi <= lo:
         span = max(abs(hi), abs(lo), 1e-9)
@@ -787,31 +945,17 @@ def plot_moc_cepstrum_analysis(
     ax3.plot(depth_1d, response_1d, 'b-', lw=1.0, label='1D 倒谱响应 (-C)')
     ax3.set_ylim(y_lo, y_hi)
 
-    # Auto peak detection and annotation（仅标注 y 轴可见范围内的峰）
-    from scipy.signal import find_peaks
-    if len(resp_arr) > 20:
-        peak_height_thresh = max(np.percentile(resp_arr, 95), y_lo)
-        peaks, props = find_peaks(
-            resp_arr,
-            height=max(peak_height_thresh, 0.01),
-            distance=max(3, len(resp_arr) // 200),
-        )
-        if len(peaks) > 0:
-            top_n = min(15, len(peaks))
-            top_peaks = peaks[np.argsort(props['peak_heights'])[-top_n:]]
-            peak_depths = depth_arr[top_peaks]
-            peak_heights = resp_arr[top_peaks]
-            vis = (peak_heights >= y_lo) & (peak_heights <= y_hi)
-            peak_depths = peak_depths[vis]
-            peak_heights = peak_heights[vis]
-            if len(peak_depths) > 0:
-                ax3.scatter(peak_depths, peak_heights, c='r', s=50, zorder=5,
-                            marker='v', label=f'检测峰 ({len(peak_depths)}个)')
-                for pd, ph in zip(peak_depths, peak_heights):
-                    ax3.annotate(f'{pd:.0f}m', (pd, ph),
-                                 textcoords="offset points", xytext=(0, 8),
-                                 fontsize=7, color='r', ha='center',
-                                 clip_on=True)
+    detected_peaks = detect_1d_cepstrum_peaks(depth_arr, resp_arr)
+    if detected_peaks:
+        peak_depths = np.array([p['depth_m'] for p in detected_peaks])
+        peak_heights = np.array([p['response'] for p in detected_peaks])
+        ax3.scatter(peak_depths, peak_heights, c='r', s=50, zorder=5,
+                    marker='v', label=f'检测峰 ({len(peak_depths)}个)')
+        for pd, ph in zip(peak_depths, peak_heights):
+            ax3.annotate(f'{pd:.0f}m', (pd, ph),
+                         textcoords="offset points", xytext=(0, 8),
+                         fontsize=7, color='r', ha='center',
+                         clip_on=True)
     ax3.set_xlabel('深度 [m]')
     ax3.set_ylabel('倒谱能量 (-C)')
     deriv_label = f', deriv={derivative_order}' if derivative else ''
@@ -861,26 +1005,16 @@ def plot_moc_cepstrum_analysis(
     else:
         plt.close(fig)
 
-    # Report detected peaks
-    detected_peaks = []
-    if len(resp_arr) > 20:
-        from scipy.signal import find_peaks as _find_peaks
-        r_arr = np.asarray(response_1d)
-        d_arr = np.asarray(depth_1d)
-        pk_thresh = max(np.percentile(r_arr, 90), 0.005)
-        pk, pk_props = _find_peaks(r_arr, height=pk_thresh,
-                                   distance=max(3, len(r_arr)//100))
-        if len(pk) > 0:
-            sorted_pk = pk[np.argsort(pk_props['peak_heights'])[::-1]]
-            print(f"  1D 倒谱检测到 {len(sorted_pk)} 个峰 (top 10):")
-            for i, pi in enumerate(sorted_pk[:10]):
-                d, h = float(d_arr[pi]), float(r_arr[pi])
-                detected_peaks.append({'depth_m': d, 'response': h, 'rank': i + 1})
-                near_frac = ''
-                for fp in (fracture_positions or []):
-                    if abs(d - fp) < 200:
-                        near_frac = f'  ← 裂缝({fp:.0f}m)'
-                print(f'    #{i+1}: depth={d:8.1f}m  response={h:.4f}{near_frac}')
+    # Report detected peaks（与图上标注 / JSON 一致）
+    if detected_peaks:
+        print(f"  1D 倒谱检测到 {len(detected_peaks)} 个峰 (top 10):")
+        for p in detected_peaks[:10]:
+            near_frac = ''
+            for fp in (fracture_positions or []):
+                if abs(p['depth_m'] - fp) < 200:
+                    near_frac = f'  ← 裂缝({fp:.0f}m)'
+            print(f"    #{p['rank']}: depth={p['depth_m']:8.1f}m  "
+                  f"response={p['response']:.4f}{near_frac}")
 
     return {
         'pre': pre,

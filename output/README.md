@@ -28,9 +28,9 @@
 
 | 文件 | 内容 |
 |------|------|
-| `compare_2d.png` | 6 方法 2D 热力图对比 |
+| `compare_2d.png` | 5 方法 2D 热力图对比 |
 | `profile_overlay.png` | 1D 时间平均剖面叠加 |
-| `profile_grid.png` | 6 方法 1D 分图 |
+| `profile_grid.png` | 5 方法 1D 分图 |
 | `metrics.json` | 各方法缝深匹配结果 |
 
 ## 分析

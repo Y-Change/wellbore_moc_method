@@ -8,7 +8,7 @@
 输出路径: output/leakoff/{friction}/{case}/
   - moc_leakoff.png       2×2 MOC 验证图
   - cepstrum_standard.png 标准四联倒谱图
-  - moc_leakoff.json      PASS/FAIL 判定
+  - moc_leakoff.json      PASS/FAIL 判定 + 1D 倒谱缝深匹配 (cepstrum.1d_real)
 
 运行
 ----
@@ -43,7 +43,11 @@ import numpy as np
 
 from paths import output_path, SERIES_LEAKOFF
 from wellbore_moc import MocConfig, simulate_wellbore, G
-from cepstrum_mocdata import plot_moc_cepstrum_analysis
+from cepstrum_mocdata import (
+    plot_moc_cepstrum_analysis,
+    evaluate_1d_cepstrum_fracture_match,
+    cepstrum_match_summary_for_json,
+)
 from validation.config import (
     WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG,
     CASES, FRICTION_PARAMS,
@@ -53,6 +57,8 @@ plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
 FRAC_COLORS = ['b', 'r', 'g', 'm', 'c', 'orange']
+CEP_WLEN_SEC = 30.0
+CEP_HOP_SEC = 5
 
 
 # ── 辅助函数 ──────────────────────────────────────────────
@@ -398,7 +404,7 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
 
     # ── 倒谱分析图 ────────────────────────────────────────
     cep_path = output_path(series, case_key, "cepstrum_standard.png")
-    plot_moc_cepstrum_analysis(
+    cep_result = plot_moc_cepstrum_analysis(
         t_sim, H_wh,
         wavespeed=cfg.a_adj, ts=ts, dt=dt, wellbore_length=L,
         fracture_positions=x_f_aligned, save_path=cep_path,
@@ -406,7 +412,30 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
             f"测试 {label} — 井口水头倒谱分析\n"
             f"x_f={[round(x) for x in x_f_aligned]}m, k_leak={kleak}, {friction} 摩阻"
         ),
-        wlen_sec=30, hop_sec=0.5,
+        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC,
+    )
+
+    fs_cep = cep_result['fs']
+    v_cep = cep_result['v']
+    cep_1d = evaluate_1d_cepstrum_fracture_match(
+        cep_result['depth_1d'], cep_result['response_1d'],
+        x_f_list, v=v_cep, fs=fs_cep,
+    )
+
+    print(f"\n[倒谱] 1D 实倒谱缝深匹配 (名义缝深 {x_f_list}):")
+    detail = ' '.join(
+        f"F{mt['frac_id']}:{mt['peak_depth_m']:.0f}m(Δ{mt['error_m']:.1f}m)"
+        if mt['matched'] and mt['peak_depth_m'] is not None
+        else f"F{mt['frac_id']}:×"
+        for mt in cep_1d['matches']
+    )
+    mean_e = cep_1d['mean_error_m']
+    max_e = cep_1d['max_error_m']
+    mean_s = f"{mean_e:.1f}" if mean_e is not None else "nan"
+    max_s = f"{max_e:.1f}" if max_e is not None else "nan"
+    print(
+        f"  {cep_1d['n_matched']}/{cep_1d['n_fracs']}匹配 "
+        f"mean_err={mean_s}m max_err={max_s}m  {detail}"
     )
 
     # ── JSON ──────────────────────────────────────────────
@@ -437,6 +466,9 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
             "t_arrive_frac": [float(t) for t in t_arrive_frac],
             "t_arrive_toe": float(t_arrive_toe),
             "x_f_aligned": [float(x) for x in x_f_aligned],
+        },
+        "cepstrum": {
+            "1d_real": cepstrum_match_summary_for_json(cep_1d),
         },
         "config": {
             "L": L, "a": w['wavespeed'], "V0": w['V0'], "H0": w['H0'],

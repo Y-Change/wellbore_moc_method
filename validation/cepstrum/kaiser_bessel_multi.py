@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-多缝 — Kaiser-Bessel / AR 2D 倒谱方案对比（单/双/三/四/五缝）。
+多缝 — Kaiser-Bessel 2D 倒谱方案对比（单/双/三/四/五缝）。
 
 支持 steady 与 brunone 两种摩阻模型，通过 --friction 切换。
 输出路径: output/cepstrum/kaiser_bessel/{friction}/{case}/
@@ -32,7 +32,6 @@ while True:
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import find_peaks
 
 from paths import (
     output_path,
@@ -51,7 +50,7 @@ from validation.cepstrum import _kb_core as kb
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-COMPARE_2D_FRAC_MARK_T_MAX = 10.0  # compare_2d.png 裂缝标注：前 10s 黑色实线
+COMPARE_2D_FRAC_MARK_T_MAX = 5.0  # compare_2d.png 裂缝标注：前 10s 黑色实线
 
 # 缝形态配置（单/双/三/四/五缝）
 CASES = {
@@ -86,125 +85,6 @@ FRICTION_PARAMS = {
 }
 
 
-def _peak_find_params(
-    true_depths_m: List[float],
-    v: float,
-    fs: float,
-) -> Tuple[float, int, int]:
-    depth_step = v / (2.0 * fs)
-    sorted_d = sorted(true_depths_m)
-    min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
-    match_tol_m = float(np.clip(min_spacing * 0.45, 80.0, 250.0))
-    peak_distance = max(5, int(min_spacing / depth_step * 0.35))
-    top_n = len(true_depths_m) + 4
-    return match_tol_m, peak_distance, top_n
-
-
-def evaluate_multi_fracture_peaks(
-    C: np.ndarray,
-    q: np.ndarray,
-    v: float,
-    true_depths_m: List[float],
-    fs: float,
-    depth_min: float = 100.0,
-    depth_max: Optional[float] = None,
-) -> Dict:
-    depth_kept, profile = kb.compute_time_avg_depth_profile(
-        C, q, v, depth_min=depth_min, depth_max=depth_max,
-    )
-    n_fracs = len(true_depths_m)
-    if len(profile) < 10:
-        return _empty_multi_metrics(depth_kept, profile, true_depths_m)
-
-    match_tol_m, peak_distance, top_n = _peak_find_params(true_depths_m, v, fs)
-    height_thresh = max(float(np.percentile(profile, 88)), 1e-6)
-    peaks, props = find_peaks(profile, height=height_thresh, distance=peak_distance)
-
-    if len(peaks) == 0:
-        i_max = int(np.argmax(profile))
-        peaks = np.array([i_max])
-        props = {'peak_heights': np.array([profile[i_max]])}
-
-    order = np.argsort(props['peak_heights'])[::-1]
-    top_peaks = peaks[order[:top_n]]
-    peak_depths = depth_kept[top_peaks]
-    peak_heights = profile[top_peaks]
-
-    matches = []
-    used_peak_idx = set()
-    for i, true_d in enumerate(true_depths_m):
-        best_j, best_err = None, np.inf
-        for j, pd in enumerate(peak_depths):
-            if j in used_peak_idx:
-                continue
-            err = abs(pd - true_d)
-            if err < best_err:
-                best_err = err
-                best_j = j
-        if best_j is not None and best_err <= match_tol_m:
-            used_peak_idx.add(best_j)
-            matches.append({
-                'frac_id': i + 1,
-                'true_depth_m': float(true_d),
-                'peak_depth_m': float(peak_depths[best_j]),
-                'peak_val': float(peak_heights[best_j]),
-                'error_m': float(best_err),
-                'matched': True,
-            })
-        else:
-            matches.append({
-                'frac_id': i + 1,
-                'true_depth_m': float(true_d),
-                'peak_depth_m': np.nan,
-                'peak_val': np.nan,
-                'error_m': np.nan,
-                'matched': False,
-            })
-
-    matched_errs = [m['error_m'] for m in matches if m['matched']]
-    mean_err = float(np.mean(matched_errs)) if matched_errs else np.nan
-    max_err = float(np.max(matched_errs)) if matched_errs else np.nan
-    n_matched = sum(1 for m in matches if m['matched'])
-    bg = np.percentile(profile, 50)
-    snr = float(np.max(profile) / max(abs(bg), 1e-12))
-
-    return {
-        'matches': matches,
-        'n_matched': n_matched,
-        'n_fracs': n_fracs,
-        'mean_error_m': mean_err,
-        'max_error_m': max_err,
-        'snr': snr,
-        'match_tol_m': match_tol_m,
-        'profile_depth': depth_kept,
-        'profile': profile,
-        'all_peak_depths': peak_depths.tolist(),
-    }
-
-
-def _empty_multi_metrics(depth_kept, profile, true_depths_m) -> Dict:
-    matches = [{
-        'frac_id': i + 1,
-        'true_depth_m': float(d),
-        'peak_depth_m': np.nan,
-        'peak_val': np.nan,
-        'error_m': np.nan,
-        'matched': False,
-    } for i, d in enumerate(true_depths_m)]
-    return {
-        'matches': matches,
-        'n_matched': 0,
-        'n_fracs': len(true_depths_m),
-        'mean_error_m': np.nan,
-        'max_error_m': np.nan,
-        'snr': np.nan,
-        'match_tol_m': np.nan,
-        'profile_depth': depth_kept,
-        'profile': profile,
-        'all_peak_depths': [],
-    }
-
-
 def _print_metrics_table(case_label: str, metrics: Dict, true_depths: List[float]) -> None:
     print(f"\n{'=' * 88}")
     print(f"{case_label} — 倒谱缝深匹配")
@@ -224,6 +104,17 @@ def _print_metrics_table(case_label: str, metrics: Dict, true_depths: List[float
     print(f"真实缝深: {[round(d, 1) for d in true_depths]} m")
 
 
+def _subplot_grid(n_panels: int, figsize=(20, 11)):
+    """返回 (fig, axes_flat)，多余子图已隐藏。"""
+    n_cols = 3
+    n_rows = (n_panels + n_cols - 1) // n_cols
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=figsize)
+    axes_flat = np.atleast_1d(axes).flat
+    for ax in axes_flat[n_panels:]:
+        ax.set_visible(False)
+    return fig, axes_flat
+
+
 def run_case(case_key: str, friction: str = 'steady') -> Dict:
     cfg_case = CASES[case_key]
     label = cfg_case['label']
@@ -241,11 +132,11 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     kleak = fr_params['kleak']
     H_ext = fr_params['H_ext']
     fs = 1.0 / dt
-    wlen_sec = 60.0
-    hop_ratio = 0.2
+    wlen_sec = 30.0
+    hop_ratio = 0.5
 
     print("\n" + "=" * 72)
-    print(f"测试 {label} — 2D 倒谱优化方案对比（Kaiser-Bessel / AR）")
+    print(f"测试 {label} — 2D 倒谱优化方案对比（Kaiser-Bessel）")
     print(f"x_f={x_f_list}m, 摩阻={fr_params['label']}")
     print("=" * 72)
 
@@ -284,38 +175,31 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     methods = kb.build_all_methods(x_work, fs, wlen_sec, hop_ratio, v, L, target_depth_m)
     metrics = {}
     for name, (t_ax, q_ax, C, note) in methods.items():
-        metrics[name] = evaluate_multi_fracture_peaks(
+        metrics[name] = kb.evaluate_multi_fracture_peaks(
             C, q_ax, v, x_f_aligned, fs=fs, depth_min=100.0, depth_max=L,
         )
 
     _print_metrics_table(label, metrics, x_f_aligned)
 
-    non_ar_panels = [
-        (kb.depth_axis(q_ax, v), C)
-        for name, (t_ax, q_ax, C, note) in methods.items()
-        if not kb.is_ar_cepstrum_method(name)
-    ]
-    shared_vmin, shared_vmax = kb.compute_shared_vrange(non_ar_panels, L)
+    all_panels = [(kb.depth_axis(q_ax, v), C) for _, (_, q_ax, C, _) in methods.items()]
+    shared_vmin, shared_vmax = kb.compute_shared_vrange(all_panels, L)
 
     series = f"{SERIES_CEPSTRUM_KB}/{friction}"
+    n_methods = len(methods)
 
-    fig, axes = plt.subplots(2, 3, figsize=(20, 11))
+    fig, axes_flat = _subplot_grid(n_methods, figsize=(20, 11))
     frac_label = '/'.join(f'{x:.0f}' for x in x_f_aligned)
     fig.suptitle(
         f'测试 {label} — 2D 倒谱方案对比\n'
         f'x_f=[{frac_label}]m, wlen={wlen_sec}s, {fr_params["label"]}',
         fontsize=13, fontweight='bold',
     )
-    for ax, (name, (t_ax, q_ax, C, note)) in zip(axes.flat, methods.items()):
+    for ax, (name, (t_ax, q_ax, C, note)) in zip(axes_flat, methods.items()):
         depth = kb.depth_axis(q_ax, v)
-        if kb.is_ar_cepstrum_method(name):
-            panel_vmin, panel_vmax = None, None
-        else:
-            panel_vmin, panel_vmax = shared_vmin, shared_vmax
         kb.plot_2d_panel_multi(
             ax, t_ax, depth, C, f'{name}\n{note}', x_f_aligned, L,
             mark_t_max=COMPARE_2D_FRAC_MARK_T_MAX,
-            vmin=panel_vmin, vmax=panel_vmax,
+            vmin=shared_vmin, vmax=shared_vmax,
         )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
     path_2d = output_path(series, case_key, 'compare_2d.png')
@@ -342,9 +226,9 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     fig2.savefig(path_prof, dpi=150, bbox_inches='tight')
     plt.close(fig2)
 
-    fig3, axes3 = plt.subplots(2, 3, figsize=(18, 8))
+    fig3, axes3_flat = _subplot_grid(n_methods, figsize=(18, 8))
     fig3.suptitle(f'测试 {label} — 时间平均 1D 深度剖面 ({friction})', fontsize=13, fontweight='bold')
-    for ax, (name, m) in zip(axes3.flat, metrics.items()):
+    for ax, (name, m) in zip(axes3_flat, metrics.items()):
         kb.plot_1d_profile_multi(ax, m['profile_depth'], m['profile'], name, x_f_aligned, m['matches'])
         ax.set_xlim([0, L])
     plt.tight_layout(rect=[0, 0, 1, 0.93])
