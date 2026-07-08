@@ -2,20 +2,17 @@
 """
 窗长 (wlen_sec) 对 2D 倒谱裂缝识别影响的扫描分析。
 
-对每个 case（双/三/四/五缝）遍历一组 wlen_sec，使用同一倒谱方法
+支持 steady 与 brunone 两种摩阻模型，通过 --friction 切换。
+对每个 case（单/双/三/四/五缝）遍历一组 wlen_sec，使用同一倒谱方法
 （默认：动态 Kaiser + eps + 预加重 + Lifter，即 _kb_core 的"全复合"方案）
-计算 2D cepstrogram，再用时间平均深度剖面 + 峰匹配评估裂缝识别质量，
-输出：
-  1. wlen 扫描表（匹配数 / 均误差 / 最大误差 / SNR）
-  2. 不同 wlen 的深度剖面对比图 (profile_overlay.png)
-  3. 指标随 wlen 变化曲线 (metrics_vs_wlen.png)
-  4. 各 wlen 的 2D 热力图网格 (cepstrogram_grid.png)
-  5. JSON 汇总 (metrics.json)
+计算 2D cepstrogram，再用时间平均深度剖面 + 峰匹配评估裂缝识别质量。
+输出路径: output/cepstrum/wlen_sweep/{friction}/{case}/
 
 运行
 ----
     python validation/cepstrum/wlen_sweep.py
     python validation/cepstrum/wlen_sweep.py --case quad
+    python validation/cepstrum/wlen_sweep.py --friction brunone --case dual
     python validation/cepstrum/wlen_sweep.py --case all --method full
 """
 from __future__ import annotations
@@ -59,6 +56,7 @@ from wellbore_moc import MocConfig, simulate_wellbore
 from validation.cepstrum import _kb_core as kb
 from validation.cepstrum.kaiser_bessel_multi import (
     CASES,
+    FRICTION_PARAMS,
     evaluate_multi_fracture_peaks,
     _peak_find_params,
 )
@@ -140,12 +138,14 @@ def _sweep_one_case(
     wlen_list: List[float],
     method: str,
     hop_ratio: float,
+    friction: str = 'steady',
     save_grid: bool = True,
     save_overlay: bool = True,
 ) -> Dict:
     cfg_case = CASES[case_key]
     label = cfg_case['label']
     x_f_list = cfg_case['x_f_list']
+    fr_params = FRICTION_PARAMS[friction]
 
     L = 5000.0
     a = 1450.0
@@ -155,25 +155,25 @@ def _sweep_one_case(
     dt = 1.0e-3
     tf = 100.0
     Cf = 1.0e-5
-    kleak = 0.0001
-    H_ext = 100.0
+    kleak = fr_params['kleak']
+    H_ext = fr_params['H_ext']
     fs = 1.0 / dt
 
     print("\n" + "=" * 72)
-    print(f"窗长扫描 — {label} (x_f={x_f_list}m, method={method})")
+    print(f"窗长扫描 — {label} (x_f={x_f_list}m, method={method}, friction={friction})")
     print("=" * 72)
 
     cfg = MocConfig(
         wellbore_length=L, wellbore_diameter=0.1397,
         fluid_density=1000.0, fluid_viscosity=1.0e-6,
         wavespeed=a, roughness_height=4.5e-5,
-        friction_model='steady', dt=dt, tf=tf,
+        friction_model=fr_params['friction_model'], dt=dt, tf=tf,
         wellhead_bc='velocity_step', pump_shut_time=ts,
         initial_velocity=V0, initial_head=H0,
         theta=0.0, toe_bc='reservoir', toe_head=H0,
     )
 
-    print("运行 MOC 仿真...")
+    print(f"运行 MOC 仿真 ({fr_params['label']})...")
     t0 = time_module.time()
     res = simulate_wellbore(
         cfg,
@@ -292,12 +292,16 @@ def _sweep_one_case(
     ax.set_title('2D 倒谱计算耗时 vs 窗长')
     ax.grid(True, ls='--', alpha=0.6)
 
+    series = f"{SERIES_WLEN_SWEEP}/{friction}"
+    fr_label = fr_params['label']
+
     fig.suptitle(
-        f'窗长扫描 — {label} (x_f={[round(x) for x in x_f_aligned]}m, method={method})',
+        f'窗长扫描 — {label} (x_f={[round(x) for x in x_f_aligned]}m, '
+        f'method={method}, {fr_label})',
         fontsize=13, fontweight='bold',
     )
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-    path_metrics = output_path(SERIES_WLEN_SWEEP, case_key, 'metrics_vs_wlen.png')
+    path_metrics = output_path(series, case_key, 'metrics_vs_wlen.png')
     fig.savefig(path_metrics, dpi=150, bbox_inches='tight')
     plt.close(fig)
     print(f"\n  指标图: {path_metrics}")
@@ -313,12 +317,12 @@ def _sweep_one_case(
             axp.axvline(fd, color='k', ls=':', lw=1.0, alpha=0.6)
         axp.set_xlabel('深度 [m]')
         axp.set_ylabel('时间平均倒谱响应 (-C)')
-        axp.set_title(f'{label} — 不同窗长时间平均深度剖面 (method={method})')
+        axp.set_title(f'{label} — 不同窗长时间平均深度剖面 (method={method}, {fr_label})')
         axp.set_xlim([0, L])
         axp.legend(fontsize=8, loc='upper right', ncol=2)
         axp.grid(True, ls='--', alpha=0.4)
         plt.tight_layout()
-        path_prof = output_path(SERIES_WLEN_SWEEP, case_key, 'profile_overlay.png')
+        path_prof = output_path(series, case_key, 'profile_overlay.png')
         fig2.savefig(path_prof, dpi=150, bbox_inches='tight')
         plt.close(fig2)
         print(f"  剖面叠加: {path_prof}")
@@ -331,7 +335,7 @@ def _sweep_one_case(
         fig3, axes3 = plt.subplots(n_rows, n_cols, figsize=(6 * n_cols, 4.5 * n_rows),
                                    squeeze=False)
         fig3.suptitle(
-            f'{label} — 不同 wlen 2D 倒谱热力图 (method={method})',
+            f'{label} — 不同 wlen 2D 倒谱热力图 (method={method}, {fr_label})',
             fontsize=13, fontweight='bold',
         )
         shared_vmin, shared_vmax = kb.compute_shared_vrange(
@@ -349,7 +353,7 @@ def _sweep_one_case(
             r, c = divmod(idx, n_cols)
             axes3[r][c].axis('off')
         plt.tight_layout(rect=[0, 0, 1, 0.96])
-        path_grid = output_path(SERIES_WLEN_SWEEP, case_key, 'cepstrogram_grid.png')
+        path_grid = output_path(series, case_key, 'cepstrogram_grid.png')
         fig3.savefig(path_grid, dpi=130, bbox_inches='tight')
         plt.close(fig3)
         print(f"  2D网格: {path_grid}")
@@ -374,6 +378,7 @@ def _sweep_one_case(
         'case': case_key,
         'label': label,
         'method': method,
+        'friction': friction,
         'x_f_nominal': x_f_list,
         'x_f_aligned': x_f_aligned,
         'wlen_min_sec': float(wlen_min),
@@ -383,7 +388,7 @@ def _sweep_one_case(
         'best_mean_error_m': best['mean_error_m'],
         'results': sweep_results,
     }
-    json_path = output_path(SERIES_WLEN_SWEEP, case_key, 'metrics.json')
+    json_path = output_path(series, case_key, 'metrics.json')
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
     print(f"  JSON: {json_path}")
@@ -392,10 +397,16 @@ def _sweep_one_case(
 
 
 def main():
-    parser = argparse.ArgumentParser(description='窗长 (wlen_sec) 对裂缝识别影响扫描')
+    parser = argparse.ArgumentParser(description='窗长 (wlen_sec) 对裂缝识别影响扫描（支持 steady/brunone）')
     parser.add_argument(
-        '--case', choices=['dual', 'triple', 'quad', 'quint', 'all'],
+        '--case', choices=['single', 'dual', 'triple', 'quad', 'quint', 'all'],
         default='all', help='运行哪个 case（默认 all）',
+    )
+    parser.add_argument(
+        '--friction',
+        choices=['steady', 'brunone'],
+        default='steady',
+        help='摩阻模型（默认 steady；brunone 仿真约慢 20×）',
     )
     parser.add_argument(
         '--method', choices=list(METHOD_PRESETS.keys()) + ['baseline_hamming', 'baseline_kaiser4'],
@@ -406,7 +417,7 @@ def main():
         help='自定义窗长列表，逗号分隔，如 "14,20,30,45,60"',
     )
     parser.add_argument(
-        '--hop-ratio', type=float, default=0.2, 
+        '--hop-ratio', type=float, default=0.2,
         help='hop = hop_ratio * wlen（默认 0.2）',
     )
     parser.add_argument(
@@ -424,11 +435,12 @@ def main():
     for key in keys:
         all_results[key] = _sweep_one_case(
             key, wlen_list, args.method, args.hop_ratio,
+            friction=args.friction,
             save_grid=not args.no_grid,
         )
 
     print("\n" + "=" * 72)
-    print("窗长扫描汇总")
+    print(f"窗长扫描汇总 ({FRICTION_PARAMS[args.friction]['label']})")
     print("=" * 72)
     for key, res in all_results.items():
         if not res['results']:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Kaiser-Bessel / AR 2D 倒谱核心算法（供 kaiser_bessel_single / multi 共用）。"""
+"""Kaiser-Bessel / AR 2D 倒谱核心算法（供 kaiser_bessel_multi / wlen_sweep 共用）。"""
 from __future__ import annotations
 
 from typing import Dict, List, Optional, Tuple

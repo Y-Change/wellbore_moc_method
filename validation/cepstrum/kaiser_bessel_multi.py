@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-测试 B 多缝 — Kaiser-Bessel / AR 2D 倒谱方案对比（双/三/四/五缝）。
+多缝 — Kaiser-Bessel / AR 2D 倒谱方案对比（单/双/三/四/五缝）。
+
+支持 steady 与 brunone 两种摩阻模型，通过 --friction 切换。
+输出路径: output/cepstrum/kaiser_bessel/{friction}/{case}/
 
 运行:
     python validation/cepstrum/kaiser_bessel_multi.py
     python validation/cepstrum/kaiser_bessel_multi.py --case dual
-    python validate_moc_test_b_multi_Kaiser-Bessel.py --case all   # 兼容 wrapper
+    python validation/cepstrum/kaiser_bessel_multi.py --friction brunone --case quad
 """
 from __future__ import annotations
 
@@ -34,6 +37,7 @@ from scipy.signal import find_peaks
 from paths import (
     output_path,
     SERIES_CEPSTRUM_KB,
+    CASE_SINGLE,
     CASE_DUAL,
     CASE_TRIPLE,
     CASE_QUAD,
@@ -49,7 +53,12 @@ plt.rcParams['axes.unicode_minus'] = False
 
 COMPARE_2D_FRAC_MARK_T_MAX = 10.0  # compare_2d.png 裂缝标注：前 10s 黑色实线
 
+# 缝形态配置（单/双/三/四/五缝）
 CASES = {
+    CASE_SINGLE: {
+        'label': '单缝',
+        'x_f_list': [4300.0],
+    },
     CASE_DUAL: {
         'label': '双缝',
         'x_f_list': [4300.0, 4600.0],
@@ -66,6 +75,14 @@ CASES = {
         'label': '五缝',
         'x_f_list': [3700.0, 3900.0, 4100.0, 4300.0, 4500.0],
     },
+}
+
+# 摩阻模型配置
+FRICTION_PARAMS = {
+    'steady': {'friction_model': 'steady', 'kleak': 0.0001, 'H_ext': 100.0,
+               'label': '稳态达西+滤失'},
+    'brunone': {'friction_model': 'brunone', 'kleak': 0.0001, 'H_ext': 100.0,
+                'label': 'Brunone非定常+滤失'},
 }
 
 
@@ -207,10 +224,11 @@ def _print_metrics_table(case_label: str, metrics: Dict, true_depths: List[float
     print(f"真实缝深: {[round(d, 1) for d in true_depths]} m")
 
 
-def run_case(case_key: str) -> Dict:
+def run_case(case_key: str, friction: str = 'steady') -> Dict:
     cfg_case = CASES[case_key]
     label = cfg_case['label']
     x_f_list = cfg_case['x_f_list']
+    fr_params = FRICTION_PARAMS[friction]
 
     L = 5000.0
     a = 1450.0
@@ -220,28 +238,28 @@ def run_case(case_key: str) -> Dict:
     dt = 1.0e-3
     tf = 100.0
     Cf = 1.0e-5
-    kleak = 0.0001
-    H_ext = 100.0
+    kleak = fr_params['kleak']
+    H_ext = fr_params['H_ext']
     fs = 1.0 / dt
     wlen_sec = 60.0
     hop_ratio = 0.2
 
     print("\n" + "=" * 72)
-    print(f"测试 B {label} — 2D 倒谱优化方案对比（Kaiser-Bessel / AR）")
-    print(f"x_f={x_f_list}m")
+    print(f"测试 {label} — 2D 倒谱优化方案对比（Kaiser-Bessel / AR）")
+    print(f"x_f={x_f_list}m, 摩阻={fr_params['label']}")
     print("=" * 72)
 
     cfg = MocConfig(
         wellbore_length=L, wellbore_diameter=0.1397,
         fluid_density=1000.0, fluid_viscosity=1.0e-6,
         wavespeed=a, roughness_height=4.5e-5,
-        friction_model='steady', dt=dt, tf=tf,
+        friction_model=fr_params['friction_model'], dt=dt, tf=tf,
         wellhead_bc='velocity_step', pump_shut_time=ts,
         initial_velocity=V0, initial_head=H0,
         theta=0.0, toe_bc='reservoir', toe_head=H0,
     )
 
-    print(f"\n运行 MOC {label}仿真...")
+    print(f"\n运行 MOC {label}仿真 ({friction})...")
     t0 = time_module.time()
     res = simulate_wellbore(
         cfg,
@@ -279,10 +297,13 @@ def run_case(case_key: str) -> Dict:
     ]
     shared_vmin, shared_vmax = kb.compute_shared_vrange(non_ar_panels, L)
 
+    series = f"{SERIES_CEPSTRUM_KB}/{friction}"
+
     fig, axes = plt.subplots(2, 3, figsize=(20, 11))
     frac_label = '/'.join(f'{x:.0f}' for x in x_f_aligned)
     fig.suptitle(
-        f'测试 B {label} — 2D 倒谱方案对比\nx_f=[{frac_label}]m, wlen={wlen_sec}s',
+        f'测试 {label} — 2D 倒谱方案对比\n'
+        f'x_f=[{frac_label}]m, wlen={wlen_sec}s, {fr_params["label"]}',
         fontsize=13, fontweight='bold',
     )
     for ax, (name, (t_ax, q_ax, C, note)) in zip(axes.flat, methods.items()):
@@ -297,7 +318,7 @@ def run_case(case_key: str) -> Dict:
             vmin=panel_vmin, vmax=panel_vmax,
         )
     plt.tight_layout(rect=[0, 0, 1, 0.94])
-    path_2d = output_path(SERIES_CEPSTRUM_KB, case_key, 'compare_2d.png')
+    path_2d = output_path(series, case_key, 'compare_2d.png')
     fig.savefig(path_2d, dpi=150, bbox_inches='tight')
     plt.close(fig)
 
@@ -312,22 +333,22 @@ def run_case(case_key: str) -> Dict:
         axp.axvline(fd, color='k', ls=':', lw=1.0, alpha=0.5)
     axp.set_xlabel('深度 [m]')
     axp.set_ylabel('时间平均倒谱响应 (-C)')
-    axp.set_title(f'{label} — 1D 深度剖面叠加 (profile=-mean_t C)')
+    axp.set_title(f'{label} — 1D 深度剖面叠加 ({fr_params["label"]})')
     axp.set_xlim([0, L])
     axp.legend(fontsize=6, loc='upper right', ncol=2)
     axp.grid(True, ls='--', alpha=0.4)
     plt.tight_layout()
-    path_prof = output_path(SERIES_CEPSTRUM_KB, case_key, 'profile_overlay.png')
+    path_prof = output_path(series, case_key, 'profile_overlay.png')
     fig2.savefig(path_prof, dpi=150, bbox_inches='tight')
     plt.close(fig2)
 
     fig3, axes3 = plt.subplots(2, 3, figsize=(18, 8))
-    fig3.suptitle(f'测试 B {label} — 时间平均 1D 深度剖面', fontsize=13, fontweight='bold')
+    fig3.suptitle(f'测试 {label} — 时间平均 1D 深度剖面 ({friction})', fontsize=13, fontweight='bold')
     for ax, (name, m) in zip(axes3.flat, metrics.items()):
         kb.plot_1d_profile_multi(ax, m['profile_depth'], m['profile'], name, x_f_aligned, m['matches'])
         ax.set_xlim([0, L])
     plt.tight_layout(rect=[0, 0, 1, 0.93])
-    path_1d = output_path(SERIES_CEPSTRUM_KB, case_key, 'profile_grid.png')
+    path_1d = output_path(series, case_key, 'profile_grid.png')
     fig3.savefig(path_1d, dpi=150, bbox_inches='tight')
     plt.close(fig3)
 
@@ -348,6 +369,7 @@ def run_case(case_key: str) -> Dict:
     summary = {
         'case': case_key,
         'label': label,
+        'friction': friction,
         'x_f_nominal': x_f_list,
         'x_f_aligned': x_f_aligned,
         'methods': {
@@ -362,7 +384,7 @@ def run_case(case_key: str) -> Dict:
         },
         'figures': [path_2d, path_prof, path_1d],
     }
-    json_path = output_path(SERIES_CEPSTRUM_KB, case_key, 'metrics.json')
+    json_path = output_path(series, case_key, 'metrics.json')
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
     print(f"  JSON: {json_path}")
@@ -371,22 +393,28 @@ def run_case(case_key: str) -> Dict:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='多缝 Kaiser-Bessel 倒谱验证')
+    parser = argparse.ArgumentParser(description='多缝 Kaiser-Bessel 倒谱验证（支持 steady/brunone）')
     parser.add_argument(
         '--case',
-        choices=['dual', 'triple', 'quad', 'quint', 'all'],
+        choices=['single', 'dual', 'triple', 'quad', 'quint', 'all'],
         default='all',
-        help='运行双/三/四/五缝或全部（默认 all）',
+        help='运行单/双/三/四/五缝或全部（默认 all）',
+    )
+    parser.add_argument(
+        '--friction',
+        choices=['steady', 'brunone'],
+        default='steady',
+        help='摩阻模型（默认 steady；brunone 仿真约慢 20×）',
     )
     args = parser.parse_args()
 
     keys = list(CASES.keys()) if args.case == 'all' else [args.case]
     results = {}
     for key in keys:
-        results[key] = run_case(key)
+        results[key] = run_case(key, friction=args.friction)
 
     print("\n" + "=" * 72)
-    print("汇总")
+    print(f"汇总 ({FRICTION_PARAMS[args.friction]['label']})")
     print("=" * 72)
     for key, res in results.items():
         best = None
