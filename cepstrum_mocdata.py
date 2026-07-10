@@ -5,7 +5,7 @@ MOC 仿真井口水头倒谱分析 — 供 validate_moc_*.py 可视化调用
 提供两种倒谱分析（合并输出同一张大图）：
   · 1D 实倒谱 (real cepstrum) — 全序列 FFT，无滑窗
   · 2D 倒谱图 (cepstrogram)   — 短时滑窗，参考 cepstrum_2d.py
-  · plot_moc_cepstrum_analysis — 时域 / FFT / 1D + 2D 四联图
+  · plot_moc_cepstrum_analysis — 时域 / FFT / 1D + 2D + 时间平均剖面 五联图
 """
 
 from __future__ import annotations
@@ -15,6 +15,7 @@ from typing import Dict, List, Optional, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import AutoMinorLocator
 from numpy.lib.stride_tricks import as_strided
 from scipy import signal as scipy_signal
 from scipy.fft import fft, fftfreq, ifft
@@ -319,6 +320,7 @@ def compute_moc_cepstrum(
     wellbore_length: float = 5000.0,
     wlen_sec: Optional[float] = None,
     hop_sec: float = 0.1,
+    win_type: str = 'rect',
     lim1: float = 0.0,
     lim2: Optional[float] = None,
     depth_min: float = 0.0,
@@ -331,6 +333,7 @@ def compute_moc_cepstrum(
 
     参数
     ----
+    win_type : 滑窗类型（rect / hamming / hanning / kaiser / gauss）
     derivative : 倒谱前是否对去趋势信号求导
     derivative_order : 求导阶数（1 或 2）
 
@@ -363,7 +366,7 @@ def compute_moc_cepstrum(
             f"(需要 wlen_sec≥{cep_params['wlen_sec_min']:.3f}s 以覆盖 {wellbore_length}m)"
         )
 
-    C, q, t_cep = cepstrogram(p_work, wlen=wlen, hop=hop, fs=fs)
+    C, q, t_cep = cepstrogram(p_work, wlen=wlen, hop=hop, fs=fs, win_type=win_type)
 
     if lifter:
         if lifter_cutoff is None:
@@ -394,6 +397,7 @@ def compute_moc_cepstrum(
         'fs': fs,
         'wlen_sec': wlen_sec_used,
         'hop_sec': hop_sec,
+        'win_type': win_type,
         'lim1': lim1_used,
         'lim2': lim2_used,
         'depth_min': depth_min,
@@ -842,6 +846,7 @@ def plot_moc_cepstrum_analysis(
     title_prefix: str = 'MOC 井口水头倒谱分析',
     wlen_sec: Optional[float] = None,
     hop_sec: float = 0.1,
+    win_type: str = 'rect',
     lim1: float = 0.0,
     lim2: Optional[float] = None,
     depth_min: float = 0.0,
@@ -853,7 +858,7 @@ def plot_moc_cepstrum_analysis(
     show: bool = False,
     **kwargs,
 ) -> Dict:
-    """绘制 MOC 井口水头倒谱合并图：时域 / FFT / 1D 实倒谱 + 2D 倒谱图。
+    """绘制 MOC 井口水头倒谱合并图：时域 / FFT / 1D 实倒谱 / 2D 倒谱 / 时间平均剖面。
 
     参数
     ----
@@ -861,6 +866,7 @@ def plot_moc_cepstrum_analysis(
     wavespeed : 波速 [m/s]
     fracture_positions : 真实裂缝深度 [m]，在倒谱图上叠加参考线
     save_path : 保存路径；None 则不保存
+    win_type : 2D 倒谱滑窗类型（rect / hamming / hanning / kaiser / gauss）
     fft_fmax : FFT 显示上限 (Hz)；None 时按频谱能量自动裁剪有效范围
     """
     if fs is None:
@@ -882,7 +888,7 @@ def plot_moc_cepstrum_analysis(
         time, head,
         v=wavespeed, fs=fs, ts=ts,
         wellbore_length=wellbore_length,
-        wlen_sec=wlen_sec, hop_sec=hop_sec,
+        wlen_sec=wlen_sec, hop_sec=hop_sec, win_type=win_type,
         lim1=lim1, lim2=lim2, depth_min=depth_min,
         lifter=lifter, lifter_cutoff=lifter_cutoff,
         derivative=derivative, derivative_order=derivative_order,
@@ -899,6 +905,7 @@ def plot_moc_cepstrum_analysis(
     t_cep = result_2d['t_cep']
     cep_params = result_2d['cep_params']
     wlen = int(result_2d['wlen_sec'] * fs)
+    win_used = result_2d.get('win_type', win_type)
 
     depth_max_1d = min(wellbore_length, result_1d['depth_coverage_max'])
     depth_max_2d = min(wellbore_length, cep_params['depth_coverage_max'])
@@ -907,17 +914,17 @@ def plot_moc_cepstrum_analysis(
     lim4 = wellbore_length * 2.0 / v
     fracture_positions = fracture_positions or []
 
-    fig = plt.figure(figsize=(16, 18))
+    fig = plt.figure(figsize=(16, 22))
     fig.suptitle(
         f'{title_prefix}\n'
         f'v={v:.1f} m/s, ts={ts}s, T={result_1d["signal_duration"]:.1f}s, '
         f'2D wlen={result_2d["wlen_sec"]:.3f}s ({wlen}点), hop={hop_sec}s, '
-        f'深度 {depth_min:.0f}-{depth_max_display:.0f} m',
+        f'win={win_used}, 深度 {depth_min:.0f}-{depth_max_display:.0f} m',
         fontsize=12, fontweight='bold',
     )
 
     # Row 1: 时域
-    ax1 = plt.subplot(4, 1, 1)
+    ax1 = plt.subplot(5, 1, 1)
     t_after = pre['t_after']
     h_after = pre['h_after']
     ax1.plot(t_after, h_after, 'r-', lw=0.8, alpha=0.6, label='停泵后井口水头')
@@ -929,15 +936,19 @@ def plot_moc_cepstrum_analysis(
     ax1.set_title(f'停泵后井口水头 (t ≥ {ts}s)')
     ax1.legend(fontsize=9)
     ax1.grid(True, ls='--', alpha=0.6)
+    ax1.xaxis.set_minor_locator(AutoMinorLocator())
+    ax1.minorticks_on()
 
     # Row 2: FFT
-    ax2 = plt.subplot(4, 1, 2)
+    ax2 = plt.subplot(5, 1, 2)
     fft_fmax_display = _plot_fft_panel(
         ax2, h_detrended, fs, wavespeed, wellbore_length, fft_fmax,
     )
+    ax2.xaxis.set_minor_locator(AutoMinorLocator())
+    ax2.minorticks_on()
 
     # Row 3: 1D 实倒谱
-    ax3 = plt.subplot(4, 1, 3)
+    ax3 = plt.subplot(5, 1, 3)
     depth_arr = np.asarray(depth_1d)
     resp_arr = np.asarray(response_1d)
     y_lo, y_hi = _robust_response_ylim(resp_arr)
@@ -966,36 +977,77 @@ def plot_moc_cepstrum_analysis(
     ax3.set_xlim([depth_min, depth_max_1d])
     ax3.grid(True, ls='--', alpha=0.6)
     ax3.legend(fontsize=9)
+    ax3.xaxis.set_minor_locator(AutoMinorLocator())
+    ax3.minorticks_on()
     _mark_fractures_below_1d_axis(ax3, fracture_positions)
 
-    # Row 4: 2D 倒谱图
-    ax4 = plt.subplot(4, 1, 4)
+    # Row 4: 2D 倒谱图（转置：x=深度, y=时间）
+    ax4 = plt.subplot(5, 1, 4)
     Q_depth = q * v / 2.0
-    T_mesh, Q_mesh = np.meshgrid(t_cep, Q_depth)
+    D_mesh, T_mesh = np.meshgrid(Q_depth, t_cep)
     # Percentile-based color scaling to avoid extreme values washing out features
     C_data = -C
     vmin = float(np.percentile(C_data, 2))
     vmax = float(np.percentile(C_data, 98))
     if vmax <= vmin:
         vmax = vmin + 0.01
-    im = ax4.pcolormesh(T_mesh, Q_mesh, C_data, shading='auto', cmap='jet',
+    im = ax4.pcolormesh(D_mesh, T_mesh, C_data.T, shading='auto', cmap='jet',
                         vmin=vmin, vmax=vmax)
-    ax4.set_xlabel('时间 [s]')
-    ax4.set_ylabel('深度 [m]')
-    ax4.set_title(f'2D 倒谱图 (Cepstrogram) | hop={hop_sec}s')
-    ax4.invert_yaxis()
-    y_lo = max(depth_min, lim3 * v / 2.0)
-    y_hi = min(depth_max_2d, lim4 * v / 2.0)
-    if y_hi > y_lo:
-        ax4.set_ylim([y_lo, y_hi])
-    _mark_fractures_side_arrows(ax4, fracture_positions, side='right')
+    ax4.set_xlabel('深度 [m]')
+    ax4.set_ylabel('时间 [s]')
+    ax4.set_title(
+        f'2D 倒谱图 (Cepstrogram) | '
+        f'wlen={result_2d["wlen_sec"]:.3f}s, hop={hop_sec}s, win={win_used}'
+    )
+    x_lo = max(depth_min, lim3 * v / 2.0)
+    x_hi = min(depth_max_2d, lim4 * v / 2.0)
+    if x_hi > x_lo:
+        ax4.set_xlim([x_lo, x_hi])
+    ax4.xaxis.set_minor_locator(AutoMinorLocator())
+    ax4.minorticks_on()
     cbar = fig.colorbar(
         im, ax=ax4, orientation='horizontal',
-        pad=0.12, fraction=0.05, aspect=40,
+        pad=0.08, fraction=0.05, aspect=40,
     )
     cbar.set_label('倒谱能量 (-C)', fontsize=10)
 
-    plt.tight_layout(rect=[0, 0, 0.90, 0.96])
+    # Row 5: 2D 时间平均 → 1D 深度剖面
+    ax5 = plt.subplot(5, 1, 5)
+    depth_prof = np.asarray(result_2d['depth'])
+    profile_2d = np.mean(np.asarray(result_2d['response_2d']), axis=1)
+    y_lo5, y_hi5 = _robust_response_ylim(profile_2d)
+    ax5.plot(depth_prof, profile_2d, 'b-', lw=1.0, label='时间平均 (-C)')
+    ax5.set_ylim(y_lo5, y_hi5)
+
+    profile_peaks = detect_1d_cepstrum_peaks(depth_prof, profile_2d)
+    if profile_peaks:
+        pk_d = np.array([p['depth_m'] for p in profile_peaks])
+        pk_h = np.array([p['response'] for p in profile_peaks])
+        ax5.scatter(pk_d, pk_h, c='r', s=50, zorder=5,
+                    marker='v', label=f'检测峰 ({len(pk_d)}个)')
+        for pd, ph in zip(pk_d, pk_h):
+            ax5.annotate(f'{pd:.0f}m', (pd, ph),
+                         textcoords="offset points", xytext=(0, 8),
+                         fontsize=7, color='r', ha='center',
+                         clip_on=True)
+    ax5.set_xlabel('深度 [m]')
+    ax5.set_ylabel('时间平均倒谱响应 (-C)')
+    ax5.set_title(
+        f'2D 倒谱时间平均 1D 深度剖面 | '
+        f'wlen={result_2d["wlen_sec"]:.3f}s, hop={hop_sec}s, win={win_used}, '
+        f'n_frames={len(t_cep)}'
+    )
+    if x_hi > x_lo:
+        ax5.set_xlim([x_lo, x_hi])
+    else:
+        ax5.set_xlim([depth_min, depth_max_2d])
+    ax5.grid(True, ls='--', alpha=0.6)
+    ax5.legend(fontsize=9)
+    ax5.xaxis.set_minor_locator(AutoMinorLocator())
+    ax5.minorticks_on()
+    _mark_fractures_below_1d_axis(ax5, fracture_positions)
+
+    plt.tight_layout(rect=[0, 0, 1.0, 0.96])
     if save_path is not None:
         os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
@@ -1024,6 +1076,9 @@ def plot_moc_cepstrum_analysis(
         'C_2d': C,
         'q_2d': q,
         't_cep': t_cep,
+        'depth_profile_2d': depth_prof,
+        'response_profile_2d': profile_2d,
+        'profile_peaks': profile_peaks,
         'result_1d': result_1d,
         'result_2d': result_2d,
         'v': v,

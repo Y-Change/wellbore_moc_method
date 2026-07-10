@@ -2,19 +2,23 @@
 """
 统一 leakoff_multi.py — steady / brunone 摩阻 + 裂缝滤失多缝验证。
 
-通过 --friction steady|brunone 与 --case single|dual|triple|quad|quint|all 切换。
+通过 --friction steady|brunone|steady_D*|brunone_D*|steady_Dall|brunone_Dall
+与 --case single|dual|...|all 切换。
 参数集中管理在 validation/config.py，修改该文件即可全局调整。
 
 输出路径: output/leakoff/{friction}/{case}/
   - moc_leakoff.png       2×2 MOC 验证图
-  - cepstrum_standard.png 标准四联倒谱图
+  - cepstrum_standard.png 标准倒谱图（时域/FFT/1D/2D/时间平均剖面）
+  - moc_timeseries.csv    井口/缝口水头与流量时程
   - moc_leakoff.json      PASS/FAIL 判定 + 1D 倒谱缝深匹配 (cepstrum.1d_real)
 
 运行
 ----
     python validation/leakoff_multi.py --friction steady --case all
+    python validation/leakoff_multi.py --friction steady_D10 --case all
+    python validation/leakoff_multi.py --friction steady_Dall --case all
+    python validation/leakoff_multi.py --friction brunone_Dall --case dual
     python validation/leakoff_multi.py --friction brunone --case dual
-    python validation/leakoff_multi.py --case single
 """
 from __future__ import annotations
 
@@ -40,6 +44,7 @@ while True:
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import AutoMinorLocator
 
 from paths import output_path, SERIES_LEAKOFF
 from wellbore_moc import MocConfig, simulate_wellbore, G
@@ -49,16 +54,18 @@ from cepstrum_mocdata import (
     cepstrum_match_summary_for_json,
 )
 from validation.config import (
-    WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG,
-    CASES, FRICTION_PARAMS,
+    WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG, CEPSTRUM_CONFIG,
+    CASES, FRICTION_PARAMS, build_cases,
+    expand_friction_keys, friction_cli_choices,
 )
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
 FRAC_COLORS = ['b', 'r', 'g', 'm', 'c', 'orange']
-CEP_WLEN_SEC = 30.0
-CEP_HOP_SEC = 5
+CEP_WLEN_SEC = CEPSTRUM_CONFIG['wlen_sec']
+CEP_HOP_SEC = CEPSTRUM_CONFIG['hop_sec']
+CEP_WIN_TYPE = CEPSTRUM_CONFIG['win_type']
 
 
 # ── 辅助函数 ──────────────────────────────────────────────
@@ -99,10 +106,19 @@ def _build_moc_config(friction: str) -> MocConfig:
     )
 
 
+def resolve_cases(friction: str) -> Dict:
+    """按 FRICTION_PARAMS[friction].spacing_m 生成缝形态；无则用默认 CASES。"""
+    fr = FRICTION_PARAMS[friction]
+    if 'spacing_m' in fr:
+        return build_cases(fr['spacing_m'])
+    return CASES
+
+
 # ── 核心 ──────────────────────────────────────────────────
 
 def run_case(case_key: str, friction: str = 'steady') -> Dict:
-    cfg_case = CASES[case_key]
+    cases = resolve_cases(friction)
+    cfg_case = cases[case_key]
     label = cfg_case['label']
     x_f_list = cfg_case['x_f_list']
     fr_params = FRICTION_PARAMS[friction]
@@ -173,6 +189,8 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     # ── 提取数据 ───────────────────────────────────────────
     t_sim = res["timestamps"]
     H_wh = res["wellhead_head"]
+    V_wh = res["wellhead_velocity"]
+    Q_wh = V_wh * cfg.area
     H_wh_pure = res_pure["wellhead_head"]
     H_wh_noFrac = res_noFrac["wellhead_head"]
     frac_indices = res["fracture_indices"]
@@ -350,6 +368,8 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     ax.set_title(f'全时程 ({tf}s) — 含缝 vs 无缝 ({friction})')
     ax.legend(fontsize=6, ncol=2); ax.grid(True, ls='--', alpha=0.6)
     ax.set_xlim([0, tf])
+    ax.xaxis.set_minor_locator(AutoMinorLocator())
+    ax.minorticks_on()
 
     # (0,1) 前 12s 特写
     ax = axes[0, 1]
@@ -366,6 +386,8 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     ax.set_title(f'前 12s 特写 — {fr_params["label"]}')
     ax.legend(fontsize=6, ncol=2); ax.grid(True, ls='--', alpha=0.6)
     ax.set_xlim([0, 12])
+    ax.xaxis.set_minor_locator(AutoMinorLocator())
+    ax.minorticks_on()
 
     # (1,0) 差信号
     ax = axes[1, 0]
@@ -379,6 +401,8 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     ax.set_xlabel('时间 [s]'); ax.set_ylabel('差信号 [m]')
     ax.set_title(f'差信号 — 滤失阻尼比={damping_ratio:.3f}')
     ax.legend(fontsize=9); ax.grid(True, ls='--', alpha=0.6)
+    ax.xaxis.set_minor_locator(AutoMinorLocator())
+    ax.minorticks_on()
 
     # (1,1) 缝节点 H 与 Q_f
     ax = axes[1, 1]
@@ -395,12 +419,32 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
     ax.set_title(f'{label}节点 H 与 Q_f (Q_steady≈{Q_steady_ana:.5f}/缝)')
     ax.legend(fontsize=7, loc='upper left'); ax2.legend(fontsize=7, loc='upper right')
     ax.grid(True, ls='--', alpha=0.6); ax.set_xlim([0, tf])
+    ax.xaxis.set_minor_locator(AutoMinorLocator())
+    ax.minorticks_on()
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
     out_path = output_path(series, case_key, "moc_leakoff.png")
     plt.savefig(out_path, dpi=130, bbox_inches='tight')
     print(f"\n图已保存: {out_path}")
     plt.close(fig)
+
+    # ── 时程 CSV：井口 / 缝口水头与流量 ────────────────────
+    csv_cols = [t_sim, H_wh, Q_wh]
+    csv_header = ['t', 'H_wh', 'Q_wh']
+    for k in range(n_frac):
+        csv_cols.append(frac_heads[:, k])
+        csv_cols.append(frac_Qs[:, k])
+        csv_header.append(f'H_f{k + 1}')
+        csv_header.append(f'Q_f{k + 1}')
+    csv_path = output_path(series, case_key, "moc_timeseries.csv")
+    np.savetxt(
+        csv_path,
+        np.column_stack(csv_cols),
+        delimiter=',',
+        header=','.join(csv_header),
+        comments='',
+    )
+    print(f"时程 CSV: {csv_path}")
 
     # ── 倒谱分析图 ────────────────────────────────────────
     cep_path = output_path(series, case_key, "cepstrum_standard.png")
@@ -412,7 +456,7 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
             f"测试 {label} — 井口水头倒谱分析\n"
             f"x_f={[round(x) for x in x_f_aligned]}m, k_leak={kleak}, {friction} 摩阻"
         ),
-        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC,
+        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC, win_type=CEP_WIN_TYPE,
     )
 
     fs_cep = cep_result['fs']
@@ -487,13 +531,27 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
 
 # ── CLI ───────────────────────────────────────────────────
 
+def _summarize_friction(friction: str, case_keys: List[str], results: Dict) -> None:
+    cases = resolve_cases(friction)
+    print("\n" + "=" * 72)
+    print(f"汇总 ({FRICTION_PARAMS[friction]['label']})")
+    print("=" * 72)
+    for key in case_keys:
+        res = results[key]
+        verdicts = res['verdicts']
+        n_pass = sum(1 for v in verdicts.values() if v == "PASS")
+        n_total = sum(1 for v in verdicts.values() if v != "N/A")
+        status = "OK" if n_pass == n_total else "FAIL"
+        print(f"  {cases[key]['label']}: {n_pass}/{n_total} PASS [{status}]")
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description='统一 leakoff 多缝验证（steady/brunone + 滤失，参数集中管理）'
+        description='统一 leakoff 多缝验证（steady/brunone + D* 间距 + 滤失）'
     )
     parser.add_argument(
-        '--friction', choices=['steady', 'brunone'], default='steady',
-        help='摩阻模型（默认 steady；brunone 仿真约慢 20×）',
+        '--friction', choices=friction_cli_choices(), default='steady',
+        help='摩阻/间距键；steady_Dall / brunone_Dall 一次跑完 SPACING_PRESETS_M',
     )
     parser.add_argument(
         '--case', choices=['single', 'dual', 'triple', 'quad', 'quint', 'all'],
@@ -501,22 +559,24 @@ def main():
     )
     args = parser.parse_args()
 
-    keys = list(CASES.keys()) if args.case == 'all' else [args.case]
-    results = {}
-    for key in keys:
-        results[key] = run_case(key, friction=args.friction)
+    friction_keys = expand_friction_keys(args.friction)
+    all_results: Dict[str, Dict] = {}
 
-    print("\n" + "=" * 72)
-    print(f"汇总 ({FRICTION_PARAMS[args.friction]['label']})")
-    print("=" * 72)
-    for key, res in results.items():
-        verdicts = res['verdicts']
-        n_pass = sum(1 for v in verdicts.values() if v == "PASS")
-        n_total = sum(1 for v in verdicts.values() if v != "N/A")
-        status = "OK" if n_pass == n_total else "FAIL"
-        print(f"  {CASES[key]['label']}: {n_pass}/{n_total} PASS [{status}]")
+    for friction in friction_keys:
+        cases = resolve_cases(friction)
+        case_keys = list(cases.keys()) if args.case == 'all' else [args.case]
+        results = {}
+        for key in case_keys:
+            results[key] = run_case(key, friction=friction)
+        _summarize_friction(friction, case_keys, results)
+        all_results[friction] = results
 
-    return results
+    if len(friction_keys) > 1:
+        print("\n" + "=" * 72)
+        print(f"批量完成 ({args.friction} → {friction_keys})")
+        print("=" * 72)
+
+    return all_results if len(friction_keys) > 1 else all_results[friction_keys[0]]
 
 
 if __name__ == '__main__':
