@@ -415,7 +415,7 @@ def effective_fft_fmax(
     harmonic_margin: int = 12,
     fmax_cap: Optional[float] = None,
 ) -> float:
-    """根据频谱能量与物理往返周期，确定 FFT 有效显示上限 (Hz)。"""
+    """根据频谱能量与水击基频 a/(4L)，确定 FFT 有效显示上限 (Hz)。"""
     nyquist = float(frequencies[-1]) if len(frequencies) else 500.0
     if len(frequencies) < 2 or wellbore_length <= 0 or wavespeed <= 0:
         return min(10.0, nyquist)
@@ -437,8 +437,8 @@ def effective_fft_fmax(
     above = freqs[mag >= peak * peak_threshold]
     f_peak = float(above[-1]) if len(above) else f_energy
 
-    # 往返周期基频 f0 = a/(2L)，保留若干谐波作为物理下限
-    f0 = wavespeed / (2.0 * wellbore_length)
+    # 水击基频 f0 = a/(4L)（全周期 4L/a），保留若干谐波作为物理下限
+    f0 = wavespeed / (4.0 * wellbore_length)
     f_phys = harmonic_margin * f0
 
     f_max = max(f_energy, f_peak, f_phys)
@@ -468,9 +468,9 @@ def _plot_fft_panel(
         f_display_max = min(fft_fmax, fs / 2.0)
     mask_f = frequencies <= f_display_max
     ax.plot(frequencies[mask_f], magnitude[mask_f], 'b-', lw=1.2, label='FFT 幅值')
-    f0 = wavespeed / (2.0 * wellbore_length)
+    f0 = wavespeed / (4.0 * wellbore_length)
     ax.axvline(f0, color='orange', ls=':', lw=1.0, alpha=0.8,
-               label=f'往返基频 $f_0$={f0:.3f} Hz')
+               label=f'水击基频 $f_0$=a/(4L)={f0:.3f} Hz')
     ax.set_xlabel('频率 [Hz]')
     ax.set_ylabel('幅值 [m]')
     ax.set_title(f'井口水头频域曲线 (FFT) | 有效范围 0–{f_display_max:.2f} Hz')
@@ -491,18 +491,62 @@ def _fracture_match_tol_m(
     return float(np.clip(min_spacing * 0.45, 80.0, 250.0))
 
 
+def _peak_distance_bins(
+    depth_arr: np.ndarray,
+    n_resp: int,
+    fracture_depths_m: Optional[List[float]] = None,
+    v: Optional[float] = None,
+    fs: float = 1000.0,
+) -> int:
+    """寻峰最小间距（采样点数）。
+
+    若已知 ≥2 条缝深：按最小缝距设置（与 ``_kb_core.peak_find_params`` 一致）
+        distance = max(3, int(min_spacing / depth_step * 0.35))
+    否则回退：max(3, n // 200)
+    """
+    if len(depth_arr) >= 2:
+        depth_step = float(np.median(np.diff(depth_arr)))
+    elif v is not None and fs > 0:
+        depth_step = float(v) / (2.0 * fs)
+    else:
+        depth_step = 0.725
+
+    if depth_step <= 0:
+        depth_step = 0.725
+
+    if fracture_depths_m is not None and len(fracture_depths_m) >= 2:
+        sorted_d = sorted(float(d) for d in fracture_depths_m)
+        min_spacing = float(min(np.diff(sorted_d)))
+        if min_spacing > 0:
+            return max(3, int(min_spacing / depth_step * 0.35))
+
+    return max(3, n_resp // 200)
+
+
 def detect_1d_cepstrum_peaks(
     depth: np.ndarray,
     response: np.ndarray,
+    fracture_depths_m: Optional[List[float]] = None,
+    v: Optional[float] = None,
+    fs: float = 1000.0,
 ) -> List[Dict]:
-    """1D 实倒谱峰检测（与 plot_moc_cepstrum_analysis 第 3 子图同一套参数）。"""
+    """1D 实倒谱峰检测（与 plot_moc_cepstrum_analysis 第 3 / 5 子图同一套参数）。
+
+    Parameters
+    ----------
+    fracture_depths_m : 若提供 ≥2 条缝深，最小峰间距按实际最小缝距自适应；
+        否则用 n//200 启发式。
+    v, fs : 仅在 depth 轴不规则、需回退 depth_step=v/(2fs) 时使用。
+    """
     depth_arr = np.asarray(depth, dtype=float)
     resp_arr = np.asarray(response, dtype=float)
     if len(resp_arr) <= 20:
         return []
 
     peak_height_thresh = max(float(np.percentile(resp_arr, 95)), 0.01)
-    distance = max(3, len(resp_arr) // 200)
+    distance = _peak_distance_bins(
+        depth_arr, len(resp_arr), fracture_depths_m=fracture_depths_m, v=v, fs=fs,
+    )
     peaks, props = scipy_signal.find_peaks(
         resp_arr,
         height=peak_height_thresh,
@@ -532,7 +576,10 @@ def evaluate_1d_cepstrum_fracture_match(
     fs: float = 1000.0,
 ) -> Dict:
     """将 1D 实倒谱检测峰与名义缝深匹配，输出 JSON 友好摘要。"""
-    detected = detect_1d_cepstrum_peaks(depth, response)
+    detected = detect_1d_cepstrum_peaks(
+        depth, response,
+        fracture_depths_m=fracture_nominal_m, v=v, fs=fs,
+    )
     n_fracs = len(fracture_nominal_m)
     match_tol_m = _fracture_match_tol_m(fracture_nominal_m, v, fs)
 
@@ -956,7 +1003,10 @@ def plot_moc_cepstrum_analysis(
     ax3.plot(depth_1d, response_1d, 'b-', lw=1.0, label='1D 倒谱响应 (-C)')
     ax3.set_ylim(y_lo, y_hi)
 
-    detected_peaks = detect_1d_cepstrum_peaks(depth_arr, resp_arr)
+    detected_peaks = detect_1d_cepstrum_peaks(
+        depth_arr, resp_arr,
+        fracture_depths_m=fracture_positions, v=wavespeed, fs=fs,
+    )
     if detected_peaks:
         peak_depths = np.array([p['depth_m'] for p in detected_peaks])
         peak_heights = np.array([p['response'] for p in detected_peaks])
@@ -1019,7 +1069,10 @@ def plot_moc_cepstrum_analysis(
     ax5.plot(depth_prof, profile_2d, 'b-', lw=1.0, label='时间平均 (-C)')
     ax5.set_ylim(y_lo5, y_hi5)
 
-    profile_peaks = detect_1d_cepstrum_peaks(depth_prof, profile_2d)
+    profile_peaks = detect_1d_cepstrum_peaks(
+        depth_prof, profile_2d,
+        fracture_depths_m=fracture_positions, v=wavespeed, fs=fs,
+    )
     if profile_peaks:
         pk_d = np.array([p['depth_m'] for p in profile_peaks])
         pk_h = np.array([p['response'] for p in profile_peaks])

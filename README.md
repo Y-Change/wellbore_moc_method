@@ -24,12 +24,14 @@ wellbore_moc_method/
 │   └── cepstrum/                # 倒谱方法对比与窗长扫描
 │       ├── _kb_core.py          # Kaiser-Bessel / AR 倒谱核心算法
 │       ├── kaiser_bessel_multi.py  # 多缝 KB 方案对比（--friction steady|brunone）
-│       └── wlen_sweep.py        # 窗长扫描分析（--friction steady|brunone）
+│       ├── wlen_sweep.py        # 窗长扫描分析（--friction steady|brunone）
+│       └── spacing_resolvability.py  # steady_D* 缝距分辨能力汇总
 ├── analysis/
 │   └── window_comparison.py
 ├── legacy/                      # 旧版兼容 wrapper（见 legacy/README.md）
 │   └── wrappers/
 ├── docs/
+│   ├── PARAMETER_CHAIN.md       # 停泵→网格→倒谱→缝距区分参数链
 │   └── 计划及完成进度.md
 └── output/                      # 分级输出（见 output/README.md）
 ```
@@ -63,6 +65,16 @@ python validation/cepstrum/kaiser_bessel_multi.py --friction brunone --case quad
 python validation/cepstrum/wlen_sweep.py --friction steady --case all
 python validation/cepstrum/wlen_sweep.py --friction brunone --case dual --no-grid
 
+# 缝距分辨能力汇总（只读 steady_D* 的 moc_leakoff.json，不重跑仿真）
+python validation/cepstrum/spacing_resolvability.py
+
+# 1D 实倒谱过程可视化（默认 steady_D50/quad）
+python analysis/cepstrum_1d_pipeline.py
+
+# B_coh / N_harm,eff / Δd_min 正推（默认 steady_D50/single）
+python analysis/forward_resolvability.py
+python analysis/forward_resolvability.py --dr-db 80
+
 # Step 验证
 python validation/step01_joukowsky.py
 python validation/step03b_brunone.py
@@ -81,11 +93,12 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 
 | 脚本                       | 输出目录                                                           |
 | ------------------------ | -------------------------------------------------------------- |
-| `leakoff_multi.py`       | `output/leakoff/{steady|brunone|steady_D*|brunone_D*}/{case}/` |
-| `kaiser_bessel_multi.py` | `output/cepstrum/kaiser_bessel/{steady|brunone}/{case}/`       |
-| `wlen_sweep.py`          | `output/cepstrum/wlen_sweep/{steady|brunone}/{case}/`          |
-| `step01_joukowsky.py`    | `output/step01_joukowsky/`                                     |
-| `step03b_brunone.py`     | `output/step03b_brunone/`                                      |
+| `leakoff_multi.py`            | `output/leakoff/{steady|brunone|steady_D*|brunone_D*}/{case}/` |
+| `kaiser_bessel_multi.py`      | `output/cepstrum/kaiser_bessel/{steady|brunone}/{case}/`       |
+| `wlen_sweep.py`               | `output/cepstrum/wlen_sweep/{steady|brunone}/{case}/`          |
+| `spacing_resolvability.py`    | `output/leakoff/SPACING_RESOLVABILITY.md`                      |
+| `step01_joukowsky.py`         | `output/step01_joukowsky/`                                     |
+| `step03b_brunone.py`          | `output/step03b_brunone/`                                      |
 
 
 `leakoff_multi` 每个 case 目录下生成：
@@ -155,10 +168,12 @@ FRICTION_PARAMS     # steady / brunone / steady_D* / brunone_D*
 - 稳态 vs Brunone 摩阻
 - 滤失 + 摩阻（leakoff_multi：steady/brunone × single→quint）
 - 缝间距扫描（leakoff_multi：`*_D10/20/50/100`）
+- 缝距分辨能力汇总（spacing_resolvability → `SPACING_RESOLVABILITY.md`）
 - Kaiser-Bessel 倒谱方法对比（kaiser_bessel_multi）
 - 窗长对倒谱裂缝识别影响（wlen_sweep）
 
-详细进度见 `[docs/计划及完成进度.md](docs/计划及完成进度.md)`。
+参数链推导（停泵→网格→频/倒频→Δd_min）见 [`docs/PARAMETER_CHAIN.md`](docs/PARAMETER_CHAIN.md)。  
+详细进度见 [`docs/计划及完成进度.md`](docs/计划及完成进度.md)。
 
 ## 脚本与旧版 wrapper 对照
 

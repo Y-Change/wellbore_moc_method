@@ -1,6 +1,25 @@
 # output 分级目录说明
 
-采用三级模型：`output / {验证系列} / {用例} / {产物}.{ext}`
+采用三级模型：`output / {验证系列} / [{friction}/] {用例} / {产物}.{ext}`
+
+## leakoff 统一验证
+
+目录：`leakoff/{steady|brunone|steady_D*|brunone_D*}/{single|dual|triple|quad|quint}/`
+
+| 文件 | 内容 |
+|------|------|
+| `moc_leakoff.png` | 2×2 水击 / 差信号 / 缝节点图 |
+| `moc_leakoff.json` | PASS/FAIL 判定与 metrics（含 `cepstrum.1d_real`） |
+| `cepstrum_standard.png` | 倒谱五联图 |
+| `moc_timeseries.csv` | 井口与各缝口水头、流量时程 |
+
+系列级汇总（由 `validation/cepstrum/spacing_resolvability.py` 生成）：
+
+| 文件 | 内容 |
+|------|------|
+| `leakoff/SPACING_RESOLVABILITY.md` | steady_D* 缝距分辨能力：理论链 + 匹配矩阵 |
+
+参数链文档：[`docs/PARAMETER_CHAIN.md`](../docs/PARAMETER_CHAIN.md)。
 
 ## Step 物理验证（无 L2 用例）
 
@@ -12,19 +31,9 @@
 | `step04a_dual_fracture/` | 同上 |
 | `step04a_friction_only/` | 同上 |
 
-## 测试 B — 稳态摩阻 + 滤失（`steady_leakoff/`）
-
-目录：`steady_leakoff/{single|dual|triple|quad|quint}/`
-
-| 文件 | 内容 |
-|------|------|
-| `moc_leakoff.png` | 2×2 水击 / 差信号 / 缝节点图 |
-| `moc_leakoff.json` | PASS/FAIL 判定与 metrics |
-| `cepstrum_standard.png` | 四联标准倒谱图 |
-
 ## 倒谱方法对比 — Kaiser-Bessel
 
-目录：`cepstrum/kaiser_bessel/{single|dual|triple|quad|quint}/`
+目录：`cepstrum/kaiser_bessel/{steady|brunone}/{single|…|quint}/`
 
 | 文件 | 内容 |
 |------|------|
@@ -32,6 +41,10 @@
 | `profile_overlay.png` | 1D 时间平均剖面叠加 |
 | `profile_grid.png` | 5 方法 1D 分图 |
 | `metrics.json` | 各方法缝深匹配结果 |
+
+## 窗长扫描
+
+目录：`cepstrum/wlen_sweep/{steady|brunone}/{case}/`
 
 ## 分析
 
@@ -44,6 +57,4 @@
 
 ## 旧文件
 
-迁移前扁平 output（如 `test_b_fracture_leakoff.png`）已归档至 `output/_legacy/`。
-
-新运行结果写入 `output/{系列}/{用例}/`。
+迁移前扁平 output 已归档至 `output/_legacy/`。新结果写入 `output/{系列}/…`。
