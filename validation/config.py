@@ -38,10 +38,20 @@ FRACTURE_CONFIG = {
 
 # ── 倒谱参数（leakoff 标准倒谱图 / 2D cepstrogram）────────
 # win_type: rect | hamming | hanning | kaiser | gauss
+# 寻峰（1D 实倒谱 & 2D 时间平均剖面共用 detect_1d_cepstrum_peaks）:
+#   height = max(P{peak_height_pct}, peak_height_rel*max, peak_height_abs)
+#   Brunone 次峰偏弱：把 peak_height_abs 降到 0、peak_height_rel 降到 0.03~0.05
+#   可检出更多峰；过大则噪声峰也会进来。
 CEPSTRUM_CONFIG = {
-    'wlen_sec': 40.0,   # 2D 倒谱窗长 [s]
-    'hop_sec': 5.0,     # 2D 倒谱 hop [s]
-    'win_type': 'hamming', # 2D 倒谱窗型
+    'wlen_sec': 40.0,        # 2D 倒谱窗长 [s]
+    'hop_sec': 5.0,          # 2D 倒谱 hop [s]
+    'win_type': 'hamming',   # 2D 倒谱窗型
+    # ---- 寻峰 ----
+    'peak_height_pct': 90.0,     # 高度下界：响应分位数 [%]（原隐含 95）
+    'peak_height_rel': 0.05,     # 高度下界：相对全局 max 的比例（替代硬门限 0.01）
+    'peak_height_abs': 0.0,      # 绝对高度下限；0=关闭（原为 0.01，Brunone 易漏次峰）
+    'peak_distance_frac': 0.35,  # 最小峰间距 = frac × 最小缝距 / Δd_bin
+    'peak_top_n': 15,            # 最多保留峰数
 }
 
 # ── 缝形态：首缝 + 等间距生成 ─────────────────────────────

@@ -491,19 +491,38 @@ def _fracture_match_tol_m(
     return float(np.clip(min_spacing * 0.45, 80.0, 250.0))
 
 
+def _peak_find_cfg() -> Dict:
+    """从 validation.config.CEPSTRUM_CONFIG 读寻峰参数；缺省则用宽松默认。"""
+    try:
+        from validation.config import CEPSTRUM_CONFIG as C
+    except Exception:
+        C = {}
+    return {
+        'peak_height_pct': float(C.get('peak_height_pct', 90.0)),
+        'peak_height_rel': float(C.get('peak_height_rel', 0.05)),
+        'peak_height_abs': float(C.get('peak_height_abs', 0.0)),
+        'peak_distance_frac': float(C.get('peak_distance_frac', 0.35)),
+        'peak_top_n': int(C.get('peak_top_n', 15)),
+    }
+
+
 def _peak_distance_bins(
     depth_arr: np.ndarray,
     n_resp: int,
     fracture_depths_m: Optional[List[float]] = None,
     v: Optional[float] = None,
     fs: float = 1000.0,
+    distance_frac: Optional[float] = None,
 ) -> int:
     """寻峰最小间距（采样点数）。
 
     若已知 ≥2 条缝深：按最小缝距设置（与 ``_kb_core.peak_find_params`` 一致）
-        distance = max(3, int(min_spacing / depth_step * 0.35))
+        distance = max(3, int(min_spacing / depth_step * distance_frac))
     否则回退：max(3, n // 200)
     """
+    if distance_frac is None:
+        distance_frac = _peak_find_cfg()['peak_distance_frac']
+
     if len(depth_arr) >= 2:
         depth_step = float(np.median(np.diff(depth_arr)))
     elif v is not None and fs > 0:
@@ -518,7 +537,7 @@ def _peak_distance_bins(
         sorted_d = sorted(float(d) for d in fracture_depths_m)
         min_spacing = float(min(np.diff(sorted_d)))
         if min_spacing > 0:
-            return max(3, int(min_spacing / depth_step * 0.35))
+            return max(3, int(min_spacing / depth_step * distance_frac))
 
     return max(3, n_resp // 200)
 
@@ -532,6 +551,10 @@ def detect_1d_cepstrum_peaks(
 ) -> List[Dict]:
     """1D 实倒谱峰检测（与 plot_moc_cepstrum_analysis 第 3 / 5 子图同一套参数）。
 
+    高度门限（可由 CEPSTRUM_CONFIG 调节）::
+
+        height = max(P{pct}, rel * max(response), abs)
+
     Parameters
     ----------
     fracture_depths_m : 若提供 ≥2 条缝深，最小峰间距按实际最小缝距自适应；
@@ -543,9 +566,16 @@ def detect_1d_cepstrum_peaks(
     if len(resp_arr) <= 20:
         return []
 
-    peak_height_thresh = max(float(np.percentile(resp_arr, 95)), 0.01)
+    cfg = _peak_find_cfg()
+    rmax = float(np.max(resp_arr))
+    pct_thr = float(np.percentile(resp_arr, cfg['peak_height_pct']))
+    rel_thr = cfg['peak_height_rel'] * max(rmax, 0.0)
+    peak_height_thresh = max(pct_thr, rel_thr, cfg['peak_height_abs'])
+
     distance = _peak_distance_bins(
-        depth_arr, len(resp_arr), fracture_depths_m=fracture_depths_m, v=v, fs=fs,
+        depth_arr, len(resp_arr),
+        fracture_depths_m=fracture_depths_m, v=v, fs=fs,
+        distance_frac=cfg['peak_distance_frac'],
     )
     peaks, props = scipy_signal.find_peaks(
         resp_arr,
@@ -555,7 +585,7 @@ def detect_1d_cepstrum_peaks(
     if len(peaks) == 0:
         return []
 
-    top_n = min(15, len(peaks))
+    top_n = min(cfg['peak_top_n'], len(peaks))
     top_peaks = peaks[np.argsort(props['peak_heights'])[-top_n:]]
     order = top_peaks[np.argsort(resp_arr[top_peaks])[::-1]]
     return [

@@ -10,7 +10,8 @@
   - moc_leakoff.png       2×2 MOC 验证图
   - cepstrum_standard.png 标准倒谱图（时域/FFT/1D/2D/时间平均剖面）
   - moc_timeseries.csv    井口/缝口水头与流量时程
-  - moc_leakoff.json      PASS/FAIL 判定 + 1D 倒谱缝深匹配 (cepstrum.1d_real)
+  - moc_leakoff.json      PASS/FAIL 判定 + 倒谱缝深匹配
+                          (cepstrum.1d_real / cepstrum.2d_time_avg)
 
 运行
 ----
@@ -19,6 +20,11 @@
     python validation/leakoff_multi.py --friction steady_Dall --case all
     python validation/leakoff_multi.py --friction brunone_Dall --case dual
     python validation/leakoff_multi.py --friction brunone --case dual
+
+仅重绘倒谱图并更新 JSON（不重跑 MOC，读已有 moc_timeseries.csv）
+----
+    python validation/leakoff_multi.py --replay --friction steady_D20 --case quad
+    python validation/leakoff_multi.py --replay --friction steady_Dall --case all
 """
 from __future__ import annotations
 
@@ -27,7 +33,7 @@ import json
 import os
 import sys
 import time as time_module
-from typing import Dict, List
+from typing import Dict, List, Optional, Tuple
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
@@ -112,6 +118,128 @@ def resolve_cases(friction: str) -> Dict:
     if 'spacing_m' in fr:
         return build_cases(fr['spacing_m'])
     return CASES
+
+
+def _case_paths(friction: str, case_key: str) -> Dict[str, str]:
+    series = f"{SERIES_LEAKOFF}/{friction}"
+    return {
+        'series': series,
+        'csv': output_path(series, case_key, 'moc_timeseries.csv'),
+        'json': output_path(series, case_key, 'moc_leakoff.json'),
+        'cepstrum_png': output_path(series, case_key, 'cepstrum_standard.png'),
+        'moc_png': output_path(series, case_key, 'moc_leakoff.png'),
+    }
+
+
+def load_timeseries_csv(csv_path: str) -> Dict:
+    """读取 moc_timeseries.csv → t, H_wh, Q_wh, frac_heads, frac_Qs。"""
+    if not os.path.isfile(csv_path):
+        raise FileNotFoundError(f'找不到时程 CSV: {csv_path}')
+    with open(csv_path, encoding='utf-8') as f:
+        header = f.readline().strip().split(',')
+    data = np.loadtxt(csv_path, delimiter=',', skiprows=1)
+    if data.ndim == 1:
+        data = data.reshape(1, -1)
+    col = {name: i for i, name in enumerate(header)}
+    for req in ('t', 'H_wh', 'Q_wh'):
+        if req not in col:
+            raise ValueError(f'CSV 缺少列 {req}: {csv_path}')
+    n_frac = 0
+    while f'H_f{n_frac + 1}' in col and f'Q_f{n_frac + 1}' in col:
+        n_frac += 1
+    frac_heads = np.column_stack(
+        [data[:, col[f'H_f{k + 1}']] for k in range(n_frac)]
+    ) if n_frac else np.zeros((len(data), 0))
+    frac_Qs = np.column_stack(
+        [data[:, col[f'Q_f{k + 1}']] for k in range(n_frac)]
+    ) if n_frac else np.zeros((len(data), 0))
+    return {
+        't': data[:, col['t']],
+        'H_wh': data[:, col['H_wh']],
+        'Q_wh': data[:, col['Q_wh']],
+        'frac_heads': frac_heads,
+        'frac_Qs': frac_Qs,
+        'n_frac': n_frac,
+        'header': header,
+    }
+
+
+def _print_cep_match(tag: str, metrics: dict) -> None:
+    detail = ' '.join(
+        f"F{mt['frac_id']}:{mt['peak_depth_m']:.0f}m(Δ{mt['error_m']:.1f}m)"
+        if mt['matched'] and mt['peak_depth_m'] is not None
+        else f"F{mt['frac_id']}:×"
+        for mt in metrics['matches']
+    )
+    mean_e = metrics['mean_error_m']
+    max_e = metrics['max_error_m']
+    mean_s = f"{mean_e:.1f}" if mean_e is not None else "nan"
+    max_s = f"{max_e:.1f}" if max_e is not None else "nan"
+    print(
+        f"  [{tag}] {metrics['n_matched']}/{metrics['n_fracs']}匹配 "
+        f"mean_err={mean_s}m max_err={max_s}m  {detail}"
+    )
+
+
+def run_cepstrum_analysis_and_match(
+    t_sim: np.ndarray,
+    H_wh: np.ndarray,
+    *,
+    a_adj: float,
+    L: float,
+    ts: float,
+    dt: float,
+    x_f_list: List[float],
+    x_f_plot: List[float],
+    friction: str,
+    label: str,
+    kleak: float,
+    cep_path: str,
+) -> Tuple[Dict, Dict, Dict]:
+    """绘制倒谱五联图，并返回 (cep_result, cep_1d, cep_2d_avg)。"""
+    cep_result = plot_moc_cepstrum_analysis(
+        t_sim, H_wh,
+        wavespeed=a_adj, ts=ts, dt=dt, wellbore_length=L,
+        fracture_positions=x_f_plot, save_path=cep_path,
+        title_prefix=(
+            f"测试 {label} — 井口水头倒谱分析\n"
+            f"x_f={[round(x) for x in x_f_plot]}m, k_leak={kleak}, {friction} 摩阻"
+        ),
+        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC, win_type=CEP_WIN_TYPE,
+    )
+    fs_cep = cep_result['fs']
+    v_cep = cep_result['v']
+    cep_1d = evaluate_1d_cepstrum_fracture_match(
+        cep_result['depth_1d'], cep_result['response_1d'],
+        x_f_list, v=v_cep, fs=fs_cep,
+    )
+    cep_2d_avg = evaluate_1d_cepstrum_fracture_match(
+        cep_result['depth_profile_2d'], cep_result['response_profile_2d'],
+        x_f_list, v=v_cep, fs=fs_cep,
+    )
+    print(f"\n[倒谱] 缝深匹配 (名义缝深 {x_f_list}):")
+    _print_cep_match('1D 实倒谱', cep_1d)
+    _print_cep_match('2D 时间平均剖面', cep_2d_avg)
+    return cep_result, cep_1d, cep_2d_avg
+
+
+def cepstrum_block_for_json(cep_result: Dict, cep_1d: Dict, cep_2d_avg: Dict) -> Dict:
+    return {
+        "1d_real": cepstrum_match_summary_for_json(cep_1d),
+        "2d_time_avg": {
+            **cepstrum_match_summary_for_json(cep_2d_avg),
+            "wlen_sec": float(CEP_WLEN_SEC),
+            "hop_sec": float(CEP_HOP_SEC),
+            "win_type": CEP_WIN_TYPE,
+            "n_frames": int(len(cep_result['t_cep'])),
+        },
+    }
+
+
+def align_frac_to_grid(x_f_list: List[float], cfg: MocConfig) -> List[float]:
+    """名义缝深对齐到 MOC 网格节点。"""
+    x_grid = np.linspace(0.0, cfg.wellbore_length, cfg.N + 1)
+    return [float(x_grid[int(np.argmin(np.abs(x_grid - xf)))]) for xf in x_f_list]
 
 
 # ── 核心 ──────────────────────────────────────────────────
@@ -448,38 +576,12 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
 
     # ── 倒谱分析图 ────────────────────────────────────────
     cep_path = output_path(series, case_key, "cepstrum_standard.png")
-    cep_result = plot_moc_cepstrum_analysis(
+    cep_result, cep_1d, cep_2d_avg = run_cepstrum_analysis_and_match(
         t_sim, H_wh,
-        wavespeed=cfg.a_adj, ts=ts, dt=dt, wellbore_length=L,
-        fracture_positions=x_f_aligned, save_path=cep_path,
-        title_prefix=(
-            f"测试 {label} — 井口水头倒谱分析\n"
-            f"x_f={[round(x) for x in x_f_aligned]}m, k_leak={kleak}, {friction} 摩阻"
-        ),
-        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC, win_type=CEP_WIN_TYPE,
-    )
-
-    fs_cep = cep_result['fs']
-    v_cep = cep_result['v']
-    cep_1d = evaluate_1d_cepstrum_fracture_match(
-        cep_result['depth_1d'], cep_result['response_1d'],
-        x_f_list, v=v_cep, fs=fs_cep,
-    )
-
-    print(f"\n[倒谱] 1D 实倒谱缝深匹配 (名义缝深 {x_f_list}):")
-    detail = ' '.join(
-        f"F{mt['frac_id']}:{mt['peak_depth_m']:.0f}m(Δ{mt['error_m']:.1f}m)"
-        if mt['matched'] and mt['peak_depth_m'] is not None
-        else f"F{mt['frac_id']}:×"
-        for mt in cep_1d['matches']
-    )
-    mean_e = cep_1d['mean_error_m']
-    max_e = cep_1d['max_error_m']
-    mean_s = f"{mean_e:.1f}" if mean_e is not None else "nan"
-    max_s = f"{max_e:.1f}" if max_e is not None else "nan"
-    print(
-        f"  {cep_1d['n_matched']}/{cep_1d['n_fracs']}匹配 "
-        f"mean_err={mean_s}m max_err={max_s}m  {detail}"
+        a_adj=cfg.a_adj, L=L, ts=ts, dt=dt,
+        x_f_list=x_f_list, x_f_plot=x_f_aligned,
+        friction=friction, label=label, kleak=kleak,
+        cep_path=cep_path,
     )
 
     # ── JSON ──────────────────────────────────────────────
@@ -511,9 +613,7 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
             "t_arrive_toe": float(t_arrive_toe),
             "x_f_aligned": [float(x) for x in x_f_aligned],
         },
-        "cepstrum": {
-            "1d_real": cepstrum_match_summary_for_json(cep_1d),
-        },
+        "cepstrum": cepstrum_block_for_json(cep_result, cep_1d, cep_2d_avg),
         "config": {
             "L": L, "a": w['wavespeed'], "V0": w['V0'], "H0": w['H0'],
             "ts": ts, "dt": dt, "tf": tf,
@@ -526,6 +626,111 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"结果 JSON: {json_path}")
 
+    return result
+
+
+def replay_case(case_key: str, friction: str = 'steady') -> Dict:
+    """从已有 moc_timeseries.csv 重绘倒谱图并更新 JSON（不重跑 MOC）。
+
+    - 必读：moc_timeseries.csv
+    - 若存在 moc_leakoff.json：保留 verdicts/metrics，仅刷新 cepstrum
+    - 若不存在 JSON：写入仅含 config + cepstrum 的精简结果
+    """
+    cases = resolve_cases(friction)
+    if case_key not in cases:
+        raise KeyError(f'未知 case={case_key}，可选 {list(cases.keys())}')
+    cfg_case = cases[case_key]
+    label = cfg_case['label']
+    x_f_list = list(cfg_case['x_f_list'])
+    fr_params = FRICTION_PARAMS[friction]
+    fc = FRACTURE_CONFIG
+    kleak = fc['kleak']
+
+    paths = _case_paths(friction, case_key)
+    series = paths['series']
+    print("\n" + "=" * 72)
+    print(f"[replay] {label} — {fr_params['label']}")
+    print(f"  CSV : {paths['csv']}")
+    print(f"  JSON: {paths['json']}")
+    print("=" * 72)
+
+    ts_data = load_timeseries_csv(paths['csv'])
+    t_sim = ts_data['t']
+    H_wh = ts_data['H_wh']
+
+    prev: Optional[Dict] = None
+    if os.path.isfile(paths['json']):
+        with open(paths['json'], encoding='utf-8') as f:
+            prev = json.load(f)
+
+    # 优先用旧 JSON 的 config / 对齐缝深；否则用当前 config + 网格对齐
+    if prev and isinstance(prev.get('config'), dict):
+        cfg_prev = prev['config']
+        x_f_list = list(cfg_prev.get('x_f') or x_f_list)
+        L = float(cfg_prev.get('L', WELL_CONFIG['L']))
+        ts = float(cfg_prev.get('ts', SIM_CONFIG['ts']))
+        dt = float(cfg_prev.get('dt', SIM_CONFIG['dt']))
+        kleak = float(cfg_prev.get('kleak', kleak))
+    else:
+        L = float(WELL_CONFIG['L'])
+        ts = float(SIM_CONFIG['ts'])
+        dt = float(SIM_CONFIG['dt'])
+
+    cfg = _build_moc_config(friction)
+    # 若 JSON 里已有对齐缝深则直接用
+    x_f_aligned = None
+    if prev and isinstance(prev.get('metrics'), dict):
+        xa = prev['metrics'].get('x_f_aligned')
+        if xa and len(xa) == len(x_f_list):
+            x_f_aligned = [float(x) for x in xa]
+    if x_f_aligned is None:
+        x_f_aligned = align_frac_to_grid(x_f_list, cfg)
+
+    print(f"  L={L}m, a_adj={cfg.a_adj:.4f} m/s, ts={ts}s, dt={dt}s")
+    print(f"  x_f={x_f_list} → aligned={[round(x, 2) for x in x_f_aligned]}")
+    print(f"  时程点数={len(t_sim)}, t∈[{t_sim[0]:.3f}, {t_sim[-1]:.3f}]s")
+
+    cep_result, cep_1d, cep_2d_avg = run_cepstrum_analysis_and_match(
+        t_sim, H_wh,
+        a_adj=cfg.a_adj, L=L, ts=ts, dt=dt,
+        x_f_list=x_f_list, x_f_plot=x_f_aligned,
+        friction=friction, label=label, kleak=kleak,
+        cep_path=paths['cepstrum_png'],
+    )
+
+    cep_block = cepstrum_block_for_json(cep_result, cep_1d, cep_2d_avg)
+    if prev is None:
+        result = {
+            "verdicts": {},
+            "metrics": {"x_f_aligned": x_f_aligned},
+            "cepstrum": cep_block,
+            "config": {
+                "L": L,
+                "a": WELL_CONFIG['wavespeed'],
+                "V0": WELL_CONFIG['V0'],
+                "H0": WELL_CONFIG['H0'],
+                "ts": ts, "dt": dt, "tf": SIM_CONFIG['tf'],
+                "x_f": x_f_list,
+                "Cf": FRACTURE_CONFIG['Cf'],
+                "kleak": kleak,
+                "H_ext": FRACTURE_CONFIG['H_ext'],
+                "friction": friction,
+            },
+            "replay": True,
+        }
+    else:
+        result = dict(prev)
+        result['cepstrum'] = cep_block
+        result['replay'] = True
+        # 同步对齐缝深（若原先缺失）
+        if 'metrics' not in result or not isinstance(result['metrics'], dict):
+            result['metrics'] = {}
+        result['metrics']['x_f_aligned'] = x_f_aligned
+
+    with open(paths['json'], 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"结果 JSON 已更新: {paths['json']}")
+    print(f"倒谱图已更新: {paths['cepstrum_png']}")
     return result
 
 
@@ -557,23 +762,43 @@ def main():
         '--case', choices=['single', 'dual', 'triple', 'quad', 'quint', 'all'],
         default='all', help='运行哪个 case（默认 all）',
     )
+    parser.add_argument(
+        '--replay', action='store_true',
+        help='不重跑 MOC：从已有 moc_timeseries.csv 重绘倒谱图并更新 moc_leakoff.json',
+    )
     args = parser.parse_args()
 
     friction_keys = expand_friction_keys(args.friction)
     all_results: Dict[str, Dict] = {}
+    run_fn = replay_case if args.replay else run_case
+    mode = 'replay' if args.replay else 'simulate'
 
     for friction in friction_keys:
         cases = resolve_cases(friction)
         case_keys = list(cases.keys()) if args.case == 'all' else [args.case]
         results = {}
         for key in case_keys:
-            results[key] = run_case(key, friction=friction)
-        _summarize_friction(friction, case_keys, results)
+            results[key] = run_fn(key, friction=friction)
+        if not args.replay:
+            _summarize_friction(friction, case_keys, results)
+        else:
+            print("\n" + "=" * 72)
+            print(f"replay 完成 ({FRICTION_PARAMS[friction]['label']})")
+            for key in case_keys:
+                cep = results[key].get('cepstrum') or {}
+                r1 = cep.get('1d_real') or {}
+                r2 = cep.get('2d_time_avg') or {}
+                print(
+                    f"  {cases[key]['label']}: "
+                    f"1D {r1.get('n_matched', '?')}/{r1.get('n_fracs', '?')} | "
+                    f"2Davg {r2.get('n_matched', '?')}/{r2.get('n_fracs', '?')}"
+                )
+            print("=" * 72)
         all_results[friction] = results
 
     if len(friction_keys) > 1:
         print("\n" + "=" * 72)
-        print(f"批量完成 ({args.friction} → {friction_keys})")
+        print(f"批量完成 ({mode}: {args.friction} → {friction_keys})")
         print("=" * 72)
 
     return all_results if len(friction_keys) > 1 else all_results[friction_keys[0]]
