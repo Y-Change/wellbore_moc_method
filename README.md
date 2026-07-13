@@ -114,6 +114,8 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 | `cepstrum_standard.png` | 倒谱五联图（时域 / FFT / 1D 实倒谱 / 2D 倒谱 / 时间平均 1D 剖面） |
 | `moc_timeseries.csv`    | 井口与各缝口水头、流量时程（`t,H_wh,Q_wh,H_f1,Q_f1,...`）    |
 | `moc_leakoff.json`      | PASS/FAIL 判定与指标（含 `1d_real` 与 `2d_time_avg` 倒谱缝深匹配） |
+| `cepstrum_standard.png` | 标准倒谱五联图 |
+| `cepstrum_fracture_zoom.png` | 裂缝区三联放大（1D / 2D / 时间平均） |
 
 
 

@@ -9,6 +9,7 @@
 输出路径: output/leakoff/{friction}/{case}/
   - moc_leakoff.png       2×2 MOC 验证图
   - cepstrum_standard.png 标准倒谱图（时域/FFT/1D/2D/时间平均剖面）
+  - cepstrum_fracture_zoom.png 裂缝区三联放大（1D/2D/时间平均）
   - moc_timeseries.csv    井口/缝口水头与流量时程
   - moc_leakoff.json      PASS/FAIL 判定 + 倒谱缝深匹配
                           (cepstrum.1d_real / cepstrum.2d_time_avg)
@@ -56,6 +57,7 @@ from paths import output_path, SERIES_LEAKOFF
 from wellbore_moc import MocConfig, simulate_wellbore, G
 from cepstrum_mocdata import (
     plot_moc_cepstrum_analysis,
+    plot_moc_cepstrum_fracture_zoom,
     evaluate_1d_cepstrum_fracture_match,
     cepstrum_match_summary_for_json,
 )
@@ -127,6 +129,7 @@ def _case_paths(friction: str, case_key: str) -> Dict[str, str]:
         'csv': output_path(series, case_key, 'moc_timeseries.csv'),
         'json': output_path(series, case_key, 'moc_leakoff.json'),
         'cepstrum_png': output_path(series, case_key, 'cepstrum_standard.png'),
+        'cepstrum_zoom_png': output_path(series, case_key, 'cepstrum_fracture_zoom.png'),
         'moc_png': output_path(series, case_key, 'moc_leakoff.png'),
     }
 
@@ -195,17 +198,34 @@ def run_cepstrum_analysis_and_match(
     label: str,
     kleak: float,
     cep_path: str,
+    cep_zoom_path: Optional[str] = None,
 ) -> Tuple[Dict, Dict, Dict]:
-    """绘制倒谱五联图，并返回 (cep_result, cep_1d, cep_2d_avg)。"""
+    """绘制倒谱五联图 + 裂缝区三联放大图，并返回 (cep_result, cep_1d, cep_2d_avg)。"""
+    title_prefix = (
+        f"测试 {label} — 井口水头倒谱分析\n"
+        f"x_f={[round(x) for x in x_f_plot]}m, k_leak={kleak}, {friction} 摩阻"
+    )
     cep_result = plot_moc_cepstrum_analysis(
         t_sim, H_wh,
         wavespeed=a_adj, ts=ts, dt=dt, wellbore_length=L,
         fracture_positions=x_f_plot, save_path=cep_path,
+        title_prefix=title_prefix,
+        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC, win_type=CEP_WIN_TYPE,
+    )
+    if cep_zoom_path is None:
+        cep_zoom_path = os.path.join(
+            os.path.dirname(os.path.abspath(cep_path)),
+            'cepstrum_fracture_zoom.png',
+        )
+    plot_moc_cepstrum_fracture_zoom(
+        cep_result,
+        fracture_positions=x_f_plot,
+        save_path=cep_zoom_path,
         title_prefix=(
-            f"测试 {label} — 井口水头倒谱分析\n"
+            f"测试 {label} — 裂缝区倒谱放大\n"
             f"x_f={[round(x) for x in x_f_plot]}m, k_leak={kleak}, {friction} 摩阻"
         ),
-        wlen_sec=CEP_WLEN_SEC, hop_sec=CEP_HOP_SEC, win_type=CEP_WIN_TYPE,
+        wellbore_length=L,
     )
     fs_cep = cep_result['fs']
     v_cep = cep_result['v']
@@ -576,12 +596,14 @@ def run_case(case_key: str, friction: str = 'steady') -> Dict:
 
     # ── 倒谱分析图 ────────────────────────────────────────
     cep_path = output_path(series, case_key, "cepstrum_standard.png")
+    cep_zoom_path = output_path(series, case_key, "cepstrum_fracture_zoom.png")
     cep_result, cep_1d, cep_2d_avg = run_cepstrum_analysis_and_match(
         t_sim, H_wh,
         a_adj=cfg.a_adj, L=L, ts=ts, dt=dt,
         x_f_list=x_f_list, x_f_plot=x_f_aligned,
         friction=friction, label=label, kleak=kleak,
         cep_path=cep_path,
+        cep_zoom_path=cep_zoom_path,
     )
 
     # ── JSON ──────────────────────────────────────────────
@@ -696,6 +718,7 @@ def replay_case(case_key: str, friction: str = 'steady') -> Dict:
         x_f_list=x_f_list, x_f_plot=x_f_aligned,
         friction=friction, label=label, kleak=kleak,
         cep_path=paths['cepstrum_png'],
+        cep_zoom_path=paths['cepstrum_zoom_png'],
     )
 
     cep_block = cepstrum_block_for_json(cep_result, cep_1d, cep_2d_avg)

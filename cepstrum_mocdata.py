@@ -6,12 +6,13 @@ MOC 仿真井口水头倒谱分析 — 供 validate_moc_*.py 可视化调用
   · 1D 实倒谱 (real cepstrum) — 全序列 FFT，无滑窗
   · 2D 倒谱图 (cepstrogram)   — 短时滑窗，参考 cepstrum_2d.py
   · plot_moc_cepstrum_analysis — 时域 / FFT / 1D + 2D + 时间平均剖面 五联图
+  · plot_moc_cepstrum_fracture_zoom — 裂缝区三联放大（1D / 2D / 时间平均）
 """
 
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -797,43 +798,67 @@ def _mark_fractures_below_1d_axis(
     ax,
     fracture_positions: List[float],
 ) -> None:
-    """在 1D 实倒谱横轴下方用箭头标注裂缝深度（无图内竖线）。"""
+    """兼容旧名 → ``_mark_true_fractures``。"""
+    _mark_true_fractures(ax, fracture_positions)
+
+
+def _mark_true_fractures(
+    ax,
+    fracture_positions: List[float],
+    *,
+    draw_vline: bool = True,
+) -> None:
+    """真实裂缝标注（避免与横轴刻度 / 「深度」标签抢位）。
+
+    - 图内 **黄色虚线** 标缝深
+    - 图内偏下 **橙色三角**
+    - 图内偏上 **横排深度文字**（白底，相邻缝错层）
+    - 检测峰仍用曲线上的红倒三角，二者不混用
+    """
     if not fracture_positions:
         return
 
     from matplotlib.transforms import blended_transform_factory
 
-    trans = blended_transform_factory(ax.transData, ax.transAxes)
+    depths = [float(d) for d in fracture_positions]
     xlim = ax.get_xlim()
-    x_span = xlim[1] - xlim[0]
-    depths = list(fracture_positions)
-    levels = _assign_fracture_label_levels(depths, x_span)
+    x_span = max(float(xlim[1] - xlim[0]), 1.0)
+    min_gap_abs = max(6.0, 0.03 * x_span)
+    levels = _assign_fracture_label_levels(
+        depths, x_span, min_gap_frac=0.035, min_gap_abs=min_gap_abs,
+    )
+    trans = blended_transform_factory(ax.transData, ax.transAxes)
 
-    base_y = -0.09
-    level_dy = 0.065
-    y_tip = 0.012
+    if draw_vline:
+        for depth in depths:
+            ax.axvline(
+                depth, color='yellow', ls='--', lw=1.5, alpha=0.95, zorder=4,
+            )
 
+    # 偏下橙色三角
+    tri_y = 0.06
+    for depth in depths:
+        ax.plot(
+            depth, tri_y,
+            marker='^', markersize=7, color='#ff8c00',
+            markeredgecolor='#8b4500', markeredgewidth=0.6,
+            linestyle='None', transform=trans, clip_on=True, zorder=12,
+        )
+
+    # 偏上横排深度文字（白底，错层）
+    base_y = 0.97
+    level_dy = 0.09
     for i, depth in enumerate(depths):
-        y_label = base_y - levels[i] * level_dy
-        ax.annotate(
-            f'{depth:.0f}m',
-            xy=(depth, y_tip),
-            xycoords=trans,
-            xytext=(depth, y_label),
-            textcoords=trans,
-            fontsize=8,
-            color='darkred',
-            ha='center',
-            va='top',
-            arrowprops=dict(
-                arrowstyle='->',
-                color='darkred',
-                lw=1.2,
-                shrinkA=0,
-                shrinkB=1,
+        y_lab = base_y - levels[i] * level_dy
+        ax.text(
+            depth, y_lab, f'{depth:.0f}m',
+            transform=trans, fontsize=8, color='#c45c00',
+            ha='center', va='top', rotation=0, clip_on=True, zorder=12,
+            fontweight='bold',
+            bbox=dict(
+                boxstyle='round,pad=0.15',
+                facecolor='white', edgecolor='none', alpha=0.85,
             ),
-            clip_on=False,
-            zorder=10,
         )
 
 
@@ -1059,7 +1084,7 @@ def plot_moc_cepstrum_analysis(
     ax3.legend(fontsize=9)
     ax3.xaxis.set_minor_locator(AutoMinorLocator())
     ax3.minorticks_on()
-    _mark_fractures_below_1d_axis(ax3, fracture_positions)
+    _mark_true_fractures(ax3, fracture_positions)
 
     # Row 4: 2D 倒谱图（转置：x=深度, y=时间）
     ax4 = plt.subplot(5, 1, 4)
@@ -1085,6 +1110,7 @@ def plot_moc_cepstrum_analysis(
         ax4.set_xlim([x_lo, x_hi])
     ax4.xaxis.set_minor_locator(AutoMinorLocator())
     ax4.minorticks_on()
+    _mark_true_fractures(ax4, fracture_positions)
     cbar = fig.colorbar(
         im, ax=ax4, orientation='horizontal',
         pad=0.08, fraction=0.05, aspect=40,
@@ -1128,7 +1154,7 @@ def plot_moc_cepstrum_analysis(
     ax5.legend(fontsize=9)
     ax5.xaxis.set_minor_locator(AutoMinorLocator())
     ax5.minorticks_on()
-    _mark_fractures_below_1d_axis(ax5, fracture_positions)
+    _mark_true_fractures(ax5, fracture_positions)
 
     plt.tight_layout(rect=[0, 0, 1.0, 0.96])
     if save_path is not None:
@@ -1168,4 +1194,210 @@ def plot_moc_cepstrum_analysis(
         'fs': fs,
         'figure_path': str(save_path) if save_path else None,
         'detected_peaks': detected_peaks,
+    }
+
+
+def fracture_zoom_xlim(
+    fracture_positions: List[float],
+    margin_m: float = 100.0,
+    wellbore_length: float = 5000.0,
+    min_width_m: float = 50.0,
+) -> Tuple[float, float]:
+    """按缝深群确定放大图深度范围 [lo, hi]。"""
+    fracs = [float(x) for x in (fracture_positions or [])]
+    if not fracs:
+        return 0.0, float(wellbore_length)
+    lo = min(fracs) - float(margin_m)
+    hi = max(fracs) + float(margin_m)
+    width = hi - lo
+    need = max(float(min_width_m), 2.0 * float(margin_m))
+    if width < need:
+        mid = 0.5 * (lo + hi)
+        lo, hi = mid - 0.5 * need, mid + 0.5 * need
+    lo = max(0.0, lo)
+    hi = min(float(wellbore_length), hi)
+    if hi <= lo:
+        hi = min(float(wellbore_length), lo + need)
+    return float(lo), float(hi)
+
+
+def plot_moc_cepstrum_fracture_zoom(
+    cep_result: Dict,
+    fracture_positions: Optional[List[float]] = None,
+    save_path: Optional[Union[str, os.PathLike]] = None,
+    title_prefix: str = '裂缝区倒谱放大',
+    margin_m: Optional[float] = None,
+    wellbore_length: float = 5000.0,
+    show: bool = False,
+) -> Dict:
+    """复用 plot_moc_cepstrum_analysis 结果，绘制裂缝区三联图。
+
+    子图：1D 实倒谱 / 2D 倒谱图 / 2D 时间平均 1D 深度剖面；
+    X 轴仅显示缝群附近（margin 由 CEPSTRUM_CONFIG['fracture_zoom_margin_m'] 控制）。
+    """
+    fracture_positions = list(fracture_positions or [])
+    if margin_m is None:
+        try:
+            from validation.config import CEPSTRUM_CONFIG as _C
+            margin_m = float(_C.get('fracture_zoom_margin_m', 100.0))
+        except Exception:
+            margin_m = 100.0
+
+    x_lo, x_hi = fracture_zoom_xlim(
+        fracture_positions, margin_m=margin_m, wellbore_length=wellbore_length,
+    )
+    v = float(cep_result['v'])
+    fs = float(cep_result['fs'])
+    depth_1d = np.asarray(cep_result['depth_1d'], dtype=float)
+    response_1d = np.asarray(cep_result['response_1d'], dtype=float)
+    C = np.asarray(cep_result['C_2d'])
+    q = np.asarray(cep_result['q_2d'], dtype=float)
+    t_cep = np.asarray(cep_result['t_cep'], dtype=float)
+    depth_prof = np.asarray(cep_result['depth_profile_2d'], dtype=float)
+    profile_2d = np.asarray(cep_result['response_profile_2d'], dtype=float)
+    result_1d = cep_result.get('result_1d') or {}
+    result_2d = cep_result.get('result_2d') or {}
+    wlen_sec = float(result_2d.get('wlen_sec', cep_result.get('wlen_sec', 40.0)))
+    hop_sec = float(result_2d.get('hop_sec', cep_result.get('hop_sec', 5.0)))
+    win_used = result_2d.get('win_type', 'hamming')
+
+    fig = plt.figure(figsize=(14, 14))
+    fig.suptitle(
+        f'{title_prefix}\n'
+        f'裂缝区深度 {x_lo:.0f}–{x_hi:.0f} m'
+        f'（margin={margin_m:.0f} m）| v={v:.1f} m/s | '
+        f'2D wlen={wlen_sec:.3f}s, hop={hop_sec}s, win={win_used}',
+        fontsize=12, fontweight='bold',
+    )
+    # 行：1D / 2D / 水平 colorbar / 时间平均；专用 colorbar 行避免压住下方标题
+    gs = fig.add_gridspec(
+        4, 1,
+        height_ratios=[1.0, 1.05, 0.10, 1.0],
+        hspace=0.45,
+        top=0.90, bottom=0.07, left=0.08, right=0.96,
+    )
+    ax1 = fig.add_subplot(gs[0, 0])
+    ax2 = fig.add_subplot(gs[1, 0])
+    cax = fig.add_subplot(gs[2, 0])
+    ax3 = fig.add_subplot(gs[3, 0])
+
+    def _style_depth_xaxis(ax) -> None:
+        ax.set_xlim([x_lo, x_hi])
+        ax.set_xlabel('深度 [m]')
+        ax.tick_params(axis='x', labelbottom=True)
+        ax.xaxis.set_minor_locator(AutoMinorLocator())
+        ax.minorticks_on()
+
+    # --- 1D 实倒谱 ---
+    mask1 = (depth_1d >= x_lo) & (depth_1d <= x_hi)
+    d1, r1 = depth_1d[mask1], response_1d[mask1]
+    if len(r1) > 0:
+        y_lo, y_hi = _robust_response_ylim(r1)
+        ax1.set_ylim(y_lo, y_hi)
+    ax1.plot(depth_1d, response_1d, 'b-', lw=1.0, label='1D 倒谱响应 (-C)')
+    peaks_1d = [
+        p for p in (cep_result.get('detected_peaks') or [])
+        if x_lo <= p['depth_m'] <= x_hi
+    ]
+    if not peaks_1d and len(d1) > 20:
+        peaks_1d = detect_1d_cepstrum_peaks(
+            d1, r1, fracture_depths_m=fracture_positions, v=v, fs=fs,
+        )
+    if peaks_1d:
+        pk_d = np.array([p['depth_m'] for p in peaks_1d])
+        pk_h = np.array([p['response'] for p in peaks_1d])
+        ax1.scatter(pk_d, pk_h, c='r', s=55, zorder=5, marker='v',
+                    label=f'检测峰 ({len(pk_d)}个)')
+        for pd, ph in zip(pk_d, pk_h):
+            ax1.annotate(f'{pd:.0f}m', (pd, ph),
+                         textcoords='offset points', xytext=(0, 8),
+                         fontsize=8, color='r', ha='center', clip_on=True)
+    lim1 = result_1d.get('lim1', 0.0)
+    lim2 = result_1d.get('lim2', float('nan'))
+    ax1.set_title(
+        f'1D 实倒谱（全序列，无滑窗）| lim=[{lim1:.3f}, {lim2:.3f}] s'
+    )
+    ax1.set_ylabel('倒谱能量 (-C)')
+    _style_depth_xaxis(ax1)
+    ax1.grid(True, ls='--', alpha=0.6)
+    ax1.legend(fontsize=9)
+    _mark_true_fractures(ax1, fracture_positions)
+
+    # --- 2D 倒谱 ---
+    Q_depth = q * v / 2.0
+    D_mesh, T_mesh = np.meshgrid(Q_depth, t_cep)
+    C_data = -C
+    # 色标按本图可见深度区独立计算（与标准全井图分开）
+    mask_d = (Q_depth >= x_lo) & (Q_depth <= x_hi)
+    if np.any(mask_d):
+        C_scale = C_data[mask_d, :]
+    else:
+        C_scale = C_data
+    vmin = float(np.percentile(C_scale, 2))
+    vmax = float(np.percentile(C_scale, 98))
+    if vmax <= vmin:
+        vmax = vmin + 0.01
+    im = ax2.pcolormesh(
+        D_mesh, T_mesh, C_data.T, shading='auto', cmap='jet',
+        vmin=vmin, vmax=vmax,
+    )
+    ax2.set_ylabel('时间 [s]')
+    ax2.set_title(
+        f'2D 倒谱图 (Cepstrogram) | wlen={wlen_sec:.3f}s, hop={hop_sec}s, win={win_used}'
+    )
+    _style_depth_xaxis(ax2)
+    _mark_true_fractures(ax2, fracture_positions)
+    cbar = fig.colorbar(im, cax=cax, orientation='horizontal')
+    cbar.set_label('倒谱能量 (-C)', fontsize=10)
+
+    # --- 2D 时间平均剖面 ---
+    mask3 = (depth_prof >= x_lo) & (depth_prof <= x_hi)
+    d3, p3 = depth_prof[mask3], profile_2d[mask3]
+    if len(p3) > 0:
+        y_lo3, y_hi3 = _robust_response_ylim(p3)
+        ax3.set_ylim(y_lo3, y_hi3)
+    ax3.plot(depth_prof, profile_2d, 'b-', lw=1.0, label='时间平均 (-C)')
+    peaks_2d = [
+        p for p in (cep_result.get('profile_peaks') or [])
+        if x_lo <= p['depth_m'] <= x_hi
+    ]
+    if not peaks_2d and len(d3) > 20:
+        peaks_2d = detect_1d_cepstrum_peaks(
+            d3, p3, fracture_depths_m=fracture_positions, v=v, fs=fs,
+        )
+    if peaks_2d:
+        pk_d = np.array([p['depth_m'] for p in peaks_2d])
+        pk_h = np.array([p['response'] for p in peaks_2d])
+        ax3.scatter(pk_d, pk_h, c='r', s=55, zorder=5, marker='v',
+                    label=f'检测峰 ({len(pk_d)}个)')
+        for pd, ph in zip(pk_d, pk_h):
+            ax3.annotate(f'{pd:.0f}m', (pd, ph),
+                         textcoords='offset points', xytext=(0, 8),
+                         fontsize=8, color='r', ha='center', clip_on=True)
+    ax3.set_ylabel('时间平均倒谱响应 (-C)')
+    ax3.set_title(
+        f'2D 倒谱时间平均 1D 深度剖面 | '
+        f'wlen={wlen_sec:.3f}s, hop={hop_sec}s, win={win_used}, '
+        f'n_frames={len(t_cep)}'
+    )
+    _style_depth_xaxis(ax3)
+    ax3.grid(True, ls='--', alpha=0.6)
+    ax3.legend(fontsize=9)
+    _mark_true_fractures(ax3, fracture_positions)
+
+    if save_path is not None:
+        os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
+        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+        print(f"  裂缝区倒谱放大图已保存: {save_path}")
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)
+
+    return {
+        'xlim': (x_lo, x_hi),
+        'margin_m': float(margin_m),
+        'peaks_1d': peaks_1d,
+        'peaks_2d_avg': peaks_2d,
+        'figure_path': str(save_path) if save_path else None,
     }

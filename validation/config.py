@@ -43,20 +43,22 @@ FRACTURE_CONFIG = {
 #   Brunone 次峰偏弱：把 peak_height_abs 降到 0、peak_height_rel 降到 0.03~0.05
 #   可检出更多峰；过大则噪声峰也会进来。
 CEPSTRUM_CONFIG = {
-    'wlen_sec': 40.0,        # 2D 倒谱窗长 [s]
+    'wlen_sec': 30.0,        # 2D 倒谱窗长 [s]
     'hop_sec': 5.0,          # 2D 倒谱 hop [s]
     'win_type': 'hamming',   # 2D 倒谱窗型
     # ---- 寻峰 ----
-    'peak_height_pct': 90.0,     # 高度下界：响应分位数 [%]（原隐含 95）
-    'peak_height_rel': 0.05,     # 高度下界：相对全局 max 的比例（替代硬门限 0.01）
+    'peak_height_pct': 85.0,     # 高度下界：响应分位数 [%]（原隐含 95）
+    'peak_height_rel': 0.03,     # 高度下界：相对全局 max 的比例（替代硬门限 0.01）
     'peak_height_abs': 0.0,      # 绝对高度下限；0=关闭（原为 0.01，Brunone 易漏次峰）
-    'peak_distance_frac': 0.35,  # 最小峰间距 = frac × 最小缝距 / Δd_bin
-    'peak_top_n': 15,            # 最多保留峰数
+    'peak_distance_frac': 0.25,  # 最小峰间距 = frac × 最小缝距 / Δd_bin
+    'peak_top_n': 10,            # 最多保留峰数
+    # ---- 裂缝区放大图（cepstrum_fracture_zoom.png）----
+    'fracture_zoom_margin_m': 100.0,  # 缝群两侧各扩展 [m]
 }
 
 # ── 缝形态：首缝 + 等间距生成 ─────────────────────────────
 FRAC_FIRST_M = 4100.0
-SPACING_PRESETS_M = (10, 20, 50, 100)
+SPACING_PRESETS_M = (5, 10, 20, 50, 100)
 
 
 def build_cases(spacing_m: float) -> Dict[str, Dict]:

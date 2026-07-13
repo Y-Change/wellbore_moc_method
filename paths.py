@@ -19,7 +19,9 @@ SERIES_STEP04A_FRICTION = "step04a_friction_only"
 SERIES_LEAKOFF = "leakoff"
 SERIES_CEPSTRUM_KB = "cepstrum/kaiser_bessel"
 SERIES_CEPSTRUM_WLEN_SWEEP = "cepstrum/wlen_sweep"
+SERIES_CEPSTRUM_WLEN_HOP = "cepstrum/wlen_hop_sweep"
 SERIES_ANALYSIS_WINDOW = "analysis/window_comparison"
+SERIES_ENERGY_REGRESSION = "analysis/energy_regression"
 
 # L2 用例（缝数）
 CASE_SINGLE = "single"
