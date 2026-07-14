@@ -109,7 +109,7 @@ def _peak_fwhm(depth: np.ndarray, profile: np.ndarray, peak_idx: int) -> float:
             d_right = d2
     else:
         d_right = float(depth[peak_idx])
-    return float(abs(d_right - d_left))
+    return abs(d_right - d_left)
 
 
 def _sidelobe_suppression(
@@ -142,7 +142,7 @@ def _spacing_error(
         return np.nan
     sorted_peaks = np.sort(depth[peaks])
     detected_spacing = float(np.median(np.diff(sorted_peaks)))
-    return float(abs(detected_spacing - true_spacing_m))
+    return abs(detected_spacing - true_spacing_m)
 
 
 # ── 单工况扫描 ────────────────────────────────────────────
@@ -176,9 +176,9 @@ def sweep_one_case(
     cfg_case = cases[case_key]
     x_f_list = list(cfg_case['x_f_list'])
     fr_params = FRICTION_PARAMS[friction_key]
-    Cf = float(FRACTURE_CONFIG['Cf'])
-    kleak = float(FRACTURE_CONFIG['kleak'])
-    H_ext = float(FRACTURE_CONFIG['H_ext'])
+    Cf = FRACTURE_CONFIG['Cf']
+    kleak = FRACTURE_CONFIG['kleak']
+    H_ext = FRACTURE_CONFIG['H_ext']
 
     print("\n" + "=" * 72)
     print(f"(wlen, hop) 扫描 — {friction_key} | {case_key} | D={spacing_m}m | "
@@ -253,9 +253,9 @@ def sweep_one_case(
                     )
 
             results.append({
-                'wlen_sec': float(wlen),
-                'hop_ratio': float(hop_ratio),
-                'hop_sec': float(hop_ratio * wlen),
+                'wlen_sec': wlen,
+                'hop_ratio': hop_ratio,
+                'hop_sec': hop_ratio * wlen,
                 'note': note,
                 'n_matched': int(metrics['n_matched']),
                 'n_fracs': int(metrics['n_fracs']),
@@ -264,11 +264,11 @@ def sweep_one_case(
                                  if np.isfinite(metrics['mean_error_m']) else None,
                 'max_error_m': float(metrics['max_error_m'])
                                if np.isfinite(metrics['max_error_m']) else None,
-                'snr': float(snr) if np.isfinite(snr) else None,
-                'spacing_error_m': float(spacing_err) if np.isfinite(spacing_err) else None,
-                'fwhm_m': float(fwhm) if np.isfinite(fwhm) else None,
-                'sidelobe_suppression': float(side_supp) if np.isfinite(side_supp) else None,
-                'elapsed_s': float(elapsed),
+                'snr': snr if np.isfinite(snr) else None,
+                'spacing_error_m': spacing_err if np.isfinite(spacing_err) else None,
+                'fwhm_m': fwhm if np.isfinite(fwhm) else None,
+                'sidelobe_suppression': side_supp if np.isfinite(side_supp) else None,
+                'elapsed_s': elapsed,
                 'n_frames': int(C.shape[1]),
                 'n_quefrency': int(C.shape[0]),
             })
@@ -283,11 +283,11 @@ def sweep_one_case(
     out = {
         'friction': friction_key,
         'case': case_key,
-        'spacing_m': float(spacing_m),
+        'spacing_m': spacing_m,
         'method': method,
         'x_f_aligned_m': x_f_aligned,
-        'true_spacing_m': float(true_spacing),
-        'wlen_min_s': float(wlen_min),
+        'true_spacing_m': true_spacing,
+        'wlen_min_s': wlen_min,
         'results': results,
     }
 

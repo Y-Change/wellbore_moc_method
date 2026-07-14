@@ -177,7 +177,7 @@ def heatmap_with_contour(
                                   fraction=cbar_fraction, pad=cbar_pad)
         cbar.set_label(cbar_label, fontsize=plt.rcParams['axes.labelsize'])
         cbar.ax.tick_params(labelsize=plt.rcParams['ytick.labelsize'], length=0)
-        cbar.outline.set_linewidth(0.5)
+        cbar.outline.set_linewidth(0.5)  # type: ignore
     if mark_best is not None:
         bx, by = mark_best
         ax.scatter([bx], [by], marker='*', s=80, c=mark_color,
@@ -227,7 +227,7 @@ def faceted_heatmap(
         )
         cbar.set_label(cbar_label, fontsize=plt.rcParams['axes.labelsize'])
         cbar.ax.tick_params(labelsize=plt.rcParams['ytick.labelsize'], length=0)
-        cbar.outline.set_linewidth(0.5)
+        cbar.outline.set_linewidth(0.5)  # type: ignore
     if common_title:
         last_mesh.figure.suptitle(common_title, fontweight='bold')
 

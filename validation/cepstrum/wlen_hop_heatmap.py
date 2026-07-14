@@ -88,7 +88,7 @@ def _best_point(Z: np.ndarray, wlens: List[float], hops: List[float],
     else:
         idx = np.nanargmin(Z)
     wi, hi = np.unravel_index(idx, Z.shape)
-    return float(wlens[wi]), float(hops[hi]), float(Z[wi, hi])
+    return wlens[wi], hops[hi], float(Z[wi, hi])
 
 
 def plot_metric_heatmaps(
