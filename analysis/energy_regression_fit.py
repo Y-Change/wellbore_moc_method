@@ -115,9 +115,9 @@ def fit_loglog_powerlaw(rows: List[Dict], energy_key: str) -> Dict:
     names = ['intercept', 'log_Cf', 'log_kleak', 'log_spacing', 'log_n_fracs', 'I_brunone']
     return {
         'ok': True,
-        'n_samples': int(len(X)),
+        'n_samples': len(X),
         'coef': dict(zip(names, coef.tolist())),
-        'r2': float(r2),
+        'r2': r2,
         'y_pred': y_pred.tolist(),
         'y_true': y.tolist(),
     }
@@ -144,7 +144,7 @@ def fit_poly2_main_grid(rows: List[Dict], energy_key: str, friction: str) -> Dic
     ss_res = float(np.sum((y - y_pred) ** 2))
     ss_tot = float(np.sum((y - np.mean(y)) ** 2))
     r2 = 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
-    return {'ok': True, 'n_samples': len(sub), 'r2': float(r2),
+    return {'ok': True, 'n_samples': len(sub), 'r2': r2,
             'coef': coef.tolist()}
 
 

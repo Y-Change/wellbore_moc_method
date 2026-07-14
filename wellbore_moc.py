@@ -103,7 +103,7 @@ class MocConfig:
     def __post_init__(self):
         self.area = np.pi * self.wellbore_diameter**2 / 4.0
         # Courant 精确：N = round(L/(a dt))，再调 a 使 a dt / dx = 1
-        N_raw = int(round(self.wellbore_length / (self.wavespeed * self.dt)))
+        N_raw = round(self.wellbore_length / (self.wavespeed * self.dt))
         if N_raw < 4:
             raise ValueError(
                 f"分段数过小 N={N_raw}，请减小 dt 或加长井筒。"
@@ -114,7 +114,7 @@ class MocConfig:
         # 调整波速使 a dt = dx
         self.a_adj = self.dx / self.dt
         self.dt_adj = self.dt
-        self.n_steps = int(round(self.tf / self.dt))
+        self.n_steps = round(self.tf / self.dt)
 
 
 # =====================================================================
@@ -141,7 +141,7 @@ def darcy_friction_factor(Re: float, K_D: float, model: str = "steady") -> float
     return f
 
 
-def friction_term_J(f: float, D: float, V: float, dt: float) -> float:
+def friction_term_J(f: float, D: float, V: float | np.ndarray, dt: float) -> float | np.ndarray:
     """稳态达西摩阻项 J = f dt V|V| / (2 D)"""
     return f * dt * V * abs(V) / (2.0 * D)
 
@@ -339,7 +339,7 @@ def simulate_wellbore(
         # 缝位置对齐到最近网格点
         frac_indices = []
         for xf in fracture_positions:
-            idx = int(round(xf / dx))
+            idx = round(xf / dx)
             idx = max(1, min(N - 1, idx))   # 不能在边界上
             frac_indices.append(idx)
         frac_Cf_arr = np.array(fracture_Cf, dtype=np.float64)
@@ -415,11 +415,13 @@ def simulate_wellbore(
     snapshot_steps = set()
     if snapshot_times:
         for st in snapshot_times:
-            si = int(round(st / dt))
+            si = round(st / dt)
             if 0 <= si <= n_steps:
                 snapshot_steps.add(si)
 
     # 裂缝记录
+    frac_head_hist = np.zeros((0, 0))
+    frac_Q_hist = np.zeros((0, 0))
     if has_fractures:
         frac_head_hist = np.zeros((n_steps + 1, n_frac))
         frac_Q_hist = np.zeros((n_steps + 1, n_frac))
@@ -582,7 +584,7 @@ def simulate_wellbore(
         wh_vel_hist[n] = V_new[0]
         toe_head_hist[n] = H_new[-1]
         toe_vel_hist[n] = V_new[-1]
-        if store_full_field:
+        if store_full_field and head_hist is not None and vel_hist is not None:
             head_hist[n] = H_new
             vel_hist[n] = V_new
         # 空间快照
@@ -674,7 +676,7 @@ def simulate_case(config: Dict, friction_model: str = "steady") -> Dict:
     H_ext = float(config.get("H_ext", 0.0))
 
     # 大仿真时自动关闭完整场存储（>10万步 × >1000节点 → >1GB）
-    n_steps_est = int(round(cfg.tf / cfg.dt))
+    n_steps_est = round(cfg.tf / cfg.dt)
     store_full = (n_steps_est * cfg.N) < 5_000_000   # 5M 点 ≈ 40MB
 
     # Step 3: 接缝（若 fracture_positions 非空）
