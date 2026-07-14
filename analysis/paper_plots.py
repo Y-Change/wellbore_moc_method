@@ -280,14 +280,9 @@ def save_figure(
     """Save figure as PNG (path) + optional SVG/PDF with same base name.
 
     SVG is primary (editable text); PNG is raster preview.
-    Note: figures using shared colorbars should be created with
-    constrained_layout=True instead of relying on tight_layout.
     """
     os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
-    # constrained_layout figures manage their own spacing; only call tight_layout
-    # for figures not using it (detected via rcParams or fig flag)
-    if not getattr(fig, '_layout_engine', None):
-        fig.tight_layout(pad=pad)
+    fig.tight_layout(pad=pad)
     fig.savefig(path, dpi=dpi, bbox_inches='tight')
     if also_svg:
         svg_path = os.path.splitext(path)[0] + '.svg'

@@ -95,7 +95,6 @@ def _hop_avg(results: List[Dict], key: str
 def plot_effectiveness_panels(all_data: Dict, save_path: str) -> None:
     fig, axes = plt.subplots(len(FRICTIONS), len(CASES),
                              figsize=(7.2, 4.8),
-                             constrained_layout=True,
                              squeeze=False)
     last_mesh = None
     for i, fr in enumerate(FRICTIONS):
@@ -137,18 +136,18 @@ def plot_effectiveness_panels(all_data: Dict, save_path: str) -> None:
             # panel letter
             add_panel_label(ax, chr(ord('a') + i * len(CASES) + j),
                             x=-0.14, y=1.04, fontsize=9)
-    # shared colorbar
+    # shared colorbar — 右侧统一一根，加大 pad 与 shrink 避免与面板重叠
     if last_mesh is not None:
         cbar = fig.colorbar(last_mesh, ax=axes.ravel().tolist(),
-                            shrink=0.8, pad=0.02, fraction=0.04)
+                            shrink=0.7, pad=0.03, fraction=0.035)
         cbar.set_label(r'match ratio $n_{\rm matched}/n_{\rm fracs}$',
                        fontsize=8)
         cbar.ax.tick_params(labelsize=7, length=0)
         cbar.outline.set_linewidth(0.5)
         cbar.set_ticks([0, 0.25, 0.5, 0.75, 1.0])
     fig.suptitle('Effectiveness: wlen dominates, hop is weak',
-                 fontsize=9, fontweight='bold')
-    save_figure(fig, save_path)
+                 fontsize=9, fontweight='bold', y=0.99)
+    save_figure(fig, save_path, pad=2.0)
 
 
 # ── Fig b: resolution curves (hop-avg, wlen sweep) ────────
@@ -163,7 +162,6 @@ def plot_resolution_curves(all_data: Dict, save_path: str) -> None:
     log_metrics = {'sidelobe_suppression'}
     fig, axes = plt.subplots(len(metrics), len(FRICTIONS),
                              figsize=(7.2, 6.4),
-                             constrained_layout=True,
                              squeeze=False)
     for i, (mkey, ylabel) in enumerate(zip(metrics, ylabels)):
         for j, fr in enumerate(FRICTIONS):
@@ -208,16 +206,17 @@ def plot_resolution_curves(all_data: Dict, save_path: str) -> None:
             add_panel_label(ax, chr(ord('a') + i * len(FRICTIONS) + j),
                             x=-0.16, y=1.04, fontsize=9)
     fig.suptitle('Resolution metrics vs wlen (hop-averaged)',
-                 fontsize=9, fontweight='bold')
+                 fontsize=9, fontweight='bold', y=0.995)
     save_figure(fig, save_path)
 
 
 # ── Fig c: SNR + cost (dual-case representative) ──────────
 def plot_snr_cost_panels(all_data: Dict, save_path: str) -> None:
     fig, axes = plt.subplots(2, len(FRICTIONS),
-                             figsize=(7.2, 5.2),
-                             constrained_layout=True,
+                             figsize=(7.6, 5.2),
                              squeeze=False)
+    mesh_snr = None
+    mesh_cost = None
     for j, fr in enumerate(FRICTIONS):
         cm = all_data.get(fr, {}).get('dual')
         # top: log10 SNR
@@ -230,17 +229,12 @@ def plot_snr_cost_panels(all_data: Dict, save_path: str) -> None:
             wlens, hops, Z = _to_grid(cm['results'], 'snr')
             W, H = np.meshgrid(np.array(wlens), np.array(hops), indexing='ij')
             Zlog = np.log10(Z + 1)
-            mesh = ax.pcolormesh(W, H, Zlog, cmap='viridis', shading='auto')
+            mesh_snr = ax.pcolormesh(W, H, Zlog, cmap='viridis', shading='auto')
             if Z.shape[0] >= 2 and Z.shape[1] >= 2:
                 levels = np.linspace(np.nanmin(Zlog), np.nanmax(Zlog), 7)
                 cs = ax.contour(W, H, Zlog, levels=levels, colors='white',
                                 linewidths=0.5, alpha=0.5)
                 ax.clabel(cs, inline=True, fontsize=5.5, fmt='%.1f')
-            cbar = fig.colorbar(mesh, ax=ax, shrink=0.9, pad=0.04,
-                                fraction=0.046)
-            cbar.set_label(r'$\log_{10}$ SNR', fontsize=8)
-            cbar.ax.tick_params(labelsize=7, length=0)
-            cbar.outline.set_linewidth(0.5)
             ax.set_xlabel(r'window length $w_{\rm len}$ [s]')
             ax.set_ylabel(r'hop ratio $\rho_{\rm hop}$')
             ax.set_title(f'{fr} | SNR', fontweight='bold', loc='left',
@@ -256,16 +250,12 @@ def plot_snr_cost_panels(all_data: Dict, save_path: str) -> None:
             continue
         wlens, hops, Z = _to_grid(cm['results'], 'elapsed_s')
         W, H = np.meshgrid(np.array(wlens), np.array(hops), indexing='ij')
-        mesh = ax.pcolormesh(W, H, Z, cmap='magma', shading='auto')
+        mesh_cost = ax.pcolormesh(W, H, Z, cmap='magma', shading='auto')
         if Z.shape[0] >= 2 and Z.shape[1] >= 2:
             levels = np.linspace(np.nanmin(Z), np.nanmax(Z), 7)
             cs = ax.contour(W, H, Z, levels=levels, colors='white',
                             linewidths=0.5, alpha=0.5)
             ax.clabel(cs, inline=True, fontsize=5.5, fmt='%.2f')
-        cbar = fig.colorbar(mesh, ax=ax, shrink=0.9, pad=0.04, fraction=0.046)
-        cbar.set_label('compute time [s]', fontsize=8)
-        cbar.ax.tick_params(labelsize=7, length=0)
-        cbar.outline.set_linewidth(0.5)
         ax.set_xlabel(r'window length $w_{\rm len}$ [s]')
         ax.set_ylabel(r'hop ratio $\rho_{\rm hop}$')
         ax.set_title(f'{fr} | cost', fontweight='bold', loc='left',
@@ -273,16 +263,28 @@ def plot_snr_cost_panels(all_data: Dict, save_path: str) -> None:
         style_heatmap_ax(ax)
         add_panel_label(ax, chr(ord('a') + len(FRICTIONS) + j),
                         x=-0.14, y=1.04, fontsize=9)
+    # 每行共享 colorbar — 避免 4 个独立 colorbar 互相侵入
+    if mesh_snr is not None:
+        cbar_snr = fig.colorbar(mesh_snr, ax=axes[0, :].tolist(),
+                                shrink=0.85, pad=0.03, fraction=0.04)
+        cbar_snr.set_label(r'$\log_{10}$ SNR', fontsize=8)
+        cbar_snr.ax.tick_params(labelsize=7, length=0)
+        cbar_snr.outline.set_linewidth(0.5)
+    if mesh_cost is not None:
+        cbar_cost = fig.colorbar(mesh_cost, ax=axes[1, :].tolist(),
+                                 shrink=0.85, pad=0.03, fraction=0.04)
+        cbar_cost.set_label('compute time [s]', fontsize=8)
+        cbar_cost.ax.tick_params(labelsize=7, length=0)
+        cbar_cost.outline.set_linewidth(0.5)
     fig.suptitle('SNR optimum vs wlen; cost scales as 1/hop (dual-fracture representative)',
-                 fontsize=9, fontweight='bold')
+                 fontsize=9, fontweight='bold', y=0.995)
     save_figure(fig, save_path)
 
 
 # ── Fig d: optimal summary ────────────────────────────────
 def plot_optimal_summary(all_data: Dict, save_path: str) -> None:
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.2, 3.6),
-                                    gridspec_kw={'width_ratios': [1, 1.2]},
-                                    constrained_layout=True)
+                                    gridspec_kw={'width_ratios': [1, 1.2]})
 
     # (a) optimal (wlen*, hop*) scatter + recommendation bands
     for fr in FRICTIONS:
@@ -370,7 +372,7 @@ def plot_optimal_summary(all_data: Dict, save_path: str) -> None:
     add_panel_label(ax2, 'b', x=-0.14, y=1.04, fontsize=9)
 
     fig.suptitle('Optimal parameters: Brunone shifts wlen* longer',
-                 fontsize=9, fontweight='bold')
+                 fontsize=9, fontweight='bold', y=1.02)
     save_figure(fig, save_path)
 
 
