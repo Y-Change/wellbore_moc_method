@@ -22,6 +22,7 @@ SERIES_CEPSTRUM_WLEN_SWEEP = "cepstrum/wlen_sweep"
 SERIES_CEPSTRUM_WLEN_HOP = "cepstrum/wlen_hop_sweep"
 SERIES_ANALYSIS_WINDOW = "analysis/window_comparison"
 SERIES_ENERGY_REGRESSION = "analysis/energy_regression"
+SERIES_DECAY_REGRESSION = "analysis/decay_regression"
 
 # L2 用例（缝数）
 CASE_SINGLE = "single"

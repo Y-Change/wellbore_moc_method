@@ -253,41 +253,56 @@ def plot_regression_curves(
 
 
 def plot_cfkleak_curves(rows: List[Dict], energy_key: str, save_path: str) -> None:
-    """次网格：E vs Cf（按 kleak 着色）与 E vs kleak（按 Cf 着色），双联。"""
+    """次网格：E vs Cf（按 kleak 着色）与 E vs kleak（按 Cf 着色），双联。区分 steady 与 brunone。"""
     sub = [r for r in rows if r.get('Cf', 0) > 0 and r.get('kleak', 0) > 0
            and r.get(energy_key, 0) > 0
            and r.get('case') in (None, 'triple')]
     # 区分主网格（Cf/kleak 固定）与次网格：次网格 Cf/kleak 多值
     cf_vals = sorted({round(r['Cf'], 8) for r in sub})
     kl_vals = sorted({round(r['kleak'], 8) for r in sub})
+    frictions = sorted({r.get('friction_model', 'steady') for r in sub})
     if len(cf_vals) < 2 and len(kl_vals) < 2:
         return  # 次网格未跑
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9.5, 4.0))
     cmap = plt.cm.viridis
+    
     # E vs Cf，按 kleak 着色
-    for k, kl in enumerate(kl_vals):
-        pts = [(r['Cf'], r[energy_key]) for r in sub if abs(r['kleak'] - kl) < 1e-12]
-        pts.sort()
-        if not pts:
-            continue
-        xs, ys = zip(*pts)
-        ax1.plot(xs, ys, marker='o', color=cmap(k / max(1, len(kl_vals) - 1)),
-                 label=f'kleak={kl:.1e}')
+    for fr in frictions:
+        ls = '-' if fr == 'steady' else '--'
+        marker = 'o' if fr == 'steady' else 'x'
+        for k, kl in enumerate(kl_vals):
+            pts = [(r['Cf'], r[energy_key]) for r in sub 
+                   if abs(r['kleak'] - kl) < 1e-12 and r.get('friction_model', 'steady') == fr]
+            pts.sort()
+            if not pts:
+                continue
+            xs, ys = zip(*pts)
+            # 为了避免图例重复，只有 steady 时添加 label
+            label = f'kleak={kl:.1e}' if fr == 'steady' else None
+            ax1.plot(xs, ys, marker=marker, ls=ls, color=cmap(k / max(1, len(kl_vals) - 1)),
+                     label=label)
     ax1.set_xscale('log'); ax1.set_yscale('log')
     ax1.set_xlabel('Cf [m²]'); ax1.set_ylabel(f'{energy_key}')
-    ax1.set_title(f'{energy_key} vs Cf'); ax1.legend(fontsize=7)
+    ax1.set_title(f'{energy_key} vs Cf (solid: steady, dashed: brunone)'); ax1.legend(fontsize=7)
+    
     # E vs kleak，按 Cf 着色
-    for k, cf in enumerate(cf_vals):
-        pts = [(r['kleak'], r[energy_key]) for r in sub if abs(r['Cf'] - cf) < 1e-12]
-        pts.sort()
-        if not pts:
-            continue
-        xs, ys = zip(*pts)
-        ax2.plot(xs, ys, marker='s', color=cmap(k / max(1, len(cf_vals) - 1)),
-                 label=f'Cf={cf:.1e}')
+    for fr in frictions:
+        ls = '-' if fr == 'steady' else '--'
+        marker = 's' if fr == 'steady' else '^'
+        for k, cf in enumerate(cf_vals):
+            pts = [(r['kleak'], r[energy_key]) for r in sub 
+                   if abs(r['Cf'] - cf) < 1e-12 and r.get('friction_model', 'steady') == fr]
+            pts.sort()
+            if not pts:
+                continue
+            xs, ys = zip(*pts)
+            label = f'Cf={cf:.1e}' if fr == 'steady' else None
+            ax2.plot(xs, ys, marker=marker, ls=ls, color=cmap(k / max(1, len(cf_vals) - 1)),
+                     label=label)
     ax2.set_xscale('log'); ax2.set_yscale('log')
     ax2.set_xlabel('kleak [m²/s/√m]'); ax2.set_ylabel(f'{energy_key}')
-    ax2.set_title(f'{energy_key} vs kleak'); ax2.legend(fontsize=7)
+    ax2.set_title(f'{energy_key} vs kleak (solid: steady, dashed: brunone)'); ax2.legend(fontsize=7)
+    
     fig.tight_layout()
     save_figure(fig, save_path)
 
