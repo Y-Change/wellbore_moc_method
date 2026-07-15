@@ -40,6 +40,11 @@ def _build_moc_config(friction_key: str) -> MocConfig:
 
 def _extract_local_peaks(depth: np.ndarray, response: np.ndarray, x_f_list: List[float], search_radius: float = 15.0) -> List[float]:
     peaks = []
+    if len(x_f_list) > 1:
+        min_spacing = min(abs(x_f_list[i] - x_f_list[i-1]) for i in range(1, len(x_f_list)))
+        # 限制搜索半径，避免两道缝在 10m 间距下搜索窗口重合导致采到同一个峰值
+        search_radius = min(search_radius, min_spacing * 0.49)
+        
     for x_f in x_f_list:
         mask = (depth >= x_f - search_radius) & (depth <= x_f + search_radius)
         if np.any(mask):
@@ -144,13 +149,13 @@ def append_csv(rows: List[Dict], csv_path: str) -> None:
 
 def main():
     X1_LIST = [1000.0, 2000.0, 3000.0, 4000.0]
-    SPACING_LIST = [10.0, 20.0, 50.0, 100.0]
-    N_FRACS_LIST = [2, 3, 4, 5]
-    FRICTIONS = ['steady']  # 根据用户要求，目前先在 steady 上开展研究
+    SPACING_LIST = [10.0, 20.0, 50.0, 80.0, 100.0]
+    N_FRACS_LIST = [2, 3, 4, 5, 6, 7, 8]
+    FRICTIONS = ['brunone']
     
-    csv_path = output_path(SERIES_DECAY_REGRESSION, None, 'decay_table.csv')
-    if os.path.isfile(csv_path):
-        os.remove(csv_path)
+    csv_path = output_path(SERIES_DECAY_REGRESSION, 'data', 'decay_table.csv')
+    # if os.path.isfile(csv_path):
+    #     os.remove(csv_path)
         
     all_rows = []
     for fr in FRICTIONS:

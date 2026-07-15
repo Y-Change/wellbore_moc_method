@@ -118,8 +118,8 @@ def plot_decay_envelopes(rows: List[Dict], alpha_key: str, save_path: str):
     save_figure(fig, save_path)
 
 def plot_lambda_heatmap(fit_results: List[Dict], save_path: str):
-    """画 lambda 随 x1 和 spacing 的热力图 (针对 n=5 的情况)"""
-    target_n = 5
+    """画 lambda 随 x1 和 spacing 的热力图 (针对 n=8 的情况)"""
+    target_n = 8
     frictions = sorted(list(set(r['friction_model'] for r in fit_results)))
     
     fig, axes = plt.subplots(1, len(frictions), figsize=(5.0 * len(frictions), 4.2))
@@ -153,7 +153,7 @@ def main():
     parser.add_argument('--alpha', default='alpha_2d', choices=['alpha_1d', 'alpha_2d'])
     args = parser.parse_args()
     
-    csv_path = output_path(SERIES_DECAY_REGRESSION, None, 'decay_table.csv')
+    csv_path = output_path(SERIES_DECAY_REGRESSION, 'data', 'decay_table.csv')
     if not os.path.isfile(csv_path):
         print(f"Error: {csv_path} not found.")
         sys.exit(1)
@@ -163,14 +163,14 @@ def main():
     
     fit_results = fit_exponential_decay(rows, args.alpha)
     
-    json_path = output_path(SERIES_DECAY_REGRESSION, None, f'decay_lambda_{args.alpha}.json')
+    json_path = output_path(SERIES_DECAY_REGRESSION, 'data', f'decay_lambda_{args.alpha}.json')
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(fit_results, f, indent=2, ensure_ascii=False)
         
-    png_env = output_path(SERIES_DECAY_REGRESSION, None, f'decay_envelope_{args.alpha}.png')
+    png_env = output_path(SERIES_DECAY_REGRESSION, 'plots', f'decay_envelope_{args.alpha}.png')
     plot_decay_envelopes(rows, args.alpha, png_env)
     
-    png_heat = output_path(SERIES_DECAY_REGRESSION, None, f'decay_lambda_heatmap_{args.alpha}.png')
+    png_heat = output_path(SERIES_DECAY_REGRESSION, 'plots', f'decay_lambda_heatmap_{args.alpha}.png')
     plot_lambda_heatmap(fit_results, png_heat)
     
     print(f"Done. Outputs in {os.path.dirname(png_env)}")
