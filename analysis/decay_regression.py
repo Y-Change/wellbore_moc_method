@@ -147,21 +147,36 @@ def append_csv(rows: List[Dict], csv_path: str) -> None:
         for r in rows:
             writer.writerow({k: r.get(k, '') for k in CSV_COLUMNS})
 
+def load_completed_cases(csv_path: str) -> set:
+    completed = set()
+    if not os.path.isfile(csv_path):
+        return completed
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for r in reader:
+            case = (r['friction_model'], float(r['x1']), float(r['spacing_m']), int(r['n_total']))
+            completed.add(case)
+    return completed
+
 def main():
     X1_LIST = [1000.0, 2000.0, 3000.0, 4000.0]
-    SPACING_LIST = [10.0, 20.0, 50.0, 80.0, 100.0]
+    SPACING_LIST = [10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0]
     N_FRACS_LIST = [2, 3, 4, 5, 6, 7, 8]
-    FRICTIONS = ['brunone']
+    FRICTIONS = ['steady']
     
     csv_path = output_path(SERIES_DECAY_REGRESSION, 'data', 'decay_table.csv')
-    # if os.path.isfile(csv_path):
-    #     os.remove(csv_path)
+    completed_cases = load_completed_cases(csv_path)
         
     all_rows = []
     for fr in FRICTIONS:
+        friction_model_name = FRICTION_PARAMS[fr]['friction_model']
         for x1 in X1_LIST:
             for sp in SPACING_LIST:
                 for n in N_FRACS_LIST:
+                    if (friction_model_name, x1, sp, n) in completed_cases:
+                        print(f"Skipping {fr} x1={x1} S={sp} n={n} (already exists)")
+                        continue
+                        
                     rows = run_one(fr, x1, sp, n)
                     append_csv(rows, csv_path)
                     all_rows.extend(rows)

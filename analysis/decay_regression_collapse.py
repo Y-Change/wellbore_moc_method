@@ -40,12 +40,14 @@ def plot_divergence_vs_collapse(rows, x1, friction, alpha_key='alpha_2d'):
     
     all_idx = []
     all_alpha = []
+    pts_max_all = []
     
     for i, sp in enumerate(spacings):
         pts = [r for r in sub if r['spacing_m'] == sp]
         max_n = max([r['n_total'] for r in pts])
         pts_max = [r for r in pts if r['n_total'] == max_n]
         pts_max.sort(key=lambda x: x['frac_idx'])
+        pts_max_all.extend(pts_max)
         
         dx = [r['delta_x'] for r in pts_max]
         idx = [r['frac_idx'] for r in pts_max]
@@ -62,6 +64,35 @@ def plot_divergence_vs_collapse(rows, x1, friction, alpha_key='alpha_2d'):
     all_idx = np.array(all_idx)
     all_alpha = np.array(all_alpha)
     
+    # Shade Divergence Envelope (Fan)
+    boundary_dx = []
+    boundary_alpha = []
+    max_sp = max(spacings)
+    min_sp = min(spacings)
+    
+    pts_max_sp = [r for r in pts_max_all if r['spacing_m'] == max_sp]
+    boundary_dx.extend([r['delta_x'] for r in pts_max_sp])
+    boundary_alpha.extend([r[alpha_key] for r in pts_max_sp])
+    
+    for sp in sorted(spacings, reverse=True)[1:-1]:
+        pts_sp = [r for r in pts_max_all if r['spacing_m'] == sp]
+        if pts_sp:
+            pt = max(pts_sp, key=lambda x: x['frac_idx'])
+            boundary_dx.append(pt['delta_x'])
+            boundary_alpha.append(pt[alpha_key])
+            
+    pts_min_sp = [r for r in pts_max_all if r['spacing_m'] == min_sp]
+    boundary_dx.extend([r['delta_x'] for r in reversed(pts_min_sp)])
+    boundary_alpha.extend([r[alpha_key] for r in reversed(pts_min_sp)])
+    
+    ax1.fill(boundary_dx, boundary_alpha, color='royalblue', alpha=0.12, label='Divergence Envelope', zorder=0)
+    
+    # Shade Collapse Envelope (Band)
+    idx_unique = sorted(list(set(all_idx)))
+    min_a = [np.min(all_alpha[all_idx == i]) for i in idx_unique]
+    max_a = [np.max(all_alpha[all_idx == i]) for i in idx_unique]
+    ax2.fill_between(idx_unique, min_a, max_a, color='red', alpha=0.15, label='Collapse Envelope', zorder=0)
+    
     mask = (all_alpha > 0) & (all_idx > 1)
     if np.any(mask):
         k, _, _, _ = np.linalg.lstsq(np.log(all_idx[mask])[:, None], -np.log(all_alpha[mask]), rcond=None)
@@ -73,7 +104,7 @@ def plot_divergence_vs_collapse(rows, x1, friction, alpha_key='alpha_2d'):
         pred = all_idx**(-k)
         r2 = 1 - np.sum((all_alpha - pred)**2) / np.sum((all_alpha - np.mean(all_alpha))**2)
         
-        ax2.plot(idx_dense, alpha_fit, 'k-', lw=2.5, label=f'Master Curve\n(idx^{{-{k:.2f}}}, R²={r2:.3f})')
+        ax2.plot(idx_dense, alpha_fit, 'r-', lw=2.5, label=f'Master Curve\n(idx^{{-{k:.2f}}}, R²={r2:.3f})')
         
     ax1.set_yscale('log')
     ax2.set_yscale('log')

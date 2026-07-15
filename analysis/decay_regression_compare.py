@@ -30,7 +30,7 @@ def load_decay_rows(csv_path: str):
 def fit_models(group_rows, alpha_key):
     """
     Fit models to a group of points and return parameters and R2.
-    Model 1: alpha = exp(-lam * delta_x)
+    Model 1 (new): alpha = (1 + delta_x)^(-k_dx)
     Model 2: alpha = idx^(-k)
     """
     alpha = np.array([r[alpha_key] for r in group_rows])
@@ -49,12 +49,12 @@ def fit_models(group_rows, alpha_key):
     if np.any(delta_x > 0):
         dx_m = delta_x[delta_x > 0]
         a_m = alpha[delta_x > 0]
-        lam, _, _, _ = np.linalg.lstsq(dx_m[:, None], -np.log(a_m), rcond=None)
-        lam = lam[0]
-        pred1 = np.exp(-lam * delta_x)
-        r2_lam = 1 - np.sum((alpha - pred1)**2) / np.sum((alpha - np.mean(alpha))**2)
+        k_dx, _, _, _ = np.linalg.lstsq(np.log(1 + dx_m)[:, None], -np.log(a_m), rcond=None)
+        k_dx = k_dx[0]
+        pred1 = (1 + delta_x)**(-k_dx)
+        r2_kdx = 1 - np.sum((alpha - pred1)**2) / np.sum((alpha - np.mean(alpha))**2)
     else:
-        lam, r2_lam = np.nan, np.nan
+        k_dx, r2_kdx = np.nan, np.nan
         
     # Model 2
     if np.any(idx > 1):
@@ -67,7 +67,7 @@ def fit_models(group_rows, alpha_key):
     else:
         k, r2_k = np.nan, np.nan
         
-    return {'lam': lam, 'lam_r2': r2_lam, 'k': k, 'k_r2': r2_k}
+    return {'k_dx': k_dx, 'k_dx_r2': r2_kdx, 'k': k, 'k_r2': r2_k}
 
 def plot_for_x1(rows, x1, friction):
     spacings = sorted(list(set(r['spacing_m'] for r in rows)))
@@ -101,23 +101,26 @@ def plot_for_x1(rows, x1, friction):
             all_idx = np.linspace(1, max(n_totals), 50)
             
             if not np.isnan(fits['k']):
-                ax.plot(all_idx, all_idx**(-fits['k']), 'r-', lw=2, label=f"idx^{{-{fits['k']:.2f}}}")
+                ax.plot(all_idx, all_idx**(-fits['k']), 'r-', lw=2, label=r"Pow(idx): $\mathrm{idx}^{-k}$")
                 
-            if not np.isnan(fits['lam']):
-                ax.plot(all_idx, np.exp(-fits['lam'] * sp * (all_idx - 1)), 'b--', lw=2, label=f"exp(-{fits['lam']:.4f}*dx)")
+            if not np.isnan(fits['k_dx']):
+                dx_vals = sp * (all_idx - 1)
+                ax.plot(all_idx, (1 + dx_vals)**(-fits['k_dx']), 'b--', lw=2, label=r"Pow(dx): $(1+\Delta x)^{-k_{dx}}$")
 
             ax.set_yscale('log')
             ax.set_xlabel('Fracture Index')
             if col_idx == 0:
                 ax.set_ylabel(f'Relative Peak ({alpha_key})')
             
-            title_str = f"S={sp}m | {titles[row_idx]}\nExp R2:{fits['lam_r2']:.3f} | Pow R2:{fits['k_r2']:.3f}"
-            ax.set_title(title_str, fontsize=10)
+            title_str = (f"S={sp}m | {titles[row_idx]}\n"
+                         f"Pow(dx): $k_{{dx}}={fits['k_dx']:.2f}$, $R^2={fits['k_dx_r2']:.3f}$\n"
+                         f"Pow(idx): $k={fits['k']:.2f}$, $R^2={fits['k_r2']:.3f}$")
+            ax.set_title(title_str, fontsize=10, pad=8)
             if row_idx == 0 and col_idx == len(spacings) - 1:
-                ax.legend(fontsize=8, bbox_to_anchor=(1.05, 1), loc='upper left')
+                ax.legend(fontsize=10, bbox_to_anchor=(1.05, 1), loc='upper left')
 
-    fig.suptitle(f'Decay Model Comparison ({friction}) for x1 = {x1}m', fontsize=14)
-    fig.tight_layout(rect=[0, 0, 0.9, 0.96])
+    fig.suptitle(f'Decay Model Comparison ({friction}) for x1 = {x1}m', fontsize=15, y=0.98)
+    fig.tight_layout(rect=[0, 0, 0.88, 0.90])
     
     out_dir = output_path(SERIES_DECAY_REGRESSION, 'model_compare', '')
     os.makedirs(out_dir, exist_ok=True)
