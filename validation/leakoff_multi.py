@@ -3,7 +3,7 @@
 统一 leakoff_multi.py — steady / brunone 摩阻 + 裂缝滤失多缝验证。
 
 通过 --friction steady|brunone|steady_D*|brunone_D*|steady_Dall|brunone_Dall
-与 --case single|dual|...|all 切换。
+与 --case single|dual|triple|quad|quint|hex|hept|oct|all 切换。
 参数集中管理在 validation/config.py，修改该文件即可全局调整。
 
 输出路径: output/leakoff/{friction}/{case}/
@@ -70,7 +70,7 @@ from validation.config import (
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-FRAC_COLORS = ['b', 'r', 'g', 'm', 'c', 'orange']
+FRAC_COLORS = ['b', 'r', 'g', 'm', 'c', 'orange', 'brown', 'olive']
 CEP_WLEN_SEC = CEPSTRUM_CONFIG['wlen_sec']
 CEP_HOP_SEC = CEPSTRUM_CONFIG['hop_sec']
 CEP_WIN_TYPE = CEPSTRUM_CONFIG['win_type']
@@ -782,8 +782,9 @@ def main():
         help='摩阻/间距键；steady_Dall / brunone_Dall 一次跑完 SPACING_PRESETS_M',
     )
     parser.add_argument(
-        '--case', choices=['single', 'dual', 'triple', 'quad', 'quint', 'all'],
-        default='all', help='运行哪个 case（默认 all）',
+        '--case',
+        choices=['single', 'dual', 'triple', 'quad', 'quint', 'hex', 'hept', 'oct', 'all'],
+        default='all', help='运行哪个 case（默认 all；含六/七/八缝 hex|hept|oct）',
     )
     parser.add_argument(
         '--replay', action='store_true',

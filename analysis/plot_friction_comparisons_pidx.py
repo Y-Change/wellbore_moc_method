@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import csv
 import os
 import sys
@@ -19,11 +20,9 @@ from analysis.paper_plots import apply_paper_rc, save_figure
 
 apply_paper_rc()
 
-def model_stretched_exp(x, b, beta):
-    return np.exp(-((b * x)**beta))
-
-def log_model_stretched_exp(x, b, beta):
-    return -((b * x)**beta)
+def model_pidx(idx, k):
+    idx = np.asarray(idx, dtype=float)
+    return idx ** (-k)
 
 def r_squared(y_true, y_pred):
     ss_res = np.sum((y_true - y_pred)**2)
@@ -46,26 +45,20 @@ def load_decay_rows(csv_path: str):
 
 def fit_models(group_rows, alpha_key):
     alpha = np.array([r[alpha_key] for r in group_rows])
-    delta_x = np.array([r['delta_x'] for r in group_rows])
+    idx = np.array([r['frac_idx'] for r in group_rows])
     
     mask = (alpha > 0)
     alpha = alpha[mask]
-    delta_x = delta_x[mask]
+    idx = idx[mask]
     
-    res = {'str_exp': {'b': np.nan, 'beta': np.nan, 'r2': np.nan}}
+    res = {'pidx': {'k': np.nan, 'r2': np.nan}}
     
     if len(alpha) >= 3:
         try:
-            popt, _ = curve_fit(
-                log_model_stretched_exp, 
-                delta_x, 
-                np.log(alpha), 
-                p0=[0.01, 0.5], 
-                bounds=([1e-6, 0.1], [1.0, 5.0])
-            )
-            b, beta = popt
-            r2 = r_squared(alpha, model_stretched_exp(delta_x, b, beta))
-            res['str_exp'] = {'b': b, 'beta': beta, 'r2': r2}
+            popt, _ = curve_fit(model_pidx, idx, alpha, p0=[1.0])
+            k = popt[0]
+            r2 = r_squared(alpha, model_pidx(idx, k))
+            res['pidx'] = {'k': k, 'r2': r2}
         except:
             pass
             
@@ -81,7 +74,7 @@ def plot_for_x1(rows, x1, friction):
     titles = ['1D Cepstrum', '2D Cepstrum']
     suffixes = ['1d', '2d']
     
-    out_dir = output_path(SERIES_DECAY_REGRESSION, '05_friction_comparisons', '')
+    out_dir = output_path(SERIES_DECAY_REGRESSION, '05_friction_comparisons_pidx', '')
     os.makedirs(out_dir, exist_ok=True)
     
     for method_idx, alpha_key in enumerate(alphas):
@@ -101,7 +94,7 @@ def plot_for_x1(rows, x1, friction):
                 pts = [r for r in sub if r['n_total'] == n]
                 pts.sort(key=lambda x: x['frac_idx'])
                 
-                xs = [r['delta_x'] for r in pts]
+                xs = [r['frac_idx'] for r in pts]
                 ys = [r[alpha_key] for r in pts]
                 
                 color = cmap(c_idx / max(1, len(n_totals)-1))
@@ -109,18 +102,19 @@ def plot_for_x1(rows, x1, friction):
                 
             fits = fit_models(sub, alpha_key)
             
-            all_idx = np.linspace(1, max(n_totals), 50)
-            all_dx = sp * (all_idx - 1)
+            all_idx = np.linspace(1, max(n_totals), 100)
             
             title_str = f'S={sp}m'
-            if not np.isnan(fits['str_exp']['r2']):
-                b, beta = fits['str_exp']['b'], fits['str_exp']['beta']
-                r2 = fits['str_exp']['r2']
-                ax.plot(all_dx, model_stretched_exp(all_dx, b, beta), 'c-', lw=2.5, label='Str.Exp Fit')
-                title_str += f'\n$b={b:.4f}, \\beta={beta:.2f}, R^2={r2:.3f}$'
+            if not np.isnan(fits['pidx']['r2']):
+                k = fits['pidx']['k']
+                r2 = fits['pidx']['r2']
+                ax.plot(all_idx, model_pidx(all_idx, k), 'r-', lw=2.5, label='Pidx Fit')
+                title_str += f'\n$k={k:.4f}, R^2={r2:.3f}$'
 
             ax.set_yscale('log')
-            ax.set_xlabel(r'Distance $\Delta x$ (m)')
+            ax.set_xlabel('Fracture Index (Level)')
+            # Only set ticks to integers for x axis
+            ax.set_xticks(range(1, max(n_totals) + 1))
             if sp_idx % n_cols == 0:
                 ax.set_ylabel(f'Relative Peak ({alpha_key})')
             
@@ -129,20 +123,23 @@ def plot_for_x1(rows, x1, friction):
         for i in range(len(spacings), len(axes_flat)):
             axes_flat[i].set_visible(False)
             
-        fig.suptitle(f'Decay Model Comparison ({friction}, {titles[method_idx]}) for x1 = {x1}m', fontsize=14, y=1.02)
+        fig.suptitle(f'Pidx Decay Model Comparison ({friction}, {titles[method_idx]}) for x1 = {x1}m', fontsize=14, y=1.02)
         
         handles, labels = axes_flat[0].get_legend_handles_labels()
         if handles:
             fig.legend(handles, labels, loc='lower right', bbox_to_anchor=(1.10, 0.15), fontsize=8, frameon=False)
             
         fig.tight_layout()
-        save_path = os.path.join(out_dir, f'{friction}_decay_compare_x1_{int(x1)}_{suffixes[method_idx]}.png')
+        save_path = os.path.join(out_dir, f'{friction}_pidx_compare_x1_{int(x1)}_{suffixes[method_idx]}.png')
         save_figure(fig, save_path)
         plt.close(fig)
         print(f"Saved {save_path}")
 
 def main():
     csv_path = output_path(SERIES_DECAY_REGRESSION, '03_extracted_peaks_csv', 'decay_table.csv')
+    if not os.path.exists(csv_path):
+        print(f"Cannot find {csv_path}")
+        return
     all_rows = load_decay_rows(csv_path)
     all_rows = [r for r in all_rows if 1000.0 < r['x1'] < 4500.0]
     

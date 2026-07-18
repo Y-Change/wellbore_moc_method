@@ -1120,9 +1120,9 @@ def plot_moc_cepstrum_analysis(
     # Row 5: 2D 时间平均 → 1D 深度剖面
     ax5 = plt.subplot(5, 1, 5)
     depth_prof = np.asarray(result_2d['depth'])
-    profile_2d = np.mean(np.asarray(result_2d['response_2d']), axis=1)
+    profile_2d = np.sum(np.asarray(result_2d['response_2d']), axis=1)
     y_lo5, y_hi5 = _robust_response_ylim(profile_2d)
-    ax5.plot(depth_prof, profile_2d, 'b-', lw=1.0, label='时间平均 (-C)')
+    ax5.plot(depth_prof, profile_2d, 'b-', lw=1.0, label='时间累加 (-C)')
     ax5.set_ylim(y_lo5, y_hi5)
 
     profile_peaks = detect_1d_cepstrum_peaks(

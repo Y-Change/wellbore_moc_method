@@ -171,7 +171,7 @@ def _extract_energies(
     C2d = out_2d['C']  # (n_q_kept, n_t)
     q_kept = out_2d['q']
     depth_2d = out_2d['depth']
-    profile_2d = -np.mean(C2d, axis=1)  # 沿时间轴平均 → 1D 深度剖面
+    profile_2d = -np.sum(C2d, axis=1)  # 沿时间轴累加 → 1D 深度剖面
 
     metrics_2d = kb.evaluate_multi_fracture_peaks(
         C2d, q_kept, v, x_f_aligned, fs=fs,

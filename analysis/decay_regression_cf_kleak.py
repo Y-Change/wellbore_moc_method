@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""研究 3：裂缝能量衰减模型数据生成。"""
+"""研究 4：不同的Cf和Kleak对于裂缝响应的影响 (decay_regression 框架下)"""
 from __future__ import annotations
 
 import argparse
@@ -46,7 +46,6 @@ def _extract_local_peaks(depth: np.ndarray, response: np.ndarray, x_f_list: List
     peaks = []
     if len(x_f_list) > 1:
         min_spacing = min(abs(x_f_list[i] - x_f_list[i-1]) for i in range(1, len(x_f_list)))
-        # 限制搜索半径，避免两道缝在 10m 间距下搜索窗口重合导致采到同一个峰值
         search_radius = min(search_radius, min_spacing * 0.49)
         
     for x_f in x_f_list:
@@ -57,63 +56,54 @@ def _extract_local_peaks(depth: np.ndarray, response: np.ndarray, x_f_list: List
             peaks.append(0.0)
     return peaks
 
-def run_one(friction_key: str, x1: float, spacing_m: float, n_fracs: int) -> List[Dict]:
+def run_one(friction_key: str, Cf: float, kleak: float) -> List[Dict]:
+    x1 = 3000.0
+    spacing_m = 20.0
+    n_fracs = 5
     x_f_list = [x1 + i * spacing_m for i in range(n_fracs)]
-    L_required = max(x_f_list) + 500.0  # leave 500m behind the last fracture
+    L_required = max(x_f_list) + 500.0
     cfg = _build_moc_config(friction_key, L_required)
     
-    Cf = float(FRACTURE_CONFIG['Cf'])
-    kleak = float(FRACTURE_CONFIG['kleak'])
     H_ext = float(FRACTURE_CONFIG['H_ext'])
 
-    raw_dir = output_path(SERIES_DECAY_REGRESSION, '01_simulated_waves', '')
-    os.makedirs(raw_dir, exist_ok=True)
-    npz_name = os.path.join(raw_dir, f"{friction_key}_x1_{int(x1)}_sp_{int(spacing_m)}_n_{n_fracs}.npz")
+    print(f"\n[Decay Cf/Kleak | {friction_key} | Cf={Cf:.1e} | Kleak={kleak:.1e}]")
+    t0 = time_module.time()
+    res = simulate_wellbore(
+        cfg,
+        fracture_positions=x_f_list,
+        fracture_Cf=[Cf] * n_fracs,
+        fracture_kleak=[kleak] * n_fracs,
+        H_ext=H_ext,
+        store_full_field=False,
+    )
+    sim_sec = time_module.time() - t0
     
-    if os.path.exists(npz_name):
-        print(f"\n[Decay | {friction_key} | x1={x1}m | D={spacing_m}m | n={n_fracs}] - 加载已存在的波形缓存")
-        with np.load(npz_name) as data:
-            t_sim = data['t_sim']
-            H_wh = data['H_wh']
-            x_f_aligned = data['x_f_aligned'].tolist()
-            v = float(data['v'][0])
-            L = float(data['L'][0])
-            fs = float(data['fs'][0])
-            ts = float(data['ts'][0])
-    else:
-        print(f"\n[Decay | {friction_key} | x1={x1}m | D={spacing_m}m | n={n_fracs}]")
-        t0 = time_module.time()
-        res = simulate_wellbore(
-            cfg,
-            fracture_positions=x_f_list,
-            fracture_Cf=[Cf] * n_fracs,
-            fracture_kleak=[kleak] * n_fracs,
-            H_ext=H_ext,
-            store_full_field=False,
-        )
-        sim_sec = time_module.time() - t0
-        x_f_aligned = [float(res['x_grid'][i]) for i in res['fracture_indices']]
-        print(f"  仿真 {sim_sec:.1f}s; 实际缝位: {[round(x, 1) for x in x_f_aligned]} m")
+    x_f_aligned = [float(res['x_grid'][i]) for i in res['fracture_indices']]
+    print(f"  仿真 {sim_sec:.1f}s; 实际缝位: {[round(x, 1) for x in x_f_aligned]} m")
 
-        t_sim = res['timestamps']
-        H_wh = res['wellhead_head']
-        v = cfg.a_adj
-        fs = 1.0 / cfg.dt_adj
-        ts = cfg.pump_shut_time
-        L = cfg.wellbore_length
+    t_sim = res['timestamps']
+    H_wh = res['wellhead_head']
+    v = cfg.a_adj
+    fs = 1.0 / cfg.dt_adj
+    ts = cfg.pump_shut_time
+    L = cfg.wellbore_length
 
-        np.savez_compressed(
-            npz_name,
-            t_sim=t_sim,
-            H_wh=H_wh,
-            x_f_aligned=x_f_aligned,
-            Cf=np.array([Cf] * n_fracs),
-            kleak=np.array([kleak] * n_fracs),
-            v=np.array([v]),
-            L=np.array([L]),
-            fs=np.array([fs]),
-            ts=np.array([ts])
-        )
+    # 保存原始仿真数据
+    raw_dir = output_path(SERIES_DECAY_REGRESSION, 'cf_kleak_study', 'waves')
+    os.makedirs(raw_dir, exist_ok=True)
+    npz_name = os.path.join(raw_dir, f"{friction_key}_cf_{Cf:.1e}_kleak_{kleak:.1e}.npz")
+    np.savez_compressed(
+        npz_name,
+        t_sim=t_sim,
+        H_wh=H_wh,
+        x_f_aligned=x_f_aligned,
+        Cf=np.array([Cf] * n_fracs),
+        kleak=np.array([kleak] * n_fracs),
+        v=np.array([v]),
+        L=np.array([L]),
+        fs=np.array([fs]),
+        ts=np.array([ts])
+    )
 
     out_1d = compute_moc_cepstrum_1d(t_sim, H_wh, v, fs=fs, ts=ts, wellbore_length=L)
     depth_1d = out_1d['depth']
@@ -133,6 +123,8 @@ def run_one(friction_key: str, x1: float, spacing_m: float, n_fracs: int) -> Lis
     for i in range(n_fracs):
         row = {
             'friction_model': FRICTION_PARAMS[friction_key]['friction_model'],
+            'Cf': Cf,
+            'Kleak': kleak,
             'x1': x1,
             'spacing_m': spacing_m,
             'n_total': n_fracs,
@@ -149,7 +141,7 @@ def run_one(friction_key: str, x1: float, spacing_m: float, n_fracs: int) -> Lis
     return rows
 
 CSV_COLUMNS = [
-    'friction_model', 'x1', 'spacing_m', 'n_total', 'frac_idx',
+    'friction_model', 'Cf', 'Kleak', 'x1', 'spacing_m', 'n_total', 'frac_idx',
     'x_f', 'delta_x', 'P_1d', 'P_2d', 'alpha_1d', 'alpha_2d'
 ]
 
@@ -170,32 +162,30 @@ def load_completed_cases(csv_path: str) -> set:
     with open(csv_path, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for r in reader:
-            case = (r['friction_model'], float(r['x1']), float(r['spacing_m']), int(r['n_total']))
+            case = (r['friction_model'], float(r['Cf']), float(r['Kleak']))
             completed.add(case)
     return completed
 
 def main():
-    X1_LIST = [ 2000.0, 2500.0, 3000.0, 3500.0, 4000.0, 4500.0]
-    SPACING_LIST = [10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0]
-    N_FRACS_LIST = [2, 3, 4, 5, 6, 7, 8]
+    CF_LIST = [1e-7, 5e-7, 1e-6, 5e-6, 1e-5, 5e-5, 1e-4, 5e-4]
+    KLEAK_LIST = [0.0, 1e-6, 5e-6, 1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 5e-3]
     FRICTIONS = ['steady', 'brunone']
     
-    csv_path = output_path(SERIES_DECAY_REGRESSION, '03_extracted_peaks_csv', 'decay_table.csv')
+    csv_path = output_path(SERIES_DECAY_REGRESSION, 'cf_kleak_study', 'cf_kleak_table.csv')
     completed_cases = load_completed_cases(csv_path)
         
     all_rows = []
     for fr in FRICTIONS:
         friction_model_name = FRICTION_PARAMS[fr]['friction_model']
-        for x1 in X1_LIST:
-            for sp in SPACING_LIST:
-                for n in N_FRACS_LIST:
-                    if (friction_model_name, x1, sp, n) in completed_cases:
-                        print(f"Skipping {fr} x1={x1} S={sp} n={n} (already exists)")
-                        continue
-                        
-                    rows = run_one(fr, x1, sp, n)
-                    append_csv(rows, csv_path)
-                    all_rows.extend(rows)
+        for cf in CF_LIST:
+            for kleak in KLEAK_LIST:
+                if (friction_model_name, cf, kleak) in completed_cases:
+                    print(f"Skipping {fr} Cf={cf:.1e} Kleak={kleak:.1e} (already exists)")
+                    continue
+                    
+                rows = run_one(fr, cf, kleak)
+                append_csv(rows, csv_path)
+                all_rows.extend(rows)
     print(f"\nDone. Wrote {len(all_rows)} rows to {csv_path}")
 
 if __name__ == '__main__':

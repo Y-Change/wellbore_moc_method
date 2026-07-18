@@ -62,7 +62,7 @@ SPACING_PRESETS_M = (5, 10, 20, 50, 100)
 
 
 def build_cases(spacing_m: float) -> Dict[str, Dict]:
-    """首缝 FRAC_FIRST_M，其后按 spacing_m 等间距排布 single~quint。"""
+    """首缝 FRAC_FIRST_M，其后按 spacing_m 等间距排布 single~oct。"""
     d = float(spacing_m)
     x0 = FRAC_FIRST_M
     return {
@@ -71,6 +71,9 @@ def build_cases(spacing_m: float) -> Dict[str, Dict]:
         'triple': {'label': '三缝', 'x_f_list': [x0 + i * d for i in range(3)]},
         'quad':   {'label': '四缝', 'x_f_list': [x0 + i * d for i in range(4)]},
         'quint':  {'label': '五缝', 'x_f_list': [x0 + i * d for i in range(5)]},
+        'hex':    {'label': '六缝', 'x_f_list': [x0 + i * d for i in range(6)]},
+        'hept':   {'label': '七缝', 'x_f_list': [x0 + i * d for i in range(7)]},
+        'oct':    {'label': '八缝', 'x_f_list': [x0 + i * d for i in range(8)]},
     }
 
 

@@ -223,7 +223,7 @@ def compute_time_avg_depth_profile(
     mask = (depth >= depth_min) & (depth <= depth_max)
     if not np.any(mask):
         return depth, np.zeros_like(depth)
-    profile = -np.mean(C[mask, :], axis=1)
+    profile = -np.sum(C[mask, :], axis=1)
     return depth[mask], profile
 
 
