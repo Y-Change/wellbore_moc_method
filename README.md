@@ -15,19 +15,18 @@ wellbore_moc_method/
 ├── wellbore_moc.py              # MOC 核心求解器
 ├── cepstrum_mocdata.py          # 倒谱分析库（1D/2D + 时间平均剖面）
 ├── paths.py                     # 分级 output 路径工厂
-├── validation/                  # 验证脚本（推荐入口）
+├── validation/                  # 验证脚本（基础算例与 MOC 核心验证）
 │   ├── config.py                # 集中配置：井参数/仿真参数/缝形态/摩阻+间距
 │   ├── leakoff_multi.py         # 统一 leakoff 验证（steady|brunone|*_D* × 单~五缝）
 │   ├── step01_joukowsky.py      # Step 1 Joukowsky 解析解验证
 │   ├── step03_fracture.py       # Step 3 单缝反射验证
-│   ├── step03b_brunone.py       # Step 3b Brunone 摩阻验证
-│   └── cepstrum/                # 倒谱方法对比与窗长扫描
-│       ├── _kb_core.py          # Kaiser-Bessel / AR 倒谱核心算法
-│       ├── kaiser_bessel_multi.py  # 多缝 KB 方案对比（--friction steady|brunone）
-│       ├── wlen_sweep.py        # 窗长扫描分析（--friction steady|brunone）
-│       └── spacing_resolvability.py  # steady_D* 缝距分辨能力汇总
-├── analysis/
-│   └── window_comparison.py
+│   └── step03b_brunone.py       # Step 3b Brunone 摩阻验证
+├── analysis/                    # 深度分析与制图
+│   ├── cepstrum/                # 倒谱方法对比与管线（KB算法、窗长扫描等）
+│   ├── decay_analysis/          # 衰减机理与能量回归提取
+│   ├── plotting/                # 论文级可视化与图表生成
+│   ├── reporting/               # 自动报告渲染
+│   └── resolvability/           # 缝距分辨能力反演与正推
 ├── legacy/                      # 旧版兼容 wrapper（见 legacy/README.md）
 │   └── wrappers/
 ├── docs/
@@ -62,26 +61,35 @@ python validation/leakoff_multi.py --replay --friction steady_D20 --case quad
 python validation/leakoff_multi.py --replay --friction steady_Dall --case all
 
 # 倒谱方法对比
-python validation/cepstrum/kaiser_bessel_multi.py --friction steady --case all
-python validation/cepstrum/kaiser_bessel_multi.py --friction brunone --case quad
+python analysis/cepstrum/kaiser_bessel_multi.py --friction steady --case all
+python analysis/cepstrum/kaiser_bessel_multi.py --friction brunone --case quad
 
 # 窗长扫描
-python validation/cepstrum/wlen_sweep.py --friction steady --case all
-python validation/cepstrum/wlen_sweep.py --friction brunone --case dual --no-grid
+python analysis/cepstrum/wlen_sweep.py --friction steady --case all
+python analysis/cepstrum/wlen_sweep.py --friction brunone --case dual --no-grid
 
 # 缝距分辨能力汇总（只读 steady_D* 的 moc_leakoff.json，不重跑仿真）
-python validation/cepstrum/spacing_resolvability.py
+python analysis/cepstrum/spacing_resolvability.py
 
 # 1D 实倒谱过程可视化（默认 steady_D50/quad）
-python analysis/cepstrum_1d_pipeline.py
+python analysis/cepstrum/cepstrum_1d_pipeline.py
 
 # B_coh / N_harm,eff / Δd_min 正推（默认 steady_D50/single）
-python analysis/forward_resolvability.py
-python analysis/forward_resolvability.py --dr-db 80
+python analysis/resolvability/forward_resolvability.py
+python analysis/resolvability/forward_resolvability.py --dr-db 80
 
 # Step 验证
 python validation/step01_joukowsky.py
 python validation/step03b_brunone.py
+
+# 衰减机理与尺度回归 (Decay Regression Pipeline)
+python analysis/decay_analysis/decay_regression.py                     # 生成基础波形与倒谱，提取峰值 (01~03)
+python analysis/decay_analysis/decay_stretched_exp_extraction.py       # 扩展指数拟合 b, beta 空间提取
+python analysis/plotting/plot_divergence_vs_collapse.py          # 物理色散与尺度坍缩 (Pidx) 理论图
+python analysis/plotting/plot_friction_comparisons_pidx.py       # steady 与 brunone 在 Pidx 标度下的对比
+python analysis/decay_analysis/first_frac_energy_analysis.py           # 首缝绝对能量的深度、间距与缝数三维分析
+python analysis/decay_analysis/decay_regression_cf_kleak.py            # Cf 和 Kleak 敏感性矩阵仿真
+python analysis/plotting/plot_cf_kleak.py                        # Cf 和 Kleak 敏感性结果绘图
 
 # 旧版兼容（legacy/wrappers/）
 python legacy/wrappers/validate_moc_test_b.py
@@ -103,6 +111,8 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 | `spacing_resolvability.py`    | `output/leakoff/SPACING_RESOLVABILITY.md`                      |
 | `step01_joukowsky.py`         | `output/step01_joukowsky/`                                     |
 | `step03b_brunone.py`          | `output/step03b_brunone/`                                      |
+| `decay_regression.py`等管线     | `output/analysis/decay_regression/` (含 01~07 子目录)            |
+| `cf_kleak_study` 脚本         | `output/analysis/decay_regression/cf_kleak_study/`             |
 
 
 `leakoff_multi` 每个 case 目录下生成：
@@ -189,8 +199,8 @@ FRICTION_PARAMS     # steady / brunone / steady_D* / brunone_D*
 | `validate_moc_joukowsky.py`                  | `validation/step01_joukowsky.py`                           | `output/step01_joukowsky/`                         |
 | `validate_moc_test_b.py`                     | `validation/leakoff_multi.py --case single`                | `output/leakoff/steady/single/`                    |
 | `validate_moc_test_b_dual.py`                | `validation/leakoff_multi.py --case dual`                  | `output/leakoff/steady/dual/`                      |
-| `validate_moc_test_b_Kaiser-Bessel.py`       | `validation/cepstrum/kaiser_bessel_multi.py --case single` | `output/cepstrum/kaiser_bessel/steady/single/`     |
-| `validate_moc_test_b_multi_Kaiser-Bessel.py` | `validation/cepstrum/kaiser_bessel_multi.py`               | `output/cepstrum/kaiser_bessel/{friction}/{case}/` |
-| `plot_window_comparison.py`                  | `analysis/window_comparison.py`                            | `output/analysis/window_comparison/`               |
+| `validate_moc_test_b_Kaiser-Bessel.py`       | `analysis/cepstrum/kaiser_bessel_multi.py --case single` | `output/cepstrum/kaiser_bessel/steady/single/`     |
+| `validate_moc_test_b_multi_Kaiser-Bessel.py` | `analysis/cepstrum/kaiser_bessel_multi.py`               | `output/cepstrum/kaiser_bessel/{friction}/{case}/` |
+| `plot_window_comparison.py`                  | `analysis/cepstrum/window_comparison.py`                            | `output/analysis/window_comparison/`               |
 
 
