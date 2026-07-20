@@ -34,13 +34,13 @@ CASE_QUINT = "quint"
 
 
 def ensure_method_root_on_path() -> None:
-    """确保项目根目录在 sys.path 中（validation 子包脚本使用）。"""
+    """确保项目根目录在 sys.path 中（moc_simulate 子包脚本使用）。"""
     if PROJECT_ROOT not in sys.path:
         sys.path.insert(0, PROJECT_ROOT)
 
 
 def bootstrap_method_root(caller_file: str) -> str:
-    """从任意 validation/ 子目录脚本向上查找并加入 sys.path。"""
+    """从任意 moc_simulate/ 子目录脚本向上查找并加入 sys.path。"""
     d = os.path.dirname(os.path.abspath(caller_file))
     while True:
         if os.path.isfile(os.path.join(d, "README.md")):

@@ -486,14 +486,14 @@ def _fracture_match_tol_m(
     v: float,
     fs: float = 1000.0,
 ) -> float:
-    """缝深匹配容差 [m]（与 validation/cepstrum/_kb_core.peak_find_params 一致）。"""
+    """缝深匹配容差 [m]（与 analysis/cepstrum/_kb_core.peak_find_params 一致）。"""
     sorted_d = sorted(fracture_depths_m)
     min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
     return float(np.clip(min_spacing * 0.45, 80.0, 250.0))
 
 
 def _peak_find_cfg() -> Dict:
-    """从 validation.config.CEPSTRUM_CONFIG 读寻峰参数；缺省则用宽松默认。"""
+    """从 moc_simulate.config.CEPSTRUM_CONFIG 读寻峰参数；缺省则用宽松默认。"""
     try:
         from moc_simulate.config import CEPSTRUM_CONFIG as C
     except Exception:

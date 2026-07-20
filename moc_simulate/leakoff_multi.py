@@ -4,7 +4,7 @@
 
 通过 --friction steady|brunone|steady_D*|brunone_D*|steady_Dall|brunone_Dall
 与 --case single|dual|triple|quad|quint|hex|hept|oct|all 切换。
-参数集中管理在 validation/config.py，修改该文件即可全局调整。
+参数集中管理在 moc_simulate/config.py，修改该文件即可全局调整。
 
 输出路径: output/leakoff/{friction}/{case}/
   - moc_leakoff.png       2×2 MOC 验证图
@@ -16,16 +16,16 @@
 
 运行
 ----
-    python validation/leakoff_multi.py --friction steady --case all
-    python validation/leakoff_multi.py --friction steady_D10 --case all
-    python validation/leakoff_multi.py --friction steady_Dall --case all
-    python validation/leakoff_multi.py --friction brunone_Dall --case dual
-    python validation/leakoff_multi.py --friction brunone --case dual
+    python moc_simulate/leakoff_multi.py --friction steady --case all
+    python moc_simulate/leakoff_multi.py --friction steady_D10 --case all
+    python moc_simulate/leakoff_multi.py --friction steady_Dall --case all
+    python moc_simulate/leakoff_multi.py --friction brunone_Dall --case dual
+    python moc_simulate/leakoff_multi.py --friction brunone --case dual
 
 仅重绘倒谱图并更新 JSON（不重跑 MOC，读已有 moc_timeseries.csv）
 ----
-    python validation/leakoff_multi.py --replay --friction steady_D20 --case quad
-    python validation/leakoff_multi.py --replay --friction steady_Dall --case all
+    python moc_simulate/leakoff_multi.py --replay --friction steady_D20 --case quad
+    python moc_simulate/leakoff_multi.py --replay --friction steady_Dall --case all
 """
 from __future__ import annotations
 

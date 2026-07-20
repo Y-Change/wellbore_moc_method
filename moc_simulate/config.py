@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-validation/config.py — 集中管理验证脚本的物理参数、仿真参数、缝形态与摩阻配置。
+moc_simulate/config.py — 集中管理验证脚本的物理参数、仿真参数、缝形态与摩阻配置。
 
 供 leakoff_multi.py / kaiser_bessel_multi.py / wlen_sweep.py 等验证脚本共享。
 修改本文件即可全局调整所有验证的物理与仿真设定。
@@ -44,7 +44,7 @@ FRACTURE_CONFIG = {
 #   可检出更多峰；过大则噪声峰也会进来。
 CEPSTRUM_CONFIG = {
     'wlen_sec': 30.0,        # 2D 倒谱窗长 [s]
-    'hop_sec': 5.0,          # 2D 倒谱 hop [s]
+    'hop_sec': 3.0,          # 2D 倒谱 hop [s]
     'win_type': 'hamming',   # 2D 倒谱窗型
     # ---- 寻峰 ----
     'peak_height_pct': 85.0,     # 高度下界：响应分位数 [%]（原隐含 95）
