@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -44,8 +44,8 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import output_path, SERIES_STEP01_JOUKOWSKY
-from wellbore_moc import MocConfig, simulate_wellbore, G
+from moc_simulate.paths import output_path, SERIES_STEP01_JOUKOWSKY
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore, G
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False

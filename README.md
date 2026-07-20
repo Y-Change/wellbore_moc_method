@@ -12,10 +12,10 @@ pip install -r requirements.txt
 
 ```
 wellbore_moc_method/
-├── wellbore_moc.py              # MOC 核心求解器
-├── cepstrum_mocdata.py          # 倒谱分析库（1D/2D + 时间平均剖面）
-├── paths.py                     # 分级 output 路径工厂
-├── validation/                  # 验证脚本（基础算例与 MOC 核心验证）
+├── moc_simulate/                # 仿真核心包与基础算例验证
+│   ├── wellbore_moc.py          # MOC 核心求解器
+│   ├── cepstrum_mocdata.py      # 倒谱分析库（1D/2D + 时间平均剖面）
+│   ├── paths.py                 # 分级 output 路径工厂
 │   ├── config.py                # 集中配置：井参数/仿真参数/缝形态/摩阻+间距
 │   ├── leakoff_multi.py         # 统一 leakoff 验证（steady|brunone|*_D* × 单~五缝）
 │   ├── step01_joukowsky.py      # Step 1 Joukowsky 解析解验证
@@ -35,7 +35,7 @@ wellbore_moc_method/
 └── output/                      # 分级输出（见 output/README.md）
 ```
 
-日常请使用 `validation/`、`analysis/` 入口。旧命令见 `legacy/wrappers/`。
+日常请使用 `moc_simulate/`、`analysis/` 入口。旧命令见 `legacy/wrappers/`。
 
 ## 运行
 
@@ -43,22 +43,22 @@ wellbore_moc_method/
 
 ```bash
 # 统一 leakoff 验证（推荐）
-python validation/leakoff_multi.py --friction steady --case all
-python validation/leakoff_multi.py --friction brunone --case dual
-python validation/leakoff_multi.py --case single              # 默认 steady
+python moc_simulate/leakoff_multi.py --friction steady --case all
+python moc_simulate/leakoff_multi.py --friction brunone --case dual
+python moc_simulate/leakoff_multi.py --case single              # 默认 steady
 
 # 等间距扫描（首缝 4100 m，D=10/20/50/100）
-python validation/leakoff_multi.py --friction steady_D10 --case all
-python validation/leakoff_multi.py --friction steady_D100 --case dual
-python validation/leakoff_multi.py --friction brunone_D50 --case all
+python moc_simulate/leakoff_multi.py --friction steady_D10 --case all
+python moc_simulate/leakoff_multi.py --friction steady_D100 --case dual
+python moc_simulate/leakoff_multi.py --friction brunone_D50 --case all
 
 # 一次跑完 SPACING_PRESETS_M 全部间距
-python validation/leakoff_multi.py --friction steady_Dall --case all
-python validation/leakoff_multi.py --friction brunone_Dall --case dual
+python moc_simulate/leakoff_multi.py --friction steady_Dall --case all
+python moc_simulate/leakoff_multi.py --friction brunone_Dall --case dual
 
 # 仅从已有 CSV 重绘倒谱图 + 更新 JSON（不重跑 MOC）
-python validation/leakoff_multi.py --replay --friction steady_D20 --case quad
-python validation/leakoff_multi.py --replay --friction steady_Dall --case all
+python moc_simulate/leakoff_multi.py --replay --friction steady_D20 --case quad
+python moc_simulate/leakoff_multi.py --replay --friction steady_Dall --case all
 
 # 倒谱方法对比
 python analysis/cepstrum/kaiser_bessel_multi.py --friction steady --case all
@@ -79,8 +79,8 @@ python analysis/resolvability/forward_resolvability.py
 python analysis/resolvability/forward_resolvability.py --dr-db 80
 
 # Step 验证
-python validation/step01_joukowsky.py
-python validation/step03b_brunone.py
+python moc_simulate/step01_joukowsky.py
+python moc_simulate/step03b_brunone.py
 
 # 衰减机理与尺度回归 (Decay Regression Pipeline)
 python analysis/decay_analysis/decay_regression.py                     # 生成基础波形与倒谱，提取峰值 (01~03)
@@ -132,7 +132,7 @@ python legacy/wrappers/validate_moc_test_b_multi_Kaiser-Bessel.py --case all
 
 ## 集中配置
 
-所有物理参数、仿真参数、缝形态、摩阻与间距键集中在 `[validation/config.py](validation/config.py)`：
+所有物理参数、仿真参数、缝形态、摩阻与间距键集中在 `[moc_simulate/config.py](moc_simulate/config.py)`：
 
 ```python
 WELL_CONFIG         # L, diameter, density, viscosity, wavespeed, roughness, V0, H0, theta
@@ -196,9 +196,9 @@ FRICTION_PARAMS     # steady / brunone / steady_D* / brunone_D*
 
 | 旧 wrapper（`legacy/wrappers/`）                | 新入口                                                        | 输出目录                                               |
 | -------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------- |
-| `validate_moc_joukowsky.py`                  | `validation/step01_joukowsky.py`                           | `output/step01_joukowsky/`                         |
-| `validate_moc_test_b.py`                     | `validation/leakoff_multi.py --case single`                | `output/leakoff/steady/single/`                    |
-| `validate_moc_test_b_dual.py`                | `validation/leakoff_multi.py --case dual`                  | `output/leakoff/steady/dual/`                      |
+| `validate_moc_joukowsky.py`                  | `moc_simulate/step01_joukowsky.py`                           | `output/step01_joukowsky/`                         |
+| `validate_moc_test_b.py`                     | `moc_simulate/leakoff_multi.py --case single`                | `output/leakoff/steady/single/`                    |
+| `validate_moc_test_b_dual.py`                | `moc_simulate/leakoff_multi.py --case dual`                  | `output/leakoff/steady/dual/`                      |
 | `validate_moc_test_b_Kaiser-Bessel.py`       | `analysis/cepstrum/kaiser_bessel_multi.py --case single` | `output/cepstrum/kaiser_bessel/steady/single/`     |
 | `validate_moc_test_b_multi_Kaiser-Bessel.py` | `analysis/cepstrum/kaiser_bessel_multi.py`               | `output/cepstrum/kaiser_bessel/{friction}/{case}/` |
 | `plot_window_comparison.py`                  | `analysis/cepstrum/window_comparison.py`                            | `output/analysis/window_comparison/`               |

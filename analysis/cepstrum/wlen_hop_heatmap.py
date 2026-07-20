@@ -22,9 +22,7 @@ import numpy as np
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')) and os.path.isfile(
-        os.path.join(_d, 'wellbore_moc.py')
-    ):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -36,7 +34,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from paths import output_path, SERIES_CEPSTRUM_WLEN_HOP, CASE_DUAL, CASE_TRIPLE, CASE_QUAD
+from moc_simulate.paths import output_path, SERIES_CEPSTRUM_WLEN_HOP, CASE_DUAL, CASE_TRIPLE, CASE_QUAD
 from analysis.plotting.paper_plots import apply_paper_rc, heatmap_with_contour, save_figure
 
 apply_paper_rc()

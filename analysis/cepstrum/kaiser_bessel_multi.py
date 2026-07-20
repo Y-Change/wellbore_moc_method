@@ -21,7 +21,7 @@ from typing import Dict, List, Optional, Tuple
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -33,7 +33,7 @@ while True:
 import matplotlib.pyplot as plt
 import numpy as np
 
-from paths import (
+from moc_simulate.paths import (
     output_path,
     SERIES_CEPSTRUM_KB,
     CASE_SINGLE,
@@ -43,8 +43,8 @@ from paths import (
     CASE_QUINT,
 )
 
-from cepstrum_mocdata import preprocess_moc_head
-from wellbore_moc import MocConfig, simulate_wellbore
+from moc_simulate.cepstrum_mocdata import preprocess_moc_head
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore
 from analysis.cepstrum import _kb_core as kb
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']

@@ -13,7 +13,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -27,12 +27,12 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from wellbore_moc import MocConfig, simulate_wellbore, G
-from cepstrum_mocdata import (
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore, G
+from moc_simulate.cepstrum_mocdata import (
     preprocess_moc_head, prepare_cepstrum_signal,
     _resolve_cepstrum_params, cepstrogram,
 )
-from paths import output_path, SERIES_ANALYSIS_WINDOW
+from moc_simulate.paths import output_path, SERIES_ANALYSIS_WINDOW
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False

@@ -29,7 +29,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -42,9 +42,9 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from paths import output_path, SERIES_ENERGY_REGRESSION
+from moc_simulate.paths import output_path, SERIES_ENERGY_REGRESSION
 from analysis.plotting.paper_plots import apply_paper_rc, heatmap_with_contour, dual_axis_curve, save_figure
-from validation.config import SPACING_PRESETS_M
+from moc_simulate.config import SPACING_PRESETS_M
 
 apply_paper_rc()
 

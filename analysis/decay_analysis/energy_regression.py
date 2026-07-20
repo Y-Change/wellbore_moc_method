@@ -36,7 +36,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -45,17 +45,17 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import (
+from moc_simulate.paths import (
     output_path,
     SERIES_ENERGY_REGRESSION,
     CASE_SINGLE, CASE_DUAL, CASE_TRIPLE, CASE_QUAD, CASE_QUINT,
 )
-from wellbore_moc import MocConfig, simulate_wellbore
-from validation.config import (
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore
+from moc_simulate.config import (
     WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG, CEPSTRUM_CONFIG,
     SPACING_PRESETS_M, FRAC_FIRST_M, build_cases, FRICTION_PARAMS,
 )
-from cepstrum_mocdata import (
+from moc_simulate.cepstrum_mocdata import (
     compute_moc_cepstrum_1d, compute_moc_cepstrum,
     evaluate_1d_cepstrum_fracture_match, effective_fft_fmax,
     preprocess_moc_head,

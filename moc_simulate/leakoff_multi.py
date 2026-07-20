@@ -38,9 +38,7 @@ from typing import Dict, List, Optional, Tuple
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')) and os.path.isfile(
-        os.path.join(_d, 'wellbore_moc.py')
-    ):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -53,15 +51,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import AutoMinorLocator
 
-from paths import output_path, SERIES_LEAKOFF
-from wellbore_moc import MocConfig, simulate_wellbore, G
-from cepstrum_mocdata import (
+from moc_simulate.paths import output_path, SERIES_LEAKOFF
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore, G
+from moc_simulate.cepstrum_mocdata import (
     plot_moc_cepstrum_analysis,
     plot_moc_cepstrum_fracture_zoom,
     evaluate_1d_cepstrum_fracture_match,
     cepstrum_match_summary_for_json,
 )
-from validation.config import (
+from moc_simulate.config import (
     WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG, CEPSTRUM_CONFIG,
     CASES, FRICTION_PARAMS, build_cases,
     expand_friction_keys, friction_cli_choices,

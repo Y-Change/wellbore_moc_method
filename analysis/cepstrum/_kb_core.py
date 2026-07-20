@@ -9,7 +9,7 @@ import numpy as np
 import scipy.linalg as linalg
 import scipy.signal as signal
 
-from cepstrum_mocdata import cepstrogram
+from moc_simulate.cepstrum_mocdata import cepstrogram
 
 
 def _preemphasis(frame: np.ndarray, mu: float = 0.97) -> np.ndarray:

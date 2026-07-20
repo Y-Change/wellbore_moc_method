@@ -495,7 +495,7 @@ def _fracture_match_tol_m(
 def _peak_find_cfg() -> Dict:
     """从 validation.config.CEPSTRUM_CONFIG 读寻峰参数；缺省则用宽松默认。"""
     try:
-        from validation.config import CEPSTRUM_CONFIG as C
+        from moc_simulate.config import CEPSTRUM_CONFIG as C
     except Exception:
         C = {}
     return {
@@ -1110,7 +1110,7 @@ def plot_moc_cepstrum_analysis(
         ax4.set_xlim([x_lo, x_hi])
     ax4.xaxis.set_minor_locator(AutoMinorLocator())
     ax4.minorticks_on()
-    _mark_true_fractures(ax4, fracture_positions)
+    _mark_true_fractures(ax4, fracture_positions, draw_vline=False)
     cbar = fig.colorbar(
         im, ax=ax4, orientation='horizontal',
         pad=0.08, fraction=0.05, aspect=40,
@@ -1238,7 +1238,7 @@ def plot_moc_cepstrum_fracture_zoom(
     fracture_positions = list(fracture_positions or [])
     if margin_m is None:
         try:
-            from validation.config import CEPSTRUM_CONFIG as _C
+            from moc_simulate.config import CEPSTRUM_CONFIG as _C
             margin_m = float(_C.get('fracture_zoom_margin_m', 100.0))
         except Exception:
             margin_m = 100.0
@@ -1346,7 +1346,7 @@ def plot_moc_cepstrum_fracture_zoom(
         f'2D 倒谱图 (Cepstrogram) | wlen={wlen_sec:.3f}s, hop={hop_sec}s, win={win_used}'
     )
     _style_depth_xaxis(ax2)
-    _mark_true_fractures(ax2, fracture_positions)
+    _mark_true_fractures(ax2, fracture_positions, draw_vline=False)
     cbar = fig.colorbar(im, cax=cax, orientation='horizontal')
     cbar.set_label('倒谱能量 (-C)', fontsize=10)
 

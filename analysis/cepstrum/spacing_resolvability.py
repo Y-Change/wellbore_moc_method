@@ -21,9 +21,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')) and os.path.isfile(
-        os.path.join(_d, 'wellbore_moc.py')
-    ):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -32,14 +30,14 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import OUTPUT_DIR, SERIES_LEAKOFF
-from validation.config import (
+from moc_simulate.paths import OUTPUT_DIR, SERIES_LEAKOFF
+from moc_simulate.config import (
     WELL_CONFIG,
     SIM_CONFIG,
     CEPSTRUM_CONFIG,
     SPACING_PRESETS_M,
 )
-from wellbore_moc import MocConfig
+from moc_simulate.wellbore_moc import MocConfig
 
 CASES = ('single', 'dual', 'triple', 'quad', 'quint')
 

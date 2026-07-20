@@ -22,7 +22,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -31,7 +31,7 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import OUTPUT_DIR, SERIES_ENERGY_REGRESSION, SERIES_CEPSTRUM_WLEN_HOP
+from moc_simulate.paths import OUTPUT_DIR, SERIES_ENERGY_REGRESSION, SERIES_CEPSTRUM_WLEN_HOP
 from analysis.report_render import (
     render_energy_section, render_wlen_hop_section, render_full_report,
 )

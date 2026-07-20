@@ -27,9 +27,7 @@ from typing import Dict, List, Optional, Tuple
 # bootstrap wellbore_moc_method root
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')) and os.path.isfile(
-        os.path.join(_d, 'wellbore_moc.py')
-    ):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -42,7 +40,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
 
-from paths import (
+from moc_simulate.paths import (
     output_path,
     SERIES_CEPSTRUM_KB,
     SERIES_CEPSTRUM_WLEN_SWEEP,
@@ -51,8 +49,8 @@ from paths import (
     CASE_QUAD,
     CASE_QUINT,
 )
-from cepstrum_mocdata import preprocess_moc_head
-from wellbore_moc import MocConfig, simulate_wellbore
+from moc_simulate.cepstrum_mocdata import preprocess_moc_head
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore
 from analysis.cepstrum import _kb_core as kb
 from analysis.cepstrum.kaiser_bessel_multi import CASES, FRICTION_PARAMS
 

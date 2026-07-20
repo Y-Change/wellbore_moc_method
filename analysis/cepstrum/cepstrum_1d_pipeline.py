@@ -30,7 +30,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -39,10 +39,10 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import OUTPUT_DIR, SERIES_LEAKOFF, output_path
-from wellbore_moc import MocConfig
-from validation.config import WELL_CONFIG, SIM_CONFIG
-from cepstrum_mocdata import preprocess_moc_head
+from moc_simulate.paths import OUTPUT_DIR, SERIES_LEAKOFF, output_path
+from moc_simulate.wellbore_moc import MocConfig
+from moc_simulate.config import WELL_CONFIG, SIM_CONFIG
+from moc_simulate.cepstrum_mocdata import preprocess_moc_head
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False

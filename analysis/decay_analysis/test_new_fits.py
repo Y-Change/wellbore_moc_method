@@ -10,7 +10,7 @@ import sys
 
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -19,7 +19,7 @@ while True:
         raise RuntimeError('Cannot find wellbore_moc_method root')
     _d = _parent
 
-from paths import output_path, SERIES_DECAY_REGRESSION
+from moc_simulate.paths import output_path, SERIES_DECAY_REGRESSION
 from analysis.plotting.paper_plots import apply_paper_rc, save_figure
 
 apply_paper_rc()

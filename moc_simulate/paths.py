@@ -6,9 +6,10 @@ import os
 import sys
 from typing import Optional
 
-METHOD_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(METHOD_DIR, "output")
-DOCS_DIR = os.path.join(METHOD_DIR, "docs")
+PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(PACKAGE_DIR)
+OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
+DOCS_DIR = os.path.join(PROJECT_ROOT, "docs")
 
 # L1 系列名（与 output/ 子目录一致）
 SERIES_STEP01_JOUKOWSKY = "step01_joukowsky"
@@ -34,17 +35,15 @@ CASE_QUINT = "quint"
 
 def ensure_method_root_on_path() -> None:
     """确保项目根目录在 sys.path 中（validation 子包脚本使用）。"""
-    if METHOD_DIR not in sys.path:
-        sys.path.insert(0, METHOD_DIR)
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
 
 
 def bootstrap_method_root(caller_file: str) -> str:
     """从任意 validation/ 子目录脚本向上查找并加入 sys.path。"""
     d = os.path.dirname(os.path.abspath(caller_file))
     while True:
-        if os.path.isfile(os.path.join(d, "paths.py")) and os.path.isfile(
-            os.path.join(d, "wellbore_moc.py")
-        ):
+        if os.path.isfile(os.path.join(d, "README.md")):
             if d not in sys.path:
                 sys.path.insert(0, d)
             return d

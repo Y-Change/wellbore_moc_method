@@ -34,9 +34,7 @@ from scipy.signal import find_peaks
 # bootstrap wellbore_moc_method root
 _d = os.path.dirname(os.path.abspath(__file__))
 while True:
-    if os.path.isfile(os.path.join(_d, 'paths.py')) and os.path.isfile(
-        os.path.join(_d, 'wellbore_moc.py')
-    ):
+    if os.path.isfile(os.path.join(_d, 'README.md')):
         if _d not in sys.path:
             sys.path.insert(0, _d)
         break
@@ -48,14 +46,14 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from paths import (
+from moc_simulate.paths import (
     output_path,
     SERIES_CEPSTRUM_WLEN_HOP,
     CASE_DUAL, CASE_TRIPLE, CASE_QUAD,
 )
-from cepstrum_mocdata import preprocess_moc_head
-from wellbore_moc import MocConfig, simulate_wellbore
-from validation.config import (
+from moc_simulate.cepstrum_mocdata import preprocess_moc_head
+from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore
+from moc_simulate.config import (
     WELL_CONFIG, SIM_CONFIG, FRACTURE_CONFIG,
     SPACING_PRESETS_M, FRAC_FIRST_M, build_cases, FRICTION_PARAMS,
 )
