@@ -312,6 +312,129 @@ def plot_weighted_cepstrogram(data, x_f_list, out_dir):
     plt.close()
     print("绘制加权倒谱图 -> 3_weighted_cepstrogram.png")
 
+def plot_drift_verification(data, x_f_list, out_dir):
+    if len(x_f_list) == 0:
+        return
+        
+    cepstrogram_2d = data['C']
+    d_show = data['depth']
+    t_windows = data['t_cep']
+    weights = data['weights']
+    
+    # 找第一个裂缝作为验证目标
+    target_xf = x_f_list[0]
+    
+    # 划定搜索区间 +- 150m
+    search_radius = 150.0
+    idx_min = np.searchsorted(d_show, target_xf - search_radius)
+    idx_max = np.searchsorted(d_show, target_xf + search_radius)
+    
+    if idx_min >= idx_max:
+        return
+        
+    peak_depths = []
+    peak_fwhms = []
+    
+    for i in range(len(t_windows)):
+        c_slice = -cepstrogram_2d[idx_min:idx_max, i]
+        
+        # 找峰
+        peaks, props = scipy.signal.find_peaks(c_slice, width=0)
+        if len(peaks) > 0:
+            # 找最高峰
+            max_idx = np.argmax(c_slice[peaks])
+            peak_loc = peaks[max_idx]
+            
+            # 记录深度
+            actual_depth = d_show[idx_min + peak_loc]
+            peak_depths.append(actual_depth)
+            
+            # 半高宽
+            w = props['widths'][max_idx]
+            # w是index跨度，转成实际深度跨度
+            dd = d_show[1] - d_show[0]
+            peak_fwhms.append(w * dd)
+        else:
+            peak_depths.append(np.nan)
+            peak_fwhms.append(np.nan)
+            
+    # 画图
+    fig, axes = plt.subplots(3, 1, figsize=(12, 12), gridspec_kw={'height_ratios': [1, 1, 1]})
+    
+    # 图 1: 峰值深度随时间的漂移
+    ax1 = axes[0]
+    ax1.plot(t_windows, peak_depths, 'r.-', label='单时间窗识别出的峰值深度')
+    ax1.axhline(target_xf, color='k', ls='--', label=f'真实裂缝深度 ({target_xf}m)')
+    ax1.set_ylabel('倒谱峰深度 [m]')
+    ax1.set_title('随时间推移，裂缝响应在倒谱域的"漂移轨迹"及 W(t) 的抑制作用')
+    ax1.grid(True, ls='--', alpha=0.5)
+    
+    # 双Y轴画权重
+    ax1_w = ax1.twinx()
+    ax1_w.fill_between(t_windows, 0, weights, color='blue', alpha=0.1, label='关注权重 W(t)')
+    ax1_w.set_ylabel('关注权重 W(t)', color='blue')
+    ax1_w.tick_params(axis='y', labelcolor='blue')
+    ax1_w.set_ylim(-0.1, 1.1)
+    
+    # 规避合并图例的复杂性，简单处理
+    lines, labels = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax1_w.get_legend_handles_labels()
+    ax1_w.legend(lines + lines2, labels + labels2, loc='upper right')
+    
+    # 图 2: 峰宽胖化
+    ax2 = axes[1]
+    ax2.plot(t_windows, peak_fwhms, 'g.-', label='峰半高宽 (FWHM)')
+    ax2.set_xlabel('时间窗中心 [s]')
+    ax2.set_ylabel('峰宽 [m]')
+    ax2.set_title('随时间推移，裂缝响应在倒谱域的分辨率丧失 ("胖化")')
+    ax2.grid(True, ls='--', alpha=0.5)
+    ax2.legend(loc='upper right')
+    
+    # 图 3: 最终定位误差对比
+    prof_unweighted = np.mean(-cepstrogram_2d, axis=1)
+    
+    sum_w = np.sum(weights)
+    if sum_w > 0:
+        prof_weighted = np.sum(-cepstrogram_2d * weights, axis=1) / sum_w
+    else:
+        prof_weighted = prof_unweighted
+    
+    ax3 = axes[2]
+    # 取局部
+    d_local = d_show[idx_min:idx_max]
+    c_unw = prof_unweighted[idx_min:idx_max]
+    c_w = prof_weighted[idx_min:idx_max]
+    
+    ax3.plot(d_local, c_unw, 'k', lw=1.5, alpha=0.6, label='传统等权重平均')
+    ax3.plot(d_local, c_w, 'b', lw=2, label='关注权重 W(t) 加权平均')
+    ax3.axvline(target_xf, color='r', ls='--', label=f'真实深度 ({target_xf}m)')
+    
+    # 找最终峰位
+    p_unw, _ = scipy.signal.find_peaks(c_unw)
+    if len(p_unw)>0:
+        loc = d_local[p_unw[np.argmax(c_unw[p_unw])]]
+        err = abs(loc - target_xf)
+        ax3.plot(loc, c_unw[p_unw[np.argmax(c_unw[p_unw])]], 'ko')
+        ax3.text(loc, c_unw[p_unw[np.argmax(c_unw[p_unw])]], f" 传统误差 {err:.1f}m", color='k')
+        
+    p_w, _ = scipy.signal.find_peaks(c_w)
+    if len(p_w)>0:
+        loc = d_local[p_w[np.argmax(c_w[p_w])]]
+        err = abs(loc - target_xf)
+        ax3.plot(loc, c_w[p_w[np.argmax(c_w[p_w])]], 'bo')
+        ax3.text(loc, c_w[p_w[np.argmax(c_w[p_w])]], f" 加权误差 {err:.1f}m", color='b')
+        
+    ax3.set_xlabel('深度 [m]')
+    ax3.set_ylabel('1D 时间平均能量')
+    ax3.set_title('局部寻峰实测验证：剔除后期漂移极大地提升了最终定位精度')
+    ax3.grid(True, ls='--', alpha=0.5)
+    ax3.legend(loc='upper right')
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(out_dir, '4_drift_verification.png'), dpi=150)
+    plt.close()
+    print("绘制漂移验证图 -> 4_drift_verification.png")
+
 def process_single_case(friction, d_size, case_name):
     class Args: pass
     args = Args()
@@ -335,6 +458,7 @@ def process_single_case(friction, d_size, case_name):
     plot_weight_evolution(data, out_dir)
     plot_single_window_comparison(data, x_f_list, out_dir)
     plot_weighted_cepstrogram(data, x_f_list, out_dir)
+    plot_drift_verification(data, x_f_list, out_dir)
     
     print(f"分析完成: {args.case}，结果已保存至: {out_dir}\n")
 
