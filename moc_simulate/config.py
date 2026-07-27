@@ -44,8 +44,8 @@ FRACTURE_CONFIG = {
 #   可检出更多峰；过大则噪声峰也会进来。
 CEPSTRUM_CONFIG = {
     'wlen_sec': 30.0,        # 2D 倒谱窗长 [s]
-    'hop_sec': 3.0,          # 2D 倒谱 hop [s]
-    'win_type': 'hamming',   # 2D 倒谱窗型
+    'hop_sec': 5.0,          # 2D 倒谱 hop [s]
+    'win_type': 'kaiser',   # 2D 倒谱窗型
     # ---- 寻峰 ----
     'peak_height_pct': 85.0,     # 高度下界：响应分位数 [%]（原隐含 95）
     'peak_height_rel': 0.03,     # 高度下界：相对全局 max 的比例（替代硬门限 0.01）

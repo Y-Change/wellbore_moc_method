@@ -469,9 +469,31 @@ def _plot_fft_panel(
         f_display_max = min(fft_fmax, fs / 2.0)
     mask_f = frequencies <= f_display_max
     ax.plot(frequencies[mask_f], magnitude[mask_f], 'b-', lw=1.2, label='FFT 幅值')
-    f0 = wavespeed / (4.0 * wellbore_length)
-    ax.axvline(f0, color='orange', ls=':', lw=1.0, alpha=0.8,
-               label=f'水击基频 $f_0$=a/(4L)={f0:.3f} Hz')
+    # 获取真正的 FFT 首峰作为水击基频
+    # 在理论基频 a/(4L) 的 ±50% 范围内搜索，避免低频噪声/DC泄漏干扰
+    f0_theory = wavespeed / (4.0 * wellbore_length)
+    f_lo, f_hi = f0_theory * 0.5, f0_theory * 1.5
+    search_mask = (frequencies >= f_lo) & (frequencies <= f_hi)
+    search_freqs = frequencies[search_mask]
+    search_mag = magnitude[search_mask]
+    if len(search_mag) > 0:
+        # 抛物线插值获得亚 bin 精度
+        pk_idx = np.argmax(search_mag)
+        if 0 < pk_idx < len(search_mag) - 1:
+            y0, y1, y2 = search_mag[pk_idx-1], search_mag[pk_idx], search_mag[pk_idx+1]
+            denom = y0 - 2.0 * y1 + y2
+            if abs(denom) > 1e-30:
+                delta = 0.5 * (y0 - y2) / denom
+                f0_fft = search_freqs[pk_idx] + delta * (search_freqs[1] - search_freqs[0])
+            else:
+                f0_fft = search_freqs[pk_idx]
+        else:
+            f0_fft = search_freqs[pk_idx]
+    else:
+        f0_fft = f0_theory
+        
+    ax.axvline(f0_fft, color='orange', ls='-', lw=1.5, alpha=0.8,
+               label=f'水击基频 (FFT首峰) $f_0$={f0_fft:.4f} Hz')
     ax.set_xlabel('频率 [Hz]')
     ax.set_ylabel('幅值 [m]')
     ax.set_title(f'井口水头频域曲线 (FFT) | 有效范围 0–{f_display_max:.2f} Hz')

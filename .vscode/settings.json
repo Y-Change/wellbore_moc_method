@@ -1,5 +1,12 @@
 {
   "python.defaultInterpreterPath": "D:/Anaconda/envs/simpy/python.exe",
   "python.pythonPath": "D:/Anaconda/envs/simpy/python.exe",
-  "python.analysis.typeCheckingMode": "off"
+  "python.analysis.typeCheckingMode": "off",
+
+  "markdown.math.enabled": true,
+  "markdown.preview.typographer": true,
+  "terminal.integrated.fontFamily": "'JetBrains Mono Nerd Font', 'Fira Code Nerd Font', 'Consolas', monospace",
+  "terminal.integrated.lineHeight": 1.35,
+  "cursor.chat.enableRichRendering": true,
+  "cursor.chat.renderMathInChat": true
 }

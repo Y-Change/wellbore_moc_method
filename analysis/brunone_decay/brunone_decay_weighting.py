@@ -19,7 +19,7 @@ if _root not in sys.path:
 
 from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore
 from moc_simulate.cepstrum_mocdata import preprocess_moc_head, cepstrogram, _quefrency_to_depth
-from moc_simulate.config import CASES, FRICTION_PARAMS, CEPSTRUM_CONFIG
+from moc_simulate.config import CASES, CEPSTRUM_CONFIG, build_cases
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
@@ -48,9 +48,14 @@ def load_simulation(args):
         friction_model=args.friction,
     )
     
-    # 自动根据 case 设定裂缝位置
-    if args.case in CASES:
-        x_f_list = CASES[args.case].get('x_f_list', [])
+    # 按间距键解析裂缝位置（D20 → 20 m）；无法解析时回退默认 CASES
+    try:
+        spacing_m = float(str(args.d_size).lstrip('Dd'))
+        cases = build_cases(spacing_m)
+    except (TypeError, ValueError):
+        cases = CASES
+    if args.case in cases:
+        x_f_list = cases[args.case].get('x_f_list', [])
     else:
         x_f_list = []
     
@@ -59,10 +64,10 @@ def load_simulation(args):
         'wellhead_head': wellhead_head
     }
     
-    print(f"数据加载完成，共 {len(timestamps)} 个时间步。")
+    print(f"数据加载完成，共 {len(timestamps)} 个时间步。缝深={x_f_list}")
     return res, config, x_f_list
 
-def compute_fracture_energy_and_weights(res, config):
+def compute_fracture_energy_and_weights(res, config, x_f_list=None, margin_m=500.0):
     time = res['timestamps']
     head = res['wellhead_head']
     fs = 1.0 / config.dt
@@ -83,12 +88,19 @@ def compute_fracture_energy_and_weights(res, config):
     C, q, t_cep = cepstrogram(p_work, wlen=wlen, hop=hop, fs=fs, win_type=win_type)
     depth = _quefrency_to_depth(q, v)
     
-    # 1. 计算倒谱特征区能量（裂缝反射能量）
-    # 关注可能存在裂缝的深度区间（例如 1000m - L）
-    depth_mask = (depth >= 2000.0) & (depth <= L + 200.0)
+    # 1. 裂缝反射能量：倒谱深度带 = [首缝-margin, 尾缝+margin]
+    x_f = [float(x) for x in (x_f_list or [])]
+    if x_f:
+        d_lo = max(0.0, min(x_f) - margin_m)
+        d_hi = min(L + 200.0, max(x_f) + margin_m)
+    else:
+        d_lo, d_hi = 2000.0, L + 200.0
+    depth_mask = (depth >= d_lo) & (depth <= d_hi)
+    if not np.any(depth_mask):
+        raise ValueError(f'裂缝能量深度带为空: [{d_lo:.1f}, {d_hi:.1f}] m')
+    print(f"裂缝能量深度带 Ω=[{d_lo:.1f}, {d_hi:.1f}] m (margin={margin_m:.0f} m)")
     
-    # 改为使用区间内的最大峰值（Peak），而不是 RMS。因为裂缝特征是稀疏的尖峰，
-    # 全局 RMS 会被不衰减的背景计算噪声稀释。
+    # 区间内最大峰值（Peak），而非 RMS：裂缝特征稀疏，RMS 会被底噪稀释
     E_ceps = np.max(-C[depth_mask, :], axis=0)
     
     # 平滑能量曲线
@@ -110,7 +122,8 @@ def compute_fracture_energy_and_weights(res, config):
         'C': C, 'q': q, 'depth': depth, 't_cep': t_cep,
         'E_ceps': E_ceps_smoothed, 'weights': weights,
         'wlen': wlen, 'hop': hop, 'fs': fs, 'v': v, 'L': L,
-        'p_work': p_work, 'threshold': threshold
+        'p_work': p_work, 'threshold': threshold,
+        'energy_depth_band': (d_lo, d_hi),
     }
 
 def plot_weight_evolution(data, out_dir):
@@ -138,6 +151,61 @@ def plot_weight_evolution(data, out_dir):
     plt.savefig(os.path.join(out_dir, '1_weight_evolution.png'), dpi=150)
     plt.close()
     print("绘制能量演化曲线 -> 1_weight_evolution.png")
+
+def effective_bandwidth_hz(
+    freqs: np.ndarray,
+    mag: np.ndarray,
+    f0: float,
+    f_cap: float = 15.0,
+    peak_rel: float = 1e-3,
+    energy_fraction: float = 0.90,
+) -> float:
+    """有效带宽 B_eff [Hz]：显示频带内仍有显著能量的频率上限。
+
+    在 (0, f_cap] 内：
+      1) 从低频起找幅值 ≥ peak_rel·peak 的连通支撑上沿
+      2) 若谱接近白噪声（峰/中位数过低且支撑顶到 f_cap），改用累积能量
+         energy_fraction 对应频率，避免把底噪当成带宽
+    """
+    freqs = np.asarray(freqs, dtype=float)
+    mag = np.asarray(mag, dtype=float)
+    if len(freqs) < 2 or np.max(mag) <= 0:
+        return float(max(f0, 0.0))
+
+    mask = (freqs > 0) & (freqs <= f_cap)
+    f = freqs[mask]
+    m = mag[mask]
+    if len(f) == 0:
+        return float(max(f0, 0.0))
+
+    peak = float(np.max(m))
+    med = float(np.median(m))
+    thr = peak * peak_rel
+    df = float(f[1] - f[0]) if len(f) > 1 else f0
+    max_gap = max(1, int(round(0.5 * max(f0, df) / df)))
+
+    above = m >= thr
+    last = 0
+    gap = 0
+    for i in range(len(m)):
+        if above[i]:
+            last = i
+            gap = 0
+        else:
+            gap += 1
+            if gap > max_gap:
+                break
+    B = float(f[last])
+
+    # 噪声主导：支撑被底噪顶到显示上限 → 改用能量集中度
+    if peak <= 10.0 * med and B > 0.8 * f_cap:
+        power = m ** 2
+        total = float(power.sum()) + 1e-30
+        idx_e = int(np.searchsorted(np.cumsum(power), energy_fraction * total))
+        B = float(f[min(idx_e, len(f) - 1)])
+
+    return float(np.clip(max(B, f0), 0.0, f_cap))
+
 
 def plot_single_window_comparison(data, x_f_list, out_dir):
     t_cep = data['t_cep']
@@ -200,14 +268,23 @@ def plot_single_window_comparison(data, x_f_list, out_dir):
         freqs = fftfreq(wlen, 1/fs)[:wlen//2]
         
         ax_f = axes[2, col]
-        mask_f = freqs <= 15.0 # 显示 0-15Hz
+        f_display = 15.0
+        mask_f = freqs <= f_display
         ax_f.plot(freqs[mask_f], mag[mask_f], 'g-', lw=1)
         f0 = v / (4.0 * data['L'])
+        # 有效带宽：在显示频带内估计；用原窗频谱（与 FFT 子图一致）
+        B_eff = effective_bandwidth_hz(freqs, mag, f0, f_cap=f_display)
         ax_f.axvline(f0, color='orange', ls='--', lw=1.2, label='基频')
-        ax_f.set_title(f'FFT 频谱 (0-15Hz)')
+        ax_f.axvline(B_eff, color='purple', ls='-.', lw=1.4,
+                     label=f'有效带宽 $B_{{\\mathrm{{eff}}}}$={B_eff:.2f} Hz')
+        ax_f.set_xlim(0.0, f_display)
+        ax_f.set_title(
+            f'FFT 频谱 (0-{f_display:.0f}Hz)\n'
+            f'$B_{{\\mathrm{{eff}}}}$={B_eff:.2f} Hz'
+        )
         ax_f.set_xlabel('频率 [Hz]')
         ax_f.set_ylabel('幅值')
-        ax_f.legend(loc='upper right')
+        ax_f.legend(loc='upper right', fontsize=8)
         ax_f.grid(True, ls='--', alpha=0.5)
         if col > 0:
             ax_f.set_ylim(axes[2, 0].get_ylim())
@@ -453,7 +530,7 @@ def process_single_case(friction, d_size, case_name):
         print(f"跳过 {args.case} 算例分析。")
         return
         
-    data = compute_fracture_energy_and_weights(res, config)
+    data = compute_fracture_energy_and_weights(res, config, x_f_list=x_f_list, margin_m=500.0)
     
     plot_weight_evolution(data, out_dir)
     plot_single_window_comparison(data, x_f_list, out_dir)
