@@ -43,8 +43,12 @@ class SpectralConv1d(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         batchsize = x.shape[0]
+        orig_dtype = x.dtype
+        # 防御 PyTorch 2.4+ AMP 下 ComplexHalf 的 einsum 不兼容问题
+        x_fp32 = x.to(torch.float32)
+        
         # 1. 快速傅里叶变换到频域 (rfft 返回正频率部分)
-        x_ft = torch.fft.rfft(x)
+        x_ft = torch.fft.rfft(x_fp32)
 
         # 2. 截断低频模式并应用自适应复数权重乘法
         out_ft = torch.zeros(
@@ -54,8 +58,8 @@ class SpectralConv1d(nn.Module):
         out_ft[:, :, :self.modes1] = self.compl_mul1d(x_ft[:, :, :self.modes1], self.weights1)
 
         # 3. 逆快速傅里叶变换回到时域
-        x = torch.fft.irfft(out_ft, n=x.size(-1))
-        return x
+        x_out = torch.fft.irfft(out_ft, n=x.size(-1))
+        return x_out.to(orig_dtype)
 
 
 class FNO1dBlock(nn.Module):

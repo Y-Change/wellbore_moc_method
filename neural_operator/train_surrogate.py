@@ -45,7 +45,7 @@ from neural_operator.dataset_surrogate import get_surrogate_dataloaders
 
 class CompositePhysicsLoss(nn.Module):
     """时域-导数-频域三位一体综合物理损失函数"""
-    def __init__(self, alpha_grad: float = 0.1, beta_fft: float = 0.05):
+    def __init__(self, alpha_grad: float = 0.1, beta_fft: float = 0.5):
         super(CompositePhysicsLoss, self).__init__()
         self.alpha = alpha_grad
         self.beta = beta_fft
@@ -60,9 +60,10 @@ class CompositePhysicsLoss(nn.Module):
         loss_grad = F.mse_loss(diff_pred, diff_target)
 
         # 3. 频域/谱能量一致性误差 —— 保证反射波倒谱主频与次频不丢干净
-        fft_pred = torch.fft.rfft(pred, dim=-1)
-        fft_target = torch.fft.rfft(target, dim=-1)
-        loss_fft = F.mse_loss(torch.abs(fft_pred), torch.abs(fft_target))
+        # 修正：开启 norm="forward" 控制量纲，并且剔除 0 频（直流分量），让直流偏移完全交由时域 MSE 负责
+        fft_pred = torch.fft.rfft(pred, dim=-1, norm="forward")
+        fft_target = torch.fft.rfft(target, dim=-1, norm="forward")
+        loss_fft = F.mse_loss(torch.abs(fft_pred[:, :, 1:]), torch.abs(fft_target[:, :, 1:]))
 
         return loss_time + self.alpha * loss_grad + self.beta * loss_fft
 
@@ -153,8 +154,9 @@ def main():
     
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1.0e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=1.0e-6)
-    criterion = CompositePhysicsLoss(alpha_grad=0.1, beta_fft=0.05).to(device)
-    scaler = GradScaler()
+    # 将 beta_fft 从 0.05 显式提升到 0.5
+    criterion = CompositePhysicsLoss(alpha_grad=0.1, beta_fft=0.5).to(device)
+    # 取消 GradScaler，因为 C++ _amp_foreach_non_finite_check_and_unscale_cuda 不支持 ComplexFloat
 
     best_val_loss = float("inf")
     log_path = os.path.join(args.out_dir, "train_surrogate_log.csv")
@@ -176,14 +178,12 @@ def main():
             inputs, targets = inputs.to(device, non_blocking=True), targets.to(device, non_blocking=True)
             optimizer.zero_grad()
             
-            # 自动混合精度前向计算
-            with autocast():
-                preds = model(inputs)
-                loss = criterion(preds, targets)
+            # 纯 FP32 计算，规避所有底层 Complex 张量不支持的 Bug
+            preds = model(inputs)
+            loss = criterion(preds, targets)
 
-            scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
+            loss.backward()
+            optimizer.step()
 
             train_loss_total += loss.item() * inputs.size(0)
 
@@ -196,9 +196,8 @@ def main():
         with torch.no_grad():
             for inputs, targets in val_loader:
                 inputs, targets = inputs.to(device, non_blocking=True), targets.to(device, non_blocking=True)
-                with autocast():
-                    preds = model(inputs)
-                    loss = criterion(preds, targets)
+                preds = model(inputs)
+                loss = criterion(preds, targets)
                 val_loss_total += loss.item() * inputs.size(0)
 
         val_loss_avg = val_loss_total / len(val_loader.dataset)
