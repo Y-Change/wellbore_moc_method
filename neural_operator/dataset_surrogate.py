@@ -54,9 +54,9 @@ class FracturingMOCSurrogateDataset(Dataset):
         if not all_files:
             raise FileNotFoundError(f"[错误] 未在 {self.data_dir} 下找到任何 case_*.npz 数据集文件！")
             
-        # 划分训练集和测试/验证集
-        np.random.seed(seed)
-        indices = np.random.permutation(len(all_files))
+        # 划分训练集和测试/验证集；用局部 RandomState 保持历史 seed=42 划分不变。
+        rng = np.random.RandomState(seed)
+        indices = rng.permutation(len(all_files))
         n_train = int(len(all_files) * train_ratio)
         if split.lower() == "train":
             self.files = [all_files[i] for i in indices[:n_train]]
@@ -95,34 +95,86 @@ class FracturingMOCSurrogateDataset(Dataset):
             
         return impulse_cf, impulse_kleak
 
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+    def _load_case(self, idx: int) -> Tuple[str, np.lib.npyio.NpzFile]:
         filepath = self.files[idx]
-        npz = np.load(filepath)
-        
-        t_raw = npz["t"]
-        H_wh_raw = npz["H_wh"]
-        x_f = npz["x_f"]
-        Cf = npz["Cf"]
-        kleak = npz["kleak"]
-        tf = float(npz["tf"]) if "tf" in npz else t_raw[-1]
-        
-        # 1. 构造标准对齐的目标时间网格 (例如 4096 点)
-        t_target = np.linspace(0.0, tf, self.n_time_target, dtype=np.float32)
-        
-        # 2. 对原真解波形进行样条/线性插值对齐
-        H_wh_target = np.interp(t_target, t_raw, H_wh_raw).astype(np.float32)
-        
-        # 3. 构造 4 通道物理脉冲输入
-        ch0_time = (t_target / max(tf, 1.0)).astype(np.float32)
-        ch1_pump = (t_target < self.ts).astype(np.float32)
-        ch2_cf, ch3_kl = self._encode_impulse_trains(t_target, x_f, Cf, kleak)
-        
-        # 组装输入 Tensor: shape (4, N_TIME)
-        input_tensor = np.stack([ch0_time, ch1_pump, ch2_cf, ch3_kl], axis=0)
-        # 组装输出标签 Tensor: shape (1, N_TIME)
-        target_tensor = np.expand_dims(H_wh_target, axis=0)
-        
-        return torch.from_numpy(input_tensor), torch.from_numpy(target_tensor)
+        npz = np.load(filepath, allow_pickle=False)
+        required = ("t", "H_wh", "x_f", "Cf", "kleak")
+        missing = [key for key in required if key not in npz]
+        if missing:
+            npz.close()
+            raise ValueError(f"{filepath} 缺少字段: {missing}")
+
+        t = np.asarray(npz["t"])
+        H_wh = np.asarray(npz["H_wh"])
+        x_f = np.asarray(npz["x_f"])
+        Cf = np.asarray(npz["Cf"])
+        kleak = np.asarray(npz["kleak"])
+        if t.ndim != 1 or H_wh.ndim != 1 or len(t) != len(H_wh):
+            npz.close()
+            raise ValueError(f"{filepath} 的 t/H_wh 形状不一致")
+        if len(t) < 2 or not np.all(np.diff(t) > 0):
+            npz.close()
+            raise ValueError(f"{filepath} 的时间轴必须严格递增")
+        if not (len(x_f) == len(Cf) == len(kleak)):
+            npz.close()
+            raise ValueError(f"{filepath} 的 x_f/Cf/kleak 长度不一致")
+        for name, array in (("t", t), ("H_wh", H_wh), ("x_f", x_f), ("Cf", Cf), ("kleak", kleak)):
+            if not np.isfinite(array).all():
+                npz.close()
+                raise ValueError(f"{filepath} 的 {name} 含 NaN 或 Inf")
+        return filepath, npz
+
+    def get_case_metadata(self, idx: int) -> dict:
+        """返回不参与 DataLoader 拼接的可审计样本元数据。"""
+        filepath, npz = self._load_case(idx)
+        try:
+            t_raw = np.asarray(npz["t"], dtype=np.float64)
+            tf = float(npz["tf"]) if "tf" in npz else float(t_raw[-1])
+            case_name = os.path.splitext(os.path.basename(filepath))[0]
+            friction = str(npz["friction"].item()) if "friction" in npz else "unknown"
+            return {
+                "case_id": case_name,
+                "source_file": os.path.abspath(filepath),
+                "tf": tf,
+                "n_frac": int(npz["n_frac"]) if "n_frac" in npz else int(len(npz["x_f"])),
+                "x_f": np.asarray(npz["x_f"], dtype=np.float32).copy(),
+                "Cf": np.asarray(npz["Cf"], dtype=np.float32).copy(),
+                "kleak": np.asarray(npz["kleak"], dtype=np.float32).copy(),
+                "friction": friction,
+                "time_axis": np.linspace(0.0, tf, self.n_time_target, dtype=np.float32),
+                "wavespeed": float(self.wavespeed),
+                "pump_shut_time": float(self.ts),
+                "sigma_impulse_s": float(self.sigma),
+            }
+        finally:
+            npz.close()
+
+    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+        filepath, npz = self._load_case(idx)
+        try:
+            t_raw = npz["t"]
+            H_wh_raw = npz["H_wh"]
+            x_f = npz["x_f"]
+            Cf = npz["Cf"]
+            kleak = npz["kleak"]
+            tf = float(npz["tf"]) if "tf" in npz else t_raw[-1]
+
+            # 1. 构造标准对齐的目标时间网格 (例如 4096 点)
+            t_target = np.linspace(0.0, tf, self.n_time_target, dtype=np.float32)
+
+            # 2. 对原真解波形进行样条/线性插值对齐
+            H_wh_target = np.interp(t_target, t_raw, H_wh_raw).astype(np.float32)
+
+            # 3. 构造 4 通道物理脉冲输入
+            ch0_time = (t_target / max(tf, 1.0)).astype(np.float32)
+            ch1_pump = (t_target < self.ts).astype(np.float32)
+            ch2_cf, ch3_kl = self._encode_impulse_trains(t_target, x_f, Cf, kleak)
+
+            input_tensor = np.stack([ch0_time, ch1_pump, ch2_cf, ch3_kl], axis=0)
+            target_tensor = np.expand_dims(H_wh_target, axis=0)
+            return torch.from_numpy(input_tensor), torch.from_numpy(target_tensor)
+        finally:
+            npz.close()
 
 
 def get_surrogate_dataloaders(

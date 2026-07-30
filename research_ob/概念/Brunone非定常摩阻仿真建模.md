@@ -1,0 +1,299 @@
+# Brunone 非定常摩阻方案说明
+
+**文件**：`wellbore_moc_method/wellbore_moc.py`
+**适用模块**：`friction_model="brunone"`（MocConfig 字段）
+**最后更新**：2026-07-08
+
+---
+
+## 1. 控制方程
+
+水击一维特征线方程中，摩阻项分为稳态部分 $J_s$ 和非定常部分 $J_u$：
+
+$$
+J = J_s + J_u
+$$
+
+特征线相容方程（C⁺/C⁻）：
+
+$$
+\begin{aligned}
+C^+: &\quad V_1 + g_a H_1 - J_1 + g_a \Delta t\, V_1 \sin\theta = C_P \\
+C^-: &\quad -V_2 + g_a H_2 + J_2 + g_a \Delta t\, V_2 \sin\theta = C_M
+\end{aligned}
+$$
+
+其中 $g_a = a/(gA)$，$J = J_s + J_u$ 是总摩阻冲量（量纲 m/s），$a$ 为波速，$A$ 为截面积，$\theta$ 为井斜角。
+
+内节点求解：
+
+$$
+H = \frac{C_P + C_M}{2 g_a},\quad V = C_P - g_a H
+$$
+
+---
+
+## 2. 稳态达西摩阻 $J_s$
+
+$$
+J_s = \frac{f\, \Delta t\, V\lvert V\rvert}{2D}
+$$
+
+达西系数 $f$ 由 Zigrand-Swami 显式近似计算：
+
+$$
+f =
+\begin{cases}
+\dfrac{64}{Re} & Re < 2000 \quad \text{（层流）} \\[8pt]
+\dfrac{1}{\bigl[-1.8\,\log_{10}\!\bigl(\dfrac{6.9}{Re} + K_D\bigr)\bigr]^2} & Re \ge 2000 \quad \text{（紊流）}
+\end{cases}
+$$
+
+其中 $Re = \lvert V\rvert D/\nu$，$K_D$ 为相对粗糙度，$D$ 为内径，$\nu$ 为运动黏度。
+
+**对应代码**：`friction_term_J`（`wellbore_moc.py:144-146`）、`darcy_friction_factor`（`wellbore_moc.py:127-141`）
+
+---
+
+## 3. Brunone 非定常摩阻 $J_u$
+
+### 3.1 核心公式
+
+$$
+J_u = \frac{k}{2}\,\Delta t\left(
+  \frac{\partial V}{\partial t}
+  + a\,\mathrm{sign}(V)\,\left\lvert\frac{\partial V}{\partial x}\right\rvert
+\right)
+$$
+
+**物理含义**：
+
+| 项 | 表达式 | 含义 |
+|----|--------|------|
+| 局部加速度 | $\partial V/\partial t$ | 流速随时间变化率 |
+| 对流加速度 | $a\,\mathrm{sign}(V)\,\lvert\partial V/\partial x\rvert$ | 流速沿空间变化率，乘波速得加速度量纲 |
+| 系数 | $k/2$ | Brunone 系数，由 Vardy 公式确定 |
+
+两者之和即“总瞬时加速度”，是 Brunone 模型区别于稳态摩阻的关键——稳态摩阻只用 $V\lvert V\rvert$，无法反映流速变化时的额外阻尼。
+
+**对应代码**：`brunone_friction_Ju`（`wellbore_moc.py:186-203`）
+
+```python
+def brunone_friction_Ju(k, dt, dVdt, dVdx, V, a):
+    return (k / 2.0) * dt * (dVdt + a * np.sign(V) * np.abs(dVdx))
+```
+
+### 3.2 Brunone 系数 $k$ 与压裂液性质的对应
+
+采用 **Vardy 剪切衰减系数** $C$：
+
+$$
+k = \frac{\sqrt{C}}{2}
+$$
+
+$$
+C =
+\begin{cases}
+4.76 \times 10^{-3} & \text{层流 }(Re < 2000) \\[8pt]
+\dfrac{7.41}{Re^{\log_{10}(14.3/Re^{0.05})}} & \text{紊流 }(Re \ge 2000)
+\end{cases}
+$$
+
+公式中的核心变量为瞬时雷诺数 $Re$，其定义为：
+
+$$
+Re = \frac{V \cdot D}{\nu}
+$$
+
+其中，$V$ 为流速，$D$ 为管径，$\nu$ 为流体的运动粘度（Kinematic Viscosity）。
+
+由于 $k$ 直接依赖于雷诺数，而雷诺数与流体的运动粘度 $\nu$ 呈反比，因此在实际水力压裂工程中，**不同类型的压裂液（具有不同的运动粘度）可以直接对应到截然不同的 Brunone 阻尼 $k$ 区间**：
+
+1. **滑溜水压裂液（Slickwater）**
+   - **性质**：粘度极低（$\sim 1\text{–}3\,\mathrm{mPa\cdot s}$），近似清水，运动粘度约为 $10^{-6}\,\mathrm{m}^2/\mathrm{s}$。
+   - **水锤流态**：处于高雷诺数强紊流区（$Re > 100{,}000$）。
+   - **$k$ 值区间**：极小（$\sim 0.005\text{–}0.01$）。高频水锤波耗散微弱，裂缝反射信号极其尖锐，基于瞬变流的缺陷检测分辨率极高。
+2. **线性胶压裂液（Linear Gel）**
+   - **性质**：加入稠化剂，中等粘度（$\sim 10\text{–}50\,\mathrm{mPa\cdot s}$）。
+   - **水锤流态**：雷诺数下降至万级（$Re \sim 10{,}000$）。
+   - **$k$ 值区间**：中等（$\sim 0.02\text{–}0.05$）。水锤信号发生明显频散展宽，波峰变矮，密集的多簇裂缝开始发生反射波干涉。
+3. **交联冻胶压裂液（Crosslinked Gel）**
+   - **性质**：加入交联剂形成冻胶，粘度极高且呈非牛顿特性（表观粘度 $\sim 100\text{–}1000+\,\mathrm{mPa\cdot s}$）。
+   - **水锤流态**：即使在瞬态强冲击下，流场也极易退化为层流或过渡流（$Re < 2000\text{–}4000$）。
+   - **$k$ 值区间**：极大（$\sim 0.1\text{–}0.2+$）。非定常摩阻的动量扩散作用极强，高频冲击波被迅速抹平，传统倒谱寻峰法面临极大的分辨率危机（PVR 急剧下降至 0）。
+
+**对应代码**：`brunone_k`（`wellbore_moc.py:152-165`）、向量化版 `brunone_k_vec`（`wellbore_moc.py:168-183`）
+
+该公式来自 Vardy & Brown (1996, 2003) 的剪切波衰减理论，其本质反映了不同粘稠度流体在瞬态水锤冲击下，抵抗急剧变形、消耗波动高频能量的阻尼强度。
+
+---
+
+## 4. 数值离散方案
+
+### 4.1 时间导数（需上上步 $V^{n-1}$）
+
+$$
+\left.\frac{\partial V}{\partial t}\right|_{j}
+\approx
+\frac{V_j^{n} - V_j^{n-1}}{\Delta t}
+$$
+
+需存储 **前两步** 速度场（`V_prev2_left/right`），Brunone 模式在 $n \ge 2$ 时才启用。
+
+### 4.2 空间导数（沿特征线方向差分）
+
+**C⁺ 来源点**（前向差分）：
+
+$$
+\left.\frac{\partial V}{\partial x}\right|_{j}
+\approx
+\frac{V_{j+1}^{n} - V_j^{n}}{\Delta x}
+$$
+
+**C⁻ 来源点**（后向差分）：
+
+$$
+\left.\frac{\partial V}{\partial x}\right|_{j}
+\approx
+\frac{V_{j}^{n} - V_{j-1}^{n}}{\Delta x}
+$$
+
+### 4.3 符号函数平滑
+
+为消除 $V \approx 0$ 处 $\mathrm{sign}(V)$ 跳变导致的数值锯齿，用 $\tanh$ 平滑：
+
+$$
+\mathrm{sign}(V)
+\to
+\tanh\!\left(\frac{V}{V_{\mathrm{smooth}}}\right),
+\quad
+V_{\mathrm{smooth}} = 0.05\,\mathrm{m/s}
+$$
+
+### 4.4 裂缝邻域置零
+
+裂缝处流速 $V$ 有跃变（侧向流量分流），跨缝 $\partial V/\partial x$ 不可靠。实现中将裂缝邻域的 $J_u$ 强制置零：
+
+```python
+if has_fractures:
+    for i_f in frac_indices:
+        Ju1[i_f - 1] = 0.0
+        Ju2[i_f - 1] = 0.0
+```
+
+### 4.5 内节点实现
+
+**对应代码**：`wellbore_moc.py:455-485`
+
+```python
+# C⁺ 来源点 j=0..N-2（V_prev_right）：前向差分 dV/dx
+dVdt1 = (V_prev_right[:-2] - V_prev2_right[:-2]) / dt
+dVdx1 = (V_prev_right[1:-1] - V_prev_right[:-2]) / dx
+k1 = brunone_k_vec(Re1b)
+sign_V1 = np.tanh(V1 / V_smooth)
+Ju1 = (k1 / 2.0) * dt * (dVdt1 + a * sign_V1 * np.abs(dVdx1))
+
+# C⁻ 来源点 j=2..N（V_prev_left）：后向差分 dV/dx
+dVdt2 = (V_prev_left[2:] - V_prev2_left[2:]) / dt
+dVdx2 = (V_prev_left[2:] - V_prev_left[1:-1]) / dx
+k2 = brunone_k_vec(Re2b)
+sign_V2 = np.tanh(V2 / V_smooth)
+Ju2 = (k2 / 2.0) * dt * (dVdt2 + a * sign_V2 * np.abs(dVdx2))
+
+# 裂缝邻域置零
+if has_fractures:
+    for i_f in frac_indices:
+        Ju1[i_f - 1] = 0.0
+        Ju2[i_f - 1] = 0.0
+
+# 叠加到稳态摩阻
+J1 = J1 + Ju1
+J2 = J2 + Ju2
+```
+
+### 4.6 边界节点
+
+井口（node 0，C⁻ 来源 node 1）和趾端（node N，C⁺ 来源 node N-1）单独处理，使用单边差分：
+
+```python
+# 井口 C⁻（后向差分）
+dVdt_0 = (V_prev_left[1] - V_prev2_left[1]) / dt
+dVdx_0 = (V_prev_left[1] - V_prev_left[0]) / dx
+J_0 += brunone_friction_Ju(k_0, dt, dVdt_0, dVdx_0, V2_0, a)
+
+# 趾端 C⁺（前向差分）
+dVdt_N = (V_prev_right[N-1] - V_prev2_right[N-1]) / dt
+dVdx_N = (V_prev_right[N] - V_prev_right[N-1]) / dx
+J_N += brunone_friction_Ju(k_N, dt, dVdt_N, dVdx_N, V1_N, a)
+```
+
+**对应代码**：`wellbore_moc.py:529-535`（井口）、`wellbore_moc.py:562-568`（趾端）
+
+---
+
+## 5. 总摩阻组合
+
+最终叠加到特征线系数：
+
+$$
+J = J_s + J_u
+$$
+
+$$
+\begin{aligned}
+C_P &= V_1 + g_a H_1 - J + g_a \Delta t\, V_1 \sin\theta \\
+C_M &= -V_2 + g_a H_2 + J + g_a \Delta t\, V_2 \sin\theta
+\end{aligned}
+$$
+
+```python
+Cp = V1 + ga * H1 - J1 + ga * dt * V1 * theta
+Cm = -V2 + ga * H2 + J2 + ga * dt * V2 * theta
+H_new[1:-1] = (Cp + Cm) / (2.0 * ga)
+V_new[1:-1] = Cp - ga * H_new[1:-1]
+```
+
+---
+
+## 6. 物理意义总结
+
+| 项 | 公式 | 作用 |
+|----|------|------|
+| 稳态 $J_s$ | $\dfrac{f \Delta t\, V\lvert V\rvert}{2D}$ | 与流速平方成正比，反映稳态能耗 |
+| 非定常 $J_u$ | $\dfrac{k}{2}\Delta t\bigl(\partial_t V + a\,\mathrm{sign}(V)\,\lvert\partial_x V\rvert\bigr)$ | 与瞬时加速度成正比，反映频率相关阻尼 |
+| 系数 $k$ | $\dfrac{\sqrt{C}}{2}$，$C$ 由 Vardy 公式确定 | 随 $Re$ 变化，层流/紊流分段 |
+
+### Brunone vs 稳态摩阻的关键差异
+
+**稳态摩阻**：阻尼力 $\propto V\lvert V\rvert$，在停泵瞬间 $V$ 跳变但 $V\lvert V\rvert$ 变化有限，无法提供足够瞬态阻尼 → 振荡不衰减。
+
+**Brunone 摩阻**：阻尼力 $\propto \partial V/\partial t + a\,\mathrm{sign}(V)\lvert\partial V/\partial x\rvert$，停泵瞬间 $\lvert\partial V/\partial t\rvert$ 极大（流速阶跃），提供强瞬态阻尼 → 振荡快速衰减，与现场观测一致。
+
+### 数值稳定性措施
+
+| 措施 | 目的 |
+|------|------|
+| $\tanh$ 平滑 $\mathrm{sign}(V)$ | 消除 $V \approx 0$ 处符号跳变导致的锯齿 |
+| 裂缝邻域 $J_u$ 置零 | 隔离跨缝 $V$ 跃变，防 $\partial V/\partial x$ 爆炸 |
+| $n \ge 2$ 才启用 | 需上上步 $V^{n-1}$ 计算时间导数 |
+| CFL=1 严格匹配 | 特征线精确落网格，无数值耗散污染摩阻判定 |
+
+---
+
+## 7. 验证脚本
+
+| 脚本 | 用途 |
+|------|------|
+| `validation/leakoff_multi.py --friction brunone` | Brunone + 滤失多缝 MOC 验证 |
+| `validation/cepstrum/kaiser_bessel_multi.py --friction brunone` | Brunone 下倒谱方法对比 |
+| `validation/cepstrum/wlen_sweep.py --friction brunone` | Brunone 下窗长扫描 |
+| `validation/step03b_brunone.py` | 单缝 Brunone 衰减率验证（对照现场 ~7s 周期） |
+
+---
+
+## 8. 参考文献
+
+- Brunone B., Golia U.M., Greco M. (1991). *Some remarks on the momentum equations for fast transients*. Proc. 6th Int. Conf. on Pressure Surges.
+- Vardy A.E., Brown J.M.B. (1996). *On turbulent, unsteady, smooth-pipe friction*. Proc. 7th Int. Conf. on Pressure Surges.
+- Vardy A.E., Brown J.M.B. (2003). *Transient turbulent friction in smooth pipe*. J. Hydraul. Eng., 129(6), 429-439.
+- Wylie E.B., Streeter V.L. (1993). *Fluid Transients in Systems*. Prentice-Hall.

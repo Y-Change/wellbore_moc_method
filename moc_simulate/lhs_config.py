@@ -22,7 +22,8 @@ LHS_PARAM_RANGES: Dict[str, Any] = {
     "n_frac_max": 6,               # 最多压裂簇数 (多簇穿孔压裂对标)
     "frac_zone_start": 3500.0,     # 缝网分布起始井深 [m] (中深层水平段)
     "frac_zone_end": 4800.0,       # 缝网分布结束井深 [m] (最大井深 L=5000m)
-    "min_spacing": 5,           # 最小簇间距 [m] (硬约束，防止物理空间重叠导致回波不可分)
+    "min_spacing": 5,            # 最小簇间距 [m] (硬约束，防止物理空间重叠)
+    "max_spacing": 20,           # 最大簇间距 [m] (硬约束，相邻簇间距落在 [min_spacing, max_spacing])
     
     # 集总柔度 Cf [m³/Pa]：对数均匀采样
     # 对应现场 0.01 ~ 1.0 bbl/psi (约 2e-9 ~ 2.5e-7 m³/Pa) 及整段叠加效应

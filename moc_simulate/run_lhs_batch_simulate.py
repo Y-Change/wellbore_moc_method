@@ -80,7 +80,10 @@ def generate_lhs_params(n_samples: int, seed: int = 42) -> List[Dict[str, Any]]:
     samples = []
     z_start = LHS_PARAM_RANGES["frac_zone_start"]
     z_end = LHS_PARAM_RANGES["frac_zone_end"]
-    min_sp = LHS_PARAM_RANGES["min_spacing"]
+    min_sp = float(LHS_PARAM_RANGES["min_spacing"])
+    max_sp = float(LHS_PARAM_RANGES["max_spacing"])
+    if max_sp < min_sp:
+        raise ValueError(f"max_spacing ({max_sp}) must be >= min_spacing ({min_sp})")
     
     cf_lmin, cf_lmax = LHS_PARAM_RANGES["cf_log_min"], LHS_PARAM_RANGES["cf_log_max"]
     kl_lmin, kl_lmax = LHS_PARAM_RANGES["kleak_log_min"], LHS_PARAM_RANGES["kleak_log_max"]
@@ -89,13 +92,24 @@ def generate_lhs_params(n_samples: int, seed: int = 42) -> List[Dict[str, Any]]:
         n_cl = int(frac_counts[i])
         row = lhs_raw[i]
         
-        # 1. 生成互不重叠且保持最小间距的裂缝位置
-        pos_raw = np.sort(row[0 : n_cl])
-        # 映射到 [z_start, z_end - (n_cl-1)*min_sp] 后加上间隔补偿
-        span = (z_end - z_start) - (n_cl - 1) * min_sp
-        if span <= 0:
-            span = 500.0
-        positions = [float(z_start + pos_raw[k] * span + k * min_sp) for k in range(n_cl)]
+        # 1. 相邻簇间距约束在 [min_spacing, max_spacing]，整条缝链落入缝网区间
+        if n_cl == 1:
+            positions = [float(z_start + float(row[0]) * (z_end - z_start))]
+        else:
+            spacings = [
+                min_sp + float(row[k + 1]) * (max_sp - min_sp) for k in range(n_cl - 1)
+            ]
+            chain_len = float(sum(spacings))
+            start_span = (z_end - z_start) - chain_len
+            if start_span < 0:
+                raise ValueError(
+                    f"n_frac={n_cl} with spacing [{min_sp}, {max_sp}] m "
+                    f"cannot fit in zone [{z_start}, {z_end}] m"
+                )
+            x0 = float(z_start + float(row[0]) * start_span)
+            positions = [x0]
+            for gap in spacings:
+                positions.append(float(positions[-1] + gap))
         
         # 2. 生成对数均匀分布的 Cf 和 kleak
         cf_vals = [float(10.0 ** (cf_lmin + row[n_max + k] * (cf_lmax - cf_lmin))) for k in range(n_cl)]
