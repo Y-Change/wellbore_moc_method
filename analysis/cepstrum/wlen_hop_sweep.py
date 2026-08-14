@@ -230,8 +230,8 @@ def sweep_one_case(
             profile = metrics['profile']
             snr = _snr_of_profile(profile)
 
-            # 分辨率指标
-            match_tol_m, peak_distance, _ = kb.peak_find_params(x_f_aligned, v, fs)
+            # 分辨率指标（盲参数，不依赖真实缝距）
+            match_tol_m, peak_distance, _ = kb.blind_peak_find_params(v, fs)
             spacing_err = _spacing_error(depth_prof, profile, true_spacing, peak_distance)
             # FWHM：取最高匹配峰
             fwhm = np.nan

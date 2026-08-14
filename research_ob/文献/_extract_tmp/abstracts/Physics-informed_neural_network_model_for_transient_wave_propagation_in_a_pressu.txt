@@ -1,0 +1,270 @@
+\n===== PAGE 1 =====\n 
+                                                                 Proceedings of the 39th IAHR World Congress 
+                                                                                                                19-24 June 2022 
+Granada, Spain 
+                                                                                                                DOI number 
+ 
+©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+Physics-informed neural network model for transient wave propagation in a 
+pressurized pipeline 
+ 
+ 
+Muhammad Waqar (1), Moez Louati (2), Sen Li (3), and Mohamed S. Ghidaoui (4) 
+ 
+(1,2,3,4) Department of Civil and Environmental Engineering, The Hong Kong University of Science and Technology, Hong Kong, SAR 
+China  
+mwaqar@connect.ust.hk, mlouati@connect.ust.hk, cesli@ust.hk, ghidaoui@ust.hk 
+ 
+ 
+Abstract 
+ 
+This paper explores the use of neural networks (NNs) to model water-hammer waves propagation in a bounded 
+pipe system. The training dataset is obtained from a numerical solution using the Method Of Characteristics 
+(MOC). It is found that conventional NNs fail to model the water-hammer waves propagation when trained using 
+only the boundary conditions and require large datasets for training. However, the use of physics-informed NN 
+(PINN), wherein the one-dimensional wave equation, along with the boundary conditions are imposed as part 
+of the loss function , provides accurate results. The PINN model parameters (i.e., weights and  biases) are 
+optimized using (i) the Adaptive Moment Estimation (A DAM), and (ii) the limited -memory Broyden -Fletcher-
+Goldfarb-Shanno (L-BFGS) algorithms. The results show that L-BFGS based solution is in good agreement with 
+the exact MOC solution, whereas the ADAM-based solution has slow convergence . Moreover, it is found that 
+the PINN solution is sensitive to changes in boundary and initial conditions as well as to the time length of the 
+wavefield solution. In particular, our results show that as the time length (or bandwidth) of the signals increases, 
+a denser NN model architecture (in terms of number of neurons) is required to accurately predict the response. 
+It is also found that the PINN model is sensitive to the location of additional measurement point s used as a 
+constraining dataset. Detailed sensitivity analysis concerning model architecture and the constraining dataset 
+is yet to be investigated. The advantages and implications of using PINN in hydraulic transient modeling are 
+discussed. 
+ 
+ 
+Keywords: Artificial intelligence; Leak detection; Hydraulics; Machine learning; Water-hammer 
+ 
+ 
+1. INTRODUCTION 
+ 
+ Recently, Raissi et al., (2019) proposed an elegant framework, named physics-informed neural networks 
+(PINNs), to predict the solution of differential equations using neural networks (NNs). As the name implies, this 
+approach unifies data -driven machine lea rning and domain knowledge to optimize the machine learning (ML) 
+model. PINNs have gained significant attention in the scientific community and particularly in computational 
+society due to their remarkable ability to predict solutions for PDEs. Another substantial advantage of PINN is 
+that this approach requires significantly less data for training in comparison to the conventional NN models due 
+to the fact that physical laws are enforced as part of the loss function in the optimization procedure (Karniadakis 
+et al., 2021). Raissi et al., (2019) demonstrated the strength of PINNs by finding the solutions for the Burger’s 
+equation, 1D Schrödinger equation, and Allen -Cahn equation. Waheed et al., (2021) used PINNs to so lve the 
+eikonal equation to predict the seismic wave travel times for seismological applications. Lai et al., (2021) used 
+the PINN framework to solve the ODEs for structural identification applications using numerical as well as 
+experimental data. Huang et  al., (2021) extended the PINN framework to account for the point sources in the 
+P\n===== PAGE 2 =====\n                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+locations, initial conditions (ICs), time-extent of the response, and frequency of the wave source are explored. 
+Finally, the conclusions and future perspectives are discussed.  
+ 
+ 
+2. METHODOLOGY 
+ 
+Consider a reservoir-pipe-reservoir system. The pipe is assumed to be straight, horizontal, and frictionless 
+for simplicity.  A pulse -type forcing is imposed from the downstream end by maneuvering the downstream 
+boundary. The transient response of this  system is governed by the following one-dimensional water-hammer 
+wave equation (Ghidaoui, 2004): 
+ 
+ 
+22
+2
+22 0hh atx
+ −=  [1] 
+ 
+where 
+( ),h x t  is the pressure head, 
+a  is the wave speed, 
+ 0,tT  is the time, 
+ 0,xL  denotes the space, with 
+L
+ and 
+T being the total length of the pipe, and the total time of the experiment, respectively. The initial condition 
+(ICs) and boundary conditions (BCs) are 
+ 
+BCs: 
+( ),0 Rh t x H== ; 
+0t   [2] 
+ 
+( ) ( ),h t x L S t== ; 
+0t   [3] 
+ICs: 
+( ) ( )00,h t x H x== ; 
+0 xL  [4] 
+ 
+( ) ( )00,q t x Q x== ; 
+0 xL  [5] 
+where   
+ 
+( ) 
+
+−− 
+
+
+= +  
+  
+0
+2
+( ) exp    ;    0 )1
+2
+T
+T
+tS t H L t  [6] 
+ 
+wherein 
+RH  is the steady-state pressure head at the upstream end,  
+()St  is the Gaussian -type excitation 
+ = 0.5( / )T La
+ , 
+0.1( / )T La =  (unless specified otherwise), 
+( )0Hx  & 
+( )0Qx are the steady-state pressure head 
+& flowrate, respectively. In this paper, Eq. [1] is solved using MOC to obtain the constraining dataset for PINN 
+models. 
+ 
+2.1 Physics-informed Neural Networks (PINNs) 
+ 
+Figure 1 shows the PINN architecture used in this paper. The network is comprised of 5 layers each of 
+which contains 20 neurons  (unless specified otherwise) . The inputs of the PINN model are  
+N  number of 
+collocation points for space 
+[0, ]fxL  and time 
+[0, ]ftT . The output of the model is 
+PINN ( , )h x t . The loss 
+function is defined as 
+ 
+ 
+=+T D PLoss Loss Loss  [7] 
+wherein   
+ 
+( )
+2
+1
+1 ,
+fN
+ii
+P f f
+if
+Loss f t x N =
+=   [8] 
+ 
+22
+2
+22( , ) :ff
+hhf x t a tx
+=−  [9] 
+ 
+IC BCDLoss Loss Loss=+  [10] 
+ 
+Data PINN Data PINN
+IC 0 0 0 0 MSE MSEt t t t
+Loss h h q q
+= = = =
+= − + −   [11] 
+ 
+( ) ( ) ( ) ( )
+Data PINN Data PINN
+BC MSE MSE
+00Loss h x h x h x L h x L= = − = + = − =  [12] 
+ 
+where 
+MSE
+  represents the mean -squared error, 
+TLoss  is the total loss,  
+DLoss  is the data -based loss which 
+includes: (i) boundary conditions (
+BCLoss ) & (iii) initial conditions (
+ICLoss ),
+PLoss  denotes the physics-based loss \n===== PAGE 3 =====\n          
+ 
+Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+ 
+ 
+function, 
+( , )fff x t  is the residue of the wave equation, 
+fN  is a subset of 
+N  and represents the total number 
+of 
+{ , }ffxt  inputs involved in each iteration . Since the output of the PINN model is the pressure head, 
+( )
+PINN 0qt =
+ is not known. This problem is alleviated by providing an additional dataset from one measurement 
+location from inside the pipe domain (if one IC is unknown) or two measurement points (if both ICs are unknown). 
+More analysis and discussion on this subject are provided in Section 3.2. In this case, 
+DLoss  can be redefined 
+as  
+ 
+ 
+IC BC XMDLoss Loss Loss Loss= + +  [13] 
+where   
+ 
+( ) ( )
+Data PINN
+XM MSE1
+,,
+M
+mm
+m
+Loss h t x h t x
+=
+=−  [14] 
+ 
+ICLoss
+ includes the available IC, 
+( )0,mxL  is the spatial coordinate of additional measurement point , and 
+M  
+is the total number of additional measurement points.  For the case where both ICs are unknown, 
+IC 0Loss =  in 
+Eq. [13]. The spatial and temporal derivatives involved in Eq. [9] are computed using the automatic differentiation 
+(AD) technique (Baydin et al., 2018). To optimize the model parameters  (i.e., weights of neurons 
+w , biases 
+b  
+, and activation functions 
+ ), two optimization algorithms are used: (i) Adaptive Moment Estimation (ADAM) 
+with mini -batches ( Kingma and Ba, 2014), and (ii) Limited-memory Broyden -Fletcher-Goldfarb-Shanno (L -
+BFGS) algorithm with full-batch. 
+ 
+ 
+3. NUMERICAL EXAMPLES  
+ 
+Consider a reservoir-pipe-reservoir system of length 
+100L =  m, diameter 
+0.1D =  m, and wave speed 
+1000a =  
+m.s-1. The steady-state pressure head and flow rate in the system are 
+0 20H =  m and 
+0 4Q =  l.s-1, respectively. 
+The numerical simulations are performed using the MOC. The transient wave is generated by perturbing the 
+pressure head at the downstream end in the form of a Gaussian pulse (Eq. [3]). The pipe section is discretized 
+with 
+2x=  m and the temporal discretization is 
+0.002t=  s. The total simulation time is 
+4 / 0.4T L a==  s which 
+includes one complete wave period. The simulated wavefield solution is shown in Figure  2 wherein both x and 
+y axes are respectively non-dimensionalized with respect to 
+L  and 
+/La , and the color pattern shows the non-
+dimensionalized pressure head of the system with respect to Joukowsky’s pressure (Wylie and Streeter, 1993). 
+ 
+ 
+ 
+Figure 1. Physics-informed Neural Network architecture with five layers (1 input, 3 hidden, and 1 output) each 
+of which contains 20 neurons. 
+ 
+The input data for space 
+x  and time 
+t  is obtained by generating 20×103 collocation points from the Sobol 
+set with the threshold of 
+[0, ]T  for time and 
+[0, ]L  for space. For L -BFGS, the total number of iterations and 
+maximum function evaluation are set to 30×10 3. The optimality threshold is set to 1×10 -5. For the ADAM 
+optimizer, the number of epochs is set to 7500 with the minibatch size of 5000 such that the t otal number of 
+iterations required to complete the epochs is 30×103. For both algorithms, the hyperbolic tangent function “tanh’’ 
+is used as an activation function. The choice of these hyperparameters (i.e., number of layers, size of each 

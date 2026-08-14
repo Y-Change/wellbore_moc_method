@@ -29,7 +29,23 @@ PROJECT_ROOT = _d
 
 from neural_operator.dataset_surrogate import FracturingMOCSurrogateDataset
 from neural_operator.dccdm_pipeline import json_safe, write_json
-from neural_operator.direct_inverse.config import DATA_SCHEMA, DataConfig, TargetConfig
+from neural_operator.direct_inverse.config import (
+    DATA_SCHEMA,
+    DATA_SCHEMA_CLOSE2000,
+    DATA_SCHEMA_CLOSE2000_N8192,
+    DATA_SCHEMA_CLOSE2000_N8192_PHYS3,
+    DATA_SCHEMA_CLOSE2000_N16384,
+    DATA_SCHEMA_CLOSE2000_N16384_WIDEFWHM,
+    DataConfig,
+    FeatureConfig,
+    TargetConfig,
+    close2000_detector_config,
+    close2000_target_config,
+    profile_configs,
+    resampled_bin_depth_m,
+)
+from moc_simulate.cepstrum_mocdata import real_cepstrum_1d
+from scipy.signal import hilbert
 
 
 def event_time_s(depth_m: np.ndarray | float, config: DataConfig) -> np.ndarray:
@@ -45,9 +61,15 @@ def minimum_spacing_m(depths: np.ndarray) -> float:
     return float(np.min(np.diff(depths))) if len(depths) > 1 else float("inf")
 
 
-def spacing_band(n_frac: int, spacing_m: float) -> str:
+def spacing_band(n_frac: int, spacing_m: float, regime: str = "nominal50") -> str:
     if n_frac == 1:
         return "singleton"
+    if regime == "close5_20":
+        if spacing_m < 10.0:
+            return "5-10"
+        if spacing_m < 15.0:
+            return "10-15"
+        return "15-20"
     if spacing_m < 50.0:
         return "lt50"
     if spacing_m < 75.0:
@@ -77,6 +99,68 @@ def construct_event_target(
 def construct_search_mask(time_axis: np.ndarray, config: DataConfig) -> np.ndarray:
     start, end = event_time_s(np.asarray(config.fracture_zone_m), config)
     return ((time_axis >= start) & (time_axis <= end)).astype(bool)
+
+
+def compute_envelope_channel(pressure: np.ndarray) -> np.ndarray:
+    """Analytic-signal envelope |hilbert(H)| on the resampled waveform."""
+    pressure = np.asarray(pressure, dtype=np.float64).reshape(-1)
+    demeaned = pressure - np.mean(pressure)
+    return np.abs(hilbert(demeaned)).astype(np.float32)
+
+
+def compute_cepstrum_time_channel(
+    pressure: np.ndarray,
+    time_axis: np.ndarray,
+    data_config: DataConfig,
+    *,
+    as_response: bool = True,
+) -> np.ndarray:
+    """Map 1D real cepstrum C(q) onto the arrival-time axis t = t_s + q.
+
+    Fracture-related quefrency peaks then sit near the same time indices used by
+    the event heatmap labels (two-way travel).
+    """
+    pressure = np.asarray(pressure, dtype=np.float64).reshape(-1)
+    time_axis = np.asarray(time_axis, dtype=np.float64).reshape(-1)
+    if len(pressure) != len(time_axis):
+        raise ValueError("pressure and time_axis lengths differ")
+    if len(time_axis) < 2:
+        raise ValueError("time_axis must have length >= 2")
+    dt = float(np.median(np.diff(time_axis)))
+    fs = 1.0 / dt
+    cepstrum, quefrency = real_cepstrum_1d(pressure, fs)
+    values = -cepstrum if as_response else cepstrum
+    arrival_time = data_config.pump_shut_time_s + quefrency
+    aligned = np.interp(time_axis, arrival_time, values, left=0.0, right=0.0)
+    return aligned.astype(np.float32)
+
+
+def build_observation_channels(
+    pressure: np.ndarray,
+    time_axis: np.ndarray,
+    data_config: DataConfig,
+    feature_config: FeatureConfig,
+) -> np.ndarray:
+    """Stack observation channels as float32 array [C, T]."""
+    pressure = np.asarray(pressure, dtype=np.float32).reshape(-1)
+    channels = [pressure]
+    if feature_config.include_envelope:
+        channels.append(compute_envelope_channel(pressure))
+    if feature_config.include_cepstrum:
+        channels.append(
+            compute_cepstrum_time_channel(
+                pressure,
+                time_axis,
+                data_config,
+                as_response=feature_config.cepstrum_as_response,
+            )
+        )
+    stacked = np.stack(channels, axis=0)
+    if stacked.shape[0] != feature_config.n_channels:
+        raise ValueError(
+            f"feature channels {stacked.shape[0]} != configured n_channels={feature_config.n_channels}"
+        )
+    return stacked
 
 
 def _source_digest(rows: Sequence[Dict]) -> str:
@@ -119,8 +203,8 @@ def audit_cases(data_dir: str, config: DataConfig) -> Tuple[List[Dict], Dict]:
                 for name, values in (("t", t), ("H_wh", pressure), ("x_f", x_f), ("Cf", cf), ("kleak", kleak)):
                     if not np.isfinite(values).all():
                         raise ValueError(f"{name} contains NaN/Inf")
-                if abs(tf - config.fracture_zone_m[0] * 0.0 - 30.0) > 1.0e-6:
-                    raise ValueError(f"unexpected tf={tf}")
+                if abs(tf - config.expected_tf_s) > 1.0e-6:
+                    raise ValueError(f"unexpected tf={tf}, expected {config.expected_tf_s}")
                 case_id = os.path.splitext(os.path.basename(path))[0]
                 if case_id in seen:
                     raise ValueError("duplicate case ID")
@@ -132,7 +216,7 @@ def audit_cases(data_dir: str, config: DataConfig) -> Tuple[List[Dict], Dict]:
                     "relative_path": os.path.relpath(path, PROJECT_ROOT).replace("\\", "/"),
                     "n_frac": n_frac,
                     "min_spacing_m": spacing,
-                    "spacing_band": spacing_band(n_frac, spacing),
+                    "spacing_band": spacing_band(n_frac, spacing, config.spacing_regime),
                     "nominal": nominal,
                 })
         except Exception as error:
@@ -141,7 +225,7 @@ def audit_cases(data_dir: str, config: DataConfig) -> Tuple[List[Dict], Dict]:
     nominal_count = sum(row["nominal"] for row in rows)
     challenge_count = len(rows) - nominal_count
     audit = {
-        "schema": DATA_SCHEMA,
+        "schema": config.schema,
         "data_dir": os.path.abspath(data_dir),
         "total_files": len(all_files),
         "valid_cases": len(rows),
@@ -198,7 +282,31 @@ def _stratified_take(rows: Sequence[Dict], total: int, seed: int) -> Tuple[List[
     return sorted(selected, key=lambda row: row["case_id"]), sorted(remaining, key=lambda row: row["case_id"])
 
 
-def build_split_manifest(rows: Sequence[Dict], config: DataConfig, target: TargetConfig) -> Dict:
+def _overfit_band_plan(regime: str) -> Tuple[str, list]:
+    if regime == "close5_20":
+        overfit1_band = "15-20"
+        desired = [
+            (n_frac, band)
+            for n_frac in range(1, 7)
+            for band in (("singleton",) if n_frac == 1 else ("5-10", "10-15", "15-20"))
+        ]
+        return overfit1_band, desired
+    overfit1_band = "50-75"
+    desired = [
+        (n_frac, band)
+        for n_frac in range(1, 7)
+        for band in (("singleton",) if n_frac == 1 else ("50-75", "75-100", "ge100"))
+    ]
+    return overfit1_band, desired
+
+
+def build_split_manifest(
+    rows: Sequence[Dict],
+    config: DataConfig,
+    target: TargetConfig,
+    detector_config=None,
+    feature_config: FeatureConfig | None = None,
+) -> Dict:
     nominal = [dict(row) for row in rows if row["nominal"]]
     challenge = [dict(row, split="challenge") for row in rows if not row["nominal"]]
     test, remaining = _stratified_take(nominal, config.test_count, config.split_seed + 2)
@@ -209,20 +317,16 @@ def build_split_manifest(rows: Sequence[Dict], config: DataConfig, target: Targe
         for row in split_rows:
             row["split"] = split
 
+    overfit1_band, desired = _overfit_band_plan(config.spacing_regime)
     overfit1_candidates = [
-        row for row in train if row["n_frac"] > 1 and row["spacing_band"] == "50-75"
+        row for row in train if row["n_frac"] > 1 and row["spacing_band"] == overfit1_band
     ]
     if not overfit1_candidates:
-        raise RuntimeError("no overfit1 candidate in 50-75 m band")
+        raise RuntimeError(f"no overfit1 candidate in {overfit1_band} band")
     overfit1 = [overfit1_candidates[0]["case_id"]]
 
     overfit16: List[Dict] = []
     used = set()
-    desired = [
-        (n_frac, band)
-        for n_frac in range(1, 7)
-        for band in (("singleton",) if n_frac == 1 else ("50-75", "75-100", "ge100"))
-    ]
     for n_frac, band in desired:
         candidates = [
             row for row in train
@@ -238,7 +342,7 @@ def build_split_manifest(rows: Sequence[Dict], config: DataConfig, target: Targe
             overfit16.append(row)
             used.add(row["case_id"])
 
-    train512, _ = _stratified_take(train, 512, config.split_seed + 512)
+    train512, _ = _stratified_take(train, min(512, len(train)), config.split_seed + 512)
     train512_ids = {row["case_id"] for row in train512}
     for row in overfit16:
         if row["case_id"] not in train512_ids:
@@ -248,17 +352,25 @@ def build_split_manifest(rows: Sequence[Dict], config: DataConfig, target: Targe
             )
             train512[replace_index] = row
             train512_ids.add(row["case_id"])
-    val128, _ = _stratified_take(validation, 128, config.split_seed + 128)
+    val128, _ = _stratified_take(validation, min(128, len(validation)), config.split_seed + 128)
 
     all_rows = sorted(train + validation + test + challenge, key=lambda row: row["case_id"])
+    if detector_config is None:
+        detector_payload = asdict(close2000_detector_config()) if config.spacing_regime == "close5_20" else None
+    else:
+        detector_payload = asdict(detector_config)
+    if feature_config is None:
+        feature_config = FeatureConfig()
     manifest = {
-        "schema": DATA_SCHEMA,
+        "schema": config.schema,
         "data_config": asdict(config),
         "target_config": {
             **asdict(target),
             "fwhm_time_s": target.fwhm_time_s,
             "sigma_time_s": target.sigma_time_s,
         },
+        "feature_config": asdict(feature_config),
+        "detector_config": detector_payload,
         "source_digest": _source_digest(rows),
         "counts": {
             "train": len(train),
@@ -280,8 +392,16 @@ def build_split_manifest(rows: Sequence[Dict], config: DataConfig, target: Targe
 def load_manifest(path: str) -> Dict:
     with open(path, encoding="utf-8") as handle:
         manifest = json.load(handle)
-    if manifest.get("schema") != DATA_SCHEMA:
-        raise ValueError(f"unsupported manifest schema: {manifest.get('schema')}")
+    schema = manifest.get("schema")
+    if schema not in (
+        DATA_SCHEMA,
+        DATA_SCHEMA_CLOSE2000,
+        DATA_SCHEMA_CLOSE2000_N8192,
+        DATA_SCHEMA_CLOSE2000_N8192_PHYS3,
+        DATA_SCHEMA_CLOSE2000_N16384,
+        DATA_SCHEMA_CLOSE2000_N16384_WIDEFWHM,
+    ):
+        raise ValueError(f"unsupported manifest schema: {schema}")
     return manifest
 
 
@@ -299,12 +419,20 @@ class DirectInverseDataset(Dataset):
     def __init__(self, manifest_path: str, selection: str):
         self.manifest_path = os.path.abspath(manifest_path)
         self.manifest = load_manifest(self.manifest_path)
-        self.data_config = DataConfig(**self.manifest["data_config"])
+        self.data_config = DataConfig(**{
+            key: value for key, value in self.manifest["data_config"].items()
+            if key in DataConfig.__dataclass_fields__
+        })
         target_values = {
             key: value for key, value in self.manifest["target_config"].items()
             if key in TargetConfig.__dataclass_fields__
         }
         self.target_config = TargetConfig(**target_values)
+        feature_payload = self.manifest.get("feature_config") or {}
+        self.feature_config = FeatureConfig(**{
+            key: value for key, value in feature_payload.items()
+            if key in FeatureConfig.__dataclass_fields__
+        })
         self.case_ids = selected_case_ids(self.manifest, selection)
         case_rows = {row["case_id"]: row for row in self.manifest["cases"]}
         self.rows = [case_rows[case_id] for case_id in self.case_ids]
@@ -335,6 +463,10 @@ class DirectInverseDataset(Dataset):
         del surrogate_input
         metadata = self.base.get_case_metadata(base_index)
         time_axis = metadata["time_axis"].astype(np.float32)
+        pressure_1d = pressure.numpy().reshape(-1).astype(np.float32)
+        observation = build_observation_channels(
+            pressure_1d, time_axis, self.data_config, self.feature_config
+        )
         event_target = construct_event_target(
             time_axis, metadata["x_f"], self.data_config, self.target_config
         )
@@ -355,7 +487,7 @@ class DirectInverseDataset(Dataset):
         event_bin[:count] = np.asarray([int(np.argmin(np.abs(time_axis - value))) for value in arrivals])
         event_valid[:count] = True
         return {
-            "observation": pressure.to(torch.float32),
+            "observation": torch.from_numpy(observation),
             "event_target": torch.from_numpy(event_target[None, :]),
             "valid_time_mask": torch.from_numpy(valid_mask[None, :]),
             "time_axis": torch.from_numpy(time_axis),
@@ -377,24 +509,52 @@ def main() -> None:
     parser.add_argument("--data-dir", default="output/lhs_dataset/data")
     parser.add_argument("--output-root", default="output/direct_inverse/manifests")
     parser.add_argument("--split-seed", type=int, default=42)
-    parser.add_argument("--min-spacing-m", type=float, default=50.0)
-    parser.add_argument("--seq-length", type=int, default=4096)
+    parser.add_argument(
+        "--profile",
+        choices=(
+            "nominal50",
+            "close2000",
+            "close2000_n8192",
+            "close2000_n8192_phys3",
+            "close2000_n16384",
+            "close2000_n16384_widefwhm",
+        ),
+        default="nominal50",
+    )
+    parser.add_argument("--min-spacing-m", type=float, default=None)
+    parser.add_argument("--seq-length", type=int, default=None)
     args = parser.parse_args()
 
-    config = DataConfig(
-        seq_length=args.seq_length,
-        split_seed=args.split_seed,
-        nominal_min_spacing_m=args.min_spacing_m,
-    )
-    target = TargetConfig()
+    profiles = profile_configs(args.profile, args.split_seed)
+    config = profiles["data"]
+    from dataclasses import replace
+    replacements = {}
+    if args.min_spacing_m is not None:
+        replacements["nominal_min_spacing_m"] = args.min_spacing_m
+    if args.seq_length is not None:
+        replacements["seq_length"] = args.seq_length
+    if replacements:
+        config = replace(config, **replacements)
+    target = profiles["target"]
+    detector = profiles["detector"]
+    feature = profiles["feature"]
+    # CLI seq_length override: realign bin-tied configs unless the profile
+    # deliberately decouples FWHM from the grid (widefwhm).
+    if args.profile.startswith("close2000") and args.seq_length is not None:
+        bin_m = resampled_bin_depth_m(config.seq_length, config.expected_tf_s, config.wavespeed_m_s)
+        detector = close2000_detector_config(bin_m)
+        if "widefwhm" not in args.profile:
+            target = close2000_target_config(bin_m)
     rows, audit = audit_cases(args.data_dir, config)
     os.makedirs(args.output_root, exist_ok=True)
     audit_path = os.path.join(args.output_root, "dataset-audit.json")
     write_json(audit_path, audit)
     if not audit["gate_passed"]:
         raise RuntimeError(f"dataset audit failed; see {audit_path}: {audit['mismatches']}")
-    manifest = build_split_manifest(rows, config, target)
-    manifest_path = os.path.join(args.output_root, f"{DATA_SCHEMA}-seed{args.split_seed}.json")
+    manifest = build_split_manifest(
+        rows, config, target, detector_config=detector, feature_config=feature
+    )
+    manifest_path = os.path.join(args.output_root, f"{config.schema}-seed{args.split_seed}.json")
     if os.path.exists(manifest_path):
         with open(manifest_path, encoding="utf-8") as handle:
             existing = json.load(handle)
@@ -404,7 +564,15 @@ def main() -> None:
         write_json(manifest_path, manifest)
     print(f"Audit written to {audit_path}")
     print(f"Manifest written to {manifest_path}")
-
+    print(f"Counts: {manifest['counts']}")
+    if args.profile.startswith("close2000"):
+        bin_m = resampled_bin_depth_m(config.seq_length, config.expected_tf_s, config.wavespeed_m_s)
+        print(
+            f"seq_length={config.seq_length} "
+            f"bin_depth_m={bin_m:.4f} "
+            f"fwhm_depth_m={target.fwhm_depth_m:.4f} "
+            f"n_channels={feature.n_channels}"
+        )
 
 if __name__ == "__main__":
     main()

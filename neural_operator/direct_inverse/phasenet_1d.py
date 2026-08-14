@@ -2,11 +2,15 @@
 """PhaseNet-style fully convolutional 1D U-Net for direct event localization."""
 from __future__ import annotations
 
+from typing import Tuple, Union
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
 from .config import ModelConfig
+
+ForwardOutput = Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]
 
 
 class ResidualBlock1D(nn.Module):
@@ -52,14 +56,18 @@ class DecoderStage(nn.Module):
 
 
 class PhaseNet1D(nn.Module):
-    """One-channel waveform to one-channel fracture-event logits."""
+    """Waveform (1 or 3 ch) to fracture-event logits, optional count head."""
 
     def __init__(self, config: ModelConfig = ModelConfig()):
         super().__init__()
-        if config.model_id != "p0a_raw_unet":
+        if config.model_id not in ("p0a_raw_unet", "p0a_raw_unet_count", "p1_phys3_unet"):
             raise ValueError(f"unsupported model_id: {config.model_id}")
-        if config.in_channels != 1 or config.out_channels != 1:
-            raise ValueError("P0-A requires exactly one input and one output channel")
+        if config.in_channels not in (1, 3) or config.out_channels != 1:
+            raise ValueError("P0-A/P1 requires in_channels in {1,3} and out_channels=1")
+        if config.model_id == "p1_phys3_unet" and config.in_channels != 3:
+            raise ValueError("p1_phys3_unet requires in_channels=3")
+        if config.enable_count_head and config.count_classes < 1:
+            raise ValueError("count_classes must be >= 1 when count head is enabled")
         self.config = config
         channels = config.channels
         self.stem = nn.Conv1d(
@@ -95,10 +103,19 @@ class PhaseNet1D(nn.Module):
             )
             current = skip_channel
         self.head = nn.Conv1d(channels[0], config.out_channels, kernel_size=1)
+        self.count_head = None
+        if config.enable_count_head:
+            self.count_head = nn.Sequential(
+                nn.AdaptiveAvgPool1d(1),
+                nn.Flatten(),
+                nn.Linear(channels[-1], config.count_classes),
+            )
 
-    def forward(self, observation: torch.Tensor) -> torch.Tensor:
-        if observation.ndim != 3 or observation.shape[1] != 1:
-            raise ValueError(f"expected [B,1,T], got {tuple(observation.shape)}")
+    def forward(self, observation: torch.Tensor) -> ForwardOutput:
+        if observation.ndim != 3 or observation.shape[1] != self.config.in_channels:
+            raise ValueError(
+                f"expected [B,{self.config.in_channels},T], got {tuple(observation.shape)}"
+            )
         x = self.stem(observation)
         skips = []
         for index, block in enumerate(self.encoder_blocks):
@@ -106,13 +123,22 @@ class PhaseNet1D(nn.Module):
             skips.append(x)
             if index < len(self.downsamplers):
                 x = self.downsamplers[index](x)
-        x = self.bottleneck(x)
+        bottleneck = self.bottleneck(x)
+        x = bottleneck
         for stage, skip in zip(self.decoder_stages, reversed(skips[:-1])):
             x = stage(x, skip)
         logits = self.head(x)
         if logits.shape[-1] != observation.shape[-1]:
             logits = F.interpolate(logits, size=observation.shape[-1], mode="linear", align_corners=False)
-        return logits
+        if self.count_head is None:
+            return logits
+        return logits, self.count_head(bottleneck)
+
+
+def unpack_model_output(output: ForwardOutput) -> Tuple[torch.Tensor, torch.Tensor | None]:
+    if isinstance(output, tuple):
+        return output[0], output[1]
+    return output, None
 
 
 def parameter_count(model: nn.Module) -> dict:

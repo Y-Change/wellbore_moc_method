@@ -1,0 +1,1052 @@
+SOURCE: Filtering Physics-Informed Neural Operator for Online Hydraulic Transient Reconstruction and Inverse Modeling面向在线水力瞬态重构与反演建模的滤波型物理信息神经算子.pdf
+PAGES: 43
+FULL extract 43 pages
+
+
+
+===== PAGE 1 =====
+Posted on 23 Jul 2025 — The copyright holder is the author/funder. All rights reserved. No reuse without permission. — https://doi.org/10.22541/essoar.175330836.63783525/v1 — This is a preprint and has not been peer-reviewed. Data may be preliminary.
+A Filtering Physics-Informed Neural Operator for Online Hydraulic
+Transient Teconstruction
+Jiawei Ye1, Wei Zeng 1, Martin Lambert 1, and Nhu Cuong Do 2
+1The University of Adelaide
+2University of Saskatchewan
+July 23, 2025
+Abstract
+Hydraulic transients pose signiﬁcant risks to pipeline systems, including potential leaks and bursts. While traditional numerical
+methods are widely used for transient analysis, their reliance on detailed initial/boundary conditions limits their applicability
+in real-world scenarios. To overcome these challenges, this paper proposes a novel Filtering Physics-Informed Neural Operator
+(FPINO) framework for accurate and near real-time reconstruction of hydraulic transients from sparse observations. FPINO
+extends recent developments in Physics-Informed Neural Operators (PINOs), a class of machine learning models that incorporate
+physical laws directly into operator learning, to transient hydraulic applications. The FPINO framework introduces a time-
+weighted information ﬁltering strategy that prioritizes the relevant observations, thereby accelerating convergence and improving
+prediction accuracy. Additionally, FPINO employs a hybrid loss function that integrates physics-based constraints with data-
+driven learning, ensuring both physical ﬁdelity and adaptability to complex system behaviors. Numerical and experimental
+results show that FPINO outperforms the baseline PINO approach in reconstructing diverse transient scenarios. These results
+highlight the potential of FPINO as a robust and practical tool for real-time monitoring and analysis of hydraulic transients in
+pipeline systems.
+Hosted ﬁle
+WRR_Manuscript_FPINO.docx available at https://authorea.com/users/947832/articles/1317628-a-
+filtering-physics-informed-neural-operator-for-online-hydraulic-transient-teconstruction
+1
+
+===== PAGE 2 =====
+manuscript submitted to Water Resources Research  
+ 
+ 1 
+A Filtering Physics-Informed Neural Operator for Online Hydraulic Transient 2 
+Reconstruction 3 
+Jiawei Ye1, Wei Zeng1*, and Martin Lambert1 , and Nhu Cuong Do1 4 
+1School of Architecture and Civil Engineering, University of Adelaide, SA, 5005, Australia. 5 
+Corresponding author: Wei Zeng (w.zeng@adelaide.edu.au)  6 
+Key Points: 7 
+ A novel neural operator-based method for near real-time transient pressure 8 
+reconstruction 9 
+ An information filtering mechanism to improve model performance  10 
+ A hybrid loss integrating real data, simulated data, and physics 11 
+ Fast and accurate transient reconstructions in hydraulic systems with sparse data 12 
+  13 
+
+===== PAGE 3 =====
+manuscript submitted to Water Resources Research  
+ 
+Abstract 14 
+Hydraulic transients pose significant risks to pipeline systems, including potential leaks and 15 
+bursts. While traditional numerical methods are widely used for transient analysis, their reliance 16 
+on detailed initial/boundary conditions limits their applicability in real -world scenarios. To 17 
+overcome these challenges, this paper proposes a novel Filtering Physics -Informed Neural  18 
+Operator (FPINO) framework for accurate and near real -time reconstruction of hydraulic 19 
+transients from sparse observations. FPINO extends recent developments in Physics -Informed 20 
+Neural Operators (PINOs), a class of machine learning models that incorporate  physical laws 21 
+directly into operator learning, to transient hydraulic applications. The FPINO framework 22 
+introduces a time -weighted information filtering strategy that prioritizes the relevant 23 
+observations, thereby accelerating convergence and improving prediction accuracy. Additionally, 24 
+FPINO employs a hybrid loss function that integrates physics -based constraints with data-driven 25 
+learning, ensuring both physical fidelity and adaptability to complex system behaviors. 26 
+Numerical and experimental results show  that FPINO outperforms the baseline PINO approach 27 
+in reconstructing diverse transient scenarios. These results highlight the potential of FPINO as a 28 
+robust and practical tool for real -time monitoring and analysis of hydraulic transients in pipeline 29 
+systems. 30 
+Keywords: neural operator; partial differential equations; pipeline system; real -time 31 
+reconstruction; 32 
+1. Introduction 33 
+
+===== PAGE 4 =====
+manuscript submitted to Water Resources Research  
+ 
+Hydraulic transients, commonly referred to as water hammer, are characterized by rapid pressure 34 
+fluctuations in pipelines that can result in significant physical damage, such as leaks  (Hu et al., 35 
+2021) and bursts (Romano et al., 2014) , to pipelines. To mitigate these risks and maintain the 36 
+integrity of pipeline networks, various strategies have been proposed in the literature , such as 37 
+optimal network design (Ulusoy et al., 2022), preventive valve control (Brentan et al., 2021), and 38 
+smart water management  (Owen, 2023) . T ransient analysis has emerged as an essential 39 
+component of pipeline design and operat ion. By modeling and understanding the dynamics of 40 
+pressure surges and flow instabilities, engineers can  implement measures to prevent or control 41 
+transient-induced damage, ensuring pipeline systems are both safe and efficient  (Boulos et al., 42 
+2005). 43 
+Traditional model-based transient analysis (Chaudhry, 2014; Hwang & Chung, 2002; Zecchin et 44 
+al., 2009; Zeng et al., 2022)  has been the most common methods for decades. However, these 45 
+methods typically require detailed knowledge  of the system's physical properties and 46 
+initial/boundary conditions (ICs/BCs) . The accuracy o f the numerical results is significantly 47 
+affected by various uncertainties that are inevitable in real-world applications. On the other hand, 48 
+the numerical computations can be computationally intensive, especially for large -scale pipe 49 
+systems, further limiting their real-time analysis.  50 
+In recent years, the rapid development of online monitoring systems has offered a promising 51 
+avenue for real -time analysis  (Mounce et al., 2010; Lambrou e t al., 2014; Kamaruidzaman & 52 
+Nazahiyah, 2020) . Researchers are increasingly focusing on data -driven techniques  in water 53 
+distribution systems for tasks, such as state estimation (Hajgató et al., 2021; Xing & Sela, 2022) , 54 
+leakage/burst detection  (Romano et al., 2014; Wu & Liu, 2017) , water quality prediction  55 
+(Sokolova et al., 2022; Z. Li et al., 2024) , and demand forecasting (Bata et al., 2020; Salloom et 56 
+
+===== PAGE 5 =====
+manuscript submitted to Water Resources Research  
+ 
+al., 2021). These methods , particularly machine learning,  utilize data to capture the underlying 57 
+relationships in systems without explicit physical eq uations. This is particularly advantageous 58 
+when the physical laws are not fully understood or uncertainties exist in the system parameters  59 
+(Hutton et al., 2014) . The integration of real -time data enables continuous learning and 60 
+adaptation, making these methods more suitable for applications requiring real -time monitoring 61 
+and control.  62 
+However, while a number of data-driven methods have been applied in steady -state flow, t heir 63 
+application in the field of hydraulic transient remains relatively underexplored. The challenges of 64 
+implementing data-driven methods in transient flow can be multifold. First, h ydraulic transients 65 
+often involve rapid flow/pressure changes over a very short time. Modeling the transient 66 
+responses accurately requires capturing highly nonlinear and time -dependent behaviors, which 67 
+can be challenging for data -driven methods that are typically designed f or steady-state or slowly 68 
+varying systems. Moreover, the collected data in network systems is often scarce due to the cost 69 
+and logistical challenges of deploying and maintaining high -resolution sensors, hindering the 70 
+training and validation of data-driven models for transient analysis.  71 
+Despite those challenges, a few efforts have been made in recent years for leak/burst detection 72 
+and transient flow reconstruction. Bohorquez et al. (2021) introduce a two-stage approach for 73 
+burst detection and identification in water pipelines by merging fluid transient waves with 74 
+artificial neural networks (ANNs). The ANN -based technique demonstrated high accuracy in 75 
+predicting burst locations.  Ayati et al. (2022) presented a machine learning–assisted leak 76 
+detection model that enhances the accuracy and reliability of identifying leaks in water 77 
+distribution networks. In those two studies, the training datasets were generated using hydraulic 78 
+simulation models since only a limited number of recorded leak or burst  events are available in 79 
+
+===== PAGE 6 =====
+manuscript submitted to Water Resources Research  
+ 
+real systems. To address the issue of data scarcity in transient reconstruction, Ye et al. (2022) 80 
+developed a physics-informed neural network (PINN) (Raissi et al., 2019) method that integrates 81 
+observed data with the physical laws governing hydraulic transients during the training process . 82 
+The PINN can leverage the strengths of both data-driven methods and traditional physical 83 
+models, thereby enabling accurate prediction of transient states even with sparse observations . 84 
+The PINN-based method for a single pipeline was further extended to pipe networks (Ye et al., 85 
+2024) by integrating an efficient elastic water column (EWC) model  (Zeng et al., 2022) into the 86 
+neural network. The EWC model represented by a set of ordinary differential equations  reduces 87 
+the dimension of the input from the space -time domain to the time domain only. This 88 
+characteristic not only reduces the size of  the training dataset but also simplifies the prediction 89 
+task from infinite sp ace to several discrete nodes, making it easier to reconstruct the transient 90 
+states over the whole network from the very sparse observation points. The developed PINN-91 
+based methods in single pipeline and network systems were both robust against various 92 
+uncertainties in data and physical models.  93 
+While the PINN-based approaches show promise  in transient flow reconstruction , they still face 94 
+challenges and limitations  in real applications . One significant gap is that the PINN model can 95 
+only be used for a speci fic transient scenario once trained. This means a newly trained PINN 96 
+model is required for a different transient scenario. However, the computational cost of training 97 
+PINN models for each scenario can be prohibitive, particularly for large -scale systems or  real-98 
+time applications where rapid decision and management are crucial.  99 
+Neural operators (Kovachki et al., 2023) , a class of neural networks that do not hold that 100 
+limitation (Kontolati et al., 2024) , have recently attracted increasing interest in various 101 
+engineering fields (Goswami et al., 2024; Lehmann et al., 2024; Li et al., 2024) . The most 102 
+
+===== PAGE 7 =====
+manuscript submitted to Water Resources Research  
+ 
+commonly used neural operators include the Fourier  Neural Operator (FNO)  (Li et al., 2021) , 103 
+Deep Operator Network  (DeepONet) (Lu et al., 2021) , and Graph Neural Operators  (Li et al., 104 
+2020). The design of neural operators aims to approximate solutions to partial differential 105 
+equations (PDEs) by learning mappings between function spaces. Regarding  solving PDEs, the 106 
+main difference between neural operators and the PINN is that neural operators can take ICs/BCs 107 
+or observations into the input rather than the loss function of the neural network. This feature 108 
+allows neural operators to learn the PDE solution from multiple scenarios while only one specific 109 
+scenario can be considered in the PINN.  110 
+Recently, Gong et al. (2024) developed a surrogate transient model for gas pipelines based on 111 
+FNO. The proposed model can serve as a solver for  transient natural gas flow, efficiently 112 
+providing accurate simulation results.  However, the training process requires a complete dataset 113 
+that includes the physical variables, such as the pressure and mass flow , in the entire  space-time 114 
+domain. Consequently, the trained neural operator relies heavily on numerical data, limiting its 115 
+applicability in real -world scenarios whe re data is often highly sparse and various uncertainties 116 
+associated with system parameters, process models, and measurement noise are involved. 117 
+Furthermore, the trained model is mesh -based and specifically designed for forward problems 118 
+with fully known ICs /BCs, which can often be addressed directly using traditional numerical 119 
+methods. This restricts its capability to solve more complex inverse problems with unknown 120 
+ICs/BCs. 121 
+This work aims to develop a neural operator -based framework for near real -time (with in 122 
+seconds) reconstruction of hydraulic transients without retraining. To address the challenges of 123 
+unknown ICs/BCs and limited sensor data, DeepONet is adopted as the foundational architecture 124 
+due to its flexibility and ability to handle irregular inputs.  However, the vanilla DeepONet 125 
+
+===== PAGE 8 =====
+manuscript submitted to Water Resources Research  
+ 
+struggles with temporally irrelevant input data, which hinders convergence and accuracy. To 126 
+overcome this, a novel Filtering Physics -Informed Neural Operator (FPINO) that incorporates a 127 
+time-weighted information filtering str ategy is proposed in this paper. This mechanism captures 128 
+the causal relationship between observations and predicted variables, enabling the model to 129 
+prioritize relevant sensor data and significantly improve convergence ability. Additionally, the 130 
+proposed F PINO employs a hybrid loss function that fuses data -driven and physics -based 131 
+components, enabling robust reconstruction even under sparse measurements and system 132 
+uncertainties. The key contributions of this work were summarized as follows:  133 
+(1) Development of a novel FPINO method for near real-time transient reconstruction in 134 
+pipeline systems;  135 
+(2) Integration of a time -weighted information filtering mechanism to enhance model 136 
+convergence by prioritizing causally relevant observations.; 137 
+(3) Implementation of a hybrid loss function that combines simulated data, real 138 
+measurements, and physical constraints for improved accuracy and robustness under 139 
+uncertainties. 140 
+2. Materials and Methods 141 
+This section illustrates an improved  physics-informed neural operator method for real-time and 142 
+accurate transient reconstruction. 143 
+2.1 Mathematical representation of the transient flow 144 
+
+===== PAGE 9 =====
+manuscript submitted to Water Resources Research  
+ 
+Assuming  t he flow is one-dimensional, slightly compressible, and occurs in an elastic 145 
+pressurized pipe, the governing equations for transient flow can be expressed as follows  (Wylie 146 
+et al., 1993): 147 
+ 𝐹1 =  𝐴
+𝜕𝑞
+𝜕𝑡 + 𝑞
+𝜕𝑞
+𝜕𝑥 + 𝑔𝐴2 𝜕ℎ
+𝜕𝑥 + 𝑓
+|𝑞|𝑞
+2𝐷 = 0  (1) 148 
+  𝐹2 = 𝐴
+𝜕ℎ
+𝜕𝑡 + 𝑞
+𝜕ℎ
+𝜕𝑥 +
+𝑎2
+𝑔
+𝜕𝑞
+𝜕𝑥 = 0  (2) 149 
+where 𝐹1 and 𝐹2 represents the right side of the momentum equation and continuity equation, 150 
+respectively; 𝑥 is the distance along the pipeline; ℎ is the piezometric head; 𝑞 is the flowrate; 𝑡 is 151 
+the time since the beginning of the transient ; 𝑎 is the pressure wave speed ; 𝑔 is the gravitational 152 
+acceleration; 𝐷 is the internal pipe diameter ; and 𝐴 = 𝜋𝐷2/4 is the cross -section area of the 153 
+pipeline, 𝑓 is the Darcy–Weisbach friction factor.  154 
+The above partial differential equations can be solved by numerical transient models with known 155 
+ICs/BCs. In this paper, the well -known method of characteristics (MOC) de scribed in 156 
+(Chaudhry, 2014) was employed to generate numerical datasets. 157 
+In real pipeline systems, transient pressure waves are typically subject to noticeable damping 158 
+effects, which arise from several factors inc luding unsteady friction(Brunone et al., 2000) , pipe-159 
+wall viscoelasticity (Covas et al., 2005) , and fluid-structure interaction (Tijsseling, 1996) . This 160 
+work considers the damping effects using the Kelvin-Voigt viscoelastic model . To account for 161 
+the dynamic effects of pipe wall, a retarded viscoelastic term is introduced into the continuity 162 
+equation (Eq. (2)), resulting in: 163 
+  𝐴
+𝜕ℎ
+𝜕𝑡 + 𝑞
+𝜕ℎ
+𝜕𝑥 +
+𝑎2
+𝑔
+𝜕𝑞
+𝜕𝑥 +
+2𝑎2𝐴
+𝑔
+𝜕𝜀𝑟
+𝜕𝑡 = 0  (3) 164 
+
+===== PAGE 10 =====
+manuscript submitted to Water Resources Research  
+ 
+where 𝜀𝑟 denotes the retarded strain  in the pipe wall. The viscoelastic response is characterized 165 
+by a creep compliance function, defined as: 166 
+  𝐽(𝑡) = 𝐽0 + ∑ 𝐽𝑖
+𝑁
+𝑖=1 (1 − 𝑒−𝑡/𝜏𝑖)  (4) 167 
+Here, 𝐽𝑖 = 1/𝐸𝑖 represents the creep compliance of the i-th Kelvin-Voigt element. Each element 168 
+is described by an elastic modulus 𝐸𝑖 and a retardation time 𝜏𝑖=𝜇𝑖/𝐸𝑖 with 𝜇𝑖 the viscosity of the 169 
+corresponding dashpot.  170 
+Using this creep function, the total retarded strain 𝜀𝑟(𝑥, 𝑡) is expressed as: 171 
+ 𝜀𝑟(𝑥, 𝑡) = ∑ 𝜀𝑟𝑖(𝑥, 𝑡)𝑁
+𝑖=1  172 
+ = ∑ {
+𝛼𝐷𝜌𝑔
+2𝑒 ∫ [𝐻(𝑥, 𝑡 − 𝑡′) − 𝐻0(𝑥)]
+𝐽𝑖
+𝜏𝑖
+𝑒−𝑡′/𝜏𝑖𝑑𝑡′𝑡
+0 }𝑁
+𝑖=1   (5) 173 
+where 𝛼 is the pipe wall constraint coefficient; 𝑒 is the wall thickness. This formulation enables 174 
+the modeling of viscoelastic damping by accounting for the time -dependent deformation of the 175 
+pipe wall. Further details on the numerical implementation of Eqs. (3) -(5) can be found in   176 
+(Covas et al., 2005). 177 
+2.2 Inverse problem definition of online transient flow reconstruction 178 
+Conventionally, the transient states 𝝋 (i.e., pressure head h and flow q) in a pipe system are 179 
+simulated by hydraulic transient models ℳ (e.g., MOC) based on known ICs/BCs 𝒃. This is 180 
+referred to as a forward problem, represented by: 181 
+ ℳ(𝒃) =  𝝋  (6) 182 
+
+===== PAGE 11 =====
+manuscript submitted to Water Resources Research  
+ 
+However, the solution of the forward problem relie s on completely known boundaries . In the 183 
+case of a pipeline system with unknown ICs/BCs (see Fig. 1) but observed data 𝒖, solving the 184 
+transient problem becomes an inv erse problem.  These unknown ICs/BCs can arise from  tank 185 
+fluctuations, valve closures, pump failures, users’ demand changes, or the need to analyze a 186 
+specific pipe in a complex pipe network system . In inverse problem s, instead of predicting the 187 
+transient states constrained by ICs/BCs, our goal is to infer the spatiotemporal flow and pressure 188 
+distribution along the pipeline from limited sensor data in near real time. The inverse problem is 189 
+expressed by: 190 
+ ℳ−1(𝒖) =  𝝋   (7) 191 
+where ℳ−1 is an inverse model that maps the observed data 𝒖 back to the complete transient 192 
+scenario.  193 
+  194 
+Fig. 1 Transient reconstruction in a pipeline system with unknown boundaries and two sensors. 195 
+In most real -world scenarios, ℳ−1 is not explicitly known  and must be approximated using  196 
+optimization algorithms or m achine learning models.  Accurately solving the inverse problem  is 197 
+significantly more challenging than solving the forward problem for the f ollowing reasons: (1) 198 
+
+
+===== PAGE 12 =====
+manuscript submitted to Water Resources Research  
+ 
+Unknown ICs/BCs, which are unmonitored, can significantly affect the transient behavior of the 199 
+system. (2) The solution to the inverse problem is often non -unique and highly  sensitive to 200 
+measurement errors, requiring robust algorithms  to ensure stability and accuracy. (3) The sparse 201 
+placement of sensors provides incomplete spatial coverage, making it difficult to fully capture 202 
+the transient states  of the system . (4) Real-world uncertainties, such as deteriorated pipe 203 
+conditions, uncharacterized wave damping, and measurement noise, further complicate the 204 
+reconstruction process . (5) Conventional inverse transient analysis is designed for a specific 205 
+scenario and requires repeated optimization or training for new transient events, mak ing it 206 
+unsuitable for online applications. 207 
+2.3 Physics-informed Neural Operator 208 
+Purely data-driven models rely on large amounts of labeled data to capture underlying patterns, 209 
+whereas PINNs can achieve accurate predictions with significantly less data by lever aging 210 
+physical constraints. Motivated by the success of PINNs, PINOs incorporate physical knowledge 211 
+into the neural operator, leveraging both  the flexibility and capability  of operator learning and 212 
+the robustness and interpretability of physics-informed models.  213 
+ There are two common PINOs: the Physics -Informed FNO and Physics -Informed DeepONet. 214 
+Compared to FNO, which requires well -defined inputs and outputs on a discretized grid, 215 
+DeepONet offers a more flexible framework that can handle sparse and incomple te observations 216 
+(Lu et al., 2022) . Therefore, this study adopts D eepONet as the neural operator for the inverse 217 
+problem. 218 
+2.3.1 Physics-informed DeepONet 219 
+
+===== PAGE 13 =====
+manuscript submitted to Water Resources Research  
+ 
+The input of standard D eepONet consists of two components: the input function u, which may 220 
+include ICs/BCs, system parameters, and observation data;  and the spatiotemporal coordinates y 221 
+= (x, t), where x represents the spatial location and t the time, corresponding to any point in the 222 
+solution domain. . The output is the physical variables 𝝋(u, y ) at the point (x, t). This unique 223 
+structure allows DeepONet to handle sparse and incomplete data more effectively, making it 224 
+particularly flexible and advantageous for the transient reconstruction in pipe systems. 225 
+Correspondingly, the DeepONet consists of two neural networks  that work together to represent 226 
+the operator: branch network and trunk network (Lu et al., 2021). The branch network is used to 227 
+process the input function  u. It takes th e discretized input function (a finite set of values 228 
+representing the function) and outputs a latent representation. The trunk network processes the 229 
+spatiotemporal coordinates y at which the output function is evaluated and also produces a latent 230 
+representation. The latent representations from the branch and trunk networks are then combined 231 
+using a dot product to formulate the final output 𝝋(𝒖, 𝒚), which are the physical variables at the 232 
+spatiotemporal point y under dynamic conditions 𝒖. 233 
+The DeepONet is trained by minimizing a loss function that measures the discrepancy between 234 
+the predicted and true output functions.  In practice, however, the sparsity, low resolution, and 235 
+incompleteness of field data limit its ability to approximate the ground-truth physical process. 236 
+Physics-informed DeepONet (Wang et al., 2021)  overcomes the shortcoming by formulating a 237 
+hybrid loss function that combines training data with  physical laws (often exhibit as  PDEs). By 238 
+doing so, the physics-informed DeepONet effectively regularizes the learning process, g uiding 239 
+the network towards physically plausible solutions even when the available data is sparse or 240 
+noisy. 241 
+
+===== PAGE 14 =====
+manuscript submitted to Water Resources Research  
+ 
+2.3.2 Drawback of villina DeepONet 242 
+The output of DeepONet forward propagation consists of  the physical states 𝝋𝑠 at a specific 243 
+sampling point ys = (xs, ts). However, the input of the branch network is composed of BCs or 244 
+observations over the entire  analyzed period. In many cases, the states 𝝋𝑠 to be determined 245 
+depend only on the initial conditions and BCs/observations within the interval [0, ts  ± Δt]. This 246 
+interval is determined by the physics of the problem, such as the wave speed  and spatial 247 
+relationships. Any input data outside this interval are physically irrelevant and considered 248 
+irrelevant information.  249 
+In pipeline systems, a preliminary analysis based on an MOC grid is performed to determine the 250 
+essential information required to solve the condition at a specific sample location . For the 251 
+forward problem with known ICs/BCs  (as illustrated Fig. 2(a)), the flow and head at the sample 252 
+can be directly determined using a forward model (e.g. MOC) only using ICs and the BCs within 253 
+the time intervals [0, 𝑡𝑏,1] for the left boundary and [0, 𝑡𝑏,2] for the right boundary. The time 𝑡𝑏,𝑖 254 
+are calculated as 𝑡𝑠 − 𝑑𝑖/𝑎, where 𝑑𝑖 is the distance between the sample and the corresponding 255 
+boundary. The conditions required for solving the sample are referred to as essential information. 256 
+Conversely, any boundary conditions ou tside the time intervals  [0, 𝑡𝑏,1] and [0, 𝑡𝑏,2] are not 257 
+required for the solution and are therefore classified as irrelevant information. 258 
+For the inverse problem with unknown boundaries but available sensors (see Fig. 2(b)), the 259 
+extended Method of Characteristics (EMOC) (Ye et al., 2025) , an inverse modelling method for 260 
+transient analysis, is employed to determine the essential information required to solve a sample. 261 
+There are two possible scenarios  in the inverse problem. (1) The sample is located between the 262 
+sensors (Fig. 2(b)). In this case, the analysis for the sample remains the same as in the forward 263 
+problem by regarding the sensor data as “boundary conditions”, while the true ICs/BCs are not 264 
+
+===== PAGE 15 =====
+manuscript submitted to Water Resources Research  
+ 
+directly required in this scenario.  Note that the ICs are assumed to be in steady state and can be 265 
+computed by the measured heads at t = 0 s.  (2) The sample is located between a sensor and an 266 
+unknown boundary ( Fig. 2(c)). Based on the EMOC framework , the essential information only 267 
+includes the sensor data with the intervals [0, 𝑡𝑜𝑏𝑠,1] for the left sensor and [0, 𝑡𝑜𝑏𝑠,2] for the right 268 
+sensor. The time 𝑡𝑜𝑏𝑠,2 = 𝑡𝑠 + 𝑑2/𝑎 where 𝑑2 is the distance between Sensor 2 and the right 269 
+boundary. The time 𝑡𝑜𝑏𝑠,1 = 𝑡𝑠 − (𝑑1 − 𝑑2)/𝑎 where 𝑑1 is the distance between the sensors. The 270 
+remaining sensor data are irrelevant.  271 
+ 272 
+ 273 
+Fig. 2 Preliminary analysis to solve the states of samples (a) Forward problem; (b) Inverse problem: 274 
+Scenario 1; (c) Inverse problem: Scenario 2. 275 
+Including irrelevant information can  weaken the true causal relationships between input 276 
+observations and output predictions . This increases the bu rden on the optimizer to distinguish 277 
+relevant inputs, thereby slowing convergence. Furthermore, feeding in irrelevant data increases 278 
+the risk of overfitting, where the model memorizes patterns that do not reflect the underlying 279 
+physics but instead arise from irrelevant observations. 280 
+
+
+===== PAGE 16 =====
+manuscript submitted to Water Resources Research  
+ 
+2.4 Filtering physics-informed neural operator (FPINO) 281 
+2.4.1 The workflow of FPINO-based transient reconstruction 282 
+This paper proposes an FPINO framework to achieve near real-time transient reconstruction. Fig. 283 
+3 illustrates the workflow of the FPINO framework, which consists of three stages: data 284 
+preparation, neural network  training, and online prediction. The FPINO incorporates a time -285 
+weighted information filtering strategy to prioritize relevant data, ensuring that the reconstruction 286 
+process for each sample  focuses on the most impactful information. In a ddition, a hybrid 287 
+physics-driven and data -driven loss function that integrates physical constrain ts (governing 288 
+equations), simulation data , and observed data  is formulated to enable robust and efficient 289 
+transient flow reconstruction even with sparse observations and various uncertainties. The final 290 
+architecture of the proposed FPINO is illustrated in Fig. 4. 291 
+ 292 
+ 293 
+Fig. 3 The workflow of the FPINO. 294 
+
+
+===== PAGE 17 =====
+manuscript submitted to Water Resources Research  
+ 
+ 295 
+ 296 
+Fig. 4 The architecture of the FPINO with a hybrid loss. 297 
+2.4.2 Information filter 298 
+Before feeding the observation data into the branch network of DeepONet, an information filter 299 
+is applied to assign weights to each observation point based on its relevance to the prediction 300 
+point. This is achieved using a differentiable stiff sigmoid function: 301 
+  𝑤𝐼 = 𝑠𝑖𝑔𝑚𝑜𝑖𝑑(−𝑘 ∗ (𝑡𝑜𝑏𝑠 − 𝑡𝑠 − 𝜏))  (8) 302 
+where 𝑡𝑜𝑏𝑠 is the time at the observation point, and 𝑡𝑠 is the time at the sample (prediction point). 303 
+The constant k controls the steepness of the sigmoid curve . A stiff sigmoid  (with a large k) 304 
+creates a sharp transition between the relevant and irrelevant regions, effectively filtering out 305 
+irrelevant information while preserving the essential data for accurate prediction.  The constant 𝜏 306 
+is the time offset, representing the arrival time of wave propagation from the observation point to 307 
+the prediction point . For example, Sample 2 in Fig. 2(b) is located between a sensor and an 308 
+unknown boundary. The corresponding  𝜏 is calculated by 𝛽𝑑2/𝑎, where 𝛽 is the constant t o 309 
+
+
+===== PAGE 18 =====
+manuscript submitted to Water Resources Research  
+ 
+account for wave damping and other uncertainties in the wave propagation. In this paper, 𝛽 is set 310 
+to be 1.2.  311 
+By applying the production of the weights and the observed data , the information filter assigns 312 
+higher weights (near one)  to the essential information and lower weights (near zero)  to the 313 
+irrelevant information. This filtering process helps the neural network focus on essential input 314 
+information, thereby improving training efficiency and prediction accuracy.   315 
+  316 
+Fig. 5 An example of the weight function with k = 20, 𝑡𝑠 = 5 𝑠, and 𝜏 = 0.12 𝑠. 317 
+2.4.3 Hybrid loss function 318 
+The FPINO framework utilizes a hybrid loss function that integrates both physics -driven 319 
+(governing PDEs) and data -driven (both simulated and real data) components to enhance the 320 
+prediction accuracy of physical systems. The loss function is expressed as 321 
+
+
+===== PAGE 19 =====
+manuscript submitted to Water Resources Research  
+ 
+ 𝐿(𝜽) = 𝑤𝑓𝐿𝑃𝐷𝐸 + 𝑤𝑠𝑖𝑚𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎 + 𝑤𝑟𝑒𝑎𝑙𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎  (9) 322 
+The hybrid loss function is comprised of three losses: 𝐿𝑃𝐷𝐸, 𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎, and 𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎. The 323 
+term 𝐿𝑃𝐷𝐸 measures the violation of physical constraints. The term 𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎 measures the 324 
+discrepancy between the predicted and simulated data which can be obtained from a numerical 325 
+solver. The losses 𝐿𝑃𝐷𝐸 and  𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎 are both model-based, forcing the operator to match 326 
+the physical model. However, due to various uncertainties in reality, the physical model usually 327 
+is unable to perfectly represent the real physical phenomenon. In water pipelines, for instance, no 328 
+such model can completely characterize the dispersion and dissipation of the wave propagation 329 
+(also known as wave damping). In this case, the term 𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎 that measures the discrepancy 330 
+between the predicted and real  data is integrated into the loss function to extract the hidden 331 
+information from measured data. The weighting values 𝑤𝑓, 𝑤𝑠𝑖𝑚 and 𝑤𝑟𝑒𝑎𝑙 are designed to 332 
+balance those three losses 𝐿𝑃𝐷𝐸, 𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎, and 𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎.  333 
+The expressions of losses 𝐿𝑃𝐷𝐸, 𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎, and 𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎 are given by: 334 
+  𝐿𝑃𝐷𝐸 =  
+1
+(𝑁𝑠1+𝑁𝑠2)×𝑁𝑓
+∑ ∑ (𝐹̂1
+2(𝑥𝑓
+𝑗, 𝑡𝑓
+𝑗; 𝜽) + 𝐹̂2
+2(𝑥𝑓
+𝑗, 𝑡𝑓
+𝑗; 𝜽))
+𝑁𝑓
+𝑗=1
+𝑁𝑠1+𝑁𝑠2
+𝑘=1   (10) 335 
+ 𝐿𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑒𝑑_𝑑𝑎𝑡𝑎 =  
+1
+𝑁𝑠1×𝑁𝑠𝑑
+∑ ∑ (𝝋̂ 𝑠𝑑(𝑥𝑠𝑑
+𝑗 , 𝑡𝑠𝑑
+𝑗 ; 𝜽) − 𝝋𝑛𝑑(𝑥𝑠𝑑
+𝑗 , 𝑡𝑠𝑑
+𝑗 ))2𝑁𝑠𝑑
+𝑗=1
+𝑁𝑠1
+𝑘=1   (11) 336 
+ 𝐿𝑟𝑒𝑎𝑙_𝑑𝑎𝑡𝑎 =  
+1
+𝑁𝑠2×𝑁𝑟𝑑
+∑ ∑ (𝝋̂ 𝑟𝑑(𝑥𝑟𝑑
+𝑗 , 𝑡𝑟𝑑
+𝑗 ; 𝜽) − 𝝋𝑟𝑑(𝑥𝑟𝑑
+𝑗 , 𝑡𝑟𝑑
+𝑗 ))2𝑁𝑟𝑑
+𝑗=1
+𝑁𝑠2
+𝑘=1   (12) 337 
+where 𝜽 is the weights and bias of the neural network . 𝑁𝑠1 and 𝑁𝑠2 are the number of numerical 338 
+scenarios and real scenarios, respectively. 𝑁𝑓 is the number of collocation points  (𝑥𝑓, 𝑡𝑓) where 339 
+the governing equations are enforced during the training process . The left side of the governing 340 
+
+===== PAGE 20 =====
+manuscript submitted to Water Resources Research  
+ 
+equations (Equations (1) and (2)) 𝐹̂1 and 𝐹̂2 are evaluated at these collocation points by using the 341 
+predicted physical variables. The hat represents predicted values by the neural network. The 342 
+derivatives in 𝐹̂1 and 𝐹̂2 are obtained through the automatic differentiation library of neural 343 
+networks (autograd). It is noted that no observed data are required  for the PDE loss 𝐿𝑃𝐷𝐸. Thus, 344 
+the collocation points can be at any spatiotemporal point for both numerical and real scenarios. 345 
+In this study, the collocation points consist of all the grid points in the numerical and real 346 
+scenarios. 𝑁𝑠𝑑 is the number of  data points (𝑥𝑠𝑑, 𝑡𝑠𝑑) in sumulated scenarios, covering the entire 347 
+solution domain. 𝑁𝑟𝑑 is the number of collected data points  (𝑥𝑟𝑑, 𝑡𝑟𝑑) in real data  scenarios, 348 
+which depends on the number of deployed sensors . 𝝋 is the vector of observ ed physical 349 
+variables. While 𝝋𝑠𝑑 consists of all the involved physical variables in the numerical scenarios, 350 
+𝝋𝑟𝑑 in real scenarios depends on the type of used sensors and it is typically the pressure head in 351 
+pipeline systems.  352 
+2.4.4 Formulation of training dataset 353 
+Based on the proposed hybrid loss function, t he training data preparation for the transient 354 
+reconstruction problem involves two datasets, the numerical dataset and the real dataset . The 355 
+data preparation for the input and output of FPINO is illustrated in Fig. 6. 356 
+(1) Raw datasets 357 
+To generate the raw numerical dataset, a forward model, which is MOC in this study, is first built 358 
+to simulate 𝑁𝑠1 random numerical transient scenarios (e.g. random valve closures). The transient 359 
+source is assumed to be outside or at the boundary of the analyzed pipeline . Each scenario 360 
+contains 𝑁𝑇 × 𝑁𝑋 grid points in the x-t domain, where 𝑁𝑇 is the number of time points and 𝑁𝑥 is 361 
+the number of space points along the pipeline. At each grid point, the coordinates x and t and the 362 
+
+===== PAGE 21 =====
+manuscript submitted to Water Resources Research  
+ 
+corresponding physical variables (pressure head h and flow q) are bound to formulate a sample 363 
+of the raw simulated dataset. Therefore, the total size of the raw numerical dataset is 𝑁𝑠1 × 𝑁𝑇 ×364 
+𝑁𝑋 × 4.  365 
+For the real dataset, 𝑁𝑠2 historical transient scenarios are collected from 𝑁𝑜𝑏𝑠 pressure sensors 366 
+(where 𝑁𝑜𝑏𝑠 denotes the total number of sensors ). Each sample contains the coordinates and the 367 
+corresponding pressure head. Consequently, the size of the real dataset is 𝑁𝑠2 × 𝑁𝑇 × 𝑁𝑜𝑏𝑠 × 3. 368 
+(2) Input block 369 
+The raw datasets are divided into observation  points and collocation points to enforce the 370 
+observed data and physical constraints (PDEs), respectively.  371 
+ Each observation sample in the input block 𝐗1 consists of the coordinates (𝑥𝑠𝑑, 𝑡𝑠𝑑)  and the 372 
+observed pressure  traces 𝒉𝑘  at k sensor as input features. The observed pressure heads are 373 
+flattened into one row with a length of 𝑘 × 𝑁𝑇. Thus, the size of the input vector is (2 + 𝑘 × 𝑁𝑇) 374 
+for each sample and the total size of the input block is 𝑁𝑠1 × 𝑁𝑇 × 𝑁𝑋 × (2 + 𝑘 × 𝑁𝑇). 375 
+Similarly, the input blocks 𝐗2 for real dataset has  a total size of  𝑁𝑠2 × 𝑁𝑇 × 𝑁𝑜𝑏𝑠 × (2 + 𝑘 ×376 
+𝑁𝑇). It is worth noting that the pressure heads at only 𝑘 (𝑘 < 𝑁𝑜𝑏𝑠) sensor locations are used as 377 
+input features for specifying the transient scenarios, while the pressure  head data from all 𝑁𝑜𝑏𝑠 378 
+sensor locations are utilized to compute the data loss during the training stage. This enables the 379 
+use of additional sensors to enrich the training dataset and improve model performance. 380 
+However, once the FPINO model is trained, a reduced number o f sensors  (𝑘) is sufficient to 381 
+accurately reconstruct the transient scenario. 382 
+
+===== PAGE 22 =====
+manuscript submitted to Water Resources Research  
+ 
+The collocation points of the numerical datasets share the same samples as in 𝐗1. However, these 383 
+points do not require observed physical variables. Instead, they are used to enforce the governing 384 
+physical constraints by evaluating the residuals of the equations at these points.  For this reason, 385 
+the collocation points in the real datasets are not restricted to the locations of available sensors  386 
+and can be any point in the x-t domain. In this study, they are chosen as all the grid points. By 387 
+bounding the collocation points in the simulated dataset and real dataset, the total size of the 388 
+input block for collocation points is (𝑁𝑠1 + 𝑁𝑠2) × 𝑁𝑇 × 𝑁𝑋 × (2 + 𝑘 × 𝑁𝑇) . 389 
+(3) Output block 390 
+The output block 𝐘1 for the simulated dataset consists of both the pressure ℎ(𝑥𝑠𝑑, 𝑡𝑠𝑑) and flow 391 
+𝑞(𝑥𝑠𝑑, 𝑡𝑠𝑑), while  the output block 𝐘2 for the real dataset consists of only the pressure 392 
+ℎ(𝑥𝑟𝑑, 𝑡𝑟𝑑). Therefore, the total size s of the output b locks are 𝑁𝑠1 × 𝑁𝑇 × 𝑁𝑋 × 2 for the 393 
+simulated dataset and 𝑁𝑠2 × 𝑁𝑇 × 𝑁𝑜𝑏𝑠 × 1 for the real dataset.  394 
+
+===== PAGE 23 =====
+manuscript submitted to Water Resources Research  
+ 
+  395 
+Fig. 6 Dataset generation flowchart. The size of each dataset is presented on the top of the dataset shaped 396 
+by a cylinder.   397 
+2.4.5 Performance evaluation metrics 398 
+The root mean squared error (RMSE, also known as L2 error)  and mean absolute error (MAE) 399 
+are adopted to quantify the discrepancy between the predicted and actual values:  400 
+  L2 error = √∑ ( 𝜑𝑖̂ −𝜑𝑖)2𝑁
+𝑖=1
+𝑁   (13) 401 
+  MAE =
+∑ | 𝜑𝑖̂ −𝜑𝑖|𝑁
+𝑖=1
+𝑁   (14) 402 
+
+
+===== PAGE 24 =====
+manuscript submitted to Water Resources Research  
+ 
+in which N is the number of data points evaluated, 𝜑𝑖 is the actual value of the transient state 403 
+which could be either head h or flow q, and  𝜑𝑖̂  is the corresponding predicted value.  404 
+3. Numerical Case Studies 405 
+3.1 System setup 406 
+A typical reservoir-pipe-valve (RPV) system shown in Fig. 7 was used to validate the proposed 407 
+FPINO. The pipeline is made of high-density polyethylene (HDPE) with a length of 500 m. The 408 
+water level of the reservoir is 50 m. The pipeline has a wave speed of 1000 m/s, a diameter of 0.2 409 
+m, and a steady-state friction factor of 0.012. The flow is initially in steady state. Three pressure 410 
+sensors at x = 280 m, 360 m, and 480 m are deployed along the pipeline in the training stage, 411 
+while only one pressure sensor at x = 360 m is required as input in the testing stage. 412 
+ 413 
+
+
+===== PAGE 25 =====
+manuscript submitted to Water Resources Research  
+ 
+Fig. 7 The pipeline system with a reservoir, an end valve, a plastic pipe, and a pressure sensor. The initial 414 
+flow and valve closure were assumed to be unknown. 415 
+3.2 Data generation 416 
+The transient events are generated with varied initial flow rates ranging from 0.02 m 3/s to 0.05 417 
+m3/s and different valve closure patterns. The valve closure patterns include two-phase and three-418 
+phase linear closures, as illustrated in Fig. 8. The two -phase linear closure involves a single 419 
+turning point where the valve's opening changes linearly in two segments . The three-phase linear 420 
+closure involves two dis tinct turning points, creating three segments of linear closure . The total 421 
+time for each valve closure event is sampled from 1 to 3.5 seconds.   By randomly setting the 422 
+initial flow rate and valve closure patterns, diverse transient scenarios can be generat ed to cover 423 
+a wide range of transient behaviors in the RPV system. 424 
+ 425 
+Fig. 8 Examples of  (a) the two-phase closure and (b) the three-phase closure. 426 
+In the real world, the parameters relating to the viscoelasticity of the plastic pipe are difficult to 427 
+obtain and calibrate. Therefore, the numerical dataset was generated using the standard MOC 428 
+without knowing the viscoelastic properties of the plastic pi peline. A total of 500 transient 429 
+scenarios were simulated, with 250 scenarios for each of the two closure types (two -phase and 430 
+
+
+===== PAGE 26 =====
+manuscript submitted to Water Resources Research  
+ 
+three-phase closures).  Each transient scenario is simulated for 10 seconds with a time step of 431 
+0.01 s, resulting in 1,000 time po ints in the time series and 51 spatial points along the pipeline . 432 
+To reduce the dimensionality of input and the training workload, the simulated data is evenly 433 
+downsampled in both time and space. Each scenario is reduced to 200 time points and 26 spatial 434 
+points. Due to the sufficient available data from the simulation, observations are assumed to be 435 
+located at all grid points of the pipeline, as shown in Fig. 7(a). Consequently, the observation 436 
+dataset for the 500 simulated transient scenarios contains a total of 2,600,000 samples . The input 437 
+of each sample includes its coordinates (x, t) and the 200 the pressure data  points observed at a 438 
+distance of 360 m from the reservoir, resulting in an input vector size of 202.  439 
+To generate the real  dataset, the viscoelastic behavior of the pipe was incorporated into the 440 
+transient simulation using the Kelvin -Voigt model. Then, the same 500 transient scenarios are 441 
+simulated using the viscoelastic model for the real dataset generation. Fig. 9 shows a comparison 442 
+of the observed pressure at 350 m from the simulated and real datasets  under the s ame valve 443 
+closure pattern . The real pressure trace simulated by the viscoelastic model shows obvious 444 
+attenuation in the pressure peaks, better reflecting real-world conditions.  445 
+  446 
+
+
+===== PAGE 27 =====
+manuscript submitted to Water Resources Research  
+ 
+Fig. 9 Comparison of pressure traces simulated by the MOC model and the MOC integrated with the 447 
+viscoelastic model. 448 
+Among the real transient scenarios, 400 transient scenarios were put in the training dataset with 449 
+the sensor at x = 360 m providing the input data , and all three sensors provide the observed  data 450 
+for the output. The remaining 100 scenarios are used as testing data to evaluate the network 451 
+performance. In total, the observation dataset includes 5,200,000 samples , with 2,600,000 452 
+samples from the simulated dataset and the other 2,600,000 samples from the real dataset.  A 453 
+summary of the simulated dataset and the real dataset is provided in Table 1.  454 
+Table 1 Summary of the simulated dataset and real dataset. 455 
+ Simulated dataset Real dataset 
+Viscoelasticity Not considered Considered 
+Training scenarios 400 400 
+Testing scenarios 0 100 
+Observation samples 2,600,000  300,000 
+Collocation samples 2,600,000  2,600,000  
+Sensor location for input (m) x = 360 m x = 360 m 
+Sensor locations for output (m) All internal points x = 280, 360, and 480 m 
+ 456 
+3.3 Hyperparameters 457 
+Hyperparameters of ANNs such as learning rate, network width and depth,  govern the 458 
+architecture, training process, and optimization of the network and are crucial for the 459 
+performance and success of the ANN prediction . Choosing appropriate values for these 460 
+
+===== PAGE 28 =====
+manuscript submitted to Water Resources Research  
+ 
+hyperparameters can significantly impact the ANN’s ability to learn eff ectively, generalize to 461 
+unseen data, and converge efficiently.  462 
+Grid search is a foundational tool for hyperparameter tuning where a predefined set of 463 
+hyperparameters and their possible values are explored to find the combination that provides the 464 
+best model performance on a validation dataset. It is one of the most straightforward yet effective 465 
+methods for optimizing hyperparameters in machine learning and deep learning.  The final 466 
+FPINO hyperparameters listed in Table 2 were carefully selected through a combination of grid 467 
+search and empirical testing to optimize model performance.  468 
+Table 2 Best values of hyperparameters 469 
+Hyperparameters Observation points 
+Number of Epochs 100,000 
+Learning rate 0.001 
+Batch size 16 
+Activation function tanh 
+Number of branch hidden layers  10 
+Number of trunk hidden layers 8 
+Width of the branch network 60 
+Width of the trunk network 30 
+3.4 PINO vs FPINO 470 
+Both PINO vs FPINO demonstrate high computational efficiency, requiring approximately 15 471 
+seconds to reconstruct 100 transient events, or about 0.15 seconds per event.  The reconstruction 472 
+accuracy of PINO and FPINO  methods is evaluated using the L2 error and MAE metrics across 473 
+different combinations of training scenarios. T he combinations of simulated /real scenarios 474 
+include 0/400, 50/350, 100/300, 200/200, 300/100, 350/50, and 400/0 , maintaining a total of 400 475 
+training scenarios for each combination. The weights of 𝑤𝑓, 𝑤𝑠𝑖𝑚 and 𝑤𝑟𝑒𝑎𝑙 are all set to be 1.  476 
+
+===== PAGE 29 =====
+manuscript submitted to Water Resources Research  
+ 
+The L2 errors of other combinations are shown in Fig. 10, while t he MAEs followed a similar 477 
+trend and were consistently lower in FPINO . For reference, the MAE value s over the testing 478 
+samples of each case are summarized in Table A 5.1 in the Appendix.  For scenarios with only 479 
+real data (i.e., the 0/400 case ) or with only simulated data (i.e., the 400/0 case) , both PINO and 480 
+FPINO show higher variability in L2  errors. The results demonstrate that t oo much reliance on 481 
+simulated data may lead to overfitting to the inaccurate system model, while an overemphasis on 482 
+real-world data can amplify data sparsity issues. A balanced hybrid loss can effectively combine 483 
+the strengths of simulated data for learning physical dynamics and real-world data for fine-tuning 484 
+predictions, achieving robust and accurate model performance. 485 
+Across all scenario combinations, it is obvious that FPINO consistently achieves lower mean and 486 
+median L2 errors compared to PINO , indicating that FPINO generally produces more accurate 487 
+predictions. This is because the information filter mechanism in FPINO effectively reduces the 488 
+impact of irrelevant or irrelevant data, focusing the model’s learning on essential information.   489 
+ 490 
+
+
+===== PAGE 30 =====
+manuscript submitted to Water Resources Research  
+ 
+Fig. 10 Comparison of L2 errors between PINO and FPINO models across different combinations of 491 
+simulated and real scenarios. 492 
+Fig. 11 compares the pressure predictions of PINO and FPINO with the ground truth at x = 240m 493 
+for four transient scenarios in the 3 50/50 case. The L2 errors for these four samples are [0.95, 494 
+1.27, 1.87, 2.41] m for PINO and [0.50, 0.67, 1.03, 2.05] m for FPINO, respectively. On average, 495 
+FPINO achieves 57.7% higher accuracy compared to PINO . The analysis of these scenarios 496 
+suggests FPINO closely matches the ground truth across all pressure peaks and troughs . At the 497 
+same time,  PINO shows slight deviations, particularly at higher pressure peaks, indicating its 498 
+limitations in capturing detailed dynamics.  Fig. 12 shows a comparison between the true values 499 
+(left) and predicted values (right)  by FPINO for both the pressure and flow across all the spatial 500 
+and temporal grids. The patterns are mostly consi stent with the true values.  This emphasizes the 501 
+robustness of the model in accurately capturing complex hydraulic transients. 502 
+Overall, FPINO outperforms PINO across all evaluated scenarios, especially in handling sharp 503 
+transient dynamics, showcasing superior learning capabilities for transient events than the vanilla 504 
+PINO.  505 
+
+===== PAGE 31 =====
+manuscript submitted to Water Resources Research  
+ 
+ 506 
+Fig. 11 Four samples of reconstructed pressures by PINO and FPINO in the 350/50 case. 507 
+ 508 
+Fig. 12 Comparison between predicted physical variables by FPINO and the ground truth across the 509 
+spatial and temporal grids: (a) head and (b) flow. 510 
+
+
+===== PAGE 32 =====
+manuscript submitted to Water Resources Research  
+ 
+3.5 The impact of loss weights  511 
+In FPINO, the hybrid loss function integrates physics-driven and data -driven components. This 512 
+balance ensures that the model adheres to physical laws while simultaneously capturing real -513 
+world observations. Due to different information and types of uncertainties from the two 514 
+components, t he loss weights 𝑤𝑓, 𝑤𝑠𝑖𝑚, and 𝑤𝑟𝑒𝑎𝑙 (see Equation (9)) play pivotal role s in 515 
+determining their relative contributions during the training. Finding the optimal balance between 516 
+these components can be critical to achieving accurate, stable, and generalizable predictions.  517 
+To investigate the effects of loss weights  on prediction performance, the FPINO model in 518 
+200/200 case is evaluated by varying the values of 𝑤𝑓, 𝑤𝑠𝑖𝑚, and 𝑤𝑟𝑒𝑎𝑙, independently, while 519 
+keeping the other two weights fixed at 1 . Each weight is chosen to be 0, 0.001, 0.1, 1, 10, 100, 520 
+and 1000, respectively. The effects of varying weights are illustrated in Fig. 13, which shows the 521 
+L2 errors and MAEs of FPINO for varying loss weights.  522 
+As seen from Fig. 13, the sensitivities of  weights 𝑤𝑓, 𝑤𝑠𝑖𝑚, and 𝑤𝑟𝑒𝑎𝑙 vary significantly and 523 
+exhibit different trends within the ranges [0, 1] and [1, 1000]. The weight 𝑤𝑓 (for PDE residuals) 524 
+appears to be less sensitive compared to 𝑤𝑠𝑖𝑚 and 𝑤𝑟𝑒𝑎𝑙, as evident from the relatively small 525 
+changes in errors across varying 𝑤𝑓 values. This could be attributed to the fact that the physical 526 
+information is also  inherently embed ded in simulated data. Consequently, the simulated data 527 
+implicitly enforces phys ical constraints, reducing the model's reliance on the explicit physics -528 
+driven loss (𝐿𝑃𝐷𝐸). This overlap makes the weight 𝑤𝑓 less sensitive.  529 
+On the contrary, both t he L2 error and MAE increase sharply as 𝑤𝑠𝑖𝑚 decreases from 1 to 0, 530 
+indicating that simulated data is crucial for learning the underlying physics. However, w hen 531 
+𝑤𝑠𝑖𝑚 is too large  (𝑤𝑠𝑖𝑚 ≥ 10), the model prioritizes physical knowledge over observed data, 532 
+
+===== PAGE 33 =====
+manuscript submitted to Water Resources Research  
+ 
+leading to a slight increase in error. This demonstrates the potential drawbacks of over-relying on 533 
+physics-based constraints, which may fail to account for real -world complexities.   However, 534 
+overemphasizing observed data (𝑤𝑟𝑒𝑎𝑙 increases from 1 to 1000) also leads to error growth.  This 535 
+occurs because the model becomes overly sensitive to the data sparsity, and inconsistencies 536 
+inherent in real -world data. Overall, the results demonstrate that balancing the contributions of 537 
+physical knowledge and data is critical for the accurate predictions of FPINO.  538 
+ 539 
+Fig. 13 The L2 errors and MAEs from FPINOs with varying weights by changing 𝑤𝑓, 𝑤𝑠𝑖𝑚, or 𝑤𝑟𝑒𝑎𝑙, 540 
+independently, while keeping the other two weights fixed at 1. 541 
+4. Experimental Case Study 542 
+The applicability of the proposed FPINO in reconstructing hydraulic transients was further 543 
+validated on a laboratory pipeline located in the Robin Hydraulics Laboratory at the University 544 
+
+
+===== PAGE 34 =====
+manuscript submitted to Water Resources Research  
+ 
+of Adelaide. The schematic of the laboratory experimental setup is sh own in Fig. 14. This 545 
+pipeline consists of a copper pipe with a total length of 37.21 m and a slight inclination. The 546 
+inner diameter of the copper pipe  is 0.02214 m. The wave speed was calculated using the 547 
+theoretical formula as a = 1319 m/s . A pressure vessel on the right end of the pipe supplies 548 
+pressurized water to the pipeline. An inlet gate valve connects the pipeline to the pressure vessel, 549 
+regulating the flow of pressurized water into the system. The left end of the pipeline includes an 550 
+end gate valve and a side discharge valve connected by a T-junction. During the experiments, the 551 
+end gate valve remains closed. The flow through the side discharge valve was dynamically 552 
+controlled by a voice coil actuator, allowing precise manipulation of flow conditions to generate 553 
+transient events. The pipe is equipped with five pressure sensors (P1 to P5) distributed along its 554 
+length, which allow for detailed moni toring of the transient pressure wave behavior.  The 555 
+sampling rate of the pressure sensors is 2000 Hz. 556 
+  557 
+Fig. 14 A schematic of the laboratory pipeline system. 558 
+To generate the real dataset, 100 random closing curves were created as input signals to control 559 
+the voice coil actuator . The initial air pressure in the pressure vessel was set to 200 kPa. The 560 
+initial flow through the side discharge valve  was 0.11 L/s.  A period of 0.4 s, in which the 561 
+
+
+===== PAGE 35 =====
+manuscript submitted to Water Resources Research  
+ 
+pressure wave can propagate back and fort h a couple of times, was selected for the analysis. The 562 
+real dataset is split into training, validation, and test sets with proportions of [0.8, 0.1, 0.1].  For 563 
+the simulated dataset, pressure heads measured at P1 and P5 in the real dataset for training  were 564 
+used as boundary conditions. Then, the MOC model with a time step of 0.0005 s was performed 565 
+to generate the simulated dataset.  566 
+Fig. 15 shows the measured and simulated data for ten transient scenarios. Small discrecrepancies 567 
+are observed between the measured and simulated results , which can be attributed to unmodeled 568 
+damping effects, inaccurate system parameters, and measurement errors. Despite these 569 
+discrepancies, the simulated dataset provides sufficient data across the spatiotemporal domain, 570 
+offering a physics-consistent representation of the system that complement the physics -driven component 571 
+in the hybrid loss. The temporal resolution  of both the real dataset and simulated dataset is 572 
+downsampled to 500 Hz and the spatial resolution of the simulated dataset is downsampled to 36 573 
+evenly-distributed locations along the pipeline. Due to the insensitivity of the weight 𝑤𝑓 to the 574 
+FPINO performance, the weights values are set as 𝑤𝑓 = 0, 𝑤𝑠𝑖𝑚 = 1, and 𝑤𝑟𝑒𝑎𝑙 = 1. 575 
+  
+(a) (b) 
+Fig. 15 Ten samples of pressure at P3: (a) Measured (b) Simulated. 576 
+
+
+===== PAGE 36 =====
+manuscript submitted to Water Resources Research  
+ 
+  
+  
+Fig. 16 Comparison of predicted and experimental pressure heads at P4 in four transient scenarios. 577 
+Fig. 16 compares the experimental results with the predicti ons of the FPINO model for transient 578 
+pressure head measurements at P4 across four scenarios in the test dataset. The FPINO model 579 
+captures the transient behavior effectively, although slight discrepancies are observed in the 580 
+amplitude of some smaller peaks.  These differences may be attributed to noise in the 581 
+experimental data and challenges in capturing high -frequency oscillations in specific regions. 582 
+Overall, the FPINO model provides accurate and robust transient pressure reconstructions across 583 
+various scen arios. While minor discrepancies exist, these can likely be mitigated through 584 
+additional tuning of the model's architecture or loss function. The results validate the 585 
+effectiveness of FPINO for transient reconstruction tasks in hydraulic pipe systems. 586 
+
+
+===== PAGE 37 =====
+manuscript submitted to Water Resources Research  
+ 
+5. Conclusions 587 
+This study presents a novel FPINO method for near real -time reconstruction of hydraulic 588 
+transients in pressurized pipelines using sparse sensor data. The proposed method integrates 589 
+physical constraints through a hybrid loss function and employs a time -weighted information 590 
+filtering strategy to p rioritize causally relevant observations. This improves learning efficiency 591 
+and prediction accuracy compared to conventional PINO.  592 
+FPINO was validated through both numerical simulations and laboratory experiments on single -593 
+pipe systems. Results demonstrate that FPINO can effectively reconstruct transient flow behavior 594 
+under sparse observations and model uncertainties, achieving faster convergence. B alancing the 595 
+loss weights  of physical knowledge , simulation data, and real  data is critical for the overall 596 
+performance and robustness of the model —too much reliance on any can degrade accuracy or 597 
+generalizability. 598 
+However, this work is limited to single-pipe scenarios. The extension of FPINO to more complex 599 
+configurations, such as water distribution networks, in volves additional challenges, including 600 
+network topology, junction dynamics, and sparse sensor coverage. These aspects will be 601 
+explored in future work to assess the scalability and adaptability of FPINO in broader 602 
+engineering applications. 603 
+Acknowledgments 604 
+This research is funded by the China Scholarship Council and the Australian Research Council 605 
+through the Discovery Project Grants DP210103565 and DP230101513.  606 
+
+===== PAGE 38 =====
+manuscript submitted to Water Resources Research  
+ 
+Declaration of generative AI and AI-assisted technologies in the writing process 607 
+During the prep aration of this work the authors used ChatGPT in order to improve language. 608 
+After using this tool, the authors reviewed and edited the content as needed and take full 609 
+responsibility for the content of the publication. 610 
+ 611 
+Appendix 612 
+Table A1: Summary of L2 errors and MAEs over testing samples of each case. 613 
+Case 
+L2 error (m) MAE (m) 
+PINO FPINO PINO FPINO 
+0/400 3.93 3.17 2.29 2.21 
+50/350 2.92 1.73 1.93 1.22 
+100/300 2.39 1.84 1.54 1.28 
+200/200 2.42 2.12 1.53 1.52 
+300/100 2.78 2.14 1.86 1.75 
+350/50 2.45 2.15 1.61 1.59 
+400/0 3.71 2.79 2.46 2.10 
+Data availability 614 
+The data and code are available at: https://github.com/EthanYe/FPINO.git  615 
+
+===== PAGE 39 =====
+manuscript submitted to Water Resources Research  
+ 
+References 616 
+Ayati, A. H., Haghighi, A., & Ghafouri, H. R. (2022). Machine Learning–Assisted Model for Leak Detection in 617 
+Water Distribution Networks Using Hydraulic Transient Flows. Journal of Water Resources Planning and 618 
+Management, 148(2), 04021104. https://doi.org/10.1061/(ASCE)WR.1943-5452.0001508 619 
+Bata, M., Carriveau, R., & Ting, D. S.-K. (2020). Short-term water demand forecasting using hybrid supervised and 620 
+unsupervised machine learning model. Smart Water, 5(1), 2. https://doi.org/10.1186/s40713-020-00020-y 621 
+Bohorquez, J., Simpson, A. R., Lambert, M. F., & Alexander, B. (2021). Merging Fluid Transient Waves and 622 
+Artificial Neural Networks for Burst Detection and Identification in Pipelines. Journal of Water Resources 623 
+Planning and Management, 147(1), 04020097. https://doi.org/10.1061/(ASCE)WR.1943-5452.0001296 624 
+Boulos, P. F., Karney, B. W., Wood, D. J., & Lingireddy, S. (2005). Hydraulic Transient Guidelines for Protecting 625 
+Water Distribution Systems. Journal - American Water Works Association, 97(5), 111–124. 626 
+https://doi.org/10.1002/j.1551-8833.2005.tb10892.x 627 
+Brentan, B., Monteiro, L., Carneiro, J., & Covas, D. (2021). Improving Water Age in Distribution Systems by 628 
+Optimal Valve Operation. Journal of Water Resources Planning and Management, 147(8), 04021046. 629 
+https://doi.org/10.1061/(ASCE)WR.1943-5452.0001412 630 
+Brunone, B., Karney, B. W., Mecarelli, M., & Ferrante, M. (2000). Velocity Profiles and Unsteady Pipe Friction in 631 
+Transient Flow. Journal of Water Resources Planning and Management, 126(4), 236–244. 632 
+https://doi.org/10.1061/(ASCE)0733-9496(2000)126:4(236) 633 
+Chaudhry, M. H. (2014). Applied Hydraulic Transients. Springer New York. https://doi.org/10.1007/978-1-4614-634 
+8538-4 635 
+Covas, D., Stoianov, I., Mano, J. F., Ramos, H., Graham, N., & Maksimovic, C. (2005). The dynamic effect of pipe -636 
+wall viscoelasticity in hydraulic transients. Part II—model development, calibration and verification. 637 
+Journal of Hydraulic Research, 43(1), 56–70. https://doi.org/10.1080/00221680509500111 638 
+Gong, J., Shi, G., Wang, S., Wang, P., Chen, B., Chen, Y., Wang, B., Yu, B., Jiang, W ., & Li, Z. (2024). Efficient 639 
+super-resolution of pipeline transient process modeling using the Fourier Neural Operator. Energy, 302, 640 
+131676. https://doi.org/10.1016/j.energy.2024.131676 641 
+
+===== PAGE 40 =====
+manuscript submitted to Water Resources Research  
+ 
+Goswami, S., Jagtap, A. D., Babaee, H., Susi, B. T., & Karniadakis, G. E. (2024). Learning stiff chemical kinetics 642 
+using extended deep neural operators. Computer Methods in Applied Mechanics and Engineering, 419, 643 
+116674. https://doi.org/10.1016/j.cma.2023.116674 644 
+Hajgató, G., Gyires-Tóth, B., & Paál, G. (2021). Reconstructing nodal pressures in water distribution systems with 645 
+graph neural networks. arXiv Preprint arXiv:2104.13619. https://doi.org/10.48550/arXiv.2104.13619 646 
+Hu, Z., Chen, B., Chen, W., Tan, D., & Shen, D. (2021). Review of model-based and data-driven approaches for 647 
+leak detection and location in water distribution systems. Water Supply, 21(7), 3282–3306. 648 
+https://doi.org/10.2166/ws.2021.101 649 
+Hutton, C. J., Kapelan, Z., Vamvakeridou-Lyroudia, L., & Savić, D. A. (2014). Dealing with Uncertainty in Water 650 
+Distribution System Models: A Framework for Real-Time Modeling and Data Assimilation. Journal of 651 
+Water Resources Planning and Management, 140(2), 169–183. https://doi.org/10.1061/(ASCE)WR.1943-652 
+5452.0000325 653 
+Hwang, Y.-H., & Chung, N.-M. (2002). A fast Godunov method for the water-hammer problem. International 654 
+Journal for Numerical Methods in Fluids, 40(6), 799–819. https://doi.org/10.1002/fld.372 655 
+Kamaruidzaman, N. S., & Nazahiyah, S. N. (2020). Water Monitoring System Embedded with Internet of Things 656 
+(IoT) Device: A Review. IOP Conference Series: Earth and Environmental Science, 498(1), 012068. 657 
+https://doi.org/10.1088/1755-1315/498/1/012068 658 
+Kontolati, K., Goswami, S., Em Karniadakis, G., & Shields, M. D. (2024). Learning nonlinear operators in latent 659 
+spaces for real-time predictions of complex dynamics in physical systems. Nature Communications, 15(1), 660 
+5101. https://doi.org/10.1038/s41467-024-49411-w 661 
+Kovachki, N., Li, Z., Liu, B., Azizzadenesheli, K., Bhattacharya, K., & Stuart, A. (2023). Neural Operator: Learning 662 
+Maps Between Function Spaces With Applications to PDEs. Journal of Machine Learning Research, 663 
+24(89), 1–97. 664 
+Lambrou, T. P., Anastasiou, C. C., Panayiotou, C. G., & Polycarpou, M. M. (2014). A Low -Cost Sensor Network 665 
+for Real-Time Monitoring and Contamination Detection in Drinking Water Distribution Systems. IEEE 666 
+Sensors Journal, 14(8), 2765–2772. https://doi.org/10.1109/JSEN.2014.2316414 667 
+
+===== PAGE 41 =====
+manuscript submitted to Water Resources Research  
+ 
+Lehmann, F., Gatti, F., Bertin, M., & Clouteau, D. (2024). 3D elastic wave propagation with a Factorized Fourier 668 
+Neural Operator (F-FNO). Computer Methods in Applied Mechanics and Engineering, 420, 116718. 669 
+https://doi.org/10.1016/j.cma.2023.116718 670 
+Li, H., Ye, X., Jiang, P., Qin, G., & Wang, T. (2024). Local neural operator for solving transient partial differential 671 
+equations on varied domains. Computer Methods in Applied Mechanics and Engineering, 427, 117062. 672 
+https://doi.org/10.1016/j.cma.2024.117062 673 
+Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhattacharya, K., & Stuart, A. (2020). Multipole Graph Neural 674 
+Operator for Parametric Partial Differential Equations. Advances in Neural Information Processing 675 
+Systems, 33, 6755--6766. 676 
+Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhattacharya, K., Stuart, A., & Anandkumar, A. (2021). Fourier 677 
+Neural Operator for Parametric Partial Differential Equations (No. arXiv:2010.08895). arXiv. 678 
+http://arxiv.org/abs/2010.08895 679 
+Li, Z., Liu, H., Zhang, C., & Fu, G. (2024). Real-time water quality prediction in water distribution networks using 680 
+graph neural networks with sparse monitoring data. Water Research, 250, 121018. 681 
+https://doi.org/10.1016/j.watres.2023.121018 682 
+Lu, L., Jin, P., & Karniadakis, G. E. (2021). DeepONet: Learning nonlinear operators for identifying differential 683 
+equations based on the universal approximation theorem of operators. Nature Machine Intelligence, 3(3), 684 
+218–229. https://doi.org/10.1038/s42256-021-00302-5 685 
+Lu, L., Meng, X., Cai, S., Mao, Z., Goswami, S., Zhang, Z., & Karniadakis, G. E. (2022). A comprehensive and fair 686 
+comparison of two neural operators (with practical extensions) based on FAIR data. Computer Methods in 687 
+Applied Mechanics and Engineering, 393, 114778. https://doi.org/10.1016/j.cma.2022.114778 688 
+Mounce, S. R., Boxall, J. B., & Machell, J. (2010). Development and Verification of an Online Artificial 689 
+Intelligence System for Detection of Bursts and Other Abnormal Flows. Journal of Water Resources 690 
+Planning and Management, 136(3), 309–318. https://doi.org/10.1061/(ASCE)WR.1943-5452.0000030 691 
+Owen, D. L. (2023). Smart water management. River, 2(1), 21–29. https://doi.org/10.1002/rvr2.29 692 
+Raissi, M., Perdikaris, P., & Karniadakis, G. E. (2019). Physics-informed neural networks: A deep learning 693 
+framework for solving forward and inverse problems involving nonlinear partial differential equations. 694 
+Journal of Computational Physics, 378, 686–707. https://doi.org/10.1016/j.jcp.2018.10.045 695 
+
+===== PAGE 42 =====
+manuscript submitted to Water Resources Research  
+ 
+Romano, M., Kapelan, Z., & Savić, D. A. (2014). Automated Detection of Pipe Bursts and Other Events in Water 696 
+Distribution Systems. Journal of Water Resources Planning and Management, 140(4), 457–467. 697 
+https://doi.org/10.1061/(ASCE)WR.1943-5452.0000339 698 
+Salloom, T., Kaynak, O., & He, W. (2021). A novel deep neural network architecture for real-time water demand 699 
+forecasting. Journal of Hydrology, 599, 126353. https://doi.org/10.1016/j.jhydrol.2021.126353 700 
+Sokolova, E., Ivarsson, O., Lillieström, A., Speicher, N. K., Rydberg, H., & Bondelind, M. (2022). Data -driven 701 
+models for predicting microbial water quality in the drinking water source using E. coli monitoring and 702 
+hydrometeorological data. Science of The Total Environment, 802, 149798. 703 
+https://doi.org/10.1016/j.scitotenv.2021.149798 704 
+Tijsseling, A. S. (1996). Fluid-Structure Interaction in Liquid-Filled Pipe Systems: A Review. Journal of Fluids and 705 
+Structures, 10(2), 109–146. https://doi.org/10.1006/jfls.1996.0009 706 
+Ulusoy, A.-J., Pecci, F., & Stoianov, I. (2022). Bi-objective design-for-control of water distribution networks with 707 
+global bounds. Optimization and Engineering, 23(1), 527–577. https://doi.org/10.1007/s11081-021-09598-708 
+z 709 
+Wang, S., Wang, H., & Perdikaris, P. (2021). Learning the solution operator of parametric partial differential 710 
+equations with physics-informed DeepONets. SCIENCE ADVANCES. 711 
+Wu, Y., & Liu, S. (2017). A review of data-driven approaches for burst detection in water distribution systems. 712 
+Urban Water Journal, 14(9), 972–983. https://doi.org/10.1080/1573062X.2017.1279191 713 
+Wylie, E. B., Streeter, V. L., & Suo, L. (1993). Fluid Transients in Systems. Prentice-Hall. 714 
+Xing, L., & Sela, L. (2022). Graph Neural Networks for State Estimation in Water Distribution Systems: 715 
+Application of Supervised and Semisupervised Learning. Journal of Water Resources Planning and 716 
+Management, 148(5), 04022018. https://doi.org/10.1061/(ASCE)WR.1943-5452.0001550 717 
+Ye, J., Do, N. C., Zeng, W., & Lambert, M. (2022). Physics-informed neural networks for hydraulic transient 718 
+analysis in pipeline systems. Water Research, 221, 118828. https://doi.org/10.1016/j.watres.2022.118828 719 
+Ye, J., Lambert, M., Zeng, W., & Cuong Do, N. (2025). Extended Method of Characteristics for Inverse Hydraulic 720 
+Transient Modeling Using Sensor Data. Journal of Hydraulic Engineering, 151(4), 04025017. 721 
+https://doi.org/10.1061/JHEND8.HYENG-14239 722 
+
+===== PAGE 43 =====
+manuscript submitted to Water Resources Research  
+ 
+Ye, J., Zeng, W., Do, N. C., & Lambert, M. (2024). Reconstructing transient pressures in pipe networks from local 723 
+observations by using physics-informed neural networks. Water Research, 257, 121648. 724 
+https://doi.org/10.1016/j.watres.2024.121648 725 
+Zecchin, A. C., Simpson, A. R., Lambert, M. F., White, L. B., & Vítkovský, J. P. (2009). Transient Modeling of 726 
+Arbitrary Pipe Networks by a Laplace-Domain Admittance Matrix. Journal of Engineering Mechanics, 727 
+135(6), 538–547. https://doi.org/10.1061/(ASCE)0733-9399(2009)135:6(538) 728 
+Zeng, W., Zecchin, A. C., & Lambert, M. F. (2022). Elastic Water Column Model for Hydraulic Transient Analysis 729 
+of Pipe Networks. Journal of Hydraulic Engineering, 148(12), 04022027. 730 
+https://doi.org/10.1061/(ASCE)HY.1943-7900.0002028 731 
+ 732 

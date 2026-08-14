@@ -1,0 +1,3528 @@
+SOURCE: Phd-Condition assessment of pressurized pipelines using transient waves and time-reversal technique 利用瞬态波和时间反转技术对压力管道进行状态评估.pdf
+PAGES: 274
+PARTIAL extract 100/274 pages from thesis
+
+
+
+===== PAGE 1 =====
+Condition assessment of pressurized pipelines using
+transient waves and time-reversal technique
+by
+Muhammad WAQAR
+A Thesis Submitted to
+The Hong Kong University of Science and Technology
+in Partial Fulfillment of the Requirements for
+the Degree of Doctor of Philosophy
+in Civil Engineering
+August 2022, Hong Kong
+
+===== PAGE 2 =====
+Authorization
+I hereby declare that I am the sole author of the thesis.
+I authorize the Hong Kong University of Science and Technology to lend this thesis
+to other institutions or individuals for the purpose of scholarly research.
+I further authorize the Hong Kong University of Science and Technology to reproduce
+the thesis by photocopying or by other means, in total or in part, at the request of other
+institutions or individuals for the purpose of scholarly research.
+Muhammad WAQAR
+24 August 2022
+ii
+Signature redacted
+
+===== PAGE 3 =====
+Signature redacted
+Signature redacted
+Signature redacted
+
+===== PAGE 4 =====
+Acknowledgment
+First and foremost, I am thankful to Prof. Mohamed S. Ghidaoui (supervisor) and
+Prof. Moez Louati (co-supervisor) for their mentoring, invaluable advices, and sup-
+port. Their continuous, insightful, and constructive feedback has played a vital role
+in the completion of this thesis.
+I am thankful to the thesis external examiner Prof. Chyr Pyng (Jim) Liou for his in-
+valuable comments, thesis review, and suggestions. I would also like to acknowledge
+other members of the thesis examination committee comprising of Prof Jensen Tsan
+Hang Li, Prof. Jiachuan Yang, Prof. Sen Li, and Prof. Xin Zhang (chairperson) for
+their active participation, insightful comments and intriguing questions.
+I deeply thank Prof. Bruno Brunone and Prof. Silvia Meniconi for their collaboration
+in conducting field experiments and for providing insights on the real-field data anal-
+ysis. I am also thankful to Prof. Bryan Karney and Prof. Alan Vardy for providing
+insights on some of the topics discussed in this thesis. Thanks are also due to Prof.
+Duncan McInnis and Prof. Joseph H. W. Lee for their involvement and comments
+during our regular meetings. A special thanks to Prof. William G. Gray for being an
+amazing instructor and for offering courses on the fundamentals of Fluid Mechanics
+and Modeling Fluid Systems.
+I would also like to acknowledge the support provided by the Water Supplies De-
+partment (WSD) of Hong Kong for providing access to some of the real-field systems
+discussed in this thesis. I sincerely thank Mr. Chi Hung Leung, Simon (chief engineer
+at WSD), Mr. Chun Fung Lui, Hugo (former engineer at WSD), and the entire WSD
+staff for their coordination and help. I am also thankful to the Campus Management
+Office (CMO) and Facility Management Office (FMO) of HKUST for providing the op-
+portunity to conduct transient tests in the GRUC system of the campus. Particularly,
+thanks are due to Mr. Hung Lau (DSO) and his staff for facilitating in preparation of
+the system for field tests. I am grateful to the entire team of the Smart Urban Water
+iv
+
+===== PAGE 5 =====
+Supply Systems (SUWSS) project who helped me in conducting the experiments.
+I would also like to acknowledge my colleagues: Dr. Xun Wang, Dr. Fedi Zouari, Dr.
+Man Yue Lam, Dr. Saber Nasraoui, Dr. Mohamed Assili, and Dr. Alireza Keramat,
+who helped and provided insights on some of the work presented in this thesis.
+Much thanks to Dr. George Grigoropoulos, Dr. Mehmet Murat Gozum, Dr. Juliana
+Kaiber Da Silva, Dr. Adriana Camino, Dr. Rana Rab Nawaz Ahmed, Ming Ho Yeung,
+Mohamed Houcem E. B. Arab, and Utban Ahmed for making this journey joyful.
+Thanks are also due to my father, Muhammad Younas, and mother, Musarat Younas,
+for their endless supports and love. I am indebted to my wife Dr. Mehwish Aslam
+for her patience, encouragement and support throughout my PhD journey. I am
+sincerely thankful to my uncle Dr. Muhammad Shakeel who has been a source of
+inspiration since my childhood. I am also thankful to my brothers Haroon Younas
+and Muhammad Usman for their encouragement and wishes.
+Finally, I wholeheartedly dedicate this thesis to my son Ibrahim Bin Muhammad and
+daughter Muntaha Waqar.
+v
+
+===== PAGE 6 =====
+Table of Contents
+Title Page . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ii
+Authorization Page. . . . . . . . . . . . . . . . . . . . . . . . . . . . iiii
+Signature Page. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iiiiii
+Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . . . . . iviv
+Table of Contents . . . . . . . . . . . . . . . . . . . . . . . . . . . . vivi
+List of Figures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xivxiv
+List of Tables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xxiiixxiii
+Abstract. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xxvxxv
+Notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xxviixxvii
+Chapter 1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . 11
+1.1 Background and motivation . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+1.2 Common TBDDMs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+1.3 Performance metrics for defect detection methods and research gaps . . 77
+1.4 Thesis objectives and how they are met . . . . . . . . . . . . . . . . . . . 99
+vi
+
+===== PAGE 7 =====
+1.5 Thesis outline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1313
+1.6 Publications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1414
+Chapter 2 Governing Equations and Green’s Functions . . . . . . . . . . . 1616
+2.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1616
+2.2 One-dimensional water-hammer equations . . . . . . . . . . . . . . . . . 1616
+2.2.1 Mass conservation . . . . . . . . . . . . . . . . . . . . . . . . . . . 1818
+2.2.2 Momentum conservation . . . . . . . . . . . . . . . . . . . . . . . 2222
+2.3 Final expressions in time and frequency domains . . . . . . . . . . . . . 2727
+2.3.1 In time domain . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2727
+2.3.2 In frequency domain . . . . . . . . . . . . . . . . . . . . . . . . . . 2727
+2.4 One-dimensional wave equation . . . . . . . . . . . . . . . . . . . . . . . 2828
+2.5 Green functions in unbounded and bounded pipe systems . . . . . . . . 2929
+2.5.1 Unbounded pipe system . . . . . . . . . . . . . . . . . . . . . . . . 2929
+2.5.2 Time domain representation of Green’s function in unbounded
+pipe system . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3131
+2.5.3 Bounded pipe system . . . . . . . . . . . . . . . . . . . . . . . . . 3232
+2.5.4 Time domain representation of Green’s function in bounded
+pipe system . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3535
+2.6 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3636
+vii
+
+===== PAGE 8 =====
+Chapter 3 Experimental Facilities . . . . . . . . . . . . . . . . . . . . . 3838
+3.1 Laboratory-scale pipeline systems . . . . . . . . . . . . . . . . . . . . . . 3838
+3.1.1 Test-rig in WRRL-HKUST . . . . . . . . . . . . . . . . . . . . . . . 3838
+3.1.2 Test-rig in WEL-UNIPG . . . . . . . . . . . . . . . . . . . . . . . . 3939
+3.2 Beacon Hill field-scale testing facility . . . . . . . . . . . . . . . . . . . . 4141
+3.3 Real-field pipeline systems . . . . . . . . . . . . . . . . . . . . . . . . . . 4747
+3.3.1 Real-field distribution system in NTK-HK . . . . . . . . . . . . . 4747
+3.3.2 Fire sprinkler system at HKUST . . . . . . . . . . . . . . . . . . . 5151
+3.3.3 Transmission main in Yuen Long, HK . . . . . . . . . . . . . . . . 5454
+Chapter 4 Time-reversal of water-hammer waves . . . . . . . . . . . . . . 5757
+4.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5757
+4.2 Theoretical background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5757
+4.3 Framework of TR for transient waves . . . . . . . . . . . . . . . . . . . . 5959
+4.4 Resolution of TR in a unbounded pipe system . . . . . . . . . . . . . . . 6262
+4.4.1 Scenario Ia: undamped system and infinite bandwidth . . . . . . 6262
+4.4.2 Scenario Ib: undamped system and finite bandwidth . . . . . . . 6363
+4.4.3 Scenario II: damped system . . . . . . . . . . . . . . . . . . . . . . 6464
+4.5 Resolution of TR in a bounded pipe system . . . . . . . . . . . . . . . . . 7070
+4.5.1 Scenario I: undamped system . . . . . . . . . . . . . . . . . . . . . 7171
+viii
+
+===== PAGE 9 =====
+4.5.2 Scenario II: damped system . . . . . . . . . . . . . . . . . . . . . . 7777
+4.6 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8181
+4.6.1 Range of time-reversibility of waves . . . . . . . . . . . . . . . . . 8282
+4.7 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8484
+Chapter 5 Time-reversal technique for pipeline defect detection . . . . . . . 8585
+5.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8585
+5.2 Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8585
+5.2.1 Analytical model . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8686
+5.2.2 Time-reversal technique . . . . . . . . . . . . . . . . . . . . . . . . 8888
+5.2.3 Solution for multiple leaks . . . . . . . . . . . . . . . . . . . . . . 9090
+5.2.4 Alternative of impulse response function . . . . . . . . . . . . . . 9191
+5.3 Numerical examples for a single pipeline . . . . . . . . . . . . . . . . . . 9292
+5.3.1 Example 1: one leak case . . . . . . . . . . . . . . . . . . . . . . . 9494
+5.3.2 Example 2: multiple leaks and spatial resolution . . . . . . . . . 9797
+5.3.3 Example 3: mixed-type of defects . . . . . . . . . . . . . . . . . . 100100
+5.4 Application to pipe network . . . . . . . . . . . . . . . . . . . . . . . . . . 101101
+5.4.1 Results and discussion . . . . . . . . . . . . . . . . . . . . . . . . . 105105
+5.5 Stability of the defect detection scheme . . . . . . . . . . . . . . . . . . . 107107
+5.6 Experimental validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 109109
+ix
+
+===== PAGE 10 =====
+5.6.1 Defect simulation, transient generation and data acquisition . . . 111111
+5.6.2 Results and discussion . . . . . . . . . . . . . . . . . . . . . . . . . 111111
+5.7 Real-field applications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116116
+5.7.1 Fire sprinkler system at HKUST . . . . . . . . . . . . . . . . . . . 116116
+5.7.2 Transmission main in Yuen Long . . . . . . . . . . . . . . . . . . . 116116
+5.8 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123123
+Chapter 6 Model-free matched field processing for pipeline condition assessment
+125125
+6.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125125
+6.2 Background and motivation . . . . . . . . . . . . . . . . . . . . . . . . . . 125125
+6.3 Matched field processing with data versus data . . . . . . . . . . . . . . 127127
+6.4 Numerical example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129129
+6.4.1 Selection of window size . . . . . . . . . . . . . . . . . . . . . . . 132132
+6.5 Experimental validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134134
+6.5.1 Laboratory experiments at WRRL-HKUST . . . . . . . . . . . . . 134134
+6.5.2 Laboratory experiments at WEL-UNIPG . . . . . . . . . . . . . . 135135
+6.5.3 Experiments in field-scale transmission-like pipeline . . . . . . . 137137
+6.5.4 Experiments in real-field distribution system . . . . . . . . . . . . 138138
+6.6 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144144
+x
+
+===== PAGE 11 =====
+Chapter 7 Water-hammer waves in a metamaterial-made pipelines . . . . . . 147147
+7.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 147147
+7.2 Theoretical background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148148
+7.2.1 Helmholtz resonator . . . . . . . . . . . . . . . . . . . . . . . . . . 148148
+7.2.2 Wave-boundary interaction and sub-wavelength resonance . . . 149149
+7.3 Theoretical foundation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152152
+7.3.1 Floquet-Bloch theorem . . . . . . . . . . . . . . . . . . . . . . . . . 153153
+7.4 Numerical analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157157
+7.4.1 Sub-wavelength resonance due to change in pipe geometry . . . 157157
+7.4.2 Time-reversal in meta-pipe and super-resolution . . . . . . . . . 161161
+7.4.3 Sub-wavelength resonance due to change in pipe material . . . . 163163
+7.5 Role of damping on the properties of meta-pipe . . . . . . . . . . . . . . 168168
+7.6 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 169169
+Chapter 8 Conclusions and future work . . . . . . . . . . . . . . . . . . 172172
+8.1 Overall conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 172172
+8.2 Future work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 175175
+Appendix A Supplementary material for governing equations . . . . . . . . 177177
+A.1 Derivation of Term I . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 177177
+A.2 Derivation of Term II . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 178178
+xi
+
+===== PAGE 12 =====
+A.2.1 Case 1: elastic pipe . . . . . . . . . . . . . . . . . . . . . . . . . . . 179179
+A.2.2 Case 2: visco-elastic pipe . . . . . . . . . . . . . . . . . . . . . . . 181181
+A.3 Transport theorem for area to surface integral . . . . . . . . . . . . . . . 183183
+A.4 Models to account for unsteady head losses . . . . . . . . . . . . . . . . 184184
+A.5 Simplifications in governing equations . . . . . . . . . . . . . . . . . . . . 186186
+A.5.1 Mass conservation . . . . . . . . . . . . . . . . . . . . . . . . . . . 186186
+A.5.2 Momentum conservation . . . . . . . . . . . . . . . . . . . . . . . 188188
+Appendix B Supplementary material for time-reversal of waves . . . . . . . 190190
+B.1 One-dimensional wave equation in the time domain with linearized
+steady friction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 190190
+B.2 Convolution in time-reversal . . . . . . . . . . . . . . . . . . . . . . . . . 191191
+B.3 Complex conjugate of exponential term . . . . . . . . . . . . . . . . . . . 191191
+B.4 Principle of Reciprocity of Green’s function . . . . . . . . . . . . . . . . . 192192
+B.5 Reflection coefficient of a reservoir . . . . . . . . . . . . . . . . . . . . . . 196196
+Appendix C Supplementary material for time-reversal technique for defect
+detection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 200200
+C.1 Detailed derivation of analytical models . . . . . . . . . . . . . . . . . . . 200200
+C.2 Time-reversal as optimal filter . . . . . . . . . . . . . . . . . . . . . . . . . 203203
+C.3 Estimation for defect size . . . . . . . . . . . . . . . . . . . . . . . . . . . 205205
+C.4 Reflection coefficient of multiple defects . . . . . . . . . . . . . . . . . . . 206206
+xii
+
+===== PAGE 13 =====
+C.5 TR using original pulse-response . . . . . . . . . . . . . . . . . . . . . . . 210210
+Appendix D Supplementary material for metamaterials . . . . . . . . . . . 212212
+D.1 Transfer matrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 212212
+D.1.1 Single, undamped pipeline . . . . . . . . . . . . . . . . . . . . . . 212212
+D.1.2 Two pipelines of different impedance without damping . . . . . 212212
+D.2 Helmholtz resonance frequency . . . . . . . . . . . . . . . . . . . . . . . . 214214
+D.3 Alternative approach to determine the dispersion relation . . . . . . . . 215215
+D.3.1 Bloch’s theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 216216
+D.3.2 Periodicity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217217
+D.3.3 Dispersion relation . . . . . . . . . . . . . . . . . . . . . . . . . . . 217217
+Bibliography . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 219219
+xiii
+
+===== PAGE 14 =====
+List of Figures
+2.1 General control volume for pipe flow with a leak. . . . . . . . . . . . . . 1717
+2.2 Graphical representation of small increment in diameter along x−axis. 1717
+2.3 Normal vector ⃗nS and orthogonal normal vector ⃗ηS along the lateral
+control surface. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1818
+2.4 Schematic of the unbounded pipe systems with a source at xS and a
+receiver on each side at xRn, where n is the number of receivers. . . . . 3030
+2.5 Schematic of the bounded pipe systems with a source at xS, a receivers
+at xR, and reservoirs at the boundaries. . . . . . . . . . . . . . . . . . . . 3333
+3.1 Experimental setup at Water Research Resources Laboratory of the Hong
+Kong University of Science and Technology, Hong Kong. . . . . . . . . . 4040
+3.2 Schematic of the experimental setup at Water Engineering Laboratory
+of the University of Perugia (UNIPG), Italy . . . . . . . . . . . . . . . . . 4242
+3.3 Geographical layout of the site from Beacon Hill high level fresh water
+service reservoir to Beacon Hill Intermediate Level Fresh Water Service
+Reservoir. [Base map is obtained from OpenStreetMapOpenStreetMap.] . . . . . . . . . 4242
+3.4 3D-schematic of the Beacon Hill Field Experiment Facility (BHFEF)
+at Beacon Hill Intermediate Level Freshwater Service Reservoir, Hong
+Kong (HK). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4444
+xiv
+
+===== PAGE 15 =====
+3.5 Site pictures: (a) inlet pipe with air valve & GV1; (b) strainer; (c) PRV;
+(d) example of pipe bend near H5; (e) example of pipe bend near LK8;
+(f) downstream end near BV2. . . . . . . . . . . . . . . . . . . . . . . . . . 4444
+3.6 Site pictures: (a) saddle point for leak simulation; (b) HF access point
+(developed); (c) HF access point (for future); (d) junction J1 with GV4
+& GV5; (e) junction J2 near GV2 & GV3; (f) downstream section near BV1. 4545
+3.7 Geographic layout and schematic of the test field located along the
+Hong Lee Road in Ngau Tau Kok, East Kowloon, Hong Kong. [Base
+map is obtained from OpenStreetMapOpenStreetMap.] . . . . . . . . . . . . . . . . . . . 4747
+3.8 Overall elevation of the pipeline from pipe inlets to Hyd-3. . . . . . . . 4949
+3.9 Connection type for each fire hydrant. . . . . . . . . . . . . . . . . . . . . 5050
+3.10 Topology of the sprinkler system located at HKUST, Clearwater Bay
+campus. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5252
+3.11 Elevation profile of the system . . . . . . . . . . . . . . . . . . . . . . . . 5252
+3.12 Connection type at (a) M1, M2 and M3, and (b) M4 (inside the pumping
+station). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5353
+3.13 The geographic layout of the real-field transmission main located in
+yuen long, Hong Kong. [Base map is obtained from OpenStreetMapOpenStreetMap.] . 5454
+3.14 Schematics of the real-field transmission main along the Castle Peak
+Road, Yuen Long . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5555
+3.15 Configuration of transient generation assembly at AV in Yuen Long
+system. (a) Assembly of steel pipe to be installed on AV . (b) Air valve
+replaced with assembly. (c) Data acquisition system . . . . . . . . . . . . 5656
+4.1 Time-reversal illustration in water pipe system. . . . . . . . . . . . . . . 6060
+xv
+
+===== PAGE 16 =====
+4.2 Schematic of the unbounded pipe systems with a source at xS and a
+receiver on each side at xRn, where n = 2. . . . . . . . . . . . . . . . . . . 6262
+4.3 Wave propagation from the source to the receiver (dashed lines) and
+wave refocusing from the receivers to the source (dotted lines) for (a)
+undamped system; (b) elastic pipe system (SF + UF); (c) visco-elastic
+pipe system with VE damping only; and (d) visco-elastic pipe system
+with all damping forms. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6666
+4.4 (a) Width of focal spot with different forms of damping; and (b) the
+temporal resolution of the refocused wave at the source location . . . . . 6767
+4.5 The trend of damping term ID with various combinations of damping
+in (a) elastic pipe; and (b) visco-elastic pipe. . . . . . . . . . . . . . . . . 7070
+4.6 Schematic of the bounded pipe systems with a source at xS, a receivers
+at xR, and reservoirs at the boundaries. . . . . . . . . . . . . . . . . . . . 7171
+4.7 Time lapse of wave propagation in (a) forward (FWD) direction (i.e.,
+from source), and (b) wave refocusing at the source. The color bar
+shows the normalized wave amplitude in undamped system. . . . . . . 7777
+4.8 Wave propagation from the source to the receiver (dashed lines) and
+wave refocusing from the receivers to the source (dotted lines) for (a)
+undamped system; (b) elastic pipe system (with SF + UF); (c) VE pipe
+system with VE damping only; and (d) VE pipe system with all forms
+of damping. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7979
+4.9 Comparison of the focal spots in (a) bounded system and in (b) un-
+bounded system with various forms of damping. . . . . . . . . . . . . . 8080
+4.10 Temporal resolution of the refocused wave at the exact source location
+in (a) elastic pipe with no damping, with SF, and with SF + UF; (b) in
+visco-elastic pipe with VE, VE + SF and combined effect of SF + UF + VE. 8181
+5.1 Waveguide with a single wave reflector. . . . . . . . . . . . . . . . . . . . 8787
+xvi
+
+===== PAGE 17 =====
+5.2 Waveguide with two reflectors of different types. . . . . . . . . . . . . . 9191
+5.3 Numerically simulated signals in (a) elastic pipe, and (b) visco-elastic
+pipe for one leak case. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9696
+5.4 Defect localization results for (a) elastic pipe using undamped time-
+domain model, (b) elastic pipe using damped frequency domain model
+(c) VE pipe using undamped time-domain model and (d) VE pipe using
+damped frequency domain model. Dashed line shows the exact defect
+location. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9797
+5.5 Numerically simulated signals with two leaks in (a) elastic pipe & (b)
+VE pipe, and with three leaks in (c) elastic pipe & (d) VE pipe. . . . . . 9898
+5.6 Results for two leaks case in (a) elastic pipe & (b) VE pipe, and for three
+leaks case in (c) elastic pipe & (d) VE pipe. Vertical lines show the exact
+leak locations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9999
+5.7 Estimated leak sizes for two leaks case in (a) elastic pipe & (b) visco-
+elastic pipe, and for three leaks case in (c) elastic pipe & (d) visco-elastic
+pipe. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9999
+5.8 Spatial resolution of two closely placed leaks with distance dL = (a)
+0.25λmin, (b) 0.30λmin, (c) 0.35λmin, and (d) 0.40 λmin. . . . . . . . . . . . 100100
+5.9 Numerically simulated signals with two different defects in (a) elastic
+pipe & (b) VE pipe, and with three defects of mixed-type in (c) elastic
+pipe & (d) VE pipe. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 101101
+5.10 Results for two defects of different types in (a) elastic pipe & (b) VE
+pipe, and for three defects of different types in (c) elastic pipe & (d) VE
+pipe. Vertical lines show the exact defect locations. . . . . . . . . . . . . 102102
+xvii
+
+===== PAGE 18 =====
+5.11 Estimated leak size and head loss coefficient for scenario I in (a) & (c),
+and for (ii) scenario II in (b) & (d) respectively. Each subplot contains
+exact defect parameters, estimated defect parameters in elastic pipe and
+estimated defect parameters in VE pipe. . . . . . . . . . . . . . . . . . . . 102102
+5.12 Schematic of the looped pipe network. . . . . . . . . . . . . . . . . . . . . 103103
+5.13 Numerically simulated signals for (a) leak free system, (b) case 1 with
+a leak in Pipe 1, (c) case 2 with a leak in Pipe 3, and (d) case 3 which is
+a combination of case 1 and case 2. . . . . . . . . . . . . . . . . . . . . . . 104104
+5.14 Results for case 1, wherein (a) shows the total objective function and (b)
+shows the Detail A portion where the peak of |B| is located close to χ.
+Vertical line shows the exact defect location. . . . . . . . . . . . . . . . . 106106
+5.15 Results for case 1, wherein (a) shows the total objective function and (b)
+shows the Detail A portion where the peak of |B| is located close to χ.
+Vertical line shows the exact defect location. . . . . . . . . . . . . . . . . 107107
+5.16 Absolute error in single (a) leak localization, and (b) leak size estimation
+with respect to SNR. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108108
+5.17 Sensitivity analysis for leak localization with uncertain wave speed us-
+ing undamped model (solid line) and damped model (dash line) in (a)
+elastic pipe, (b) visco-elastic pipe. Objective function plots with exact
+wave speed (solid line) and with uncertain wave speed (dash line) in
+(c) elastic pipe, and (d) visco-elastic pipe. . . . . . . . . . . . . . . . . . . 110110
+5.18 Measured pressure head signals at MV2 for single defect (C1, C4, C5,
+C7-C12) and multiple defects (C2, C3, C6) defect. . . . . . . . . . . . . . 113113
+5.19 Defect localization results for all test cases. Vertical dashed-lines show
+the exact defect location. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114114
+xviii
+
+===== PAGE 19 =====
+5.20 Estimated leak location and leak size for Case C1-C4, C6, C9-C12. Solid
+bar represents the exact leak properties and dash line denotes the esti-
+mated leak properties. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115115
+5.21 Estimated discrete blockage location and head-loss coefficient for C2,C3,C5-
+C8. Solid bar represents the exact blockage properties and dash line
+denotes the estimated blockage properties. . . . . . . . . . . . . . . . . . 115115
+5.22 Measured signals at four locations: M1 (Building 3 & 4), M2 (Building
+2), M3 (Building 1), and M4 (pump station) as described in Section 3.3.23.3.2. 117117
+5.23 Estimated reflectors location using proposed TR-based method. . . . . . 117117
+5.24 Estimated and detected leak location along with real-field pictures. . . . 118118
+5.25 Experimental signals (background + transients) recorded upon four visits. 119119
+5.26 Assembly placed on the access point at AV location during (a) inspec-
+tion 1, and (b) inspection 2, 3, and 4. . . . . . . . . . . . . . . . . . . . . . 120120
+5.27 Histogram of measured data prior to the transient test during all in-
+spection and the best fit distribution function . . . . . . . . . . . . . . . . 120120
+5.28 (a) Transient tests conducted during four inspections, and (b) signals
+recorded at AV and FH location during inspection 3 for wave speed
+estimation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122122
+5.29 Estimated reflectors location using proposed TR-based method. . . . . . 123123
+6.1 Graphical representation of the proposed MWC scheme. . . . . . . . . . 128128
+6.2 Illustration of the choice of window size based on the reflected wave
+front. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129129
+6.3 Schematic of the piping system used for numerical simulations. . . . . . 130130
+xix
+
+===== PAGE 20 =====
+6.4 (a) Numerically simulated transient response of the system with noise;
+and (b) plot for MWC versus estimated reflector location for no-noise
+case; for SNR = 20 dB; for SNR = 15 dB; and for SNR = 15 dB with
+averaged transient signals. . . . . . . . . . . . . . . . . . . . . . . . . . . . 133133
+6.5 Influence of window size on the proposed MFP-DD technique. . . . . . 134134
+6.6 (a) Measured transient response of the WRRL system; and (b) MFP-DD
+results for simulated leak cases. . . . . . . . . . . . . . . . . . . . . . . . . 136136
+6.7 Baseline and current signals for (a) Case A, (b) Case B, (c) Case C and
+MFP-DD results for (d) Case A, (e) Case B, and (f) Case C. . . . . . . . . 137137
+6.8 (a) Measured transient response of the BHFEF system; and (b) MFP-DD
+results for the simulated leak case. . . . . . . . . . . . . . . . . . . . . . . 139139
+6.9 Measured transient responses at (a) Hyd-1; (b) Hyd-2; and (c) Hyd-3. . 141141
+6.10 Plot for MWC versus reflector location with respect to Hyd-2 for both
+(a) Inspection I and (b) Inspection II data. . . . . . . . . . . . . . . . . . . 143143
+6.11 (a) Detail A: displaying the effect of valve time closure on the width of
+lobes; and (b) Detail B: highlighting the new lobe found in Inspection
+II data. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145145
+7.1 A typical shape of Helmholtz resonator. . . . . . . . . . . . . . . . . . . . 149149
+7.2 Arrangement of Helmholtz resonator inside a fluid-filled pipe . . . . . . 150150
+7.3 Numerical simulation results in (a) time, and (b) frequency domains. . 150150
+7.4 Waveguide with spatial modulation with period l; (a) wavelength λ ∼
+ℓ to observe Bragg interference; and (b) λ ≫ ℓ to observe the sub-
+wavelength interference. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152152
+xx
+
+===== PAGE 21 =====
+7.5 Series arrangement of pipe with periodic change in impedance Z1 and
+Z2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153153
+7.6 Dispersion curve for the case of pipeline without and with periodic
+structure (metamaterial) without damping. . . . . . . . . . . . . . . . . . 156156
+7.7 Multiple Helmholtz resonators connected in series (layout not to scale). 157157
+7.8 Received signal for system with a0 = 1000 m.s −1 in (a) time, and (b)
+frequency domains. Received signal for system with a0 = 300 m.s−1 in
+(c) time, and (d) frequency domains. . . . . . . . . . . . . . . . . . . . . . 158158
+7.9 Wave propagation in space-time diagram for system with (a) metama-
+terials, (b) discrete blockage, and (c) extended blockage. . . . . . . . . . 159159
+7.10 Dispersion curves for a0 = 1000 m.s−1 for waveguide (a) without meta-
+materials, and (b) with metamaterials. . . . . . . . . . . . . . . . . . . . 160160
+7.11 Dispersion curves for a0 = 300 m.s−1 for waveguide (a) without meta-
+materials, and (b) with metamaterials. . . . . . . . . . . . . . . . . . . . 161161
+7.12 (a) Measured signals during forward-in-time propagation; (b) time-
+reversed version of the measured signal. . . . . . . . . . . . . . . . . . . 162162
+7.13 Wave refocusing on the periodic resonators. . . . . . . . . . . . . . . . . 162162
+7.14 Layout of the pipe with meta-pipe section along with a source in the
+middle of meta-pipe with two receivers (layout not to scale). . . . . . . . 164164
+7.15 TR source localization in (i) normal pipe (solid line) and (ii) meta-pipe
+(dotted and dash-dotted lines). . . . . . . . . . . . . . . . . . . . . . . . . 164164
+7.16 Dispersion curves for (i) normal pipe (solid line) and (ii) meta-pipe
+(dotted and dash-dotted lines) . . . . . . . . . . . . . . . . . . . . . . . . 165165
+7.17 Metamaterial obtained from periodic change in wave speed. . . . . . . . 166166
+xxi
+
+===== PAGE 22 =====
+7.18 Received signal in (a) time, (b) frequency domains. . . . . . . . . . . . . 166166
+7.19 Space-time wave propagation in medium with periodicity in wave speed. 167167
+7.20 Dispersion curves for meta-pipe with spatial periodic modulation of
+wave speed a0 = (1000, 300) m.s−1. . . . . . . . . . . . . . . . . . . . . . 168168
+7.21 Dispersion curve for the case of pipeline without and with metamaterial
+and in the presence of damping. The black circles-markers (◦) represent
+the pipeline without metamaterial and red cross-marker ( ×) represents
+the pipeline with metamaterial. The left column figures contain the real
+part of k and the right column figures contain imaginary part of ke f f. . 170170
+A.1 3D schematic of the pipe with three different forms of stresses. . . . . . 179179
+A.2 Mechanical representation of a generalized Kelvin-Voigt model with
+Nkv elements. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 182182
+A.3 Volume with an arbitrary plane. . . . . . . . . . . . . . . . . . . . . . . . 183183
+B.1 Reflection coefficient for reservoir-like boundary condition for low fre-
+quency waves. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 198198
+D.1 Single pipe with uniform diameter and impedance. . . . . . . . . . . . . 213213
+D.2 Series connection of two pipes with different impedance. . . . . . . . . . 213213
+D.3 Unit cell or meta-atom of meta-pipe. . . . . . . . . . . . . . . . . . . . . . 215215
+xxii
+
+===== PAGE 23 =====
+List of Tables
+3.1 HKUST test rig pipe properties . . . . . . . . . . . . . . . . . . . . . . . . 3939
+3.2 UNIPG test rig pipe properties . . . . . . . . . . . . . . . . . . . . . . . . 4141
+3.3 BHFEF test rig pipe properties. . . . . . . . . . . . . . . . . . . . . . . . . 4545
+3.4 Cumulative distance between various elements in each pipe branch of
+BHFEF system. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4646
+3.5 Detailed description of the real-field system . . . . . . . . . . . . . . . . 4848
+3.6 Characteristics of Yuen Long transmission main . . . . . . . . . . . . . . 5555
+4.1 System properties for analytical results . . . . . . . . . . . . . . . . . . . 6868
+4.2 Evaluation of TR parameter for various pipe systems . . . . . . . . . . . 8383
+5.1 System characteristics used for numerical simulations. . . . . . . . . . . 9595
+5.2 Wave-paths of the reflected waves from known boundaries of the network 105105
+5.3 System properties during different test cases. The leak and discrete
+blockage are located at χL = 97.9 m and χDB = 43.72 m, respectively
+from the downstream valve location. . . . . . . . . . . . . . . . . . . . . . 112112
+6.1 Details of the inspection excercises conducted in past 2 years . . . . . . 142142
+7.1 Modeling parameters of single HR. . . . . . . . . . . . . . . . . . . . . . 150150
+xxiii
+
+===== PAGE 24 =====
+7.2 Parameters for Kelvin-Voigt model parameters for numerical simulations. 168168
+B.1 The range of kD and reflection coefficient, R, for reservoir-like bound-
+ary condition for various lab-scale, field-scale, and real-field pipe systems.199199
+xxiv
+
+===== PAGE 25 =====
+Condition assessment of pressurized pipelines using
+transient waves and time-reversal technique
+by Muhammad WAQAR
+Department of Civil Engineering
+The Hong Kong University of Science and Technology
+Abstract
+The time-reversal (TR) of water hammer (WH) waves in a viscous fluid bounded by
+a visco-elastic pipe is studied analytically and numerically. The quasi-steady part
+of friction is represented by the Darcy–Weisbach relation while the unsteady part is
+represented by the Vardy–Brown relation. The visco-elastic damping is represented
+by the Generalized Kelvin–Voigt model. It is shown that damping does not hinder
+the refocusing property of the time-reversed WH waves. In addition, it is analytically
+shown that (i) refocusing of WH waves reaches the well-known diffraction limit in
+physics, and (ii) TR is optimal in the sense of maximum signal-to-noise ratio (SNR)
+for white noise. Moreover, the TR technique is used to develop noise-tolerant (i)
+model-based method (method 1), and (ii) model-free method (method 2) for condi-
+tion assessment of pressurized pipes. Method 1 is a one-dimensional technique that
+decouples the search for the location and strength of a defect (e.g., leak or blockage).
+The applicability of method 1 to diagnose multiple defects in both elastic and poly-
+meric (visco-elastic) pipe systems is demonstrated numerically and experimentally.
+The results confirm that the proposed TR technique successfully detects defects with
+a resolution equal to half-wavelength (i.e., achieves the theoretical diffraction limit of
+waves). Method 1 is also successfully applied to localize real leaks in (i) a fire sprin-
+kler system, located in HKUST, and (ii) a transmission main, located in Yuen Long,
+Hong Kong. Method 2 uses TR to identify differences (if any) between a baseline
+transient signal and a current (post-baseline) transient signal to localize the defects
+responsible for the difference between the two signals. That is, method 2 detects
+the defects that have emerged between the time the baseline measurements was con-
+xxv
+
+===== PAGE 26 =====
+ducted and the current time. The applicability of method 2 is demonstrated using
+numerical examples and experimental test cases in two laboratory-scale systems, a
+field-scale transmission-like pipeline system, and using real-field data collected from
+a district metered area (DMA), located in Ngau Tau Kok, Hong Kong. This technique
+successfully detected a change in the DMA that was unbeknown to the author and the
+water authority. This test case demonstrates the real-field applicability of method 2.
+Both methods are non-iterative; hence, computationally efficient. Additionally, their
+computational time increases linearly with the number of defects for both methods;
+thus, they are scalable to large systems and are easily amenable to automation — a
+fact that is demonstrated in the Water Research Resources Laboratory of HKUST. The
+use of metamaterials to manipulate and control WH wave propagation and ultimately
+achieve higher defect detection resolution is also explored. Metamaterial structures
+are modeled by imposing periodic variation of the impedance along the length of the
+pipe, where the modulation period is much smaller than the typical wavelength of
+the WH waves. It is shown that the transient wave propagation in a pipe made of
+metamaterial (named meta-pipe) is dispersive (i.e., nonlinear wavenumber-frequency
+relation) and produces sub-wavelength resonance as well as spectral band-gaps. For
+source localization using the TR technique, it is shown that the meta-pipe produces a
+far superior resolution than the normal pipe.
+xxvi
+
+===== PAGE 27 =====
+Nomenclature
+List of symbols
+The following is a list of symbols used in this thesis. These symbols are also defined
+upon their first appearance in the text.
+A cross-sectional area of the pipe;
+A control surface in a general control volume;
+Aχ reflected amplitude from defect;
+AN area of neck of Helmholtz resonator;
+AC area of cavity of Helmholtz resonator;
+a0 elastic wave speed;
+ae f f effective wave speed in meta-pipe;
+ave frequency-dependent wave speed;
+B objective function to be maximized;
+C complex conjugate transpose;
+D inner diameter of the pipe;
+e pipe wall thickness;
+E, E0 elastic modulus of pipe wall;
+E expected value;
+fBW frequency bandwidth;
+fDW Darcy–Weisbach friction factor;
+fHR Helmholtz resonance frequency;
+f0 pre-transient value of f ;
+fmin minimum of f ;
+fmax maximum of f ;
+ˆf estimated value of f ;
+¯f average value of f ;
+xxvii
+
+===== PAGE 28 =====
+˜f Fourier transform of f (t);
+˜f C complex conjugate transpose of ˜f ;
+F field matrix;
+fRe real part of f ;
+fIm imaginary part of f ;
+fD f in damped system;
+g gravitational acceleration constant;
+G Green’s function;
+G Green’s function convolved with input signal qin;
+H0 steady-state pressure head;
+Hχ
+0 steady-state pressure head at the defect location;
+H transient pressure head response;
+h impulse response function;
+Hm measured signal;
+htr transient response during time-reversal stage;
+ID damping term in unbounded system;
+J creep compliance function;
+K bulk modulus of fluid;
+kHL pressure head loss coefficient of a discrete blockage;
+k wave number;
+ke f f effective wave number in meta-pipe;
+L length of the pipe;
+lN length of neck of Helmholtz resonator;
+lB length of a blockage;
+lC length of cavity of Helmholtz resonator;
+lk length of the pipe reach under inspection;
+ℓ length of a unit cell (spatial periodicity) in meta-pipe;
+Ma Mach number;
+M transfer matrix for two pipes;
+n measurement noise;
+n′, m′ in subscript of ω to show frequency index;
+Nkv number of Kelvin-Voigt elements;
+NR number of wave reflectors;
+n,⃗n normal vector in the outward direction;
+xxviii
+
+===== PAGE 29 =====
+P point matrix;
+p pressure;
+Q0 pre-transient flowrate;
+Qχ
+0 steady-state flowrate through the mass source reflector;
+qin input signal in the form of flowrate;
+˜q transient flowrate response;
+˜qs input source strength;
+R steady-state damping coefficient;
+ˆR unsteady friction;
+Re Reynolds number;
+sL effective area of the leak;
+T stress tensor;
+t time vector;
+tD wave reflection arrival time from a defect;
+tR time vector in time-reversal;
+tS time of source;
+Tc valve time closure (step excitation);
+TP total valve maneuver time for pulse-type excitation;
+∆T length of time window used in time-reversal;
+V general control volume;
+⃗v velocity vector;
+x space;
+xS location of active wave source;
+xR location of receiver;
+χ location of wave reflector;
+z pipe elevation;
+Z impedance of the pipe;
+Zχ
+mass impedance of the mass source reflector;
+Zχ
+mom impedance of the momentum source reflector;
+Res( f ) residue of f ;
+λmin minimum wavelength of the excited signal;
+F Fourier transform operator;
+α, β arbitrary coefficients;
+βM momentum correction factor;
+xxix
+
+===== PAGE 30 =====
+ω angular frequency;
+∆ω difference between two resonant frequencies;
+ρ density of fluid;
+δ(x) Dirac delta function;
+δi,j Kronecker delta;
+i iota,
+√−1;
+ν Poisson’s ratio;
+σ standard deviation of noise;
+υ kinematic viscosity of fluid;
+εr retarded strain function;
+ψ Eigen value;
+φ support condition for the pipe;
+ζ ratio of area of neck to the area of cavity of Helmholtz resonator;
+τKV retardation time;
+∀ for all;
+|·| absolute value;
+∥·∥ Euclidean norm of the function;
+(•) place holder;
+R real number;
+C complex number;
+Z set of integers;
+N set of natural number;
+L differential operator;
+∗ convolution operator;
+⟨⋄, ◦⟩ inner product between ⋄ and ◦;
+(⋄|◦) (receiver location | source location).
+List of acronyms
+The following is a list of acronyms used in this thesis. These acronyms are also defined
+at their first place-of-use in the text.
+ABT Air Bladder Tank;
+xxx
+
+===== PAGE 31 =====
+ARV Air Release Valve;
+BT Buffer Tank;
+BV Ball Valve;
+CS Control Surface;
+CV Control Volume;
+DB Discrete Blockage;
+FBW Frequency Bandwidth;
+GV Gate Valve;
+HR Helmholtz Resonator;
+HK Hong Kong;
+MFP Matched-Field Processing;
+MOC Method Off Characteristics;
+MV Manual Ball Valve;
+NRW Non-Revenue Water;
+NTK Ngau Tau Kok;
+PPWM Portable Pressure Wave Maker;
+PRV Pressure Reducing Valve;
+SNR Signal to Noise Ratio;
+SF Steady Friction;
+TR Time-Reversal;
+TBDDM Transient-Based Defect Detection Method;
+UF Unsteady Friction;
+VE Visco-Elasticity;
+WDS Water Distribution System;
+WH Water Hammer;
+xxxi
+
+===== PAGE 32 =====
+Chapter 1
+Introduction
+1.1 Background and motivation
+Sustainable urban water supply systems (UWSS) are indispensable infrastructure of
+urban cities. However, the current state of these complex and out-of-sight systems is
+far from being sustainable. These systems are extensive in scale (e.g., ∼ 7000 km in
+Hong Kong - HK, and ∼ 2.2 million miles in United States - US), largely inaccessible,
+aging, and fraught with physical defects and operational inefficiencies, resulting in
+unprecedented water and energy losses. These problems, thus, present a huge ob-
+stacle in making cities sustainable, adaptive and carbon neutral. In HK, 150 million
+m3/year of water is lost amounting to 15% of the supply with a cost in excess of HK$
+800 millions. The water system has a huge carbon footprint and, in HK alone, is the
+third largest energy consumer [ 11]. The American Society of Civil Engineers (ASCE)
+awarded America’s water infrastructure as C- grade and reported that 6000 million
+gallons of treated water is being lost due to leaks every day, enough to fill around
+9000 Olympic size swimming pools [ 22]. Worldwide, non-revenue water (NRW) runs
+to 126 billion m 3/year, enough to supply 130 countries like HK, with a direct cost of
+more than US$ 39 billions per year [ 33].
+The most common pipeline defects are blockages [44], pipe wall corrosion [55] and leaks
+(including bursts) [ 66, 77]. The presence of a blockage reduces the conveying capacity
+of pipe, and consequently increases the energy-related costs. A corroded pipe wall
+reduces the pipe strength and the water quality and is a potential place for a pipe
+burst. Likewise, leaks cause waste of energy and scarce resources (e.g., water, chem-
+icals used in the treatment process, etc.) [ 88, 99], and are the source of contamination
+1
+
+===== PAGE 33 =====
+during low pressure [1010, 1111]. In fact, a large contribution to the aforementioned NRW
+losses is associated with leaks (including bursts) in pipelines [ 22, 1212]. To reduce such
+losses and make UWSS sustainable, development of defect detection technologies is
+the pragmatic solution recommended by organizations such as UNESCO [ 1313, 1414],
+Asian Development Bank [1515], and American Water Works Association [ 1616]. The fact
+that the amount of NRW losses continues to increase is a clear indication that exist-
+ing and commercially available methods such as visual inspection via CCTV cameras
+[1717, 1818], listening sticks [ 1919], acoustic noise correlators [ 2020, 2121], Smart Ball technology
+[2222] and SAHARA system [ 2323] are unable to curb these massive water and energy
+losses. Therefore, pipeline condition assessment and defect detection is an active area
+of research for both researchers and technology developers.
+In the past three decades, condition assessment of pipelines by means of active tran-
+sient waves has been studied extensively and promises to produce methods that are
+cost effective, fast, and non-disruptive [ 2424–2727]. This approach has two primary steps:
+step 1 — experiments, and step 2 — theoretical analysis. In the experimental step,
+a transient (pressure) wave is generated by means of flow perturbation (e.g., pump
+shutdown or rapid valve maneuver). The injected transient wave propagates inside
+the pipe at a speed of about 1200 m.s −1 in steel pipe, or around 400 m.s −1 in poly-
+meric pipes. As the wave propagates, it interacts with all physical features of the
+pipeline including the defects (if present). The transient response of the system is
+recorded using pressure transducers, mounted at one or more locations along the
+pipeline. Since the defect characteristics are encoded on the recorded signals, the the-
+oretical analysis step is an inverse problem wherein the defect properties (type, size,
+location, frequency) are inferred from the recorded responses. Such inverse problem
+is highly ill-posed [ 2828–3030]. In the literature, a variety of transient-based defect detec-
+tion methods (TBDDMs) have been proposed to solve the inverse problem which are
+briefly reviewed in next section.
+1.2 Common TBDDMs
+The common methodologies to solve the inverse problem for pipeline defect detection
+application are: (a) inverse transient analysis method [ 66, 3131–3636]; (b) impulse response
+2
+
+===== PAGE 34 =====
+extraction-based methods [ 3737–4040]; (c) transient reflection-based methods [ 4141–4343]; (d)
+resonant peaks pattern-based methods [3737, 4444–4848]; (e) transient damping-based meth-
+ods [ 4949, 5050]; (f) area reconstruction method [ 2828, 4040, 5151, 5252]; and (g) matched field
+processing method [3030, 4848, 5353–5555].
+Inverse transient analysis (ITA): ITA, proposed by J. A. Liggett and L. C. Chen [ 66], is
+the first gradient-based optimization method for leak detection in water pipelines.
+The basic premise of the method is to calibrate the unknown parameters, such as
+leak properties (e.g., leak size, leak location and number of leaks) or friction factor, by
+matching the modeled11 and measured transient response of the system. The matching
+is achieved by minimizing the least-square error type function, defined as
+Objective function =
+h (t, xm, θ) − ˆh
+ 
+t, xm, ˆθ
+
+2
+2
+(1.1)
+where, ∥•∥2 denotes the Euclidean norm, h(t, xm) is the recorded transient response
+of the system at location xm and in time t, ˆh(t, xm) is the modeled transient response
+obtained from hydraulic transient model of the systems (e.g., method of characteristics
+– MOC [ 5656] or transfer matrix method [ 5757]), θ represents the unknown parameters
+such as friction or leak properties, and ˆθ denotes the estimate of θ.
+Over the past two decades, different optimization algorithms are proposed to solve
+Eq. ( 1.11.1) (see, for example, [ 3232, 3333, 5858–6565]). Several studies are also made on the
+implementation and validation of this technique to laboratory-scale setups (see, for
+example [3131, 3434, 3535, 6666–6969]). However, despite the enormous theoretical development
+and popularity, very few studies have attempted to apply this method in real-field sys-
+tem (e.g., [7070–7373]). The major drawback of this method is that it is high dimensional,
+non-linear, and prone to over-fitting.
+Impulse response extraction-based methods (IREMs): Following the theory of linear and
+time invariant (LTI) systems, the impulse response function (IRF) of a system can be
+used to extract its properties [ 7474, 7575]. This approach was first introduced by J. C.
+P . Liou [3737] for leak detection application in pressurized pipelines using hydraulic
+transients. In [ 3737], the author used a pseudo-random binary sequence (PRBS) with
+amplitude at noise level and showed that the IRF can be extracted by cross-correlating
+1The modeled transient response is obtained by solving the governing equations for hydraulic tran-
+sient (water-hammer) flows. These equations are systematically derived using the general mass and
+momentum conservation principles in Chapter 22.
+3
+
+===== PAGE 35 =====
+the input signal with the measured response of the system. This approach has since
+been the topic of a number of papers, where PBRS is further validated and issues
+related to its adoption in practice (e.g., non-linearity) is explored [ 3838, 3939, 7676, 7777]. For
+leak localization, Liou [ 3737] extracted the IRF at several locations along the pipe and
+plotted the peak amplitude of IRF with respect to the distance to observe the change
+in the spatial profile caused by a leak. The use of small amplitude PRBS eliminates
+pipe overloading, but results in small reflections from small defects [ 3838].
+Transient reflection-based methods (TRMs): B. Brunone [4141] and L. Jönsson [ 7878, 7979] were
+among the first researchers who proposed this class of methods to detect leaks in
+pressurized pipelines. The TRM is based on the principle of time domain reflectom-
+etry (TDR) wherein the characteristic wave reflection time from the defect, denoted
+by tD, is estimated by analyzing the pressure-time signals. From the estimated value
+of tD, the defect location is determined as ˆχ = tD × a0/2, where a0 is the effective
+wave speed. Brunone & Ferrante [ 8080] discussed the influence of size, shape (circular,
+triangular and rectangular) and leak discharge conditions (in air and submerged) of
+a leak on transient signals. Covas et al., [ 6666] conducted laboratory experiments to
+detect leaks using this method and found leaks with large localization errors because
+the signals were contaminated with measurement noise. To unmask the desired sig-
+nature from a noisy signal, Ferrante et al., [ 4242] combined TRM with wavelet analysis.
+This approach has been applied to analyze transient signals in real-field distribution
+network in Milan, Italy [4343, 8181], and in a transmission main in Trento, Italy [ 8282, 8383].
+Transient damping-based methods (TDMs): TDMs exploit the fact that the signature of
+defects such as leaks can be gleaned from the damping pattern in a transient signal
+[2424]. This property is the fundamental principle upon which the TDMs are founded
+[44, 4949]. Wang et al., [ 4949] showed that all Fourier components of a transient signal
+are damped equally by steady friction but unequally by defects. Louati et al., [ 8484]
+provided the physical interpretation of how the size and location of a discrete defect 22
+(e.g., leak and discrete blockage) induce specific damping patterns on the frequency
+spectrum of the measured signals. Brunone et al., [ 5050] applied this method to detect
+leaks in a polymeric pipe system to numerical experiments. They found that leak
+flowrate, steady-pressure at the leak location and leak location with respect to the
+2If the characteristic length of a defect is much smaller than the minimum wavelength of the gener-
+ated transient wave, it is regarded as discrete defect.
+4
+
+===== PAGE 36 =====
+transient generation point plays crucial role on the accuracy of the method.
+Resonant peaks pattern-based methods (RPPMs): A discrete defect (e.g. leaks, in-line
+partially closed valve) induces damping patterns on the resonant peaks of the fre-
+quency response diagram (FRD) while an extended defect 33 (e.g., blockage or line
+thinning) induces shift in the spectral location of the resonant peaks of the transient
+signal. These defect-induced signatures on the FRD are the foundation of resonant
+peaks pattern-based methods (RPPMs). Lee et al., [ 8585, 8686] introduced the resonance
+peak-sequencing method which relies on the uneven damping of the odd resonant
+frequencies in the FRD due to a leak. The damping pattern of the peaks in the ob-
+served signal is matched with the damping pattern of theoretical FRD obtained by
+transfer matrix method44 (TMM). Lee et al., [4545] presented the experimental validation
+of this method and found that transients generated with sharp valve closure improves
+the accuracy as it can generate waves with larger bandwidth. Sattar et al., [ 4646] found
+that the presence of a leak induces an oscillatory pattern on the even resonant fre-
+quencies and proposed a technique based on this finding. Duan et al. extended the
+approach presented by Lee et al., [ 8585] for series of pipelines [ 4747] and for visco-elastic
+(VE) pipes [ 8787]. Gong et al., [ 8888] proposed another technique to detect single leak in
+a single pipeline using only first three resonant peaks of FRD. Louati et al., [ 8989–9191]
+presented the Bragg-type resonance theory to elucidate the underlying mechanism
+of defect-wave interactions and how the defect properties (location and size) induce
+patterns in the harmonic peaks.
+Area reconstruction method (ARM): Motivated by the developments on human vocal
+tract shape reconstruction using acoustic measurements [ 7575, 9292], Zouari et al., [ 4040]
+proposed area reconstruction method (ARM) to detect extended blockages of arbi-
+trary shapes in a single pipeline and validated through laboratory experiments [ 2828].
+ARM belongs to the class of time-reversal (TR) technique which is the foundation
+of many techniques used for practical purposes in medical imaging, ocean acoustics,
+and geophysics [4848, 9393–9595]. More discussion on TR is presented in the next section.
+Blåsten et al., [ 9696] extended ARM for blockage detection in a tree-type pipe network
+3If the characteristics length of the defect is comparable to the minimum wavelength of the excited
+transient waves, the defect is regarded as extended defect.
+4The transfer matrix method (TMM) provides the analytical solution to the water-hammer equations
+in the frequency domain [ 5757, ch. 8].
+5
+
+===== PAGE 37 =====
+and provided the rigorous and insightful finding that in a tree-type pipe network
+with N number of branches only N − 1 number of measurements are needed to fully
+reconstruct the cross-sectional profile of the network. Zouari et al., [ 5151] further de-
+veloped this technique to simultaneously detect multiple defects of mixed types (i.e.,
+leak, discrete blockage, and extended blockage) in a single pipeline. This variant of
+ARM, however, requires the transient waves to be generated from both sides of the
+pipe to differentiate the defect types.
+Matched-field processing (MFP): Wang & Ghidaoui [ 4848] proposed matched-field pro-
+cessing (MFP) technique to detect leaks in pipes. As the name implies, MFP is based
+on matching the phase and amplitude of the measured transient response with that
+of the modeled transient response in the frequency domain. MFP also belongs to the
+family of TR techniques. In Wang & Ghidaoui [ 4848], the authors analytically proved
+that MFP is optimal in the sense of maximizing the SNR when noise follows Gaus-
+sian distribution. The same assumption on the noise distribution also enabled the
+authors to show that MFP is equivalent to the maximum likelihood estimation (MLE)
+technique [5454]. The method has been verified with laboratory and quasi-field experi-
+ments [3030, 9797]. MFP makes use of all available frequency bandwidth (unlike RPPMs
+that is based on resonant frequencies only) which makes it more versatile to detect
+leaks with higher accuracy. In [ 5454], Wang & Ghidaoui presented an underpinning re-
+sult showing that MFP is one of the best unbiased leak localization estimators which
+approaches the Cramér-Rao lower bound on the leak locations.
+Since its introduction to the hydraulic transients field, MFP is undergoing continu-
+ous development and extensions. For instance, Wang et al., [ 3030] extended the initial
+version of MFP (which was suitable for elastic pipe systems) to visco-elastic (VE or
+polymeric) pipe systems. In this extension, the authors showed that the parameters
+which govern the VE effect (retardation time τ, creep compliance function J) can be
+effectively incorporated within the expression for wave speed. This representation of
+VE parameters leads to a frequency-dependent wave speed and has no influence on
+the original MFP scheme, hence no additional computation power is needed. Zouari
+et al., [ 9898] developed this technique to detect a single extended blockage in a single
+pipeline. MFP has also been developed for a general tree-type pipe network wherein
+the factorized wave propagation is used to decouple the leak detection (i.e., local-
+ization and sizing) problem into two separate one-dimensional problems [ 5353]. The
+6
+
+===== PAGE 38 =====
+decoupled solution allows to localize leaks independent from their sizes which are
+estimated following the localization step. More recently, Che et al., [ 9999] extended the
+MFP technique to leak detection in looped pipe networks.
+Wang et al., [3030] conducted comprehensive leak detection experiments in two distinct
+polymeric pipe systems using various TBDDMs, namely: (i) ITA, (ii) TRM, (iii) RPPM,
+and (iv) MFP . Their analysis shows that MFP outperformed other methods and pre-
+dicted leaks with least localization error. In particular, the authors highlighted that
+in the presence of visco-elastic damping, it is essential to make use of all frequencies
+instead of resonant frequencies as visco-elastic damping induces shift in the spec-
+tral location of the resonant peaks. This realization favors MFP over RPPMs as the
+former approach automatically accounts for the damping induced shift in the mea-
+surements. The authors also emphasized that even thought ITA and MFP have some
+similarity in terms of data usage (as both methods make use of full signals), the
+former method solves a high-dimensional problem, and therefore requires large com-
+putational resources. By contrast, MFP enjoys the linearized wave model and solves
+the one-dimensional problem which makes it computationally inexpensive. It is also
+noted that MFP was the only method which successfully detected small leak (i.e., leak
+flowrate was 10% of the base flow) in 49 out of 50 experiments with the localization
+error of less than 1 m. However, a prevalent artifact of MFP is the side-lobes (artificial
+peaks which could lead to false alarms). To suppress the side-lobes, Wang et al., [ 5555]
+showed that spectral-based methods (e.g., MUSIC or Capon beamforming) are well-
+suited for the suppression of the side-lobes. However, spectral methods require that
+transient tests are repeated for many time (of the order of 100 experiments) which
+hinders the real-field application of these methods.
+1.3 Performance metrics for defect detection methods and research
+gaps
+As of yet, there is no set of agreed upon performance metrics to evaluate defect de-
+tection methods in UWSS. In contrast, the American Petroleum Institute (API) put
+forward a set of requirements to evaluate leak detection methods in oil lines under
+API 1130 [ 100100, 101101]. In this thesis, API 1130 is adapted to the general problem of
+defect detection in UWSS.
+7
+
+===== PAGE 39 =====
+Optimality: How small a defect a method can detect is a relative term that depends
+on the amplitude of the background noise in the system as well as on the magnitude
+of the scattered signal from the defect. The scattering amplitude is proportional to
+the amplitude of the incident wave and scale of the defect. Therefore, the optimal
+TBDDM is the one that detects defects under minimum signal-to-noise ratio (SNR).
+MFP is proven theoretically, numerically and experimentally to meet this optimality
+criteria [3030, 4848, 5454, 9797, 102102].
+Resolution: The minimum scale that can be resolved by a wave-based technique is
+0.5λmin where λmin is the product of wavespeed and the upper bound of the injected
+frequency band. This diffraction limit places a lower bound on the minimum length
+scale that can be resolved. MFP is found to meet this diffraction limit [ 4848] and, in fact,
+is also shown to be able to beat this limit when the search space is multi-dimensional
+(instead of one-dimensional) [5454].
+Robustness: This performance criteria refers to a method’s ability to perform in non-
+ideal environment such as (i) uncertain topology/layout of the system and/or un-
+known or incomplete properties (e.g., pipe size, pipe material) and (ii) either limited
+or no access to probe the system and record its response. Although MFP is known to
+be robust to modeling and parameter errors in ocean acoustic applications [ 103103, 104104],
+there is yet no such study for the case of MFP in pipeline systems.
+Reliability: This criteria refers to the ability of a method to correctly render the de-
+cision about the existence of defect(s) in the system while minimizing false alarms.
+To date, to the author’s knowledge, there is no published work dedicated to the reli-
+ability of TBDDM. There is, however, an unpublished work by Yang et al., [ 105105] who
+formulated a framework to predict the presence of a leak in pipeline system using
+transient tests and hypothesis testing approach. Another approach, proposed by Liou
+[106106], is based on passive monitoring whereby the sudden change in flow variables
+(pressure and flowrate) at the inlet (or outlet) are used to perform hypothesis testing
+to make the decision on the existence of a leak.
+Efficiency: This metric measures the computational complexity and computational
+cost of the method. Computational complexity determines the amount of resources a
+method would require to complete the task. The computational cost is the time taken
+by the method to produce the final result. MFP best meets this criteria because it is
+8
+
+===== PAGE 40 =====
+a direct method, uses one-dimensional defect detection scheme to perform multiple
+defect detection, and decouples localization and sizing of defects [ 4848, 5353, 5454, 9999].
+Versatility: This criteria refers to the method’s ability to handle (i) complex pipe sys-
+tem (not just simple single pipelines) and (ii) detect, characterize and classify multiple
+defects of different nature. Recent developments of MFP for polymeric pipe systems
+[3030], tree-type branched networks [5353] and looped-pipe networks [9999] shows that this
+method is versatile. In addition, MFP has been found to be applicable in pressurized
+sewers [107107].
+Applying the foregoing performance indicators reveals that MFP is optimal, accurate,
+efficient and versatile method. Physically, MFP belongs to the class of time-reversal
+(TR) techniques. Classical TR techniques rely on the time-invariant property of un-
+damped wave equation which implies that this equation remains unchanged when
+time t is replaced by −t. This property allows waves to retrace their past steps and
+refocus at their source location when flipped-in-time and re-emitted into the system.
+The classical TR technique has been extensively studied in many fields and under-
+pins the foundation of practical equipment used for various purposes. For example,
+the TR property of waves is used in (i) medical imaging to destroy brain tumors and
+kidney stones [ 108108–114114]; (ii) non-destructive testing to detect cracks [ 115115–120120]; (iii)
+geophysics to localize earthquake sources [ 121121–124124]; and (iv) underwater acoustics to
+assist in long-distance communications [ 9494, 125125–127127].
+1.4 Thesis objectives and how they are met
+Following the numerous real-field applications of TR technique in various fields and
+its extensive development for pipeline condition assessment in the form of MFP , as
+discussed in previous section, it becomes evident that the TR technique has the poten-
+tial to emerge as a powerful technology for pipeline diagnosis and condition assess-
+ment. However, there remain research questions and practical challenges to overcome.
+The five key research questions addressed in this thesis are:
+1. Pipelines exhibit damping which break the time-invariance property of the wave
+equation. Despite this fact, TR-based methods (i.e., MFP and ARM) remain
+successful in detecting defects in damped systems where frictional as well as
+9
+
+===== PAGE 41 =====
+visco-elastic damping is evident. The first question this thesis addresses is how
+does pipeline damping affect the time reversibility of WH waves?
+2. The application of TR technique in the context of MFP has so far been devel-
+oped for bounded pipe systems. However, in the real-world, it is common that
+access to boundaries of the system is unavailable, or the boundary response is
+complex and dynamic (e.g., pressure reducing valve (PRV) or pump) such that
+it cannot be accurately incorporated in the transient model. For instance, Wang
+et al. [ 9797] applied MFP in a PRV-pipe-valve system and found that the dynamic
+response of PRV affected the successful application of MFP even though two
+measurement locations near the PRV were used to model the system. The sec-
+ond question this thesis addresses is: can TR technique be developed so that
+unwanted boundaries are truncated in the course of defect detection?
+3. Current variants of MFP are geared to detect only single type of defects, whereas
+the framework of TR technique allows the waves to refocus on any kind of
+source location irrespectively of its type, as long as the source scatters the wave-
+field. In fact, TR technique is found to be best-suited for inhomogeneous and
+heterogeneous waveguides [128128] which, in the context of pipelines, is a system
+with different types of defects. The third question this thesis addresses is: can
+TR technique be extended so that defects of different types in pipes can be
+localized and characterized?
+4. Another shortcoming, which is not specific to MFP but common to all model-
+based TBDDMs is that modeling errors (due to limited available knowledge of
+the system) makes TBDDMs a highly ill-posed problem and leads to the wrong
+identification (see, for example, [ 3434, 7272, 9797, 129129]). This is a common problem
+whenever a TBDDM is applied in the field and often leads to lack of faith in
+these methods on the part of pipeline owners. The fourth question this thesis
+addresses is: can we develop a model-free TR technique for pipeline condition
+assessment?
+5. Diagnosing UWSS using low frequency transient waves often result in low res-
+olution ( λmin ∼ 101 – 10 2 m, depending on the wave source used for transient
+generation55). Previous studies have reckoned that low frequency waves give
+5For an elastic pipe with an average wave speed of a0 = 1200 m.s −1, if the wave is generated by a
+valve closure with an average maneuver time of Tc = 0.04 s, 0.5 λ ≈ 0.5a0Tc = 24 m (see, for example,
+[8282, 8383, 130130]); if the wave source is a pump shutdown (see for example, [ 4343, 131131]), Tc ∼ 1.5 s, implying
+that 0.5λ ∼ 700 m.
+10
+
+===== PAGE 43 =====
+to localize the defects responsible for the difference between the two signals. Thus,
+this method addresses the fourth question. The applicability of method 2 is demon-
+strated using numerical examples and experimental test cases in two laboratory-scale
+systems (located at HKUST and University of Perugia, Italy), a field-scale system (lo-
+cated at Beacon Hill, Hong Kong), and using real-field data collected from a district
+metered area (DMA) (located in Ngau Tau Kok, Hong Kong). Moreover, this tech-
+nique successfully detected a change in the DMA that was unbeknown to the author
+and the water authority. This test case demonstrates the real-field applicability of
+method 2. Both methods are non-iterative; hence, computationally efficient. Addi-
+tionally, their computational time increases linearly with the number of defects for
+both methods; thus, they are scalable to large systems and are easily amenable to
+automation — a fact that is demonstrated and implemented in the Water Research
+Resources Laboratory of HKUST.
+The fifth question is addressed by exploring the use and potential of locally resonant
+metamaterials (LRMs) to gain sub-wavelength resolution using long wavelength tran-
+sient signals. Ever since the pioneering work of Chan et al., [ 134134] in Physics, acous-
+tic metamaterials, and particularly, LRMs have been the focus of extensive research
+and have led to intriguing applications such as cloaking, super-resolution imaging &
+defect detection, and noise & vibration control. Developments in other fields have
+shown that the localization resolution can be enhanced using the LRMs [ 134134–139139]. To
+the best of author knowledge, no attempt has yet been made to explore the use of
+metamaterial concepts in water supply pipelines. Therefore, this thesis provides the
+first undertaking aimed at exploring and developing the fundamental foundation for
+the study of metamaterial in pressurized water supply lines. Metamaterial structures
+are modeled by imposing periodic variation of the impedance along the length of the
+pipe, where the modulation period is much smaller than the typical wavelength of
+the WH waves. It is shown that the transient wave propagation in a pipe made of
+metamaterial (named meta-pipe) is dispersive (i.e., nonlinear wavenumber-frequency
+relation) and produces local resonance as well as spectral band-gaps. For source local-
+ization using the TR technique, it is shown that the meta-pipe produces a far superior
+resolution than the conventional (uniform impedance) pipe.
+12
+
+===== PAGE 45 =====
+Chapter 77 explores and develops the fundamental foundation for the study of meta-
+material in pressurized water supply lines. In particular, the response of metamaterial
+structure is achieved by changing the impedance of the pipe in a periodic manner. The
+pipe section with periodic impedance condition is named as “meta-pipe”.
+Chapter 88 provides the overall conclusions of the work presented in this thesis. It also
+highlights the potential directions for future research.
+1.6 Publications
+The following is the list of journal and conference papers published/submitted/prepared
+by the Author during the course of study:
+Journal Papers
+1. Waqar, M., Louati, M., & Ghidaoui, M. S. (2022). Time-reversal of water-hammer
+waves. Journal of Hydraulic Research, 60(1), 25-45.
+DOI: https://doi.org/10.1080/00221686.2021.2008030https://doi.org/10.1080/00221686.2021.2008030.
+2. Waqar, M., Louati, M., Wang, X., & Ghidaoui, M. S. (2021). Model-Free Matched
+Field Processing for Condition Assessment of Pressurized Pipes. Journal of Wa-
+ter Resources Planning and Management, 147(10), 04021066.
+DOI: https://doi.org/10.1061/(ASCE)WR.1943-5452.0001447https://doi.org/10.1061/(ASCE)WR.1943-5452.0001447.
+3. Wang, X., Waqar, M., Yan, H. C., Louati, M., Ghidaoui, M. S., Lee, P . J., Meniconi,
+M., Brunone, B., & Karney, B. (2020). Pipeline leak localization using matched-
+field processing incorporating prior information of modeling error. Mechanical
+Systems and Signal Processing, 143, 106849.
+DOI: https://doi.org/10.1016/j.ymssp.2020.106849https://doi.org/10.1016/j.ymssp.2020.106849.
+4. Waqar, M., Louati, M., Ghidaoui, M. S. (2022). Pipeline defect detection using
+time-reversal technique. Journal of Hydraulic Engineering (in-progress).
+5. Waqar, M., Louati, M., Nasraoui, S., & Ghidaoui, M. S. (2022). Water-hammer
+wave propagation in an acoustic metamaterial-type lining medium. Journal of
+Sound and Vibration (in-progress).
+14
+
+===== PAGE 47 =====
+Chapter 2
+Governing Equations and Green’s Functions
+2.1 Introduction
+A rapid change in steady-state flow properties (e.g., pump shutdown or fast valve
+closure) introduces pressure (transient) waves which propagate inside and along the
+pipe. The response of the system subjected to the transient waves can be reliably
+govern by the one-dimensional mass and momentum conservation laws. This chapter
+begins with the general integral form of conservation laws and systematically derive
+the point-form of the governing equations. These equations are further used to derive
+the Green’s functions for unbounded and bounded pipe systems.
+2.2 One-dimensional water-hammer equations
+Consider the schematic of the pipeline as shown in Fig. 2.12.1, where dash-dot lines
+(− · −) show the general control volume (GCV), ⃗n denotes the normal vector along
+the longitudinal axis and points in outward direction, ⃗nS denotes the normal vector
+with respect to the lateral surface, ⃗ηS is orthogonal to ⃗nS, ∆x is the length of GCV ,AS
+denotes the lateral control surface of the control volume, also known as the control
+surface (CS), θ is the angle of the longitudinal axis with respect to the horizontal line,
+D is the inner diameter of the pipe, and ξ runs along the pipe wall. The lateral sides of
+the control surface are assumed to stick with the pipe perimeter such that the overall
+shape of the CV is allowed to change as the pipe cross-section varies along x.
+Note that, in Fig. 2.12.1, D = D(x), ξ = ξ(x), and ⃗nS = ⃗nS(D, ξ). The relation between
+16
+
+===== PAGE 49 =====
+Since ⟨⃗nS,⃗ηS⟩ = 0, where ⟨•, •⟩ represents inner product of two vectors, it follows from
+vector orthogonality that
+(⃗ηS)⊥ = ( α⃗i, β⃗j)⊥ = ( −β⃗i + α⃗j) = ⃗nS
+Thus,
+⃗nS = 1
+∂ξ/∂x
+
+− ∂R
+∂x
+⃗i +⃗j
+
+(2.3)
+The graphical representation of Eqs. ( 2.22.2) & (2.32.3) is shown in Fig. 2.32.3.
+Figure 2.3: Normal vector ⃗nS and orthogonal normal vector ⃗ηS along the lateral
+control surface.
+2.2.1 Mass conservation
+The mass conservation for the chosen control volume in Fig. 2.12.1 is
+d
+dt
+Z
+V (t)
+ρ dV +
+Z
+A(t)
+ρ(⃗v − ⃗w) · ⃗n dA = 0 (2.4)
+where V is the control volume (CV), A is the control surface (CS), ⃗v is the velocity of
+fluid, ρ is the density of fluid inside CV , ⃗w is the velocity of CS. The first term in Eq.
+(2.42.4) is expanded as
+d
+dt
+Z
+V (t)
+ρ dV = d
+dt
+x+∆xZ
+x
+Z
+A(x)
+ρ dA dx (2.5)
+18
+
+===== PAGE 51 =====
+Dirac delta function with dimension [L] −1. The appearance of δ(x − xL) is a conse-
+quence of treating leak mass flux as a point source and is helpful to recover the
+integral form of mass conservation by integrating Eq. ( 2.102.10) with respect to x. Let
+ρ = 1
+A
+Z
+A(x)
+ρ dA,
+and Z
+A(x)
+ρvx dA = vx
+Z
+A(x)
+ρ dA = vxρA,
+where ρ is the average density over the cross-section and vx is the density-weighted
+average velocity. Substituting the foregoing two relations in Eq. ( 2.102.10) gives
+d
+dt (ρA) + ∂
+∂x (ρvxA) + ˙mL(x)δ(x − xL) = 0
+The above equation is further simplified using chain rule which results
+A Dρ
+Dt + ρ DA
+Dt + ρA ∂
+∂x vx + ˙mL(x)δ(x − xL) = 0 (2.11)
+where D(•)/Dt represents the material derivative. Dividing the above equation with
+ρA results
+1
+ρ
+Dρ
+Dt|{z}
+Term I
++ 1
+A
+DA
+Dt| {z }
+Term II
++ ∂
+∂x vx + ˙mL(x)
+ρA δ(x − xL) = 0 (2.12)
+The ratio ˙mL/ρ has the dimension of [L3S−1] which represents the volumetric flowrate
+escaping through the leak and, hereafter, is denoted by QL. In Eq. ( 2.122.12), “Term I”
+denotes the compressibility of fluid, and “Term II” represents the change in pipe
+cross-sectional area. Expressions for these two terms are derived in Appendix AA and
+given by Eqs. ( A.5A.5) and ( A.26A.26) for Term I and II, respectively. Thus, Eq. ( 2.122.12) after
+some simplification becomes
+1
+ρa2
+f
+∂p
+∂t + φD0
+eE
+∂
+∂t p + 2φ ∂
+∂t εr (t) + ∂
+∂x vx + ˙mL(x)
+ρA δ(x − xL) = 0 (2.13)
+where p is the pressure, a f =
+p
+K/ρ0 is the wave speed in fluid,K is the bulk modulus
+of fluid, ρ0 is the initial density of fluid, D0 is the pre-transient pipe diameter, φ is
+a coefficient that depends on the external pipe support conditions (defined in Eq.
+(A.17A.17)), e is the pipe wall thickness, E is the instantaneous elastic modulus of the pipe,
+and εr(t) is the retarded strain which accounts for the creep response of visco-elastic
+20
+
+===== PAGE 53 =====
+in terms of flowrate, Q. Therefore, substituting p = ρ0g(H − z) and vx = Q/A in Eq.
+(2.172.17) gives
+g
+a2
+0
+∂
+∂t H + g
+a2
+0
+∂
+∂tz + 1
+A
+∂
+∂x Q + 2φ ∂
+∂t εr (t) + QL
+A δ(x − xL) = 0 (2.19)
+Assuming that the pipe is well-constrained from lateral movement and does not
+changes its elevation during the transient state suggests that ∂z/∂t = 0. Thus, mul-
+tiplying Eq. ( 2.192.19) with A and rearranging the terms provides the final form of the
+Mass conservation in point-form as
+∂
+∂x Q + Ag
+a2
+0
+∂
+∂t H + 2Aφ ∂
+∂t εr (t) = −QLδ(x − xL) (2.20)
+where minus sign on the right-hand-side indicates that the mass is leaving from the
+system. For the case where mass is entering the system, this sign can be changed to
+positive.
+2.2.2 Momentum conservation
+The general integral form of momentum conservation for the chosen control volume
+in Fig. 2.12.1 is
+d
+dt
+Z
+V (t)
+ρ⃗v dV +
+Z
+A(t)
+ρ⃗v(⃗v − ⃗w) · ⃗n dA =
+Z
+A(t)
+⃗n · T dA +
+Z
+V (t)
+ρ⃗g dV (2.21)
+where ⃗g denotes the gravitational acceleration, T is the total stress tensor. Since mo-
+mentum is a vector quantity. taking the dot product of Eq. ( 2.212.21) with ⃗i gives the
+desired one-dimensional form as
+=⇒ d
+dt
+Z
+V (t)
+ρvx dV +
+Z
+A(t)
+ρvx(⃗v − ⃗w) · ⃗n dA =
+Z
+A(t)
+⃗i · ⃗n · T dA +
+Z
+V (t)
+ρ⃗i · ⃗g dV (2.22)
+The first term in Eq. ( 2.222.22) is expanded as
+d
+dt
+Z
+V (t)
+ρvx dV = d
+dt
+x+∆xZ
+x
+Z
+A(x)
+ρvx dA dx = ∆x d
+dt
+Z
+A(x+ϵ3∆x)
+ρvx dA (2.23)
+The second term in Eq. ( 2.222.22) is simplified as
+Z
+A(t)
+ρvx(⃗v − ⃗w) · ⃗n dA =
+Z
+A(x+∆x)
+ρvx(⃗v − ⃗w) · ⃗n dA +
+Z
+A(x)
+ρvx(⃗v − ⃗w) · ⃗n dA
++
+Z
+AS
+ρvx(⃗v − ⃗w) · ⃗n dA (2.24)
+22
+
+===== PAGE 55 =====
+Note that
+⃗i · ⃗nS · ⃗nS⃗ηS
+∂ξ
+∂x =⃗i · ⃗ηS
+∂ξ
+∂x =⃗i ·
+ 1
+∂ξ/∂x
+
+⃗i + ∂R
+∂x
+⃗j
+
+
+∂ξ
+∂x =⃗i ·
+
+⃗i + ∂R
+∂x
+⃗j
+
+= 1
+Thus
+Z
+A(t)
+⃗i · ⃗n · τ dA =
+Z
+A(x+∆x)
+τxx⃗i⃗i dA −
+Z
+A(x)
+τxx⃗i⃗i dA + ∆x
+I
+CS(x+ϵ5∆x)
+(τS) dCS (2.28)
+The fourth and last term of Eq. ( 2.222.22) is simplified as
+Z
+V (t)
+ρ⃗i · ⃗g dV =
+x+∆xZ
+x
+Z
+A(x)
+ρ⃗i · −⃗ig sin (θ) dA dx = −g∆x
+Z
+A(x+ϵ6∆x)
+ρ sin (θ) dA (2.29)
+Thus, Eq. ( 2.222.22) becomes
+∆x d
+dt
+Z
+A(x+ϵ3∆x)
+ρvx dA +
+Z
+A(x+∆x)
+ρv2
+x dA −
+Z
+A(x)
+ρv2
+x dA + vx
+Z
+AS
+ρ(⃗v − ⃗w) · ⃗n dA =
+−
+
+
+Z
+A(x+∆x)
+p dA −
+Z
+A(x)
+p dA
+
+ + ∆x
+I
+CS(x+ϵ4∆x)
+⃗i · ⃗n (−p) ∂ξ
+∂x dCS
++
+Z
+A(x+∆x)
+τxx⃗i⃗i dA −
+Z
+A(x)
+τxx⃗i⃗i dA + ∆x
+I
+CS(x+ϵ5∆x)
+(τS) dCS
+− g∆x
+Z
+A(x+ϵ6∆x)
+ρ sin (θ) dA (2.30)
+Dividing Eq. ( 2.302.30) by ∆x and taking the limit ∆x → 0, Eq. ( 2.302.30) yields
+=⇒ d
+dt (vx ρA) + ∂
+∂x
+
+v2x ρA
+
++ vx ˙mL (x) δ (x − xL) = − ∂
+∂x pA −
+I
+CS(x)
+⃗i · ⃗np ∂ξ
+∂x dCS
++ ∂
+∂x
+Z
+A(x)
+τxx⃗i⃗i dA +
+I
+CS(x)
+τS dCS − gAρ sin (θ) (2.31)
+The first two terms on the left hand side of Eq. ( 2.312.31) are further simplified using the
+transport theorem for integration over a surface as described in Appendix A.3A.3 and
+given as
+Z
+A
+∂
+∂x f dA = ∂
+∂x f A +
+I
+CS
+⃗n∗ ·⃗i
+(⃗n∗ · ⃗v∗) f dCS (A.31A.31)
+24
+
+===== PAGE 57 =====
+p. 169]; therefore, it can be ignored which yields
+(ρA) ∂
+∂tvx + vx ρ ∂
+∂t (A) + vxA ∂
+∂t (ρ) + vx
+∂
+∂x (vx ρA) + (vx ρA) ∂
+∂x vx
++ vx ˙mL (x) δ (x − xL) = −A ∂p
+∂x + τSπD − gA ρ sin (θ)
+where τS is the area averaged shear stress which reduces the momentum of flow,
+and often represented by τw = −τS. By invoking the Mass conservation, the above
+expression can be further simplified as
+(ρA) ∂
+∂tvx + (vx ρA) ∂
+∂x vx + vx
+
+ρ DA
+Dt + A Dρ
+Dt + ρA ∂
+∂x vx + ˙mL (x) δ (x − xL)
+
+| {z }
+=0 (Mass Conservation, Eq. 2.112.11)
+= −A ∂p
+∂x − τwπD − gA ρ sin (θ)
+or
+=⇒ (ρA) ∂
+∂tvx + (vx ρA) ∂
+∂x vx = −A ∂p
+∂x − τwπD − gAρ sin (θ)
+Since the pressure is assumed to be uniform over the cross-section, p = p. Moreover,
+approximating ρ ≈ ρ0 (i.e., Eq. ( 2.162.16)) and dividing the above relation by ρ0 gives
+A ∂
+∂tvx + Avx
+∂
+∂x vx = − A
+ρ0
+∂p
+∂x − πD
+ρ0
+τw − gA sin (θ) (2.36)
+Note that the second term in the above equation represents the convective term which
+is of the order of Mach number Ma ≈ 10−3, and can be ignored. Substituting sin (θ) =
+∂z/∂x, p = ρ0g (H − z) and vx = Q/A in Eq. ( 2.362.36) and dividing by gA gives
+1
+gA
+∂
+∂t Q + ∂
+∂x H + h f = 0 (2.37)
+where h f = πDτw/ (ρ0gA) represents the unsteady head loss per unit length. Brief
+discussion on the modeling of unsteady head loss is provided in Appendix A.4A.4 and
+the expression for h f for unsteady, turbulent and smooth pipe flows is given by Eq.
+(A.33A.33) as
+h f (t) = fDW
+2gDA 2 Q|Q| + 16υ
+gD2A
+tZ
+0
+∂Q
+∂t∗ W (t − t∗) dt∗ (A.33A.33)
+where W is the weighting function, and t∗ is the dummy variable of integration. The
+weight function is defined as [ 143143]
+W(t) = α f√
+πt
+exp
+ 
+−β f t
+
+(2.38)
+26
+
+===== PAGE 59 =====
+∂˜h
+∂x +
+ iω
+gA + R
+gA + i ω
+gA
+ˆR (ω)
+
+˜q = 0 (2.41b)
+where i = √−1,
+ave =
+"
+1
+a2
+0
++ ρD
+e φ
+Nkv
+∑
+j=1
+Jj
+1 + iωτj
+#−1/2
+, ave ∈ C (A.45A.45)
+is the frequency-dependent wave speed [3030],
+a0 =
+ ρ
+K + φ ρD
+eE
+−1/2
+, a0 ∈ R, ( 2.182.18)
+is the elastic wave speed, x is the spatial axis, ˜h is the pressure head, ˜q is the flowrate,
+˜qS = 1 is the strength of the mass point source that is located at xL, δ(x − xL) is
+the delta function, g is the gravitational constant, A is the cross-sectional area of the
+pipe, ρ is the density of the fluid, K is the bulk modulus of fluid, φ accounts for pipe
+support conditions (defined in Eq. ( A.17A.17)), E is the elastic modulus of pipe, D is the
+inner diameter of the pipe,
+ˆR(ω) = 4
+D
+s
+υ
+iω + β f
+, ˆR (ω) ∈ C, ( A.52A.52)
+is the frequency-dependent wall shear stress model governing the unsteady-friction
+[143143], υ = 10−6 m2s−1 is the kinematic viscosity of fluid, R = ( fDWQ0) / (DA ) is the
+linearized steady-state friction term, fDW is the Darcy-Weisbach friction factor, Q0 is
+the steady-state flowrate, e is the pipe wall thickness and ω is the angular frequency,
+R denotes real variable, C denotes complex variable, J is the creep compliance, τ is
+the strain retardation time and Nkv represents the Kelvin-Voigt model elements.
+2.4 One-dimensional wave equation
+Differentiating Eq. ( 2.41b2.41b) with respect to x and subtracting it from Eq. ( 2.41a2.41a) gives
+the one-dimensional wave equation in frequency domain as
+L ˜h(ω, x) = f (ω)δ(x − xS), (2.42)
+where
+L =
+ ∂2
+∂x2 + k2
+
+(2.43)
+28
+
+===== PAGE 61 =====
+Figure 2.4: Schematic of the unbounded pipe systems with a source at xS and a
+receiver on each side at xRn, where n is the number of receivers.
+where ε is an arbitrary constant and very small. Substituting Eq. ( 2.482.48) in Eq. ( 2.492.49)
+gives
+lim
+ε→0
+
+c2 (ω) exp [−ik (xS + ε − xS)]
+
+= lim
+ε→0
+
+c1 (ω) exp [ik (xS − ε − xS)]
+
+=⇒ c1 =c2. (2.50)
+Let c = c1 = c2. Furthermore, integrating Eq. ( 2.472.47) from xS − ε to xS + ε and taking
+the limit when ε goes to zero, results
+lim
+ε→0
+Z xS+ε
+xS−ε
+LG(ω, x|xS) dx = f (ω) lim
+ε→0
+Z xS+ε
+xS−ε
+δ(x − xS) dx
+=⇒ lim
+ε→0
+Z xS+ε
+xS−ε
+∂2
+dx2 G(ω, x|xS) dx + k2 lim
+ε→0
+Z xS+ε
+xS−ε
+G(ω, x|xS) dx = f (ω)
+=⇒ lim
+ε→0
+h
+G′(ω, x|xS)
+
+x=xS+ε
+− G′(ω, x|xS)
+
+x=xS−ε
+i
+= f (ω) (2.51)
+Substituting Eq. ( 2.482.48) into Eq. ( 2.512.51) gives
+lim
+ε→0
+h ∂
+∂x
+
+c exp [−ik (x − xS)]
+
+x=xS+ε
+− ∂
+∂x
+
+c exp [ik (x − xS)]
+
+x=xS−ε
+i
+= f (ω)
+=⇒ lim
+ε→0
+h
+c(−ik) exp [−ik (ε)] − c(ik) exp [ik (−ε)]
+i
+= f (ω)
+=⇒ − c(ik) − c(ik) = f (ω)
+=⇒ c = f (ω) i
+2k. (2.52)
+Thus, the final expression for G(ω, x|xS) in an unbounded pipe system (i.e., Eq. (2.482.48))
+is
+G(ω, x|xS) =
+
+
+
+f (ω) i
+2k exp [ik (x − xS)] x ≤ xS
+f (ω) i
+2k exp [−ik (x − xS)] x ≥ xS
+(2.53)
+30
+
+===== PAGE 63 =====
+∴ δ(α − β) = 1
+2π
+∞Z
+−∞
+exp [iω (α − β)] dω (2.60)
+where δ denotes the Dirac delta function.
+=⇒ h(t, x) = 1
+2
+a0
+gA δ
+
+t − |x − xS|
+a0
+
+(2.61)
+The delta function in Eq. ( 2.612.61) is a consequence of taking the integral over infinite
+frequencies in Eq. ( 2.592.59). For finite frequency bandwidth ω ∈ [−ωmax, ωmax], where
+ωmax is the maximum excited frequency, the inverse Fourier transform of ˜h(ω, x) is
+h(t, x) = 1
+4π
+a0
+gA
+ωmaxZ
+−ωmax
+exp
+
+iω
+
+t − |x − xS|
+a0
+
+dω
+= 1
+4π
+a0
+gA
+
+
+exp
+
+iω
+
+t − |x − xS|
+a0
+
+i
+
+t − |x − xS|
+a0
+
+
+
+ωmax
+−ωmax
+= 1
+2π ωmax
+a0
+gA
+
+
+sin
+
+ωmax
+
+t − |x − xS|
+a0
+
+ωmax
+
+t − |x − xS|
+a0
+
+
+
+= fmax
+a0
+gA sinc
+
+ωmax
+
+t − |x − xS|
+a0
+
+(2.62)
+where fmax is the maximum frequency of the input bandwidth, and sinc(•) = sin(•)/(•)
+is the non-normalized sinc function.
+2.5.3 Bounded pipe system
+Consider a reservoir-pipe-reservoir system as shown in Fig. 2.52.5 with the boundary
+conditions
+˜h(ω, x = 0) = ˜h(ω, x = L) = 0 (2.63)
+where x = 0 and x = L are the locations of Reservoir 1 and Reservoir 2, respectively.
+For x ̸= xS the homogeneous solution for Green’s function (Eq. 2.472.47) in a bounded
+pipe system is
+G (ω, x|xS) =
+
+
+
+a1 sin(kx) + a2 cos(kx) 0 ≤ x < xS
+a3 sin(kx) + a4 cos(kx) xS < x ≤ L
+(2.64)
+32
+
+===== PAGE 65 =====
+Also, using the jump condition of Green’s function (as defined in Eq. ( 2.512.51),
+=⇒ lim
+ε→0
+h ∂
+∂x {a3 sin(kx) − a3 tan(kL) cos(kx)}
+
+x=xS+ε
+− ∂
+∂x {a1 sin(kx)}
+
+x=xS−ε
+i
+= f (ω)
+=⇒ lim
+ε→0
+h
+a3k cos(kx) + a3k tan(kL) sin(kx)
+
+x=xS+ε
+− a1k cos(kx)
+
+x=xS−ε
+i
+= f (ω)
+=⇒ lim
+ε→0
+h
+a3k cos(k(xS + ε)) + a3k tan(kL) sin(k(xS + ε)) − a1k cos(k(xS − ε))
+i
+= f (ω)
+=⇒ a3 cos(k(xS)) + a3 tan(kL) sin(k(xS)) − a1 cos(k(xS)) = f (ω)
+k (2.69)
+Substituting a1 from Eq. ( 2.682.68) in Eq. ( 2.692.69), dividing both sides by tan (kL) and
+simplifying for a3 gives
+a3 = f (ω) sin(kxS)
+k tan(kL) (2.70)
+Substituting Eq. ( 2.702.70) in Eq. ( 2.682.68) and solving for a1 gives
+a1 = f (ω)
+k
+sin(kxS)
+tan(kL) − cos(kxS)
+
+(2.71)
+Thus, Eq. ( 2.672.67) becomes
+G (ω, x|xS) =
+
+
+
+f (ω)
+k
+sin(kxS)
+tan(kL) sin(kx) − cos(kxS) sin(kx)
+
+0 ≤ x ≤ xS
+f (ω)
+k
+sin(kxS)
+tan(kL) sin(kx) − cos(kx) sin(kxS)
+
+xS ≤ x ≤ L
+(2.72)
+Eq. (2.722.72) is further simplified using trigonometric identifies and written as
+G (ω, x|xS) =
+
+
+
+− f (ω)
+k
+sin(k(L − xS))
+sin(kL) sin(kx) 0 ≤ x ≤ xS
+− f (ω)
+k
+sin(kxS)
+sin(kL)) sin(k(L − x)) xS ≤ x ≤ L
+(2.73)
+Substituting Eq. ( 2.452.45) in Eq. ( 2.732.73) and following (2.462.46) gives
+˜h (ω, x|xS) =
+
+
+
+
+− iω
+gA − R
+gA − iω
+gA
+ˆR
+
+˜qS
+−1
+k
+sin(k(L − xS))
+sin(kL) sin(kx) 0 ≤ x ≤ xS
+
+− iω
+gA − R
+gA − iω
+gA
+ˆR
+
+˜qS
+−1
+k
+sin(kxS)
+sin(kL)) sin(k(L − x)) xS ≤ x ≤ L
+34
+
+===== PAGE 67 =====
+where γ is a simple, closed, positive contour, g is the analytic function on and inside
+γ except at (z1, z2, · · · zn′), Res is the residue of function g (z). Let g (z) = p (z) /q (z),
+the Res is defined as
+Resz=zn′
+[g (z)] = Resz=zn′
+ p (z)
+q (z) , zn′
+
+= p (zn′) Res
+ 1
+q (z), zn′
+
+= p (zn′)
+ql (zn′) (2.79)
+where ql (zn′) is the l−th non-zero derivative of q (zn′). For the scenario under con-
+sideration, q (zn′) = sin
+ ωn′ L
+a0
+
+whose first derivative is non-zero (see Eq. ( 2.772.77)),
+implying that l = 1. Therefore, substituting
+p (zn′) = sin
+ ωn′
+a0
+(L − xS)
+
+sin
+ ωn′
+a0
+x
+
+,
+ql=1 (zn′) = ωn′
+a0L cos
+ ωn′
+a0
+L
+
+,
+and
+ωn′ = n′πa0
+L
+in Eq. ( 2.792.79) and using the trigonometric identity for sin (α − β) yields
+Resω=ωn′
+[g (ω)] = − a0
+L sin
+n′πxS
+L
+
+sin
+ n′πx
+L
+
+exp (iωn′t) (2.80)
+Substituting Eqs. ( 2.782.78) and (2.802.80) in Eq. ( 2.762.76) and simplifying for n′ ∈ N gives
+h (t, x|xS) = 2 a2
+0
+gAL ∑
+n′
+sin
+n′πxS
+L
+
+sin
+ n′πx
+L
+
+cos (ωn′t) . (2.81)
+where ωn′ = n′πa0/L. Physically, ωn′ are the resonant frequencies of the system with
+n′ denoting the resonant modes. Eq. ( 2.812.81) is the final expression of h (t, x|xS) in
+time domain and have following properties: (i) the function is invariant under the
+exchange of x and xS which shows the spatial reciprocity of Green’s function, (ii)
+the solution is carried out for the region 0 ≤ x ≤ xS, while it is also applicable for
+xS ≤ x ≤ L because the inverse Fourier transform of the second part of Eq. ( 2.752.75)
+gives the exact same form as Eq. ( 2.812.81).
+2.6 Summary
+In this chapter, the governing equations (i.e., mass and momentum conservations)
+for water-hammer (transient flows) are derived for a pipe system with a leak and
+36
+
+===== PAGE 69 =====
+Chapter 3
+Experimental Facilities
+The six experimental setups used to collect datasets presented in this thesis are de-
+scribed in this chapter. These systems include two laboratory-scale, one field-scale,
+and three real-field pipeline systems.
+3.1 Laboratory-scale pipeline systems
+The two laboratory-scale pipeline systems are (i) Water Resources Research Labora-
+tory (WRRL) of HKUST, and (ii) Water Engineering Laboratory (WEL) of University
+of Perigua (UNIPG).
+3.1.1 Test-rig in WRRL-HKUST
+The test rig is comprised of a Pump-Pipe-Valve system and situated at the Water
+Research Resources Laboratory of the Hong Kong University of Science and Tech-
+nology (HKUST). The schematic of the system is given in Figure 3.13.1. A buffer tank
+(BT) is located at the extreme upstream side that supplies water through a booster
+pump (BP) (Model: KIKAWA KRS16-3) to the 145.4 m long high density polyethy-
+lene (HDPE-PE100) pipe. The external diameter of the pipe is 90 mm. Other pipe
+properties including the VE modeling parameters (i.e., creep compliance coefficients
+and retardation time) are provided in Tab. 3.13.1. On the downstream end, the pipe is
+connected back to BT to recirculate the water. A gate valve (GV7) is installed between
+downstream end of pipe and BT to regulate the flow in the system. Along the pipe,
+38
+
+===== PAGE 71 =====
+Figure 3.1: Experimental setup at Water Research Resources Laboratory of the Hong
+Kong University of Science and Technology, Hong Kong.
+40
+
+===== PAGE 73 =====
+Figure 3.2: Schematic of the experimental setup at Water Engineering Laboratory of
+the University of Perugia (UNIPG), Italy
+Figure 3.3: Geographical layout of the site from Beacon Hill high level fresh water
+service reservoir to Beacon Hill Intermediate Level Fresh Water Service Reservoir.
+[Base map is obtained from OpenStreetMapOpenStreetMap.]
+42
+
+===== PAGE 75 =====
+Figure 3.4: 3D-schematic of the Beacon Hill Field Experiment Facility (BHFEF) at
+Beacon Hill Intermediate Level Freshwater Service Reservoir, Hong Kong (HK).
+Figure 3.5: Site pictures: (a) inlet pipe with air valve & GV1; (b) strainer; (c) PRV; (d)
+example of pipe bend near H5; (e) example of pipe bend near LK8; (f) downstream
+end near BV2.
+44
+
+===== PAGE 77 =====
+Table 3.4: Cumulative distance between various elements in each pipe branch of
+BHFEF system.
+Branch 1 Branch 2 Branch 3 Branch 4
+PRV 0 J1 (U/S) 0 J1 (D/S) 0 J1 (D/S) 0
+H1 6.91 LK6 9.45 GV4 0.67 GV5 0.93
+LK1 8.91 H5 11.4 LK14 10.67 H9 12.5
+LK2 24.3 LK7 20.98 H8 21.87 H10 26.24
+LK3 38.02 H6 23.04 LK13 36.64 H11 34.6
+H2 40.23 LK8 37.6 LK12 51.18 BV4 38.6
+LK4 50.53 LK9 52.16 BV3 68.06 LK15 42.13
+H3 52.81 H7 67.67 GV3 70.94 LK16 51.52
+LK5 62.07 LK10 69.32 J2 (D/S) 71.66 BV5 53.54
+H4 64.29 BV1 70.29 Dead end 72.43
+J1 (U/S) 65.62 J2 (U/S) 72.94
+GV2 74.07
+LK11 77.1
+BV2 79.23
+135.91 m. The pressure head in the system is adjusted from 60 m to 20 m using PRV
+and the air venting valves are used to drain out the entrapped air from the pipe. For
+experiments, BV1 is first opened partially to establish the steady-state in the system
+and then closed manually and rapidly to develop the transient state in the system.
+Pressure fluctuations are recorded using UNIK5000 pressure transducers with full-
+scale range of 1.5 MPa (15bar) and 1MPa (10bar). National Instrument cRIO-9030
+data acquisition system with a sampling frequency of 1000 Hz is used to collect the
+data. For each test case, measurements are repeated multiple times ( ∼ 3 to 10) and
+the averaged response of the system is used for further analysis. Two ultrasonic flow
+meters (Model: DXNP-UHS-NN) are installed: one immediately after the PRV , and
+other one at the downstream side near LK10.
+46
+
+===== PAGE 79 =====
+Table 3.5: Detailed description of the real-field system
+Feature Description Feature Description
+Total pipe length,L 450 m Outer diameter, Do 222 mm
+Wall thickness,e 6.3 mm Material Ductile iron
+Steady-state flowrate,Q0 5-13 l/s Steady-state pressureH0 90-70 m
+Distances (in meters):
+Nodes Distance Nodes Distance
+AB 40.76 AC 7.56
+BD 38.19 CF 40.31
+DE 26.2 EF 1.8
+FG 56.05 GH (Hyd-1) 12.01
+GI 51.21 IJ 12.11
+JK 51.79 KL (Hyd-2) 10.21
+KM 10.04 MN 22.68
+NO 87.2 OP 2.71
+PQ 93.63 QR 1.79
+RT 6.4 RS (Hyd-3) 7.6
+Pressure and flowrate in the system is monitored by the Water Supplies Department
+(WSD) of Hong Kong using supervisory control and data acquisition (SCADA) sys-
+tem. The flow in the pipe is gravity driven and varies between 5 − 13 l/s. There
+are three fire hydrants: PH1597 (named as Hyd-1), PH1598 (named as Hyd-2), and
+PH1601 (named as Hyd-3), along the sidewalk of the road. The nominal diameter of
+pipe for fire hydrant connections is 150 mm. These fire hydrants are the only access
+points to the pipe and used for leak simulation, transient wave generation and mea-
+surement locations during the experiments. The distance between each fire hydrant
+and WDL is about 12 m, 10.1 m and 7.6 m for Hyd-1, Hyd-2, and Hyd-3, respectively.
+The elevation of the pipeline follows the slope of the road as shown in Figure 3.83.8.
+Data acquisition and testing procedure
+An assembly of steel pipe with two ball valves (one for flow regulation and other one
+for transient generation) and two 2.54 cm diameter T-connections (one for pressure
+transducer and other one to insert a bourdon pressure gauge) are installed at each
+fire hydrant (e.g. see Figure 3.93.9). The assembly of steel pipe is about 1 m long and
+7.62 cm in diameter and connected with the fire hydrant from one end and with wire-
+48
+
+===== PAGE 81 =====
+Figure 3.9: Connection type for each fire hydrant.
+50
+
+===== PAGE 83 =====
+Figure 3.10: Topology of the sprinkler system located at HKUST, Clearwater Bay
+campus.
+Figure 3.11: Elevation profile of the system
+52
+
+===== PAGE 85 =====
+3.3.3 Transmission main in Yuen Long, HK
+Real field transmission main is a pump-pipe-reservoir system located along the Castle
+Peak Road, Yuen Long, Hong Kong. The geographic layout of the system is provided
+in Figure 3.133.13. The pipe is about 3 km long and 700 mm in diameter with multiple
+branches, dead ends, a few air valve chambers (AVs) and fire hydrant connections.
+The schematic of the system is presented in Figure 3.143.14 and the key characteristics of
+the system are provided in Table 3.63.6. The pipe is made of mild steel and about 40
+years old. The flow direction is from upstream pump station to downstream Au Tau
+Fresh Water Reservoir.
+Figure 3.13: The geographic layout of the real-field transmission main located in
+yuen long, Hong Kong. [Base map is obtained from OpenStreetMapOpenStreetMap.]
+Hong Kong Water Supply Department (WSD) anticipated that the pipeline has leaks
+between AV (node O) and Reservoir (node R11) some of which were later confirmed
+with SmartBall survey in September 2018. A smart ball was inserted from AV and
+collected from the reservoir. During the survey, the pipeline was out-commissioned,
+all branches of the inspected section (AV to Reservoir) were closed so that the ball
+does not get lost. From this survey, 6 leaks were reported. Besides leak 1 and 2
+which are suspected to be under the Castle Peak highway, all other leaks were fixed
+by WSD. Transient testing on this transmission main facility was offered by WSD in
+late September 2019. At present, the pipeline is suspected to have two leaks (leak 1
+between node R1 and R2 and leak 2 near node R3, R4, R5).
+54
+
+===== PAGE 87 =====
+Data acquisition and testing procedure
+In order to perform the transient tests, air valve located at node O was removed and
+an assembly of about 0.5 m long and 7.62 cm diameter steel pipe with two ball valves
+(one to regulate the flow and other to generate transient) and one T-joint (to mount
+the pressure transducer) was installed as shown in Figure 3.153.15. Another assembly of
+1 m long and 7.62 cm diameter steel pipe (similar to the one used in NTK setup and
+shown in Figure 3.93.9) was installed at the fire hydrant.
+For transient response measurement, two UNIK5000 pressure transducers with the
+accuracy of ±0.04 % full scale best straight line and range of 1.6 MPa (16 bar) are
+mounted at AV (node O) and FH stations. Data collection is carried out with two Na-
+tional Instrument cRIO-9030 data acquisition systems which are synchronized using
+radio frequency connection with a delay of 0.001 s. A sampling frequency of 1000 Hz
+is used for data collection.
+Figure 3.15: Configuration of transient generation assembly at AV in Yuen Long
+system. (a) Assembly of steel pipe to be installed on AV . (b) Air valve replaced with
+assembly. (c) Data acquisition system
+56
+
+===== PAGE 89 =====
+remains unchanged when −t is used in place of t, exhibiting the time-invariant prop-
+erty of waves. As a result, any linear combination of h(x, t) and h(x, −t) is a solution
+of Eq. ( 4.14.1). This property of (acoustic, electromagnetic, ultrasonic) waves has been
+extensively studied in many fields and underpins the foundation of practical equip-
+ment used for various purposes. For example, the TR property of waves is used in
+(i) medical imaging to destroy brain tumors and kidney stones [ 108108–114114]; (ii) non-
+destructive testing to detect cracks [ 115115–120120]; (iii) geophysics to localize earthquake
+sources [121121–124124]; and (iv) underwater acoustics to assist in long-distance communi-
+cations [9494, 125125–127127]. In the context of pipeline hydraulics, the closest attempt to TR of
+transient waves is in valve stroking [ 5656]. More recently, the TR property of transient
+waves has also been exploited to develop computationally inexpensive and noise-
+tolerant pipeline defect detection methods such as matched-field processing (MFP;
+[4848]), the area-reconstruction method (ARM; [ 4040]), and time-reversal method (TRM;
+[149149, 150150]).
+Theoretically, TR property is violated in the presence of damping which can be due
+to steady or unsteady friction and visco-elastic damping. To illustrate how TR breaks
+down in the presence of damping, consider the transient wave equation (i.e., Eq. (4.14.1))
+but for the case with linear frictional damping. The form of the equation is given by
+Eq. (B.5B.5) as
+∂2hD (x, t)
+∂t2 − a2
+0
+∂2hD (x, t)
+∂x2 + R ∂hD (x, t)
+∂t = 0 (4.2)
+where R = ( fDWQ0) / (DA ) is the steady-state friction term, fDW is the Darcy-
+Weisbach friction factor,Q0 is the steady-state flowrate, g is the gravitational constant,
+A is the cross-sectional area of the pipe, D is the inner diameter of the pipe, hD is the
+damped pressure head. Replacing t by −t in Eq. ( 4.24.2) gives:
+∂2hD (x, t)
+∂t2 − a2
+0
+∂2hD (x, t)
+∂x2 − R ∂hD (x, t)
+∂t = 0. (4.3)
+Note that the damping term in Eq. ( 4.34.3) has a negative sign implying that the wave
+equation has lost the TR property which makes Eq. ( 4.34.3) ill-posed. The same effect
+can be shown for unsteady friction and visco-elastic damping. In fact, the solution of
+Eq. ( 4.34.3) is unstable in the sense that small measurement and modeling errors grow
+exponentially with backward time [ 151151, 152152]. This ill-posed problem was reported in
+the classic water-hammer book by [5656] in connection with the use of backward-in-time
+solution for valve stroking in the presence of damping. On Page 223, they wrote:
+58
+
+===== PAGE 91 =====
+wave signal, i.e., the theoretical diffraction limit in physics [ 155155, 162162]. This result is
+proven in this chapter for the case of water-hammer waves.
+Figure 4.1: Time-reversal illustration in water pipe system.
+Consider a pipe system as shown in Figure 4.14.1. In stage 1: a point source in the
+form of δ(t − tS, x − xS) is injected into the pipe system, where tS is the time of the
+source and xS is the location of the source. This form of source can be injected into
+the pipeline by the instantaneous opening and closing of a side discharge valve. The
+impulse response functions (also known as Green’s function or transfer function) are
+recorded at two locations xR1 and xR2 and denoted as:
+h1(t − tS, xR1|xS) at Receiver 1; and (4.4a)
+h2(t − tS, xR2|xS) at Receiver 2, (4.4b)
+respectively. In Stage 2, the measured signals are flipped in time such that h1(t −
+tS, xR1|xS) becomes h1(−t − tS, xR1|xS) and h2(t − tS, xR2|xS) becomes h2(−t − tS, xR2|xS).
+The time-reversed signals are re-emitted back into the medium from the receivers’ lo-
+cations. Mathematically, this procedure is represented identically by taking the convo-
+lution integral between the time-reversed signals and Green’s function of the system
+60
+
+===== PAGE 93 =====
+This implies that the re-emitted signals refocus only at the source location ( x = xS)
+and at time t = tS. Equation 4.104.10 shows how the wave refocuses in the time domain.
+The equivalent form of Eq. ( 4.104.10) in the frequency domain is obtained using the
+Parseval’s theorem and is given as:
+max htr
+
+tS, xS|{xRn}
+
+= ∑
+n
+Z ∞
+−∞
+˜hn(ω, xRn|xS)˜hC
+n(ω, xRn|xS) dω. (4.11)
+where ˜hn is the Fourier transform of hn, superscript C denotes complex conjugate
+transpose, and ω is the angular frequency.
+4.4 Resolution of TR in a unbounded pipe system
+4.4.1 Scenario Ia: undamped system and infinite bandwidth
+Consider an unbounded pipe system as shown in Figure 4.24.2. The impulse response
+function ˜h(ω, x) of the unbounded pipe system (as derived in Section 2.5.12.5.1, Eq. (2.562.56))
+is given as:
+˜h(ω, xRn|xS) = ˜qS
+2 Z exp (−ik |xRn − xS|) , (4.12)
+where i = √−1, ˜qS = 1 m 3 is the strength of the mass source, a0 is the elastic
+wave speed (defined in Eq. ( 2.182.18)), k = ω/a0 is the wave number, Z = a0/gA is
+the characteristic impedance of the pipe, n = ( 1, 2), and ω is the angular frequency.
+The spatial reciprocity of Green’s function, which is used to obtain Eq. ( 4.94.9) in the
+previous section, can be easily verified from Eq. ( 4.124.12) by switching xRn and xS. The
+Figure 4.2: Schematic of the unbounded pipe systems with a source at xS and a
+receiver on each side at xRn, where n = 2.
+time-reversed version of the received signal at xRn is the complex conjugate of Eq.
+62
+
+===== PAGE 95 =====
+or
+=⇒ htr
+
+tS, x|{xRn}
+
+= ( ˜qSZ)2 ωmax sinc
+
+ωmax
+(x − xS)
+a0
+
+(4.18)
+In the limit when x → xS, ˜htr in Eq. ( 4.184.18) reaches maximum, implying refocusing of
+the wave at the source location. However, in this case, the resolution of the refocused
+wave is not infinite as in Scenario I-a. Instead, the resolution is finite and is given by
+the first zero of the sinc function in Eq. ( 4.184.18) as:
+ωmax
+|x − xS|
+a0
+= π =⇒ |x − xS| = πa0
+ωmax
+= λmin
+2 (4.19)
+where λmin is the minimum wavelength of the injected signal and associated with
+ωmax = 2πa0/λmin. This theoretical refocusing limit of λmin/2 is also defined as the
+diffraction limit of waves [155155]. The physical interpretation of this limit is that, in an
+unbounded and undamped pipe system with finite bandwidth, the re-emitted waves
+can converge only up to half a wavelength around the source and diverge thereafter.
+In the context of defect detection in pipes, [ 5252] applied ARM (TR-based method) to
+detect defects in an unbounded pipe system and found that the resolution of the
+estimated defect location is of the order of λmin/2 which agrees with Eq. ( 4.194.19). In the
+next section, the effects of damping on this theoretical resolution limit are discussed.
+4.4.3 Scenario II: damped system
+Consider a scenario with damping due to linear steady friction (SF), unsteady fric-
+tion (UF) and visco-elasticity of the pipe. The unsteady friction is incorporated us-
+ing the Vardy-Brown model [ 143143] and the VE effects are modeled using the Kelvin-
+Voigt model [ 6767]. The damping leads to the complex wavenumber k and complex
+impedance Z which are given by Eqs. ( 2.442.44) and (2.572.57) in Chapter 22, respectively. The
+signal received at the n-th receiver is given by Eq. ( 4.124.12) but for the case where k is
+complex becomes:
+˜hD,n(ω, xRn|xS) = ˜qS
+2 Z exp [−ik |xRn − xS|] , (4.20)
+where ˜hD is the damped pressure head response function of the system. The complex
+conjugate of Eq. ( 4.204.20) represents the time-reversed version of the received signal and
+given as (see proof in Appendix B.3B.3):
+˜hC
+D,n(ω, xRn|xS) = ˜qS
+2 ZC exp
+h
+ikC |xRn − xS|
+i
+. (4.21)
+64
+
+===== PAGE 97 =====
+Figure 4.3: Wave propagation from the source to the receiver (dashed lines) and
+wave refocusing from the receivers to the source (dotted lines) for (a) undamped
+system; (b) elastic pipe system (SF + UF); (c) visco-elastic pipe system with VE
+damping only; and (d) visco-elastic pipe system with all damping forms.
+66
+
+===== PAGE 99 =====
+Table 4.1: System properties for analytical results
+Variables Values (Units)
+Total pipe length,L 200 (m)
+Inner diameter,D 147.2 (mm)
+Wall thickness,e 16.4 (m)
+Poisson’s ratio,ν 0.46
+Input source strength,˜qs 1 (m3)
+Reynolds number,Re 3.5×104
+Steady-friction factor,fDW 0.02
+Angular frequencies,ω 2π(1.7, 3.4,· · ·, 100) (rad s−1)
+Source locations,xS 0 (m) for unbounded system; and
+100 (m) for bounded system
+Receiver locations,xRn [−100, 100] (m) for unbounded system; and
+[0.2L, 0.8L] (m) for bounded system
+Wave speed a0 =1365 (m s−1) for elastic pipe; and
+max|ave| =435 (m s−1) for VE pipe
+Wavelength,λmin 13.65 (m) for elastic pipe; and
+4.35 (m) for VE pipe
+Creep compliance,Jkv [1.06, 1.05, 0.95, 0.26, 0.75] ×10−10 (Pa−1)
+Retardation time,τkv [0.05, 0.5, 1.5, 5, 10] (s)
+Consider:
+k = (kRe + ik Im ) ; kC = (kRe − ik Im ) (4.23)
+where ‘Re’ and ‘Im’ in the subscript denote the real and imaginary parts. Substituting
+Eq. (4.234.23) in (4.224.22) gives:
+hD,tr
+
+tS, x|{xRn}
+
+=
+ ˜qS
+2 |Z|
+2
+∑
+n
+Z ωmax
+−ωmax
+exp
+h
+ikRe
+
+|xRn − xS| − |x − xRn|
+i
+exp
+h
+kIm
+
+|xRn − xS| + |x − xRn|
+i
+dω. (4.24)
+In the limit when x → xS, the first exponential term in Eq. ( 4.244.24) reaches 1, whereas,
+the second exponential term approaches exp [2kIm |xRn − xS|], wherein 2 indicates the
+damping of the wave traveling from the source to the receiver and then back to the
+source. In this case, the maximum response of the damped system hD,tr is given as:
+=⇒ max hD,tr = ( ˜qS|Z|)2
+2
+Z ωmax
+−ωmax
+1
+ID
+dω, (4.25)
+68
+
+===== PAGE 101 =====
+Figure 4.5: The trend of damping term ID with various combinations of damping in
+(a) elastic pipe; and (b) visco-elastic pipe.
+sitive to the numerical values used to incorporate UF and VE effects. In the context
+of pipeline defect detection, these results reveal that the refocusing of the wave at the
+source such as for a defect, in the presence of pipeline damping, is guaranteed with TR
+process. However, the influence of damping on the amplitude of the refocused wave
+may bring some errors in the estimation of the defect size and/or false alarms. For
+instance, [5252] accurately localized a blockage in a pipe with ARM (TR-based method)
+using damped and undamped pressure signals. However, his analysis showed that
+the shape (i.e., a property of defect size) was obscured when damped wave signal was
+used, and respectively improved when an undamped wave signal was used.
+4.5 Resolution of TR in a bounded pipe system
+Consider a reservoir-pipe-reservoir (RPR) system as shown in Figure 4.64.6. The impulse
+response function ˜h(ω, x) for an RPR system is derived in Section 2.5.32.5.3 using Green’s
+70
+
+===== PAGE 103 =====
+Consider h (t, xR|xS) as the recorded signal from which a part of the signal [t1, t2] is
+reversed in time and given by:
+h∆T (−tR, xR|xS) =
+
+
+
+h (−tR, xR|xS) tR ∈ [−t2, −t1]
+0 elsewhere
+. (4.29)
+This reversed signal h∆T (−tR) is remitted from xR which is represented by the con-
+volution of time-reversed signal and the impulse response function as:
+h∆T
+tr (tR, x|xR) = h∆T (−tR, xR|xS) ∗ h (tR, x|xR) (4.30)
+where x ∈ [0, L]. The convolution in Eq. ( 4.304.30) can also be expressed as:
+h∆T
+tr (tR, x|xR) =
+Z t2
+t1
+h∆T (τ, xR|xS) h (tR + τ, x|xR) dτ (4.31)
+or
+h∆T
+tr (tR, x|xR) =
+Z t2
+t1
+"
+2 a2
+0
+gAL ∑
+n′
+sin
+n′πxS
+L
+
+sin
+n′πxR
+L
+
+cos (ωn′ τ)
+#
+×
+"
+2 a2
+0
+gAL ∑
+m′
+sin
+m′πx
+L
+
+sin
+m′πxR
+L
+
+cos (ωm′ (tR + τ))
+#
+dτ (4.32)
+Naturally, a similar integral to Eq. ( 4.324.32) appeared in another study and has been
+investigated by Draeger and Fink [ 167167]. The derivation below follows that of [ 167167].
+Since the summation over {n′, m′} is independent of d τ, Eq. ( 4.324.32) can be further
+simplified as:
+h∆T
+tr (tR, x|xR) =
+ 
+2 a2
+0
+gAL
+!2
+"
+∑
+n′
+∑
+m′
+sin
+ n′πxS
+L
+
+sin
+n′πxR
+L
+
+sin
+m′πx
+L
+
+sin
+m′πxR
+L
+#
+In′m′ (4.33)
+where
+In′m′ =
+Z t2
+t1
+cos (ωn′ τ) cos (ωm′ (tR + τ)) dτ (4.34)
+Equation (4.344.34) is first resolved using the trigonometric identities as:
+In′m′ =
+Z t2
+t1
+cos (ωn′ τ) cos (ωm′tR) cos (ωm′ τ) dτ
+−
+Z t2
+t1
+cos (ωn′ τ) sin (ωm′tR) sin (ωm′ τ) dτ (4.35)
+72
+
+===== PAGE 105 =====
+their contribution is of the order of 1/ ∆ω ≪ ∆T. Therefore, Eq. ( 4.404.40) can be written
+as:
+Im′n′ = 1
+2 δm′n′ ∆T cos (ωn′tR) + O
+ 1
+∆ω
+
+(4.41)
+where δm′n′ is the Kronecker delta and defined as
+δm′n′ =
+
+
+
+0 m′ ̸= n′
+1 m′ = n′
+and O represents the higher order terms which are neglected in this study. Thus, for
+m′ = n′, the combination of Eqs. ( 4.334.33) and (4.414.41) gives:
+h∆T
+tr (tR, x|xR) = 2∆T
+ 
+a2
+0
+gAL
+!2"
+∑
+n′
+sin
+n′πxS
+L
+
+sin2
+n′πxR
+L
+
+sin
+ n′πx
+L
+#
+cos (ωn′tR)
+(4.42)
+Eq. (4.424.42) has multiple important properties in the context of TR:
+Property 1
+The temporal behavior of h∆T
+tr is controlled by the cosine term. This implies that for
+tR = 0 and for x = xS, the terms sin (n′πxS/L) and sin(n′πx/L) in Eq. ( 4.424.42) provide
+constructive interference which leads the response h∆t
+tr to maximum and becomes:
+h∆T
+tr (tR, x|xR) = 2∆T
+ 
+a2
+0
+gAL
+!2"
+∑
+n′
+sin2
+ n′πxS
+L
+
+sin2
+n′πxR
+L
+#
+. (4.43)
+Property 2
+The amplitude of the refocusing wave is linearly proportional to the length of the
+time signal ∆T that is reversed. This implies that longer a time-reversed signal gives a
+higher magnitude of the refocusing wave. This property can potentially help in terms
+of wave refocusing in a damped medium like a VE pipe, as discussed in previous
+section.
+74
+
+===== PAGE 107 =====
+equal to the half-wavelength of the probing signal. Moreover, the temporal and spatial
+refocusing limits (i.e., Eqs. ( 4.464.46) and ( 4.494.49)) are linked through the wave speed. In
+what follows, a numerical example of TR in an undamped and bounded pipe system
+is presented. In a first stage: forward wave propagation is simulated using Eq. ( 4.284.28)
+and presented in Figure 4.74.7a. Figure 4.74.7a shows the forward response of the system
+in the x − t diagram. This response is recorded over two receivers which are located
+at xR1/L = 0.2 and xR2/L = 0.8. Note that, for bounded pipe system, only one sensor
+is enough to perform TR. However, for consistency with the unbounded system, two
+receivers are used. Other related parameters used for this simulation are given in
+Table 4.14.1. The reservoir boundary condition is modeled as a constant pressure head
+boundary condition. More details on this assumption are provided in Appendix B.5B.5.
+In the second stage: the two recorded signals are flipped in time such that the first
+element of each signal becomes the last and the last one becomes the first. These two
+time-reversed signals are then convolved with Green’s function of the system (i.e.,
+Eq. ( 4.424.42)) and the result is presented in Figure 4.74.7b. Figure 4.74.7b shows that the re-
+emitted waves refocus only at the source and becomes maximum at t = 0 (i.e., the
+focal spot). The temporal and spatial widths of the focal spot are λmin/2a0 = 0.005 s
+and λmin/2 = 6.825 m, respectively. However, contrary to the unbounded case, some
+side-lobes can also be seen in Figure 4.74.7b. The appearance of side-lobes is based on
+the fact that the time-reversed waves split into left- and right-going waves when re-
+emitted into the pipe. As a consequence, some of the waves follow their original wave
+path which lead them to refocus at the exact location and time of the source, while
+other waves take different paths; therefore, they do not refocus at the right location
+and timing of the source. In Figure 4.74.7(b), the term ‘temporal side-lobes’ refer to the
+side-lobes that appear when t ̸= tS. The ‘spatial side-lobes’ are the forerunners of
+the temporal side-lobes which appear at t = 0 and xside-lobe ̸= xS. In the context of
+defect detection, the spatial side-lobes are analogous to those found in [ 9797, cf. Figure
+17] and their magnitude can be reduced by using multiple measurement locations. In
+the context of this chapter, the next section discusses the effect of damping on wave
+refocusing in a bounded pipe system.
+76
+
+===== PAGE 109 =====
+Substituting Eqs. ( 4.504.50) and ( 4.514.51) in Eq. ( 4.114.11) gives the TR response of the system
+which is written as:
+hD,tr
+
+tS, x|{xR1, xR2}
+
+=
+Z ωmax
+−ωmax
+˜hD,tr,1
+
+ω, x|xR1
+
++ ˜hD,tr,2
+
+ω, x|xR2
+
+dω, (4.52)
+where
+˜hD,tr,1
+
+ω, x|xR1
+
+=
+
+
+
+˜hC
+D (ω, xR1|xS) · Z ˜qS
+i sin(k(L − xR1))
+sin(kL) sin(kx) 0 ≤ x ≤ xR1
+˜hC (ω, xR1|xS) · Z ˜qS
+i sin(kxR1)
+sin(kL)) sin(k(L − x)) xR1 ≤ x ≤ L
+(4.53)
+and
+˜hD,tr,2
+
+ω, x|xR2
+
+=
+
+
+
+˜hC (ω, xR2|xS) · Z ˜qS
+i sin(k(L − xR2))
+sin(kL) sin(kx) 0 ≤ x ≤ xR2
+˜hC (ω, xR2|xS) · Z ˜qS
+i sin(kxR2)
+sin(kL)) sin(k(L − x)) xR2 ≤ x ≤ L
+.
+(4.54)
+Equations ( 4.504.50) and ( 4.524.52) are solved numerically and the results are presented in
+Figure 4.84.8. The parameters used for these simulations are given in Table 4.14.1. In par-
+ticular, Figure 4.84.8a shows the wave refocusing in an undamped system. Figures 4.84.8b,
+4.84.8c and 4.84.8d show the wave refocusing in an elastic pipe (with both SF and UF) in a
+visco-elastic (with VE only) and in visco-elastic pipe (with all damping forms), respec-
+tively. It can be seen from all these plots that the peak of the focal spot occurs at the
+exact source location (i.e., x = xS). The spatial side-lobes are also visible in these plots
+whose magnitudes are smaller than their respective focal spots. The position of these
+spatial side-lobes are symmetric with respect to the focal spot. In terms of spatial
+resolution, the focal spots under different damping conditions are plotted in Figure
+4.94.9a and compared with the focal spots determined in the unbounded pipe system
+(Figure 4.94.9b). In this figure, the vertical axes are normalized with respect to the maxi-
+mum amplitude of the refocused wave in the absence of damping. It can be seen from
+Figure 4.94.9a that the width of the focal spot remains at about 0.5 λmin regardless of the
+damping form. However, the amplitude of the refocused wave is again affected by the
+damping. Overall, these results show that the influence of various pipeline damping
+effects on the spatial resolution is negligible in both unbounded and bounded pipe
+systems.
+78
+
+===== PAGE 111 =====
+Figure 4.9: Comparison of the focal spots in (a) bounded system and in (b)
+unbounded system with various forms of damping.
+Figure 4.104.10 shows the half-period of the refocused wave for elastic and visco-elastic
+pipe systems in time domain and at x = xS. In this figure, the vertical axes are
+normalized with respect to the maximum amplitude of the refocused wave in un-
+damped system and the horizontal axes are normalized with respect to the maxi-
+mum frequency to highlight the consequence of damping on the temporal resolution.
+The temporal side-lobes can also be seen in Figure 4.104.10 whose amplitudes are much
+smaller than their respective focal spots at t = 0. Note that the time length of the
+signals in Figure 4.104.10a is different than in Figure 4.104.10b. This is because the wave
+speed in the VE pipe is lower than the wave speed in the elastic pipe, resulting an
+elongated wave period in the VE pipe system. Figure 4.104.10 shows that SF and UF have
+minimal effect in terms of recreating the main peak as compared to VE damping and
+combined damping effects, where the amplitudes are significantly reduced. In the
+context of defect detection, pipeline damping and particularly VE damping, together
+with high noise in the system, may affect the detection accuracy and/or could poten-
+tially lead to false negative alarm. This issue can be addressed using some advanced
+signal processing techniques such as spectral-based methods [ 169169] or the maximum-
+likelihood approach [5454], which effectively minimize the false alarm rate and provide
+super-resolution.
+80
+
+===== PAGE 113 =====
+4.6.1 Range of time-reversibility of waves
+Regarding the range of time-reversibility of waves, Grigoropoulos et al. [ 170170] per-
+formed the scaling analysis using the compressible Navier-Stokes equations (for fluid)
+and shell theory (for the pipe wall) and devised a non-dimensional parameter (de-
+noted by “TR”) and defined as
+TR = t νt f 2
+a2
+f
++ t 4
+tvJ0 f 2D02ρp
+
+1 − ν2p
+ (4.55)
+t is the time, νt is the turbulent viscosity, f is the frequency, a f =
+q
+(K f /ρ f ) is the
+wave speed in fluid, K f is the bulk modulus of fluid, ρ f is the density of the fluid, tv
+is the pipe viscous time scale, J0 is the inverse modulus of elasticity, D0 is the pipe
+inner diameter, ρp is the pipe material density, and νp is the Poisson’s ratio. The first
+term in Eq. ( 4.554.55) is the contribution of friction and second term is the contribution
+of viscous damping by the pipe. The significance of TR is that it gives a measure of
+time-reversibility of waves. For instance, given a spatial range x, a TR ≤ 1 implies
+that the temporal acceleration terms are dominant over damping terms and that the
+wave-field is time reversible. For the case of elastic pipe, Eq. ( 4.554.55) becomes
+TRelastic = t νt f 2
+max
+a2
+0
+(4.56)
+For the case of visco-elastic pipe, Eq. ( 4.554.55) is
+TRVE = t νt f 2
+max
+a2
+f
++ t 4
+τJ0 f 2maxD2ρp
+
+1 − ν2p
+ (4.57)
+where, a0 is the elastic wave speed (defined in Eq. ( 2.182.18)). In this thesis, the param-
+eter TR is evaluated for various pipe systems such as (i) test-rigs in [ 171171]; (ii) Bea-
+con Hill field-scale pipe system in Hong Kong [ 130130]; and (iii) real-field systems such
+as distribution-transmission pipe system in Milan, Italy [ 4343], transmission main in
+Trento, Italy [129129], and distribution line in Ngau Tau Kok, Hong Kong [ 130130]. The ob-
+tained value of TR for these systems is provided in Table 4.24.2. In summary, it is found
+that TR ranges between [10−7, 10 −5] , for elastic pipe systems, and [10−4, 10 −2], for
+visco-elastic pipe systems, implying that waves are time-reversible. These results are
+encouraging and support the application of TR technique for condition assessment of
+pressurized pipes using transient waves.
+82
+
+===== PAGE 115 =====
+4.7 Summary
+In this chapter, the TR of water-hammer waves in (i) an unbounded pipe system with
+and without damping, and (ii) a bounded pipe system with and without damping
+is studied. Three kinds of damping: (i) steady friction; (ii) unsteady friction; and
+(iii) visco-elasticity of the pipe wall are analyzed. For the case of no damping, it is
+analytically shown that the water-hammer waves are perfectly reversible in space and
+time. Moreover, it is proven that the TR of water-hammer waves, with finite frequency
+bandwidth, achieve the theoretical diffraction limit of half of the minimum probing
+wavelength (λmin). These findings are applicable to both unbounded and bounded
+pipe systems as well as for the cases of damping and no damping. In addition, the
+temporal resolution is not affected by any form of damping in both unbounded and
+bounded pipe systems for the studied frequency range of 100 Hz. The significant
+influence of damping is found on the amplitude of the refocused wave. Thus, the
+resolution of the refocused wave may get affected when high noise is present in the
+system. The overall conclusion is that the TR of water-hammer waves identify their
+unknown source even in the presence of damping. These findings explain the results
+of TR-based pipeline defect detection methods presented in recent papers.
+84
+
+===== PAGE 117 =====
+5.2.1 Analytical model
+Consider a visco-elastic (VE) pipe system as shown in Figure 5.15.1. The system com-
+prised of a valve at the downstream end (x = xS) and a wave reflector at x = χ which
+reflects part of the incident wave. In this paper, two kinds of reflectors are consid-
+ered: (i) mass source reflector (e.g., leak or active illegal branch), and (ii) momentum
+source reflector (e.g., discrete blockage or partially closed in-line valve, etc.). Consider
+a point source is injected in the form of δ (x − xS, t − tS), where xS is the location of
+the source and tS denotes the timing of the source. A physical representation of this
+excitation is a pulse-type excitation through a rapid closure and reopening of a valve
+at the end of the pipe. The impulse response of the system is derived in Appendix
+C.1C.1 and the final expression is given by Eq. ( C.25C.25) as
+˜h (ω, xR|χ) =
+
+Z ˜qS + ˜Aχ ˜G (ω, χ)
+
+exp [ik (xR − xS)] (5.1)
+where ˜h is the impulse response function in the frequency domain, ω is the angular
+frequency, xR is the receiver location, k is the wave number (given by Eq. ( C.3C.3)), Z is
+the characteristic impedance of the pipe (given by Eq. ( C.6C.6)), ˜qS = 1 m3 represents the
+unit strength of the point source in the frequency domain,
+˜G (ω, χ) = exp [−2ik (χ − xS)] (5.2)
+is the propagation function from reflector location χ to measurement location xR,
+˜Aχ =
+
+
+
+˜Aχ
+mass = − |Z|2
+Z + 2Zχ
+mass
+˜qS for mass source refelctor (i.e., a leak)
+˜Aχ
+mom = ZZ χ
+mom
+2Z + Zχ
+mom
+˜qS for momentum source reflector (i.e., a blockage)
+(5.3)
+is the amplitude of the reflection from the reflector and has the dimension of [L.T]
+in the frequency domain, Zχ
+mass is the impedance of the mass source reflector (given
+by Eq. ( C.15C.15)), and Zχ
+mom is the impedance of the momentum source reflector (given
+by Eq. ( C.22C.22)). Note that k and Z are complex which include linearized steady-state
+friction (SF), unsteady friction (UF) and VE effects of the pipe wall. In this thesis, the
+UF is modeled using Vardy-Brown model [143143] and VE effects are incorporated using
+the Kelvin-Voigt (KV) model [6767]. Let
+∆˜h = ˜h − Z ˜qS exp [−ik (xR − xS)]
+86
+
+===== PAGE 119 =====
+where ∆hm denotes the measured impulse response function and n is assumed to fol-
+low Gaussian distribution with zero mean and fixed variance σ2 (i.e., n ∼ N (0, σ2)).
+The objective is to extract the defect characteristics (i.e., χ and Aχ) from ∆hm using
+the time-reversal technique.
+5.2.2 Time-reversal technique
+The standard time-reversal technique is a two stage process. In stage 1: a point
+source is injected into the system and the impulse response of the system is mea-
+sured. For a pipe system in Figure 5.15.1, the measured impulse response function is
+denoted by ∆hm (t, xR|χ) (i.e. Eq. ( 5.75.7)). In stage 2, the measured response is first
+reversed (flipped) in time such that ∆hm (t, xR|χ) becomes ∆hm (−t, xR|χ). This time-
+reversed signal is then re-emitted back to the medium and the response of the system
+is measured again. For leak detection application, this second stage is performed on
+computer wherein the response is predicted by taking the convolution product of the
+input signal ∆hm (−t, xR|χ) with the theoretical impulse response function of the sys-
+tem ∆h (t, xR| ˆχ), where ˆχ is the estimated value of χ. Mathematically, this convolution
+product is written as
+htr (t, ˆχ) =∆hm (−t, xR|χ) ∗ ∆h (t, xR| ˆχ)
+∆=
+Z ∞
+−∞
+∆hm (τ, xR|χ) ∆h (t + τ, xR| ˆχ) d τ (5.8)
+where htr is the response of the system subjected to the time-reversed signal and ‘ ∗’
+denotes the convolution. Substituting Eqs. ( 5.55.5) and (5.75.7) in Eq. ( 5.85.8) gives
+htr (t, ˆχ) =
+Z ∞
+−∞
+[AχG (τ, xR|χ) + n]
+ ˆAχG (t + τ, xR| ˆχ)
+
+d τ (5.9)
+where ˆAχ is an estimate of Aχ. For the case when there is no noise (i.e. n = 0), it
+follows from the Cauchy-Schwartz inequality that Eq. ( 5.95.9) reaches maximum only
+when t = 0, ˆχ = χ and ˆAχ = Aχ. That is,
+max htr (t = 0, ˆχ) = (Aχ)2
+Z ∞
+−∞
+G2 (τ, xR|χ) d τ (5.10)
+Using the Parseval’s theorem, Eq. (5.105.10) is expressed in the frequency domain as
+max ˜htr (t = 0, ˆχ) =
+ ˜Aχ2
+Z ∞
+−∞
+ ˜G (ω, xR|χ)
+2 d ω (5.11)
+88
+
+===== PAGE 121 =====
+the Eq. ( 5.35.3) and leads to
+ˆsχ
+L = 4 ˆAχ (gA)2
+a0
+ 
+a0 ˜qS − gA ˆAχ
+s
+ˆH0,χ
+2g (5.15)
+where ˆH0,χ = H0(xR) + ˆχRQ0(xS)/(2gA) is the estimated value of steady-state pres-
+sure head at the estimated reflector location. Likewise, the head loss coefficient ˆkχ
+HL
+of a momentum source reflector is estimated by substituting ˆAχ and ˆχ in Eq. ( 5.35.3)
+which gives
+ˆkχ
+HL = 2gA2a0 ˆAχ
+Q0
+ 
+a0 ˜qS − gA ˆAχ. (5.16)
+where ˜qS = 1 m3 is kept in Eqs. ( 5.155.15) and (5.165.16) to conserve the units, and Q0 (xS) is
+the steady-state flow rate at the source location.
+5.2.3 Solution for multiple leaks
+Consider a pipe system as shown in Figure 5.25.2 where a mass point source is located
+at χ1 and a momentum point source is placed at χ2. The solution for ∆˜h is derived in
+Appendix C.4C.4 and given by Eq. ( C.62C.62) as
+∆˜h (ω, xR|⃗χ) = ˜Aχ1
+mass ˜G (ω, χ1) + ˜Aχ2
+mom ˜G (ω, χ2) (5.17)
+where ⃗χ = (χ1, χ2). Note that Eq. ( 5.175.17) is a linear combination of reflected waves
+from reflector 1 and reflector 2. Therefore, a general expression of ∆˜h for NR number
+of reflectors can be written as
+∆˜h (ω, xR|⃗χ) =
+NR
+∑
+j=1
+˜Aχj ˜G
+ 
+ω, χj
+
+(5.18)
+where ⃗χ = (χ1, · · · , χNR), and ∆˜h (ω, xR|⃗χ) is the impulse response due to NR number
+of reflectors in the system. For the case of no damping, the inverse Fourier transform
+of Eq. ( 5.185.18) gives
+∆h (t, xR|⃗χ) =
+NR
+∑
+j=1
+AχjG
+ 
+t, χj
+
+(5.19)
+where
+G
+ 
+t, χj
+
+= δ
+"
+t − 2
+ 
+χj − xS
+
+a0
+#
+(5.20)
+Note that the reflection arrival time of each reflector is given by its own Green’s
+function G(t) which is independent of other reflectors’ locations. Thus, for defect lo-
+calization problem, a single reflector model can be employed to estimate the locations
+90
+
+===== PAGE 126 =====
+Table 5.1: System characteristics used for numerical simulations.
+Variable Description
+Length,L 200 m
+Internal diameter,D 79.2 mm
+Wall thickness,e 5.4 mm
+Elastic modulus,E 117 GPa (for elastic pipe)
+1.47 GPa (for HDPE pipe)
+Wave speed,a0 1302 m s−1 (for elastic pipe)
+324 m s−1 (for HDPE pipe)
+Joukowsky’s pressure head,HJ 10.8 m (for elastic pipe)
+2.7 m (for HDPE pipe)
+Sampling frequency 2048 Hz
+Minimum wavelength,λmin 26.04 m (for elastic pipe)
+6.48 m (for HDPE pipe)
+Steady friction factor,fDW 0.02
+Creep compliance,J [2.16, 0.73, 0.55, 0.25, 0.008] × 10−10 Pa−1
+Retardation time,τ [0.052, 0.62, 0.81, 6.56, 9.05] s
+plot in Figure 5.35.3 contains a noise-free signal (solid line, for reference only) and a
+noisy signal (dashed line) with SNR = 10 dB, wherein, σ ≈ 0.3|∆hD|. For defect
+localization, a vector for defect candidates is defined as ⃗ˆχ = (0, 0.1,· · · , L). Following
+the Algorithm 11 (step 1), the incident pulse (i.e., the pulse between t = [ 0, TP], where
+TP = 0.04 s) is subtracted from the signals to obtain ∆H(t). The obtained signal is
+then used for defect localization. The results are shown in Figure 5.45.4a and 5.45.4b for
+elastic pipe and Figure 5.45.4c and 5.45.4d for visco-elastic pipe, respectively. The difference
+between Figure 5.45.4a and 5.45.4b is that the former one is obtained using damping-free
+time domain model (i.e., Eq. ( 5.245.24)) and the latter one is obtained using frequency
+domain model which includes damping effects (i.e., Eq. ( 5.255.25)). In all subplots of
+Figure 5.45.4, the solid lines represent the estimated defect location, dashed lines show
+the exact defect location, and localization error is smaller than the interval of 0.5 λmin).
+For current example, the numeric values of λmin are provided in Tab. 5.15.1. It can
+be seen from Figure 5.45.4 that both models (i.e., the time domain damping-free model
+and the frequency domain model with damping effects) have accurately localized the
+defect with the average absolute localization error of 0.1 m. In the context of TR of
+waves, these results are expected because [ 175175] showed that pipeline damping effects
+95
+
+===== PAGE 131 =====
+Figure 5.8: Spatial resolution of two closely placed leaks with distance dL = (a)
+0.25λmin, (b) 0.30λmin, (c) 0.35λmin, and (d) 0.40 λmin.
+5.3.3 Example 3: mixed-type of defects
+In this example, two scenarios are considered: In scenario I, one leak and one discrete
+blockage are simulated at χ1/L = 0.4 and χ2/L = 0.6, respectively. The effective
+leak size is sL = 4.92 mm2 (0.1% of pipe area). The pressure head loss coefficient of
+discrete blockage is kχ2
+HL = 1000 which corresponds to 0.62 m of pressure head loss
+in the steady-state condition. Other system properties are same as previous example.
+The simulated transient signals are presented in Figure 5.95.9a (for elastic pipe) and in
+Figure 5.95.9b (for VE pipe). In scenario II, an additional discrete blockage is simulated at
+χ3/L = 0.8 whose loss coefficient is kχ3
+HL = 1200 and produces 0.52 m of pressure drop
+during the steady-state condition. The corresponding numerical signals are presented
+in Figs. 5.95.9c (for elastic pipe) and 5.95.9d (for visco-elastic pipe). Figure 5.105.10 shows the
+defect localization results for both scenario I ( 5.105.10a and 5.105.10b) and scenario II ( 5.105.10c
+and 5.105.10d). In all cases, the proposed method has successfully localized the defects as
+the exact defect locations and multiple peaks of the objective function |B| are within
+the interval of 0.5 λmin (see Table 5.15.1). The overall absolute defect localization error is
+less than 0.2 m. After localization, the next step is to identify the type of the defect and
+its corresponding size. This task is performed according to step 6 of the Algorithm
+100
+
+===== PAGE 136 =====
+Table 5.2: Wave-paths of the reflected waves from known boundaries of the network
+Reflected Wave-path Arrival time Non-dimensional arrival time
+pulse (m) t (s) (a0 ×t)/(LP1 +LP3 +LP4)
+Hre f,1
+ 2LP1 0.4041 0.9563Hre f,2
+ 2(LP1 +LP2) 0.6346 1.5017Hre f,3
+ (2LP1 +LP2 +LP3) 0.6730 1.5926Hre f,4
+ 2(LP1 +LP3)/a0 0.7115 1.6835Hre f,5
+ 2(LP1 +LP2 +LP4) 0.7883 1.8653Hre f,6
+ 2LP1 +LP2 +2LP4 +LP3 0.8267 1.9562
+known features of the pipe can be easily eliminated such as junction node K and J.
+Therefore, in this paper, the second approach is used and further elaborated. It is also
+worth highlighting that, for the case where defect is located within the loop, none
+of the two approaches can pinpoint the defect using only one pressure sensor being
+placed outside the loop. Thus, for pipe network, the proposed method gives a first-
+level of inspection by identifying whether the defects are inside the loop or outside
+the loop. This problem and possible solutions are further discussed after obtaining
+the results for each case in the forthcoming paragraph.
+5.4.1 Results and discussion
+Figure 5.145.14 shows the estimated reflector locations wherein multiple peaks are found.
+The peaks which correspond to the known characteristics of the system are indicated
+with arrows. The peak at x = 86.3 m from the downstream valve corresponds to
+the simulated leak location χ = 87.5. The absolute localization error is 1.2 m and
+both the exact and estimated leak locations are within the interval. Moreover, another
+significant peak is located at x = 336.6 m. This is the secondary reflection of the leak
+and is due to the interaction between leak and first primary reflection of the junction
+at Node K and indicated by
+
+Hre f,1
+
+in Figure 5.135.13. The estimated leak size ˆsL = 3.52
+mm2 and the relative error between exact and estimated leak size is 28%. Figures
+5.155.15a and 5.155.15b show the estimated defect locations for case 2 and case 3, respectively.
+In both cases, the error between exact and estimated leak locations are within the
+interval of 0.5 λmin. Moreover, notice that the estimated leak in case 2 and second
+estimated leak of case 3 appears after the peak corresponding to junction K which
+indicate that these leaks are inside the loop. In terms of defect size estimation, the
+105
+
+===== PAGE 141 =====
+Figure 5.17: Sensitivity analysis for leak localization with uncertain wave speed
+using undamped model (solid line) and damped model (dash line) in (a) elastic pipe,
+(b) visco-elastic pipe. Objective function plots with exact wave speed (solid line) and
+with uncertain wave speed (dash line) in (c) elastic pipe, and (d) visco-elastic pipe.
+110
+
+===== PAGE 146 =====
+Figure 5.20: Estimated leak location and leak size for Case C1-C4, C6, C9-C12. Solid
+bar represents the exact leak properties and dash line denotes the estimated leak
+properties.
+Figure 5.21: Estimated discrete blockage location and head-loss coefficient for
+C2,C3,C5-C8. Solid bar represents the exact blockage properties and dash line
+denotes the estimated blockage properties.
+115
+
+===== PAGE 151 =====
+Figure 5.26: Assembly placed on the access point at AV location during (a)
+inspection 1, and (b) inspection 2, 3, and 4.
+Figure 5.27: Histogram of measured data prior to the transient test during all
+inspection and the best fit distribution function
+120
+
+===== PAGE 156 =====
+Chapter 6
+Model-free matched field processing for pipeline condi-
+tion assessment
+6.1 Introduction
+In this chapter, a matched-field processing (MFP) applied to data versus data (DD)
+is proposed to localize defects in pressurized freshwater pipe systems. The proposed
+MFP-DD does not require transient models and relies only on the measured reference
+transient response of the system which is then correlated with the more recent tran-
+sient response to localize the defects. The method requires (i) repeatable transient tests
+to obtain the model-free MFP results, and (ii) topological information of the system to
+interpret these results. The proposed method is demonstrated numerically and val-
+idated through experiments in laboratory, field-scale transmission-like pipeline and
+real-field distribution systems in Hong Kong where a simulated leak is successfully
+localized. In addition, the method proved its strength by identifying a modification
+in the real-field distribution system through a blind test. This modification was made
+by the water authority officers and was unbeknown to the authors.
+6.2 Background and motivation
+To date, TBDDMs have been successfully tested and verified on simple laboratory-
+scale piping systems where the topology and properties of the system are almost
+fully known and incorporated in the models (for example, [ 2828, 3030, 6868, 145145, 185185–187187]).
+Several researchers also attempted to test these methods in real-field systems and met
+125
+
+===== PAGE 161 =====
+0.5 l/s, respectively. The wave speed is a = 1200 m/s.
+A leak of size sL = 50 mm 2 (i.e. 1% of the pipe cross-sectional area) is simulated at
+xL = 107 m from the transient generation location. Additive Gaussian white noise
+with zero mean and fixed variance is added to the numerically simulated signals.
+Experiments show that the noise distribution in pressurized water pipelines with flow
+follows a Gaussian distribution [ 204204]. The variance of the noise is determined by the
+following expression [205205]
+σ = ∆hL × 10SNR/20 (6.8)
+where σ is the standard deviation of the noise, ∆hL is the amplitude of the reflected
+wave from the leak, and SNR denotes the signal-to-noise ratio in decibels (dB). The
+transient response of the system without leak (referred as baseline signal) and with
+leak are shown in Figure 6.46.4 (a) with SNR = 15 dB. In Figure 6.46.4 (a), y-axis is non-
+dimensionalized by the Joukowsky’s pressure head [5656]. Note that the reflection from
+the leak arrives to the measurement location (i.e. the downstream end of the branch
+line) at around t = 0.178 s. This leak reflection is masked by the noise and other wave
+reflections in the system. Consequently, leak localization using TBDDMs that does
+not deal with noise is challenging. For instance, [ 206206] and [ 3434] conducted transient
+tests in various field-scale and real-field pipeline systems to detect leaks. They found
+that the measured transient responses are relatively much complicated than the model
+predictions and that it is difficult to detect defects when their signatures are obscured
+by other reflections from unknown sources.
+Figure 6.3: Schematic of the piping system used for numerical simulations.
+For illustration, only first half-period of the signal is used for further analysis as it
+contains sufficient information to localize a defect in the system [ 2828, 3434, 180180, 181181]. A
+window of size S = Tc/∆t = 25 data points, where ∆t = 10−3, is used to apply MFP-
+DD. The results are shown in Figure 6.46.4 (b). Figure 6.46.4 (b) contains multiple plots of
+MFP-DD with (i) no noise (solid line); (ii) SNR = 20 dB (dashed line); and (iii) SNR
+130
+
+===== PAGE 166 =====
+For each test case, the transient test is repeated 10 times and the averaged transient
+response is obtained for further analysis. The average valve time closure is Tc = 0.030
+s. The average of the baseline measurement and measurements with a simulated leak
+are presented in Figure 6.66.6 (a). The baseline measurements are conducted two days
+prior to the test cases with simulated leaks.
+To apply MFP-DD, the average wave speeda = 350 ± 10 m/s, and window size S = 30
+are used. The results are presented in Figure 6.66.6 (b). For both cases, the simulated
+leaks are accurately localized with an absolute error of about 3.8 m and 3.1 m for case
+1 and case 2, respectively. Note that the absolute errors in both cases are within the
+confidence interval of λ/2 = 5.25 m. The lobe at ˆxr = 143.5 m corresponds to the
+location of the upstream pump.
+In contrast to the results obtained using model-free MFP , [ 3030] applied model-based
+MFP and inverse transient analysis for the same pipe system and found more artificial
+lobes than actual leaks. They concluded that the accuracy of the model is key in
+applying model-based TBDDMs.
+6.5.2 Laboratory experiments at WEL-UNIPG
+The description of the test setup and the schematic diagram are given in section 3.1.23.1.2
+and Figure 3.23.2, respectively. At the downstream end of the pipe, the steady state
+pressure head, on average, is H0 = 18.7 ± 0.25 m and steady state flowrate at the valve,
+on average, is around Q0 = 1.9 ± 0.07 l.s −1. Three test cases are considered: Case A
+:= single leak of size sL = 60 mm 2 located at xL = 78.38 m (from the downstream
+end); Case B := single leak of size sL = 33.6 mm 2 at xL = 104.99 m; Case C := two
+leaks of same sizes as defined in Case A and B. The transient signals for each test case
+along with the baseline signal are shown in Figures 6.76.7(a), 6.76.7(b), and 6.76.7(c) for Case
+A, B, and C, respectively. The experimental wave speed in this system is estimated
+to be a = 365.5 m.s −1. For all test cases, the downstream (D/S) valve is manually
+and fully closed in about Tc = 0.08 s. As such, λ/2 = 14.6 m and the window size
+is S = 164. The results of the proposed MFP-DD method for these three cases are
+shown in Figures 6.76.7(d), 6.76.7(e), and 6.76.7(f) for Case A, B, and C, respectively. It can
+be seen from this figure that all the simulated leaks are accurately detected as the
+135
+
+===== PAGE 171 =====
+Measured transient signals
+A series of transient experiments are conducted during Year 2018 and 2019. The ex-
+periments which are relevant to the scope of this paper are tabulated in Table 6.16.1. In
+particular, this paper discusses the data from two inspections: (i) inspection I which
+was conducted in October 2018 and (ii) inspection II which was conducted in February
+2019. During each inspection exercise, experiments are conducted for two scenarios:
+(i) system with its normal state (referred as baseline signal) and (ii) with a simulated
+leak at Hyd-1. For each scenario, the transient tests are repeated 10 times for in-
+spection I and 6 times for inspection II . From the collected samples, 6 samples are
+selected from inspection I data set and 4 samples are selected from inspection II data
+set to obtain the averaged response of the system. This sample selection is based on
+the values of valve time closure Tc. The averaged transient responses of the system
+at Hyd-1, Hyd-2, and Hyd-3 from inspection I are presented in Figure 6.96.9 (a), 13 (b),
+and 13 (c), respectively. The measured responses from inspection II are similar to
+inspection I, and therefore not presented for brevity. The wave arrival time at differ-
+ent measurement locations is used to estimate the average wave speed in the system
+which is about a = 1240 ± 20 m/s. The theoretical wave speed for this pipe system is
+about 1270 m/s and the relative error between theoretical and estimated wave speed
+is about 2.4 %.
+It can be seen from Figure 6.96.9 that the transient response is complicated and that
+the reflection from the simulated leak is not obvious as the leak signature is masked
+by the ambient noise and other wave reflections of the system. Such difficulties are
+common in real water supply systems [ 3434, 188188, 206206].
+Results and discussion
+The proposed MFP-DD analysis is performed using the signals recorded at Hyd-2.
+Moreover, only the first half-period of the transient wave is used for the analysis where
+the first half-period is determined based on the first characteristics time of reflection
+from the inlet of the pipeline (i.e. Node A in Figure 10). To perform the analysis, S =
+Tc/∆t = 15 and 22 is used for Inspection-I and Inspection-II data, respectively. The
+results for MWC analysis are presented is Figure 6.106.10 where the location of transient
+140
+
+===== PAGE 176 =====
+(a)
+(b)
+Figure 6.11: (a) Detail A: displaying the effect of valve time closure on the width of
+lobes; and (b) Detail B: highlighting the new lobe found in Inspection II data.
+145
+
+===== PAGE 181 =====
+Figure 7.2: Arrangement of Helmholtz resonator inside a fluid-filled pipe
+Figure 7.3: Numerical simulation results in (a) time, and (b) frequency domains.
+Table 7.1: Modeling parameters of single HR.
+Variable Description
+lC 10 m
+lN 10 m
+AC 1 m2
+AN 0.1 m2
+a0 1000 m.s−1
+A 1 m2
+fHR 5.0329 Hz
+150
+
+===== PAGE 186 =====
+ψ2 = exp
+
+−ike f f ℓ
+
+(7.6b)
+From linear algebra,
+ψ1 + ψ2 = Tr(M)
+That is,
+exp
+
+ike f f ℓ
+
++ exp
+
+−ike f f ℓ
+
+= 2 cos(k2l2) cos (k1l1) −
+ Z1
+Z2
++ Z2
+Z1
+
+sin (k2l2) sin (k1l1)
+=⇒ 2 cos
+ 
+ke f f ℓ
+
+= 2 cos(k2l2) cos (k1l1) −
+ Z1
+Z2
++ Z2
+Z1
+
+sin (k2l2) sin (k1l1)
+=⇒ ke f f = 1
+ℓ arccos
+
+cos (k2l2) cos (k1l1) − 1
+2
+ Z1
+Z2
++ Z2
+Z1
+
+sin (k2l2) sin (k1l1)
+
+(7.7)
+Eq. ( 7.77.7) provides the relation between time frequency ω and effective spectral fre-
+quency (i.e., the Bloch wave number) ke f f, known as the dispersion relation. An al-
+ternative approach to derive this dispersion relation is given in Appendix D.3D.3. Thus,
+given that q(x0) & h(x0) are known, the solution for q(x) & h(x) can be determined
+by 
+q (x)
+h (x)
+
+ = exp
+
+ike f f (x − x0)
+
+
+q (x0)
+h (x0)
+
+ (7.8)
+Example 1
+Consider l1 = l2 = 10 m =⇒ ℓ = 20 m, a0,1 = a0,2 = 1000 m.s −1, A1 = 1 m 3,
+A2 = 0.1 m 3, ω = 2π[0, 0.1,· · · , 50] rad.s−1, and there is no damping in the pipe,
+implying that Zi = a0,i/(gAi); i = ( 1, 2). Using these numerical values, Eq. ( 7.77.7)
+is evaluated and the results are shown in Figure 7.67.6. This figure clearly shows that
+when the pipeline has uniform impedance, there is a linear relation between Bloch
+wavenumber ke f f and frequency (i.e., no dispersion). Whereas, for the case when
+metamaterial is introduced by varying the cross-sectional area of pipeline in a pe-
+riodic manner, the dispersion curve is complex, non-linear and has spectral band
+gaps. A spectral bandgap means that there exist a frequency band within which the
+wave does not propagate. Another fascinating property of metamaterial is that, for a
+given frequency, the Bloch wavenumber ke f f is larger than the case when there is no
+metamaterial which implies that the wavelength has decreased as ( ke f f = 2π/λe f f,
+155
+
+===== PAGE 191 =====
+time using MOC. The spatial domain starts immediately from the upstream edge to
+the downstream edge of metamaterial structure. The obtained pressure field matrix
+is first Fourier transformed from time to frequency and then the resulting matrix is
+further Fourier transformed from space to wave number. To have a higher resolution
+in the plots, the MOC simulation is repeated for pipe with 50 cells.
+Figures 7.107.10(a) and 7.107.10(b) show the dispersion plots for waveguide without and with
+metamaterial for a0 = 1000 m.s −1, respectively (similar results are shown in Figures
+7.117.11(b) 7.117.11(b) for a0 = 300 m.s −1). In both cases, it can be noticed that, without
+metamaterial, the curve between f and ke f f is linear. Whereas, for the case when
+metamaterial is present, the dispersion curve shows non-linear pattern. Particularly
+for the case of a0 = 300 m.s−1, the spectral bandgap is prominent between f = [3, 12]
+Hz, implying that no waves are propagating at those frequencies.
+Figure 7.10: Dispersion curves for a0 = 1000 m.s−1 for waveguide (a) without
+metamaterials, and (b) with metamaterials.
+160
+
+===== PAGE 196 =====
+Figure 7.16: Dispersion curves for (i) normal pipe (solid line) and (ii) meta-pipe
+(dotted and dash-dotted lines)
+the cost of high velocities in the congested cross-sections as well as reduced volumet-
+ric capacity of the system. An alternative of changing the cross-sectional area is to
+change the wave speed. It is because the dispersion relation (Eq. ( 7.77.7)) remains valid
+as long as the impedance is changed periodically. Since the hydraulic impedance is
+defined as (Eq. 2.572.57 for elastic pipe)
+Z = a0
+gA
+For each pipe section, this expression can be written as Zj = aj/(gA j), where the
+subscript j denotes the pipe section index. This implies that the same resonance
+behavior can also be experienced if the pipe of different wave speeds are joined in
+a periodic fashion. The periodic change in wavespeed can be made by using pipes
+of different materials (e.g., a combination of ductile iron and polymeric pipe) or by
+changing the lining material of the pipes in a periodic manner.
+Figure 7.177.17 presents the schematic of the system which has pipe sections of constant
+diameter, hence no conflict with conveying capacity of the pipe. However, the wave
+speed is periodically changed between 1000 m.s −1 and 300 m.s −1. Thus each cell is
+comprised of two pipe sections with different wave speeds. Numerical simulations
+165
+
+===== PAGE 201 =====
+Figure 7.21: Dispersion curve for the case of pipeline without and with metamaterial
+and in the presence of damping. The black circles-markers ( ◦) represent the pipeline
+without metamaterial and red cross-marker ( ×) represents the pipeline with
+metamaterial. The left column figures contain the real part of k and the right column
+figures contain imaginary part of ke f f.
+170
+
+===== PAGE 206 =====
+pipe) is dispersive (i.e., nonlinear wavenumber-frequency relation) and produces
+local resonance, spectral band-gaps and improves the resolution of the defect
+detection localization.
+8.2 Future work
+The focus of the present thesis and much of TBDDMs is on developing optimal, ac-
+curate, robust, efficient, and versatile techniques for localizing and sizing defects. An
+important and urgent research problem is to develop a methodology that minimizes
+false negatives and positives in defect detection. That is, a reliable method that can
+announce a defect after one has occurred is needed. To this end, Liou [ 106106] explored
+the potential of hypothesis testing using generalized likelihood ratio test to detect
+a leak in a pipeline. Even though this work specifically deals with a single leak in
+a single pipeline, it is a good starting point to further explore such techniques for
+the general problem of defect detection in UWSS. Likewise, concepts of random ma-
+trix theory can also be explored for this objective. For instance, several studies in
+finance [224224–226226], wireless communication [ 227227, 228228], and drug discovery [ 229229–231231]
+have consistently found that the eigenvalues distribution of noise-based sample co-
+variance matrix (SCM) have different pattern than that of the signal-based SCM. As
+such, the eigenvalues distribution of SCM of transient signals can be used to deduce
+the knowledge about the presence of defect(s) in the system.
+In the study of meta-materials, this thesis has largely neglected the effects of damping,
+flow, and pipe boundaries and their associated normal modes. In addition, conclusive
+experimental proof of the extent to which the water hammer waves can be controlled
+using metamaterial is yet to be undertaken. Therefore, in the future, the potential re-
+search question would be to elucidate the effects of steady, unsteady, and visco-elastic
+damping, base flow, and normal modes on the properties of the metamaterial. Fur-
+thermore, to what extent the experimental evidence corroborates the exciting potential
+shown by the theoretical analysis presented in this thesis should be explored.
+This thesis has merely focused on the diagnosis of fully-fledged defects which is
+a reactive approach and lags in timely condition assessment and maintenance. In
+future work, the research focus should be moved from reactive to proactive mode,
+175
+
+===== PAGE 211 =====
+The axial stress σx in the pipe depends on the support (and/or restrain) conditions of
+the pipe. In the classical water-hammer book by Wylie and Streeter [ 5656], a systematic
+analysis on three kinds of support conditions is provided which allows to write σx in
+terms of σh. The three support conditions and their corresponding relations are:
+(i) only upstream end of the pipe is anchored
+σx = σh
+2 (A.13)
+(ii) pipe is anchored throughout its length against axial movement
+σx = νσh (A.14)
+(iii) pipe is anchored and expansion joints are provided
+σx = 0 (A.15)
+The analysis of water-hammer equation for the case of thick-walled pipes is presented
+by Tijsseling A. S. [234234]. In this thesis, however, we restrict our intention to thin-walled
+pipes. Substituting Eqs. ( A.12A.12)–(A.15A.15) in Eq. ( A.10A.10) gives
+εh = φ σh
+E = φ pD0
+2eE (A.16)
+wherein
+φ =
+
+
+
+(1 − 0.5ν) for case (i), that is ( A.13A.13))
+(1 − ν2) for case (ii), that is ( A.14A.14))
+1 for case (iii), that is ( A.15A.15))
+(A.17)
+Taking the time derivative of Eq. ( A.16A.16) results
+∂
+∂t εh = φ
+2
+∂
+∂t
+ pD0
+eE
+
+(A.18)
+Since it is assumed that the pipe wall deformation is linear, E remains constant during
+the transient event. Moreover, the fact that radial stress σr is negligible, the strain in
+the radial direction is also small, and therefore, the pipe wall thickness e remains con-
+stant during the transient event. This also implies that the inner and outer diameter
+of the pipe deforms simultaneously and that there are no waves propagating in the
+radial direction along the pipe wall thickness. Thus, Eq. ( A.18A.18) becomes
+∂
+∂t εh = φ
+2eE D0
+∂
+∂t p (A.19)
+Substituting Eq. ( A.19A.19) in Eq. ( A.9A.9) provides
+1
+A
+DA
+Dt
+∼= 1
+A
+∂
+∂t A = φD
+eE
+∂
+∂t p (A.20)
+180
+
+===== PAGE 216 =====
+given as
+h f (t) = h f s + h f u
+= fDW
+2gDA 2 Q|Q| + 16υ
+gD2A
+tZ
+0
+∂Q(t∗)
+∂t∗ W (t − t∗) dt∗
+(A.33)
+where h f s & h f u denote steady & unsteady friction, respectively, W is the weight-
+ing function, and t∗ is the dummy variable of integration. The weight function is
+approximated as [247247, 248248]
+W(t) =
+
+
+
+6
+∑
+i=1
+mi
+4υt
+D2
+1
+2
+i−1
+t ≤ 0.02 D2
+4υ
+5
+∑
+j=1
+exp
+
+−nj
+4υ
+D2 t
+
+t > 0.02 D2
+4υ
+(A.34)
+wherein
+mi = [0.282095, −1.25, 1.057855, 0.937500, 0.396696,−0.351563],
+and
+nj = [26.3744, 70.8493, 135.0198, 218.9216, 322.5544].
+Following the Zielke’s approach, A. Vardy along with other collaborators further de-
+veloped the solution of the form as in Eq. ( A.33A.33) but for unsteady, turbulent, smooth
+pipe flows [143143, 242242, 249249]. In this case, the weighting function is relatively simple and
+given as [143143]
+W(t) = α f√
+πt
+exp
+ 
+−β f t
+
+(A.35)
+wherein
+α f = D
+4√υ; β f = 0.135
+ 4υ
+D2
+
+Reκ; κ = log10
+ 14.3
+Re0.05
+
+These models have been validated through numerous experimental data (see for ex-
+ample, [ 247247, 248248, 250250–252252]). More commentary on unsteady friction models can be
+found in [141141, 243243, 253253].
+185

@@ -1,0 +1,1739 @@
+SOURCE: 10-2024-Research and application of hydraulic fracturing fluid entry depth detection method based on water-hammer signal.pdf
+PAGES: 16
+FULL extract 16 pages
+
+
+
+===== PAGE 1 =====
+246 (2025) 213556
+Available online 30 November 2024
+2949-8910/© 2024 Published by Elsevier B.V.
+Research and application of hydraulic fracturing fluid entry depth detection 
+method based on water-hammer signal
+Xuelian Dong
+a , b
+, Haiyan Zhu
+a , b , c , *
+, Xingming Wang
+a , b , c
+, Le He
+d
+, Ziping Liu
+d
+, Wei Gong
+d
+,  
+Li Zhan
+d
+, Jingran Tang
+b
+, Xiangyi Yi
+b
+a
+State Key Laboratory of Oil and Gas Reservoir Geology and Exploitation, 610059, Chengdu, China
+b
+College of Energy, Chengdu University of Technology, 610059, Chengdu, China
+c
+Tianfu Yongxing Laboratory, 610213, Chengdu, China
+d
+Downhole Service Company, CNPC Chuanqing Drilling Engineering Company Limited, Chengdu, Sichuan, China
+ARTICLE INFO
+Keywords:
+Hydraulic fracturing
+Water-hammer effect
+Wave velocity calculation
+Detection of fluid entry point
+Frequency difference method (FDM)
+ABSTRACT
+Horizontal well staged fracturing method is a pivotal technology in the exploitation of unconventional oil and gas 
+reservoirs. During the pump shut-in process, the water-hammer wave generated, which propagates along the 
+wellbore and reflects at the fluid entry point and bridge plug. Pressure oscillation signals are observable at the 
+wellhead during pump shut-in phase, which encapsulate information about the reflection period of the water 
+hammer wave. By analyzing the pressure oscillation signal at the wellhead, it is possible to ascertain the depth of 
+fluid entry in the process of hydraulic fracturing. In this paper, the water-hammer wave propagation model of 
+wellbore and hydraulic fractures system is established and validated by using the field data. The relationship 
+between wave velocity and reflection time is studied, finding the water hammer signal is a periodic resonance in 
+the frequency domain. By picking up resonance frequency, the wave reflection period can also be obtained. In 
+this paper, a novel frequency difference method (FDM) is proposed to calculate the reflection time in the fre -
+quency domain. The depth of the fracturing fluid entry point is determined by combining the echo time and wave 
+velocity calculations. In this paper, field data from two field fracturing wells is collected. 10 staged water- 
+hammer of wellhead pressure data are analyzed. The fluid entry point calculation results are consistent with 
+the field results, which correlation coefficient is 99.6%. The results indicate the effectiveness of the proposed 
+method. This paper provides a strong technical reference for determine fracturing fluid entry depth and hydraulic 
+fracturing monitoring technology.
+1. Introduction
+Oil and gas are playing an irreplaceable role in promoting the 
+economy, ensuring national security, and improving people ’ s living 
+standards ( Zou et al., 2024 ; Yang et al., 2023 ). However, with the 
+gradual depletion of conventional oil and gas resources and the 
+increasing environmental problems, the development of unconventional 
+oil and gas reservoirs has become particularly important. The increase in 
+unconventional oil and gas production is due to the application of 
+large-scale horizontal well staged fracturing technology ( Yang et al., 
+2023 ; Zou et al., 2016 ), which forms a complex fracture ( Liu et al., 2023 ; 
+Saberhosseini et al., 2019 ). In the staged fracturing of horizontal wells, 
+hydraulic fracturing can provide channels for underground oil and gas 
+flow.
+With the increase of the buried depth of the reservoir, the plasticity 
+of the reservoir is enhanced, and the soil stress and its difference in -
+crease. In order to enhance oil recovery of the reservoir, it is necessary to 
+add dense fractures. The number of clusters in a single segment is 
+gradually increased from 2 to 3 clusters to 12 – 18 clusters. With the in -
+crease in the number of clusters, the clusters do not fully open in the 
+actual fracturing process. The productivity of each cluster varies greatly. 
+Whether these tightly-spacing fractures can be effectively created under 
+the condition of strong stress interference remains unclear ( Zhang et al., 
+2021 ). At present, fracturing fracture detection technology is difficult to 
+evaluate the effectiveness of fracturing parameters economically and 
+quickly, which limits the closed-loop optimization of fracturing effect.
+The depth of fluid entry point can evaluate fluid entry different in the 
+multi-cluster hydraulic fracturing. In addition, the depth of the fluid 
+* Corresponding author. State Key Laboratory of Oil and Gas Reservoir Geology and Exploitation, 610059, Chengdu, China.
+E-mail address: zhuhaiyan040129@163.com (H. Zhu). 
+Contents lists available at ScienceDirect
+Geoenergy Science and Engineering
+journal homepag e: www.sci encedirect.co m/journal/ geoenergy- science-and -engineering
+https://doi.org/10.1016/j.geoen.2024.213556
+Received 10 October 2024; Received in revised form 19 November 2024; Accepted 26 November 2024  
+
+===== PAGE 2 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+2
+entry point can also help engineers optimize fracturing design, which 
+helps to achieve more efficient fracturing operations. In summary, 
+detecting the position of fluid entry point is a pivotal technology in the 
+exploitation of oil and gas development efficiency and economic 
+benefits.
+The detection methods for the depth of the fluid entry point in 
+fracturing treatment mainly include micro-seismic monitoring technol -
+ogy ( Hison et al., 2005 ; Wang et al., 2024 ), optical fiber sensing tech -
+nology ( Holley and Kalia, 2015 ; Kalia et al., 2014 ), tracer technology 
+( Kosynkin and Alaskar, 2016 ), acoustic or ultrasonic monitoring tech -
+nology ( Lee et al., 1994 ; Zhou et al., 2023 ; Yang et al., 2023 ) and so on. 
+However, the above methods have some limitations, such as downhole 
+operations risking, high equipment costs and susceptibility to external 
+disturbances. For example ( Lee et al., 1994 ), it is recognized that the 
+micro-seismic energy is relatively small in their research. If the fractured 
+reservoir is deep, the propagation of micro-seismic wave is obstructed, 
+making it difficult for detectors arranged on the ground to receive micro 
+seismic event. Holley and Kalia(2015) investigated the increase in 
+fracturing production and found that ensuring the integrity of the fiber 
+optic sensing system is the technical basis for all successful monitoring. 
+Once the fiber optic is damaged in the wellbore, subsequent measure -
+ments will be affected by unpredictable serious consequences and even 
+fail completely. This method depends large surface area observation 
+system. Du and Guan, 2005 used over sixty kinds of oilfield tracers, the 
+statistical results showed that chemical tracers such as nitrate and po -
+tassium iodide, were the most commonly used in field. Tang (2004) used 
+acoustic logging data to process the imaging of out of well qualities, 
+provided imaging examples, and preliminarily proved the feasibility of 
+this technology.
+It is worth noting that there is often a water-hammer effect during 
+the fracturing treatment. At the end of each stage of fracturing con -
+struction, a sudden change in wellhead displacement will generate a 
+water-hammer pressure wave in the wellbore and propagates along the 
+wellbore. When it reaches underground hydraulic fracturing, a portion 
+of the energy of wave is reflected back to the wellhead. By installing a 
+high-frequency pressure signal acquisition device at the well head, the 
+water-hammer pressure wave signal is collected during hydraulic frac -
+turing. The water-hammer signal generated by pump shut-in contains 
+rich underground information. By identifying and analyzing the fluc -
+tuation characteristics of wave signals, it can be used to evaluate the 
+fluid entry position and scale of underground fractures ( Hu et al., 2022 ). 
+The method of diagnosing fractures based on water-hammer signals 
+effectively utilizes the its effect formed during fracturing pump shut-in. 
+This fracture diagnosis technology based water hammer is easy to 
+operate, cost-effective, and has strong timeliness ( Bogdan et al., 2016 ; 
+Rutzinger et al., 2017 ). Specifically, after the staged fracturing and 
+pump shut-in in a horizontal well, surface pressure acquisition equip -
+ment can record pressure fluctuations caused by water-hammer effects. 
+By analyzing the propagation characteristics, such as velocity, reflec -
+tion, and attenuation, the position, even size. The morphology of frac -
+tures can be identified ( Klem et al., 2017 ; Dung et al., 2021 ; Carey et al., 
+2016 ). Dung et al. (2021) used water-hammer pressure data collected of 
+the wellhead to obtain the pressure wave period, and studied the cor -
+relation between water-hammer characteristics and fracture detection 
+results by assuming reasonable boundary conditions. In addition, Shen 
+et al., (2023) studied the correlation between water-hammer signals and 
+fracture characteristics, and found that due to the uncertainty of 
+water-hammer velocity, inaccurate understanding of the propagation 
+speed of water-hammer wave in the wellbore may lead to misjudgment 
+of hydraulic fractures. In the actual process, the wave velocity is greatly 
+affected by the parameters of the well, and reasonable calibration of the 
+wave velocity is necessary. However, the above research results assume 
+that the wave velocity is constant, and the research on the 
+water-hammer wave has not been conducted. This means that the above 
+methods may be limited in practical fracture diagnosis applications.
+At present, some researchers have used specific characteristics in 
+water-hammer wave signals to determine the position of entry points 
+( Hu et al., 2022 ; Ghidaoui et al., 2005 ; Parkhonyuk et al., 2018 ), and 
+proposed analytical and numerical analysis methods for solving 
+water-hammer differential equations. Hu et al. (2022) found that during 
+field fracturing operations, the collected water-hammer signals gener -
+ated by pump shut-in contain a large amount of noise. It is necessary to 
+filter and denoise the water-hammer pressure signal in order to better 
+analyze the fracture characteristics. Cao et al. (2019) solved the 
+water-hammer equation using the method of characteristics and studied 
+the effects of pump shut-in time and fracturing displacement on the 
+water-hammer wave velocity. Similarly, Carey et al. (2015 , 2016) and 
+Hwang et al. (2017) discussed pressure signals on the wellhead and 
+fracture detection results of horizontal fracturing, equivalently pro -
+cessing fracture parameters with circuits element. By adjusting the 
+model parameters to match historical data, appropriate parameter 
+ranges were obtained, providing reference parameters for fracture 
+detection. To further increase the accuracy of numerical simulation, Ma 
+et al. (2019) did not adopt the idea of equivalent circuit parameters of 
+hydraulic fracture, directly considered perforation and fracture internal 
+friction as boundary conditions. It is worth noting that in the above 
+research results, most conclusions have made boundary assumptions in 
+numerical calculations. When establishing a horizontal wellbore 
+water-hammer model, the boundary conditions at the wellbore fracture 
+bottom bridge plug node have been simplified, assuming that the frac -
+ture is located at the bottom of the wellbore. However, this simplified 
+assumption may lead to computational errors in the model. In addition, 
+the above results mainly focus on the analysis of the propagation char -
+acteristics of water-hammer wave in the wellbore, and there is no 
+further analysis of the detection of entry point position. It should be 
+pointed out that in actual fracturing analysis, the detection of the entry 
+point position is one of the important parameters of horizontal well 
+fracture diagnosis.
+The main motivation of this article is to solve the detection of staged 
+fluid entry points in horizontal wells based on wellhead pressure signal. 
+The main innovations of this article are listed as follows: (a) The hori -
+zontal well wellbore fluid entry point bridge plug fracturing pump shut- 
+in water-hammer model is constructed. Based on the transient flow 
+theory, the characteristic line method is utilized to solve the model. By 
+verifying the field-collected wellhead pressure data, the accuracy of the 
+established model is demonstrated. On this basis, the influence of 
+different factors on water-hammer response was analyzed, which pro -
+vides a basis for fluid entry point detection. (b) The time-frequency 
+domain characteristics of water-hammer signals are analyzed. An algo -
+rithm for locating the fracturing fluid entry point position is proposed, 
+which uses the periodic method to calculate the wave velocity and the 
+frequency difference method to calculate the echo time. By comparing 
+the field application with the positioning results of the service provider’s 
+fluid entry point, the accuracy of the positioning method proposed in 
+this paper is verified. (c) The process flow of locating the fluid point at 
+the fracturing field is established, which can provide more accurate in -
+formation on the entry point position under complex geological condi -
+tions, and provide important reference value for the evaluation of field 
+hydraulic fracturing effects.
+2. Methodology
+In this section, we derive the fundamental equation of water-hammer 
+effect based on the theory of transient flow. A mathematical model of 
+water-hammer effect in horizontal well is established, which is solved by 
+the method of characteristics. This paper adopts the equivalent circuit 
+method to accurately describe the hydraulic fracture boundary in the 
+horizontal well. The proposed model is then verified by field data. 
+Finally, the influence of various factors, including entry point position 
+and wave velocity on the model, are explored.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 3 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+3
+2.1. Physical model of water-hammer
+When the pump shut-in, the fluid velocity within the string will 
+change rapidly due to the incomprehensibility and high inertia of the 
+fluid. This rapid change produces sudden variations in stage treatment 
+pressure, which is transmitted in the form of pressure wave. This char -
+acteristic is referred as water-hammer effect. The water-hammer occurs 
+when the mechanical shock waves are generated at the fracture point in 
+the bottom and the surface pressure sensor, leading to repetitive oscil -
+lations between the two points. The wellhead monitoring device cap -
+tures the water-hammer pressure signal and analyzes it to determine the 
+location of the fluid entry point. In this study, a physical model of water- 
+hammer is presented, as illustrated in Fig. 1 .
+The fluid entry point refers to the precise position of the fracturing 
+fluid underground. During multi-cluster fracturing operations, each 
+cluster exhibits varying liquid inflows at this time, with the main fluid 
+entry point identified as the cluster receiving the highest inflow. From 
+this position, the critical information can be derived. 
+(1) Through assessing the primary fluid entry point ’ s depth, the 
+length from the fracture to the wellhead can be calculated. This 
+assessment allows for evaluating the efficacy of the fracturing 
+treatment, thereby providing a field method for the fracture 
+monitoring.
+(2) By locating of the primary fluid entry point, the effectiveness of 
+the bridge plug can be further assessed, enabling the identifica -
+tion of bridge plug movement and whether it has been properly 
+set.
+(3) Analyzing the fluid entry point enables optimizing the temporary 
+plugging parameters, assessing the effectiveness of diverting 
+methods, and achieving balanced initiation of multi-cluster 
+fractures.
+2.2. Water-hammer model assumptions
+In each stage, the horizontal well multistage fracturing technology 
+employs high-pressure fracturing apparatus to facilitate fracture prop -
+agation. The water-hammer effect initiated during the pump shut-in 
+stage causes the pressure fluctuations within the well and fractures. 
+The attenuation speed and duration of this effect depend on the fluid 
+entry point. Current water-hammer models predominantly rely on the 
+assumption of a constant pressure boundary, which fails to accurately 
+depict the water-hammer characteristics within horizontal wells during 
+the pump shut-in phase of fracturing treatment. This study aims to 
+develop a mathematical model of water-hammer. Prior to presenting our 
+primary findings, several assumptions are established. (a)The wellbore 
+is modeled as a one-dimensional propagation; (b) The fluid within the 
+wellbore is incomprehensible; (c) Physical properties, pressure and ve -
+locity are distributed at each point across the same cross-section; (d) The 
+diameter of each part within the wellbore is constant, neglecting energy 
+loss at the connection part; (e) The wellbore interacts with the formation 
+exclusively through fractures; (f) The inclination of the horizontal sec -
+tion of the horizontal well remains constant.
+2.3. Mathematical model of water-hammer
+The fundamental principle of the water-hammer model based on the 
+equations of mass conservation and momentum. Based on the theory of 
+transient flow, the mathematical model of water-hammer is developed 
+in this study.
+Define the control volume 1 – 2 within the horizontal segment of the 
+wellbore, as illustrated in Fig. 2 (a). The fluid enters through section 1-1
+and exits via section 2-2 . The distance between these two sections is 
+defined as, and the angle between the control volume ’ s centerline and 
+the horizontal plane is identified as. The cross-sectional area of section 
+1-1 is presented as A . Within the defined time interval, applying the 
+mass conservation principle, the difference between the fluid mass 
+entering section 1-1 and the fluid mass leaving section 2-2 is equal to the 
+mass change within the control volume. This leads to the formation of 
+the water-hammer continuity equation ( Lipovsky and Dunham, 2015 ; 
+Chaudhry, 2014 ) 
+∂ H
+∂ t
++ v sin θ +
+a
+2
+g
+∂ v
+∂ x
+= 0 (1) 
+where v is fluid velocity, ρ denotes fluid density, H is the water head, a 
+represents water-hammer wave velocity and g is gravity acceleration.
+As illustrated in Fig. 2 (b). Based on the principle of momentum 
+conservation and assuming uniform flow velocity on the cross section of 
+the pipeline, the motion equation for one-dimensional unstable flow can 
+be derived using the average flow velocity on the cross section ( Shen 
+et al., 2023 ; Chaudhry, 2014 ). 
+∂ z
+∂ x
++
+1
+ρ g
+∂ p
+∂ x
++
+1
+g
+(
+∂ ν
+∂ t
++ ν
+∂ ν
+∂ x
+)
++
+4 τ
+0
+ρ gD
+= 0 (2) 
+Where τ is the average stress on the cylindrical surface, z stands for the 
+average elevation of the total flow section, z = H   p / ( ρ g ) , p represents 
+the average pressure of the total flow section, D denotes the diameter of 
+the total flow section. In equation (2) , τ
+0 
+is the shear stress of the pipe 
+wall and τ
+0
+= ρ λ ν | ν | / 8, here, λ denotes the Darcy friction resistance. By 
+Fig. 1. Physical model of water-hammer signal detect fluid entry point position 
+in horizontal well.
+Fig. 2. Microelement model of continuity equation and motion equation.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 4 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+4
+analyzing the range of Reynolds number Re ( Chen, 1979 ), the hydraulic 
+friction coefficient for the pipeline can be established via the appro -
+priate empirical formula. The equation governing water-hammer mo -
+tion considering friction resistance is obtained as follows ( Chaudhry, 
+2014 ). 
+g
+∂ H
+∂ x
++
+∂ v
+∂ t
++
+λ v | v |
+2 D
+= 0 (3) 
+2.4. Method of characteristics
+Using the characteristic line method to calculate the water hammer 
+pressure at each point. As illustrated in Fig. 3 , the water hammer pres -
+sure can be determined through these specific characteristic lines.
+In this study, the first-order approximation method is adopted. The 
+Fig. 3. Characteristic line grid diagram.
+Fig. 4. Schematic diagram of boundary conditions.
+Fig. 5. Pumping rate of field data.
+Table 1 
+Basic stage treatment Information of well 1.
+Parameter Value Parameter Value
+Well depth 5640 m Depth of casing 6024.36 m
+Depth of point A 3620 m Horizontal 
+segment length
+2000 m
+Casing diameter 139.7 mm Casing thickness 12.7 mm
+Young ’ s modulus 39.851 GPa Poisson ’ s ratio 0.22
+Ground elevation 377.51 m Altitude 386.95 m
+Minimum horizontal 
+principal stress
+85.1 MPa Completion 
+method
+Casing 
+completion
+Initial resistance 89.87 bpd/psi Initial fracture 
+height
+1.31064 m
+Initial capacitance 2.44 × 10
+  3 
+bpd/psi
+Initial fracture half 
+length
+122.9258 m
+Initial inertance 3.09 × 10
+  7 
+psi/bbl/d2
+Initial fracture 
+Width
+0.01524 m
+Fig. 6. Stage 20 fracturing operation curve of well 1.
+Fig. 7. Validation of proposed model.
+Fig. 8. Analysis chart of different wave velocity.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 5 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+5
+specific method is to use the known flow information of Q
+A 
+at point, or 
+the flow Q
+B 
+at point B . Q
+A 
+or Q
+B 
+is used to replace the flow value in the 
+integral term of these two equations, then the following results can be 
+deduced ( Chaudhry, 2014 ). 
+C
++
+: H
+P
+  H
+A
++ B ( Q
+P
+  Q
+A
+) +
+Q
+A
+Δ t
+A
+sin θ + ZQ
+A
+| Q
+A
+| = 0 (4) 
+C
+ 
+: H
+P
+  H
+B
+  B ( Q
+P
+  Q
+B
+) +
+Q
+B
+Δ t
+A
+sin θ   ZQ
+B
+| Q
+B
+| = 0 (5) 
+where B = a / gA, Z = ( λ Δ x ) /
+ 
+2 gDA
+2
+)
+.
+By replacing the nodes of time t and space i with the water head and 
+flow identifications in the finite difference equation, the i point water 
+head and flow at time t + Δ t can be calculated based on the i   1 and i  
+1 points conditions at time t . Thus, the above two equations can be 
+organized as follows: 
+C
+p
+= H
+t + Δ t
+i
++ BQ
+t + Δ t
+i
+= H
+t
+i   1
++ Q
+t
+i   1
+(
+B  
+Δ t
+A
+sin θ   Z
+⃒
+⃒
+Q
+t
+i   1
+⃒
+⃒
+)
+(6) 
+C
+m
+= H
+t + Δ t
+i
+  BQ
+t + Δ t
+i
+= H
+t
+i + 1
+  Q
+t
+i + 1
+(
+B +
+Δ t
+A
+sin θ   Z
+⃒
+⃒
+Q
+t
+i + 1
+⃒
+⃒
+)
+(7) 
+The characteristic line diagram indicates that once the horizontal 
+well is discretized, only one single characteristic equation be applies at 
+the grid ’ s endpoint. Consequently, it is essential to establish an addi -
+tional relationship between the head and the flow rate., i.e., the 
+boundary conditions must be defined to meet the calculation 
+requirements.
+2.5. Boundary condition
+The real model fractures and bottom bridge plugs of horizontal wells, 
+as illustrated in Fig. 4 below. When constructing a water-hammer model 
+for horizontal wells, be mindful of these following boundary conditions: 
+(1) wellhead flow boundary; (2) connection point boundary between 
+wellbore and fluid entry point; (3) fluid entry point boundary and, (4) 
+bottom boundary.
+2.5.1. Wellhead flow boundary
+By equating the change in flow rate to a function of the change in the 
+area of the valve opening over time, one can derive the connection be -
+tween the flow rate at the wellhead ( Carey et al., 2015 ). 
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+Q
+t
+1
+= Q
+0
+t ∈ [ 0 , t
+1
+) ;
+Q
+t
+1
+= Q
+0
+μ ( t ) t ∈ [ t
+1
+, t
+2
+) ;
+Q
+t
+1
+= 0 t ∈ [ t
+2
+, + ∞ ) ;
+(8) 
+where μ ( t ) = ( 1   ( t / T
+1
+))
+n 
+is the opening coefficient, the value of which 
+is between 0   1. T
+1
+= t
+2
+  t
+1 
+is the valve closing time, n is the valve 
+closing curve coefficient, if n = 1, it is a linear valve closing, Q
+0 
+rep -
+resents the initial flow.
+During model validation, boundary condition 2 utilizes the field 
+pump shut-in rate as the wellhead flow boundary condition. The cor -
+responding curve is depicted in Fig. 5 .
+2.5.2. Wellbore and fluid entry point connection point boundary
+The water head at the end of the horizontal section 1 is H
+1 , n 
+, the 
+water head at the beginning of the horizontal section 2 is H
+2,1
+, and the 
+water head at the beginning of the fracture is H
+3 , 1
+. By disregarding head 
+Fig. 9. Waveform of pump shut-in water-hammer with established model.
+Fig. 10. The influence of fracture position on water-hammer wave.
+Fig. 11. Time-frequency domain characteristic.
+Table 2 
+Calculation results of fluid entry point based on proposed method.
+Type Value Unit
+True value of wave velocity 1300 m/s
+Calculated value of period 15.63 s
+Calculated wave velocity 1296.3 m/s
+Frequency difference 0.1295 Hz
+True depth of fluid entry point 5000 m
+Calculated depth of fluid entry point 5003.5 m
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 6 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+6
+loss at the node, the water head of these three locations must be 
+equivalent. Consequently, the flow relationship can be articulated as 
+follows: 
+{
+H
+1 , n
+= H
+2 , 1
+= H
+3 , 1
+= H
+t
+Q
+t
+1 , n
+  Q
+t
+2 , 1
+  Q
+t
+3 , 1
+= 0
+(9) 
+where 
+⎧
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎪
+⎩
+Q
+1 , n
+=  
+H
+t
+B
+1
++
+C
+P
+1
+B
+1
+Q
+2 , 1
+=
+H
+t
+B
+2
+ 
+C
+m 2
+B
+2
+Q
+3 , 1
+=
+H
+t
+B
+3
+ 
+C
+m 3
+B
+3
+(10) 
+where the water flow at the beginning of the fracture is Q
+3 , 1
+, the water 
+flow at the beginning of the horizontal section 2 is Q
+2 , 1
+, the water flow at 
+the beginning of the horizontal section 2 is H
+2,1
+, and the water head at 
+the beginning of the fracture is Q
+1 , n
+.
+The average water head can be determined by solving the two 
+equations, which can be formulated as: 
+H
+t
+=
+C
+P
+1
+/
+B
+1
++ C
+P
+2
+/
+B
+2
++ C
+P
+3
+/
+B
+3
+∑
+( 1 / B )
+(11) 
+2.5.3. Fracture boundary
+The conventional outlet conditions for water-hammer model typi -
+cally establish a constant pressure boundary. However, the physical 
+properties of the formation are not homogeneous, suggesting that this 
+boundary does not reflect real-world scenarios. In this study, we employ 
+the principle of equivalent circuit, as illustrated in Fig. 4 . The fracture is 
+modeled as an equivalent circuit composing resistance R , capacitance C 
+and inductance I in series. Furthermore, the alteration in head and flow 
+at the fracture junction can be represented by the circuit parameter R , C , 
+I function. 
+Δ H / Q = f ( R , C , I ) (12) 
+This boundary condition outlines the effect of the fluid compress -
+ibility and inertia within the fracture. It also takes into account bending 
+friction and perforation friction near the well area. When the pump 
+stops, the pressure and flow rate changes of the fluid entering the frac -
+ture resemble the response in the series circuit. The fluid continues to 
+flow only after overcoming the friction resistance in the fracture and 
+reaching the minimum pressure necessary to maintain the fracture ’ s 
+openness. The correlation between pressure and flow can be articulated 
+through a specific formula, demonstrated as equation (13) . 
+P
+f
+= ρ g Δ H = RQ +
+1
+C
+∫
+Qdt + I
+dQ
+dt
+(13) 
+Through the fracture friction equation, the bottom hole pressure is 
+characterized as ( Hu et al., 2022 ): 
+P
+BH
+  P
+f
+= P
+perf
++ P
+nwf
+(14) 
+In this context, P
+BH 
+represents the bottom hole pressure, P
+f 
+indicates the 
+average pressure within the fracture, P
+perf 
+refers to the friction resulting 
+from perforation, and P
+nwf 
+denotes the friction caused by the bending of 
+the wellbore in the proximity to the well area. The formula for calcu -
+lating of perforation friction is provided below: 
+P
+perf
+=
+8 ρ Q
+2
+π
+2
+N
+2
+p
+d
+4
+C
+2
+D
+(15) 
+Fig. 12. Flow chart for the fluid entry point detection.
+Fig. 13. Connection of special pressure sensor for high frequency pres -
+sure monitoring.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 7 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+7
+where N
+p 
+represents the number of perforations, and C
+D 
+is the flow co -
+efficient, which is determined by the fluid type and the perforation size, 
+and is regarded as a fixed constant. R denotes the friction coefficient 
+near the well area. The friction force near the well area can be calculated 
+using the following expression: 
+P
+nwf
+= RQ
+m
+(16) 
+In general, the index m is established at 0.5 to represent the total impact 
+of well bending on the flow resistance.
+The inductance I accounts for the fluid ’ s inertial effect, and its value 
+correlates to the pressure difference required to either accelerate or 
+decelerate the fluid Δ P = I
+dQ
+dt
+. Based on the comprehensive outline of the 
+parameters and the corresponding circuit model, the pressure-flow 
+relationship can be reformulated as follows (Song, 2024): 
+P
+BH
+= ρ gH
+t + Δ t
+n
+= R
+ 
+Q
+t + Δ t
+n
+)
+w
++
+8 ρ
+ 
+Q
+t + Δ t
+n
+)
+2
+π
+2
+N
+2
+p
+d
+4
+C
+2
+D
++
+Q
+t + Δ t
+n
++ Q
+t
+n   1
+2 C
+Δ t + I
+Q
+t + Δ t
+π
+  Q
+t
+n   1
+Δ t
+(17) 
+For the fracture boundary conditions, the characteristic line equation 
+can be used: 
+H
+t + Δ t
+n
++ BQ
+t + Δ t
+n
+= H
+t
+n   1
++ Q
+t
+n   1
+(
+B  
+Δ t
+A
+sin θ   Z
+⃒
+⃒
+Q
+t
+n   1
+⃒
+⃒
+)
+(18) 
+2.5.4. Fracture dimensions from model parameters
+After estimating the model parameters ( R , C and I ) through history 
+matching of measured water-hammer data, these values can be used 
+utilized to calculate fracture dimensions. The equivalent circuit model 
+parameter ( R , C and I ) are related to the fracture dimension( Sneddon, 
+1946 ; Shylapobersky et al., 1988 ): 
+w
+f
+=
+ρ l
+f
+Ih
+f
+(19) 
+l
+f
+=
+̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+4 CI Δ P
+π ρ
+√
+(20) 
+h
+f
+=
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+2 G α
+s
+C
+l
+f
+( 1   υ )
+√
+(21) 
+where, l
+f 
+, w
+f 
+, h
+f 
+respectively represent fracture height, fracture half 
+length, fracture width. G is shear modulus, α
+s 
+stands for fracture shape 
+factor, The value varies according to the fracture shape. 
+α
+s
+=
+⎧
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎩
+0 . 63 + 0 . 425
+h
+f
+l
+f
+, h
+f
+> l
+f
+0 . 63 + 0 . 425
+h
+f
+l
+f
+, h
+f
+< l
+f
+(22) 
+2.5.5. Bottom hole boundary
+Because it is assumed that the wellbore only interacts with the sur -
+rounding strata through the fracture interface, the bottom hole is a 
+closed end. 
+Q
+n
+= 0 (23) 
+2.6. Model validation
+Based on the field water-hammer data, geological and engineering 
+parameters, this study adjusts and optimizes the pertinent parameters in 
+the existing simulation model. The goal is to ensure that the simulated 
+water-hammer curve aligns closely with the field data. In this study, we 
+utilize two sets of practical well field data, specifically the 20-stage 
+fracturing stage treatment information from well 1 to validate our 
+model. Details of are presented in Table 1 , and the fracturing stage 
+treatment curve is illustrated in Fig. 6 .
+This study begins with the input of initial conditions and basic pa -
+rameters of geological engineering into the model. Subsequently, by 
+taking several cycles of water-hammer oscillation windows for the 
+water-hammer signal generated by fracturing pump shut-in, and 
+continuously iterate to change the values of R , C , and I to match and 
+compare the water-hammer waveform generated by fracturing pump 
+shut-in with the actual pump shut-in water-hammer waveform until the 
+numerical simulation results are similar to the filed pump-shut in water- 
+hammer waveform, thereby the proposed model is validated, as shown 
+in Fig. 7 . The figure demonstrates that the proposed water-hammer 
+model aligns well with the field water-hammer curve, exhibiting a 
+maximum relative error of approximately 2.7%.
+Fig. 14. Fracturing construction curve of well.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 8 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+8
+3. Characteristic analysis of water-hammer effect
+The water-hammer pressure wave produced by a fractured pump 
+shut-in exhibits distinct characteristics in both the time domain and 
+frequency domain. In the time domain, one can calculate the wave ve -
+locity based on the reflection period. Meanwhile, in the frequency 
+domain, the location of the fluid entry point is determined by the fre -
+quency of the fundamental and the harmonic, i.e., the proposed fre -
+quency difference method in this study.
+3.1. Time domain characteristic
+In this subsection, the time domain analysis of water-hammer signals 
+is mainly used to determine the wave velocity of pressure wave.
+3.1.1. The influence of wave velocity
+The influence of wave velocity on the internal water-hammer effect 
+within the wellbore is vital, as it directly impacts both the magnitude 
+and extend of the water-hammer effect, as well as its potential impact on 
+the wellbore structure and fracture. Typically, wave velocity is governed 
+by the fluid ’ s comprehensibility and density inside the wellbore. In 
+geological medium, the wave velocity is also influenced by the elastic 
+modulus and density of the medium ( Song et al., 2023 ). The precision of 
+the wave velocity significantly affects the detection of the fluid entry 
+point.
+In this study, the wave velocity is assumed to be 1600 m/s, 1400 m/s, 
+1200 m/s and 1100 m/s, respectively. The impact of the wave velocity 
+on the water-hammer signal is investigated, then different pressure-time 
+curves are obtained, as shown in Fig. 8 . The findings demonstrate that 
+the larger the amplitude of water-hammer oscillation is, the more 
+obvious the water-hammer effect is. The greater the amplitude of the 
+water-hammer oscillation, the more pronounced the water-hammer ef -
+fect, with a smaller oscillation period and slower attenuation. In 
+contrast, at a water-hammer wave velocity of 1100 m/s, compared to 
+the previous three wave velocities, the is a delayed reflection of the 
+water-hammer signal, reduced oscillation amplitude a notable oscilla -
+tion period, and a quicker rate of attenuation.
+The pump shut-in water-hammer signal curve recorded during the 
+fracturing stage treatment is illustrated in Fig. 9 . A and C in Fig. 9
+constitute one cycle of water-hammer. The wellhead can be regarded as 
+a closed boundary for the transmission of the water-hammer wave in the 
+wellbore, while the bottom hole fracture boundary acts as an open 
+boundary. The B , and C moments denote the reflection of the expansion 
+and the compression waves, respectively. The calculation for the 
+reflection period T of the water-hammer pressure wave is outlined as 
+follows T = 4 L / a ( Hu et al., 2023 ), where L represents the distance from 
+the wellhead to the bottom hole water-hammer reflection position, a 
+signifies the water-hammer pressure wave velocity.
+Based on the water-hammer model established above, this paper uses 
+the periodic method to calculate the wave velocity, which is deduced as 
+a = 4 L / T .
+3.1.2. The influence of the position of the fluid entry point
+This study focuses on the actual staged and cluster perforation pa -
+rameters of a well to examine how the distance between the entry point 
+and the wellhead affects the water-hammer wave. The selected distance 
+between the perforation site and the wellhead were set at 5130m, 
+Fig. 15. Time domain extraction of periodic window water-hammer waveform 
+in well 1.
+Table 3 
+Different tested wave velocities of well 1.
+Section number Period (s) Wave velocity (m/s)
+15 11.4 1482.5
+16 11.07 1493.4
+17 10.445 1531.1
+18 10.595 1492.1
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 9 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+9
+5150m, 5170m, 5190m, resulting in different pressure time curves, as 
+shown in Fig. 10 . The findings indicate that the water-hammer effect is 
+more pronounced when the fluid entry point depth is situated near to the 
+wellhead. Compared with the following three data, when the distance 
+between the fluid entry point and the wellhead is 5130m, the water- 
+hammer wave is reflected back first, by analyzing the water-hammer 
+signal at the wellhead, the position of the fluid entry point can be 
+located.
+3.2. Frequency domain charateristics
+In this section, the analysis of water-hammer signals in the frequency 
+domain is primarily utilized to ascertain the reflection time of pressure 
+wave after reaching the fluid entry point. Initially, the time domain 
+signal of water-hammer produced following the pump shut-in is con -
+verted from a pressure-time curve to amplitude-frequency curve in the 
+frequency domain. Given the intricate high-frequency signal compo -
+nents of wellhead pressure, the noise component may compromise the 
+precision of locating the fluid entry point, then research on pressure 
+Fig. 16. Time domain extraction of periodic window water-hammer waveform in well 2.
+Table 4 
+Different tested wave velocities of well 2.
+Stage number Period (s) Wave velocity (m/s)
+21 – 1 11.455 1500.5
+21 – 2 13.83 1254.95
+22 – 1 11.63 1443.85
+22 – 2 11.51 1458.91
+23 – 1 11.365 1447.6
+23 – 2 11.145 1476.2
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 10 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+10
+signal enhancement must be carried out.
+In this study, the original time domain data of water-hammer pres -
+sure wave undergo trending to mitigate the amplitude of leakage fre -
+quency components, as depicted in Fig. 11 (a). Following the detrending 
+process, Fourier transform was performed to extract the frequency 
+domain characteristics of the water-hammer signal, as shown in Fig. 11
+(b). It can be seen from the frequency spectrum that there are multiple 
+peaks, which are consistent with the reflection period of wave. Among 
+them, the first peak is the fundamental frequency of the signal. In 
+addition to the first fundamental frequency, the following peaks are the 
+n th harmonic, and n is the serial number of the n th harmonic sequence. 
+The boundary condition of the bottom hole fracture is the open 
+boundary, and the fracturing fluid flows to the fracture. From the fre -
+quency spectrum, it can be concluded that the difference between the 
+first-order harmonic frequency and the fundamental frequency is equal 
+to the difference between the second-order harmonic frequency and the 
+first-order harmonic frequency. Therefore, the reflection time of the 
+water-hammer pressure wave generated by the pump shut-in can be 
+calculated.
+3.3. Fluid entry point calculation result with proposed model
+Utilizing the time domain waveform derived from the water-hammer 
+model, the wave period is calculated to determine the wave velocity, 
+subsequently comparing with preset value. After signal enhancement, 
+one can conduct a spectral analysis to ascertain the frequency differ -
+entials. Ultimately, one can compute the depth of the fluid entry point, 
+and juxtaposed it with the theoretical position of the fluid entry point, 
+with specific outcomes detailed in Table 2 . The calculated wave velocity 
+has an error of only 0.27% deviation from the true value, while the error 
+of the position of the fluid entry point is 0.07% relative to the true value. 
+The results indicates that the frequency difference methodology for 
+determining the fluid entry point ’ s position is not only viable but also 
+highly accurate. Employing this positioning technique is advantageous 
+for filed adjustment of fracturing treatment parameters during opera -
+tional phase, thereby improving the effectiveness of transformation and 
+establishing a robust groundwork for subsequent large-scale develop -
+ment of deep shale gas.
+4. Processing method for detecting of fluid entry point
+During pump shut-in, the pressure signal is captured using the high 
+frequency pressure acquisition equipment for detecting fracturing fluid 
+entry position. Utilizing the mechanical wave echo principle derived 
+from the water-hammer effect occurring during pump shut-in, the wave 
+velocity is determined by the periodic method, while the reflection time 
+is assessed using a proposed frequency difference method. The position 
+of the fluid entry point of the downhole fluid is analyzed in a short time, 
+so as to achieve the purpose of quick decision in practical condition. The 
+treatment process is shown in Fig. 12 .
+The high frequency pressure monitoring apparatus is illustrated in 
+Fig. 13 . From this illustration, it is evident that the arrangement of 
+sensors, the connection and testing of acquisition lines, the monitoring 
+of fracturing turning, and data processing are essential components. 
+During the initial phase of equipment setup and commissioning for hy -
+draulic fracturing operations, the high-pressure sensor interacts with the 
+high-pressure pipe via a tee and a union fitting. The specialized pressure 
+sensor is positioned between the wellhead valve and the single flow 
+valve, ideally as close to the wellhead as possible. This connection 
+method allows for continuous data collection after the pump is halted. 
+Furthermore, the sensor is connected to the high-frequency pressure 
+Fig. 17. Spectrum curve of well 1.
+Table 5 
+Different staged wave reflection time of well 1.
+Stage number Frequency difference (Hz) Reflection time (s)
+15 0.176 0.352
+16 0.1849 0.3698
+17 0.1916 0.3832
+18 0.1881 0.3762
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 11 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+11
+collector via a data cable, and then connected to the interpretation 
+computer through an output device for verification by comparing it with 
+the pressure sensor data. Throughout the fracturing phase, the collection 
+device continuously logs the pressure signal at the wellhead. Upon 
+completion of each stage of stage, the collected data is remotely trans -
+mitted to the data interpretation center to ascertain the location of the 
+fluid entry point and assist in assessing the hydraulic connection nodes 
+within the wellbore fracture system in real-world applications.
+5. Field application
+5.1. Basic information of well 1
+The depth of Well 1 is 5640.00m and completed depth is 139.7 mm 
+in diameter casing. The total length of the fractured stages in this well is 
+1963m, with each stage measuring between 90m and 98m, yielding an 
+average length of 93.5m. There are 21 fractured stages in total, with 
+cluster spacing ranging from 6.55m to 7.55m. The specific perforation 
+parameters are as follows: stages 1 – 20 employ a single-stage 12-cluster 
+perforation, with each cluster measuring 0.45m in length and 
+comprising 7 holes; stage 21 utilizes a single-stage 9-cluster perforation, 
+with the same cluster length and hole configuration. On the premise of 
+ensuring the perforation number or perforation density, the perforation 
+length can be modified. The wellbore configuration is illustrated in 
+Fig. 14 (a) .
+Fig. 18. Time domain extraction of periodic window water-hammer waveform in well 2.
+Table 6 
+Different staged wave reflection time of well 2.
+Stage number Frequency difference (Hz) Reflection time (s)
+21 – 1 0.1714 0.3428
+21 – 2 0.1454 0.2908
+22 – 1 0.1758 0.3516
+22 – 2 0.1736 0.3472
+23 – 1 0.1818 0.3636
+23 – 2 0.1786 0.3572
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 12 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+12
+5.2. Basic information of well 2
+The depth of Well 2 reaches a total 6285m. It has been completed 
+with 139.7 mm casing. Given its high carbon content, it proves to be 
+suitable for hydraulic fracturing applications. The length of the frac -
+turing section measures 2159m, with each stage spanning from 79m to 
+101m, averaging 93.9m. There are a total of 23 fracturing stages, with 
+the cluster spacing typically varying between 6.55m and 7.55m. The 
+perforation parameters are as follows: stages 1 – 22 employ a single- 
+section 12-cluster perforation, where each cluster measures 0.45m in 
+length and comprises 7 holes; stage 23 utilizes a single-section 11-cluster 
+perforation, with each cluster being 0.45m in length and containing 7 
+holes. The wellbore structure is depicted in Fig. 14 (b) .
+5.3. Wave velocity calculation
+In this subsection, the wave velocity of applied two wells are 
+calculated with the presented method.
+5.3.1. Wave velocity calculation for 15 – 18 stages of well 1
+Here, we utilize the data of stages 15 – 18 to show our method. During 
+the fracturing treatment of stage 15 – 18 of well 1, the wellhead pressure 
+data is recorded at a frequency of 200Hz using a high-frequency pressure 
+sensor and an advanced signal acquisition device positioned at the 
+wellhead. Subsequently, the time domain waveform of the water- 
+hammer pressure triggered by pump shut-in is windowed, as illus -
+trated in Fig. 15 . The reflection period is determined from the time 
+domain representation of the water-hammer pressure, allowing us to 
+compute the wave velocity for this stage.
+By employing the periodic method to extract points from the time 
+domain waveform of 15 – 18 stage, it is possible to derive the wave ve -
+locity across carious stages. The findings are presented in the subsequent 
+Table 3 .
+5.3.2. Wave velocity calculation for stages 21 – 23 of well 2
+Similarly, the signal at the wellhead with the time domain waveform 
+of the water-hammer pressure produced by shutdown of the pump, 
+being carefully sectioned. The findings are presented in Fig. 16 , while 
+the calculated wave data is summarized in Table 4 .
+5.4. Calculating reflection time added by frequency difference method
+In this subsection, the reflection time of applied two wells are 
+calculated with the presented method.
+5.4.1. Calculating reflection time for well 1
+The time domain waveform for stages 15 – 18 of well 1 was extracted 
+by windowing in the previous section. A Fourier transform was utilized 
+to the time domain pressure data to derive the spectral curve presented 
+in Fig. 17 . Employing the frequency difference method, the reflection 
+times for stages 15 – 18 can be calculated, with the results displayed in 
+Table 5 .
+Table 7 
+Results comparison between the service provider and the method proposed by 
+this paper.
+Stage 
+number
+Results provided by the 
+service provider
+Calculation results of the method 
+proposed by this paper
+Well 1-15 4160~4200m 4187.8m
+Well 1-16 4060~4115m 4080.3m
+Well 1-17 3975~4031m 3995.6m
+Well 1-18 3873~3933m 3926.6m
+Well 2-21- 
+1
+4275~4343m 4287.2m
+Well 2-21- 
+2
+4260~4321m 4315.5m
+Well 2-22- 
+1
+4176~4230m 4197.24m
+Well 2-22- 
+2
+4190~4244m 4201.9m
+Well 2-23- 
+1
+4089 – 4149m 4136m
+Well 2-23- 
+2
+4082 – 4133m 4132.7m
+Fig. 19. Comparison results of the fluid entry point detection with the pre -
+sented method.
+Fig. 20. Flow chart for the two-dimensional cepstrum calculation.
+Fig. 21. Cepstrum results in stage 17 of well 1.
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 13 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+13
+5.4.2. Calculating reflection time for well 2
+Through the time domain waveform before and after the temporary 
+plugging of the stages 21 – 23 of well 2 obtained by the window in the 
+previous section, the Fourier transform of the time domain pressure data 
+is carried out, and the spectrum curve is shown as Fig. 18 . Utilizing the 
+proposed frequency difference method, the reflection times preceding 
+and following the temporary plugging of stages 21 – 23 are calculated, as 
+presented in the following Table 6 .
+5.5. Fluid entry point positioning analysis
+In the above two subsections, the velocity of the water wave and the 
+frequency in discrepancies are determined, respectively. The location of 
+the entry point can be derived from Equation (24) . To validate the 
+precision and dependability of the calculation results, this paper com -
+pares the calculation results of the fluid entry point position based on the 
+proposed method with the interpretations garnered from field moni -
+toring. Additionally, the findings of well 2 further substantiate the al -
+terations in the fluid entry point position before and after the temporary 
+plugging. By assessing the effectiveness of temporary plugging, the 
+fracturing parameters are optimized. 
+x =
+a
+2 × Δ f
+(24) 
+In this study, four sets of water hammer data related to pump shut-in at 
+the conclusion of stage treatments from stages 15 – 18 of Well 1 were 
+collected, and six sets of water hammer data from pump shut-in before 
+and after temporary plugging during stages 21 – 23 of Well 2. The service 
+provider uses an inversion-based two-dimensional cepstral method to 
+locate the fluid entry depth ( Parkhonyuk et al., 2018 ; Panjaitan et al., 
+2018 ). This study uses the frequency difference method to calculate the 
+depth of the primary fluid entry point. The calculation results for both 
+wells are summarized in Table 7 . From the results, it can be seen that the 
+frequency difference method yields the same results as those calculated 
+by the service provider, indicating the correctness of the frequency 
+difference method. the fluid entry points in stages 15 – 18 of Well 1 align 
+with the actual detection results. Additionally, the calculation results 
+indicate no signs of bridge plug detachment or intersection loss during 
+the fracturing treatment, confirming that the intersection sealing is 
+intact. The calculation results for the fluid entry points in stages 21 – 23 
+of Well 2 also correlate with the actual detection data, suggesting that 
+the well interval is well sealed. New fluid is injected after temporary 
+plugging fracturing, and the temporary plugging effect is clearly 
+evident.
+5.6. Results comparison with service provider
+To ensure the accuracy and dependability of the fracturing fluid 
+entry position in the field, the calculated entry position presented in this 
+study is compared with the monitoring and interpretation results pro -
+vided by the field service provider. The findings are illustrated in Fig. 19 .
+It can be observed from Fig. 19 (a) that all the results derived in this 
+study fall within the range of fluid entry points given by the service 
+provider. It suggests that the calculation results of the method proposed 
+in this paper are completely consistent with the monitoring interpreta -
+tion results. Fig. 19 (b) illustrates a comparative analysis between the 
+median value of the fluid entry point range and the calculation results 
+presented in this paper. From Fig. 19 (b), it is evident that the average 
+deviation between the two data sets is 19.57m, with a standard devia -
+tion of 16.82m, and the difference range spans from 5 to 25m. The high 
+correlation coefficient of the two groups of data is 0.996, which signifies 
+a robust linear relationship, indicating that their overall trends and 
+variation patterns are very similar. The findings further substantiate the 
+efficacy of the proposed method.
+Currently, the frequency difference method for locating liquid entry 
+depth still has some limitations, which may be attributed to the 
+following factors. First, the field water hammer signal is prone to noise 
+interference, which affects wave velocity extraction and identification. 
+Second, a low sampling frequency or inadequate signal processing res -
+olution may result in the loss of critical details. Additionally, the pre -
+cision and calibration of the sensors and equipment used for signal 
+acquisition can affect signal quality and measurement accuracy.
+To minimize these errors, the following measures can be imple -
+mented. Proposing more efficient water hammer signal noise removal 
+techniques, which is also the direction the author intends to pursue in 
+future research. Improving the existing wellhead pressure acquisition 
+equipment to increase the sampling frequency of the water hammer 
+signal at the wellhead. Selecting pressure sensors with faster response 
+times, ensuring that the response time is kept within 1 ms.
+5.7. Compared with cepstrum analysis
+The two-dimensional cepstrum analysis requires segmenting the 
+pressure signal by using a sliding window to compute the one- 
+dimensional cepstrum within each window, and then stitching them 
+together to obtain the two-dimensional cepstrum image( Hu et al., 
+2022 ). Furthermore, The two-dimensional cepstrum analysis can be 
+broken down into three steps, as shown in Fig. 20 .
+This paper performs a cepstral analysis on water hammer data 
+collected from stage 17 of well 1. Due to the negative impedance at the 
+fracture, the fluid entry time corresponds to the larger negative 
+impedance values in the time-domain cepstrum plot. According to 
+Fig. 21 , it can be observed that the dark blue band indicates the position 
+where the negative cepstral value is the smallest, and the reflection time 
+of the pressure wave at the fracture is 2.61s, In section 5.3 , the wave 
+velocity was calculated to be 1531.1 m/s, from which the fluid entry 
+point depth was determined to be 3996.2 m. The error compared to the 
+result calculated using the frequency difference method is 0.6 m, which 
+proves that the method for calculating the fluid entry point depth pro -
+posed in this paper is accurate and simple.
+The two-dimensional cepstral method analyzes water hammer sig -
+nals to extract their periodic and frequency characteristics, providing 
+high time-frequency resolution and strong adaptability. However, it 
+requires extensive frequency domain transformations and complex 
+signal processing during localization, which results in a high computa -
+tional cost that may limit its real-time application. Additionally, the 
+method demands high-quality raw signal data and is sensitive to pa -
+rameters such as window size and overlap ratio. The selection of these 
+parameters is often influenced by the experience of field engineer. 
+Incorrect parameter settings of cepstral method can lead to significant 
+errors, so precise tuning is essential to ensure accuracy.
+In comparison, the frequency difference method determines the time 
+and location of fluid arrival at the fracture by analyzing changes in 
+frequency response. Compared to the two-dimensional cepstrum 
+method, this approach is computationally simpler, requires fewer re -
+sources, is less influenced by variations in personnel experience, offers 
+better real-time performance, and can quickly diagnose fracture loca -
+tions, providing real-time guidance for optimizing field fracturing 
+operations.
+6. Conclusion
+To address the problem of accurately detecting depth of fluid entry 
+point, this paper proposed frequency difference method based on the 
+high-frequency wellhead pressure signal.
+Firstly, this study established a water hammer model of wellbore and 
+fracture system. This model considered influence of wellbore that 
+deeper than fluid entry point and bridge plug. This paper also adopted 
+equivalent circuit model to describe resistance , capacitance and induc -
+tance characteristic of hydraulic fracture. The established water 
+hammer model are validated by the field data. The error of model is 
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 14 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+14
+approximately 2.7%.
+According to simulation results of above-mentioned model, the time 
+and frequency domain characteristic of wellhead high-frequency pres -
+sure signal are analyzed. The wellhead pressure waveform is influenced 
+by water hammer wave velocity and depth of reflection point. This paper 
+proposed the periodic method to calculate the water hammer wave ve -
+locity. This wave velocity calculating method are verified by the nu -
+merical results. In the frequency domain, there are multiple peaks, 
+which are consistent with the reflection time of fluid entry point. The 
+depth of fluid entry point can be obtained by reflection time and water 
+hammer wave velocity. This method can efficiently calculate the main 
+fluid entry point based well head high-frequency pressure signal. The 
+error of the positioning method of the fluid entry point is 0.07% relative 
+to the true value by numerical simulation data. This study proposed 
+signal processing of wellhead high-frequency pressure data. The process 
+include Fourier transform and frequency difference picking. It can 
+effectively ensure the accuracy of wellhead high-frequency pressure 
+data interpretation.
+The frequency difference picking method can efficiently obtain 
+reflection time of water hammer wave. The calculation results are less 
+influenced by human experience. According to downhole condition, the 
+depth of main fluid entry point can be calculated by reflection time and 
+wave velocity. This paper collected high-frequecny pressure data of two 
+field well. There are 10 stages water hammer pressure data of pump 
+shut-in process. The sample frequency is 200Hz. The wave hammer 
+wave velocity of 10 stages data are obtained by time domain oscillation 
+wave. The reflection time of 10 stages data are obtained by frequency 
+domain frequency difference. The depth of main fluid entry point of 10 
+stages are calculated by the obtained wave velocity and reflection time. 
+The results of frequency difference method are compared with other 
+service provider results. The correlation coefficient of the two results up 
+to 0.996. This paper results are also compared with cepstrum analysis 
+method. The error of two method is 0.6 m. However, the frequency 
+difference method is more convenient to obtain depth of main fluid 
+entry points. The above research verifies the this paper proposed the 
+calculation method.
+The frequency difference method proposed herein demonstrates 
+robust reliability. When compared with the results of the service pro -
+vider and cepstrum analysis, the trend observed in this paper aligns 
+closely with those results, indicating that the research outcomes hold 
+significant value for optimizing operation plans and enhancing the hy -
+draulic fracturing efficiency.
+CRediT authorship contribution statement
+Xuelian Dong: Writing – review & editing, Writing – original draft, 
+Software, Resources, Methodology, Formal analysis, Data curation, 
+Conceptualization. Haiyan Zhu: Investigation, Funding acquisition. 
+Xingming Wang: Supervision, Funding acquisition. Le He: Software. 
+Ziping Liu: Visualization. Wei Gong: Validation. Li Zhan: Visualiza -
+tion. Jingran Tang: Formal analysis. Xiangyi Yi: Formal analysis.
+Declaration of competing interest
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper.
+Acknowledgments
+This work was funded by the National Natural Science Foundation of 
+China (52192622, 52374004, U20A20265), the National Key Research 
+and Development Program of China (2023YFE0110900, 
+2023YFF0614102), the Key Research and Development Project of 
+Sichuan Province (Grants No. 2022YFG0244), and the Tianfun Yongxing 
+Laboratory Organized Research Project Funding (No.2023KJGG13), and 
+by China Postdoctoral Science Foundation (NO.2022M723399).
+Nomenclature list
+dx The distance between section 1-1 and section 2-2
+A The cross-sectional area of section 1-1
+a Wave velocity
+C Capacitance
+C
++
+Positive characteristic line
+C
+ 
+Negative characteristic line
+C
+D
+The flow coefficient
+D The diameter of the total flow section
+dA The cross-sectional area of the micro-unit
+dt Time interval
+E Young ’ s modulus
+f Friction factor
+Δ f Frequency difference
+g Gravity acceleration
+G Shear modulus
+H Water head
+H
+1 , n
+The water head at the end of the horizontal section 1
+H
+2,1
+The water head at the beginning of the horizontal section 2
+H
+3 , 1
+The water head at the beginning of the fracture
+H
+t
+The average water head
+Δ H The change in hydraulic potential
+h
+f
+Fracture height
+I Inductance
+i The nodes of space
+L The distance from the wellhead to the bottom hole water-hammer reflection position
+l
+f
+Fracture half length
+m Index
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 15 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+15
+N
+p
+The number of perforations
+n The valve closing curve coefficient
+p Average pressure of the total flow section
+P
+f
+The average pressure within the fracture
+P
+BH
+The bottom hole pressure
+P
+perf
+The friction resulting from perforation
+P
+nwf
+The friction caused by the bending of the wellbore in the proximity to the well area
+Q Flow rate
+Q
+A
+Flow rate at point A
+Q
+B
+Flow rate at point B
+Q
+0
+The initial flow
+Q
+3 , 1
+The flow rate at the beginning of the fracture
+Q
+2 , 1
+The flow rate at the beginning of the horizontal section 2
+Q
+1 , n
+The flow rate at the end of the horizontal section 1
+R Resistance
+t The nodes of time
+T The reflection period
+T
+1
+The valve closing time
+w
+f
+Fracture width
+x The fluid flow direction
+z The average elevation of the total flow section
+α
+s
+Fracture shape factor
+θ The angle between the control volume ’ s centerline and the horizontal plane
+λ The Darcy friction resistance
+v Fluid velocity
+ρ Fluid density
+τ the average stress on the cylindrical surface
+τ
+0
+the shear stress of the pipe wall
+ω eigenvalue
+Data availability
+No data was used for the research described in the article. 
+References
+Bogdan, A.V., Keilers, A., Oussoltsev, D., Lecerf, B., 2016. Real Time Interpretation of 
+Leak Isolation with Degradable Diverter Using High Frequency Pressure Monitoring. 
+SPE.APOGCE, 182451 .
+Cao, Y., Dou, Y., Huang, Y., Cheng, J., 2019. Study on vibration characteristics of 
+fracturing piping in pump-starting and pump-stopping water-hammer. J. Fail. Anal. 
+Prev. 19, 1093 – 1104 .
+Carey, M.A., Mondal, S., Sharma, M.M., 2015. Analysis of water hammer signatures for 
+fracture diagnostics. SPE Annual Technical Con705 Ference and Exhibition, 174866 .
+Carey, M.A., Mondal, S., Sharma, M.M., Hebert, D.B., 2016. Correlating water hammer 
+signatures with production log and microseismic data in fractured horizontal Wells. 
+SPE Hydraulic Fracturing Technology Conference, 179108 .
+Chaudhry, M.H., 2014. Applied Hydraulic Transients. Van Nostrand Reinhold Company, 
+New York . 
+Chen, N.H., 1979. An explicit equation for friction factor in pipe. Ind. 780 Eng. Chem. 
+Fund. 18, 296 .
+Du, Y., Guan, L., 2005. Interwell tracer tests: lessons learned from past field studies. SPE 
+Asia Pacific Oil and Gas Conference and Exhibition, 93140 .
+Dung, N., David, C., Tom, D., Jon, S., Nico, R., Ouk, A., 2021. Practical applications of 
+water-hammer analysis from hydraulic fracturing treatments. SPE Hydraulic 
+Fracturing Technology Conference and Exhibition, 204154 .
+Ghidaoui, M., Zhao, M., McInnis, D., Axworthy, D., 2005. A review 715 of water-hammer 
+theory and practice. Appl. Mech. Rev. 58 (1), 4976 .
+Hison, C., Ausanio, G., Barone, A.C., Iannotti, V.E.P., Lanotte, L., 2005. Magnetoelastic 
+sensor for real-time monitoring of elastic deformation and fracture alarm. Sens. 
+Actuator A Phys 125 (1), 10 – 14 .
+Holley, E.H., Kalia, N., 2015. Fiber-optic monitoring: stimulation results from 
+unconventional reservoirs. SPE. URTeC, All Days, 2151906 .
+Hu, X., Luo, Y., Zhou, F., Qiu, Y., Li, Z., Li, Y., 2022. Evaluation of multi-fractures 
+geometry based on water-hammer signals: a new comprehensive model and field 
+application. J. Hydrol 612, 128240 .
+Hu, X., Yi, P., Qiu, Ya, et al., 2023. Characteristic analysis of water-hammer pressure 
+wave velocity in field data. Water Resourc. Hydro. Eng. 54 (5), 95 – 104 .
+Hwang, J., Szabian, M.J., Sharma, M., 2017. Hydraulic fracture di725 agnostics and 
+stress interference analysis by water-hammer signatures in multi-stage pumping 
+data. Unconventional Resources Technology Conference, 2687423 .
+Kalia, N., Gorgi, S., Holley, E., Cullick, A.S., Jones, T., 2014. Wellbore monitoring in 
+unconventional reservoirs- value of accurate dts inter pretation and risks involved. 
+SPE. URTeC, All Days,, 168995 .
+Klem, R.A., Rutzinger, G., Shulman, M., Pedam, S., Keilers, A., Bogdan, A., 
+Oussoltsev, D., 2017. Sequenced fracturing technique improves production from an 
+underperforming lateral: an interpretation based on high frequency pressure 
+monitoring. SPE Hydraulic Fracturing Technology Conference and Exhibition, 
+184827 .
+Kosynkin, D., Alaskar, M., 2016. Oil Industry First Interwell Trial of Reservoir Nanoagent 
+Tracers, vol. 27. SPE Annual Technical Conference and Exhibition, 168995 .
+Lee, J., Choi, D., Chu, C., 1994. Real-time tool breakage monitoring for NC turning and 
+drilling. CIRP Ann 43 (1), 81 – 84 .
+Lipovsky, B.P., Dunham, E.M., 2015. Vibrational modes of hydraulic fractures: inference 
+of fracture geometry from resonant frequencies and attenuation. J. Geophys. Res. 
+Solid Earth 120, 1080 – 1107 .
+Liu, Y., Li, G., Chen, J., Bai, Y., Hou, J., Xu, H., Zhao, E., Chen, Z., He, J., Zhang, L., 
+Cen, X., Chuvilin, E., 2023. Numerical simulation of hydraulic fracturing-assisted 
+depressurization development in hydrate bearing layers based on discrete fracture 
+models. Energy 263, 126146 .
+Ma, X., Zhou, F., Ortega, Andrade, J.A., Gosavi, S., Burch, D., 2019. Evaluation of Water- 
+Hammer Analysis as Diagnostic Tool for Hydraulic Fracturing. SPE/AAPG/SEG 
+Unconventional Resources Technology Conference. URTEC – 2019 – 935 – MS . 
+Panjaitan, M.L., Moriyama, A., McMillan, D., et al., 2018. Qualifying diversion in multi 
+clusters horizontal well hydraulic fracturing in haynesville shale using water 
+hammer analysis, step-down test and microseismic data. SPE Hydraulic Fracturing 
+Technology Conference and Exhibition[C] .
+Parkhonyuk, S., Fedorov, A.O., Kabannik, A., Korkin, R., Nikolaev, M., Tsygulev, I., 2018. 
+Measurements while fracturing: nonintrusive method of hydraulic fracturing 
+monitoring. SPE Hydraulic Fracturing Technology Conference and Exhibition, 
+189886 .
+Rutzinger, G., Wages, D.J., Shrider, J., Robertson, D.B., Hanzik, C., Bogdan, A., 
+Keilers, A., Oussoltsev, D., 2017. Sequenced fracturing technique with high- 
+frequency pressure monitoring improves horizontal injection well performance on 
+the north slope of Alaska. In: SPE Western Regional Meeting, Bakersfield .
+Saberhosseini, S.E., Ahangari, K., Mohammadrezaei, H., 2019. Optimization of the 
+horizontal-well multiple hydraulic fracturing operation in a low-permeability 
+carbonate reservoir using fully coupled xfem model. Int. J. Rock Mech. Min. Sci. 114, 
+33 – 45 .
+Shen, J., He, H., Li, Y., Zou, L., Wang, Y., Zhu, Z., Guo, L., Fu, S., 2023. An investigation 
+of data analysis method for hydraulic fracturing based on the water-hammer effect. 
+Unconven. Res. 3, 284 – 290 .
+Shylapobersky, J., Wong, G.K., Walhaug, W.W., 1988. Overpressure calibrated design of 
+hydraulic fracture stimulations. In: The 63rd SPE Annual Technical Conference and 
+Exhibition. SPE-18194-MS . 
+X. Dong et al.                                                                                                                                                                                                                                    
+
+===== PAGE 16 =====
+Geoenergy Science and Engineering 246 (2025) 213556
+16
+Sneddon, I.N., 1946. The distribution of stress in the neighbourhood of a crack in an 
+elastic solid. Proceeding. Roy. Soc. Lond. 187 (1009), 229–260 .
+Song, W., Yan, H., Li, F., Tao, T., Duan, H., Xin, K., et al., 2023. Development of 
+Smoothed Particle Hydrodynamics based water-hammer model for water 
+distribution systems. Eng Appl Comp Fluid 17 (1), 2171139 .
+Tang, X., 2004. Imaging near-borehole structure using directional acousticwave 
+measurement. Geophysics 69 (6), 1378–1386 .
+Wang, T., Dong, X., Yan, L., Chen, L., Tian, Z., Zhou, J., 2024. Joint position method of 
+coal mines methane extraction borehole trajectory by fusing micro-seismic signal 
+and MWD. Acad. J. Architect. Geotech. Eng. 6 (2), 51–64 .
+Yang, P., Zhang, S., Zou, Y., et al., 2023. Fracture propagation, proppant transport and 
+parameter optimization of multi-well pad fracturing treatment. Petrol. Explor. Dev. 
+50 (5), 1225–1235 .
+Zhang, Z., Zhang, S., Zou, Y., et al., 2021. Experimental investigation into simultaneous 
+and sequential propagation of multiple closely spaced fractures in a horizontal well. 
+J. Petrol. Sci. Eng. 202, 108531 .
+Zhou, J., Wang, X., Yan, L., Chen, L., 2023. Development of the Ultrasonic Imaging Tool 
+Circuit System for Gas Drainage Borehole of Coal Mines and Laboratory Experiment. 
+In: IEEE International Conference on Electrical, Automation and Computer 
+Engineering, ICEACE 2023, pp. 475–479 .
+Zou, Y., Ma, X., Zhang, S., Zhou, T., Li, H., 2016. Numerical investigation into the 
+influence of bedding plfane on hydraulic fracture network propagation in Shale 
+Formations. Rock Mech. Rock Eng. 49, 3597–3614 .
+Zou, J., Wang, X., Wang, Y., Liu, Y., Chen, P., 2024. Modeling and friction response 
+analysis of rocking-sliding friction of drill string in directional wells. Tribol Int 193, 
+109466 .
+X. Dong et al.                                                                                                                                                                                                                                    

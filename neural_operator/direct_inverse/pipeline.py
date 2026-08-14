@@ -22,7 +22,7 @@ from .config import (
     TargetConfig,
     TrainingConfig,
 )
-from .phasenet_1d import PhaseNet1D
+from .phasenet_1d import PhaseNet1D, unpack_model_output
 
 
 def masked_focal_bce(
@@ -59,11 +59,23 @@ def composite_loss(
     target: torch.Tensor,
     mask: torch.Tensor,
     config: LossConfig,
+    count_logits: torch.Tensor | None = None,
+    n_frac: torch.Tensor | None = None,
 ) -> Tuple[torch.Tensor, Dict[str, torch.Tensor]]:
     focal = masked_focal_bce(logits, target, mask, config)
     dice = masked_soft_dice_loss(logits, target, mask, config.epsilon)
     total = focal + config.dice_weight * dice
-    return total, {"focal": focal, "dice": dice, "total": total}
+    parts: Dict[str, torch.Tensor] = {"focal": focal, "dice": dice, "count": logits.new_zeros(())}
+    if count_logits is not None:
+        if n_frac is None:
+            raise ValueError("n_frac is required when count_logits is provided")
+        # n_frac in {1..C} -> class index {0..C-1}
+        count_target = (n_frac.long() - 1).clamp(min=0, max=count_logits.shape[-1] - 1)
+        count_loss = F.cross_entropy(count_logits, count_target)
+        parts["count"] = count_loss
+        total = total + config.count_weight * count_loss
+    parts["total"] = total
+    return total, parts
 
 
 def normalize_observation(observation: torch.Tensor) -> torch.Tensor:
@@ -147,19 +159,34 @@ def collect_predictions(
         "kleak": [],
         "n_frac": [],
         "min_spacing_m": [],
+        "predicted_count": [],
+        "count_probability": [],
     }
     with torch.no_grad():
         for batch in loader:
             observation = normalize_observation(batch["observation"].to(device))
-            if observation.shape[1] != 1:
-                raise RuntimeError("P0-A leakage guard: model input must have exactly one channel")
-            logits = model(observation)
+            if observation.shape[1] != model.config.in_channels:
+                raise RuntimeError(
+                    f"channel mismatch: got {observation.shape[1]}, expected {model.config.in_channels}"
+                )
+            event_logits, count_logits = unpack_model_output(model(observation))
             storage["case_id"].extend([str(value) for value in batch["case_id"]])
-            storage["logits"].append(logits.cpu().numpy())
-            storage["probability"].append(torch.sigmoid(logits).cpu().numpy())
+            storage["logits"].append(event_logits.cpu().numpy())
+            storage["probability"].append(torch.sigmoid(event_logits).cpu().numpy())
             for key in ("event_target", "valid_time_mask", "time_axis", "x_f_m", "Cf", "kleak", "n_frac", "min_spacing_m"):
                 output_key = "x_f" if key == "x_f_m" else key
                 storage[output_key].append(batch[key].cpu().numpy())
+            batch_size = observation.shape[0]
+            if count_logits is None:
+                storage["predicted_count"].append(np.full(batch_size, -1, dtype=np.int64))
+                storage["count_probability"].append(
+                    np.full((batch_size, 1), np.nan, dtype=np.float32)
+                )
+            else:
+                count_prob = torch.softmax(count_logits, dim=-1)
+                predicted = count_prob.argmax(dim=-1) + 1
+                storage["predicted_count"].append(predicted.cpu().numpy().astype(np.int64))
+                storage["count_probability"].append(count_prob.cpu().numpy().astype(np.float32))
     return {
         "case_id": np.asarray(storage["case_id"]),
         **{

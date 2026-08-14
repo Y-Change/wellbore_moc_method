@@ -1,0 +1,858 @@
+SOURCE: High resolution imaging of pressurised water supply lines 高压供水管道的高分辨率成像.pdf
+PAGES: 12
+FULL extract 12 pages
+
+
+
+===== PAGE 1 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+Available online 19 February 2025
+0888-3270/© 2025 Published by Elsevier Ltd.
+Full Length Article
+High resolution imaging of pressurised water supply lines
+Saber Nasraoui
+a , b , *
+, Moez Louati
+c
+, Mohamed Salah Ghidaoui
+c
+a
+Department of Physics, Faculty of Sciences of Tunis, University Tunis El Manar 1060 Tunis, Tunisia, Laboratory of Mathematical Modeling and 
+Multi-scale Simulation for Physics and Engineering, Tunisia
+b
+Department of Water Supply, Sanitation and Environmental Engineering, IHE Delft, Netherlands
+c
+Department of Civil and Environmental Engineering, Hong Kong University of Science and Technology, Clear Water Bay Campus, Hong Kong, China
+ARTICLE INFO
+Keywords:
+Acoustic imaging
+Time reversal
+High-frequency acoustic waves
+Pipeline
+Water supply
+ABSTRACT
+This paper proposes a computationally efficient, nondestructive, and medium range guided wave 
+imaging of pressurized water supply lines based on the time reversal (TR) technique. A send- 
+receive transducer is inserted in the water column from a single access point and used to mea -
+sure multi – input – multi – output (MIMO) pressure wave signals that propagate along the wave -
+guide. The resulting high frequency (10 kHz-100 kHz) signals are processed by the TR-MUltiple 
+SIgnal Classification (TR-MUSIC) algorithm to provide high-resolution images the water pipe 
+system. The resulting images reveal the pipe wall inner and outer condition with millimeter 
+resolution. The proposed technique is tested and validated in lab as well as in field scale facilities 
+on pressurized water-filled viscoelastic high-density polyethylene (HDPE) pipes. In particular, we 
+successfully imaged (i) a straight 6.5 m long, water-filled 90 mm HDPE lab pipe containing a 
+small blockage with thickness 7.65 mm and a length 97 mm and (ii) a 36.5 m long section water- 
+filled 160 mm HDPE pipe containing three T-connections and a small blockage with thickness 16 
+mm and length 95 mm.
+1. Introduction
+Urban Urban Water Supplies Systems (UWSS) — a complex network of pipes that lie beneath our streets — are vital for life and 
+economic productivity. Such systems often experience the formation of defects during their lifetime due to physical and/or chemical 
+processes, including corrosion, failure of pipe lining, and deposition of suspended fine particles. Such defects often begin as a cluster of 
+small defects on the inside of a pipe wall which we refer to hereafter as incipient defects. The growth of such incipient defects with time 
+can eventually lead to bursts, leaks, and sizeable blockages, resulting in unacceptably large system water losses and excessive energy 
+use. Recent studies estimate that 126 billion cubic meters are unaccounted for annually by water utilities around the world, for an 
+equivalent monetary loss of USD 39 billion [1] . Until now, efforts to curb these massive water losses and energy wastage in existing 
+UWSS has focused on non-intrusive and non-destructive technology development for detecting existing, fully-fledged, physical defects 
+and operational inefficiencies. However, pinpointing incipient defects at an early stage for remediation prevents their progression into 
+significant failures, offering a proactive approach to UWSS management.
+Traditional internal sensor-based imaging systems are used to monitor and report the condition of a pipeline ’ s internal surface and 
+pipe wall and enable detection of corrosion sites, cracks, wall thickness, and weld condition, as well as existing leaks. Smart Pipeline 
+inspection gauges (Smart PIGs) were originally developed by the energy pipeline industry and have only recently been emulated by 
+* Corresponding author.
+E-mail address: nasraoui1110@gmail.com (S. Nasraoui). 
+Contents lists available at ScienceDirect
+Mechanical Systems and Signal Processing
+journal homepag e: www.else vier.com/loc ate/ymss p
+https://doi.org/10.1016/j.ymssp.2025.112455
+Received 24 March 2024; Received in revised form 1 February 2025; Accepted 8 February 2025  
+
+===== PAGE 2 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+2
+water pipe tools like Smart Ball, Sahara, CCTV, and acoustic sonar [2 – 4] . These tools may also have on-board optical, magnetic, or 
+acoustic sensors which, like Smart PIGs, must be launched into a water pipe and be retrieved through a suitably sized port, sometimes 
+using a tether cable. PIG-based sensors are not autonomous or semi-autonomous (even in the energy pipeline sector); rather, they are 
+propelled by the pipe flow or tethered. This technology is suitable for use in conduits that present no obstructions to free passage of in- 
+line sensing tools (eg., oil & gas pipelines). On the other hand, UWSS are often intricate networks of pipes with numerous pipe- 
+diameter changes, partial-bore inline valves and abrupt changes in direction that do not permit the use of inline Smart PIGs. Addi -
+tionally, inline Smart PIGs currently function as a slow, in-pipe survey tool, typically moving at a speed of approximately 0.3 m/s. 
+Moreover, inline Smart PIGs involve significant costs and labor, require traffic diversion [2] .
+Less costly, non-disruptive, and more efficient techniques such as transient (acoustic)-based defect detection methods (TBBDM) 
+have been intensively studied and developed [5 – 13] . Among these methods, the low frequency ( < 100 Hz) wave-based methods are 
+unique for their fast speed (~1000 times faster than roving sensors) and broad coverage (~kilometres), are both economical and 
+applicable to all fully-developed faults. However, low frequency (LF) wave-based methods have poor location resolution (several 
+meters) [6] and are limited to defects which are large enough to produce visible reflections since noise is strong at the LF band. Since 
+the achievable resolution is directly proportional to the probing wavelength, high frequency (HF) wave-based methods have been 
+developed to achieve a resolution in the order of centimeters [14,15] . Yet, these HF wave-based methods remain applicable only for 
+fully fledged defects (i.e., through-wall defects such as leaks and also defects with a radial length scale of the order of 15 % of the pipe 
+diameter or larger). These limitations underscore a significant gap: existing methods cannot reliably detect and image incipient defects 
+or small structural anomalies at the millimeter scale. To address this gap, we propose a novel pipeline imaging technique based on the 
+time reversal (TR) property of high-frequency acoustic waves (10 – 100 kHz) enabling subwavelength resolution.
+This method would permit UWSS management to move from reactive to proactive mode, where anomalies with length scales of the 
+order of millimetre are detected and imaged (not just localized). The proposed imaging technique serves as a decision support tool for 
+timely maintenance and mitigation measures. The produced image can reveal the pipe wall inner and outer condition, incipient as well 
+as existing defects at a scale up to millimeters and small (5 to 10 %) change in wall stiffness or mass. The proposed pipeline imaging 
+technique is based on the wave time reversal property that has been experimentally proven in UWSS [16] . This technique specifically 
+advances the transient-time-reversal by demonstrating its capability to image small-scale defects in pressurized, viscoelastic, water- 
+filled HDPE pipes — an application not previously achieved. The technique operates through a forward step that actively generates 
+HF waves, which are sensed, followed by a Time Reversal step where subspace noise is reversed and re-emitted into a UWSS model. 
+This approach allows for detailed imaging of the pipe wall ’ s inner and outer conditions, enabling proactive UWSS maintenance. The 
+technique operates through a forward step where actively-generated high frequency waves in UWSS are sensed, followed by a Time 
+Reversal step where the chronological order of the subspace noise is reversed and re-emitted into a model of the UWSS. The proposed 
+technique is tested and validated in lab as well as in filed scale facility comprised of pressurized water-filled viscoelastic HDPE pipes.
+2. Fundamental principle and Time-Reversal imaging algorithm
+Consider a water-filled pipe with a cross section of radius R as sketched in Fig. 1 . We use the cylindrical coordinates, ( x , r ), where r is 
+defined along the radius in the pipe cross section and the cylindrical coordinate x is defined along the cylinder axis.
+2.1. Multistatic response matrix
+The MIMO data is obtained via an array of transducers in which the complete set of time-domain signals for every pair of trans -
+mitter – receiver elements in the array is collected. Fig. 1 shows the locations of M   transducers array placed along the pipe centerline 
+Fig. 1. Sketch of a water-filled pipe system containing multiple defects and a piezoelectric array. It shows the location of M   piezoelectric sensor 
+array along the pipe centerline axis. The piezoelectric elements are used not only as transmitters but also as receivers. Each element in the 
+piezoelectric array is excited in turn, and all the array elements receive response signals.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 3 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+3
+denoted as x
+£ 
+= ( x
+£
+, r
+£
+) where x
+£ 
+and r
+£ 
+represent respectively the axial and the radial coordinates of the £
+th 
+location, and £ = 1, 2, … , M . 
+The data is collected as follows: at each of the £
+th 
+transducer location, an acoustic source signal S ( t ) is projected, and the system 
+response is measured at all locations within the array at a sampling rate F
+s 
+(as the rule of thumb, the F
+s 
+is ten times the maximum 
+injected frequency). The digitized time-domain signals P ( n/F
+s
+, x
+i 
+| x
+j
+) from each transmitter – receiver combination are grouped into a ( 
+M × M × N ) 3D matrix K
+3 D 
+( Fig. 2 ) where i = 1, 2, … , M , j = 1, 2, … , M , n = 1, 2, … , N , and N is the signal length in time, x
+j 
+is the source 
+location and x
+i 
+is the receiver location.
+This paper focuses on imaging with high frequency (10kH-100 kHz). The low level of noise in this frequency range [17] allows the 
+use of the single-frequency versions of the TR-MUSIC algorithms and develop real time pipe imaging technique. In this approach, we 
+perform the fast Fourier transforms (FFTs) on the entries in the 3D matrix K
+3 D
+, which contains the time-domain signals collected by the 
+hydrophone array along the pipe. This transformation converts the time-domain signals into the frequency domain, resulting in the 
+frequency-domain 3D matrix 
+̂
+K
+3 D
+.From 
+̂
+K
+3 D
+, we then extract the 2D multistatic response matrix K ( ω ), which represents the pipe 
+system ’ s response at each specific frequency ω . This frequency-domain matrix K( ω ) is subsequently used in the TR-MUSIC algorithm to 
+generate a detailed, real-time image of the pipe system. For example, when using an acoustic source with a Gaussian-modulated sine 
+pulse, the imaging technique is applied to K ( ω
+0
+), which is the 2D multistatic response matrix of the pipe system at the central frequency 
+ω
+0
+. Here, ω
+0 
+represents the central frequency of the injected source, which corresponds to the peak of the frequency response signal.
+2.2. Time-Reversal operation
+In this paper the MUSIC approach for time-reversal imaging is considered. This approach was first proposed in [18] and named 
+‘time-reversal MUSIC ’ because both time-reversal methods [19] and MUSIC can be explained using the eigenvalues of the time reversal 
+operator [20] . The MUSIC algorithm, a high-resolution signal processing technique, works by decomposing the multistatic response 
+matrix K ( ω ) (which can be provided experimentally from measurement the data collected on the hydrophone array) into orthogonal 
+signal and noise subspaces using singular value decomposition (SVD). This mathematical framework is particularly useful for time- 
+reversal imaging as it exploits the inherent properties of the Green ’ s function and the orthogonality of subspaces. The MUSIC algo -
+rithm, a high-resolution signal processing technique, works by decomposing the multistatic response matrix (which can be obtained 
+experimentally from the data collected by the hydrophone array) into orthogonal signal and noise subspaces using singular value 
+decomposition (SVD). This mathematical framework is particularly useful for time-reversal imaging, as it leverages the inherent 
+properties of the Green ’ s function and the orthogonality between the signal and noise subspaces. The signal subspace is constructed 
+analytically using the Green ’ s function, which models the propagation of waves through the medium. The Green ’ s function formalism 
+helps to represent the expected response of the system to signals originating from potential scatterer locations. Once the signal is 
+analytically constructed, it is projected onto the noise subspace. Specifically, the imaging function relies on projecting test locations 
+onto the noise subspace, which enables a precise identification of the spatial distribution of scatterers.
+More details about the imaging algorithm steps are given in the following. 
+i) Singular Value Decomposition:
+Consider a multistatic response matrix K ( ω ), which can be provided experimentally from measurement the data collected on the 
+hydrophone array. The singular value decomposition (SVD) of K ( ω
+0
+) is: 
+K ( ω
+0
+) = U Σ V
+H
+(1) 
+where the superscript ‘ H ’ is the conjugate transpose, U and V are matrices whose columns are the singular vectors μ
+i 
+and v
+i
+, while Σ =
+diag{ σ
+1
+, σ
+2
+, … , σ
+M
+}, is a diagonal matrix with singular values σ
+i
+, arranged in order of decreasing magnitude. The singular vectors μ
+i 
+and 
+v
+i 
+are both a mixture of signal and noise eigenvectors, and they are orthogonal to each other. In practice, because of the presence of 
+experimental noise, additional singular values may become significant, which makes it difficult to distinguish the signal and noise 
+subspaces. In these cases, a threshold criterion can be chosen to divide the signal subspace from the noise subspace [21] . The value of 
+this threshold is empirical and so should be tuned depending on the system and defects of interest. Here, in the case of pipe system 
+imaging a threshold of 10 % of the maximum singular value at each frequency was found to give accurate blockage image [21] . The 
+Fig. 2. Experimental transfer matrix arrangement. P
+ij 
+denote the transient response at time t and location x
+i 
+due to a wave source at x
+j
+.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 4 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+4
+sensitivity of the chosen threshold (10 %) is addressed, and the results provide that for a perturbation of a few percent, the output TR- 
+MUSIC blockage image remains unchanged. Under the threshold criterion the signal and noise components are extracted extract as 
+follows: U = [ U
+signal 
+| U
+noise
+] = [ μ
+1
+, μ
+2
+, … , μ
+m
+| μ
+m + 1
+, … , μ
+M
+] and V = [ V
+signal 
+| V
+noise
+] = [ v
+1
+, v
+2
+, … , v
+m
+| v
+m + 1
+, … , v
+M
+]. where, U
+signal 
+and 
+V
+signal 
+are the left and right signal subspaces, U
+noise 
+and V
+noise 
+are the left and right noise subspaces, and m is the number of columns of 
+the signal subspaces matrix, which is threshold dependent. 
+ii) Imaging function:
+A first-order Newmann series solution is considered to obtain the theoretical model for multi-scatterers in a pipe system where 
+weak scattering strength is assumed [22,23] . In addition, reference [20] shows that the SVD decomposes the response matrix into a set 
+of eigenvectors associated with both signal (Green ’ s function-related) and noise subspaces. Consequently, the theoretical singular 
+vector ( μ
+Model
+) from the signal subspace associated to an arbitrary scatterer at x
+sc
+= ( x
+sc
+, r
+sc
+) can be written as: 
+μ
+Model
+( ω
+0
+, x
+e
+| x
+sc
+) = [ G ( ω
+0
+, x
+1
+| x
+sc
+) , G ( ω
+0
+, x
+2
+| x
+sc
+) , ..., G ( ω
+0
+, x
+M
+| x
+sc
+)]
+T
+(2) 
+where G is the Green ’ s function of the pipe system medium defined as [24,25]
+G ( ω
+0
+, x
+e
+| x ) =
+i
+2 π
+∑
+η
+J
+0
+( k
+r η
+r
+e
+) J
+0
+( k
+r η
+r )
+Rk
+x η
+(
+1  
+ω
+2
+0
+R
+2
+k
+2
+r η
+Z
+2
+( ω
+0
+, k r η )
+)
+J
+2
+0
+( Rk
+r η
+)
+exp (   ik
+x η
+| x
+e
+  x |) (3) 
+G ( ω
+0, 
+x
+£ 
+| x ) represents the system frequency response at x
+£ 
+given a source at x , for a given frequency ω
+0
+, and comprises the sum of 
+multiple propagating modes η , each described by the modal axial and radial wavenumbers, k
+x η 
+( ω
+0
+) and k
+r η
+( ω
+0
+), respectively. J
+0 
+is the 
+Bessel function of the first kind of order zero, and Z ( ω
+0
+, k
+r η
+,) is the impedance of the pipe wall, which is evaluated using the shell theory 
+model [14,26] . Given the orthogonality property between the signal and noise subspaces, the scatterers locations ( x
+sc
+) are associated 
+with the locations x at which the inner product between the green function vector g ( ω
+0, 
+x
+£ 
+| x ) = [ G ( ω
+0, 
+x
+1 
+| x ), G ( ω
+0, 
+x
+2 
+| x ), … , G ( ω
+0,
+x
+M 
+| x ) ]
+T 
+and the noise subspace ( μ
+i 
+( i = m + 1, … , M )) is zero, where x = ( x, r ) scans the whole pipe domain space. Thus, the imaging 
+function φ ( x , ω
+0
+) can then be constructed as follows 
+φ ( x , ω
+0
+) =
+[
+∑
+M
+i = m + 1
+| < μ
+i
+, g ( ω
+0
+, x
+e
+| x ) > |
+2
+]
+  1
+(4) 
+where the strength of φ ( x , ω
+0
+) at different x provide the pipe local image corresponding to the measured transfer matrix K ( ω
+0
+). The set 
+of x values where φ ( x , ω
+0
+) is maximum provides the special region that defines the scatterers (i.e. defects in the pipe). 
+iii) Local Imaging function:
+TR-MUSIC has a poor capability of detecting multiple scatterers, especially when the number of the sensors in the array is small 
+[27] . In order to deal with the forgoing issue, an enhanced monitoring strategy based on the local TR-MUSIC algorithm [28] is applied. 
+This means that the acoustic response from the pipe system is split into a set of sub-responses. Each sub-response presents the scattered 
+signal from a local region in the pipe. In addition, since the scattered signals of different time periods are cut out for a local region 
+processing from zero, this is equivalent to scanning the pipe domain from near to far according to the distance from the location of the 
+receiver. The process of the local TR-MUSIC algorithm is similar to the short-time Fourier transform. First, a moving Hanning window 
+(MHW) in time is applied to K
+3 D 
+to obtain a set of 3-D local matrices K
+ℓ
+3 D 
+where ℓ = 1, 2, … , I, and I = N / t
+c
+, with t
+c 
+is the time interval of 
+the MHW (see Fig. 2 ) [28] . Second, each local matrix K
+ℓ
+3 D 
+is transformed in the frequency domain using the Fast Fourier transform 
+(FFT) and the result is 
+̂
+K
+ℓ
+3 D
+. From 
+̂
+K
+ℓ
+3 D
+, we then extract the local multistatic response matrix 
+̂
+K
+ℓ
+( ω
+0
+) .Thus, there exists t
+c
+-dependent 
+singular value decomposition nonzero singular values. Herein, the t
+c 
+is chosen so that the number of scatterers (i.e., the number 
+nonzero singular values) does not exceed the total number of sensing array elements.
+Finally, the time reversal operation is applied to every frequency-transformed local matrix for a given frequency 
+̂
+K
+ℓ
+( ω
+0
+) (local 
+multistatic response matrix), performing a set of imaging functions φ
+ℓ
+( x , ω
+0
+). The full pipe imaging function φ ( x , ω
+0
+) is obtained by 
+summing all local imaging functions φ
+ℓ
+( x , ω
+0
+) for ℓ = 1, 2, … , I , which is written as 
+φ ( x , ω
+0
+) =
+∑
+ℓ
+φ
+ℓ
+( x , ω
+0
+) (5) 
+The strength of φ ( x , ω
+0
+) at different x provides the full pipe image.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 5 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+5
+3. Testing the proposed imaging method using synthetic data
+3.1. Noise-free synthetic data: Rigid pipe case
+This section provides an example to verify the effectiveness and feasibility of the developed TR-based imaging algorithm using 
+synthetic data generated by the analytical model developed in Ref ( [14] ). The test case consists of an unbounded rigid pipe with radius 
+R = 0.0393 m containing a small blockage located 2.36 m away from the sensors array (see Fig. 3 ). The blockage was simulated in the 
+two-dimensional pipe domain by aligning closely 70 spaced scattering points. In this example the MIMO data is obtained via an array 
+of 10 transceivers placed along the pipe centerline and spaced every 2 cm. The simulated blockage is drawn with small dots ( Fig. 3 b) 
+and the array of 10 transceivers is drawn with small circles ( Fig. 3 a). The blockage is modeled as a discrete set of points. During the 
+simulation process, it is numerically represented as a collection of scattering points to compute the reflection from the entire blockage. 
+The reflection is simulated by calculating the interaction of the incident wave field with each scattering point using the Green ’ s 
+function formalism [14] . Initially, a uniform scattering strength of one was assigned to each point on the blockage. When noise is 
+introduced, the signal-to-noise ratio is controlled by adjusting the amplitude of the noise.
+The wave speed in water is assumed to be constant at 1480 m/s. The excited wave source signal S ( t ) is a Gaussian-modulated sine 
+wave with central frequency f
+0 
+= 55 kHz (or ω
+0 
+= 2 π f
+0
+) and a narrow frequency bandwidth FBW = [0.9 f
+0 
+to 1.1 f
+0
+] (i.e. the minimum 
+probing wavelength λ ∼ 2 . 4 cm) [29,30] . The sampling rate is 1 MHz, and the length of the time signal of the system response is set to 
+T = 0.01 s, which is enough to capture the reflection from the blockage. Fig. 4 .a shows the scattered signal received by the 10th sensor 
+(i.e., the one nearest to the blockage) when the source is at the first position of the transducers array.
+In this test case the number of the sensor array (10 sensors) is smaller than the number of the scatterers (70 scattering points). 
+Therefore, the local TR-MUSIC algorithm is applied. The time interval t
+c 
+of the Hanning window is taken to be T/30 in order to ensure 
+that the number of scatterers is smaller than the number of transducer elements (i.e., 10). Moreover, one can choose t
+c 
+smaller than T/ 
+30, but this increases the time of the imaging computation without gain in terms of accuracy. In fact, a Hanning window with t
+c 
+= T/40, 
+and t
+c 
+= T/60 has also been applied (not shown here for brevity), and the imaging accuracy is the same as the T/30 case.
+For the time window interval t
+c 
+= T/30 = (0.01/30)s, the scattered signal is divided into 30 sub-scattered signals in which there are 
+nine signals with significant amplitudes (see Fig. 4 b). From each received signal, nine sub-scattered signals caused by the blockage are 
+subtracted, then the resulting nine transfer matrices are substituted into the TR-MUSIC algorithm, performing nine imaging 
+functions φ
+ℓ
+( x , ω
+0
+), ℓ = 1, 2, … , 9 plotted in Fig. 5 . Combining Fig. (5.1) – (5.9) gives the accurate image of the blockage in the 
+considered pipe system (see Fig. 6 ).
+3.2. Effect of noise: Rigid pipe case
+A zero-mean Gaussian white noise is added to the synthetic data of the previous test case. Therefore, the multistatic response matrix 
+can be written in the form 
+K
+ʹ
+= K + N (6) 
+where K is the noise-free multistatic response matrix and N is the added zero mean complex Gaussian noise matrix. The signal-to-noise 
+ratio (SNR) in decibels is defined by 
+SNR = 20log
+10
+(
+‖ K
+ʹ
+‖
+‖ N ‖
+)
+(7) 
+where ||.|| is the usual L
+2 
+matrix norm.
+Fig. 7 shows the pipe image of the considered blockage, computed from a single realization of noisy data having a signal-to-noise 
+ratio of roughly 22 dB. The effect of the noise is evident from the Fig. 7 in the form of spurious maxima surrounding the maxima due to 
+Fig. 3. (a): Sketch of the considred pipeline system for imaging. (b): Zoomed version.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 6 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+6
+the blockage locations. In addition, the blockage image as estimated from the time reversal MUSIC has an error in the location and 
+shape of the blockage. The fact that we considered only the most restrictive case of single snapshot data explains why large errors occur 
+( Fig. 1 (b)) at relatively low noise levels. To address the noise issue, we conduct the blockage imaging with multiple realizations of 
+noisy data and find that after 20 realizations the output time reversal image remain unchanged. The result of 20 realizations is plotted 
+in Fig. 1 and shows more accurate image. Clearly, the performance can be better, in practice, if one records more than a single 
+realization sample because different noise contributions will statistically cancel out. (See Fig. 8 ).
+To quantitatively estimate the effect of the noise on the proposed pipe imaging methods, we consider the pipe image in the noise 
+free case ( Fig. 6 ) as reference image since it produces accurately the actual blockage. Then for given SNR the imaging error induced by 
+Fig. 4. Scattered signal received by the 10th sensor when the source is acting on the first transducers array.
+Fig. 5. Local TR-MUSIC images when a Hanning window with width equal to T/30 = (0.01/30)s is applied to the original signal.
+Fig. 6. Combination of the Local TR-MUSIC images.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 7 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+7
+the noise is evaluated with respect to the reference image. Here, the relative error e
+x , r 
+is defined by 
+e
+x , r
+=
+1
+2
+(
+‖ φ
+x
+( SNR )   φ
+x
+( SNR = 0 )‖
+‖ φ
+x
+( SNR = 0 )‖
++
+‖ φ
+r
+( SNR )   φ
+r
+( SNR = 0 )‖
+‖ φ
+r
+( SNR = 0 )‖
+)
+× 100 (8) 
+where φ
+x
+and φ
+r 
+are the projections of the imaging function φ along x and r axis, respectively, and the overline stands for the average. 
+For each SNR value, 20 noise imaging realizations are generated and the relative error between the actual and the ensemble averaged 
+estimated projections of the imaging function φ along x and r axis are computed. Fig. 9 depicts the errors for different SNR considering 
+the blockage explored in the previous section. Fig. 9 clearly shows that the accuracy of the blockage image increases as the SNR in -
+creases. Therefore, in practice, such experiment requires accurate equipment and low-noise amplifier to achieve accurate results. This 
+will be further discussed in the experimental section below.
+Fig. 7. (a): Plots of the time reversal MUSIC blockage image computed from a single realization noisy synthetic data yielding a signal-to-noise ratio 
+of about 22 dB. (b) Difference between signals for noise-free case.
+Fig. 8. (a): Plots of the time reversal MUSIC blockage image computed from a 20 realizations noisy synthetic data yielding a signal-to-noise ratio of 
+about 22 dB. (b) Difference between signals for noise-free case.
+Fig. 9. Imaging error of the blockage sketched in Fig. 3 with respect to SNR (16,19, 22, 25, 28, 30, 33, 36, 39, 42, 45 dB). The central frequency of 
+the Gaussian source is f
+c 
+= 55 kHz.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 8 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+8
+3.3. Synthetic data for elastic pipe case
+The proposed method has also been applied for elastic pipe wall test case, and the same geometric parameters of the above nu -
+merical example are considered for SNR = 30 dB. The analytical model ( [14] ) is used to generate synthetic data to test and demonstrate 
+the imaging algorithm in elastic pipe. Three test defect cases are considered, namely (i) internal wall thinning; (ii) stiffness reduction in 
+a small region along the wall; and (iii) external wall thinning. In each case, the defect is located 20 m away from the sensors array. The 
+defect sizes and shapes are shown in Fig. 10 a, c, and e. In all test cases, the pipe is considered unbounded, 7.86 cm in diameter, 5.7 mm 
+in thickness, and viscoelastic in material (same as HDPE parameters).
+The MIMO data is obtained via an array of 10 transducers placed along the pipe centerline and spaced by 2 cm. The excited wave 
+source signal S ( t ) is a Gaussian-modulated sine wave with central frequency f
+0 
+= 70 kHz (or ω
+0 
+= 2 π f
+0
+) and a narrow frequency 
+bandwidth FBW = [0.9 f
+0 
+to 1.1 f
+0
+] [29,30] . The sampling rate is 1 MHz, and the length of the time signal is set to T = 0.02 s. The 
+Hanning window width is taken as T/20. Applying the proposed imaging algorithm described in the previous section, the pipe images 
+of the three considered test cases are given in Fig. 10 b, Fig. 10 d, and Fig. 10 f. Fig. 10 compares the identified TR image of the defect 
+location, size, and shape, as well as the pipe wall and its thickness, with the actual cases and shows accurately predicted TR images.
+4. Testing the proposed TR imaging method using experimental data
+4.1. Application in lab facility
+The proposed technique for pipeline imaging is experimentally tested in the Water Resources Research Laboratory at Hong Kong 
+University of Science and Technology (HKUST). The experimental setup consists of a straight 6.5 m long, 90 mm diameter HDPE pipe 
+that connects two water-filled tanks at its ends (see Fig. 11 ). The nominal external diameter of the pipe is equal to 90 × 10
+  3 
+m, and the 
+pipe wall thickness is 5.7 × 10
+  3 
+m. To emphasize the imaging capability, the experimental setup includes a blockage introduced as a 
+short pipe section located 3.5 m away from the upstream boundary, with a diameter of 33 mm, a thickness r
+B 
+= 7.65 mm, and a length 
+l
+B 
+= 97 mm as shown in Fig. 11 .
+An array of 10 transducer locations is considered at the pipe centerline and spaced by 2 cm, and located 1.5 m away from the 
+upstream boundary. Considering a linear wave system, only two Brüel & Kjær Type 8104 transducers are used; one as a projector and 
+the other as a sensor. The piezoelectric transducers (projector and sensor) are mounted inside the pipeline, with each transducer 
+consisting of a piezoelectric ceramic element housed in a protective, waterproof casing. The projector is stimulated by applying an 
+electrical signal generated by a function generator, typically a gaussian waveform, with a precise central frequency. This voltage signal 
+is sent to the piezoelectric transducers, which convert the electrical energy into mechanical energy, causing the piezoelectric material 
+Fig. 10. TR image (a-b) internal pipe wall thinning, (c-d) 10 % reduction in stiffness, and (e-f). The probing central frequency f
+0 
+= 70 kHz.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 9 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+9
+to vibrate and generate guided waves that propagate along the pipeline. In this configuration, similar piezoelectric transducer (sensor) 
+is also used to detect the reflected waves. The mechanical vibrations from the reflected waves cause the piezoelectric element to 
+deform, generating an electrical signal that is then captured by the sensor. The received signal is then digitized and processed for 
+further analysis. The multi-input, multi-output (MIMO) data is obtained by successively fixing the projector at a given position and 
+measuring the system response moving the sensor successively through the locations within the array. A Gaussian modulated sine wave 
+source S ( t ) with central frequency f
+0 
+= 55 kHz and a narrow frequency bandwidth FBW = [0.9 f
+0 
+to 1.1 f
+0
+] is used. The sampling rate is 1 
+MHz, and the length of the measurement time is set to T = 0.012 s to prevent the effect of pipe-tank reflection. Prior to data processing, 
+the baseline system response is subtracted to enhance the scattering response signal. The used Hanning window width is one-twentieth 
+the length of the measurement time. Applying the proposed imaging algorithm described in the previous section, which incorporates 
+the Green ’ s function presented in Eq. (3) and evaluated using the same parameters as the experimental setup, we obtain the pipe image 
+shown in Fig. 12 . This image clearly reveals the location and size of the blockage, as well as the pipe wall and its thickness, 
+demonstrating the algorithm ’ s accuracy.
+4.2. Application in field-scale facility (Beacon Hill)
+The imaging algorithm is further validated in a field-scale facility which represents a more realistic system scale. The facility 
+comprises a 250 m long water-filled viscoelastic 160 mm HDPE pipe (with radius R = 73 mm) (see Fig. 13 ). A 36.5 m long straight 
+section indicated in Fig. 13 is selected to perform the imaging test. The section ends connect to two T-access points from which 
+transducers can be introduced. In this case, the transducers are introduced from the downstream end T-access point (T1). Along this 
+section, three T-connections exist (T 2, T3, and T4), and a blockage with a thickness r
+B 
+= 16 mm, and a length l
+B 
+= 95 mm, is introduced 
+at 7 m away from the location x  = 0 m (see Fig. 13 ).
+Applying the imaging algorithm, which incorporates the Green ’ s function presented in Eq.3 and evaluated using the same pa -
+rameters of the pipe system illustrated in Fig. 13 , and following the measurement procedure conducted in the previously described lab 
+case, the pipe section image is provided in Fig. 14 . The image indicates the pipe wall and its thickness, along which three pipe wall 
+openings are shown corresponding to the existing three T-connections. Moreover, the blockage is accurately identified in both location 
+and size.
+5. Conclusion
+This paper proposed a computationally efficient, nondestructive, and medium range guided wave imaging of pressurized water 
+supply lines based on the time reversal (TR) technique. The main conclusion points are: 
+• The proposed technique is non-disruptive and non-intrusive. It requires a send-receive transducer to be inserted in the water 
+column from a single access point (eg. an inspection-T) and used to measure multi – input – multi – output (MIMO) pressure wave 
+signals that propagate along the pipeline.
+• High resolution imaging is achieved using TR-MUSIC approach in the frequency range of 10 kHz to 100 kHz.
+• The proposed imaging technique applied with synthetic data is able to reveal the pipe wall inner and outer condition in millimeter 
+scale.
+Fig. 11. Sketch map of the high-frequency experimental setup in the Water Resources Research Laboratory at HKUST. 3D printed magnetic base is 
+used to mount the transducers inside a 90 mm HDPE pipe with a total length of 6.5 m. A magnet was mounted to drag the transducers. A blockage is 
+deliberately introduced along the pipe. Experiment facilities consisted of a B & K 2713 power amplifier and a NI 6356 data acquisition board.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 10 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+10
+• Both lab and field-scale facilities are used to validate the proposed imaging technique. In the lab, we successfully imaged a straight 
+6.5 m long, water-filled 90 mm HDPE pipe containing a small blockage with thickness 7.65 mm and a length 97 mm. In the field- 
+scale facility, we accurately imaged a 36.5 m long section water-filled 160 mm HDPE pipe containing three T-connections and a 
+small blockage with thickness 16 mm and length 95 mm.
+The development of TR-imaging for water-filled pipelines would permit UWSS management to move from reactive to proactive 
+mode, where anomalies with length scales of the order of millimetre are detected and imaged (not just localised). Thus, it serves as a 
+decision support tool for timely maintenance and mitigation measures.
+CRediT authorship contribution statement
+Saber Nasraoui: Writing – original draft, Methodology, Data curation, Conceptualization. Moez Louati: Validation. Mohamed 
+Salah Ghidaoui: Supervision, Funding acquisition.
+Fig. 12. Imaging results of the considered pipeline system. The image is created using the experimental data from the configuration given in Fig. 11 . 
+The image is computed at f 
+0 
+= 55 kHz, and the signal-to-noise ratio SNR = 35 dB.
+Fig. 13. Setup of the pipe transient experiment in Beacon Hill, Hong Kong.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 11 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+11
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+Data availability
+Data will be made available on request.
+References
+[1] R. Liemberger, A. Wyatt, Quantifying the global non-revenue water problem, Water Supply 19 (3) (2018) 831 – 837 .
+[2] B. Nestleroth, S. Flamberg, W. Condit, J. Matthews Battelle, L. Wang, A. Chen, Field Demonstration of Innovative Condition Assesment Technologies for Water 
+Mains: Leak Detection and Location. National Risk Management Research Laboratory - Office of Research and Development - u.s, Environmental Protection 
+Agency, Cincinatti, Ohio, 2012 .
+[3] “ Smartball PWA Inspection Report 16-inch Hanover Park Force Main, prepared by Pure Technologies U.S., Inc., dated November 2015 ”” .
+[4] “ SmartBall Inspection Report NTW 700mm Pipeline Prepared for Water Supplies Department (Hong Kong) Prepared by Pure Technologies October, 2018 ” .
+[5] X. Wang, M.S. Ghidaoui, Pipeline leak detection using the matched-field processing method, ASCE,, J. Hydraul. Eng. 144 (6) (2018) 04018030 .
+[6] M. Waqar, M. Loauti, M.S. Ghidaoui, Time-reversal of water hammer waves, J. Hydraul. Res. 1 (60) (2022) 25 – 45 .
+[7] F. Zouari, M. Louati, E. Blåsten and M. S. Ghidaoui, “ Multiple defects detection and characterization in pipes, ” BHR Group 2018 Pressure Surges 13.
+[8] P. Kumar, P.K. Mohapatra, Partial blockage detection in pipelines by modified reconstructive method of characteristics technique, J. Hydraul. Eng. 148 (4) 
+(2022) 04022003 .
+[9] A.M. Sattar, H.M. Chaudhry, Leak detection in pipelines by frequency response method, J. Hydraul. Res. 46 (sup1) (2008) 138 – 151 .
+[10] S. Kim, Multiple discrete blockage detection function for single pipelines, Proceedings 2 (11) (2018) 582 .
+[11] S. Meniconi, B. Brunone, M. Ferrante, C. Capponi, C.A. Carrettini, C. Chiesa, D. Segalini, E.A. Lanfranchi, Anomaly pre-localization in distribution – transmission 
+mains by pump trip: preliminary field tests in the Milan pipe system, J. Hydroinf. 17 (3) (2015) 377 – 389 .
+[12] T.C. Che, H.F. Duan, P.J. Lee, Transient wave-based methods for anomaly detection in fluid pipes, Mech. Syst. Sig. Process. 160 (2021) 107874 .
+[13] F. Zouari, E. Blåsten, M. Louati, M.S. Ghidaoui, Internal pipe area reconstruction as a tool for blockage detection, J. Hydraul. Eng. 154 (6) (2019) 04019019 .
+[14] S. Nasraoui, M. Louati, M.S. Ghidaoui, Blockage detection in pressurized water-filled pipe using high frequency acoustic waves, Mech. Syst. Signal Proc. 185C 
+(2022) 109817 .
+[15] S. Nasraoui, M. Louati, M.S. Ghidaoui, High resolution acoustic identification of clusters of small blockages in fluid-filled pipe using maximum likelihood 
+estimation, J. Acoust. Soc. Am. 153 (5) (2023) 3086 .
+[16] G. Grigoropoulos, M.S. Ghidaoui, M. Louati, S. Nasraoui, Time reversal of waves in hydraulics: experimental and theoretical proof with applications, J. Hydraul. 
+Res 1 (2022) 60 .
+[17] A. Dubey, Z. Li, P.J.a.R. Murch, Measurement and characterization of acoustic noise in water pipeline channels, IEEE Access 7 (2019) 56890 – 56903 .
+[18] H. Lev-Ari and A. J. Devaney, IEEE Sensor Array and Multichannel Signal Processing Workshop, Cambridge (MA), USA, p. 509 – 513, 2000.
+[19] C. Prada, S. Manneville, D. Spoliansky, M. Fink, Decomposition of the time reversal operator: detection and selective focusing on two scatterers, J. Acoust. Soc. 
+Am 99 (1996) 2067 – 2076 .
+[20] A. Baussard, T. Boutin, Time-reversal RAP-MUSIC imaging, Waves Random Complex Media 18 (1) (2008) 151 – 160 .
+Fig. 14. Imaging results of the considered pipeline in Beacon Hill, Hong Kong. The image is computed at f
+0 
+= 75 kHz, and the signal-to-noise ratio 
+SNR = 30 dB.
+S. Nasraoui et al.                                                                                                                                                                                                      
+
+===== PAGE 12 =====
+Mechanical Systems and Signal Processing 228 (2025) 112455
+12
+[21] C. Fan, M. Pan, F. Luo, B.W. Drinkwater, Multi-frequency time-reversal-based imaging for ultrasonic nondestructive evaluation using full matrix capture, IEEE 
+Trans. Ultrason. Ferroelectr. Freq. Control 61 (12) (2014) 2067–2074 .
+[22] J.J. Sakurai, Modern Quantum Mechanics, Addison, New York, 1994 .
+[23] Y. Jie, C.L. Anne, G. Bernhard, H. Fazle, Inverse scattering theory: Inverse scattering series method for one dimensional non-compact support potential, J. Math. 
+Phys 55 (12) (2014) 123512 .
+[24] S. Rienstra, A. Hirschberg, An introduction to Acoustics, Self-publishing, Eindhoven, 2019 .
+[25] S. Rienstra, B. Teste, An analytic Greens’ function for a lined circular duct containing uniform mean flow, J. Sound Vib. 317 (5) (2008) 994–1016 .
+[26] T.C. Lin, G.W. Morgan, Wave propagation through fluid contained in a cylindrical, elastic shell, J. Acoust. Soc. Am. 28 (6) (1956) 1165–1176 .
+[27] A.J. Devaney, E.A.M.a.F.K. Gruber, Time-reversal-based imaging and inverse scattering of multiply scattering point targets, J. Acoust. Soc. Am. 118 (2005) 3129 .
+[28] S. Fan, A. Zhang, H. Sun, F. Yun, A local TR-MUSIC algorithm for damage imaging of aircraft structures, Sensor 21 (10) (2021) 3334 .
+[29] M. Louati, M.S. Ghidaoui, High frequency acoustic wave properties in a water-filled pipe. part 1: Dispersion and multi-path behaviour, J. Hydraul. Res. 55 (5) 
+(2017) 613–631 .
+[30] Z. Lai, M. Louati, S. Nasraoui, M.S. Ghidaoui, Numerical investigation of high frequency wave-leak interaction in water-filled pipes, J. Hydraul. Eng 147 (1) 
+(2021) 04020091 .
+S. Nasraoui et al.                                                                                                                                                                                                      

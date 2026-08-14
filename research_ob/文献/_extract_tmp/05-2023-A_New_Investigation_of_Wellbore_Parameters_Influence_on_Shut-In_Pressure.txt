@@ -1,0 +1,488 @@
+SOURCE: 05-2023-A New Investigation of Wellbore Parameters Influence on Shut-In Pressure Transient Signatures.pdf
+PAGES: 16
+FULL extract 16 pages
+
+
+
+===== PAGE 1 =====
+SPE-215709-MS
+A New Investigation of Wellbore Parameters Influence on Shut-In Pressure
+Transient Signatures from Water Hammer Fracture Diagnostics
+Yang Qiu, Xiaodong Hu, Fujian Zhou, Pukang Yi, Yajing Wang, and Zongshuai Jiang, National Key Laboratory of
+Petroleum Resources and Engineering / China University of Petroleum Beijing, Beijing, China
+Copyright 2023, Society of Petroleum Engineers DOI 10.2118/215709-MS
+This paper was prepared for presentation at the SPE International Hydraulic Fracturing Technology Conference and Exhibition held in Muscat, Sultanate of Oman,
+12 - 14 September 2023.
+This paper was selected for presentation by an SPE program committee following review of information contained in an abstract submitted by the author(s). Contents
+of the paper have not been reviewed by the Society of Petroleum Engineers and are subject to correction by the author(s). The material does not necessarily reflect
+any position of the Society of Petroleum Engineers, its officers, or members. Electronic reproduction, distribution, or storage of any part of this paper without the written
+consent of the Society of Petroleum Engineers is prohibited. Permission to reproduce in print is restricted to an abstract of not more than 300 words; illustrations may
+not be copied. The abstract must contain conspicuous acknowledgment of SPE copyright.
+Abstract
+Water hammer fracture diagnostics has been widely used in recent years, which enables field engineers to
+understand the stimulation effect from hydraulic fracturing treatment and optimize the completion strategy
+in time. Based on the high frequency acquisition equipment installed at the wellhead, the sampled water
+hammer signal is processed to obtain the reflection time of the fracture and the water hammer celerity in
+the wellbore, which is utilized to locate the downhole stimulation location. However, only the reflection
+time identified from the water hammer signal is used in current application, which means the waste of the
+useful information contained in the sampled signal.
+In addition, the uncertainty of the water hammer celerity may lead to misjudgment of the downhole
+fracture, which is still challenging in nowadays diagnosis. Thus, profound investigation of the water hammer
+reflection characteristics and the its utilization to accurately identify the information of downhole events
+is the key. Water hammer travels through the wellbore, carrying information about wellbore parameters,
+which are easy to obtain in the fracturing design or during the treatment. Studying the effect of wellbore
+parameters helps better understand the details of the water hammer, which helps accurately identify the
+fracture information. In this paper, the influence of the wellbore parameters on the water hammer reflection
+details is studied for the first time based on the numerical study, including the wellbore cementing and
+diameter change. Besides, water hammer signals from field cases are also studied, and the waveform
+characteristics related with wellbore parameters influence was analyzed, providing some useful guidelines
+for field application. The results of our study can improve the identification accuracy and provide useful
+insight for water hammer diagnostics.
+Introduction
+Multistage fracturing in horizontal well is an important development method for unconventional resources
+such as tight oil and shale gas (Yong et al. 2021
+; Jamaloei et al. 2022). However, due to formation
+heterogeneity and the failure of the bridge plug or ball during hydraulic fracturing treatment, not all
+perforating clusters contribute to production, which lead to the waste of construction resources ( Haustveit
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+2 SPE-215709-MS
+et al. 2017; Parkhonyuk et al., 2018a; Weddle et al., 2018; Ma et al. 2020). Fracturing diagnosis techniques
+help provide fracturing stimulation evaluation, guide the on-site completion decisions, and ensure the effect
+of fracturing treatment, which has been widely developed and applied in recent years (Bhatnagar et al.,
+2016
+; Watson et al., 2022; Leggett et al., 2023; Olson et al., 2023; Shokanov et al., 2023).
+Water hammer diagnostics, as a real-time, simple operation, low-cost and non-intrusive fracturing
+diagnosis technique, has been applied since 2016 to evaluate downhole events such as downhole fluid
+acceptance location, temporary plug effect, bridge mechanical isolation effect and case leaking in
+unconventional oil and gas hydraulic fracturing (Bogdan et al., 2016). The schematic diagram of the
+water hammer diagnostics in hydraulic fracturing treatment is shown in Figure 1. The key of locating
+downhole events is the determination of the reflection time between wellhead and downhole fracture and
+the propagation speed of water hammer in the wellbore (Parkhonyuk et al., 2018b; Korkin et al., 2020). The
+pressure transient observed at the end of injection, known as water hammer, is generated at the wellhead
+and propagates through the wellbore. While encountering the downhole events, the wave reflects back
+to the surface and is collected by the equipment installed at the wellhead. Therefore, the reflection time
+obtained from the water hammer contains information about the characteristic depth of the wellbore and
+the fracture. Through the signal processing model based on cepstrum analysis, the response time of water
+hammer reflection between wellhead and downhole fracture can be obtained.
+Figure 1—the schematic diagram of the water hammer diagnostics (Panjaitan et al., 2018).
+The water hammer celerity depends on several parameters, including the pressure, temperature, borehole
+geometry and fluid properties (Rutzinger et al., 2017). The typical celerity value varies from 4,000 and 5,500
+ft/s (about 1219 to 1676 m/s). It is challenging to accurately calculate the speed of the water hammer travel
+through the wellbore and decrease the water hammer celerity uncertainty. Large variation range will lead
+to huge error in water hammer diagnosis results. At present, the determination of water hammer celerity in
+water hammer diagnostics is based on Bayesian algorithm (Kabannik et al., 2018; Parkhonyuk et al., 2018b;
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+SPE-215709-MS 3
+Korkin et al., 2020). Finally, combined with the response time of fracture reflection and the celerity of water
+hammer pressure wave, the location of downhole fluid entrance point is identified.
+However, only the reflection time identified from the water hammer signal is used in current application,
+which means the waste of downhole information carried in the water hammer exists and the limitation of
+the evaluation effect in water hammer diagnostics (
+Iriarte et al. 2017 ). In addition, due to the uncertainty
+of the water hammer celerity, the inaccurate understanding of the water hammer wave propagation speed
+in the wellbore may lead to the misjudgment of the downhole fracture. Therefore, it is very important to
+deeply study the reflection characteristics in the water hammer waveform and utilize the wave reflection
+characteristics and the known information to enhance and accurately understand the information of
+downhole events. The wellbore parameters are easy to obtain in the fracturing design or during the treatment.
+Water hammer travels through the wellbore, carrying information about wellbore parameters. Thus, studying
+the effect of wellbore parameters helps better understand the details of the water hammer, which helps
+accurately identify the fracture information
+In this paper, a water hammer simulator based on fluid transient model is developed, and the influence
+of the wellbore parameters on the water hammer reflection details is studied for the first time, including the
+wellbore cementing and diameter change. Besides, water hammer signals from field cases are also studied,
+and the waveform characteristics related with wellbore parameters influence was analyzed, providing some
+useful guidelines for the water hammer diagnostics.
+Water hammer simulation model
+Transient flow model.
+ After pumps shut-in, the water hammer is generated at the wellhead. At the end of
+the fracturing, with the rapid reduction of the flow rate at the surface, the water hammer is generated at the
+wellhead and propagates through the wellbore. When the water hammer encounters the downhole boundary
+(the fracture or other condition), it reflects and propagates back to the wellhead, collected at the wellhead
+by pressure transducer (Liang et al., 2017). This pressure transient in the wellbore can be modeled through
+the equations of motion and continuity (Carey et al., 2015; Ma et al., 2019),
+(1)
+(2)
+where a is the water hammer celerity in the wellbore, A is the wellbore cross-sectional area, H is the pressure
+head, Q is the flow rate in the pipeline, D is the wellbore diameter, and f is the wellbore friction coefficient,
+t is the time, x is the measured depth along the well.
+The equation (1)  and (2) can be converted from two partial differential equations to four ordinary
+differential equations by the method of characteristic. The arranged characteristic line equations are as
+follows:
+(3)
+Using these equations and the known value at the time t. The pressure head H and flow rate Q at the
+time t+∆t at the intersection of characteristic lines can be obtained by the integral of differential equations,
+which can be solved in the form of finite difference, and the second order approximation is used to sort
+out the formula and integrate it,
+(4)
+(5)
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+4 SPE-215709-MS
+where B and R represent the pipe characteristic impedance and the resistance coefficient of the pipe
+respectively,
+(6)
+(7)
+Under initial conditions, H and Q are known for each position i at the wellbore. The H and Q after time
+∆t can be calculated from the known values at position i-1 and i+1 at time t. Therefore, the finite difference
+form can be written as:
+(8)
+(9)
+The H and Q of each position in each time step can be solved by equation (8) and (9),
+(10)
+(11)
+where CP, BP, CM and BM are
+(12)
+(13)
+CM=Hi+1t−BQi+1t, (14)
+(14)
+Boundary conditions.  To solve the propagation of water hammer wave in wellbore, the boundary
+conditions specification is needed. In this model, the fluid injected at the wellhead is assumed at the rate
+of Q0, which is linearly decreased to 0 in a very short time. The outlet boundary of the model is set as the
+constant pressure boundary. The existence of fractures communicated the formation pressure system and
+the well bottom (Carey et al. 2015; Dung et al., 2021). However, this paper mainly studies the propagation
+behavior in the wellbore and the influence of wellbore parameters, which simplifies the setting of bottom
+hole condition.
+Wellbore parameters configuration
+Wellbore cementing. During the completion process, cement outside the casing is not returned to the
+surface. The water hammer celerity in the wellbore can be calculated by (KLEM et al., 2017),
+(16)
+(17)
+where a is the water hammer celerity traveling in the wellbore, ω is the specific gravity of the fluid, g is the
+acceleration of gravity, K is the volume modulus of fluid, d is the pipe diameter, c is cementing coefficient,
+E is the Young's modulus of the pipeline, e is the pipe thickness, μ is the Poisson ratio of pipe, G is the
+shear modulus of rock.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+SPE-215709-MS 5
+The water hammer celerity in the wellbore with or without cementing can be described by the cementing
+coefficient calculated by equation (17), where the celerity will change significantly. Thus, the influence of
+wellbore cementing on the wellhead water hammer can be simulated by adjusting the celerity in different
+wellbore segments in the model.
+Wellbore diameter variation. When it comes to the wellbore diameter variation, the wellbore can be
+assumed as two pipe section with different diameter, as pipe j and pipe k shown in Figure 2.
+Figure 2—the grid connection schematic of the wellbore diameter variation section.
+The additional configuration is introduced to solve the H and Q at the end of pipe j. The boundary
+condition will be solved by the continuity equation (18) and (19), where it is assumed that the head loss at
+the pipe connection is ignored. By substituting equation (18) and (19) into equation (8) and (9), the solution
+of wellbore section j and k can obtain H and Q of the diameter variation position.
+(18)
+(19)
+Model validation. First, we used the experimental data of Hu et al. (2022). A 156-m-long steel pipe
+with diameter of 0.025m for the experiment was installed (Hu et al., 2022). The inlet of the pipeline was
+connected with a continuously variable speed pump to provide continuous flow in the long pipeline. The
+sensor was located 40 m away from the upstream end. The pipe outlet provided the pressure boundary
+through the connecting of the pressure vessel. The flow rate before the pump shutdown was 0.033m 3/min,
+and the shutdown time of the pump was 6 second. The measured pressure response at a distance of 40
+m upstream was compared with the numerical results simulated by our model in this paper, as shown in
+Figure 3. The numerical results are in good agreement with the experimental data, and the wave reflection
+characteristic has been accurately captured.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+6 SPE-215709-MS
+Figure 3—Comparison of the numerical results and experimental sampled data in a uniformly long pipeline.
+Second, experimental data of Gong et al.(2014) were used to verify the water hammer transient in the
+pipe with locally enlarged diameter (Zhang et al., 2021). The length of the pipe was 37.46m with the inner
+diameter is 22.14 mm. The total length of the pipeline with the enlarged diameter 22.96 mm was 1.649 mm,
+which was located at 17.805 m upstream of the valve. The valve quickly closed. The comparison between
+numerical and experimental results was shown in Figure 4, which was observed in good consistent.
+Figure 4—Comparison of the numerical and experimental results in the pipe with locally enlarged diameter.
+Simulation results and discussion
+Water hammer reflection characteristic. Figure 5(a) displays a result of the wellhead water hammer
+simulated by our water hammer model in a uniformly wellbore, indicating that water hammer signatures
+can reproduce the main features observed in the field data. The parameter values are ρ=1000 kg/m3, water
+hammer celerity in the wellbore a=1600 m/s, and wellbore length L=3000 m. The initial injection rate Q0=
+3 m3/min, and the time of the inlet flow rate decreasing to zero in 0.8 s. Figure 5(b) shows the 3 reflection
+features of reflection characteristics in the wellhead water hammer propagating through the wellbore: (i)
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+SPE-215709-MS 7
+as the injection rate decreases, the pressure drop at the wellhead occurs immediately, (ii) due to the line
+pack effect, the water hammer waveform shows a slow trend of pressure decreasing, rather than a horizontal
+platform (no pressure change), and (iii) the first fracture reflection at the bottom traveling back to the surface
+and the rapid pressure increase occurs.
+The pressure drop in the reflection feature (i) of the wellhead water hammer is caused by the decrease of
+the injection rate. meanwhile, effective information about the fracture only appears in the wellhead water
+hammer signal after the first fracture reflection (in the reflection feature (iii)). Thus, the pure influence of
+wellbore parameters on wellhead water hammer is concentrated in the reflection feature (ii) of the water
+hammer reflection characteristics. The detailed investigation in the reflection feature (ii) is the key to study
+the influence of wellbore cementing and its diameter variation on wellhead water hammer signature details.
+Figure 5—(a) the overall wellhead water hammer simulation result in a uniformly
+wellbore. (b)the zoomed in water hammer result to illustrate the reflection characteristics.
+The effect of the wellbore cementing. Water hammer wave has different reflection characteristics under
+different properties of pipes. In this section, 4 cases are designed to analyze the wellhead water hammer
+response characteristics. The wellbore schematic of uncemented and cemented section are shown in Figure
+6
+.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+8 SPE-215709-MS
+Figure 6—the wellbore schematic of uncemented and cemented section.
+The simulation results are shown in Figure 7(a). In the reflection feature (ii) of the water hammer, the
+pressure trend is the same in the uncemented and fully cemented wellbore. This is because the decline of
+this section is affected by the wellbore friction, which is the embodiment of the line pack effect ( Walters
+et al. 2019 ). For the partially cemented wellbore, the cementing section accelerates the original pressure
+drop trend, which leads to a pressure trend change in the reflection feature (ii) of the water hammer. The
+pressure trend change occurs at the time 2.857 s and 1.428 s, respectively. Combining the water hammer
+celerity, the location calculated by these response times is about 2000 and 1000 m, indicating the length
+of the uncemented wellbore. The duration time of the pressure trend change is 0.8 s, which is consistent
+with the pump shut-in time. As the length of the cementing section becomes longer, the reflection of the
+fracture appears more quickly, which indicating the average wave velocity inside the wellbore increases.
+In our cases, the fracture reflection time of the fully cemented wellbore is 0.535 s earlier than that of the
+uncemented wellbore, and the water hammer celerity of the cementing section is about 14% higher than
+that of the uncemented section. Wellbore cementing can significantly increase the speed of water hammer
+wave propagation in the wellbore, which is crucial for accurate diagnosis of downhole fracture location.
+Meanwhile, the peak and valley value of wellhead water hammer wave increases gradually with the increase
+of cementing section length. The energy dissipation of the water hammer in the cementing wellbore is
+smaller, and the amplitude of the water hammer is larger. With the reflection of the water hammer in the
+wellbore (after the reflection feature (iii)), the wellhead water hammer becomes more complex in partial
+cemented wells.
+The effect of the wellbore diameter variation size. In this section, the effect of the wellbore diameter
+variation size on the response characteristics of wellhead water hammer wave is discussed with 5 simulation
+cases. The diameter variation position is located at the 2500 m in the fully cementing wellbore with the 50-
+m-long diameter variation section. The variation diameters are 0.08, 0.1, 0.125, 0.15 and 0.2 m, respectively.
+The results are shown in the Figure 7(b). The wellbore with smaller diameter will accelerate the decline
+trend of the pressure in the wellhead water hammer, while the wellbore with the enlarged diameter slows
+down the pressure drop tendency. The reason of this phenomenon is the change of the wellbore diameter
+alters the impedance at the corresponding position, where the water hammer wave reflects. The positive
+or negative reflection coefficient determines the pressure change in the reflection feature (ii) of the water
+hammer. The reflection coefficient is calculated as follows (
+Dunham et al. 2023):
+(20)
+where Z is the impedance of the wellbore diameter variation section, Z w is the characteristic impedance of
+the wellbore.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+SPE-215709-MS 9
+When the wellbore diameter decreases, the impedance of the corresponding position Z becomes larger,
+which is greater than the characteristic impedance of the wellbore Zw. The reflection coefficient is positive,
+and positive reflection occurs, which accelerates the pressure decline trend in the reflection feature (ii) of the
+water hammer. As the wellbore diameter increases, the impedance of the corresponding position Z becomes
+smaller, which is less than the characteristic impedance of the wellbore Zw. The reflection coefficient is
+negative, and negative reflection occurs, which deaccelerate the pressure decline trend in the reflection
+feature (ii) of the water hammer. The magnitude of the pressure change is also related to the size of the
+wellbore diameter variation. The greater the diameter change, the larger the water hammer pressure change.
+The effect of the wellbore diameter variation position. The effect of the wellbore diameter variation
+position on the wellhead water hammer wave is discussed with 4 cases in this section. The variation diameter
+is 0.15 m (enlarged diameter) with the length of 50 m. They are located at 1000m, 1500m, 2000m and
+2500m positions of the fully cementing wellbore, respectively. The results are shown in Figure 7(c)
+. In the
+reflection feature (ii) of the water hammer, negative pressure reflection appears successively. The time of
+occurrence is 1.25, 1.875, 2.5 and 3.125 s respectively. According to the water hammer wave celerity set in
+our model, the corresponding enlarged diameter positions are indicated, respectively. The negative pressure
+reflection duration was the same in each case (0.063 s in this paper), which was related to the length of the
+enlarged diameter section. It is worth noting that during a certain time after the first reflection representing
+the wellbore diameter variation, the pressure converted into the initial trend (0.8 s in this paper), which is
+consistent with the time that injection rate becomes to zero at the wellhead.
+The effect of the wellbore diameter variation length. This section discusses the effect of the wellbore
+diameter variation length on the wellhead water hammer wave in 5 cases. The diameter variation position
+is located at the 2500 m in the fully cementing wellbore with the 0.1 m diameter (reduced diameter). The
+wellbore diameter variation length are 20, 40, 60, 80, and 100 m, respectively. The results are shown in
+Figure 7
+(d). As the length increases, the positive reflection duration increases in the reflection feature (ii)
+of the wellhead water hammer. At the same time, with the increase of reduced diameter section, the average
+celerity in the wellbore increases, and the reflection of the downhole fracture becomes earlier gradually.
+The numerical simulation results show that the wellbore cementing accelerates the change of pressure
+trend and changes the average water hammer celerity in the wellbore. The moment pressure trend alters
+depends on the length of the wellbore cementing. The pressure amplitude of pipe diameter change is affected
+by the degree of pipe diameter change and the length of pipe diameter change. Wellbore diameter reduction
+will show negative reflected pressure increase in the details of the water hammer waveform, while diameter
+expansion will show positive reflected pressure subsidence. The position of reflection is related to the
+position of reducing diameter, and the duration of reflection is related to the length of reducing section.
+The reflection characteristics of wellhead water hammer wave will become more complex whether it is
+cementing or partial diameter change in the wellbore. Meanwhile, since these effects are caused by the
+change of wellbore parameters, these characteristics will first be reflected in the reflection feature (ii) of
+the wellhead water hammer, which takes priority before the reflection feature (iii) of the downhole fracture,
+guiding us to process and analyze the complex water hammer signals collected on site.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+10 SPE-215709-MS
+Figure 7—(a) the simulation wellhead water hammer results under different wellbore cementing condition.
+(b) the simulation wellhead water hammer results with different wellbore diameter variation size. (c)
+the simulation wellhead water hammer results with different wellbore diameter variation position.
+(d) the simulation wellhead water hammer results with different wellbore diameter variation length.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+SPE-215709-MS 11
+Field data investigation and analysis
+The effect of the wellbore cementing. The first case displayed the effect of the wellbore cementing on
+the pump shut-in water hammer signal sampled in well A, which was a typical partially cemented wellbore
+fracturing well. The wellbore structure of well A is shown in Figure 8(a). The fracturing casing length was
+5028 m and the cement return height is 2950 m. The fracturing interval of this stage was 4300 to 4375m. The
+length of the cemented section was 2193 m and the uncemented section is 2182 m. According to the DAS
+interpretation of this well, the fluid acceptance location was 4345 m. According to the cepstrum analysis,
+the fracture response time of this section was 6.021 s, and the average water hammer celerity in the wellbore
+was about 1455 m/s. In the reflection feature (ii) of the wellhead water hammer, there was a clear trend of
+increasing pressure drop shown in red and green arrow in Figure 8
+(b). The time when the pressure drop
+trend increased was about 3.2 s. According to the information of the wellbore structure, the wave velocity
+in the cementing section increased by about 14.45 % compared with that in the uncemented section. It had
+a good agreement to the results obtained in the previous study of our numerical model.
+Figure 8—(a) the wellbore structure of the well A. (b) the pump shut-in wellhead
+water hammer signal sampled from well A during hydraulic fracturing treatment.
+Reflection time variation during hydraulic fracturing (wellbore cementing quality impact).  The
+second example showed the effect of cementing quality on fracture reflection time obtained from the
+water hammer diagnostics. Wells A and B were multistage fracturing wells designed in perf-and-plug
+completion method in tight reservoirs. the statistical results illustrated that the overall tendency of the
+fracture reflection time gradually decreased with the progress of fracturing, which was consistent with the
+sequence of fracturing from toe to heel of the wellbore. According to the results of DAS monitoring or
+other methods, there was no indication of plug isolation failure, and the stimulation was successfully in the
+target stage. Under the circumstance, the measured depth of the target zone decreased, and the reflection
+time appeared in the decline trend. However, some reflection times in both well A and B were not following
+that trend. For example, in the case of well A in Figure 9 (a), fracture reflection time increased in stage 2 to
+6 and stage 11 to 13. According to the previous theoretical study, the presence of cementing section altered
+the propagation speed of water hammer in the wellbore. Thus, the cementing quality would also affect the
+velocity of water hammer wave in the wellbore to different degrees. In well A, wellbore logging results
+showed bad cementing quality from sections 2 to 6 and 11 to 13 at corresponding measured depth. Similar
+regularities were also found according to the statistical results of fracture reflection time of well B in Figure
+9(b). The cementing quality would change the decline trend of fracture reflection time in the process of
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+12 SPE-215709-MS
+fracturing. Whether to slow down or convert to an increasing trend was related to the specific cementing
+quality. How to fully consider the effect of the wellbore cementing quality in the water hammer celerity
+prediction model in water hammer diagnostics is one of the keys to improve the final diagnosis precision.
+Figure 9—(a) the fracture reflection time statistical results and the cementing quality of the
+well A. (b) the fracture reflection time statistical results and the cementing quality of the well B.
+The effect wellbore diameter variation. In the third example, we discussed the effect of wellbore
+diameter variation on the wellhead water hammer. Well structure diagram of well C was shown in Figure
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+SPE-215709-MS 13
+10(a). The first section was 3-1/2" tubing with the length of 6030 m. The second section was 7-5/8"
+cementing casing with the length of 1310 m, and the third section was 5" uncemented casing hanging from
+the bottom of the second section with the length of 2056 m. The blue part represented the downhole packers.
+The wellhead water hammer of well C at the end of the fracturing was shown in Figure 10(b)
+.
+Figure 10—(a) the wellbore structure of the well C. (b) the pump shut-in wellhead water
+hammer signal sampled from well B during hydraulic fracturing treatment with labeled arrow.
+The red arrows were marked as the points where significant pressure reflection occurred, corresponding
+to the wellbore diameter variation in the well structure. The first reflection point was a negative reflection,
+corresponding to the enlarged wellbore diameter. The second reflection was positive and corresponded to
+the reduction of the wellbore diameter. The time of pressure reflection was 8.28 s and 9.705 s after pump
+shutdown, respectively. According to the wellbore diameter variation location and pressure reflection time,
+the average celerity corresponding to different wellbore section could be obtained, which was 1462 m/s
+and 1512 m/s. Although the diameter of the tubing was small, it was suspended through the wellhead and
+the downhole packer and not cemented. the water hammer wave propagated in the tubing was less than
+the velocity in the large diameter cementing casing. The cepstrum of the water hammer signal of well C
+is shown in the Figure 11
+. Multiple responses in the cepstrum existed, representing not only the wellbore
+diameter variation. Misjudging the impact of the well structure in the wellhead water hammer would lead
+to misdiagnose of the downhole fluid acceptance location.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 14 =====
+14 SPE-215709-MS
+Figure 11—The cepstrum analysis of the water hammer signal sampled
+from well C (the response in blue is the negative reflection indicator).
+Conclusion
+In this paper, the effect of the wellbore parameters on the wellhead water hammer were studied for the first
+time based on the wellbore transient flow model establishment. In addition, water hammer signals from
+field cases are also studied, and the waveform characteristics related with wellbore parameters influence
+was analyzed, providing some useful guidelines for the water hammer diagnostics. First, due to the line
+pack effect of the wellbore, a slow change trend of the water hammer waveform is showed rather than
+a horizontal one between the time of pump shut-in and the downhole boundary reflection. The wellbore
+cementing accelerates the change of the pressure trend, and the moment it occurs in the waveform depends
+on the length of the wellbore cementing. The wellbore diameter reduction will appear as a pressure spike
+on the water hammer waveform detail, while the diameter expansion will appear as a pressure sinking. The
+pressure amplitude of the diameter change is influenced by the diameter variation degree and the length of
+the wellbore diameter change. Second, the water hammer waveform shows that the reflection of the fracture
+occurs earlier due to the existence of the cemented wellbore section in numerical study. The water hammer
+celerity in cemented section is about 14 % larger in uncemented section in field case investigation. Third,
+the water hammer reflection time is negatively correlated with the fracturing treatment stages. However, bad
+quality of the partial wellbore cementing will alter the water hammer reflection time tendency, which may
+lead to misidentification of the downhole fluid acceptance location. The information about the length of the
+wellbore cementing and the diameter variation can be the indicators that help calibrate the water hammer
+celerity, which is variable during the fracturing stages and the key part in the water hammer diagnostics.
+Acknowledgments
+The authors would like to acknowledge the financial support from National Natural Science Foundation
+of China (No. 52004300).
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 15 =====
+SPE-215709-MS 15
+References
+Bhatnagar A.  Overcoming Challenges in Fracture Stimulation through Advanced Fracture Diagnostics[C]//SPE Asia
+Pacific Hydraulic Fracturing Conference. Beijing, China, 2016.
+Carey, M. Mondal, S. , Sharma, M.  Analysis of Water Hammer Signatures for Fracture Diagnostics[C]//SPE  Annual
+Technical Conference and Exhibition, 2015, Houston, Texas, United States.
+Dung N, David C, Tom D, et al Practical applications of water hammer analysis from hydraulic fracturing treatments[C].
+SPE Hydraulic Fracturing Technology Conference and Exhibition, Virtual, 2021.
+Dunham E M, Zhang J, Moos D, et al Constraints on Pipe Friction and Perforation Cluster Efficiency from Water Hammer
+Analysis[C]//SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 2023.
+Haustveit K, Dahlgren K, Greenwood H, et al New Age Fracture Mapping Diagnostic Tools-A STACK Case Study[C]//
+SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 2017.
+Hu X, Luo Y, Zhou F, et al Evaluation of multi-fractures geometry based on water hammer signals: A new comprehensive
+model and field application, Journal of Hydrology, 2022, 612: 128240.
+Iriarte J , Merritt J , Kreyche B. Using Water Hammer Characteristics as a Fracture Treatment Diagnostic[C]//SPE
+Oklahoma City Oil and Gas Symposium, Oklahoma City, Oklahoma, USA, 2017.
+Jamaloei B Y, Burstall R, Nakhwa A. A Play-Wide Performance Review of Plug and Perf, Ball and Seat, and Pinpoint
+Fracturing Methods in the Montney Tight Siltstone Reservoir[C]// SPE International Hydraulic Fracturing Technology
+Conference & Exhibition, Muscat, Oman, January 2022.
+Kabannik A, Parkhonyuk S, Korkin R, et al Can We Trust the Diversion Pressure as a Decision-Making Tool: Novel
+Technique Reveals the Truth. This paper was prepared for presentation at the Abu Dhabi International Petroleum
+Exhibition & Conference held in Abu Dhabi, UAE, 12-15 November 2018.
+Leggett S, Sakaida S, Zhu D, et al Interpretation of Fracture Initiation Points by in-Well LF-DAS in Horizontal Wells[C]//
+SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 2023.
+Liang, C. , Ossian, O., Eric, M. , et al , Hydraulic fracture diagnostics from Krauklis wave resonance and tube wave
+reflections[J], 2017, Geophysics 82 (3), D171–D186.
+Ma X, Zhou F, Ortega A, et al Evaluation of Water Hammer Analysis as Diagnostic Tool for Hydraulic Fracturing[C]//
+Unconventional Resources Technology Conference, Denver, Colorado, United States, 2019.
+Ma, X. H., Xie, J., Yong, R, et al Geological characteristics and high production control factors of shale gas reservoirs
+in Silurian Longmaxi Formation, southern Sichuan Basin, SW China[J]. Petroleum Exploration and Development,
+2020, 47( 5):901–915.
+Olson K, Merritt J, Barraez R, et al Sealed Wellbore Pressure Monitoring (SWPM) and Calibrated Fracture Modeling :
+The Next Step in Unconventional Completions Optimization[C]//SPE Hydraulic Fracturing Technology Conference
+and Exhibition, The Woodlands, Texas, USA, 
+2023.
+Panjaitan, M. , Moriyama, A. , Mcmillan, D., et al Qualifying Diversion in Multi Clusters Horizontal Well Hydraulic
+Fracturing in Haynesville Shale Using Water Hammer Analysis, Step-Down Test and Microseismic Data[C] . SPE
+Hydraulic Fracturing Technology Conference & Exhibition, The Woodlands, Texas, United States, 2018.
+Parkhonyuk S , Fedorov A , Kabannik A, et al  Measurements While Fracturing: Nonintrusive Method of Hydraulic
+Fracturing Monitoring[C]//SPE Hydraulic Fracturing Technology Conference and Exhibition. Society of Petroleum
+Engineers, 2018b.
+Parkhonyuk S , Korkin R, Kabannik A, et al  Novel Monitoring Technology Helps to Make Informed Decisions and
+Maximize the Efficiency of Completion Strategy[C]//Unconventional Resources Technology Conference. Society of
+Petroleum Engineers, 2018a.
+Roman Korkin, Sergey Parkhonyuk, Andrey Fedorov,2020, High Frequency Pressure Monitoring and Data Analytics for
+Stimulation Efficiency Determination: New Perspectives or Potential Limits This paper was prepared for presentation
+at the SPE Hydraulic Fracturing Technology Conference and Exhibition held in The Woodlands, Texas, USA, 4-6
+February 2020.
+Rutzinger G
+, Wages D, Shrider J , et al Sequenced Fracturing Technique with High-Frequency Pressure Monitoring
+Improves Horizontal Injection Well Performance on the North Slope of Alaska[C]//SPE Western Regional Meeting,
+Bakersfield, California, 
+2017.
+Shokanov T, Oliver J, Pena D, et al Integration of Fracturing Pressure Diagnostics with Multi-Well Smart Tracer Program
+for Hydraulic Fracturing Stimulation and Diversion Efficiency Assessment[C]//SPE Hydraulic Fracturing Technology
+Conference and Exhibition, The Woodlands, Texas, USA, 2023.
+Walters T W , Leishear RA.  When the Joukowsky Equation Does Not Predict Maximum Water Hammer
+Pressures[J].Journal of Pressure Vessel Technology, 2019, 141(6).
+Watson M, Schinnour M, Cramer D D, et al. Driving Completion Execution Improvements Through Detailed Analysis of
+Acoustic Imaging and Stimulation Data[C]//SPE Hydraulic Fracturing Technology Conference and Exhibition, The
+Woodlands, Texas, USA, 
+2023.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 16 =====
+16 SPE-215709-MS
+Weddle P, Griffin L, Mark P. Mining the Bakken II – Pushing the Envelope with Extreme Limited Entry Perforating[C]//
+SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands,Texas, USA, 2018.
+Yong R, Zhou F, Li M, et al Effects of Fracturing Parameters on Fracture Unevenness During Large-Stage Multi-Cluster
+Fracturing in Horizontal Wells[J]. Frontiers in Energy Research, 2021, 9.
+Zhang C, Zhang J J , Ma C B , et al. Algorithm for Detecting Multiple Partial Blockages in Liquid Pipelines by Using
+Inverse Transient Analysis[J]. SPE Journal, 2021:1–29.
+Downloaded from onepetro.​org/​SPEIHFT/​proceedings-pdf/​23IHFT/​23IHFT/​3250845/​spe-215709-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026

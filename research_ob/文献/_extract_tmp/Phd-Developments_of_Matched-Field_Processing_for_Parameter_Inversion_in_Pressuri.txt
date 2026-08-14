@@ -1,0 +1,3021 @@
+SOURCE: Phd-Developments of Matched-Field Processing for Parameter Inversion in Pressurized Pipelines 压力管道参数反演的匹配场处理研究进展.pdf
+PAGES: 190
+PARTIAL extract 94/190 pages from thesis
+
+
+
+===== PAGE 1 =====
+DEVELOPMENTS OF MA TCHED-FIELD
+PROCESSING FOR P ARAMETER INVERSION IN
+PRESSURIZED PIPELINES
+by
+CAN XU
+A Thesis Submitted to
+The Hong Kong University of Science and Technology
+in Partial Fulfillment of the Requirements for
+the Degree of Doctor of Philosophy
+in Civil Engineering
+June 2025, Hong Kong
+Copyright © by Can XU 2025
+
+===== PAGE 2 =====
+DEVELOPMENTS OF MA TCHED-FIELD
+PROCESSING FOR P ARAMETER INVERSION IN
+PRESSURIZED PIPELINES
+by
+CAN XU
+Department of Civil and Environmental Engineering
+The Hong Kong University of Science and Technology
+ABSTRACT
+This thesis develops an innovative inverse analysis framework for accurate determination of defect
+characteristics and material properties of pressurized water supply systems (WSSs) based on the
+matched-field processing (MFP) methodology—a signal processing approach widely and success-
+fully used in other domains such as underwater acoustics for source localization and environmental
+characterization. The MFP methodology involves (i) an experimental step where transient waves,
+propagating at high speed (km/s), are introduced into the pipe system and the response is sensed;
+and (ii) a theoretical step where the measured response is “matched” with the replica response (de-
+rived from the mathematical model of waves in pipes). The proposed MFP framework is found to
+be (i) super-resolving; thus, beating the diffraction limit and enabling each defect in a cluster of
+ii
+
+===== PAGE 3 =====
+densely (defect-to-defect distance is less than half of the minimum probing wavelength) spaced de-
+fects to be individually and clearly detected; (ii) able to significantly suppress unwanted side-lobes;
+thus, addressing the issue of ambiguous main-lobe identification; (iii) robust and stable against
+various noise types, including white, colored, and impulse noise, even under low signal-to-noise
+ratio conditions; and (iv) accurate. These substantial advantages are due to the following three
+attributes. First, MFP fully leverages both amplitude and phase information of the broadband tran-
+sient signals. Second, MFP is statistically optimal under Gaussian noise; thus, ideally suited for
+WSSs since laboratory and field data show that the noise in these systems is well described by
+the Gaussian probability distribution. Third, a novel understanding of the mechanism responsible
+for the development of side-lobes is acquired in this research, resulting in approaches to deal with
+these unwanted phenomena in parameter estimation in WSSs. The proposed MFP methodology
+is validated through comprehensive simulation and experimental studies in three specific applica-
+tions: determination of location and size of a single leak; determination of location and size of
+clustered leaks where the leak-to-leak distance is smaller than half a wavelength; and determina-
+tion of the viscoelastic parameters of our testing facilities. The MFP method is generalizable across
+pipeline systems, applicable to all types of unknown parameters, rapid to perform, non-intrusive,
+non-destructive, and supports real-time health condition assessment of WSSs.
+iii
+
+===== PAGE 4 =====
+AUTHORIZA TION
+I hereby declare that I am the sole author of the thesis.
+I authorize the Hong Kong University of Science and Technology to lend this thesis to other insti-
+tutions or individuals for the purpose of scholarly research.
+I further authorize the Hong Kong University of Science and Technology to reproduce the thesis by
+photocopying or by other means, in total or in part, at the request of other institutions or individuals
+for the purpose of scholarly research.
+CAN XU
+iv
+
+===== PAGE 5 =====
+DEVELOPMENTS OF MA TCHED-FIELD
+PROCESSING FOR P ARAMETER INVERSION IN
+PRESSURIZED PIPELINES
+by
+CAN XU
+This is to certify that I have examined the above Ph.D. thesis
+and have found that it is complete and satisfactory in all respects,
+and that any and all revisions required by
+the thesis examination committee have been made.
+Prof. Mohamed Salah Ghidaoui, Thesis Supervisor
+Prof. Moez Louati, Thesis Co-Supervisor
+Prof. Limin Zhang, Head of Department
+Department of Civil and Environmental Engineering
+20 June 2025
+v
+
+===== PAGE 6 =====
+ACKNOWLEDGMENTS
+I would like to express my deepest gratitude to my supervisor, Prof. Mohamed S. Ghidaoui, for
+his continuous support and generous guidance. His profound expertise shaped every stage of this
+research, and his patience helped me navigate through challenges. I have learned from him not only
+professional knowledge but also a rigorous and careful working attitude.
+My sincere thanks also go to the esteemed professors of the thesis examination and supervision
+committee. They are Prof. Fabian Bombardelli, Prof. Fan Shi, Prof. Hui Su, Prof. Jize Zhang,
+Prof. Jiachuan Yang, and Prof. Shenghan Zhang. Their insightful comments and constructive
+criticisms at various stages of my research were invaluable.
+Special thanks to Prof. Moez Louati and Dr. Muhammad Waqar for their invaluable guidance and
+supports. I am also grateful to Prof. Tongchuan Che and Prof. Xun Wang for their encourage-
+ment and insightful discussions. I also want to extend my gratitude to Prof. William Gray, whose
+meticulous teaching deepened my understanding of fluid mechanics.
+I wish to express my warm thanks to my colleagues Utban Ahmed, Mohamed Houcem E. B. Arab,
+Jie Cui, Yiran Cui, Xin Meng, Dr. George Grigoropoulos, and Dr. Fedi Zouari for their supports
+and friendship. They made my Ph.D. journey an unforgettable experience.
+Last but not least, I would like to thank my parents Zaoping Xu and Gaozhen Zhang, for their
+unconditional love and support. I am also grateful to all my relatives and friends who supported
+me during my Ph.D. journey. This achievement would not have been possible without them.
+vi
+
+===== PAGE 7 =====
+T ABLE OF CONTENTS
+Title Page i
+Abstract ii
+Authorization Page iv
+Signature Page v
+Acknowledgments vi
+Table of Contents vii
+List of Figures xiii
+List of Tables xix
+Chapter 1 Introduction and Literature Review 1
+1.1 Motivation: Crucial Parameter Estimation in WSSs 1
+1.2 Background 3
+1.2.1 Inverse Problem Framework for Parameter Estimation Using Hydraulic
+Transient Waves 4
+1.2.2 Inversion Technique of Matched-Field Processing 6
+1.3 Thesis Objectives 13
+vii
+
+===== PAGE 8 =====
+1.4 Thesis Organization 17
+1.4.1 Thesis Outline 17
+1.4.2 Journal Paper Publications 19
+Chapter 2 Governing Equations 21
+2.1 One-dimensional Governing Equations in Time Domain 21
+2.2 Transformed Governing Equations in Frequency Domain 25
+2.3 Solving the Frequency-Domain Equations with Transfer Matrix Method 26
+2.3.1 Solution for An Intact Pipe Expressed by Using Field Transfer Matrix 26
+2.3.2 Mass and Momentum Conservation Equations across A Leak and Their
+Solutions Expressed by Using Point Transfer Matrix 28
+2.3.3 Overall Transfer Matrix for A Single-leak Pipe 30
+2.3.4 Overall Transfer Matrix for A Multi-leak Pipe 33
+2.4 Pressure Head Response in Frequency Domain 36
+2.4.1 Single-Frequency Response 36
+2.4.2 Multi-Frequency Response 37
+2.4.3 Real-System Response 38
+2.4.4 Signal-to-Noise Ratio Definition 39
+2.5 Summary 40
+Chapter 3 The Generalized MFP Framework for Pipeline Parameter Inversion 42
+viii
+
+===== PAGE 9 =====
+3.1 Theoretical foundation 43
+3.2 Single-frequency MFP 44
+3.3 Modified Broadband MFP 47
+3.4 Improved MB-MFP Versions 49
+3.4.1 Enhanced MB-MFP 1 with Side-Lobe Canceling Algorithm 49
+3.4.2 Advanced MB-MFP 2 with Peak Extraction Algorithm 50
+3.5 Summary 52
+Chapter 4 Single-Defect Detection by Matched-Field Processing 54
+4.1 Introduction 55
+4.2 Problem Statement 57
+4.2.1 Model Description 57
+4.2.2 CB-MFP Technique for Leak Localization and Its Challenges 62
+4.3 Mechanism behind Single-Frequency MFP Side-Lobes Formation 65
+4.3.1 Definition of the Single-Frequency MFP Output Function 65
+4.3.2 The Convergence of Surface Side-Lobes Trajectories into the Leak Loca-
+tion on the Defect Location-Frequency Plane 69
+4.3.3 Numerical Simulations 72
+4.4 Definition of The Modified Broadband MFP (MB-MFP) 73
+4.5 Developed MB-MFP Methods for Side-Lobe Suppression 78
+ix
+
+===== PAGE 10 =====
+4.5.1 MB-MFP 1 Using Side-Lobe Canceling Algorithm 78
+4.5.2 MB-MFP 2 Using Peak Extraction Algorithm 80
+4.5.3 Numerical Simulations of Using CB-MFP, MB-MFP, MB-MFP 1, and
+MB-MFP2 81
+4.6 Experimental Validation 86
+4.6.1 Experimental Setup 86
+4.6.2 Leak Identification 88
+4.7 Summary 91
+Chapter 5 Multi-Defect Detection by Matched-Field Processing 92
+5.1 Introduction 92
+5.2 Model Description 94
+5.3 Multi-Leak Detection by MB-MFP Techniques 99
+5.3.1 MB-MFP Techniques 100
+5.3.2 Numerical Simulations 102
+5.4 A Methodology to Determine the Unknown Leak Number 106
+5.5 Experimental Validation in a Laboratory Setup 110
+5.6 Summary 115
+Chapter 6 Material Property Estimation by Matched-Field Processing 116
+6.1 Introduction 117
+x
+
+===== PAGE 11 =====
+6.2 Preliminaries 119
+6.2.1 Governing Equations in Frequency Domain 119
+6.2.2 Solution of the Frequency-Domain Equations with Boundary Conditions 120
+6.2.3 Data Model and the Goal of This Study 121
+6.3 Methodology 122
+6.3.1 MB-MFP Techniques 122
+6.3.2 Parameter Inversion Procedures 125
+6.4 Experiments 126
+6.4.1 HKUST Experimental Facility 126
+6.4.2 Experimental Procedures 128
+6.4.3 Boundary Condition at the Upstream End 130
+6.5 Experimental Results and Analysis 130
+6.5.1 Estimated K-V Coefficients of Single-Element Model 130
+6.5.2 Parameter Inversion by Two-Element and Three-Element Models 134
+6.5.3 Creep Compliance Analysis for Pre- and Post-Six Years 135
+6.6 Conclusions 138
+Chapter 7 Conclusions and Future Directions 139
+7.1 Overall Conclusions 139
+xi
+
+===== PAGE 12 =====
+7.1.1 Generalized MFP Inversion Technique for Parameter Estimation 139
+7.1.2 Enhanced Robustness Against Noise 140
+7.1.3 Enhanced Side-Lobe Suppression and Main-Lobe Resolution 140
+7.1.4 Achieved Super-Resolution Defect Detection 141
+7.1.5 Accurate Material Property Estimation 142
+7.2 Future Directions 143
+Appendix A Supplementary material for governing equations 147
+A.1 Solution to the Frequency Response of An Intact Pipe 147
+A.2 Derivation to the Linearized Orifice Equation 149
+A.3 Overall Transfer Matrix for a Multi-Leak Pipe 151
+Bibliography 153
+xii
+
+===== PAGE 13 =====
+LIST OF FIGURES
+1.1 The calculated transient signals corresponding to intact pipe and leaky pipe from
+numerical simulations. 5
+1.2 Current research gaps of using CB-MFP for leak localization. 12
+2.1 The general control volume for pipe flow with a leak, from which 𝑞 and ℎ can
+be derived as functions of time 𝑡 and spatial coordinate 𝑥 during transient wave
+propagation. 23
+2.2 Field transfer matrix for an intact pipe segment. 27
+2.3 Point transfer matrix for a leak in pipe. 30
+2.4 Overall transfer matrix for a single-leak pipe by multiplying the field and point
+transfer matrices. 32
+2.5 Overall transfer matrix for a single-leak pipe by summing the field transfer matrix
+of intact pipe and the leak-induced scattering matrix. 33
+2.6 Overall transfer matrix for a multi-leak pipe by multiplying the field and point
+transfer matrices. 34
+2.7 Overall transfer matrix for a multi-leak pipe by summing the field transfer matrix
+of intact pipe and the multiple leak-induced scattering matrices. 35
+3.1 Inverse Analysis Framework Based on the MFP Method. 44
+3.2 The performance comparison between single-frequency MFP (SF-MFP), MB-
+MFP, MB-MFP1 and MB-MFP2 for an example of single-leak detection, wherein
+the black vertical dashed line represents the real leak location. 47
+xiii
+
+===== PAGE 14 =====
+4.1 Diagram of the leaky RPV model. 58
+4.2 Downstream-end discharge perturbation in the form of a pulse-type waveform. 58
+4.3 Results of using CB-MFP for leak localization under (a) white noise ( SNR = 5 dB
+) and (b) blue noise (SNR1 = 10 dB), and impulse noise (SNR2 = −30 dB). The
+used frequency range is 𝛚 = [𝜔𝑡ℎ , 𝜔𝑡ℎ + 0.1𝜔𝑡ℎ , · · ·, 25𝜔𝑡ℎ ]. The vertical dashed
+line and the crosses, respectively, represent the real leak location 𝑥 𝐿∗ = 400 m and
+the two measurement locations xM = [1800 m, 2000 m]. 64
+4.4 (a) Demonstration of
+𝐵  𝜔, 𝑥𝐿 at 𝜔 = 11𝜔𝑡ℎ , 26𝜔𝑡ℎ , 41𝜔𝑡ℎ and 56𝜔𝑡ℎ and the
+trajectories of surface main-lobes and side-lobes. The real leak location 𝑥 𝐿∗ =
+400 m is represented by the vertical dashed lines. The two measurement loca-
+tions xM = [1975, 2000]m are marked with crosses. (b) and (c) Two output sur-
+faces of |𝐵| in the defect location-frequency plane with xM = [1975, 2000]m and
+xM = [1775, 1775+ 25, · · ·, 2000] m, respectively. 68
+4.5 The surface side-lobes converge into the real leak location in the defect location-
+frequency plane for a leak-detection case with (a) SNR= 5 dB, 𝑁𝑚 = 2  xM = [1975, 2000]m),
+(b) SNR = 5 dB, 𝑁𝑚 = 10  xM = [1775, 1775 + 25, · · ·, 2000]m. The real leak loca-
+tion is 𝑥 𝐿∗ = 400 m and represented by the dashed line. The measurement locations
+are marked with crosses. 73
+4.6 (a) An example of MFP output surface (| 𝐵|) in the defect location-frequency
+plane. (b) The resulting MB-MFP output plot (| 𝐵𝑀 𝐵|) along 𝑥 𝐿 by averaging |𝐵|
+across frequencies. The vertical dashed line and the crosses represent the real leak
+location 𝑥 𝐿∗ = 400 m and the measurement locations xM = [1800, 2000]m, respec-
+tively. 75
+4.7 Leak localization using CB-MFP (| 𝐵𝐶 𝐵|) and MB-MFP (| 𝐵𝑀 𝐵|) under (a) white
+noise with SNR = 5 dB, (b) blue noise with SNR 1 = 10 dB, and (c) impulse noise
+with SNR2 = −60 dB. The vertical dashed line and the crosses represent real leak
+location 𝑥 𝐿∗ = 400 m and the measurement locations xM = [1800, 2000]m, respec-
+tively. 76
+xiv
+
+===== PAGE 15 =====
+4.8 Localization errors of using CB-MFP and MB-MFP under (a) white noise with
+SNR = [−8, −8 + 4, · · ·, 12]dB, (b) blue noise with SNR 1 = [10, 10 + 8, · · ·, 50]dB
+(the corresponding SNR at 𝑓max = 20 Hz is [−50, −50 + 8, · · ·, −10]dB), and (c)
+impulse noise with SNR 2 = [−70, −70 + 10, · · ·, −20]dB. The real leak location is
+𝑥 𝐿∗ = 400 m and the measurement locations are xM = [1975 m, 2000 m]. 77
+4.9 Results of multiplying |𝐵| with the sign of 𝜕|𝐵|/𝜕𝑥 𝐿 (a) at 𝜔 = 21𝜔th and (b)
+in the defect location-frequency plane. A noiseless environment is considered for
+clearer observation of the model behavior. The real leak location is 𝑥 𝐿∗ = 560 m
+and represented by the vertical dashed line. The measurement locations are xM =
+[1975 m, 2000 m] and represented by the crosses. 79
+4.10 Demonstration of the peak extraction algorithm on |𝐵| (a) at 𝜔 = 21𝜔th and (b)
+in the defect location-frequency plane. A noiseless environment is considered for
+clearer observation of the model behavior. The real leak location is 𝑥 𝐿∗ = 560 m
+and represented by the vertical dashed line. The measurement locations are xM =
+[1975 m, 2000 m] and represented by the crosses. 81
+4.11 Demonstration of using CB-MFP [| 𝐵𝐶 𝐵| , Eq. (4.13)], MB-MFP [| 𝐵𝑀 𝐵| , Eq.
+(4.29)], MB-MFP 1 𝐵1
+𝑀 𝐵
+, Eq. (4.30)], and MB-MFP 2 𝐵2
+𝑀 𝐵
+, Eq. (4.31)]
+for leak detection cases with (a) no noise, (b) SNR = 5 dB, (c) SNR 1 = 30 dB,
+and (d) SNR 2 = −60 dB. The vertical black dashed line represents the real leak
+location 𝑥 𝐿∗ = 560 m. The black crosses represent the measurement locations
+xM = [1975 m, 2000 m]. 83
+4.12 Comparisons of the performance of CB-MFP, MB-MFP, MB-MFP 1, and MB-
+MFP2 for leak detection by parameters: (a) averaged localization error, (b) ra-
+tio of secondary side-lobe-to-main-lobe, and (c) ratio of averaged side-lobe-to-
+main-lobe. The noise settings are white noise with SNR = [−8, −8 + 4, · · ·, 12]dB,
+blue noise with SNR 1 = [30, 30+ 5, · · ·, 55]dB, and impulse noise with SNR 2 =
+[−70, −70 + 10, · · ·, −20]dB. The real leak location is 𝑥 𝐿∗ = 560 m. The measure-
+ment locations xM = [1975 m, 2000 m]. 85
+4.13 The pipeline system in the Water Resources Research Laboratory of HKUST: (a)
+overall 3D schematic, and (b) simplified 2D layout. 87
+xv
+
+===== PAGE 16 =====
+4.14 (a) Measured time-domain signals and (b) transformed frequency-domain signals
+at MV3 and MV8 89
+4.15 (a) Demonstration of |𝐵| on the defect location-frequency plane for lab test. (b-c)
+Leak localization results by using CB-MFP, MB-MFP, MB-MFP1, and MB-MFP2
+methods based on the measured signals at MV3 and MV4. The simulated leak
+location is 𝑥 𝐿∗ = 44.09 m and is represented by the black vertical dashed lines. 90
+5.1 Transient wave propagation in a two-leak case. 96
+5.2 Schematic of the RPV model with multiple leaks and measurement locations. 98
+5.3 Downstream-end discharge undergoes pulse-shaped changes due to valve opera-
+tions. 99
+5.4 Demonstrations of using MB-MFP(2) [Eq. 5.13], MB-MFP 1(2) [Eq. 5.14], and
+MB-MFP2(2) [Eq. 5.15] for two-leaks detection cases: (a) xL∗ = [40m, 90m], and
+the space between two leaks is
+𝑥 𝐿∗
+1 − 𝑥 𝐿∗
+2
+ = 50m = 1.25𝜆min (b) xL∗ = [40m, 44m],
+and the space between two leaks is
+𝑥 𝐿∗
+1 − 𝑥 𝐿∗
+2
+ = 4m = 0.2𝜆min. In all plots, the black
+dot represents the real leak locations. 104
+5.5 Leak localization errors of using MB-MFP(2), MB-MFP 1(2), and MB-MFP 2(2)
+for two-leaks detection cases with (a) xL∗ =
+
+𝑥 𝐿∗
+1 , 𝑥𝐿∗
+2
+
+= [40 m, 90 m],
+𝑥 𝐿∗
+1 − 𝑥 𝐿∗
+2
+ =
+50 m = 1.25𝜆min > 0.5𝜆min and (b) xL∗ =
+
+𝑥 𝐿∗
+1 , 𝑥𝐿∗
+2
+
+= [40 m, 44 m],
+𝑥 𝐿∗
+1 − 𝑥 𝐿∗
+2
+ =
+4 m = 0.2𝜆min < 0.5𝜆min under different noise scenarios. 105
+5.6 Three leak-detection cases corresponding to (a) 𝑁𝐿∗ = 1, 𝑥 𝐿∗ = 40m, (b) 𝑁𝐿∗ = 2,
+xL∗ = [40m, 90m], and (c) 𝑁𝐿∗ = 3, xL∗ = [40m, 60m, 90m] are tested, by using
+MB-MFP(𝑁𝐿), MB-MFP 1(𝑁𝐿) and MB-MFP 2(𝑁𝐿) with 𝑁𝐿 = 1, 2, 3 and 4. The
+vertical dashed black lines and the triangles represent the real and estimated leak
+locations, respectively. 107
+xvi
+
+===== PAGE 17 =====
+5.7 Leak detection using MB-MFP with an assumed leak number 𝑁𝐿 = 1, 2, 3 and 4.
+The real leak number 𝑁𝐿∗ = 2. The dashed vertical lines represent the real leaks.
+The real leak locations and sizes arexL∗ = [40, 90] m and sL∗ = [1.4, 1.4] ×10−5 m2,
+respectively. The red circles represent the estimated leaks. The estimated leak
+locations and sizes are (a) ˜𝑥 𝐿 = 43 m, ˜𝑠𝐿 = 1.912 × 10−5 m2, (b) ˜xL = [40, 90] m,
+˜sL = [1.406, 1.402] × 10−5 m2, (c) ˜xL = [38, 44, 90] m, ˜sL = [0.713, 0.734, 1.393] ×
+10−5 m2, (d) ˜xL = [40, 40, 90, 90] m, ˜sL = [0.367, 1.039, 0.048, 1.350] × 10−5 m2.
+The black crosses represent the measurement locations. 109
+5.8 The log-likelihood of 𝑁𝐿 = 1, 2, 3 and 4. The real leak number 𝑁𝐿∗ = 2. 110
+5.9 The pipeline system in the Water Resources Research Laboratory of HKUST: (a)
+overall 3D schematic, and (b) simplified 2D layout. 111
+5.10 (a) Measured time-domain pressure signals and (b) transformed frequency-domain
+signals at MV 2, MV 4, and MV 8. 113
+5.11 Leak localization results of using MB-MFP(𝑁𝐿), MB-MFP1(𝑁𝐿), and MB-MFP2(𝑁𝐿)
+with (a-1) 𝑁𝐿 = 1, (a-2) 𝑁𝐿 = 2, (a-3) 𝑁𝐿 = 3, and (a-4) 𝑁𝐿 = 4. The real leak lo-
+cations are xL∗ = [44.09 m, 67.83 m] and represented by the black vertical dashed
+lines. The triangles represent the estimated leak locations. In addition, the re-
+sults shown in (B) present the capability of MB-MFP(2), MB-MFP 1(2), and MB-
+MFP2(2) in suppressing the side-lobes. 114
+6.1 The hydraulic quantities ( 𝑞 and ℎ) at the measurement location 𝑥 𝑀 can be related
+to 𝑞 and ℎ at the boundary 𝑥𝑈 through a transfer matrix 𝑀 between them. 121
+6.2 Demonstrations of the estimates resolution of using (a) MB-MFP and (b) MB-
+MFP2 for estimating 𝛉𝐼 𝑃∗ by taking 𝛉𝐼 𝑃 = [𝜏1, 𝐶1] (i.e., 𝑁𝑘𝑣 = 1) in a numerical
+simulation. The white circle and dashed lines indicate the estimated optimal K-V
+coefficients. 124
+6.3 The pipeline system in the Water Resources Research Laboratory of HKUST: (a)
+overall 3D schematic, and (b) simplified 1D layout. 127
+6.4 Discharge change by manual valve operation. 129
+xvii
+
+===== PAGE 18 =====
+6.5 The measured time-domain pressure heads and the transformed frequency-domain
+heads at MV 2, MV 4, MV 7 and MV 8. 129
+6.6 Optimization trajectories of parameters (a) 𝜏1 and (b) 𝐶1 over 10 iterations. 132
+6.7 The comparisons between the measured and reproduced frequency-domain pres-
+sure heads at MV 2 during 5 transient tests, where |h∗| and
+ ˜h
+ are respectively
+the measured signal and the reproduced signal based on the final estimated K-V
+parameters. 133
+6.8 Two momentary creep-compliance curves for HDPE pipeline with a six-year aging
+time. The curves are calculated by using the optimal 1-element K-V coefficients
+which are respectively obtained from the laboratory data sets at the year 2018 and
+the year 2024. 137
+6.9 The predicted frequency-dependent wave speed 𝑎 based on the final estimated
+K-V coefficients. 137
+A.1 Field transfer matrix for an intact pipe segment. 147
+xviii
+
+===== PAGE 19 =====
+LIST OF T ABLES
+2.1 The variable definitions for a pipe system 23
+4.1 Coefficients for pipe wall viscosity of the HDPE pipe in the Water Resources
+Research Laboratory at HKUST 87
+5.1 The pipeline parameters used in the simulations 102
+5.2 Coefficients for pipe wall viscosity of the HDPE pipe in the Water Resources
+Research Laboratory at HKUST 112
+6.1 The measured and given parameters of the HDPE pipe system 127
+6.2 Search parameters for 𝑁𝑘𝑣 = 1, their initial values and search intervals, coarse
+increments, and number of candidates. 131
+6.3 Optimal K-V parameters for 1-element model, i.e., 𝑁𝑘𝑣 = 1. 132
+6.4 Optimal K-V parameters for 2-element and 3-element models, i.e., 𝑁𝑘𝑣 = 2 and 3. 135
+xix
+
+===== PAGE 20 =====
+NOMENCLATURE
+𝜅 bulk modulus of water, page 23
+𝜇 the propagation function, page 27
+𝜈 Poisson’s ratio, page 23
+𝜔 the angular frequency, page 26
+𝜔𝑡ℎ the fundamental frequency
+𝛚 the utilized frequency range, page 38
+𝜓 non-dimensional parameter that depends on the elastic properties of pipelines, page 22
+𝜌 water density , page 23
+𝜎 the standard deviation of the Gaussian white noise, page 39
+𝜏𝑛𝑘𝑣 the retardation time coefficient in K-V model, page 24
+𝜃 leak location, page 50
+𝛉 the vector of concerned parameters, page 45
+𝛉𝐼 𝑃 the intact-pipeline parameters, page 26
+𝛉 𝐿 the leak properties, page 31
+𝜀 total strain response, page 24
+𝜀𝑒 instantaneous elastic strain response, page 24
+𝜀𝑟 (𝑡) retarded strain response, page 24
+xx
+
+===== PAGE 21 =====
+𝐴 cross-sectional area, page 23
+𝑎 frequency-dependent wave speed , page 26
+𝑎0 the elastic component of wave speed, page 24
+𝐵 the single-frequency MFP output function, page 45
+𝐵𝑀 𝐵 the output function of MB-MFP, page 48
+𝐵1
+𝑀 𝐵 the output function of MB-MFP1 , page 50
+𝐵2
+𝑀 𝐵 the output function of MB-MFP2 , page 51
+𝐶 Creep compliance function, page 24
+𝐶0 the instantaneous creep compliance, page 24
+𝐶𝑛𝑘𝑣 the creep compliance coefficient in K-V model, page 24
+𝐷 pipe internal diameter, page 23
+𝐸 Young’s modulus of elasticity of pipe wall, page 23
+E the expectation operator used to calculate the expected value, page 39
+𝑒 pipe wall thickness, page 23
+𝑓𝐷𝑊 Darcy-Weisbach friction factor, page 23
+𝑓𝑡ℎ the system’s fundamental frequency, page 58
+𝐺, 𝐺 𝑀
+𝜔 the Green’s function of leak scattering at frequency 𝜔 and measurement location 𝑥 𝑀,
+page 60
+𝑔 gravitational acceleration, page 23
+𝐻 this superscript signifies the operation of taking the conjugate transpose of a complex vector,
+page 45
+xxi
+
+===== PAGE 22 =====
+𝐻 𝐿
+0 the steady-sate pressure head at the leak , page 29
+ℎ the transient-induced fluid head oscillation, page 22
+ℎ𝐿
+𝜔 the pressure head oscillations at the leak, page 29
+ℎ𝑀
+𝜔 the head ℎ at frequency 𝜔 and measurement location 𝑥 𝑀 , page 26
+hM
+𝛚 the measured pressure head vector for all 𝑁 𝑓 frequencies and 𝑁𝑚 measurement locations,
+page 38
+ℎ𝑈′
+𝜔 the measured pressure head at 𝑥𝑈′
+near 𝑥𝑈 , page 28
+ℎ𝑈
+𝜔 the head ℎ at frequency 𝜔 and upstream end 𝑥𝑈 , page 26
+𝐿 pipe length, page 25
+𝑀𝑎 Mach number, page 25
+𝑁 𝑓 the number of frequencies, page 37
+𝑁𝑘𝑣 the total number of K-V model elements, page 24
+𝑁𝐿 the number of leaks, page 34
+𝑁𝑚 the number of measurement locations, page 37
+𝑛𝐿 the leak number, page 38
+nM
+𝛚 noise vector for all frequencies and measurement locations, page 39
+𝑛𝑀
+𝜔 noise included in the real measrued head signal, page 39
+𝑄0 steady-state flow rate, page 23
+𝑄 𝐿
+0 the steady-state discharge extracted through leak , page 29
+𝑞 the transient-induced flow rate oscillation, page 22
+xxii
+
+===== PAGE 23 =====
+𝑞 𝐿 the discharge perturbation escaping through the leak, page 22
+𝑞 𝐿
+𝜔 the discharge oscillations at the leak, page 29
+𝑞 𝑀
+𝜔 the discharge 𝑞 at frequency 𝜔 and measurement location 𝑥 𝑀 , page 26
+𝑞𝑈
+𝜔 the discharge 𝑞 at frequency 𝜔 and upstream end 𝑥𝑈 , page 26
+𝑅 the linearized steady-state friction term, page 24
+𝑅𝑒𝑟𝑟𝑜𝑟 the ratio of the Euclidean norm (or modulus) of the difference between ˜hM
+𝛚 and hM∗
+𝛚 to the
+norm of hM∗
+𝛚 , page 132
+𝑇𝑚 the measurement time, page 88
+𝑇𝑡ℎ the system’s fundamental period, page 58
+𝑡 time, page 22
+𝑈𝑂 the overall transfer matrix, page 31
+𝑈 𝑃 the point transfer matrix, page 30
+𝑈 𝐼 𝑃 the field transfer matrix for an intact pipe (IP) , page 27
+𝑥 spatial coordinate along pipeline, page 24
+𝑥 𝐷 the downstream end of pipe, page 58
+𝑥 𝐿 −
+or 𝐿 −
+the left point close to the leak, page 29
+𝑥 𝐿+
+or 𝐿+
+the right point close to the leak, page 29
+𝑥 𝑀 measurement location, page 26
+xM or M the measurement locations, page 38
+𝑥𝑈 the upstream end of pipe, page 26
+xxiii
+
+===== PAGE 24 =====
+𝑥𝑈′
+the location near 𝑥𝑈 , page 28
+𝑍 the characteristic impedance of the pipe, page 27
+𝑍 𝐿 the hydraulic impedance of leak, page 29
+Z this symbol represents the domain of positive integers, page 73
+K-V Kelvin-V oigt model, page 24
+MB-MFP modified broadband matched-field processing, page 14
+MB-MFP1 the first improved version of MB-MFP which uses a side-lobe canceling algorithm,
+page 50
+MB-MFP2 the second improved version of MB-MFP which uses a peak extraction algorithm,
+page 51
+MFP matched-field processing, page 9
+MLE maximum likelihood estimation, page 9
+MV mannual ball valve, page 86
+SNR the signal-to-noise ratio, page 39
+WSSs urban water supply systems, page 3
+∗ this “*” symbol is used to indicate “real” or “true”. For example, hM∗
+𝛚 denotes the real
+measured signal, page 39
+˜ this symbol indicates that the values are esimted/prediced. For example, ˜hM
+𝛚 denotes the
+reproduced head signal , see equation (4.29), page 77
+xxiv
+
+===== PAGE 25 =====
+CHAPTER 1
+INTRODUCTION AND LITERA TURE REVIEW
+1.1 Motivation: Crucial Parameter Estimation in WSSs
+Water supply systems (WSSs) are lifelines of cities and towns, relying on the stable and safe opera-
+tions of extensive pressurized pipelines to meet the fluctuating demand while maintaining the water
+quality and pressure [1]. However, these systems now encounter significant challenges, including
+rising water demand, aging infrastructure, and increasingly complex network topology. Studies
+report that these factors can reduce operational efficiencies [2, 3] and result in pipeline defects such
+as leakage [4, 5], corrosion [6], and blockage [7]. Among these defects, leakage is particularly
+problematic as it is the ultimate result of many issues like cracks and can lead to substantial re-
+source and energy wastage, decreased supply pressure, environmental damage, and other adverse
+impacts [8, 9]. Leakage can be caused by multiple factors, including material degradation, soil
+or ground movement, vibrations from traffic, extreme weather conditions, and operational stresses
+[10–13]. In recent years, water leakage has significantly intensified across global WSSs, particu-
+larly in rapidly urbanizing Asian regions. A 2010 report [14] stated that WSSs in Asia lost about
+29 billion cubic meters of non-revenue water (NRW, defined as treated water that is produced but
+not delivered to customers), primarily due to leaks. This volume of water was valued at around 8.7
+billion US dollars. A more recent report [15] in 2018 indicated that over an eight-year period, the
+volume of lost NRW in Asian cities nearly doubled to 52 billion cubic meters, valued at 15 billion
+US dollars. Such NRW losses can account for up to 35% of the total water supply. Although leak-
+1
+
+===== PAGE 26 =====
+age often receives the most attention due to its significant immediate impact, other pipeline defects
+also significantly compromise system performance (e.g., a corroded pipe is more prone to bursts
+and incurs higher frictional losses) [16]. Combined, these defects create compounding risks to the
+stability and safety of WSSs. This reality highlights the need for early, targeted defect detection.
+While the defect determination is a critical step for system reliability, another important aspect of
+WSSs maintenance is understanding the mechanical behavior of the pipeline materials themselves.
+Over the past few decades, the adoption of polymeric pipes made from materials such as polyvinyl
+chloride (PVC), polyethylene (PE), and high-density polyethylene (HDPE) has grown. These mate-
+rials offer additional advantages over traditional metal materials, including resistance to corrosion,
+lower weight, ease of installation, and cost-effectiveness [17]. Unlike metal pipes which exhibit
+predominantly elastic behavior, plastic pipes display viscoelastic properties – meaning their de-
+formation under stress has both an instantaneous elastic component and a time-dependent viscous
+component [18]. This viscoelasticity is typically characterized by a creep function often derived
+from mechanical analog models, such as the Kelvin-V oigt model which represents the pipe wall as
+a spring and dashpot in parallel. The creep function details the evolution of material strain under
+stress over time, incorporating parameters such as creep compliance (a measure of the material’s de-
+formability) and retardation time (the timescale of the viscoelastic response) [19]. Engineers need
+to quantify these viscoelastic parameters to accurately predict pipe behavior under pressure surges
+and even under normal operation [20, 21]. In addition, the viscoelastic properties of plastic pipe
+walls can “mask” or distort transient wave reflections caused by leaks or other anomalies [22–24].
+If the viscoelastic parameters are not accounted for, anomaly detection via transient wave-based
+methods becomes significantly more complex [25]. Moreover, calibrating viscoelastic parameters
+also helps in longevity studies (e.g., viscoelastic creep over many years might lead to pipe sagging
+2
+
+===== PAGE 27 =====
+or need for support) [26]. In summary, accurately estimating material properties like viscoelasticity
+in polymeric pipes is crucial in WSSs.
+In addition to understanding defect characteristics (e.g. defect size and location) and material prop-
+erties (e.g. viscoelastic parameters), knowing other pipeline parameters — such as wave speed,
+friction coefficients, and network topology metrics — is also important to facilitate pipeline con-
+dition assessment and informed decisions regarding maintenance and upgrades in WSSs [27–29].
+Each of the parameters uniquely alters hydraulic characteristics, such as pressure head and flow
+rate, under both steady-state and transient operating conditions within WSSs. This functional re-
+lationship suggests that accurate pipeline parameter estimation can be achieved through inverse
+analysis to the measurements of these hydraulic characteristics.
+1.2 Background
+This section first highlights the inherently ill-posed nature of the inverse problem of using hy-
+draulic transient waves for pipeline parameter estimation, then reviews the existing applications
+of matched-field processing (MFP) as an inversion technique for obtaining parameter estimates,
+setting the stage for discussing our research objectives.
+3
+
+===== PAGE 28 =====
+1.2.1 Inverse Problem Framework for Parameter Estimation Using Hydraulic
+Transient Waves
+Accurate estimation of the unknown pipeline parameters can be achieved by measuring and ana-
+lyzing physical signals that are influenced by these parameters. For example, pressure head and
+flow discharge within pipelines are known to be affected by pipe dimensions, pipe defects and
+pipe wall material properties. In recent years, hydraulic transient waves (also known as water
+hammer waves or hydraulic transients), historically associated with destructive water hammer phe-
+nomena, are increasingly recognized in the literature as a promising tool for parameter estimation in
+pipelines. These transient-based methods offer advantages such as scalability to large systems, cost-
+effectiveness, and non-disruptive operations [30]. Transient waves can be generated in pipelines
+through intentional (active) or unintentional (passive) flow perturbations or disturbances, such as
+starting/stopping a pump, adjusting valves [31, 32], or using specialized devices like the Portable
+Pressure Wave Maker in large-diameter pipes [33]. These generated waves propagate inside the
+pipelines with a fast wave speed (e.g., 400 m/s in polymeric pipes and 1300 m/s in steel pipes),
+and encode information about the unknown system parameters by their interaction with pipelines.
+Through measuring and analyzing the transient signals, it is possible to extract out the information
+of these unknown pipeline parameters like the defect characteristics, the material properties, and so
+on [34–38]. For instance, the signals shown in Fig. 1.1 clearly indicate that due to the existence of
+leak, the transient signal of intact pipe differs from the one of leaky pipe. This pressure difference
+means that the transient signal can capture the leak information. In essence, the methods using
+transient waves operate similarly to radar or sonar systems: an injected transient wave acts as a
+probing signal, while the reflected waveform reveals system properties.
+4
+
+===== PAGE 29 =====
+Figure 1.1. The calculated transient signals corresponding to intact pipe and leaky pipe from nu-
+merical simulations.
+Given the established role of transient waves in encoding pipeline parameters, our next step is to
+extract/infer these parameters from transient signals. Such task of determining the unknown pa-
+rameters from observed data is typically, in many scientific and engineering disciplines, formulated
+as an inverse problem. Specifically, our goal is to infer unknown parameters using the system’s
+transient response and a transient wave propagation model. However, this inverse problem is in-
+herently ill-posed as the exact solution cannot be directly obtained owing to the complexity of
+transient wave propagation (thus introducing model inaccuracies) and the inevitable presence of
+measurement noise. Consequently, advanced inversion techniques (or optimization methods) are
+required to obtain an estimated solution. To address this challenge, a promising way is the adop-
+tion of matched-field processing (MFP), a powerful inversion approach widely used in fields such
+as underwater acoustics for source localization and environmental characterization [39]. In the
+context of pipeline parameter estimation, MFP can be employed to match transient wave signals
+measured along the pipeline with those computed from a mathematical model, thereby inferring
+the unknown parameters. In the next subsections, we introduce MFP’s concept, terminology, exist-
+5
+
+===== PAGE 30 =====
+ing applications in pipeline parameter estimation along with its advantages and key limitations to
+contextualize our contributions.
+1.2.2 Inversion Technique of Matched-Field Processing
+Terminology
+Before we explore the applications of matched-field processing (MFP) method in pipeline param-
+eter estimation, it is important to define several commonly used terminologies. These definitions
+enhance our understanding of the method and prepare us for the subsequent discussions on MFP’s
+advantages and research gaps. The relevant terms are outlined below:
+1. field: The term “field” typically refers to the state of physical quantities at points in the envi-
+ronment. In our pipeline scenario, “field” is the measured or modeled pressure information
+at points along pipeline during a hydraulic transient event. The field can also be called the
+wavefield/data/signal.
+2. ambiguity space: The output space of MFP is commonly called “ambiguity space” in liter-
+ature, due to the fact that there are often multiple candidate model parameter sets producing
+high match, leading to ambiguous determination of the optimal parameter set. While the term
+"match space" or "correlation space" might more precisely reflect the match/correlations pro-
+cess between fields, the high-resolution MFP proposed in this thesis involves more complex
+steps instead of just simple correlation comparisons, making "ambiguity space" the more
+accurate term.
+3. peaks: These very distinct, high-intensity MFP outputs, which represent good matches be-
+6
+
+===== PAGE 31 =====
+tween the measured and modeled fields, are naturally referred to as “peaks” in ambiguity
+space. They are easily identifiable.
+4. main-lobe: The highest peak showing in ambiguity space is called the “main-lobe”. The re-
+gion (or the point) where this main-lobe locating at in ambiguity space indicates the predicted
+optimal parameter set.
+5. side-lobes: Peaks that are not close to the main-lobe but still show high MFP outputs are
+called “side-lobes.” These side-lobes spread out with the increasing range from main-lobe
+on ambiguity space. When side-lobes become comparable in peak levels to main-lobe, it
+bring ambiguity to identify the main-lobe, thus questioning the credibility of the main-lobe
+identification.
+6. mismatch: Mismatch refers to any errors that occur in the modeled or replica fields. These
+errors can arise due to uncertainties in known parameters, inaccuracies in the propagation or
+scattering models (e.g., we often simplify real-world processes), and approximate nature of
+numerical solutions. Mismatch can impact MFP performance in varying degrees, depending
+on the error type.
+7. degradation: Degradation indicates a severe loss or mislocation of the main-lobe. This can
+occur due to mismatch, low signal-to-noise ratios, or any other factors, and represents a
+performance failure of the MFP method.
+8. super-resolution: Super-resolution refers to MFP’s super-resolving capability to distinguish
+clustered defects which are spaced closer than half of the minimum probing wavelength
+(the wave diffraction limit). In this thesis, to avoid confusion, “super-resolution” or “super-
+resolving” are specially used to describe MFP’s spatial resolution, which signifies the small-
+est distance capable of distinguishing between different defects when using MFP. For de-
+scribing the main-lobe width, we use the term "high-resolution" when the main-lobe width is
+7
+
+===== PAGE 32 =====
+smaller than half of the minimum probing wavelength.
+9. noise: Broadly speaking, noise can be defined as any unwanted signals in the measurements.
+In this thesis, we consider three types of noise: white noise, colored noise (e.g., blue noise),
+and impulse noise, which primarily differ in how their power spectra are distributed across
+frequencies. Specifically, (i) white noise has a uniform power spectrum, meaning it maintains
+equal energy across all frequencies, (ii) blue noise exhibits greater energy at higher frequen-
+cies, with power increasing as frequency increases, and (iii) impulse noise is characterized
+by high-amplitude disturbances that overlay the baseline white noise spectrum.
+Existing Applications of MFP
+Matched-field processing (MFP) is a powerful inversion technique that has enjoyed widespread
+use in various domains such as ocean acoustics and earthquake research [40–42], wherein it is the
+premier choice to solve a variety of inverse problems, including source localization, environmental
+parameter estimation, bearing of passive sources, and model accuracy evaluation. Its underlying
+principle is straightforward: (i) collecting the measured fieldb, (ii) calculating the replica fieldA(x)
+for each candidate model parameter set x, (iii) Selecting the parameter set yielding the main-lobe
+in ambiguity space (i.e., showing the highest match/cross-correlation betweenb and A(x)) to be the
+predicted/estimated result. In essence, the name “matched-field processing” explicitly reflects this
+process of field matching.
+MFP holds significant promise in pipeline parameter inversion using transient wavefields, due to
+the following technical merits: (i) MFP is particularly recommended for low-frequency applications
+(e.g., a few Hz to several tens of Hz, which coincides with the frequency range of transient waves),
+8
+
+===== PAGE 33 =====
+because low-frequency waves have long wavelengths which yield fewer and more stable acoustic
+modes, enabling more reliable wavefield matching; (ii) MFP can use both amplitude and phase
+information of the whole frequency band; i.e., it uses all available data components rather than
+just phase (as is done in most time-domain theoretic modeling) or just specific frequencies. This
+indicates that MFP, as a full-waveform inversion method [36], can achieve more accurate and robust
+results; (iii) MFP is statistically equivalent to maximum likelihood estimation (MLE) and optimal
+when the measurement noise follows a Gaussian distribution [43], thus, ideally suited for WSSs
+since laboratory and field data show that the noise in these systems is well described by the Gaussian
+probability distribution [44].
+Recently, MFP has been successfully applied in water pipeline systems as a frequency-domain
+inversion method, although its applications have been primarily limited to defect detection. The
+following provides a chronological overview of MFP’s applications and performance in pipeline
+engineering: Specifically, Wang et al. [43] have proposed a transient-based leak detection method-
+ology using the conventional broadband MFP (CB-MFP, also known as the Bartlett processor)
+method, which is the most widely used and best understood MFP technique. CB-MFP solves the
+inverse problem of leak detection by inferring the leak location and size in model given measured
+transient wavefield dependent on such information, and it is proved to be robust against white noise.
+Additionally, as CB-MFP uses both amplitude and phase information of signals over a broadband
+low-frequency band, it exhibits superior robustness and precision relative to techniques that solely
+rely on the resonant frequencies of the system (such as [45]) and those that are only based on phase
+information (such as [4]). Moreover, the CB-MFP method reduces the two-dimensional search
+space (i.e., the leak size and leak location) to one-dimensional searches where the leak location
+is first found, and the result is substituted back into the defect detection functional to determine
+9
+
+===== PAGE 34 =====
+the leak size. This dimensionality reduction improves computational efficiency. This method was
+later adapted for leak localization in a single viscoelastic pipe, where the pipe wall’s viscoelas-
+tic properties were included in the wave propagation model by defining a frequency-dependent
+wave speed [46]. Subsequently, the CB-MFP method was further developed to account for uncer-
+tainties arising from incomplete knowledge, by incorporating prior uncertainty estimates derived
+from leak-free transient experiments. This improvement was validated using experimental data
+from quasi-field tests on a 135-meter-long HDPE pipe at Beacon Hill, Hong Kong SAR [47]. Fur-
+thermore, the application of MFP for leak detection has been extended from single pipe to more
+complex pipe networks such as tree-type and loop-type, wherein a derivation to factorized wave
+propagation model is given [48–50]. Despite these extensions of MFP, it still has notable research
+gaps (detailed in the next section).
+Current Research Gaps in MFP
+Matched-field processing (MFP) is still in the early stages of application in pipeline systems and
+encounters significant challenges. One major difficulty is the presence of side-lobes in ambiguity
+space, which are undesirable and cause ambiguity in determining the main-lobe associated with
+parameter estimates [51–54]. This phenomenon is illustrated in Fig. 1.2(a), where the side-lobes
+bring ambiguity for correct main-lobe identification. Although MFP has been applied and extended
+in several studies for leak detection [43, 46–50, 55–59], the physical and mathematical origins of
+side-lobe generation remain unexamined. Empirical studies suggest that the side-lobe resolution
+can be increased (i.e., the side-lobe width can be narrowed) by using more sensors[43, 60], but their
+amplitudes maintain as the sensor number increases. Additionally, in real-world systems, spatial
+constraints (e.g., accessibility, cost) can often restrict measurement point density. Therefore, there
+10
+
+===== PAGE 35 =====
+is a need of inversion techniques that can produce accurate parameter estimations with suppressed
+side-lobes, by using as few measurement points as possible. Notably, side lobe interference plagues
+inverse problems across disciplines, including ocean acoustics [41], geophysics [61], and pipeline
+diagnostics [43, 62], underscoring its universality. Systematically addressing side-lobe suppression
+challenges is therefore a cross-disciplinary imperative to unlock MFP’s full potential in pipeline
+parameter estimation and beyond.
+Another critical challenge involves potential degradation of MFP performance due to nonwhite
+noise interference. As shown in Fig. 1.2(b), the CB-MFP method cannot localize the leak cor-
+rectly under nonwhite noise conditions. This limitation is especially critical in practical pipeline
+environments, where nonwhite-noise sources include systematic errors (e.g., model inaccuracies)
+and environmental disturbances (e.g., flow turbulence, traffic-induced vibrations, and sensor mea-
+surement errors) [43, 62, 63]. The proposed CB-MFP approach [43] directly sums the complex
+information across all frequencies via the inner product operation. During this summation process,
+white noise can be canceled out with each other as white noise has uniform spectral density over
+frequencies. As a result, white noise does not introduce any frequency-dependent bias into the inner
+product, which consequently ensures the robustness of CB-MFP against white noise. However, this
+robustness diminishes for colored or impulse noise, where spectral correlation introduces persistent
+interference through frequency summation and may result in performance failures, as shown in Fig.
+4.3. Incorporating prior information about the probabilistic distribution of noise could theoretically
+enhance MFP’s robustness. Yet, obtaining complete noise statistics is hindered by non-stationary
+noise profiles and limited spatial-temporal sampling in real-word operational pipelines.
+Moreover, MFP’s spatial resolution is constrained by wave diffraction limitations. That is, the MFP
+11
+
+===== PAGE 36 =====
+methods based on a single-defect model are unable to detect clustered defects, defined as defects
+spaced less than half the minimum probing wavelength apart [60, 64]. For instance, as depicted in
+Fig. 1.2(c), the MFP output results has only one peak at the clustered defects, i.e., the MFP method
+fails to distinguish the closely-spaced leaks. While the MFP methods based on a multi-defect model
+can be developed to address this issue, the challenge of an unknown number of defects remains
+unresolved. Last but not the least, to date, MFP applications remain largely restricted to pipeline
+defect detection, with few efforts to extend the methodology to broader parameter estimation tasks
+such as material property estimation.
+Figure 1.2. Current research gaps of using CB-MFP for leak localization.
+12
+
+===== PAGE 37 =====
+In conclusion, while the existing studies validate MFP’s potential for leak detection, critical gaps
+persist. These gaps include: 1) the unclear mechanism of side-lobe generation, 2) the ways to
+suppress side-lobes, 3) the spatial resolution limit, 4) the performance degradation under nonwhite
+noise, and 5) the currently limited application scope. In the next section, we outline our research
+objectives with targeted solutions, aiming at overcoming these limitations.
+1.3 Thesis Objectives
+Building upon the detailed introduction of the existing applications and limitations of MFP methods
+in pipeline parameter estimation, this section outlines research objectives with proposed solutions
+through theoretical enhancements and algorithmic innovations. Ultimately, our goal is to propose
+a novel transient-based MFP methodology (serving as a generalized inverse analysis framework)
+capable of yielding accurate, robust, and super-resolution parameter estimations, with greatly sup-
+pressed side-lobes and enhanced main-lobe resolution.
+• Objective 1: Develop a generalized MFP framework for pipeline parameter inversion
+Proposed solution: To develop a versatile MFP framework capable of estimating various
+pipeline parameters, an important option is the decomposition of transient signals. Specifi-
+cally, we first formulate transient wave propagation models to analytically derive frequency-
+domain pressure head responses, which encode the pipeline parameter information for subse-
+quent MFP analysis. This expressed pressure head is then decomposed into distinct compo-
+nents, with each component predominantly associated with a subset of parameters exhibiting
+distinct spectral signatures. For example, the total pressure response in a leaky pipe can
+13
+
+===== PAGE 38 =====
+be separated into one component representing the intact pipeline’s transient response (cap-
+turing material properties) and individual components representing the transient responses
+from each leak (capturing leak-specific information). This decomposition enables selective
+isolation of parameter-specific signal components, suppressing interference from irrelevant
+signals during MFP analysis. The next critical step involves establishing a generalized MFP
+mathematical formulation in the form of an objective function dependent on the general un-
+known parameters, with the optimal parameter values being those that maximize the func-
+tion’s output. To further enhance versatility, we utilize broadband excitations rather than
+single-frequency inputs, as the latter can provide insufficient information for determining
+parameters [65].
+• Objective 2: Enhance the robustness for parameter estimation in nonwhite noise envi-
+ronments
+Proposed solution: We propose modified broadband MFP (MB-MFP) techniques that en-
+hance robustness under nonwhite noise conditions. MB-MFP initiates with per-frequency
+normalization of measured signals across the broadband spectrum, followed by the aver-
+age of single-frequency MFP outputs. This normalization scales both the signal and noise
+components so that their combined magnitude equals unity, thereby effectively mitigating
+frequency-localized noise amplification (e.g., impulse noise with peaked spectra). As a re-
+sult, MB-MFP methods not only preserve white noise robustness inherent to CB-MFP while
+significantly improving tolerance to non-stationary, spectrally correlated noise including col-
+ored and impulse noise.
+• Objective 3: Investigate the generation mechanism of side-lobes
+14
+
+===== PAGE 39 =====
+Proposed solution: To suppress side-lobes which cause ambiguity to accurate parameter es-
+timation, it is crucial to first understand how these side-lobes are generated and then develop
+advanced optimization algorithms to reduce them. Thode et al. [66] demonstrated that in
+underwater acoustics, the side-lobe patterns observed in the spatial range-frequency plane
+tend to converge toward the true source location. Motivated by this insight, we leverage the
+hidden information embedded in side-lobes of single-frequency MFP results. We begin with
+a thorough theoretical and numerical investigation into the mechanisms behind side-lobe
+formation. Our analysis reveals that the side-lobes in broadband MFP ambiguity space re-
+sult from the cumulative superposition of individual side-lobes generated in single-frequency
+MFP results.
+• Objective 4: Achieve side-lobe suppression and increase main-lobe resolution
+Capitalizing on the insight of single-frequency MFP output space, we propose two enhanced
+MB-MFP techniques: (1) MB-MFP1, which incorporates a side-lobe cancellation algorithm,
+and (2) MB-MFP 2, which utilizes a peak extraction algorithm. They can significantly im-
+prove the main-lobe-to-side-lobe ratios in the final ambiguity spaces. Both approaches uses
+the gradient information in single-frequency MFP output to preserve the main-lobes while
+selectively reduce or eliminate side-lobes of each single-frequency MFP output, before inte-
+grating the single-frequency MFP outputs to define the broadband MFP methods. Therefore,
+MB-MFP1 and MB-MFP 2 can achieve side-lobe suppression. In addition, MB-MFP 2 can
+provide a improved high-resolution main-lobe identification.
+• Objective 5: Achieve super-resolution in clustered-defect detection
+Proposed solution: To achieve super-resolution for clustered-defect scenarios, we propose
+15
+
+===== PAGE 40 =====
+MB-MFP methods based on a theoretical model with 𝑁𝐿 ≥ 𝑁𝐿∗, where 𝑁𝐿 and 𝑁𝐿∗ respec-
+tively represent the number of defects given in the model and in the real pipeline system. The
+multi-defect model expands the solution space dimensionality, enabling MB-MFP to resolve
+up to 𝑁𝐿 defects. Thus, when 𝑁𝐿 ≥ 𝑁𝐿∗, the real defects are guaranteed to lie within this
+expanded subspace. This conclusion draws from the concept of “overcomplete representa-
+tion,” which is commonly used in signal processing and machine learning to enhance the
+correctness and robustness of results [67]. An overcomplete representation, where the num-
+ber of latent features exceeds the signal dimensions, is particularly useful when the signal
+consists of multiple sets of complete linear features. In pipeline systems, by assuming weak
+defect interactions (valid for the usual defect detection cases [68]), pressure responses can be
+approximated as linear superpositions of individual defect contributions, and thus this over-
+completeness holds true. More importantly, it is found that the estimated leak locations (𝑁𝐿)
+tend to cluster around the actual leak locations ( 𝑁𝐿∗) as 𝑁𝐿 increases and eventually sur-
+passes 𝑁𝐿∗. This clustering effect makes MB-MFP method able to simultaneously estimate
+the number of leaks and achieve precise leak localization, and thus addresses the challenge
+of unknown defect number.
+In summary, we aim to develop an generalized inverse analysis framework for pipeline parameter
+estimation by synergistically combining wave physics principles and MFP methodology. We ad-
+dresses several critical challenges, including the unclear generation mechanism of MFP side-lobes,
+the ambiguity caused by side-lobes, the spatial resolution limit imposed by wave diffraction effect,
+and the performance degradation under nonwhite noise. Beyond pipelines, the framework’s adapt-
+ability positions it as a promising versatile inverse analysis toolbox for other applications such as
+geophysical imaging, and acoustic sensing.
+16
+
+===== PAGE 41 =====
+1.4 Thesis Organization
+1.4.1 Thesis Outline
+The thesis progresses from fundamental theories (Chapters 2: governing equations, and Chapter 3:
+MFP methodologies) to targeted applications (Chapters 4: single-leak detection, Chapter 5: multi-
+leak detection, and Chapter 6: viscoelastic parameter estimation), culminating in conclusions and
+future directions (Chapter 7). These chapters are organized as follows:
+• Chapter 2 presents the governing equations for transient wave propagation in pressurized
+pipelines. Based on the mass and momentum conservation laws, we formulate the governing
+partial differential equations (PDEs) in the time domain. Using Fourier transform analysis,
+these PDEs are systematically converted to their frequency-domain representations. By ap-
+plying the appropriate boundary conditions, we analytically solve the equations governing
+the hydraulic quantities (pressure head and flow rate) at a single frequency and a designated
+measurement location. These solutions are represented using the transfer matrix method,
+where the transfer matrix intuitively describes the transient wave propagation process along
+the pipeline and explicitly relates the hydraulic quantities at the boundary to those at the
+measurement location. This transfer matrix contains key system parameters, including de-
+fect characteristics and material properties, and can be decomposed into distinct parameter-
+specific submatrices (e.g., the overall transfer matrix for a leaky pipe can be decomposed
+into a field transfer matrix representing wave propagation in an intact pipe, and point transfer
+matrices characterizing localized defects). This decomposition then enables the mathemat-
+ical isolation of parameter-specific pressure head components, which subsequently serve as
+17
+
+===== PAGE 43 =====
+model equals or exceeds the actual number of leaks, the estimated leak locations reliably
+cluster around the real leak sites. This clustering effect facilitates not only the precise lo-
+calization of leaks but also the accurate enumeration of them. The proposed methods are
+analyzed through numerical simulations and validated with experimental data from labora-
+tory facilities.
+• Chapter 6 presents the application of MFP in estimating pipeline material properties. The
+methodology involves an inversion on the measured transient data to the parameter estimates
+through a systematic process of data collection, model calculation, and the cross-correlation
+between the measured and modeled data. Due to the fact that the initial range of candidate
+parameters may not include the optimal estimates, iterative implementations are suggested.
+The MFP framework is applied to a real-world HDPE pipeline system to estimate viscoelastic
+parameters, and achieves accurate estimates. Key advantages include the fast computational
+speed, noise resilience, scalability, and real-time monitoring capability.
+• Chapter 7 concludes our findings and lists the future directions which are worthy further
+investigation.
+1.4.2 Journal Paper Publications
+1. Xu, C., Waqar, M., Louati, M., and Ghidaoui, M. S. (2024). High-resolution pipeline leak
+localization using the side-lobes of the defect detection functional of matched-field process-
+ing. Mechanical Systems and Signal Processing, 217:111529.
+DOI: https://doi.org/10.1016/j.ymssp.2024.111529
+2. Xu, C., Waqar, M., Louati, M., and Ghidaoui, M. S. (2025). Enhanced Multi-Leak Detection
+in Pressurized Pipelines using Super-Resolution Matched-Field Processing. Water Research
+19
+
+===== PAGE 45 =====
+CHAPTER 2
+GOVERNING EQUA TIONS
+In this chapter, we present the governing partial differential equations of hydraulic transient waves,
+focusing on solving the mass and momentum conservation equations in the frequency domain via
+the transfer-matrix method. We first introduce the time-domain governing equations for transient
+wave propagation. These equations include the parameters corresponding to defect characteris-
+tics (e.g., leakage as a mass source) and material properties (e.g, viscoelasticity). Subsequently,
+we employ Fourier transformation to the time-domain equations to obtain their frequency-domain
+counterparts, and then derive solutions for pressure head and flow rate in the frequency domain.
+We express these solutions via a transfer-matrix method, where the matrix characterizes transient
+wave propagation along the pipeline. Finally, we extend the expression of pressure head from sin-
+gle frequency and measurement location to multiple frequencies and measurement locations. The
+resulting pressure head expression yields the computed modeled wavefield, which is incorporated
+into the MFP methodology for parameter estimation, as detailed in the following chapter.
+2.1 One-dimensional Governing Equations in Time Domain
+Since the foundational theories of transient waves in the time domain have been comprehensively
+addressed in prior studies [19, 31, 69, 70], we do not repeat these well-established derivations here
+21
+
+===== PAGE 47 =====
+Figure 2.1. The general control volume for pipe flow with a leak, from which 𝑞 and ℎ can be
+derived as functions of time 𝑡 and spatial coordinate 𝑥 during transient wave propagation.
+Table 2.1. The variable definitions for a pipe system
+Gravitational acceleration 𝑔 Cross-sectional area 𝐴
+Poisson’s ratio𝜈 Darcy-Weisbach friction factor 𝑓𝐷𝑊
+Steady-state flow rate 𝑄0 Pipe internal diameter 𝐷
+Water density 𝜌 Bulk modulus of water 𝜅
+Pipe wall thickness 𝑒 Young’s modulus of elasticity of pipe wall𝐸
+Analyzing hydraulic dynamics in polymeric pipelines is inherently more complex than in metallic
+pipelines. This complexity arises from the viscoelastic behavior, which includes both instantaneous
+and retarded (time varying) strain responses, adding a layer of difficulty in understanding their
+dynamic responses [18, 71]. That is, the total strain response𝜀, in a viscoelastic pipe under transient
+stress consists of two parts: an instantaneous elastic response𝜀𝑒 and retarded response 𝜀𝑟 (𝑡). In Eq.
+2.1, the term 𝑎0 represents the elastic component of wave speed, incorporating the instantaneous
+23
+
+===== PAGE 49 =====
+scales 𝐿/𝐷 and 𝑓 · 𝑀𝑎 are sufficiently large (e.g., the length scale 𝑓𝐷𝑊 𝑀𝑎 𝐿/𝐷 is on the order
+of 0.1 or greater); therefore, incorporating unsteady friction into the model offers little additional
+benefit in terms of accurately predicting pressure envelope damping [76]. Here,𝐿 and 𝐷 denote the
+pipe length and diameter, 𝑓𝐷𝑊 is the Darcy-Weisbach friction factor, and 𝑀𝑎 represents the Mach
+number.
+2.2 Transformed Governing Equations in Frequency Domain
+We have represented the creep compliance function 𝐶 (𝑡) using the Generalized K-V model (Eq.
+2.5). We substitute this expression into the retarded strain 𝜀𝑟 (Eq. 2.4), and then insert the result
+into the time-domain governing Eqs. 2.1 and 2.2. After applying the Fourier transform to these
+equations (refer to Appendix A.5 in Waqar’s Ph.D. thesis [19] or the paper [46]) and rearranging
+the terms, we obtain the following transformed governing equations in frequency domain:
+𝜕𝑞
+𝜕𝑥 + 𝑔 𝐴
+𝑎2 𝑖𝜔ℎ = −𝑞 𝐿𝛿
+
+𝑥 − 𝑥 𝐿
+
+(2.6)
+and
+𝜕ℎ
+𝜕𝑥 +
+ 𝑖𝜔
+𝑔 𝐴 + 𝑅
+
+𝑞 = 0 (2.7)
+wherein
+𝑎
+
+𝜔; 𝛉𝐼 𝑃
+
+=
+"
+1
+𝑎2
+0
++ 𝜌𝐷
+𝑒
+
+1 − 𝑣 2
+ 𝑁𝑘𝑣∑︁
+𝑛𝑘𝑣 =1
+𝐶𝑛𝑘𝑣
+1 + 𝑖𝜔𝜏𝑛𝑘𝑣
+# −1/2
+(2.8)
+is the formulated wave speed that depends on the frequency𝜔. It incorporates the viscoelastic effect
+through K-V model elements with a coefficient set 𝛉𝐼 𝑃 = [𝜏1, 𝐶1, . . . , 𝜏𝑁𝑘𝑣 , 𝐶𝑁𝑘𝑣 ]⊤. The superscript
+𝐼 𝑃 stands for “intact pipe”, indicating that the K-V coefficients correspond to an intact pipe. This
+25
+
+===== PAGE 51 =====
+The solutions to 𝑞 𝑀
+𝜔 and ℎ𝑀
+𝜔 (Eqs. 2.9 and 2.10) can be rearranged as a matrix form:
+
+𝑞 𝑀
+𝜔
+ℎ𝑀
+𝜔
+
+= 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃
+ 
+𝑞𝑈
+𝜔
+ℎ𝑈
+𝜔
+
+(2.11)
+wherein 𝑈 𝐼 𝑃 is the field transfer matrix for an intact pipe and
+𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃
+
+=
+
+cosh  𝜇  𝑥 𝑀 − 𝑥𝑈 −
+
+1
+𝑍
+
+sinh  𝜇  𝑥 𝑀 − 𝑥𝑈
+−𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥𝑈 cosh  𝜇  𝑥 𝑀 − 𝑥𝑈
+
+(2.12)
+where the semicolon “;” is used to separate the given parameters (i.e., the predetermined known pa-
+rameters like the utilized frequency and measurement location) on the left side from the concerned
+but unknown parameters on the right side. As expressed in Eq. 2.11, 𝑈 𝐼 𝑃 relates 𝑞 and ℎ between
+locations 𝑥 𝑀 and 𝑥𝑈 at frequency 𝜔, providing intuitive insights into how the wave propagates from
+one point to another point through the pipeline system, which is depicted in Fig. 2.2.𝛉𝐼 𝑃 represents
+the vector of interested parameters corresponding to the intact pipe. In our study, we concern the
+K-V coefficients, i.e., 𝛉𝐼 𝑃 = [𝜏1, 𝐶1, . . . , 𝜏𝑁𝑘𝑣 , 𝐶𝑁𝑘𝑣 ]⊤.
+Figure 2.2. Field transfer matrix for an intact pipe segment.
+Note that in Eq. 2.11, we assume that 𝑞𝑈
+𝜔 and ℎ𝑈
+𝜔 are known to solve for 𝑞 𝑀
+𝜔 and ℎ𝑀
+𝜔 , which is
+27
+
+===== PAGE 53 =====
+whose derivation can be referred to Appendix A.2 and wherein 𝑞 𝐿
+𝜔 and ℎ𝐿
+𝜔 are respectively the
+discharge and pressure head oscillations at the leak; and
+𝑍 𝐿 = 2𝐻 𝐿
+0 /𝑄 𝐿
+0 =
+ 
+𝑠𝐿
+√︄
+𝑔
+2𝐻 𝐿
+0
+! −1
+(2.15)
+is called the hydraulic impedance of leak.
+Utilizing the mass conservation across the leak yields
+𝑞 𝐿−
+𝜔 = 𝑞 𝐿
+𝜔 + 𝑞 𝐿+
+𝜔 (2.16)
+where 𝐿− and 𝐿+ respectively denote the left and right points close to the leak, i.e.,𝑥 𝐿 −
+≈ 𝑥 𝐿 ≈ 𝑥 𝐿+
+,
+as shown in Fig. 2.3. By assuming the head loss across the leak is negligible, the momentum
+conservation derives the head continuity:
+ℎ𝐿−
+𝜔 = ℎ𝐿
+𝜔 = ℎ𝐿+
+𝜔 (2.17)
+Substituting the linearized orifice Eq. 2.14 into the mass conservation Eq. 2.16, and then combing
+the results with Eq. 2.17 derives the relation for 𝑞 and ℎ across the leak as
+ 
+
+𝑞 𝐿+
+𝜔 = 𝑞 𝐿−
+𝜔 − 1
+𝑍 𝐿 ℎ𝐿−
+𝜔
+ℎ𝐿+
+𝜔 = ℎ𝐿−
+𝜔
+(2.18)
+which can be rearranged as
+
+𝑞 𝐿+
+𝜔
+ℎ𝐿+
+𝜔
+
+= 𝑈 𝑃
+
+𝑠𝐿
+
+×
+
+𝑞 𝐿 −
+𝜔
+ℎ𝐿 −
+𝜔
+
+(2.19)
+29
+
+===== PAGE 55 =====
+
+𝑞 𝑀
+𝜔
+ℎ𝑀
+𝜔
+
+= 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥 𝐿+
+; 𝛉𝐼 𝑃
+ 
+𝑞 𝐿+
+𝜔
+ℎ𝐿+
+𝜔
+
+,
+
+𝑞 𝐿+
+𝜔
+ℎ𝐿+
+𝜔
+
+= 𝑈 𝑃
+
+𝑠𝐿
+ 
+𝑞 𝐿 −
+𝜔
+ℎ𝐿 −
+𝜔
+
+,
+
+𝑞 𝐿 −
+𝜔
+ℎ𝐿 −
+𝜔
+
+= 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝐿 −
+− 𝑥𝑈; 𝛉𝐼 𝑃
+ 
+𝑞𝑈
+𝜔
+ℎ𝑈
+𝜔
+
+(2.21)
+which derives an overall transfer matrix𝑈𝑂 that can relate 𝑞 and ℎ from one end 𝑥𝑈 to another end
+𝑥 𝑀 as:
+
+𝑞 𝑀
+𝜔
+ℎ𝑀
+𝜔
+
+= 𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+ 
+𝑞𝑈
+𝜔
+ℎ𝑈
+𝜔
+
+(2.22)
+where
+𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+
+= 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥 𝐿+
+; 𝛉𝐼 𝑃
+
+× 𝑈 𝑃
+
+𝑠𝐿
+
+× 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝐿 −
+− 𝑥𝑈; 𝛉𝐼 𝑃
+
+(2.23)
+which is obtained by multiplying the field transfer matrices 𝑈 𝐼 𝑃 (Eq. 2.11) for the two pipe seg-
+ments and the point transfer matrix 𝑈 𝑃 (Eq. 2.19) for the leak. The two vectors 𝛉𝐼 𝑃 and 𝛉 𝐿
+respectively represent the parameters corresponding to the intact pipe (for example, viscoelastic
+parameters, i.e., 𝛉𝐼 𝑃 = [𝜏1, 𝐶1, . . . , 𝜏𝑁𝑘𝑣 , 𝐶𝑁𝑘𝑣 ]⊤) and the parameters associated with the leak (such
+as leak size and location, i.e., 𝛉 𝐿 = [𝑠𝐿, 𝑥𝐿]).
+31
+
+===== PAGE 57 =====
+𝑈 𝑃 (𝑠𝐿) (Eq. 2.20) mentioned above, as the latter only contains information about the leak size 𝑠𝐿.
+The presented overall transfer matrix in Eq. 2.24 effectively separates the leak information 𝛉 𝐿 and
+the intact pipe information 𝛉𝐼 𝑃, transforming them into a linear additive form, thereby achieving a
+“modular” representation.
+The comparison between the two different definitions (Eq. 2.23 and Eq. 2.24) indicates that the
+overall transfer matrix for the leaky pipe can be understood in two ways: (i) as the multiplication
+of three matrices corresponding respectively to the left segment of the pipe (𝑥 𝑀 − 𝑥 𝐿), the leak (𝑥 𝐿),
+and the right segment of the pipe (𝑥 𝐿 − 𝑥𝑈), as shown in Fig. 2.4; (ii) as the sum of the field transfer
+matrix for the intact pipe and the leak-induced scattering matrix, as illustrated in Fig. 2.5. Both
+perspectives provide intuitive and accurate interpretations.
+Figure 2.5. Overall transfer matrix for a single-leak pipe by summing the field transfer matrix of
+intact pipe and the leak-induced scattering matrix.
+2.3.4 Overall Transfer Matrix for A Multi-leak Pipe
+Next, we extend our discussion to the case of multiple leaks, with a particular emphasis on how to
+modularize the overall transfer matrix in such scenarios, expressing it in a linear additive form. We
+33
+
+===== PAGE 59 =====
+We can derive an alternative expression for 𝑈𝑂 in the form of a matrix addition by first expanding
+and rearranging Eq. 2.28 with the substitutions of 𝑈 𝐼 𝑃 (Eq. 2.12) and 𝑈 𝑃 (Eq. 2.20), and then
+applying the small-leak assumption (i.e., 𝑠𝐿
+𝑛𝐿 ≪ 1, 𝑛𝐿 ∈ [1, · · ·, 𝑁𝐿]) to neglect the higher-order
+smaller terms. The detailed derivation can be referred to Appendix A.3. Consequently, as depicted
+in Fig. 2.7, 𝑈𝑂 can be alternatively expressed as a summation of field transfer matrix for the intact
+pipe and leak-scattering transfer matrices for leaks as:
+𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+1 , 𝛉 𝐿
+2
+
+≈ 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃
+
++ 𝑈 𝐿
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉 𝐿
+1
+
++ 𝑈 𝐿
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉 𝐿
+2
+
+(2.29)
+The detailed expressions for 𝑈 𝐼 𝑃 and each 𝑈 𝐿 in Eq. 2.29 can be referred to Eqs. 2.25 and 2.26
+with parameters replacement.
+Figure 2.7. Overall transfer matrix for a multi-leak pipe by summing the field transfer matrix of
+intact pipe and the multiple leak-induced scattering matrices.
+Then, for a general 𝑁𝐿-leak case, by following the similar derivation for the 2-leak case, we have:
+
+𝑞 𝑀
+𝜔
+ℎ𝑀
+𝜔
+
+= 𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+1 , · · ·, 𝛉 𝐿
+𝑁𝐿
+ 
+𝑞𝑈
+𝜔
+ℎ𝑈
+𝜔
+
+(2.30)
+35
+
+===== PAGE 61 =====
+wherein the measured pressure head consists of a linear superposition of different components. The
+intact pipe-induced pressure head
+ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃
+
+= −𝑍 sinh
+
+𝜇
+
+𝑥 𝑀 − 𝑥𝑈
+
+𝑞𝑈
+𝜔 + cosh
+
+𝜇
+
+𝑥 𝑀 − 𝑥𝑈
+
+ℎ𝑈
+𝜔 (2.34)
+and corresponds to the direct wave propagation along the pipe. The 𝑛𝐿-leak induced pressure head
+ℎ𝑀
+𝜔
+
+𝛉 𝐿
+𝑛𝐿
+
+= −𝑠𝐿
+𝑛𝐿
+√︄
+𝑔
+2𝐻 𝐿
+0
+𝑍 sinh
+
+𝜇
+
+𝑥 𝑀 − 𝑥 𝐿
+𝑛𝐿
+ ©­
+«
+𝑍 sinh  𝜇(𝑥 𝐿
+𝑛𝐿 − 𝑥𝑈) 𝑞𝑈
+𝜔
+− cosh  𝜇(𝑥 𝐿
+𝑛𝐿 − 𝑥𝑈) ℎ𝑈
+𝜔
+ª®
+¬
+(2.35)
+and corresponds to the leak-scattered wave. These extracted single-frequency pressure heads form
+the basis of the expression of the next introduced multi-frequency pressure head vector.
+2.4.2 Multi-Frequency Response
+For all 𝑁 𝑓 frequencies and 𝑁𝑚 measurement locations, the measured pressure head can be formed
+as a 𝑁 𝑓 ·𝑁𝑚 dimensional complex vector for a general 𝑁𝐿-leak pipe:
+hM
+𝛚
+
+𝛉𝐼 𝑃, 𝛉 𝐿
+1 , · · ·, 𝛉 𝐿
+𝑁𝐿
+
+=
+h
+ℎ𝑀1
+𝜔1 , · · ·, ℎ𝑀1
+𝜔𝑁 𝑓
+|            {z            }
+𝑁 𝑓
+, · · ·, ℎ𝑀𝑁𝑚
+𝜔1 , · · ·, ℎ𝑀𝑁𝑚
+𝜔𝑁 𝑓
+|               {z               }
+𝑁 𝑓
+i ⊤
+(2.36)
+wherein the utilized frequency range 𝛚 = [𝜔1, . . . , 𝜔𝑁 𝑓 ]⊤; the superscript M = [𝑀1, . . . , 𝑀𝑁𝑚]⊤
+denotes the measurement locations xM = [𝑥 𝑀
+1 , . . . , 𝑥𝑀
+𝑁𝑚
+]⊤. By referring to the expansion of ℎ𝑀
+𝜔 (Eq.
+37
+
+===== PAGE 63 =====
+parameters set up in model (e.g., 𝛉𝐼 𝑃 or 𝛉 𝐿). The real intact-pipeline parameters 𝛉𝐼 𝑃∗ and the real
+leak properties 𝛉 𝐿∗ are unknown and need to be solved ultimately.
+The purpose of obtaining the expression of the measured head signals ℎ𝑀∗
+𝜔 or hM∗
+𝛚 is to analyze
+and utilize them in the next proposed MFP techniques for parameter inversion. This inversion
+process uses the transient wavefields and targets the unknown parameter sets𝛉𝐼 𝑃∗ and 𝛉 𝐿∗
+1 , · · ·, 𝛉 𝐿∗
+𝑁𝐿,
+enabling the accurate description of hydraulic dynamics during transients and the prediction of the
+structural health of polymeric pipes.
+2.4.4 Signal-to-Noise Ratio Definition
+To include the noise effect into the simulation, the signal-to-noise ratio (SNR) is defined as (in
+decibel):
+SNR = 20 log10
+E
+
+hM
+𝛚
+ /𝜎
+
+(2.40)
+where
+E  hM
+𝛚
+ is the mean head difference and 𝜎 is the standard deviation of the Gaussian noise
+with zero mean. In our pipeline systems, the types of noise include not only common white noise
+but also nonwhite noise, such as colored noise and impulse noise [44, 62]. For defining white
+noise, SNR is set to be a constant in the utilized frequency range 𝛚. For colored noise, in this
+thesis, we choose blue noise (one type of colored noise) as an example, for which SNR drops by 3
+dB per increasing frequency. Therefore, if it is assumed SNR1 at 𝜔1, then SNR uniformly drops to
+SNR1 − 3
+
+𝜔𝑁 𝑓 − 𝜔1
+
+/2𝜋 at 𝜔𝑁 𝑓 . For impulse noise, this thesis assumes a constant SNR over 𝛚,
+except at certain frequencies, at which SNR suddenly decreases SNR 2 that is much lower than the
+given SNR. In essence, the impulse noise is introduced as additional perturbations on top of the
+white noise.
+39
+
+===== PAGE 65 =====
+pendent on the system parameters. Real-system considerations incorporate noise models (white,
+colored, or impulse), quantified via signal-to-noise ratio (SNR), to reflect practical measurement
+conditions.
+The derived expressions for hM
+𝛚 serve as the foundation for the subsequent match field processing
+(MFP) methodology in Chapter 3. By an inversion on the measured heads, unknown parameters
+𝛉𝐼 𝑃∗ and 𝛉 𝐿∗ can be estimated, enabling precise characterization of viscoelastic pipeline dynamics
+and defect detection. This chapter thus bridges fundamental hydraulic theory with inverse problem-
+solving techniques, setting the stage for robust, model-based diagnostics in transient wave analysis.
+41
+
+===== PAGE 67 =====
+3.1 Theoretical foundation
+Central to our MFP methodology are the following steps: (i) developing a theoretical frequency-
+domain model to simulate the generation and propagation of hydraulic transient waves, (ii) adjust-
+ing the concerned parameters within a candidate range, (iii) computing the model outputs, and (iv)
+comparing the modeled fields with the measured field. The optimal parameters are determined by
+selecting the candidates that best match the modeled and measured fields. According to classical
+papers on applying the MFP approach to inverse problems [39, 40, 80], the key recommendations
+for applying MFP to our pipeline environment include:
+1. selecting an environment with high temporal stability;
+2. selecting an environment which was effectively range independent (thereby minimizing com-
+plications and issues relating to environmental data range sampling);
+3. determining all non-concerned/non-targeted parameters as accurately as possible, e.g., wave
+speed, measurement locations, pipe length and diameter, etc.;
+4. incorporating an accurate scattering model for the effects of concerned parameters, e.g., the
+generalized K-V model for the viscoelastic effect, or the leak-induced scattering transfer
+matrix 𝑈 𝐿;
+5. reducing the parameter search, i.e., the parameter dimension, as much as possible
+6. using low frequencies to minimize the effects of random perturbations (like internal waves
+and turbulence)
+7. determining the solution parameter values by means of a global search of all possible (dis-
+cretized) values (thereby avoiding troublesome convergence or search algorithms).
+Guided by these recommendations, we proceed to develop the inverse analysis framework based
+43
+
+===== PAGE 69 =====
+signals). They are both 𝑁𝑚 dimensional complex vectors including information from 𝑁𝑚
+measurement locations at a single frequency𝜔, and their expressions can be found from Eqs.
+2.33 - 2.37;
+• |𝐵| is the single-frequency MFP output;
+• 𝛉∗ represents the vector of concerned real, yet unknown parameters that need to be estimated;
+𝛉∗ can be 𝛉𝐼 𝑃∗ denoting the vector of viscoelastic coefficients,𝛉 𝐿∗ representing the vector of
+leak properties, or any other concerned parameter set;
+• 𝛉 is the vector of candidate parameters set in the model;
+• The superscript 𝐻 signifies the operation of taking the conjugate transpose of a complex
+vector;
+• ⟨· · ·⟩ represents taking the dot product of the two complex vectors, that is, multiplying the
+conjugate transpose of one vector by another vector. The final result is a complex number;
+• |· · ·| means taking the absolute value, or modulus, of a complex number, which is equal to
+the square root of the product of the complex number and its conjugate.
+• ∥· · ·∥ represents taking the 𝐿2 norm of a vector. Note that for a complex vector, as shown
+in Eq 3.1, its 𝐿2 norm is equal to the square root of the result of its conjugate transpose
+multiplied by itself, which is also equivalent to the square root of the inner product of the
+vector with itself;
+In Eq 3.1, the normalization of the modeled signal hM
+𝜔 is essential. Without it, in the ambiguity
+space of |𝐵|, the region with the highest modeled field intensity will inevitably exhibit the largest
+output errors. We observe that the MFP output|𝐵| is proportional to the measured signal hM∗
+𝜔 . This
+implies that even if hM
+𝜔 is not normalized, the region corresponding to the predicted parameter set
+45
+
+===== PAGE 71 =====
+its robustness [81]. These difficulties encountered can be addressed by employing the modified
+broadband MFP (MB-MFP) methods, which integrate |𝐵| across all frequencies, as discussed next.
+Figure 3.2. The performance comparison between single-frequency MFP (SF-MFP), MB-MFP,
+MB-MFP1 and MB-MFP 2 for an example of single-leak detection, wherein the black vertical
+dashed line represents the real leak location.
+3.3 Modified Broadband MFP
+In general, the frequency-sensitive behavior suggests that we should consider the spectral integra-
+tion to exploit multi-frequency information [39]. Therefore, the modified broadband matched field
+processing (MB-MFP) technique performs a direct average of the single-frequency MFP outputs
+47
+
+===== PAGE 73 =====
+In summary, the newly defined MB-MFP is robust against both white and nonwhite noise. Addi-
+tionally, the main-lobe to side-lobe ratios are improved compared to single-frequency MFP. How-
+ever, the issue of side-lobes has not been completely resolved. MB-MFP remains somewhat sus-
+ceptible to them, although its performance in this regard has improved. Additionally, the initial
+MB-MFP is constrained by the wave diffraction limit, so its localization resolution is limited to no
+finer than half the minimum probing wavelength. The next section introduces further treatments
+for side-lobes and the resolution limit, and proposes improved versions of MB-MFP.
+3.4 Improved MB-MFP Versions
+To further suppress the produced side-lobes and increase the resolution of estimates in the ambi-
+guity space of MB-MFP, we propose two optimized versions of MB-MFP, which leverage gradient
+information on the ambiguity space of single-frequency MFP ( |𝐵|) before averaging |𝐵| across
+frequencies.
+3.4.1 Enhanced MB-MFP 1 with Side-Lobe Canceling Algorithm
+For a continuous function 𝑓 (𝑥), if it possesses a local maximum at 𝑥0, then 𝑓 ′(𝑥) shifts from pos-
+itive to negative as it crosses 𝑥0. Leveraging this property and noting that in the single-frequency
+MFP ambiguity space, the side-lobes vary with frequency while the main-lobe remains fixed, we re-
+fine the MB-MFP method (Eq. 3.3) by incorporating a side-lobe canceling algorithm. The process
+includes:
+1. Calculating the partial derivatives of 𝜕|𝐵|/𝜕𝜃 𝑛 𝜃 where 𝑛𝜃 = 1, · · ·, 𝑁𝜃;
+49
+
+===== PAGE 75 =====
+named MB-MFP2 and the steps involve:
+1. Calculating the partial derivatives of 𝜕|𝐵|/𝜕𝜃 𝑛 𝜃 where 𝑛𝜃 = 1, · · ·, 𝑁𝜃;
+2. Multiplying |𝐵| with the sum of the difference in signs of the derivatives at𝜃𝑛 𝜃 and 𝜃𝑛 𝜃 +Δ𝜃𝑛 𝜃 ,
+then integrating the result over whole frequency range.
+These steps are mathematically expressed as:
+|𝐵2
+𝑀 𝐵(𝜃)| =
+
+∫ 𝜔𝑚𝑎𝑥
+𝜔𝑚𝑖𝑛
+©­
+«
+Í𝑁 𝜃
+𝑛 𝜃 =1
+©­
+«
+sign
+ 𝜕|𝐵(𝜔,𝜃 𝑛𝜃 )|
+𝜕𝜃 𝑛𝜃
+
+−sign
+ 𝜕|𝐵(𝜔,𝜃 𝑛𝜃 +Δ𝜃𝑛𝜃 )|
+𝜕𝜃 𝑛𝜃
+ ª®
+¬
+ª®
+¬
+· |𝐵(𝜔; 𝛉)| 𝑑𝜔
+
+𝜔𝑚𝑎𝑥 − 𝜔𝑚𝑖𝑛
+(3.5)
+The peak extraction algorithm zeroes values at points adjacent to |𝐵| peaks at each frequency,
+thereby “extracting” the peaks. By integrating this adjusted |𝐵| across frequencies, the extracted
+main-lobes from consistent region at each frequency are summed to form a final, more distinguished
+main-lobe in the ambiguity space of MB-MFP 2. While the extracted side-lobes at each frequency,
+which are distributed sporadically, sum up to form final side-lobes that are significantly smaller
+compared to the final main-lobe. Therefore, MB-MFP 2 achieves side-lobes suppression capabil-
+ity. In addition, the peak extraction operation also enables MB-MFP 2 to achieve high-resolution
+parameter estimation, with the resolution limit determined by the predefined increment of model
+parameters. Fundamentally, the physical essence of this method lies in constructing a spatial differ-
+ence filter through derivative sign differences between adjacent points, which selectively enhances
+stable peaks (main-lobes) while suppressing shifting peaks (side-lobes) during multi-frequency in-
+tegration. Compared to conventional broadband MFP (MB-MFP), it more directly locates peaks
+and achieve ultra-high resolution, making it particularly suitable for dense multi-source scenarios.
+In conclusion, the side-lobe canceling algorithm and the peak extraction algorithm, both utilizing
+51
+
+===== PAGE 77 =====
+through numerical simulations and experimental case studies, highlighting their practical utility in
+real-world pipeline monitoring.
+53
+
+===== PAGE 79 =====
+4.1 Introduction
+Measured transient responses are inevitably noisy, influenced by factors like turbulence, traffic,
+measurement errors, and vibrations from hydraulic devices. To address noisy signals, a transient
+wave-based leak detection method using the CB-MFP technique, also known as the Bartlett broad-
+band MFP, was recently proposed [43]. The CB-MFP method is conducted in the frequency do-
+main and uses signals over a broad low-frequency band. As stated in the introduction chapter, the
+proposed method demonstrated better performance compared to existing approaches that depend
+entirely on system resonance frequencies (e.g., [45]) or inverse modeling techniques like transient
+analysis inversion [4]. The CB-MFP approach simplifies the search process by separating the two-
+variable problem (leak position and size) into sequential single-variable searches. First, potential
+leak position is identified, then this result helps determine leak size through the output function,
+making calculations more efficient [43]. When plotting CB-MFP results regarding to the possible
+leak locations, distinct peaks emerge. However, distinguishing between true defect-related peak
+(main-lobe) from the interference peaks (side-lobes) remains difficult [51–54]. These side-lobes
+appear because of the measurement limitations: (i) insufficient sensor density (spaced wider than
+half-wavelength intervals) [60] and (ii) limited frequency range in signal collection [62]. Further-
+more, while CB-MFP performs well with white noise and structured nonwhite noise [43], it en-
+counter challenges in real-world applications because nonwhite noise patterns vary unpredictably
+and prior information is hard to obtain [63].
+Previous CB-MFP developments in leak detection [49, 50, 55, 56, 59, 82] have not addressed the
+side-lobe issues. These false signals create uncertainty in pinpointing leak locations across various
+fields including pipeline systems [43, 62], underwater acoustics [41], and earth science applications
+55
+
+===== PAGE 81 =====
+4.2 Problem Statement
+This section begins by briefly describing the CB-MFP method by Wang and Ghidaoui [43] for
+detecting leaks. It then reviews the challenges with CB-MFP mentioned in the introduction, such
+as the unclear origins of side-lobes, methods for side-lobes suppression, and its poor performance
+under nonwhite noise.
+4.2.1 Model Description
+A reservoir-pipe-valve (RPV) system illustrated in Fig. 4.1, is studied in this chapter. The system
+consists of a single and horizontal pipe with length 𝐿 and diameter 𝐷, bounded by two reservoirs
+with pressure heads 𝐻1 and 𝐻2. A valve, located at the downstream end, is utilized to simu-
+late transient waves via fast ‘closure-open’ maneuvers. The executed discharge perturbation has
+a pulse shape waveform, such as the sample shown in Fig. 4.2 with a valve closure time of 0.05
+s. The introduced transient wave propagates back and forth along the pipe with a certain wave
+speed 𝑎0. The system’s fundamental period and frequency are 𝑇𝑡ℎ = 4𝐿/𝑎0 and 𝑓𝑡ℎ = 1/𝑇𝑡ℎ (or
+𝜔𝑡ℎ = 2𝜋/𝑇𝑡ℎ ) [31, 32]. A single leak with size 𝑠𝐿 and leak location 𝑥 𝐿 is assumed. The steady-state
+discharge through the leak is derived from the orifice equation as 𝑄 𝐿
+0 = 𝑠𝐿
+√︃
+2𝑔𝐻 𝐿
+0 , where 𝐻 𝐿
+0 is
+the steady-state head at the leak location, determined as 𝐻 𝐿
+0 = 𝐻1 − (𝐻1 − 𝐻2)  𝑥 𝐿/𝐿. The number
+and distribution of measurement locations are denoted as 𝑁𝑚 and xM =
+h
+𝑥 𝑀
+1 , 𝑥𝑀
+2 , · · ·, 𝑥𝑀
+𝑁𝑚
+i
+, respec-
+tively. Conventionally, 𝑁𝑚 = 2 is used for leak detection in simulations and experiments, although
+additional measurement points can provide more useful information. The distance between the two
+measurement locations is set to be greater than half a minimum probing wavelength, which is the
+57
+
+===== PAGE 83 =====
+where 𝜔 is the angular frequency; 𝑈𝑂 is a two-by-two overall transfer matrix from 𝑥𝑈 to 𝑥 𝑀, and
+𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+
+= 𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃
+
++ 𝑈 𝐿
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉 𝐿
+
+(4.2)
+In Eq. (4.2), 𝑈 𝐼 𝑃 (the superscript 𝐼 𝑃 represents intact pipe) is a field transfer matrix from 𝑥𝑈 to 𝑥 𝑀
+and depends on 𝛉𝐼 𝑃 (i.e., independent of leak parameters) [31]:
+𝑈 𝐼 𝑃
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃
+
+=
+
+cosh  𝜇  𝑥 𝑀 − 𝑥𝑈 −(1/𝑍) sinh  𝜇  𝑥 𝑀 − 𝑥𝑈
+−𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥𝑈 cosh  𝜇  𝑥 𝑀 − 𝑥𝑈
+
+(4.3)
+𝑈 𝐿 (the superscript 𝐿 represents leak) is a scattering transfer matrix derived from the mass and
+head conservation across the leak and depends on the leak properties 𝛉 𝐿 =
+
+𝑠𝐿, 𝑥𝐿
+[31]:
+𝑈 𝐿
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉 𝐿
+
+= 𝑠𝐿
+√︄
+𝑔
+2𝐻 𝐿
+0
+×
+
+𝑍 sinh  𝜇𝑥 𝐿 cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿 − cosh  𝜇𝑥 𝐿 cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+−𝑍 2 sinh  𝜇𝑥 𝐿 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿 𝑍 cosh  𝜇𝑥 𝐿 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+
+(4.4)
+where 𝑔 is the gravitational acceleration; 𝑍 =  𝜇𝑎 2 /(𝑖𝜔𝑔 𝐴) is the characteristic impedance of
+pipe; 𝐴 is the cross-sectional area; 𝑎 is the wave speed; 𝜇 = 𝑎−1  −𝜔2+ ig 𝐴𝜔𝑅 )1/2 is the propaga-
+tion function; 𝑅 = ( 𝑓 𝑄0) / 𝑔𝐷 𝐴2 is the linearized steady-state resistance term; 𝑓𝐷𝑊 is the Darcy-
+Weisbach friction factor of the pipe;𝑄0 is steady-state discharge and𝑄0 =  2𝑔𝐷 𝐴2 (𝐻1 − 𝐻2) /𝐿 𝑓  1/2.
+Combining Eqs. (4.1)-(4.4) gives the real measured pressure head ℎ𝑀∗
+𝜔 contaminated by noise 𝑛𝑀
+𝜔
+at the single frequency 𝜔 and the measurement location 𝑥 𝑀 as
+ℎ𝑀∗
+𝜔
+
+𝛉𝐼 𝑃∗, 𝛉 𝐿∗
+
+= ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗, 𝛉 𝐿∗
+
++ 𝑛𝑀
+𝜔 = ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗
+
++ ℎ𝑀
+𝜔
+
+𝛉 𝐿∗
+
++ 𝑛𝑀
+𝜔 (4.5)
+59
+
+===== PAGE 85 =====
+be expressed as a vector form:
+ΔhM
+𝛚
+
+𝛉 𝐿∗
+
+= hM∗
+𝛚
+
+𝛉𝐼 𝑃∗, 𝛉 𝐿∗
+
+− hM
+𝛚
+
+𝛉𝐼 𝑃∗
+
+= hM
+𝛚
+
+𝛉 𝐿∗
+
++ nM
+𝛚 = 𝑠𝐿∗GM
+𝛚
+
+𝑥 𝐿∗
+
++ nM
+𝛚 (4.10)
+where 𝛚 is the utilized frequency range and 𝛚 =
+
+𝜔1, · · ·, 𝜔𝑁 𝑓
+
+; The superscript M represents the
+measurement locations xM =
+h
+𝑥 𝑀
+1 , · · ·, 𝑥𝑀
+𝑁𝑚
+i
+; ΔhM
+𝛚 , hM∗
+𝛚 , hM
+𝛚 , GM
+𝛚 , and nM
+𝛚 are all 𝑁𝑚 ·𝑁 𝑓 dimen-
+sional complex vectors. For example,
+GM
+𝛚
+
+𝑥 𝐿∗
+
+=
+
+𝐺 𝑀1
+𝜔1
+
+𝑥 𝐿∗
+
+, · · ·, 𝐺𝑀1
+𝜔𝑁 𝑓
+
+𝑥 𝐿∗
+
+|                              {z                              }
+𝑁 𝑓
+, · · ·, 𝐺𝑀𝑁𝑚
+𝜔1 , · · ·, 𝐺𝑀𝑁𝑚
+𝜔𝑁 𝑓
+|                 {z                 }
+𝑁 𝑓
+
+⊤
+(4.11)
+where ⊤ in the superscript represents vector transpose. In the following discussion, we will utilize
+the simplified notation Δh to represent ΔhM
+𝛚
+
+𝛉 𝐿∗
+
+for clarity and conciseness.
+The obtained expression of Δh in Eq. (4.10) is used for leak localization. Note that the first equal
+sign of Eq. (4.10) means that Δh can be computed from the pressure measurements hM∗
+𝛚 , and the
+second and third equal sign indicates the theoretical model of Δh with the real or simulated leak
+parameters 𝑠𝐿∗ and 𝑥 𝐿∗.
+When noise is added in the simulations, the signal-to-noise ratio (SNR) is defined as (in decibel):
+SNR = 20 log10
+ E
+
+hM
+𝛚
+
+𝑥 𝐿∗
+
+,
+𝜎
+!
+= 20 log10
+ E
+
+𝑠𝐿∗GM
+𝛚
+
+𝑥 𝐿∗
+
+,
+𝜎
+!
+(4.12)
+where
+E  hM
+𝛚
+ 𝑥 𝐿∗ is the mean head difference, and 𝜎 is the standard deviation of the Gaussian
+noise with zero mean. In pipeline systems, noise types extend beyond white noise to include
+nonwhite noise like colored noise and impulse noise [44, 62]. In this chapter, we focus on white
+61
+
+===== PAGE 87 =====
+and
+𝐺 𝑀
+𝜔
+
+𝑥 𝐿
+
+= −
+√︄
+𝑔
+2𝐻 𝐿
+0
+𝑍 sinh
+
+𝜇
+
+𝑥 𝑀 − 𝑥 𝐿
+ ©­
+«
+𝑍 sinh  𝜇(𝑥 𝐿 − 𝑥𝑈) 𝑞𝑈
+𝜔
+− cosh  𝜇(𝑥 𝐿 − 𝑥𝑈) ℎ𝑈
+𝜔
+ª®
+¬
+(4.16)
+where 𝑥 𝐿 is the candidate leak location traversing through the whole pipe length. Equation (4.14)
+is derived by determining a filter w which maximizes the signal-to-noise ratio while satisfying the
+constraint |w| = 1 [43]. The CB-MFP showed in Eq. (4.13) determines how well-matched the
+measured and modeled signals are. The key idea to obtain the correct estimated leak location ˜𝑥 𝐿 is
+to search for 𝑥 𝐿 that maximizes the output function [|𝐵𝐶 𝐵| in Eq. (4.13)]:
+˜𝑥 𝐿 = arg max|   {z   }
+𝑥 𝐿
+|⟨Δh, w⟩| = arg max|   {z   }
+𝑥 𝐿
+Δh𝐻GM
+𝛚
+ 𝑥 𝐿
+√︃
+GM𝛚
+ 𝑥 𝐿 𝐻 GM𝛚
+ 𝑥 𝐿 (4.17)
+Note that Eq. (4.17) can also be derived using the maximum likelihood estimation theory, given
+that there is only one leak in the system [43].
+Some examples of using CB-MFP for leak detection in RPV systems are displayed in Fig. 4.3. The
+plot (i.e., the ambiguity space) of |𝐵𝐶 𝐵| in Fig. 4.3(a) shows a main-lobe at the real leak location
+(indicated by vertical dashed-line). However, high-level side-lobes also appear at other locations,
+which can be misconstrued for leaks and, thus, increase the number of false alarms. Wang et al. [55]
+attempted to address this issue using baseline (defect-free) measured transient signals. However,
+the applicability of such a method is limited since baseline transient responses are seldom known.
+Additionally, the examples in Fig. 4.3(b) indicate an resulted degradation of CB-MFP performance,
+i.e., the main-lobe has a level loss and mislocation under nonwhite noise conditions of blue noise
+and impulse noise. In other words, CB-MFP fails to identify leaks. Therefore, further research is
+needed to develop effective ways to suppress the side-lobes and treat nonwhite noise.
+63
+
+===== PAGE 89 =====
+4.3 Mechanism behind Single-Frequency MFP Side-Lobes For-
+mation
+The previous section introduced CB-MFP for leak localization and the associated issues of side-
+lobes appearance and non-optimal performance under nonwhite noise. To address these issues,
+this section explores the properties of the side-lobes in the single-frequency MFP output surface
+rendered on the defect location-frequency plane, subsequently referred to as “surface side-lobes”.
+First, the MFP output function from a single-frequency perspective is defined. Second, the relation
+between side-lobe location and frequency is derived from the MFP output function, which indicates
+that the side-lobe trajectories form a pattern that converges into the real leak location from low to
+high frequency on the defect location-frequency plane. Moreover, this convergence property is
+demonstrated to exist in simulations as well as in experimental data.
+4.3.1 Definition of the Single-Frequency MFP Output Function
+The MFP output function from a single-frequency perspective is defined as a functional regarding
+both frequency and candidate leak location:
+𝐵
+
+𝜔, 𝑥𝐿
+ =
+
+*
+ΔhM
+𝜔ΔhM𝜔
+ , GM
+𝜔GM𝜔
+
++ =
+√︃ GM𝜔
+ 𝐻 ΔhM𝜔
+ ΔhM𝜔
+ 𝐻 GM𝜔
+√︃ ΔhM𝜔
+ 𝐻 ΔhM𝜔
+√︃ GM𝜔
+ 𝐻 GM𝜔
+(4.18)
+where ΔhM
+𝜔 and GM
+𝜔 are both 𝑁𝑚-dimensional vectors, including information from 𝑁𝑚 measure-
+ment locations at single frequency 𝜔. The MFP output function [ |𝐵|, Eq. (4.18)] differs from the
+CB-MFP output function [| 𝐵𝐶 𝐵| , Eq. (4.13)] in that it is considering a single frequency viewpoint,
+65
+
+===== PAGE 91 =====
+real leak) location. This characteristic is explicitly demonstrated by dropping the damping terms
+(i.e., 𝑓 = 0 ⇒ 𝜇 = 𝑖𝑘 = 𝑖𝜔/𝑎 ) and assuming high SNR (i.e., n is negligible) from Eqs. (4.10),
+(4.11) and (4.20). Thus, by substituting the expressions of ΔhM
+𝜔 [Eqs. (4.10), (4.11) and (4.20)]
+and GM
+𝜔 [replacing 𝑥 𝐿∗ with 𝑥 𝐿 in Eqs. (4.11) and (4.20)], and using trigonometric identities, the
+MFP output function given in Eq. (4.18) can be expanded and rearranged as:
+𝐵
+
+𝜔, 𝑥𝐿
+ =
+
+𝑁𝑚 cos
+
+−𝑘
+
+𝑥 𝐿∗ − 𝑥 𝐿
+
+|                    {z                    }
+(1)
+−Í𝑁𝑚
+𝑛=1 cos  −𝑘  2𝑥 𝑀 − 𝑥 𝐿∗ − 𝑥 𝐿
+|                                    {z                                   }
+(2)
+
+vut𝑁𝑚 −Í𝑁𝑚
+𝑛=1 cos  −𝑘  2𝑥 𝑀 − 2𝑥 𝐿∗
+|                               {z                              }
+(3)
+vut𝑁𝑚 −Í𝑁𝑚
+𝑛=1 cos  −𝑘  2𝑥 𝑀 − 2𝑥 𝐿
+|                             {z                             }
+(4)
+(4.21)
+The locations of the maxima of |𝐵| in Eq.(4.21) can be derived by finding 𝑥 𝐿 that satisfies |𝐵| = 1.
+The solution is
+𝑥 𝐿 = 𝑥 𝐿∗ − 𝑚𝜋
+𝑘 , 𝑚 ∈ Z (4.22)
+At these locations, the terms in Eq.(4.21) adhere to the following rules: term(1) = 1 and term (2) =
+term (3) = term (4), resulting in the numerator and denominator being equal, thus yielding |𝐵| = 1.
+By introducing the fundamental frequency 𝜔𝑡ℎ = 𝑎𝜋/2𝐿 and the wavenumber 𝑘 = 𝜔/𝑎, Eq. (4.22)
+becomes
+𝑥 𝐿 = 𝑥 𝐿∗ − 2𝑚
+𝜔/𝜔𝑡ℎ
+𝐿, 𝑚 ∈ Z (4.23)
+where 𝜔/𝜔𝑡ℎ is the dimensionless frequency. Eq. (4.23) implies that the maxima of |𝐵| appear
+periodically and one of the maxima always appears at 𝑥 𝐿 = 𝑥 𝐿∗ (corresponding to 𝑚 = 0) for all 𝜔.
+This special maximum at 𝑥 𝐿 = 𝑥 𝐿∗ is the main-lobe of the single-frequency MFP output|𝐵|, and the
+other maxima at 𝑥 𝐿 = 𝑥 𝐿∗ −2𝑚𝐿 /(𝜔/𝜔𝑡ℎ ) (𝑚 ∈ Z\{0}) are the side-lobes. The side-lobes are evenly
+67
+
+===== PAGE 93 =====
+4.3.2 The Convergence of Surface Side-Lobes Trajectories into the Leak Lo-
+cation on the Defect Location-Frequency Plane
+According to Eq. (4.23), the main-lobe (𝑖.𝑒., 𝑚 = 0) always appears at 𝑥 𝐿 = 𝑥 𝐿∗ for all 𝜔. Thus,
+if rendering the MFP output (| 𝐵|) in the defect location-frequency plane, these surface main-lobes
+collectively form a vertical straight line to the real leak location 𝑥 𝐿∗ along the frequency axis (see
+the grey dash line of 𝑥 𝐿 = 𝑥 𝐿∗ in Fig. 4.4(a)). On the other hand, for 𝑚 ≠ 0, 𝑥𝐿 varies with both
+𝑚 and 𝜔. Eq. (4.23) shows clearly that 𝑥 𝐿 converges to 𝑥 𝐿∗ for all 𝑚 whein 𝜔 becomes larger
+(i.e., when 𝑚 ≠ 0, ˜𝑥 𝐿 → 𝑥 𝐿∗ as 𝜔 → ∞). For consistency in terminology with Thode et al. [66],
+the relation between 𝑥 𝐿 and 𝜔 given by Eq. (4.23) is hereafter referred to as the trajectories of the
+surface side-lobes. Figure 4.4(a) shows several of such trajectories. The red dash lines illustrate the
+trajectories when 𝑚 = [−4, −3, · · ·, 2, 3] in Eq. (4.23).
+The observed phenomena – specifically: 1) the spatial periodicity density of |𝐵| maxima increases
+with frequency, and 2) a local maximum consistently emerges at the true leak location across all
+frequencies – can be explained through two physical mechanisms:
+1. Frequency-Dependent Periodicity (Phenomenon 1)
+This behavior originates from the frequency-domain decomposition of transient waves. Ac-
+cording to Fourier transform theory, time-domain transient waves can be decomposed into
+steady-state harmonic components at distinct frequencies. As frequency increases, the corre-
+sponding harmonic wavelength decreases, thereby enhancing the spatial resolution of wave-
+field matching. This physical principle is mathematically characterized by the frequency-
+domain response function in the MFP algorithm (Eq. 4.21), manifesting as a decrease of
+69
+
+===== PAGE 95 =====
+|𝐵| in Eq. (4.24) is minimum when the numerator is zero, i.e., cos  −𝑘  𝑥 𝐿∗ − 𝑥 𝐿 = cos(−𝑘 (2𝐿 −
+𝑥 𝐿∗ − 𝑥 𝐿)), which yields
+−𝑘
+
+𝑥 𝐿∗ − 𝑥 𝐿
+
+= −𝑘
+
+2𝐿 − 𝑥 𝐿∗ − 𝑥 𝐿
+
++ 2𝑚𝜋 ⇒ 𝜔/𝜔𝑡ℎ = 𝑚 2𝐿
+𝐿 − 𝑥 𝐿∗ , 𝑚 ∈ Z+ (4.25)
+or
+𝑘
+
+𝑥 𝐿∗ − 𝑥 𝐿
+
+= −𝑘
+
+2𝐿 − 𝑥 𝐿∗ − 𝑥 𝐿
+
++ 2𝑚𝜋 ⇒ 𝜔/𝜔𝑡ℎ = 𝑚 2𝐿
+𝐿 − 𝑥 𝐿 , 𝑚 ∈ Z+ (4.26)
+Eq. (4.25) and Eq. (4.26) respectively describe the horizontal and curved trajectories of minima in
+Fig. 4.4(b), and their combination forms the zigzag pattern. For example, the black horizontal dot
+line is one of the horizontal trajectories corresponding to 𝑚 = 5 in Eq. (4.25), and the black curved
+dash-dot line is one of the curved trajectories corresponding to 𝑚 = 1 in Eq.(4.26).
+Next, considering the multi-sensor case in Fig. 4.4(c), where the sensors are widely and uni-
+formly distributed at xM =
+h
+𝑥 𝑀
+1 , 𝑥𝑀
+2 , · · ·, 𝑥𝑀
+𝑁𝑚
+i
+=
+
+𝐿 − (𝑁𝑚 − 1)Δ𝑥 𝑀, · · ·, 𝐿 − Δ𝑥 𝑀, 𝐿
+
+with 𝑁𝑚 = 10
+and Δ𝑥 𝑀 = 25 m. In this case, dividing all terms on the right-hand side of Eq. (4.21) by 𝑁𝑚 results
+in the trigonometric summation terms (2), (3) and (4) approaching zero and term (1) becoming
+cos  −𝑘  𝑥 𝐿∗ − 𝑥 𝐿 . Therefore, Eq. (4.21) can be simplified to
+𝐵
+
+𝜔, 𝑥𝐿
+ =
+cos
+
+−𝑘
+
+𝑥 𝐿∗ − 𝑥 𝐿
+ (4.27)
+where the locations of minima can be easily obtained from cos  −𝑘  𝑥 𝐿∗ − 𝑥 𝐿 = 0 as
+𝑥 𝐿 = 𝑥 𝐿∗ +
+ 1
+2 − 𝑚
+ 2𝐿
+𝜔/𝜔𝑡ℎ
+, 𝑚 ∈ Z (4.28)
+which correspond exactly to the curved trajectories of |𝐵| minima in Fig. 4.4(c). For instance,
+a sample trajectory corresponding to 𝑚 = 0 is shown as the black curved dash line. In a manner
+71
+
+===== PAGE 97 =====
+reduce side-lobes and mismatch sensitivity.
+Figure 4.5. The surface side-lobes converge into the real leak location in the defect location-fre-
+quency plane for a leak-detection case with (a) SNR = 5 dB, 𝑁𝑚 = 2  xM = [1975, 2000]m), (b)
+SNR = 5 dB, 𝑁𝑚 = 10  xM = [1775, 1775 + 25, · · ·, 2000]m. The real leak location is 𝑥 𝐿∗ = 400 m
+and represented by the dashed line. The measurement locations are marked with crosses.
+4.4 Definition of The Modified Broadband MFP (MB-MFP)
+The former section elucidated the concealed leak information in the MFP output surface on the
+defect location-frequency plane. Building upon this analysis, a modified broadband MFP (MB-
+MFP) is introduced in this section. MB-MFP involves averaging the MFP output function across
+frequencies. This newly defined MB-MFP is found to be robust in the presence of both white and
+73
+
+===== PAGE 99 =====
+Figure 4.6. (a) An example of MFP output surface (| 𝐵|) in the defect location-frequency plane. (b)
+The resulting MB-MFP output plot (| 𝐵𝑀 𝐵|) along 𝑥 𝐿 by averaging |𝐵| across frequencies. The ver-
+tical dashed line and the crosses represent the real leak location 𝑥 𝐿∗ = 400 m and the measurement
+locations xM = [1800, 2000]m, respectively.
+Due to the normalization term
+ΔhM
+𝜔
+ used in the denominator in the MFP output function [| 𝐵|,
+Eq. (4.18)], at each 𝜔, the signal and noise are compressed to a level of their sum equal to one.
+Thus, the noise with relatively high amplitude at certain frequencies is significantly compressed
+after this normalization process. This makes MB-MFP (| 𝐵𝑀 𝐵|), obtained from the frequency aver-
+age of |𝐵|, suitable against nonwhite noise, such as blue noise and impulse noise. To demonstrate
+this advantage, three numerical examples are conducted to compare the performance of MB-MFP
+and CB-MFP under three different noise scenarios: white noise, blue noise, and impulse noise.
+The results are shown in Fig. 4.7. The utilized frequency range 𝑓 = [ 𝑓𝑡ℎ , 𝑓 𝑡ℎ + 0.1 𝑓𝑡ℎ , · · ·, 160 𝑓𝑡ℎ ] =
+75
+
+===== PAGE 101 =====
+To extensively assess the accuracy of leak localization while employing CB-MFP and MB-MFP,
+the absolute localization error
+ ˜𝑥 𝐿 − 𝑥 𝐿∗ regarding various SNR = [−8, −8+ 4, · · ·, 12]dB, SNR1 =
+[10, 10 + 8, · · ·, 50]dB, and SNR 2 = [−70, −70 + 10, · · ·, −20]dB are displayed in Fig. 4.8, where
+˜𝑥 𝐿 is the predicted leak location. Since the noise generation is random, for each SNR , SNR1 and
+SNR2, twenty simulations are implemented to average the error. Fig. 4.8(a) demonstrates that both
+MB-MFP and CB-MFP can accurately localize leaks in the presence of white noise, with a small
+error less than 1 m . However, under blue noise, as demonstrated in Fig. 4.8(b), MB-MFP exhibits
+significantly lower leak localization errors compared to CB-MFP. As for impulse noise, Fig. 4.8(c)
+shows that MB-MFP performs a strong anti-impulse noise ability even at a low SNR 2 = −70 dB,
+while CB-MFP fails to perform well since SNR2 below −40 dB.
+Figure 4.8. Localization errors of using CB-MFP and MB-MFP under (a) white noise with
+SNR = [−8, −8 + 4, · · ·, 12]dB, (b) blue noise with SNR 1 = [10, 10 + 8, · · ·, 50]dB (the cor-
+responding SNR at 𝑓max = 20 Hz is [−50, −50 + 8, · · ·, −10]dB), and (c) impulse noise with
+SNR2 = [−70, −70 + 10, · · ·, −20]dB. The real leak location is 𝑥 𝐿∗ = 400 m and the measurement
+locations are xM = [1975 m, 2000 m].
+77
+
+===== PAGE 103 =====
+Introducing the sign of 𝜕|𝐵|/𝜕𝑥 𝐿 assigns positive values to the left-edge points and negative values
+to the right-edge points of the maxima of |𝐵| at each 𝜔, which can be illustrated by a sample in
+Fig. 4.9(a), where the blue dot line is the output
+𝐵  𝜔 = 21𝜔𝑡ℎ , 𝑥𝐿 and the green solid line is the
+result after multiplying
+𝐵  𝜔 = 21𝜔𝑡ℎ , 𝑥𝐿 with the sign of 𝜕|𝐵|/𝜕𝑥 𝐿. The result of multiplying |𝐵|
+with the sign of 𝜕|𝐵|/𝜕𝑥 𝐿 over frequency can be observed in the defect location-frequency plane
+in Fig. 4.9(b). Then, by integrating the updated |𝐵| over frequency, the surface side-lobes at𝜔 tend
+to cancel out the surface side-lobes at the former frequency step𝜔 − Δ𝜔. As a result, the side-lobes
+in the ambiguity space of MB-MFP 1  𝐵1
+𝑀 𝐵
+ are lower than these of MB-MFP (| 𝐵𝑀 𝐵|), which is
+demonstrated in Fig. 4.11 and discussed later.
+Figure 4.9. Results of multiplying |𝐵| with the sign of 𝜕|𝐵|/𝜕𝑥 𝐿 (a) at 𝜔 = 21𝜔th and (b) in the
+defect location-frequency plane. A noiseless environment is considered for clearer observation of
+the model behavior. The real leak location is 𝑥 𝐿∗ = 560 m and represented by the vertical dashed
+line. The measurement locations are xM = [1975 m, 2000 m] and represented by the crosses.
+79
+
+===== PAGE 105 =====
+the next subsection, numerical examples are implemented to demonstrate the capabilities of MB-
+MFP1 and MB-MFP2 for suppressing side-lobes.
+Figure 4.10. Demonstration of the peak extraction algorithm on |𝐵| (a) at 𝜔 = 21𝜔th and (b) in the
+defect location-frequency plane. A noiseless environment is considered for clearer observation of
+the model behavior. The real leak location is 𝑥 𝐿∗ = 560 m and represented by the vertical dashed
+line. The measurement locations are xM = [1975 m, 2000 m] and represented by the crosses.
+4.5.3 Numerical Simulations of Using CB-MFP, MB-MFP, MB-MFP 1, and
+MB-MFP2
+The performance of CB-MFP [| 𝐵𝐶 𝐵| , Eq. (4.13)], MB-MFP [|B 𝐵𝑀 𝐵 |, Eq. (4.29)], MB-MFP 1
+𝐵1
+𝑀 𝐵
+, Eq. (4.30)], and MB-MFP 2 𝐵2
+𝑀 𝐵
+, Eq. (4.31)] in terms of leak localization and side-
+81
+
+===== PAGE 107 =====
+Figure 4.11. Demonstration of using CB-MFP [| 𝐵𝐶 𝐵| , Eq. (4.13)], MB-MFP [| 𝐵𝑀 𝐵| , Eq. (4.29)],
+MB-MFP 1 𝐵1
+𝑀 𝐵
+, Eq. (4.30)], and MB-MFP 2 𝐵2
+𝑀 𝐵
+, Eq. (4.31)] for leak detection cases with
+(a) no noise, (b) SNR= 5 dB, (c) SNR1 = 30 dB, and (d) SNR2 = −60 dB. The vertical black dashed
+line represents the real leak location 𝑥 𝐿∗ = 560 m. The black crosses represent the measurement
+locations xM = [1975 m, 2000 m].
+83
+
+===== PAGE 109 =====
+Figure 4.12. Comparisons of the performance of CB-MFP, MB-MFP, MB-MFP 1, and MB-MFP 2
+for leak detection by parameters: (a) averaged localization error, (b) ratio of secondary side-lobe–
+to-main-lobe, and (c) ratio of averaged side-lobe-to-main-lobe. The noise settings are white noise
+with SNR = [−8, −8 + 4, · · ·, 12]dB, blue noise with SNR 1 = [30, 30+ 5, · · ·, 55]dB, and impulse
+noise with SNR 2 = [−70, −70 + 10, · · ·, −20]dB. The real leak location is 𝑥 𝐿∗ = 560 m. The mea-
+surement locations xM = [1975 m, 2000 m].
+85
+
+===== PAGE 111 =====
+Figure 4.13. The pipeline system in the Water Resources Research Laboratory of HKUST: (a)
+overall 3D schematic, and (b) simplified 2D layout.
+Table 4.1. Coefficients for pipe wall viscosity of the HDPE pipe in the Water Resources Research
+Laboratory at HKUST
+Poisson’s ratio𝑣 = 0.43 bulk modulus of water 𝜅 = 2.1 × 109 Pa
+density of water 𝜌 = 103 kg/m3 Pipe diameter 𝐷 = 0.0792 m
+Young’s modulus of elasticity of pipe wall𝐸 = 5.4 × 10−3 m
+the coefficients of the K-V model: 𝜏1 = 0.038 s, 𝜏 2 = 0.6 s, 𝜏 3 = 1.5 s
+𝐶1 = 1.957 × 10−10 Pa−1, 𝐶 2 = 1.0954 × 10−10 Pa−1, 𝐶 3 = 9.05 × 10−12 Pa−1
+87
+
+===== PAGE 113 =====
+Figure 4.14. (a) Measured time-domain signals and (b) transformed frequency-domain signals at
+MV3 and MV8
+Fig. 4.15(a) shows the output surface of |𝐵| in the defect location-frequency plane, where we
+observe that the surface side-lobe trajectories converge into the correct leak source range. Fig.
+4.15(b) plots the results of using CB-MFP, MB-MFP, and MB-MFP 2 for leak detection, which
+indicates that MB-MFP2 can significantly reduce the level of side-lobes and have a higher resolution
+of the main-lobe. However as shown in Fig. 4.15(c), compared to MB-MFP 2, MB-MFP1 has not
+effectively reduced the side-lobe levels and failed to accurately indicate the leak location due to its
+peak separation behavior.
+89
+
+===== PAGE 115 =====
+4.7 Summary
+The chapter proposed a novel modified broadband MFP (MB-MFP) technique that increases the
+robustness for leak localization in the presence of nonwhite noise. Combining the gradient infor-
+mation in the MFP output surface, we further developed two improved modified broadband MFP
+methods (MB-MFP 1 and MB-MFP 2) with lower side-lobe levels and higher localization resolu-
+tion. The proposed methods addressed three key issues of the used conventional broadband MFP
+(CB-MFP) method for leak detection: (i) the unclear generation mechanism of side-lobes, (ii) the
+ambiguity caused by high-level side-lobes for accurate leak localization, and (iii) the poor perfor-
+mance under nonwhite noise. The accuracy and robustness of the proposed MB-MFP methods in
+localizing leaks while suppressing side-lobes and noise effects is validated experimentally.
+91
+
+===== PAGE 117 =====
+(EPA) conducted a comprehensive assessment of existing leak detection technologies and con-
+cluded “None of the technologies was able to discern two separate leaks in close proximity . . . and
+appear only to report the larger leak rate for the cluster of leaks. The ability to identify whether a
+signal is from an isolated leak or multiple leaks in close proximity is helpful in judging the general
+condition of a pipeline ” [93]. In addition, a pipeline with clusters of defects has typically lower
+load-bearing capacity than the same pipeline with individual defects [94, 95]. Moreover, [96] notes
+that the interacting defects are more detrimental towards the structural integrity of a pipeline than
+single defects. [8] also stated that if small defects appear and are left untreated, they can progres-
+sively spread over time, link together, and lead to a severe pipe failure. Therefore, there is a critical
+need to develop methods that can identify defects that are in close proximity.
+In recent years, transient wave-based defect detection methods (TBDDMs) have gained significant
+attention. These methods utilize wave physics and inverse mathematics, where an intentionally
+generated transient wave propagates through the pipeline and reflects off defects [23, 35, 97]. By
+recording and analyzing the transient pressure history within the system, it is possible to localize
+defects in the pipe system [36, 38]. TBDDMs have proven effective in identifying and charac-
+terizing various types of pipeline defects, including leaks, blockages, and structural weaknesses
+[43, 55–58, 65, 98–101].
+The authors have proposed transient-based modified broadband matched-field processing (MB-
+MFP) techniques for single-leak detection [81]. We demonstrated how the spatial positioning of
+side-lobes in single-frequency matched-field processing (MFP) output function varies with candi-
+date leak location and probing wave frequency. As frequency increases, the side-lobe paths con-
+verge toward the actual leak location. Utilizing this property, we proposed a suite of MB-MFP
+93
+
+===== PAGE 119 =====
+wherein
+∑︁𝑁𝐿∗
+𝑛𝐿=1 ℎ𝑀
+𝜔
+
+𝛉 𝐿∗
+𝑛𝐿
+
+=
+∑︁𝑁𝐿∗
+𝑛𝐿=1 𝑠𝐿∗
+𝑛𝐿 𝐺 𝑀
+𝜔
+
+𝑥 𝐿∗
+𝑛𝐿
+
+|                     {z                     }
+the scatterings from each leak
+(5.2)
+The derivation to Eqs. 5.1 and 5.2 can be referred to Chapter 1 of Introduction . ℎ𝑀∗
+𝜔 is constituted
+of three distinct components: (i) the baseline head ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗
+
+where superscript 𝐼 𝑃∗ denoting the
+effect to measured pressure head from the intact pipe, (ii) the scattering
+
+𝛉 𝐿∗
+𝑛𝐿
+
+arising from 𝑛𝐿-th
+leak and expressed by multiplying the Green’s function𝐺 𝑀
+𝜔 regarding to the leak location 𝑥 𝐿∗
+𝑛𝐿 with
+the leak size 𝑠𝐿∗
+𝑛𝐿, where the superscript 𝐿∗ denotes the real leaks, and (iii) the noise𝑛𝑀
+𝜔 . In fact, there
+originally existed a fourth component in Eq. 5.1, which involves the pressure heads resulting from
+the coupling interaction between multiple leaks. These coupling effects are neglected since they are
+relatively insignificant compared to the scattering originating from each leak, under the assumption
+of small leaks (i.e., 𝑠𝐿∗
+𝑛𝐿 ≪ 1 m 2, 𝑛𝐿 = 1, · · ·, 𝑁𝐿∗) which are a subject of interest for transient-
+based methods [43]. For example, in a two-leak case (as depicted in Fig. 5.1), the transient wave
+propagation includes three routes: the baseline head ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗
+
+, the uncorrelated scatterings with
+distinct independent sources: 𝑠𝐿∗
+1 𝐺 𝑀
+𝜔
+ 𝑥 𝐿∗
+1
+ and 𝑠𝐿∗
+2 𝐺 𝑀
+𝜔
+ 𝑥 𝐿∗
+2
+, and the negligible coupling effect. In
+Eq. 5.1, ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗
+
+is expressed as
+ℎ𝑀
+𝜔
+
+𝛉𝐼 𝑃∗
+
+= −𝑍 sinh
+
+𝜇𝑥 𝑀
+
+𝑞𝑈
+𝜔 + cosh
+
+𝜇𝑥 𝑀
+
+ℎ𝑈
+𝜔 (5.3)
+and 𝐺 𝑀
+𝜔 is given by
+𝐺 𝑀
+𝜔
+
+𝑥 𝐿∗
+𝑛𝐿
+
+= −
+√𝑔𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿∗
+𝑛𝐿
+
+√︃
+2𝐻 𝐿
+0
+©­
+«
+𝑍 sinh  𝜇𝑥 𝐿∗
+𝑛𝐿
+ 𝑞𝑈
+𝜔
+− cosh  𝜇𝑥 𝐿∗
+𝑛𝐿
+ ℎ𝑈
+𝜔
+ª®
+¬
+(5.4)
+95
+
+===== PAGE 121 =====
+and 𝑁𝑚 measurement locations can be written as:
+ΔhM
+𝛚
+
+𝛉 𝐿∗
+1 , · · ·, 𝛉 𝐿∗
+𝑁𝐿
+
+= hM∗
+𝛚
+
+𝛉𝐼 𝑃∗, 𝛉 𝐿∗
+1 , · · ·, 𝛉 𝐿∗
+𝑁𝐿
+
+− hM
+𝛚
+
+𝛉𝐼 𝑃∗
+
+=
+∑︁𝑁𝐿∗
+𝑛𝐿=1 hM
+𝛚
+
+𝛉 𝐿∗
+𝑛𝐿
+
++ nM
+𝛚 =
+∑︁𝑁𝐿∗
+𝑛𝐿=1 𝑠𝐿∗
+𝑛𝐿 GM
+𝛚
+
+𝑥 𝐿∗
+𝑛𝐿
+
++ nM
+𝛚 (5.7)
+wherein ΔhM
+𝜔 , hM∗
+𝛚 , hM
+𝛚 , GM
+𝛚 , and nM
+𝛚 are all 𝑁𝑚 ·𝑁 𝑓 dimensional complex vectors and their forms
+can be illustrated by considering an example:
+GM
+𝛚
+
+𝑥 𝐿∗
+𝑛𝐿
+
+=
+
+𝐺 𝑀1
+𝜔1
+
+𝑥 𝐿∗
+𝑛𝐿
+
+, · · ·, 𝐺𝑀1
+𝜔𝑁 𝑓
+
+𝑥 𝐿∗
+𝑛𝐿
+
+|                              {z                              }
+𝑁 𝑓
+, · · ·, 𝐺𝑀𝑁𝑚
+𝜔1 , · · ·, 𝐺𝑀𝑁𝑚
+𝜔𝑁 𝑓
+|                 {z                 }
+𝑁 𝑓
+
+⊤
+(5.8)
+The purpose of obtaining the measured head difference vectorΔhM
+𝜔 is to facilitate leak localization.
+Note that the first equal sign in Eq. 5.7 signifies thatΔhM
+𝜔 can be determined from the pressure mea-
+surement hM∗
+𝛚 , and the second equal sign represents the theoretical model of ΔhM
+𝜔 , incorporating
+leak parameters
+
+𝛉 𝐿∗
+1 , · · ·, 𝛉 𝐿∗
+𝑁𝐿
+
+.
+This chapter examines a reservoir-pipe-valve (RPV) system featuring multiple leaks, as illustrated
+in Fig. 5.2. The system consists of a single pipe, positioned horizontally and extending a length 𝐿,
+which connects two reservoirs at each end. These reservoirs are characterized by pressure heads
+𝐻1 and 𝐻2. A valve is positioned near the downstream end and can be used to generate transient
+waves by rapid “close-open” maneuvers. An example of such a maneuver is shown in Fig. 5.3,
+where a discharge perturbation with a pulse shape is introduced. The resulting transient wave prop-
+agates back and forth within the pipe at a wave speed of 𝑎0. The system’s fundamental period
+and frequency are given by 𝑇𝑡ℎ = 4𝐿/𝑎0 and 𝑓𝑡ℎ = 1/𝑇𝑡ℎ (or 𝜔𝑡ℎ = 2𝜋/𝑇𝑡ℎ ). The utilized angu-
+lar frequency range is denoted as 𝛚 =
+
+𝜔1, · · ·, 𝜔𝑁 𝑓
+ ⊤
+and the corresponding frequency range is
+97
+
+===== PAGE 126 =====
+and
+𝐵2
+𝑀 𝐵
+
+xL
+ =
+
+∫ 𝜔𝑚𝑎𝑥
+𝜔𝑚𝑖𝑛
+©­­­­­
+«
+Í𝑁𝐿
+𝑛𝐿=1
+©­­­­­
+«
+sign
+ 
+𝜕
+𝐵
+
+𝜔,𝑥 𝐿
+𝑛𝐿
+
+𝜕𝑥 𝐿𝑛𝐿
+!
+−sign
+ 
+𝜕
+𝐵
+
+𝜔,𝑥 𝐿
+𝑛𝐿 +Δ𝑥 𝐿
+𝑛𝐿
+
+𝜕𝑥 𝐿𝑛𝐿
+!
+ª®®®®®
+¬
+ª®®®®®
+¬
+·
+𝐵  𝜔, xL 𝑑𝜔
+
+𝜔𝑚𝑎𝑥 − 𝜔𝑚𝑖𝑛
+(5.15)
+5.3.2 Numerical Simulations
+In this sub-section, we demonstrate the anti-noise capabilities and side-lobe suppression perfor-
+mance of the MB-MFP techniques for multi-leak detection through comprehensive numerical sim-
+ulations. These simulations cover various noise types and levels, and leak intervals. The parameters
+of the RPV system are listed in the following Table 5.3.2.
+Table 5.1. The pipeline parameters used in the simulations
+𝐿 = 200m 𝐷 = 0.08m 𝐻1 = 25m
+𝐻2 = 20m 𝑎 = 1000m/s 𝑓 = 0.02
+𝑁𝐿∗ = 2, xL∗ = [40m, 90m] or [40m, 44m], sL∗ =
+
+1.4 × 10−5 m2, 1.4 × 10−5 m2
+𝑁𝑚 = 2,
+
+𝑥 𝑀
+1 , 𝑥𝑀
+2
+ ⊤
+= [180m, 200m]
+𝑁 𝑓 = 1000, 𝛚 = [𝜔𝑡ℎ , 𝜔𝑡ℎ + 0.02𝜔𝑡ℎ , · · ·, 20𝜔𝑡ℎ ]⊤, or f =
+
+𝑓𝑡ℎ , 𝑓 𝑡ℎ + 0.02 𝑓𝑡ℎ , · · ·, 20 𝑓 𝑡ℎ
+ ⊤
+The system’s fundamental period and frequency are calculated as 𝑇𝑡ℎ = 4𝐿/𝑎 = 0.8s and 𝑓𝑡ℎ =
+1/𝑇𝑡ℎ = 1.25Hz (or 𝜔𝑡ℎ = 2𝜋/𝑇𝑡ℎ = 7.85rad/s) [31]. Thus, the shortest (minimum) probing wave-
+length 𝜆𝑚𝑖𝑛 = 𝑎/ 𝑓𝑁 𝑓 = 40m.
+102
+
+===== PAGE 131 =====
+Figure 5.6. Three leak-detection cases corresponding to (a) 𝑁𝐿∗ = 1, 𝑥 𝐿∗ = 40m, (b) 𝑁𝐿∗ = 2,
+xL∗ = [40m, 90m], and (c) 𝑁𝐿∗ = 3, xL∗ = [40m, 60m, 90m] are tested, by using MB-MFP(𝑁𝐿),
+MB-MFP1(𝑁𝐿) and MB-MFP2(𝑁𝐿) with 𝑁𝐿 = 1, 2, 3 and 4. The vertical dashed black lines and the
+triangles represent the real and estimated leak locations, respectively.
+In fact, the observed clustering phenomena are consistent with the results discussed in Wang and
+Ghidaoui’s work [57]. Following their methodology [57], the number of leakages can then be
+107
+
+===== PAGE 136 =====
+one.
+Table 5.2. Coefficients for pipe wall viscosity of the HDPE pipe in the Water Resources Research
+Laboratory at HKUST
+Water density 𝜌 = 1000 kg/m3 Bulk modulus of water 𝜅 = 2.1 × 109 Pa
+Pipe wall thickness 𝑒 = 5.4 × 10−3 m Poisson’s ratio𝜈 = 0.43
+Young’s modulus of elasticity of pipe wall𝐸 = 1.47 × 109 Pa
+Coefficients of the K-V model: 𝜏1 = 0.038 s, 𝜏2 = 0.6 s, 𝜏3 = 1.5 s
+and 𝐶1 = 1.957 × 10−10 Pa−1, 𝐶2 = 1.0954 × 10−10 Pa−1, 𝐶3 = 9.05 × 10−12 Pa−1
+A rapid full closure of valve MV 1 within 0.05 seconds initiates the transient wave generation.
+Subsequently, pressure signals are acquired at MV 2, MV 4, and MV 8 in the time domain and
+transformed into the frequency domain, as depicted in Fig. 5.10. Notably, these signals exhibit
+significant noise levels beyond the 6 Hz frequency range, leading to the selection of 6 Hz as the
+upper-frequency limit for subsequent analyses, corresponding to a minimum probing wavelength
+𝜆min of around 50 m.
+112
+
+===== PAGE 141 =====
+6.1 Introduction
+Matched-field processing (MFP) is a premier signal processing technique used in underwater acous-
+tics [40], with many applications as noted by Tolstoy [39]: “... its successful application to a wide
+range of problems including the localization in range, depth, and bearing of passive sources, the de-
+termination of environmental parameters needed for accurate predictions of acoustic propagation,
+and the evaluation of model accuracies”. MFP offers many advantages including (i) noise suppres-
+sion [102], (ii) insensitivity to the modeling errors [82], (iii) scalability to waveguide/source char-
+acteristics [103], and (iv) versatility in handling multi-channel and multi-dimensional data [104].
+In the pipeline field, MFP also emerged as a powerful technique to detect defects when combined
+with hydraulic transients [43, 46, 55]. In particular, researchers have shown that MFP provides
+an optimal estimate of defect characteristics when noise follows a Gaussian distribution and the
+estimator is equivalent to the maximum likelihood estimation [43]. The method has already been
+extended to from a single pipe to complex pipe networks [49, 50, 98, 105]. Moreover, enhanced
+versions of MFP [81] have been introduced to (i) handle the side-lobes that are commonly found in
+the conventional MFP or Bartlett MFP, (ii) address the nonwhite noise scenarios, and (iii) achieve
+super-resolution. Thus far, the scope of MFP in the previous pipeline research has primarily focused
+on defect detection, with its potential for broader parameter inversion still underexplored.
+This chapter extends the application of using MFP to a general method for estimating pipeline sys-
+tem properties by an inversion on hydraulic transient data set. Central to our approach is developing
+a theoretical frequency-domain model to simulate the generation and propagation of hydraulic tran-
+sient waves, adjusting the concerned parameters within a candidate range, computing the model
+117
+
+===== PAGE 146 =====
+in the following form:
+hM∗
+𝛚 (𝛉𝐼 𝑃∗) = hM
+𝛚 (𝛉𝐼 𝑃∗) + nM
+𝛚 (6.8)
+The purpose of obtaining the measured head vector hM
+𝛚 (𝛉𝐼 𝑃) is to utilize it in next proposed MFP
+techniques for parameter inversion using transient tests. This inversion targets the unknown K-V
+coefficients 𝛉𝐼 𝑃∗, enabling the accurate description of the viscoelastic effect.
+Traditionally, 𝛉𝐼 𝑃∗ are obtained through destructive testing and under specific standards [43].
+Worse still, after considerable efforts, these determined coefficients are only valid for specific
+testing conditions, as they vary with factors such as aging, temperature, and other conditions
+[108, 109]. Fortunately, MFP is a non-destructive and cost-effective method that can be used to
+update the relevant viscoelastic parameters in real time.
+6.3 Methodology
+6.3.1 MB-MFP Techniques
+We begin by discussing the single-frequency MFP which is defined as follows:
+𝐵
+
+𝜔; 𝛉𝐼 𝑃
+ =
+
+*
+hM∗
+𝜔hM∗𝜔
+ , hM
+𝜔hM𝜔
+
++ =
+
+ hM∗
+𝜔
+ 𝐻 hM
+𝜔
+
+√︃ hM∗𝜔
+ 𝐻 hM∗𝜔
+√︃ hM𝜔
+ 𝐻 hM𝜔
+=
+√︃ hM𝜔
+ 𝐻 hM∗𝜔
+ hM∗𝜔
+ 𝐻 hM𝜔
+√︃ hM∗𝜔
+ 𝐻 hM∗𝜔
+√︃ hM𝜔
+ 𝐻 hM𝜔
+(6.9)
+where the measured signal hM∗
+𝜔 (𝛉𝐼 𝑃∗) and the modeled signal hM
+𝜔 (𝛉𝐼 𝑃) are both 𝑁𝑚 dimensional
+vectors at a single frequency 𝜔 and their expressions can be found from Eqs. (6.6)–(6.8); 𝛉𝐼 𝑃∗
+represents the vector of actual, yet unknown K-V coefficients that need to be estimated; and 𝛉𝐼 𝑃 =
+122
+
+===== PAGE 151 =====
+because they are close to where the transient wave is generated, which ensures minimal signal
+distortion and loss. A summary of the known parameters of the high-density polyethylene (HDPE)
+pipeline system is given in Table 6.4.1.
+Table 6.1. The measured and given parameters of the HDPE pipe system
+𝜌 = 1 × 103 kg/m3 𝜅 = 2.1 × 109 Pa 𝑓𝐷𝑊 = 0.02
+𝑒 = 5.4 × 10−3 m 𝜈 = 0.43 𝑔 = 9.81 m/s2
+𝐿 = 144 m 𝐷 = 0.0792 m 𝐸 = 1.47 × 109 Pa
+Figure 6.3. The pipeline system in the Water Resources Research Laboratory of HKUST: (a) overall
+3D schematic, and (b) simplified 1D layout.
+127
+
+===== PAGE 156 =====
+norm of hM∗
+𝛚 . Then, 𝑅𝑒𝑟𝑟𝑜𝑟 for the initial and final parameter sets are respectively calculated and
+given as 0.7149 and 0.0599 in Table 6.5.1.
+Figure 6.6. Optimization trajectories of parameters (a) 𝜏1 and (b) 𝐶1 over 10 iterations.
+Table 6.3. Optimal K-V parameters for 1-element model, i.e., 𝑁𝑘𝑣 = 1.
+Case Iteration
+number
+Initial assumed values Initial
+𝑅𝑒𝑟𝑟𝑜𝑟
+Final estimated values Final
+𝑅𝑒𝑟𝑟𝑜𝑟
+𝑁𝑘𝑣 = 1 3 𝜏1 = 0.038 s 0.6982 𝜏1 = 0.0399 s 0.0601
+𝐶1 = 1.957 × 10−10 Pa−1 𝐶1 = 6.458 × 10−11 Pa−1
+By using the same boundary conditions, we have reproduced the pressure signals based on the
+estimated K-V coefficients and compared these with the five additional measurements in Fig. 6.7.
+This comparison demonstrates that even using a single-element model, the optimal K-V parameters
+derived from MB-MFP can closely replicate another tested signal, which indicates the accuracy of
+132
+
+===== PAGE 161 =====
+Figure 6.8. Two momentary creep-compliance curves for HDPE pipeline with a six-year aging
+time. The curves are calculated by using the optimal 1-element K-V coefficients which are respec-
+tively obtained from the laboratory data sets at the year 2018 and the year 2024.
+Figure 6.9. The predicted frequency-dependent wave speed 𝑎 based on the final estimated K-V
+coefficients.
+137
+
+===== PAGE 166 =====
+7.1.5 Accurate Material Property Estimation
+The effectiveness of the proposed MFP methodologies in estimating material properties is vali-
+dated through both numerical simulations and laboratory experiments. Specifically, the approach
+is demonstrated on an HDPE pipe system, where it achieves accurate estimation of viscoelastic
+parameters. We achieve 5% reconstruction error (by using the predicted viscoelastic parameters)
+with 15 ms/parameter computational speed. The optimized two-element K-V model shows 25% ac-
+curacy gain over single-element versions, while a third element provides only 0.09% improvement,
+which sets a clear threshold for complexity optimization in viscoelastic modeling. Furthermore,
+validation against six-year-interval creep compliance data confirms material aging mechanisms,
+showing a 0.52% reduction in compliance, and demonstrating MFP’s dual capability for real-time
+monitoring and long-term structural health assessment.
+In conclusion, this thesis bridges theoretical wave physics and practical pipeline parameter estima-
+tion by developing innovative MFP inversion techniques. The proposed MFP framework system-
+atically addresses critical challenges, including noise resilience, spatial resolution limits, side-lobe
+interference, and complexity in handling multiple parameters, through comprehensive theoretical
+analysis and methodological advancements. Numerical simulations and experimental validations
+confirm the effectiveness of the proposed MFP framework for achieving accurate parameter esti-
+mation. These improvements contribute directly to maintaining hydraulic infrastructure integrity,
+enhancing operational safety, and promoting long-term sustainability for WSSs.
+142
+
+===== PAGE 171 =====
+APPENDIX A
+SUPPLEMENT AR Y MA TERIAL FOR
+GOVERNING EQUA TIONS
+A.1 Solution to the Frequency Response of An Intact Pipe
+Figure A.1. Field transfer matrix for an intact pipe segment.
+For intact pipe shown in Fig. A.1 (same to Fig. 2.2), the right-hand-side term relating to leak in
+Eq. 2.6 is neglected. Then, the frequency-domain mass and momentum conservation equations are
+given as
+𝜕𝑞
+𝜕𝑥 + 𝑔 𝐴
+𝑎2 𝑖𝜔ℎ = 0 ⇒ 𝜕𝑞
+𝜕𝑥 = − 𝑔 𝐴
+𝑎2 𝑖𝜔ℎ (A.1)
+and
+𝜕ℎ
+𝜕𝑥 +
+ 𝑖𝜔
+𝑔 𝐴 + 𝑅
+
+𝑞 = 0 ⇒ 𝜕ℎ
+𝜕𝑥 + 𝑖𝜔 + 𝑅𝑔 𝐴
+𝑔 𝐴 𝑞 = 0 (A.2)
+147
+
+===== PAGE 176 =====
+According to trigonometric functions, we can obtain the following results:
+ 
+
+cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ cosh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+ + sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ sinh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+= cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
+− 1
+𝑍 cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ sinh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+ − 1
+𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ cosh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+= − 1
+𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
+−𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ cosh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+ − 𝑍 cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ sinh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+= −𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
+(A.20)
+The above result can be substituted into the overall transfer matrix 𝑈𝑂 (Eq. A.19), and we obtain:
+𝑈𝑂
+
+𝜔, 𝑥𝑀 − 𝑥𝑈; 𝛉𝐼 𝑃, 𝛉 𝐿
+1 , 𝛉 𝐿
+2
+
+=
+
+cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
++ 𝑍
+𝑍 𝐿
+2
+cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ sinh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+− 1
+𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
+− 1
+𝑍 𝐿
+2
+cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ cosh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+−𝑍 sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
++ − 𝑍 2
+𝑍 𝐿
+2
+sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ sinh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+cosh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+1
+
++ 𝑍
+𝑍 𝐿
+2
+sinh  𝜇  𝑥 𝑀 − 𝑥 𝐿
+2
+ cosh  𝜇  𝑥 𝐿
+2 − 𝑥 𝐿
+1
+
+
+×
+
+1 − 1
+𝑍 𝐿
+1
+0 1
+
+×
+
+cosh  𝜇  𝑥 𝐿
+1 − 𝑥𝑈 − 1
+𝑍 sinh  𝜇  𝑥 𝐿
+1 − 𝑥𝑈
+−𝑍 sinh  𝜇  𝑥 𝐿
+1 − 𝑥𝑈 cosh  𝜇  𝑥 𝐿
+1 − 𝑥𝑈
+
+(A.21)
+Through the small-leak assumption (i.e., 𝑠𝐿
+𝑛𝐿 ≪ 1, 𝑛𝐿 ∈ [1, · · ·, 𝑁𝐿]), we can conclude that, com-
+pared to 1
+𝑍 𝐿
+1
+= 𝑠𝐿
+1
+√︃𝑔
+2𝐻 𝐿
+0,1
+and 1
+𝑍 𝐿
+2
+= 𝑠𝐿
+2
+√︃𝑔
+2𝐻 𝐿
+0,2
+, the term 1
+𝑍 𝐿
+1
+1
+𝑍 𝐿
+2
+can be neglected as it is a much smaller
+term. Then, by continuing to expand and rearrange the above Eq. A.21, substituting the small-leak
+assumption, and continuing to use the trigonometric relations (Eq. A.20), we obtain:
+152
+
+===== PAGE 181 =====
+[27] Sundar, K. and Zlotnik, A. (2019). State and parameter estimation for natural gas pipeline net-
+works using transient state data. IEEE Transactions on Control Systems Technology, 27:2110–
+2124.
+[28] Zhang, C., Lambert, M. F., Gong, J., Zecchin, A. C., Simpson, A. R., and Stephens, M. L.
+(2020). Bayesian inverse transient analysis for pipeline condition assessment: parameter esti-
+mation and uncertainty quantification. Water Resources Management, 34:2807–2820.
+[29] Galvagni, A. (2013). Pipeline health monitoring. PhD thesis, Imperial College London Lon-
+don.
+[30] Zecchin, A. C., Lambert, M. F., Simpson, A. R., and White, L. B. (2014). Parameter identi-
+fication in pipeline networks: Transient-based expectation-maximization approach for systems
+containing unknown boundary conditions. Journal of Hydraulic Engineering, 140:04014020.
+[31] Chaudhry, M. H. (2014). Applied Hydraulic Transients, volume 9781461485384. Springer
+New York.
+[32] Wylie, E., Streeter, V ., and Suo, L. (1993).Fluid transients in systems.
+[33] Brunone, B., Capponi, C., and Meniconi, S. (2021). Design criteria and performance anal-
+ysis of a smart portable device for leak detection in water transmission mains. Measurement,
+183:109844.
+[34] Ghidaoui, M. S., Zhao, M., McInnis, D. A., and Axworthy, D. H. (2005). A review of water
+hammer theory and practice. Applied Mechanics Reviews, 58:49–76.
+[35] Duan, H. F., Pan, B., Wang, M., Chen, L., Zheng, F., and Zhang, Y . (2020). State-of-the-
+art review on the transient flow modeling and utilization for urban water supply system (uwss)
+management. Journal of Water Supply: Research and Technology-Aqua, 69:858–893.
+157
+
+===== PAGE 186 =====
+[71] Duan, H. F., Ghidaoui, M., Lee, P. J., and Tung, Y . K. (20 10). Unsteady friction and visco-
+elasticity in pipe fluid transients. Journal of Hydraulic Research, 48:354–362.
+[72] Covas, D., Stoianov, I., Mano, J. F., Ramos, H., Graham, N., and Maksimovic, C. (2005). The
+dynamic effect of pipe-wall viscoelasticity in hydraulic transients. part ii - model development,
+calibration and verification. Journal of Hydraulic Research, 43:56–70.
+[73] Covas, D., Ramos, H., Graham, N., and Maksimovic, C. (2004). Application of hydraulic
+transients for leak detection in water supply systems. Water Supply, 4:365–374.
+[74] Soares, A. K., Covas, D. I., and Reis, L. F. (2008). Analysis of pvc pipe-wall viscoelasticity
+during water hammer. Journal of Hydraulic Engineering, 134:1389–1394.
+[75] Tjuatja, V ., Keramat, A., Pan, B., Duan, H.-F., Brunone, B., and Meniconi, S. (2023). Tran-
+sient flow modeling in viscoelastic pipes: A comprehensive review of literature and analysis.
+Physics of Fluids, 35:081302.
+[76] Duan, H.-F., Ghidaoui, M. S., Lee, P. J., and Tung, Y .-K. (2012). Relevance of unsteady
+friction to pipe size and length in pipe fluid transients. Journal of hydraulic engineering ,
+138(2):154–166.
+[77] Wang, X.-J., Lambert, M. F., Simpson, A. R., Liggett, J. A., and V ı´ tkovsk `y, J. P. (2002).
+Leak detection in pipelines using the damping of fluid transients. Journal of Hydraulic Engi-
+neering, 128(7):697–711.
+[78] Lee, P. J., Lambert, M. F., Simpson, A. R., Vítkovsk `y, J. P., and Liggett, J. (2006). Exper-
+imental verification of the frequency response method for pipeline leak detection. Journal of
+Hydraulic research, 44(5):693–707.
+[79] Duan, H.-F. (2017). Transient frequency response based leak detection in water supply
+162

@@ -34,6 +34,13 @@ LHS_PARAM_RANGES: Dict[str, Any] = {
     # 覆盖超低渗页岩到中高渗天然裂隙交汇网络
     "kleak_log_min": -6.0,         # 10^-6
     "kleak_log_max": -3.0,         # 10^-3
+    
+    # ── 域随机化新增参数 (Phase 1) ───────────────────────
+    "a_min": 1350.0,               # 最小波速 [m/s]
+    "a_max": 1550.0,               # 最大波速 [m/s]
+    "snr_db_min": 20.0,            # 最小信噪比 [dB]
+    "snr_db_max": 60.0,            # 最大信噪比 [dB]
+    "friction_models": ["steady", "brunone"], # 混合摩阻模型采样池
 }
 
 # ── 3. 批量多进程运行并发与生成默认设定 ───────────────────────
@@ -51,4 +58,29 @@ INVERSION_CONFIG: Dict[str, Any] = {
     "target_labels": ["x_f", "Cf", "kleak"], # 待反演与重构的目标物理参数列表
     "max_n_frac": 6,               # 深度网络 (DiT / FNO) 统一对齐的定长维度上限 (不足部分以 0 填充)
     "normalize_method": "min_max", # 特征归一化建议配置
+}
+
+# ── 5. 分层含噪基准集（EXP-011 阶段 S1 / EXP-021 输入）────────
+# 与 LHS_PARAM_RANGES 的连续间距采样不同：这里按固定间距格子分层，
+# 补齐 lhs_dataset_2000(5–20 m) 与 lhs_dataset_6000(≥50 m) 之间的 20–50 m 空白。
+# 噪声不进 MOC，后处理加到停泵后 H_wh，使同一清洁波形可复用于全部 SNR。
+BENCH_STRATIFIED_CONFIG: Dict[str, Any] = {
+    "spacing_grid_m": (5.0, 8.0, 12.0, 20.0, 30.0, 38.0, 50.0, 80.0, 120.0),
+    "snr_db_levels": (None, 40.0, 30.0, 20.0, 10.0),  # None = 无限 SNR（清洁）
+    "n_per_spacing": 30,           # 每间距格子清洁样本数（≥ EXP-021 预注册下限）
+    "n_frac": 2,                   # 分辨率基准默认双缝（排除缝数混杂）
+    "frac_zone_start": LHS_PARAM_RANGES["frac_zone_start"],
+    "frac_zone_end": LHS_PARAM_RANGES["frac_zone_end"],
+    "cf_log_min": LHS_PARAM_RANGES["cf_log_min"],
+    "cf_log_max": LHS_PARAM_RANGES["cf_log_max"],
+    "kleak_log_min": LHS_PARAM_RANGES["kleak_log_min"],
+    "kleak_log_max": LHS_PARAM_RANGES["kleak_log_max"],
+    "default_friction": "brunone",
+    "default_tf": 30.0,            # 约 4 次往返；可用 CLI 覆盖
+    "default_dt": SIM_CONFIG["dt"],
+    "default_workers": LHS_BATCH_CONFIG["default_workers"],
+    "output_dir": "output/bench_stratified",
+    "seed": 20260801,
+    # AWGN：相对停泵后信号功率；seed = base_seed + case_id * 1000 + snr_tag
+    "noise_segment": "post_shut_in",
 }

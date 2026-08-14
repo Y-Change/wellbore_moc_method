@@ -227,18 +227,48 @@ def compute_time_avg_depth_profile(
     return depth[mask], profile
 
 
-def peak_find_params(
-    true_depths_m: List[float],
+def blind_peak_find_params(
     v: float,
     fs: float,
+    min_separation_m: Optional[float] = None,
+    top_n: Optional[int] = None,
+    match_tolerance_m: Optional[float] = None,
 ) -> Tuple[float, int, int]:
+    """盲寻峰参数：**不接受任何真值**。
+
+    历史 :func:`peak_find_params` 有三处真值泄漏（EXP-20260730-018/-025）：
+    最小峰距按真实最小缝距、``top_n = 真实缝数 + 4``、匹配容差按真实最小缝距
+    且带 80 m 下限。现全部改为与真值无关的固定量，缺省读 ``CEPSTRUM_CONFIG``。
+
+    Returns
+    -------
+    (match_tol_m, peak_distance_bins, top_n)
+    """
+    try:
+        from moc_simulate.config import CEPSTRUM_CONFIG as C
+    except Exception:
+        C = {}
+
+    if min_separation_m is None:
+        min_separation_m = float(C.get('peak_min_separation_m', 5.0))
+    if top_n is None:
+        top_n = int(C.get('peak_top_n', 10))
+    if match_tolerance_m is None:
+        match_tolerance_m = float(C.get('match_tolerance_m', 10.0))
+
     depth_step = v / (2.0 * fs)
-    sorted_d = sorted(true_depths_m)
-    min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
-    match_tol_m = float(np.clip(min_spacing * 0.45, 80.0, 250.0))
-    peak_distance = max(5, int(min_spacing / depth_step * 0.35))
-    top_n = len(true_depths_m) + 4
-    return match_tol_m, peak_distance, top_n
+    peak_distance = max(1, int(round(float(min_separation_m) / depth_step)))
+    return float(match_tolerance_m), peak_distance, int(top_n)
+
+
+def peak_find_params(*_args, **_kwargs) -> Tuple[float, int, int]:
+    """已废弃：会把真值泄漏进检测器。请改用 :func:`blind_peak_find_params`。"""
+    raise TypeError(
+        "peak_find_params 已废弃：它用真实缝距设置最小峰距、用真实缝数设置 top_n、"
+        "并用真实缝距设置带 80 m 下限的匹配容差，导致检测结果不是盲结果"
+        "（EXP-20260730-018/-025）。请改用 blind_peak_find_params(v, fs, ...)，"
+        "真值只允许出现在评分侧。"
+    )
 
 
 def _empty_fracture_peak_metrics(
@@ -276,8 +306,12 @@ def evaluate_profile_fracture_peaks(
     v: float,
     depth_min: float = 100.0,
     depth_max: Optional[float] = None,
+    min_separation_m: Optional[float] = None,
 ) -> Dict:
-    """在 1D 深度剖面（已为 -C 响应）上检测峰并与真实缝深匹配。"""
+    """在 1D 深度剖面（已为 -C 响应）上**盲检测**峰，再与真实缝深独立评分。
+
+    真值只用于评分，不进入检测（EXP-20260730-018/-025）。
+    """
     depth = np.asarray(depth, dtype=float)
     profile = np.asarray(profile, dtype=float)
     if depth_max is None:
@@ -290,7 +324,21 @@ def evaluate_profile_fracture_peaks(
     if len(profile_kept) < 10:
         return _empty_fracture_peak_metrics(depth_kept, profile_kept, true_depths_m)
 
-    match_tol_m, peak_distance, top_n = peak_find_params(true_depths_m, v, fs)
+    from analysis.unified_evaluation.detection_protocol import (
+        score_detections,
+        tolerance_sweep,
+    )
+
+    try:
+        from moc_simulate.config import CEPSTRUM_CONFIG as _C
+    except Exception:
+        _C = {}
+    sweep_tols = tuple(_C.get('match_tolerance_sweep_m', (2.0, 5.0, 10.0, 20.0, 40.0)))
+
+    # 盲检测：真值不参与
+    match_tol_m, peak_distance, top_n = blind_peak_find_params(
+        v, fs, min_separation_m=min_separation_m,
+    )
     height_thresh = max(float(np.percentile(profile_kept, 88)), 1e-6)
     peaks, props = signal.find_peaks(
         profile_kept, height=height_thresh, distance=peak_distance,
@@ -306,28 +354,19 @@ def evaluate_profile_fracture_peaks(
     peak_depths = depth_kept[top_peaks]
     peak_heights = profile_kept[top_peaks]
 
+    # 独立评分：真值只在这里出现，容差固定
+    primary = score_detections(peak_depths.tolist(), true_depths_m, match_tol_m)
+    sweep = tolerance_sweep(peak_depths.tolist(), true_depths_m, sweep_tols)
+
+    height_by_depth = {
+        float(d): float(h) for d, h in zip(peak_depths, peak_heights)
+    }
+    matched_by_true = {round(m['true_depth_m'], 6): m for m in primary['matches']}
+
     matches = []
-    used_peak_idx = set()
     for i, true_d in enumerate(true_depths_m):
-        best_j, best_err = None, np.inf
-        for j, pd in enumerate(peak_depths):
-            if j in used_peak_idx:
-                continue
-            err = abs(pd - true_d)
-            if err < best_err:
-                best_err = err
-                best_j = j
-        if best_j is not None and best_err <= match_tol_m:
-            used_peak_idx.add(best_j)
-            matches.append({
-                'frac_id': i + 1,
-                'true_depth_m': float(true_d),
-                'peak_depth_m': float(peak_depths[best_j]),
-                'peak_val': float(peak_heights[best_j]),
-                'error_m': float(best_err),
-                'matched': True,
-            })
-        else:
+        hit = matched_by_true.get(round(float(true_d), 6))
+        if hit is None:
             matches.append({
                 'frac_id': i + 1,
                 'true_depth_m': float(true_d),
@@ -336,22 +375,46 @@ def evaluate_profile_fracture_peaks(
                 'error_m': np.nan,
                 'matched': False,
             })
+        else:
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': float(hit['pred_depth_m']),
+                'peak_val': height_by_depth.get(float(hit['pred_depth_m']), np.nan),
+                'error_m': float(hit['error_m']),
+                'matched': True,
+            })
 
-    matched_errs = [m['error_m'] for m in matches if m['matched']]
-    mean_err = float(np.mean(matched_errs)) if matched_errs else np.nan
-    max_err = float(np.max(matched_errs)) if matched_errs else np.nan
-    n_matched = sum(1 for m in matches if m['matched'])
+    mean_err = primary['mean_error_m'] if primary['mean_error_m'] is not None else np.nan
+    max_err = primary['max_error_m'] if primary['max_error_m'] is not None else np.nan
     bg = np.percentile(profile_kept, 50)
     snr = float(np.max(profile_kept) / max(abs(bg), 1e-12))
 
     return {
         'matches': matches,
-        'n_matched': n_matched,
+        'n_matched': int(primary['tp']),
         'n_fracs': n_fracs,
         'mean_error_m': mean_err,
         'max_error_m': max_err,
         'snr': snr,
         'match_tol_m': match_tol_m,
+        # ---- 盲协议新增 ----
+        'n_detected': int(primary['n_pred']),
+        'precision': primary['precision'],
+        'recall': primary['recall'],
+        'f1': primary['f1'],
+        'exact_count': primary['exact_count'],
+        'separation_success': primary['separation_success'],
+        'n_likely_merged': primary['n_likely_merged'],
+        'tolerance_sweep': [
+            {
+                'tolerance_m': s['tolerance_m'],
+                'f1': s['f1'],
+                'separation_success': s['separation_success'],
+                'n_likely_merged': s['n_likely_merged'],
+            }
+            for s in sweep
+        ],
         'profile_depth': depth_kept,
         'profile': profile_kept,
         'all_peak_depths': peak_depths.tolist(),
@@ -366,14 +429,16 @@ def evaluate_multi_fracture_peaks(
     fs: float,
     depth_min: float = 100.0,
     depth_max: Optional[float] = None,
+    min_separation_m: Optional[float] = None,
 ) -> Dict:
-    """2D 倒谱沿时间平均后，在 1D 深度剖面上匹配裂缝峰。"""
+    """2D 倒谱沿时间平均后，在 1D 深度剖面上盲检测并评分。"""
     depth_kept, profile = compute_time_avg_depth_profile(
         C, q, v, depth_min=depth_min, depth_max=depth_max,
     )
     return evaluate_profile_fracture_peaks(
         depth_kept, profile, true_depths_m, fs, v,
         depth_min=depth_min, depth_max=depth_max,
+        min_separation_m=min_separation_m,
     )
 
 
@@ -404,6 +469,15 @@ def cepstrum_metrics_for_json(metrics: Dict) -> Dict:
         'max_error_m': _json_float(metrics['max_error_m']),
         'snr': _json_float(metrics.get('snr')),
         'match_tol_m': _json_float(metrics.get('match_tol_m')),
+        # ---- 盲协议新增（EXP-20260730-018/-025 后）----
+        'n_detected': metrics.get('n_detected'),
+        'precision': _json_float(metrics.get('precision')),
+        'recall': _json_float(metrics.get('recall')),
+        'f1': _json_float(metrics.get('f1')),
+        'exact_count': metrics.get('exact_count'),
+        'separation_success': metrics.get('separation_success'),
+        'n_likely_merged': metrics.get('n_likely_merged'),
+        'tolerance_sweep': metrics.get('tolerance_sweep', []),
         'matches': matches,
     }
 

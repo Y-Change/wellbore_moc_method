@@ -1,0 +1,70 @@
+\n===== PAGE 1 =====\nTime Reversal of High-Frequency Pressure Waves for 
+Defect Detection in Water Pipelines 
+by 
+Georgios GRIGOROPOULOS 
+A Thesis Submitted to 
+The Hong Kong University of Science and Technology 
+in Partial Fulfilment of the Requirements for 
+the Degree of Doctor of Philosophy 
+in Civil Engineering 
+August 2022, Hong Kong\n===== PAGE 2 =====\nSignature redacted\n===== PAGE 3 =====\nSignature redacted
+Signature redacted
+Signature redacted\n===== PAGE 9 =====\nix 
+ 
+B.2. Scale analysis of the viscous terms in the pipe wall equations ............................... 321 
+B.3. Pipe wall energy equation ....................................................................................... 325 
+Appendix C – Gaussian modulated sine pulse .................................................................. 329 
+C.1. Mathematical expression ......................................................................................... 329 
+Bibliography ......................................................................................................................... 331 \n===== PAGE 13 =====\nxiii 
+ 
+Figure 4.4.3: Com parison between the analytically (in blue) and experimentally (in 2D 
+spectrum) obtained dispersion curves (axial wavenumber kx vs frequency ω*) for the water filed 
+DN80 copper pipe. Also included are the analytical curves for an empty pipe (in magenta), 
+rigid (in orange), and pressure release (in yellow) cases. ...................................................... 125 
+Figure 4.4.4: The adopted, approximate, shell theory-based model (dashed curves) is compared 
+to a general, state-of-the-art model (solid curves) for the case of the water filled DN80 copper 
+pipe. ........................................................................................................................................ 126 
+Figure 4.4.5: The analytical radial to axial displacements ratio (Wp*/Up,0*) (Eq. (3.2.70)), are 
+plotted for each Mode as a function of frequency for the water filled DN80 copper pipe. ... 127 
+Figure 4.4.6: The experimental dispersion curves are plotted using the data collected from the 
+accelerometers in the (a) axial and (b) radial directions for the DN80 copper pipe. Encircled is 
+the trace that corresponds to the 0th Mode. ............................................................................ 128 
+Figure 4.5.1: (a) A Gaussian modulated sine pulse with a central frequency fc = 31 kHz and 
+total duration  tsignal = 5 ms is plotted in time; (b) The frequency bandwidth is defined by the 
+points where the power spectrum curve crosses the horizontal line that corresponds to 0.01 of 
+the maximum amplitude. ....................................................................................................... 130 
+Figure 4.5.2: Group velocity curves obtained from the impedance -based analytical model for 
+the case of the water filled DN80 HDPE pipe. The red lines define the frequency bandwidth 
+excited from the Gaussian modulated pulse of Figure 4.5.1.................................................. 131 
+Figure 4.5.3: Comparison between the analytical and experimental response of the water filled 
+DN80 HDPE pipe to the narrowband band Gaussian signal of Figure 4.5.1 at a distance (a) 1.6 
+m, and (b) 2.2 m from the source. .......................................................................................... 132 
+Figure 4.6.1: Phase velocity c* vs frequency ω*- Korteweg’s model predictions are compared 
+to those of the general model .........................................................................................\n===== PAGE 21 =====\nxxi 
+ 
+Figure 7.2.27: Percent error as a function of probing frequency between the peak time of the 
+original and recreated pulses when the TR step is: (i) performed with an identical (Q = 1.5 l/s) 
+and (ii) slightly increased (Q = 2 l/s) flow compared to the forward step. ............................ 248 
+Figure 7.2.28:  Maximum cross -correlation coefficient as a function of probing frequency 
+calculated between the original and recreated pulses when the TR step is: (i) performed with 
+an identical (Q = 1.5 l/s) and (ii) slightly increased ( Q = 2 l/s) flow compared to the f orward 
+step. ........................................................................................................................................ 249 
+Figure 7.2.29: Experimental setup to measure phase shift in the response of the system due to 
+flow ( Q = 2 l/s). ( a) A sine wave pulse is emitted from the upstream transducer, and the 
+downstream transducer records the response; the pressure wave propagates with the flow. (b) 
+The same sine wave pulse is now emitted from the downstream transducer, and the upstream 
+transducer records the response; the pressure wave propagates against the flow in this case.
+................................................................................................................................................ 250 
+Figure 7.2.30: (a) For stationary water inside a DN80 HDPE pipe, a 40 kHz sine wave is emitted 
+from one transducer and the system response P1 is recorded at an opposing transducer at 2.5 m 
+range (i.e., G(A|B)). The receiving transducer projects the same 40 kHz sine wave, and the 
+response P2 is measured at the other transducer (i.e., G(B|A)). Two periods from each of P1 and 
+P2 are extracted and plotted together; the two curves fall on top of each other indicating no 
+phase difference. (b) One -way flow is introduced to the DN80 HDPE pipe, and the t est is 
+repeated; P1 and P2 plots are now shifted, indicating a phase difference and, thus, G(A|B) ≠ 
+G(B|A). (c),(d) The Lissajous patterns for the waveforms in (a) and (b), respectively. ........ 252 
+Figure 7.2.31: (a) For stationary water inside a DN80 HDPE pipe, a 60 kHz sine wave is emitted 
+from one transducer and the system response P1 is recorded at an opposing transducer at 2.5 m 
+range (i.e., G(A|B)). The receiving transducer projects the same 60 kHz sine wave, and the 
+response P2 is measured at the other transducer (i.e., G(B|A)). Two periods from each of P1 and 
+P2 are

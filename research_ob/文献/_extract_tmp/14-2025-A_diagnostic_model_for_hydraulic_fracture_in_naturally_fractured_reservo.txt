@@ -1,0 +1,2441 @@
+SOURCE: 14-2025-A diagnostic model for hydraulic fracture in naturally fractured reservoir utilising water-hammer signal.pdf
+PAGES: 28
+FULL extract 28 pages
+
+
+
+===== PAGE 1 =====
+A diagnostic model for hydraulic fracture in naturally fractured 
+reservoir utilising water-hammer signal
+Shijie Deng
+a
+, Liangping Yi
+a , b
+, Xiaogang Li
+a , *
+, Zhaozhong Yang
+a
+, Nanqiao Zhang
+c
+a
+National Key Laboratory of Oil and Gas Reservoir Geology and Exploitation, Southwest Petroleum University, Chengdu, China
+b
+School of Mechatronic Engineering, Southwest Petroleum University, Chengdu, China
+c
+Sichuan Shale Gas Exploration and Development Co. Ltd, Neijiang, China
+ARTICLE INFO
+Keywords:
+Hydraulic fracture
+Water-hammer in wellbore
+Fracture diagnostic
+Natural fracture
+ABSTRACT
+The diagnostic of hydraulic fractures is vital to the exploitation of subsurface resource. Diagnostic 
+technique for hydraulic fracture based on the water-hammer pressure have been gradually 
+highlighted owing to their cost effectiveness and simplicity. The present diagnostic models 
+overlook the effects of fluid leak-off and natural fracture in hydraulic fractures, and it is limited 
+for application in naturally fractured reservoirs. In this study, the location and number of hy -
+draulic fractures are first obtained through the enhancement and cepstrum processing of a water- 
+hammer signal. Subsequently, the water-hammer pressure within the wellbore is calculated by 
+solving the continuity and momentum equations for the fluid. Wellbore and hydraulic fractures 
+are considered as a hydraulic system. To estimate the fracture dimension, flow boundary con -
+ditions are imposed to the fluid leak-off, interactions between natural and hydraulic fractures, 
+and multifracture stress shadows. The results show that the fracturing shut-in method can be 
+appropriately adjusted to avoid large pressure pulsations, which damage well integrity, and to 
+obtain a clear water-hammer signal for fracture diagnosis. Natural fractures reduce the hydraulic 
+fracture dimensions but facilitate the creation of complex fracture networks, while this 
+complexity cannot be increased indefinitely. The minimum horizontal stress decreases the frac -
+ture dimension and a greater difference in the horizontal stress renders it easier for hydraulic 
+fractures to cross natural fractures to create larger dimensions. The field study shows the opti -
+misation measures can be recommended based on the diagnostic results.
+1. Introduction
+In hydraulic fracturing, hydraulic fractures are created by injecting fluids into a wellbore to break a rock structure. Hydraulic 
+fractures are vital to the exploitation of subsurface resource (oil, natural gas, geothermal, etc) using hydraulic fractures to increase the 
+permeability of reservoirs [ 1 , 2 ]. Hydraulic fracture dimensions must be assessed via fracturing-diagnostic techniques, which are 
+essential for evaluating the treatment performance, optimising the treatment method, and guiding reservoir engineering design. The 
+Abbreviations: AHFM, algebraic heat flux model ; ISIP, Instantaneous shut-in pressure ; Re, The Reynolds number ; RCI, The diagnostic model based 
+on R, C and I ; MOC, Method of characteristics ; EMD, Empirical mode decomposition ; IMFs, Intrinsic mode functions ; IMF, The decomposition 
+component of IMFs ; CEEMD, Complementary ensemble empirical-mode decomposition ; E-frac, Equivalent hydraulic fracture ; Δ x , Spatial mesh ; Δ t , 
+Temporal mesh.
+* Corresponding author.
+E-mail address: 202214000013@stu.swpu.edu.cn (X. Li). 
+Contents lists available at ScienceDirect
+Engineering Fracture Mechanics
+journal homepag e: www.else vier.com/loc ate/engfr acmech
+https://doi.org/10.1016/j.engfracmech.2025.111347
+Received 9 October 2024; Received in revised form 11 June 2025; Accepted 14 June 2025  
+Engineering Fracture Mechanics 325 (2025) 111347 
+Available online 16 June 2025 
+0013-7944/© 2025 Elsevier Ltd. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+===== PAGE 2 =====
+Nomenclature
+a Speed of the water-hammer wave
+L Well depth
+t Time after shut-in
+u
+0
+Steady flow rate
+P(z) Pressure distribution in wellbore
+x ( t ) Surface pressure signal
+e ( t ) The noise components in pressure signal
+x
+0
+( t ) The useful pressure signals
+k The number of IMFs
+r
+k
+( t ) Final residual value
+R
+n
+Correlation coefficients of decomposition component
+̂x
+0
+( τ ) The cepstrum of the water-hammer source signal
+τ Frequency of signal
+ω The angular frequency
+V
+i
+The cepstrum value with different quefrency times
+V
+j
+The cepstrum value with different physical times
+F
+ij
+The cepstrum eigenvalues
+K Bulk modulus of the fluid
+ρ Fluid density
+E The pipe Young ’ s modulus of elasticity
+D Pipe diameter
+E The pipe wall thickness
+A
+pipe
+The cross-sectional area of the fracturing pipe string
+u Velocity of fluid
+E
+pipe
+Young ’ s modulus of pipe
+H Pressure head
+θ The angle between the pipe axis and gravitational acceleration
+τ
+xy
+Deviatoric stress
+λ Friction factor
+δ The wall roughness of the fracturing pipe string
+u The average velocity of fluid
+Q Flow rate
+P
+bh
+Bottomhole pressure
+P
+f
+The average near-wellbore pressure
+P
+pore
+Pore pressure of the reservoir
+Δ P
+nf
+The additional natural fracture pressure drop
+P
+net
+The net pressure of the hydraulic fracture
+P
+net
+The average net pressure
+Δ P
+shadow
+The stress shadow in multifracture
+P
+end
+The pressure at the end of the water hammer
+γ Damping factor of the water hammer
+M Magnitude of the water hammer
+ω Frequency of the water hammer
+α Phase of the water hammer
+b Magnitude of the steady exponential pressure decay
+m Decay factor of water hammer
+c Steady-state value of water hammer
+N
+nf
+Number of natural fracture
+ρ
+nf
+Density of natural fracture
+A
+re
+Area of the reservoir
+W
+nf
+The natural fracture width
+L
+nf
+The natural fracture length
+W
+aver
+The average width of natural fracture
+L
+aver
+The average length of natural fracture
+σ
+2
+W
+Standard deviation of the width of natural fracture
+σ
+2
+L
+Standard deviation of the length of natural fracture
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+2 
+
+===== PAGE 3 =====
+most typically utilised hydraulic fracture-diagnostic techniques in reservoirs include microseismic modelling, distributed fibre-optic 
+sensing, wide-field electromagnetic methods, tracers, wellbore imaging, and well testing [ 3 – 6 ]. However, these methods may be 
+cost prohibitive and may not necessarily achieve non-intrusive real-time monitoring. A water-hammer signal is a period of pressure 
+pulsation obtained on a surface after fracturing shut-in and contains information regarding the wellbore and hydraulic fracture. 
+Therefore, diagnostic methods based on the wellhead water-hammer pressure are gradually highlighted owing to their cost effec -
+tiveness and simplicity [ 7 – 9 ].
+Holzhausen [ 10 ] initially introduced the basic principles for analysing the dimensions of hydraulic fractures through surface- 
+pressure pulsation. The dimensions of a hydraulic fracture and its connectivity to the bottomhole affect the hydraulic pulsation 
+properties within the wellbore. Measuring this effect is an uncomplicated and cost-effective diagnostic method for identifying the 
+associated hydraulic fracture. Holzhausen [ 10 ] developed a hydraulic representation of a fracture crossing a bottomhole by incor -
+porating two combined factors: flow resistance and capacitive fracture. Field measurements of hydraulic impedance testing in an 
+injection well further validated the feasibility of using the water-hammer pulsation pressure for fracturing diagnostics [ 11 , 12 ]. 
+Subsequently, researchers have developed and applied this method. Yew [ 13 ] expanded the method by applying a Fourier inverse 
+transform to wellhead data to estimate the fracture dimension. Patzek [ 14 ] proposed a model for lossy transmission lines that 
+incorporated the energy depletion of pressure waves to characterise the dimensions of a wellbore and fractures. Furthermore, Carey 
+[ 7 , 15 ] suggested a model for resistance – capacitance – inertance ( RCI ) fractures, which was characterised based on the resistance, 
+capacitance, and inertance via the analogy of hydraulic and electrical systems. The RCI model was used as a boundary condition in 
+wellbore water-hammer pressure calculation, thus enabling the diagnosis of fractures with the same dimensions. However, the fracture 
+lengths estimated under the water-hammer RCI mode exceeded those calculated using alternative techniques (microseismic, elec -
+tromagnetic imaging, pressure interference testing, and long-term production data analysis), although they were comparable to those 
+derived based on microseismic stimulated reservoirs volumes and the fracture complexity index [ 16 , 17 ]. This is because the mech -
+anisms of water-hammer signals and the associated characteristic parameters ( R , C , and I ) are complex. Furthermore, they are related 
+to factors such as the types of wells completed, the wellbore dimensions, the fluid properties, and the physical properties of the rocks 
+surrounding the fracture [ 8 , 18 , 19 ].
+The RCI model is based on the ideal assumptions that the fractures are uniformly and efficiently propagated, the fracturing fluid 
+leak-off during water hammer is zero, and the hydraulic fracture is a symmetric biplane. The leak-off of fracturing fluid is the main 
+factor that determines the hydraulic fracture dimension [ 20 ]. Therefore, additional enhancements are required. In study of [ 18 ], a two- 
+parameter fracture boundary condition model considering fracturing fluid leak-off was proposed to estimate the fracture dimensions. 
+The leak-off characteristics were determined by fitting the end curve of the water hammer, and the net pressure drop at the bottomhole 
+was defined as a function of the leak-off volume. Hwang [ 21 ] reported that stress shadowing between multifracture changed the stress 
+distribution, thus affecting the fracture-dimension diagnostics from water-hammer analysis. Therefore, Hu [ 22 ] proposed a multi -
+fracture diagnostic model by first considering the stress shadow between hydraulic fractures using the RCI fracture model, and then 
+determined whether the hydraulic fractures were effectively propagated by assessing the positive and negative average net pressures in 
+multifracture. However, this process does not consider the effect of fracturing fluid leak-off and natural fractures on the fracture di -
+mensions, which is limited for application in naturally fractured reservoirs.
+Another application of water-hammer pressure pulsation in fracturing diagnostics involves assessing the status of fluid injection in 
+V
+leak
+The leak-off total volume
+C
+leak
+Leak-off coefficient
+W
+f
+Width of hydraulic fracture
+H
+f
+Height of hydraulic fracture
+L
+f
+Half-length of hydraulic fracture
+θ
+nf
+Strike angle of natural fracture
+A
+nf
+The cross-sectional area of natural fracture
+θ
+nf
+Strike angle of the natural fracture
+θ
+aver
+The average strike angle of natural fracture
+K
+θ
+Deviation coefficient
+K
+rand
+Random number
+Q
+0
+The steady-state flow rate prior to fracturing shut-in
+R Resistance of fracture system
+C Capacitance of fracture system
+C
+n
+Capacitance of the n -th hydraulic fracture
+I Inertance of fracture system
+S
+h
+Horizontal minimum stress
+E
+rock
+Young ’ s modulus of rock
+ν Poisson ’ s ratio of rock
+E ( m ) The complete elliptical integral of the second type
+W
+f , n
+The width of the n -th propagated hydraulic fracture
+L
+f , n
+The length of the n -th propagated hydraulic fracture
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+3 
+
+===== PAGE 4 =====
+each perforation cluster [ 9 , 23 , 24 ]. A series of signal analysis methods was employed on high frequency water-hammer signals to 
+derive the eigenvalues output by perforation clusters in absorbing fluids. The position based on the eigenvalue was identified as the 
+perforation cluster that opened effectively owing to the absorbing fracturing fluid. This provides ideas for us to determine the location 
+and number of hydraulic fractures in the bottomhole using our model. Based on field experience, this method is applicable to large- 
+cluster space fracturing [ 9 ]. Nonetheless, identifying the precise locations of perforation clusters remains challenging, particularly for 
+high frequency signals, owing to noise effects. A precise model for signal analysis is essential for driving the target information in the 
+field water-hammer pressure signals. Korkin [ 25 ] developed a simple algorithm and a cepstrum matrix to select a suitable calculation 
+region in recorded data and to enhance the fracture depth information in high frequency water-hammer pressure signals. Li [ 26 ] 
+proposed a comprehensive filtering model for water-hammer pressure signals using different filtering methods, including the Hampel 
+filter, finite impulse-response low-pass filter, adaptive notch, and median filter, which are effective for water-hammer signals from 
+laboratory simulations. A suitable signal-enhancement method is required for more complex field water-hammer signals.
+Resources in unconventional reservoirs such as shale oil and gas have become important sources of fossil energy [ 27 , 28 ]. Un -
+conventional reservoirs are mostly naturally fractured reservoirs. Ultralow permeability and the wide distribution of natural fractures 
+are the two main characteristics of unconventional reservoirs [ 29 – 31 ]. Therefore, multicluster fracturing of horizontal wells has 
+become a key technique for increasing stimulated reservoir volume [ 32 – 34 ]. However, studies showed that not every perforation 
+cluster is opened to allow the propagation of hydraulic fractures owing to the inhomogeneous perforation quality, reservoirs prop -
+erties, and stress [ 35 , 36 ]. Meanwhile, hydraulic fractures were shown to propagate with different dimensions because of the stress 
+shadow of multiple clusters and the inhomogeneity of reservoirs mechanical and in-situ stresses [ 37 , 38 ]. In addition, natural fractures 
+significantly affected the propagation and hydraulic fracture dimensions. Hydraulic fractures can open or penetrate natural fractures, 
+thus creating complex fracture networks and greater pressure loss, and the fracturing fluid can enter natural fractures, thereby 
+significantly increasing the leak-off volume [ 2 , 32 , 39 ]. In water-hammer studies, one must determine the location and number of 
+hydraulic fractures resulting from the opening of perforation clusters, in addition to the effect of natural fractures. In conclusion, 
+although the fracturing diagnostic technique based on water-hammer pressure analysis has been successfully applied, its reliability in 
+identifying fractures in naturally fractured reservoirs is questionable, owing to some limitations of the current model. Therefore, 
+developing a diagnostic model for multiple hydraulic fractures in naturally fractured reservoir is essential.
+In the abovementioned diagnostic models, the effects of fluid leak-off and natural fractures were overlooked, thus rendering it 
+challenging to map hydraulic fractures in naturally fractured reservoir. In this study, a diagnostic model considering the location, 
+number, and dimensions of hydraulic fractures is developed. The location and number of hydraulic fractures are first obtained through 
+the enhancement and cepstrum processing of a wellhead high frequency water-hammer signal. Subsequently, the wellbore water- 
+hammer pressure is calculated by solving fluid-continuity and momentum equations. An RC I multifracture dimension estimation 
+model is developed by coupling the fracturing fluid leak-off, natural and hydraulic fracture interactions, and multifracture stress 
+shadows. Water-hammer pressures with different shut-in modes and multifracture dimensions with different perforation designs, 
+natural fracture densities, and in-situ horizontal stresses are investigated. Finally, a case study of a field shale well is performed to 
+demonstrate the application process and performance of our model.
+Fig. 1. Schematic diagram of fluid flow and water-hammer signal after shut-in of fracturing treatment.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+4 
+
+===== PAGE 5 =====
+2. Methodology
+2.1. Physical model and water-hammer pressure signal
+Fracturing fluid was injected into a deep reservoir via a pipe string as the working fluid during the fracturing treatment process to 
+create multiple hydraulic fractures for enhancing the fluid permeability. Following the shut-in of the fracturing treatment, a water 
+hammer was formed, and the pressure pulsation signal was subsequently measured at the surface. The generation and characteristics of 
+the water-hammer signals must be clarified for fracture diagnosis. Water hammer occurs when the flow rate changes abruptly owing to 
+valve opening or closing in the pipeline, thus resulting in a transient change in the fluid pressure system. The pressure wave dissipates 
+through the pipe and decays continuously under the effects of viscous forces, flow resistance, and other forces. Fig. 1 presents a 
+schematic illustration of the fracturing fluid flow and water-hammer signal. The symbols a , L , t , u
+0
+, and P(z) denote the speed of the 
+water-hammer wave (m/s), well depth (m), time of shut-in (s), steady flow rate (m/s), and pressure distribution (Pa) before shut-in, 
+respectively.
+The generation of an ideal water-hammer pressure signal can be described as follows: (1) At 0 ⩽ t < L / a , the fluid in the wellhead 
+cell Δ z features a zero velocity, whereas the fluid in the downstream cell still flows with velocity u
+0 
+when the valve is closed. This 
+results in an instantaneous decrease Δ P in fluid pressure in the upstream cell, thus initiating the propagation of the water-hammer 
+wave from the wellhead to the bottomhole. (2) At L / a ⩽ t < 2 L / a , when the water-hammer wave arrives at the bottomhole, the fluid 
+velocity within the, bottomhole cell becomes zero, and the bottomhole pressure becomes less than the reservoir pressure. Subse -
+quently, the fluid flows into the wellbore through the hydraulic fracture, thus causing a change in the flow rate of the bottomhole cell 
+from zero to   u
+0
+. Consequently, the bottomhole cell wellbore experiences an increase in pressure Δ P , and the water-hammer wave 
+begins to propagate upward from the bottomhole toward the wellhead. (3) At t = 2 L / a , the flow rate in the wellhead cell changes from 
+its initial value to zero because the valve is closed when the water-hammer wave arrives at the wellhead, and the process of step (1) is 
+repeated. Eventually, the water-hammer pressure wave gradually dissipates owing to flow friction.
+2.2. Multifracture diagnostic model
+A diagnostic model for multifracture and its solutions are shown in Fig. 2 . First, the number and location of the hydraulic fractures 
+were obtained via the enhancement and cepstrum analysis of the surface high frequency water-hammer signal. Subsequently, the 
+water hammer was simulated using a multifracture RCI model that considered fluid leak-off in the fractures, natural fractures, and 
+stress shadows as boundary conditions. The pressure resulting from the water hammer in the wellbore was simulated numerically 
+through the solution of fluid-continuity and momentum equations using the method of characteristics ( MOC ). Finally, RCI values 
+obtained iteratively were used to estimate the multifracture dimension. The model adheres to the following basic assumptions: 
+(1) The flow is isothermal and disregards the heat transfer among the fluid, formation, and wellbore, which implies that the 
+physical properties of the fluid (density and viscosity) are constant.
+(2) A single perforation cluster initiates a solitary hydraulic fracture, thus suggesting that the number and location of perforation 
+clusters with the absorbing fluid correspond to the number and location of the propagated hydraulic fractures, respectively.
+(3) Each effectively propagated hydraulic fracture is a constant-height planar fracture with an elliptical cross-section. The distri -
+bution of natural fractures is consistent across different two-dimensional spaces.
+Fig. 2. Structure and solution of multifracture diagnostic model.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+5 
+
+===== PAGE 6 =====
+(4) Alterations in the fracture width are the sole cause of dimensional changes occurring during water hammer.
+2.2.1. Number and location of hydraulic fracture analysis model
+The high frequency pressure signals ( ≥ 200 Hz) gathered from the surface require denoising followed by cepstrum analysis to 
+identify fracture information, as depicted in Fig. 3 .
+Signal enhancement model . The surface pressure signal x ( t ) is composed of intricate noise components e ( t ) . To enhance the useful 
+signal x
+0
+( t ) , one must minimise the noise effect, which is expressed as Eq. (1) . The noise components entail broadband electronic noise, 
+narrow harmonic peaks caused by hydraulic pump strokes, and a zero-frequency trend component linked to decelerate treatment 
+pressure fluctuations [ 9 ]. The useful signal is limited to a low-frequency spectrum of 0.1 – 20 Hz. 
+x
+0
+( t ) = x ( t )   e ( t ) (1) 
+The predominant approaches for signal enhancement in signal processing are the short-time Fourier transform, window function 
+filter, wavelet transform, and empirical mode decomposition (EMD). EMD is particularly commendable because it is unconstrained by 
+window functions or wave bases. This renders it adaptable to decompositions, thus resulting in more representative characteristics of 
+the signal investigated [ 40 ]. EMD separates a signal into instantaneous frequency components known as intrinsic mode functions 
+(IMFs). White noise pairs are included to ensure continuity and overcome modal mixing resulting from signal singularities during 
+EMD. This approach is known as complementary ensemble empirical-mode decomposition (CEEMD). A detailed description of the 
+CEEMD process is presented in Appendix A . The initial IMF captures the higher-frequency components, whereas the subsequent IMFs 
+capture the lower average frequencies. Summing the IMF components and residual values recovers the original water-hammer 
+pressure signal as follows: 
+x ( t ) =
+∑
+k
+m
+IMF
+m
+( t ) + r
+k
+( t ) (2) 
+where, k is the IMF number and r
+k
+( t ) is the final residual value.
+Therefore, IMFs may be selectively reconstructed to eliminate unnecessary interference and yield an improved pressure signal 
+related to water hammer. Once the high frequency signal has been removed, the selection of IMFs depends on their correlation co -
+efficients R
+n 
+with respect to the original signal, as expressed in Eq. (3) . IMFs with R
+n
+> 0 . 5 are typically retained and considered to be 
+well correlated with the original signal. 
+R
+n
+=
+∫
+imf
+n
+( t ) ⋅ s ( t   f ) dt
+[ ∫
+imf
+2
+n
+( t ) dt ⋅
+∫
+s
+2
+n
+( t ) dt
+] (3) 
+Cepstrum analysis . The useful signal x
+0
+( t ) can be represented as the convolution of the source pressure pulse excited by the water 
+hammer and the wellbore reflectivity [ 9 ]. Pressure waves reflect at diverse hydraulic fractures, and following the shut-in of multi -
+cluster fracturing, different signals are blended. It Notably, the reflectivity of hydraulic fracture is negative. Thus, information 
+regarding hydraulic fractures must be acquired using signal-processing methods to determine the reflectivity in the convolved signal. 
+Cepstrum analysis is a widely adopted technique to process convolved signals for identifying signals associated with pipeline leaks 
+[ 41 ]. It is mathematically expressed as follows: 
+̂x
+0
+( τ ) =
+1
+2 π
+∫
+log
+[ ⃒
+⃒
+⃒
+⃒
+∫
+x
+0
+( t ) e
+i ω t
+dt
+⃒
+⃒
+⃒
+⃒
+]
+e
+  i ωτ
+d ω (4) 
+here, ̂x
+0
+( τ ) is the cepstrum of the water-hammer source signal and the reflectivity of the wellbore, τ is the frequency, which and has the 
+dimension of time, and ω is the angular frequency. During this process, the Fourier transform converts the convolutional signal into a 
+multiplicative signal before performing a logarithmic operation to generate a summation signal. Finally, the inverse Fourier transform 
+is applied to return to the time domain. A cepstrogram of the water-hammer pressure was calculated by integrating the cepstrum 
+results with a series of windows. The pressure oscillations resulting from tube-wave reflections caused by hydraulic fractures appeared 
+as strong negative peaks in the cepstrogram at certain frequencies. Hence, the deepest minima of the cepstrogram in this area can be 
+used to identify hydraulic fractures. However, accurately identifying hydraulic fractures in this region may be challenging. A spec -
+trogram is typically used to extract the negative cepstrum matrix. In this study, we calculated the cepstrum eigenvalues at different 
+frequencies based on the methodology developed by [ 25 ]and [ 42 ] as follows: 
+Fig. 3. Water-hammer signal-processing method.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+6 
+
+===== PAGE 7 =====
+F
+ij
+=
+∑
+ij
+V
+i
+V
+j
+(5) 
+here, V
+i 
+represent the cepstrum value with different quefrency times, and V
+j 
+represent the cepstrum value with different physical times 
+at the i   th quefrency time. The peak position on the curve F
+ij 
+provide information regarding the reflection of hydraulic fractures.
+In the cepstrogram and F
+ij 
+result, the quefrency time can represent the reflection time, and the corresponding location in the 
+wellbore is calculated using Eq. (6) . Consequently, information regarding hydraulic fractures can be obtained by combining the above 
+with the perforation design. The number and location of perforation clusters within the range of positions obtained through cepstrum 
+analysis are consistent with the number and location of hydraulic fractures, respectively. 
+L =
+τ × a
+2
+(6) 
+where, L is the signal location in the wellbore, τ is the quefrency, and a is the wave speed. The water-hammer wave speed is calculated 
+as follows [ 43 ]: 
+a =
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+K / ρ
+1 +
+K
+E
+D
+e
+√
+(7) 
+where, K is the bulk modulus of the fluid, ρ the fluid density, E the pipe Young ’ s modulus of elasticity, D the pipe diameter, and e the 
+pipe wall thickness.
+2.2.2. Wellbore water-hammer model
+Continuity equation of fluid . The continuity equation is expressed as shown in Eq. (8) . The mass change of the fluid within a cell 
+over time is equal to the difference between the inflowing and outflowing cell masses, based on the law of mass conservation. 
+A
+pipe
+∂ρ
+∂ t
++ ρ
+∂ A
+pipe
+∂ t
++ uA
+pipe
+∂ρ
+∂ x
++ ρ A
+pipe
+∂ u
+∂ x
++ ρ u
+∂ A
+pipe
+∂ x
+= 0 (8) 
+where A
+pipe 
+is the cross-sectional area of the fracturing pipe string, t the time, and u the mean velocity in the x- direction.
+In an unsteady flow, the size of the fracturing pipe string and the fluid density change with the transient pressure. 
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+∂ A
+pipe
+∂ t
+=
+dA
+pipe
+dt
+  u
+∂ A
+pipe
+∂ x
+∂ρ
+∂ t
+=
+d ρ
+dt
+  u
+∂ρ
+∂ x
+(9) 
+The elastic deformation of the fracturing-pipe string and fluid compressibility are caused by changes in the water-hammer pressure 
+dp . Thus, Eq. (8) can be expressed as 
+(
+1
+A
+pipe
+dA
+pipe
+dp
++
+1
+ρ
+d ρ
+dp
+)
+dp
+dt
++
+∂ u
+∂ x
+= 0 (10) 
+The fluid elasticity term is expressed by the fluid bulk modulus K , and the deformation of the fracturing pipe string can be expressed 
+as a function of the pipe diameter D , wall thickness e , and Young ’ s modulus E
+pipe 
+using Hooke ’ s law [ 44 , 45 ]: 
+⎧
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎩
+1
+ρ
+d ρ
+dp
+=
+1
+K
+1
+A
+pipe
+dA
+pipe
+dp
+=
+D
+E
+pipe
+e
+(11) 
+The change ρ in time and space during the water-hammer pressure transmission is insignificant compared with the change in the 
+pressure head H , and ρ is regarded as a constant. Therefore, the continuity equation expressed by the water head can be written as 
+follows: 
+∂ H
+∂ t
++ u
+∂ H
+∂ x
++ u sin θ +
+a
+2
+g
+∂ u
+∂ x
+= 0 (12) 
+here, θ is the angle between the pipe axis and gravitational acceleration g .
+Momentum equation of fluid . Fluid flow is characterised by the momentum conservation equation (Navier – Stokes equation), 
+which is expressed as 
+∂ ( ρ u )
+∂ t
++
+∂ ( ρ uu )
+∂ x
+=  
+∂ p
+∂ x
++
+∂τ
+xy
+∂ x
++ ρ g (13) 
+where τ
+xy 
+denotes the deviatoric stress, which is closely related to flow pressure loss. The friction factor λ of τ
+xy 
+is typically used to 
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+7 
+
+===== PAGE 8 =====
+replace effects caused by fluid viscosity, turbulent disturbances, and pipe characteristics [ 46 , 47 ]. Combining λ with the definition for 
+the pressure head, the final fluid momentum equation is expressed as 
+g
+∂ H
+∂ x
++
+∂ u
+∂ t
++ u
+∂ u
+∂ x
++
+λ u | u |
+2 D
+= 0 (14) 
+here, λ is calculated using the Colebrook – White equation, which is widely used to analyse turbulence in industrial pipes [ 48 ]. The 
+Colebrook – White correlation is an implicit equation that must be solved via iterative computation. 
+1
+̅̅ ̅
+λ
+√ =   2log
+10
+(
+δ / D
+3 . 7
++
+2 . 51
+Re
+̅̅ ̅
+λ
+√
+)
+(15) 
+Re =
+ρ uD
+μ
+(16) 
+u =
+Q
+A
+pipe
+(17) 
+where, δ is the wall roughness of the fracturing pipe string, Re is the Reynolds number, and u is the average velocity estimated from the 
+flow rate Q .
+The fluid within the fracture is affected by the water-hammer wave when it reaches the bottomhole boundary. One can reasonably 
+assume that the reservoir pressure distant from the source remains unaffected by the water-hammer waves owing to the high reservoir 
+capacitance and the fast transient nature of the wave. Consequently, the average near-wellbore pressure P
+f 
+is utilised to distinguish the 
+pressure head between hydraulic fractures and the bottomhole [ 15 ]: 
+ρ g Δ H = P
+bh
+  P
+f
+(18) 
+where, P
+bh 
+is the bottomhole pressure, and P
+f 
+is determined by fitting an exponential decay curve to the declining portion of the 
+measured surface pressure data, which spans from the instantaneous shut-in pressure ( ISIP ) to the end of the water-hammer pressure. 
+Notably, the fluids in both the wellbore and fracture must have reached a static state for the surface pressure data to provide accurate 
+measurements. This indicates that the frictional resistance in the wellbore, perforations, and near-wellbore region is eliminated. The 
+steady pressure-decay curve at the end of the water hammer was due to the leak-off of the fracturing fluid. Consequently, a novel 
+method was used in the wellbore water-hammer model to determine the hydraulic fracture pressure.
+The shut-in pressure was decomposed into a detrended water-hammer pressure (Eq. (19) ) and a steady decaying pressure (Eq. 
+(20) ). The latter is represented by an exponential decay equation that allows for the estimation of the ISIP and P
+f 
+[ 49 ]. 
+P
+wh
+= e
+  γ t
+M cos ( ω t   α ) (19) 
+P
+f
+= P
+surf
+  P
+wh
+= be
+  mt
++ c (20) 
+where, γ is the damping factor of the water hammer, M its magnitude, ω its frequency, α its phase, b is the magnitude of the steady 
+Fig. 4. The distribution of natural fractures in reservoir. (a) Distribution of natural fractures in shale outcrops [ 54 ]. (b) Distribution of natural 
+fractures in numerical investigation [ 39 ].
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+8 
+
+===== PAGE 9 =====
+exponential pressure decay, m its decay factor, and c its steady-state value. The ISIP can be obtained from b + c once shut-in 
+commences.
+2.2.3. Natural fracture model
+Constructing a natural fracture distribution model is crucial because of the significance of natural fractures in hydraulic fracture 
+propagation and their dimensions within a reservoir. Natural fractures are ubiquitous in reservoir and exhibit irregular distribution 
+characteristics, which can generally be obtained from field geologic data, as shown in Fig. 4 . The red and blue lines represent natural 
+fractures in shale outcrops and geomaterial, respectively. In this model, a natural fracture is regarded as a vertical plane with a constant 
+height. Assuming that the midpoint of the natural fractures adheres to a uniform random distribution, the number of natural fractures 
+N
+nf 
+in a specified area can be calculated as follows: 
+N
+nf
+= ρ
+nf
+A
+re
+(21) 
+here, ρ
+nf 
+is the density of natural fractures (number/m
+2
+) and A
+re 
+is the area of the reservoir. The natural fracture width W
+nf 
+and length 
+L
+nf 
+can be described using a normal distribution [ 39 , 50 ]: 
+W
+nf
+= N
+ 
+W
+aver
+, σ
+2
+W
+)
+(22) 
+I =
+4 ρ L
+f
+π W
+f
+H
+f
+=
+32 ρ L
+f
+π
+3
+P
+net
+H
+2
+f
+E
+rock
+1   ν
+2
+E ( x ) (23) 
+here, W
+aver 
+is the average width of natural fractures, σ
+2
+W 
+is the standard deviation of the width of natural fractures, L
+aver 
+is the average 
+length of natural fractures, and σ
+2
+L 
+is the standard deviation of the length of natural fractures. The natural fracture width and length are 
+typically 0 – 100 μ m and 0 – 50 m, respectively [ 51 , 52 ].
+The closure of hydraulic fractures, which reduces the fracture width, is primarily caused by the fracturing fluid leaking off into the 
+reservoir. The fracturing fluid leak-off model is expressed as shown in Eq. (24) . Carter ’ s model determines the leak-off into the 
+reservoir matrix, and the leak-off into the natural fracture is calculated based on the reservoir pore pressure [ 53 ]. The total amount of 
+leak-off from positive and negative water hammer is assumed to be zero in this case, and the fracturing fluid leak-off is due to the 
+average pressure (the average near-wellbore pressure P
+f
+) in the hydraulic fracture. 
+V
+leak
+=
+∫
+t
+t
+0
+4 C
+leak
+H
+f
+L
+f
+/
+ 
+t   t
+open
+)
+1   ψ
+dt + 2 L
+f
+L
+nf
+cos θ
+nf
+ρ
+nf
+∫
+t
+t
+0
+A
+nf
+W
+2
+nf
+ 
+P
+f
+( t )   P
+pore
+)
+12 μ L
+nf
+dt (24) 
+here, V
+leak 
+is the leak-off total volume (m
+3
+), t
+0 
+is the shut-in time (s), C
+leak 
+is the leak-off coefficient, H
+f 
+is the height of hydraulic fracture 
+(m), L
+f 
+is the half-length of hydraulic fracture (m), θ
+nf 
+is the strike angle of natural fracture, which will be presented more compre -
+hensively in the following section, ψ is the liquid leak-off index ( ψ = 0 . 5 for Newtonian fluids), P
+pore 
+is the pore pressure of the reservoir 
+(Pa). t
+open 
+is the opening time of hydraulic fracture (s), which is defined as the time which the fracture wall is in contact with the 
+fracturing fluid and is set as the moment when the formation begins to fracture. A
+nf 
+is the cross-sectional area of natural fracture, which 
+is estimated based on the width and height of natural fracture (m
+2
+). The two items on the right-hand side denote the leak-off volume 
+from the hydraulic fracture into the reservoir matrix and natural fracture, separately. The leak-off area into the reservoir matrix was an 
+ellipse with long-axis 2 L
+f 
+and short-axis H
+f
+. The leak-off into a natural fracture depends on the natural fracture distribution and 
+differential pressure. If the average pressure of the hydraulic fracture exceeds the opening pressure of the natural fracture, then the 
+natural fracture is closed and the second term becomes zero.
+Furthermore, the strike angle between the hydraulic and natural fractures significantly affects the hydraulic fracture propagation 
+and dimensions. There are several interaction patterns between hydraulic fracture and natural fracture, such as net-crossing, net- 
+opening, crossing-opening, and opening-crossing [ 55 , 56 ]. In this study, we focused on the two most representative patterns — net- 
+crossing and net-opening, because they effectively capture the characteristics of fluid pressure dissipation. Under identical conditions 
+Fig. 5. Schematic illustration of effect of natural fracture strike angle on hydraulic fracture propagation in vertical well: (a) Opening model, (b) 
+Crossing model.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+9 
+
+===== PAGE 10 =====
+(horizontal stress difference, fluid viscosity, fluid rate, coefficient of interfacial friction, etc.), the hydraulic fracture propagation mode 
+changes from opening to crossing as the strike angle increases, as shown in Fig. 5 . The length of the overall fracture increases because of 
+less fracturing fluid and a lower pressure drop propagate the natural fracture. The propagation direction of the hydraulic fracture is 
+along the maximum horizontal stress, S
+H
+. The criterion for hydraulic fractures crossing natural fractures based on the results of [ 57 ] 
+was employed, where the coupled effect of the fluid flow, stress shadow, and poroelastic response was considered. The determination 
+of whether a hydraulic fracture crosses or opens a natural fracture is based on evaluating the strike angle under varying mechanical 
+properties. Hydraulic fractures are more likely to cross natural fractures with larger strike angles and greater horizontal stress dif -
+ferences. The activated natural fracture aperture was assumed to be uniform in space and similar to the fracture width.
+In 2D space, the Fisher distribution can be used to describe the strike angle between hydraulic and natural fractures: 
+θ
+nf
+= θ
+aver
++ arccos
+(
+ln ( 1   K
+rand
+)
+K
+θ
++ 1
+)
+(25) 
+where θ
+nf 
+is the strike angle of the natural fracture, which is between 0
+◦
+and 90
+◦
+, θ
+aver 
+is the average strike angle of natural fracture, K
+θ 
+is the deviation coefficient, and K
+rand 
+is a random number between 0 and 1.
+The fracturing fluid flow inside a fracture is generally simplified as a lubrication flow between two smooth plates [ 58 ]. Although 
+the opening of natural fractures results in the formation of complex fracture networks, it also decreases the pressure owing to the 
+bending of the flow line, as shown in Fig. 5 (a). Eq. (26) was formulated to estimate the additional natural fracture pressure drop Δ P
+nf 
+based on branch flows with different junctions [ 59 , 60 ]. The distribution of natural fractures on the hydraulic fracture propagation 
+plane is consistent before and after deflection. 
+Δ P
+nf
+=
+1
+2
+ρ
+(
+2 Q
+0
+π H
+f
+W
+f
+)
+2
+[(
+W
+f
+W
+nf
+)
+2
++ 1   2
+W
+f
+W
+nf
+cos
+(
+3
+4
+θ
+nf
+)]
+× 2 L
+f
+L
+nf
+cos θ
+nf
+ρ
+nf
+(26) 
+here, W
+f 
+is the width of hydraulic fracture (m) and Q
+0 
+is the steady-state flow rate prior to fracturing shut-in (m
+3
+/s). Eq. (26) depends 
+on the hydraulic fracture dimensions. Therefore, an iterative calculation between the natural fracture pressure drops and the hydraulic 
+fracture dimensions is required.
+2.2.4. Hydraulic fracture dimension estimation model
+RCI multifracture model . The RCI model is vital to the coupling of hydraulic fractures into the water-hammer equation and has 
+been widely adopted and validated. The transient pressure – flowrate behaviour of any hydraulic fracture is governed by its fluid and 
+volume, which is reflected through the R , C , and I [ 15 ]. The hydraulic fracture behaviour is presented through a series combination in 
+the form shown in Eq. (27) . As the fluid enters the fracture up to the maximum compliance, additional fluid can only enter under a net 
+pressure increase. This is analogous to charging a capacitor in a series circuit. 
+ρ g Δ H = RQ +
+1
+C
+∫
+Qdt + I
+dQ
+dt
+(27) 
+In the equation above, the three terms on the right-hand side denote the changes in pressure due to frictional resistance, the volume 
+change in the fracture, and the fluid inertia, respectively. The resistance R is defined as the constant of proportionality between the 
+flow rate Q to maintain the fracture and the required potential energy difference [ 7 ]. This can be determined by calculating the near- 
+wellbore friction drop Δ P
+nwf 
+(including the wellbore perforation friction and fracture bending friction) and the steady-state flow rate 
+Q
+0 
+before fracturing shut-in, as follows: 
+R =
+Δ P
+nwf
+Q
+0
+(28) 
+The capacitance C is equivalent to the fracture compliance, which characterises the rock strain under external forces and reflects 
+the relationship between the fracture ’ s dimensional parameters and pressure behaviour. C is defined as the ratio of the liquid volume 
+stored Δ V in a system to the change in the liquid pressure. 
+C =
+Δ V
+Δ P
+(29) 
+The inertance I is related to the fluid mass in the system and is the pressure difference required to accelerate or decelerate the flow 
+rate in the absence of friction. It is equivalent to the inductance in the circuit [ 61 ], which can be expressed as: 
+I =
+Δ P ⋅ dt
+dQ
+(30) 
+The simulated water-hammer pressure signals were matched to the surface data by iteratively adjusting the values of R , C , and I . 
+The resulting values can be used to estimate the subsequent hydraulic fracture dimensions. The systematic method for matching the 
+surface data is as follows [ 62 ]: First, R was iteratively adjusted until the simulated pressure signal matched the amplitude and decay of 
+the field data. Subsequently, C was adjusted until the simulated pressure signal matched the period and mean pressure of the field data. 
+Finally, I was adjusted iteratively until the calculated hydraulic fracture height was similar to the reservoir thickness targeted for the 
+fracturing treatment.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+10 
+
+===== PAGE 11 =====
+Fracture dimension estimation model. The average net pressure P
+net 
+is defined as the difference between the average pressure 
+inside the fracture ( P
+f
+= ISIP   Δ P
+nwf
+) and the formation closure pressure typically substituted by the horizontal minimum stress S
+h
+. It 
+is a crucial parameter for computing the length, width, and height of hydraulic fractures [ 63 ]. The net pressure exerts directly on the 
+rock to create hydraulic fractures and represents a portion of the effective pressure involved in the process. The average net pressure 
+P
+net 
+can be obtained using Eq. (31) , after determining the respective R , C , and I values [ 62 ]. The near-wellbore friction drop Δ P
+nwf 
+can 
+be obtained using Eq. (28) . 
+P
+net
+=
+ 
+ISIP   Δ P
+nwf
+)
+  S
+h
+(31) 
+Multiple hydraulic fractures are created simultaneously during the multicluster fracturing treatment in unconventional reservoirs 
+to enhance the stimulated region. Strain perturbations occur near several induced hydraulic fractures owing to their interference, thus 
+resulting in the mechanical-stress shadow effect, which affects the dimensions of the induced hydraulic fractures and results in non- 
+uniform propagation. Due to the complex and uncertain distribution of natural fractures within the reservoir, the stress interference 
+effects caused by natural fractures are not considered in the present model. Hydraulic fracturing in naturally fractured reservoir, 
+particularly in shales where horizontal wells are drilled, shows that fractures typically propagate laterally rather than vertically [ 64 ]. 
+The hydraulic fracture length typically exceeds its height. The stress shadow area is determined based on the minimum size of the 
+fractured surface. Consequently, the effect of stress shadow is dominated by the hydraulic fracture height [ 65 , 66 ]. As shown in Fig. 6 , 
+the stress shadow Δ P
+shadow 
+for a semi-infinite hydraulic fracture can be expressed as [ 49 ]: 
+Δ P
+shadow
+= P
+net
+2 r
+h
+f
+(
+h
+2
+f
+4 r
+1
+r
+2
+)
+3
+2
+sin θ sin
+3
+2
+( θ
+1
++ θ
+2
+)   P
+net
+[
+r
+( r
+1
+r
+2
+)
+1 / 2
+cos
+(
+θ  
+1
+2
+θ
+1
+ 
+1
+2
+θ
+2
+)
+  1
+]
+(32) 
+where, P
+net 
+is the net pressure of the hydraulic fracture, which is the source of the induced stress shadow, r is the distance between the 
+centre of the fracture and point M , r
+1 
+and r
+2 
+are the distances between the right and left ends of the fracture with point M , respectively, 
+and θ is the angle about the fracture surface and the attachment between point M and the centre of the fracture. Specifically, θ
+1 
+and θ
+2 
+are the angles about the fracture surface and the attachment between point M and the right and left ends of the fracture, respectively. 
+To simplify the problem, the stress shadow between the hydraulic fractures was equated to that at a position on a line perpendicular to 
+the fracture plane and passing through its centre (the x-axis in Fig. 6 ). Finally, the stress shadow generated by multifracture was 
+obtained using the superposition principle.
+Therefore, a new average net pressure can be obtained by correcting Eq. (31) while, considering the multifracture stress shadow 
+Fig. 6. Schematic illustration of stress shadow on point M caused by hydraulic fracture.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+11 
+
+===== PAGE 12 =====
+(Eq. (32) ) and natural fracture pressure drop (Eq. (26) ). 
+P
+net
+=
+ 
+ISIP   Δ P
+nwf
+)
+  S
+h
+ 
+∑
+N
+n = 1
+Δ P
+shadow
+( n )  
+∑
+N
+n = 1
+Δ P
+nf
+( n ) (33) 
+The multifracture system can be modelled using a new RCI circuit, in which the capacitance of each fracture is connected in parallel 
+and thus shares the same R and I . The multifracture equivalent circuit relationship is shown in Fig. 7 . A multifracture system is 
+equivalent to a bi-wing fracture system. Subsequent to the fracturing shut-in, the multifracture system connects to the wellbore, thus 
+affecting the water-hammer signal. The length and width of an equivalent hydraulic fracture (E-frac) can be determined by combining 
+all hydraulic fractures connected to a wellbore [ 7 ]. The capacitance of each hydraulic fracture is connected in parallel in the RCI 
+circuit, thus allowing the total capacitance of all hydraulic fractures to be expressed as 
+C =
+∑
+N
+n = 1
+C
+n
+(34) 
+where C is the total capacitance and C
+n 
+is the capacitance of the n -th hydraulic fracture.
+In a previously conducted hydraulic fracturing energy-analysis study [ 67 ], a method was devised for determining the relationship 
+among the dimensions of a lengthy fracture, the average net pressure, and the rock properties. The equation proposed was as follows: 
+P
+net
+=
+4
+π
+2
+E
+rock
+1   ν
+2
+E ( m ) W
+f
+2
+H
+f
+(35) 
+where E
+rock 
+is the Young ’ s modulus of rock and ν is the Poisson ’ s ratio of rock, E ( m ) is a complete elliptical integral of the second type 
+and is related to the hydraulic fracture dimension. It can be calculated as: 
+E ( m ) =
+∫
+1
+0
+ 
+1   t
+2
+)
+ 
+1
+2
+ 
+1   mt
+2
+)
+1
+2
+dt (36) 
+m = 1  
+(
+H
+f
+2 L
+f
+)
+2
+(37) 
+Because the change in the fracture capacitance is caused only by the change in the width, the capacitance defined in Eq. (29) can be 
+rewritten by considering the leak-off volume in Eq. (24) : 
+C =
+π H
+f
+L
+f
+Δ W
+f
+2 Δ P
++
+4 H
+f
+L
+f
+∫
+t
+t
+0
+C
+leak
+/
+ 
+t   t
+open
+)
+1   ψ
+dt
+ISIP   P
+end
++
+2 L
+f
+L
+nf
+cos θ
+nf
+ρ
+nf
+∫
+t
+t
+0
+A
+nf
+W
+2
+nf
+ 
+P
+f
+( t )   P
+pore
+)
+dt
+12 μ L
+nf
+( ISIP   P
+end
+)
+(38) 
+Fig. 7. Schematic of a multifracture RCI circuit.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+12 
+
+===== PAGE 13 =====
+where, the three terms on the right-hand side of the equation represent the fracture system compliance owing to rock strain, reservoir 
+matrix leak-off, and natural fracture leak-off, respectively. P
+end 
+is the pressure at the end of the water hammer, which can be obtained 
+from the surface pressure data. Combining the equation above with Eq. (35) , the final expression for the relationship between the 
+parameter C and the hydraulic fracture dimensions can be written as follows: 
+C =
+π
+3
+H
+2
+f
+L
+f
+( 1   ν
+2
+)
+16 E
+rock
+E ( m )
++
+4 H
+f
+L
+f
+∫
+t
+t
+0
+C
+leak
+/
+ 
+t   t
+open
+)
+1   ψ
+dt
+ISIP   P
+end
++
+2 L
+f
+L
+nf
+cos θ
+nf
+ρ
+nf
+∫
+t
+t
+0
+A
+nf
+W
+2
+nf
+ 
+P
+f
+( t )   P
+pore
+)
+dt
+12 μ L
+nf
+( ISIP   P
+end
+)
+(39) 
+Based on Newton ’ s second law, the I in Eq. (30) can be expressed in terms of the dimensions of the ellipsoidal hydraulic fracture as 
+follows: 
+I =
+4 ρ L
+f
+π W
+f
+H
+f
+=
+16 ρ L
+f
+π
+3
+P
+net
+H
+2
+f
+E
+rock
+1   ν
+2
+E ( m ) (40) 
+The number and location of hydraulic fractures, the distribution of natural fractures, the ISIP , and the near-wellbore pressure P
+f
+( t )
+can be determined based on field geological data and surface pressure signals. Meanwhile, the values of R , C , and I can be obtained by 
+matching the simulated water-hammer pressure with the surface pressure signal. Therefore, the average net pressure P
+net 
+of the E-frac 
+can be calculated using Eqs. (28) and (33) . Finally, the three unknown quantities, i.e. the half-length L
+f
+, width W
+f
+, and height H
+f
+, of E- 
+frac can be obtained by iteratively solving Eqs. (39) and (40) . The E-frac height H
+f 
+can be regarded as equivalent to the height of each 
+propagated hydraulic fracture, as follows: 
+H
+f
+= H
+f , n
+( n = 1 , 2 , ..., N ) (41) 
+The determined length and width of the E-frac are a combination of all the propagated hydraulic fractures in communication with 
+the wellbore. Based on the abovementioned multifracture RCI circuit assumption, the equivalent single-fracture width and half-length 
+can be written as the sum of each propagated hydraulic fracture [ 7 ], and the conversion equations are as follows: 
+W
+f
+=
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅ ̅
+∑
+N
+n = 1
+W
+2
+f , n
+√
+√
+√
+√
+(42) 
+L
+f
+=
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+∑
+N
+n = 1
+L
+2
+f , n
+√
+√
+√
+√
+(43) 
+where W
+f , n 
+(m) and L
+f , n 
+(m) denote the width and length of the n -th propagated hydraulic fracture, respectively.
+The width of each hydraulic fracture is calculated based on its average net pressure using Eqs. (42) and (44) , as the fluid pressure 
+within the fracture determines the width by resisting the formation stress [ 22 ]. The length of each hydraulic fracture is assumed to be 
+known, as it is required for calculating the average net pressure using Eq. (44) . Once the value of W
+f , n 
+is established, it can be 
+substituted into Eq. (45) to obtain the updated value of L
+f , n
+. Thus, W
+f , n 
+and L
+f , n 
+can be updated repeatedly until an acceptable residual is 
+achieved. This method is advantageous as it considers the interaction between the lengths and widths of multifracture. In this method, 
+Fig. 8. Mesh for water-hammer calculation based on MOC.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+13 
+
+===== PAGE 14 =====
+establishing a larger initial length and width for the hydraulic fracture near the wellbore root is reasonable to account for the friction 
+within the horizontal wellbore. This is supported by field diagnostic experience and numerical simulation results [ 68 , 69 ]. 
+P
+net
+( n ) =
+ 
+ISIP   Δ P
+nwf
+)
+  S
+h
+  Δ P
+shadow
+( n )   Δ P
+nf
+( n ) (44) 
+L
+f , n
+=
+16 ρ
+I π
+3
+P
+net
+( n ) H
+2
+f , n
+E
+rock
+1   ν
+2
+E ( m )
+n
+(45) 
+2.3. Model solution
+2.3.1. Method of characteristics
+The main numerical solution methods for the water-hammer model include the method of characteristics ( MOC ), finite-difference 
+calculus, and finite-volume method [ 70 , 71 ]. The explicit MOC is the most widely used method for simulating water-hammer flows 
+owing to its simplicity, accuracy, and coding efficiency. When using the MOC , the mesh of the calculated time and spatial domains was 
+segmented, as shown in Fig. 8 .
+The wellbore flow-continuity and momentum equations were rewritten as expressions for the pump rate to better characterise the 
+parameters used in the fracturing construction, as follows: 
+L
+1
+: A
+∂ H
+∂ t
++ Q
+∂ H
+∂ x
++ Q sin θ +
+a
+2
+g
+∂ Q
+∂ x
+= 0 (46) 
+L
+2
+: gA
+∂ H
+∂ x
++
+∂ Q
+∂ t
++
+Q
+A
+∂ Q
+∂ x
++
+λ Q | Q |
+2 DA
+= 0 (47) 
+The partial differential equations above can be transformed into ordinary differential equations using the MOC , which defines a 
+parameter χ and combines it linearly as χ L
+1
++ L
+2
+= 0: 
+[
+∂ Q
+∂ t
++
+∂ Q
+∂ x
+(
+ω
+a
+2
+g
++
+Q
+A
+)]
++
+[
+χ A
+(
+∂ H
+∂ t
++
+∂ H
+∂ x
+ω Q + gA
+ω A
+)]
++ χ Q sin θ +
+λ Q | Q |
+2 DA
+= 0 (48) 
+By comparing the two left terms in the equation, i.e. he pressure head H and flow rate Q material derivative, the parameter values χ , 
+and the relationship between the spatial mesh Δ x and temporal mesh Δ t can be obtained as follows: 
+⎧
+⎪
+⎨
+⎪
+⎩
+ω = ±
+g
+a
+Δ x
+Δ t
+= ± a
+(49) 
+Substituting these values into Eq. (48) yields the two characteristic equations expressed in Eqs. (50) and (51) . Therefore, the or -
+dinary differential equations can only be solved based on the characteristic line c
++
+or c
+ 
+, as shown in Fig. 8 . This implies that the water- 
+hammer parameters ( H and Q ) at the next moment are determined by both the upstream and downstream nodes at the final moment. 
+The intersection P of the two characteristic lines is calculated using points A and B in Fig. 8 . Therefore, the flow at the current moment 
+can be used to calculate the head pressure and flow rate at any point later in time as follows: 
+c
++
+:
+dQ
+dt
++
+gA
+a
+dH
+dt
++
+gQ
+a
+sin θ +
+λ Q | Q |
+2 DA
+= 0 (
+dx
+dt
+= a ) (50) 
+c
+ 
+:
+dQ
+dt
+ 
+gA
+a
+dH
+dt
+ 
+gQ
+a
+sin θ +
+λ Q | Q |
+2 DA
+= 0 (
+dx
+dt
+=   a ) (51) 
+Further finite-difference discretisation of the c
++
+and c
+ 
+subtraction equations yields the following equation: 
+c
++
+: H ( i , j ) = H ( i   1 , j   1 ) +
+a Δ t
+gA
+(
+ 
+Q ( i , j )   Q ( i   1 , j   1 )
+Δ t
+ 
+g sin θ
+2 a
+Q ( i   1 , j   1 )  
+g sin θ
+2 a
+Q ( i , j )  
+λ
++
+| Q ( i   1 , j   1 )|
+2 DA
+Q ( i , j )
+)
+(52) 
+c
+ 
+: H ( i , j ) = H ( i   1 , j + 1 ) +
+a Δ t
+gA
+(
+Q ( i , j )   Q ( i   1 , j + 1 )
+Δ t
+ 
+g sin θ
+2 a
+Q ( i   1 , j + 1 )  
+g sin θ
+2 a
+Q ( i , j ) +
+λ
+ 
+| Q ( i   1 , j + 1 )|
+2 DA
+Q ( i , j )
+)
+(53) 
+here, i and i + 1 represent the present time and the next time step, respectively. j and j + 1 represent the present position and the right 
+position node, respectively. λ
++
+and λ
+ 
+are the flow friction factors calculated based on characteristic lines c
++
+and c
+ 
+, respectively. The 
+Reynolds number is calculated using the flow rate of the final time step.
+2.3.2. Boundary conditions
+Fig. 8 shows that only one characteristic equation is available for both the wellhead and bottomhole fracture. Boundary conditions 
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+14 
+
+===== PAGE 15 =====
+are required to define the head pressure, flow rate values, or the relationship between them. The wellhead condition can be expressed 
+by the relationship between the flow rate and time after fracturing shut-in, where the flow rate is assumed to decrease continuously, as 
+expressed in Eq. (54) . This can be obtained using a wellhead flow-rate sensor. The shut-in time is the time required for the steady-state 
+flow rate to decrease to zero. The wellhead value can be calculated directly from the characteristic line equation c
+ 
+. The initial 
+conditions are set based on the steady-state flow status before the fracturing shut-in. 
+Q ( i , 1 ) = Q
+0
+( t ) (54) 
+For the wellbore boundary conditions, the ISIP and near-wellbore pressure are first determined by fitting the surface pressure data 
+using the method described in Section 2.2.2 . Subsequently, the pressure head difference between the wellbore node and the fracture is 
+calculated using Eq. (27) . The flow rate values at the wellbore can be obtained using the joint characteristic line equation, i.e. the c
++
+solution. Finally, various RCI values are set to match the field water-hammer pressure signal.
+2.4. Model validation
+The diagnostic model proposed in this study primarily comprises three components: number and location analyses of hydraulic 
+fractures, water-hammer pressure simulation, and estimation of hydraulic fracture dimension. The feasibility of each component must 
+be verified independently because they are separated from each other in the calculations. Table 1 lists the basic parameters used for the 
+model-validation calculations.
+First, the ability of the diagnostic model to identify both the number and location of hydraulic fractures was evaluated by analysing 
+artificial water-hammer signals generated by simulating a water hammer at a constant pressure of 50 MPa along the fracture 
+boundaries, while incorporating varying hydraulic fracture information. The values of R , C , and I were fixed at 1 × 10
+7 
+Pa ⋅ s / m
+3
+, 1 ×
+10
+  5 
+m
+3
+/ Pa , and 5 × 10
+6 
+Pa / m
+3
+⋅ s
+  2
+, respectively. Table 2 provides the details of the hydraulic fracture settings used in the analysis. 
+Hydraulic fractures were artificially set at different locations, numbers, and spacing. A comprehensive analysis of each case is pre -
+sented in Appendix B . A quantitative analysis was performed using the relative deviations of the peak locations within the half-peak 
+range. Although the resolution decreased as the fracture spacing increased, all cases indicated relative deviations of less than 10 m, and 
+the position of the cepstrum peak accurately indicated the fracture location. This study demonstrates the ability to detect the number 
+and location of hydraulic fractures.
+In addition, the water-hammer pressure simulation model was validated using the computational fluid dynamics software Fluent in 
+accordance with the validation method outlined in previous studies [ 22 ]. Fluent is widely accepted as a reliable numerical simulation 
+software for investigating engineering pipe flows [ 72 ]. Water hammer was simulated in pipe flow based on a constant-pressure outlet 
+boundary. To ensure an efficient operation, we established a simplified pipeline with a length of 5 m, a diameter of 0.2 m, a stabilised 
+flow rate of 2 m
+3
+/min, and an outlet pressure of 20 MPa. A numerical calculation case of water hammer for a pure water flow rate 
+decreasing to zero in 0.002 s. The comparative results of the water-hammer calculations are presented in Fig. 9 . Our water-hammer 
+model yielded that agreed well with the Fluent results in terms of the amplitude, period, and decay, with a maximum error of 0.26 MPa. 
+The unsatisfactory agreement at the onset of water hammer was due to the low stability of the Fluent transient calculation.
+Finally, the feasibility of the hydraulic fracture dimension estimation model was analysed by comparing with the fracture 
+dimension results obtained from Carey ’ s field case studies. The R , C , and I for this process were known, whereas the fracture di -
+mensions were estimated directly. Fracture length, fracture width, and fracture height change between 70 – 210 m, 27 – 53 mm, and 
+16 – 30 m, respectively. More detailed information on the computational case can be found in study of [ 7 ]. The relative error results are 
+shown in Fig. 10 . As shown, the model ’ s fracture length, width, and height were consistent with those of Carey ’ s, with a relative error 
+of less than 5 %. Thus, the hydraulic fracture dimension-estimation model discussed herein can be considered reliable.
+3. Results and discussion
+3.1. Water-hammer pressure analysis
+Water-hammer pressure pulsations dissipated in the wellbore and fractures after the fracturing treatment shut-in. These pulsations 
+are beneficial as they contain hydraulic fracture information for fracturing diagnostics, although they jeopardise the wellbore integrity 
+(e.g. casing deformation and sand production). Therefore, it is necessary to analyse the water-hammer pressure characteristics must be 
+analysed. In this study, the water-hammer pressures were numerically calculated for different shut-in times (0.1 – 4.0 s) and 
+Table 1 
+Basic parameters for calculations.
+Parameter Value
+Well depth 2000 m
+Pipe size 124.26 mm
+Steady flow rate 15 m
+3
+/min
+Fluid viscosity 1000 kg/m
+3
+Fluid density 5.0 mPa ⋅ s
+Speed of water hammer wave 1000 m/s
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+15 
+
+===== PAGE 16 =====
+displacements (1 – 20 m
+3
+/min). The shut-in time and displacement settings were derived from typical field fracturing and pump 
+shutdown procedures. The other input parameters are listed in Table 1 . The wellhead pressure initially decreased after the fracturing 
+shut-in. Therefore, the envelope of the minimum peak was adopted to characterise the water-hammer pressure, and the results are 
+presented in Fig. 11 . The amplitude of the water-hammer pulsation decreased and stabilised with time under the effects of flow 
+resistance and formation-pressure supplementation. The strongest pressure pulsations occurred at the onset of water hammer owing to 
+the conversion between flow momentum and pressure. As shown in Fig. 11 (a), the pressure pulsation increased as the shut-in time 
+decreased during the initial stage of the water hammer. The reduction in the shut-in time from 4 to 0.1 s decreased the strongest 
+pressure pulsation by 4.2 MPa. This reduction was caused by the faster transformation of the flow momentum to pressure at a fixed 
+displacement under a reduced shut-in time. Fig. 11 (b) shows the effect of displacement on the water-hammer pressure pulsation, which 
+indicates that the pressure pulsation is stronger at higher displacements. The displacement exerted a greater effect on the variations in 
+the water-hammer pressure than the shut-in time. The strongest pressure pulsation reduced by 19.8 MPa when the displacement was 
+reduced from 20 to 1 m
+3
+/min. Furthermore, a higher-pressure decay rate (stabilisation rate) was achieved under a higher displace -
+ment. This is because a greater displacement implies more momentum conversion and greater flow resistance to pressure decay. 
+Therefore, to avoid significant pressure pulsations that can damage the wellbore integrity during fracturing shut-in, a staged pump-off 
+can be used along with an extended shut-in time to prevent a considerable decrease in the displacement. Similarly, the fracturing shut- 
+in method can be modified accordingly to obtain a clear water-hammer signal for subsequent fracturing diagnostics.
+Table 2 
+Settings of artificial hydraulic fractures for number and location analyses of hydraulic fractures.
+Parameter Case1 Case2 Case3 Case4 Case5 Case6 Case7
+Location of fractures (m) 1800 1800 
+1700
+1800 
+1750
+1800 
+1790
+1800 
+1700 
+1600
+1800 
+1700 
+1600 
+1500
+1800 
+1700 
+1600 
+1500 
+1400
+Number of fractures (number) 1 2 2 2 3 4 5
+Spacing of fractures (m) / 100 50 10 100 100 100
+Fig. 9. Comparison results of water hammer calculation with fluent software.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+16 
+
+===== PAGE 17 =====
+3.2. Hydraulic fracture dimension analysis
+The design of fracturing treatment and geology significantly affect the propagation of multifracture. In this section, the RCI model is 
+used to analyse multifracture dimensions in naturally fractured reservoir with different perforation cluster designs, natural fracture 
+densities, and horizontal stresses. Table 3 lists the calculation conditions, which are based on typical perforation designs and naturally 
+fractured shale from staged multi-cluster hydraulic fracturing practices [ 39 , 73 ]. The values of R , C and I are fixed in these cases.
+3.2.1. Perforation cluster design
+Perforation design is a vital optimisation method in multicluster fracturing for enhancing the stimulated reservoir volume and 
+exploiting subsurface resources. The effect of perforation design on multifracture dimensions must not be disregarded. In this section, 
+Fig. 10. Relative error results of hydraulic fracture dimension estimation.
+Fig. 11. Envelope of minimum water-hammer pressure peak for different displacements and shut-in times: (a) Fixed displacement of 10 m
+3
+/min, (b) 
+Fixed shut-in time of 1 s.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+17 
+
+===== PAGE 18 =====
+Table 3 
+Calculation conditions for hydraulic fracture dimension analysis.
+Parameter Base value Range of change
+R 1.3 × 10
+7 
+Pa ⋅ s / m
+3
+Fixed value
+C 4.0 × 10
+  5 
+m
+3
+/ Pa Fixed value
+I 3.5 × 10
+6 
+Pa / m
+3
+⋅ s
+- 2
+Fixed value
+Cluster number 4 1 – 6
+Cluster spacing 15 m 5 – 25 m
+Density of the natural fracture 0.1 number/m
+2
+0 – 0.2 number/m
+2
+Minimum horizontal stress 50 MPa 45 – 60 MPa
+Horizontal stress difference 10 MPa 5 – 20 MPa
+Fig. 12. Fracture dimension under different number of perforation clusters: (a) Fracture half-length, (b) Fracture width.
+Fig. 13. Fracture half-length under different perforation cluster spacings: (a) E-frac and multifracture assemblies, (b) First and final fracture of 
+multifracture.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+18 
+
+===== PAGE 19 =====
+we provide an analysis of fracture diagnosis based on different perforation cluster numbers (1 – 6) and spacings (5 – 25 m).
+(1) Perforation cluster number
+Fig. 12 presents the half-length and width-estimation results of the E-frac and multifracture for different numbers of perforation 
+clusters. The fracture number i denotes their spatial location order, which implies that they are the i -th hydraulic fracture near the heel 
+end of the fracturing stage. The height of the fracture is established by the reservoir thickness within the model used in this study and is 
+thus excluded from the present discussion. As shown in Fig. 12 (a), the E-frac length decreased as the number of perforation clusters 
+increased. This is because the greater number of fractures generated a superimposed stress shadow, thus rendering it more challenging 
+to generate fractures as the number of clusters increases. Moreover, an increase in the number of perforation clusters under a fixed 
+spacing between them resulted in a gradual increase in the distance between the first and final fractures. Consequently, a weaker stress 
+shadow effect was achieved. The length of the multifracture decreased progressively as the number of perforation clusters increased. 
+Under a fixed perforation spacing, an increase in the perforation clusters increased the distance between the first and final fractures, 
+thus resulting in a weaker stress shadow effect. Similarly, the multifracture length decreased gradually as the number of perforation 
+clusters increased. For the multifracture assemblies, the dimensions of the central fracture were smaller than those of the fractures on 
+both sides. In the multifracture assemblies, the central fracture dimensions were consistently smaller than those on both sides. The 
+variation in length within the multifracture assemblies was primarily due to the first and final fractures, which were more than double 
+the size of the remaining fractures. This difference in the dimensions was caused by the spatial-location discrepancy of the hydraulic 
+fractures. The central fractures exhibited the lowest total stress shadows.
+The trend of the fracture-width variation with the number of perforation clusters presented in Fig. 12 (b) is the same as that in 
+shown Fig. 12 (a), thus indicating that the fracture length is proportional to the width, and that their relationship is determined by 
+parameters C and I in this model. In fact, the variation in the fracture length can be regarded as a variation in the fracture width. 
+Therefore, the variation pattern of the fracture width will not be analysed in the following sections.
+(2) Perforation cluster spacing
+The fracture lengths under different perforation cluster spacings are shown in Fig. 13 . When the number of perforation clusters was 
+constant, an increase in the perforation cluster spacing reduced the total stress shadow, as expressed in Eqs. (32) and (33) , thus 
+increasing the net pressure and facilitating the propagation of hydraulic fractures. Therefore, the E-frac length increased with the 
+perforation cluster spacing, as shown in Fig. 13 (a). Fractures 2 and 3 exhibited the same variation trend as E-frac owing to the same 
+reason. Notably, fractures 1 and 4 exhibited different variation trends. The fracture length initially decreased and subsequently 
+increased as the perforation spacing increased. This is different from the results of Hu [ 22 ], which were not limited by the total fracture 
+volume and the effect of natural fractures. Their results showed that the lengths of fractures 1 and 4 increased continuously as the stress 
+shadowing decreased. Here, the lengths of Fractures 1 and 4 were significantly larger than those of fractures 2 and 3 when the 
+perforation spacing was relatively small (5 – 15 m). Based on Eq. (26) , a larger fracture length indicates a greater natural-fracture 
+pressure drop. The restriction of natural fractures evidently supersedes the promotion of hydraulic fracture propagation via the 
+perforation spacing. Consequently, the lengths of the first and final fractures exhibited different variation patterns at small perforation 
+spacings. As the perforation cluster spacing increased, the dimensions of the multifracture became uniform.
+Fig. 14. Effect of density of natural fracture on hydraulic fracture dimension and natural-fracture opening: (a) Variation in hydraulic fracture, (b) 
+Variation in opened natural fracture.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+19 
+
+===== PAGE 20 =====
+3.2.2. Density of natural fracture
+Fig. 14 illustrates the fracture dimensions with different densities of natural fracture (0 – 0.2 number/m
+2
+). As shown in Fig. 14 (a), 
+both the E-frac and multifracture decreased continuously as the density of natural fractures increased. This reduction is attributed to 
+two primary factors: (1) enhanced leak-off of the fracturing fluid into the natural fractures, and (2) additional pressure drop caused by 
+the increased number of natural fractures. The volume and pressure of the fracturing fluid that caused hydraulic fractures decreased. 
+Consequently, the fracture dimensions decreased. Additionally, the fracture dimension in the naturally fractured reservoir was smaller 
+than that in conventional reservoir. The variation gradients of fractures 1 and 4 were greater than those of fractures 2 and 3 because 
+their larger fracture volumes strengthened the effect of leak-off and natural fractures. Meanwhile, whereas the natural fractures 
+decreased the hydraulic fracture length, more natural fractures opened and propagated as their density increased.
+It is shown that while increasing natural fracture density reduces the length of hydraulic fractures, it also promotes the opening and 
+propagation of more natural fractures. This resulted in a hydraulic fracture with a complex fracture network, which implies that a more 
+stimulated volume is available for fracturing treatment. However, as the hydraulic fracture length decreases, the probability of 
+opening a natural fracture decreases as well. The sum of the opened natural fractures decreased at a density of 0.2 number/m
+2
+, as 
+shown in Fig. 14 (b). The other observation is that the naturally fractured reservoir resulted in more complex hydraulic fractures with 
+an additional volume of opened natural fractures, and that the development of natural fractures in the reservoir did not increase the 
+complexity of hydraulic fractures indefinitely. It is because that higher fracture resistance plays a critical role in fracture propagation 
+dynamics. Specifically, higher resistance in natural fractures means that more energy is required to open and propagate them. 
+Consequently, more natural fractures are opened, but the hydraulic fracture dimensions become smaller due to the increased energy 
+dissipation.
+Fig. 15. Effect of density of horizontal stress on fracture dimension and natural-fracture pressure drop: (a) Variation of hydraulic fracture, (b) 
+Variation in natural-fracture pressure drop.
+Table 4 
+Input parameters for field case study.
+Parameter Value
+Fracturing string size 5 – 1/2 in.
+Depth of target reservoir 6102 – 6165 m
+Steady pump rate 18 m
+3
+/min
+Fracturing fluid viscosity 5.0 mPa ⋅ s
+Fracturing fluid density 1050 kg/m
+3
+Speed of water hammer wave 1535.9 m/s
+Carter leak-off coefficient 3.55 × 10
+  5 
+m/min
+0.5
+Cluster number 6
+Cluster spacing 10 m
+Young ’ s modulus of rock 37.4 GPa
+Poisson ’ s ratio of rock 0.22
+Minimum horizontal stress 98 MPa
+Maximum horizontal stress 109 MPa
+Average length of natural fractures 7 m
+Average width of natural fractures 5 × 10
+  5 
+m
+Average strike angle of natural fractures 65
+◦
+Density of the natural fractures 0.012 number/m
+2
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+20 
+
+===== PAGE 21 =====
+Fig. 16. Water-hammer signal cepstrum for field case study.
+Fig. 17. Simulated and field water-hammer pressure matching results.
+Fig. 18. Water-hammer pressure-decomposition result.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+21 
+
+===== PAGE 22 =====
+3.2.3. Horizontal stress
+Horizontal stress is the main factor that must be overcome to ensure the propagation of hydraulic fractures. The minimum hori -
+zontal stress determines the net fracture pressure, and the horizontal stress difference affects the interaction mode between the hy -
+draulic and natural fractures. In this section, we investigate the fracture dimensions under different horizontal stresses, with the 
+maximum/minimum horizontal stresses set to 50/45, 60/50, 70/55, and 80/60 MPa. The minimum horizontal stress and horizontal 
+stress difference were increased progressively for the calculation cases. The results are shown in Fig. 15 . The fracture length initially 
+increased and then decreased. This phenomenon is attributable to the alteration in the net fracture pressure caused by the conjunction 
+of the minimum horizontal stress and natural fracture pressure drop, which can be determined using Eqs. (31) and (32) , respectively. 
+An increase in the minimum horizontal stress resulted in a shorter fracture length. Meanwhile, a greater horizontal stress difference 
+facilitated the propagation of hydraulic fractures across natural fractures, thus resulting in fewer opened and propagated natural 
+fractures and less additional pressure drops from natural fractures, as depicted in Fig. 15 (b). This phenomenon facilitates the real -
+isation of larger fracture dimensions. In addition, the effect of the minimum horizontal stress on the fracture length was more severe 
+than that of the horizontal stress difference under a high minimum horizontal stress. For instance, the average natural fracture pressure 
+drop of the E-frac was only 1.49 MPa, with a minimum horizontal stress and horizontal stress difference of 60 and 20 MPa, respectively. 
+Therefore, reservoir stress must be considered in the diagnosis of fractured reservoir.
+3.3. Field case study
+The multifracture diagnostic model was evaluated for its application and performance during the completion of shale horizontal- 
+well fracturing in the Sichuan Basin, China. A staged multicluster fracturing technique was employed in the horizontal section. Logging 
+and microseismic monitoring data indicated the development of natural fractures in the reservoir. Meanwhile, a staged multicluster 
+fracturing technique was employed in the horizontal section, in which the interval was uniformly perforated with a 10 m cluster 
+spacing and then isolated with mechanical bridge plugs. A high frequency pressure sensor was installed at the wellhead to obtain the 
+water-hammer signal during fracturing shut-in. The main input parameters of the diagnostic model are listed in Table 4 . The theo -
+retical calculation of the wate-hammer wave speed was performed according to Eq. (7) . The water-hammer wave speed was also 
+adjusted by the period time of occurrence of the water-hammer pulsation at the wellhead.
+Initially, the number and location of hydraulic fractures were analysed via CEEM enhancement and a cepstrum process on a high 
+frequency water-hammer signal. The well was designed with six perforation clusters at a depth of 6102 – 6165 m. The stimulation result 
+showed negative peaks appearing at the quefrency area of 7964 – 8004 ms (depth of 6116 – 6147 m), as shown in Fig. 16 . This suggests 
+that the perforation clusters placed within the depths of 6116 – 6147 m absorbed the fracturing fluid, whereas other clusters remained 
+unopened, thereby inhibiting the creation of hydraulic fractures. Thus, the three perforation clusters between 6116 – 6147 m were 
+regarded as the quantity and placement of hydraulic fractures. Later, these data will be used to assess the stress shadow and fracture 
+dimensions.
+The water-hammer signal from the field (blue curve in Fig. 17 ) was decomposed into detrended and steady decaying pressures to 
+Fig. 19. Equivalent fracture and multifracture dimension diagnostic results.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+22 
+
+===== PAGE 23 =====
+obtain the ISIP and boundary conditions for the water-hammer pressure simulation, as shown in Fig. 18 . The detrended water-hammer 
+pressure were approximately zero, thus indicating energy oscillation and a decay in the wellbore. Notably, a steadily decreasing 
+pressure (red curve in Fig. 17 ) was achieved by removing the effect caused by the friction of the water-hammer flow, which char -
+acterises the variation in the actual hydraulic fracture pressure over time. Thus, a steadily decreasing pressure was employed as a 
+boundary condition in the subsequent simulation, and the ISIP was obtained from the red-curve intercept. In addition, the water- 
+hammer signals were history matched and compared. The values of R , C , and I were iteratively changed until the simulated data 
+were similar to the field water-hammer signal obtained at the wellhead. The matching results are presented in Fig. 17 . The maximum 
+error was less than 1 MPa. The match quality in terms of period, amplitude, and decay rate was acceptable. The components at each 
+end of the signal showed less satisfactory matching owing to the quality of the water-hammer signal and assumptions introduced 
+regarding the flow rate changes at the wellhead. The R , C , and I were identified as 1.457 × 10
+7 
+Pa ⋅ s / m
+3
+, 3.645 × 10
+  5 
+m
+3
+/ Pa , and 
+2.449 × 10
+6 
+Pa / m
+3
+⋅ s
+  2
+, respectively.
+After determining the fracture location, number, and RCI , the E-frac and multifracture dimensions were estimated, and the results 
+are presented in Fig. 19 . The half-length, width, and height of the E-frac were 448.3, 70 × 10
+  6
+, and 35 m, respectively. The relative 
+errors for the half-length and height were 6.5 % and 20 %, respectively, compared with the diagnostic results of the fracture length and 
+height obtained from microseismic analysis — the magnitudes of these error are regarded as acceptable for field-construction analysis. 
+The limited diagnostic accuracy of the fracture height is attributed to its confinement within the boundaries of the reservoir thickness, 
+which will be addressed in the subsequent improvement of our model. Based on the analysis presented in Section 3.2 , the fracture 
+dimension on both sides tend to propagate more easily than that at the centre because of the stress shadow. The half-lengths of the 
+three propagated fractures were 190.8, 67.5, and 190.0 m. The maximum difference in the multifracture half-length was 123.3 m, 
+which was greater than the average fracture half-length. This shows that previous fracturing optimisation design studies were inef -
+fective in promoting the uniform propagation of fractures. Meanwhile, the diagnostic results showed that clusters 1, 2, and 6 were not 
+opened to propagate hydraulic fractures, thus indicating that the reservoir was not stimulated appropriately. Therefore, measures such 
+as injecting a temporary plugging material should be implemented to improve the stimulation effect of the well. Additionally, the 
+diagnostic results provide guidance for subsequent fracturing optimisation design.
+4. Conclusion
+In this study, a multifracture RCI diagnostic model for naturally fractured reservoir was proposed. To address some of the limi -
+tations of the previous model, we employed the cepstrum of water hammer in our model to obtain the location and number of 
+effectively propagated hydraulic fractures as well as considers the effects of leak-off and natural fractures. Wellhead water-hammer 
+pressures with different fracturing shut-in modes and multifracture dimensions with different perforation designs, densities of natu -
+ral fractures, and horizontal stresses were investigated. Finally, a case study on a field shale well was performed to demonstrate the 
+application process and performance of our model. The primary conclusions obtained were as follows: 
+(1) The water-hammer pressure pulsation was related to the shut-in time and displacement. A staged pump shutdown with 
+extended shut-in times effectively prevented large pressure pulsations that damage the wellbore integrity. Similarly, the 
+fracturing shut-in method can be appropriately modified to obtain a clear water-hammer signal for fracturing diagnostics.
+(2) As the number of shot clusters increased, the fracture length and width decreased gradually, and the dimensions of the fracture 
+in the centre were consistently smaller than those on both sides. As the perforation cluster spacing increased, the fracture on 
+both sides decreased and then increased, the centre fracture increased continuously, and the dimensions of the multifracture 
+eventually became uniform.
+(3) Natural fractures can reduce hydraulic fracture dimensions. However, complex fracture networks should be created to increase 
+the stimulated volume. The development of natural fractures in reservoir does not indefinitely increase the complexity of 
+hydraulic fractures because the probability of natural fracture propagation is limited by the hydraulic fracture dimensions.
+(4) An increase in the minimum horizontal stress decreased the fracture dimensions. Meanwhile, a greater difference in the hor -
+izontal stress difference rendered it easier for a hydraulic fracture across a natural fracture to create a larger fracture dimension.
+(5) Field fracture diagnostic results showed three propagated fractures at the locations of perforation clusters 3, 4, and 5. The 
+fracture diagnostic dimensions are acceptable, based on a comparison with microseismic results, and thus can be used to 
+improve the fracturing design.
+CRediT authorship contribution statement
+Shijie Deng: Writing – original draft, Methodology, Investigation. Liangping Yi: Writing – review & editing, Funding acquisition, 
+Formal analysis. Xiaogang Li: Methodology, Investigation. Zhaozhong Yang: Resources, Conceptualization. Nanqiao Zhang: 
+Validation.
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+23 
+
+===== PAGE 24 =====
+Acknowledgments
+This work was financially supported by the National Natural Science Foundation of China (42202314).
+Appendix A 
+The steps involved in the CEEMD process, which is shown in Fig. A 1, are as follows:
+(1) Input the water-hammer pressure signal and add white noise.
+(2) Determine the points of the maximum and minimum signal values, plot the maximum – minimum envelope, and calculate the 
+mean envelope m(t) .
+(3) Obtain the suspected IMF component h(t) by subtracting the average envelope m(t) from the original signal x(t) .
+(4) Determine whether h(t) satisfies the IMF component conditions. If the average value of m
+t 
+tends to zero and the difference 
+between the number of extreme points of the original signal and the number of intersection points of the original signal with the x-axis 
+is not greater than 1, then extract the IMF and residue r(t) , otherwise, x(t) = h(t) , and return to Step (2).
+(5) Test whether the residue satisfies the stopping condition. If the residue satisfies the stopping condition, then output the IMF 
+component, otherwise s(t) = r(t) and returns to Step (1). 
+Fig. A1. CEEMD process of water-hammer pressure signal.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+24 
+
+===== PAGE 25 =====
+Appendix B  
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(a) The case1 with fracture location 1800 m
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(b) The case2 with fracture location 1800 m and 1700 m
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(c) The case3 with fracture location 1800 m and 1850 m
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(d) The case4 with fracture location 1800 m and 1890 m
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+Fig. B1. Diagnostic results of with different artificially fracture setting.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+25 
+
+===== PAGE 26 =====
+Data availability
+Data will be made available on request.
+References
+[1] Liu Y, Li G, Chen J, Bai Y, Hou J, Xu H, et al. Numerical simulation of hydraulic fracturing-assisted depressurization development in hydrate bearing layers 
+based on discrete fracture models. Energy 2023;263:126146.https://doi.org/10.1016/j.energy.2022.126146.
+[2] Liao J, Gou Y, Feng W, Mehmood F, Xie Y, Hou Z. Development of a full 3D numerical model to investigate the hydraulic fracture propagation under the impact 
+of orthogonal natural fractures. Acta Geotech 2020;15(2):279 – 95. https://doi.org/10.1007/s11440-019-00862-2 .
+[3] Childers D, Wu X. Fracture diagnostic technologies with process workflow for implementation. J Petrol Sci Eng 2022;208:109778. https://doi.org/10.1016/j. 
+petrol.2021.109778 .
+[4] Liu R, Liu J, Wang J, Liu Z, Guo R. A time-lapse CSEM monitoring study for hydraulic fracturing in shale gas reservoir. Marine Petrol Geol 2020;120:104545. 
+https://doi.org/10.1016/j.marpetgeo.2020.104545 .
+[5] Brown NM, Dejam M. Tracer dispersion due to non-Newtonian fluid flows in hydraulic fractures with different geometries and porous walls. J Hydrol 2023;622: 
+129644. https://doi.org/10.1016/j.jhydrol.2023.129644 .
+[6] Liu Y, Liang L, Zeroug S. Stochastic inversion for equivalent hydraulic fracture characterization using low-frequency distributed acoustic sensing data. Int J Rock 
+Mech Mining Sci 2024;173:105610. https://doi.org/10.1016/j.ijrmms.2023.105610 .
+[7] Carey MA, Mondal S, Sharma MM. Analysis of Water Hammer Signatures for Fracture Diagnostics. SPE Annual Technical Conference and Exhibition . Day 3 Wed, 
+September 30, 2015. 2015.https://doi.org/10.2118/174866-ms.
+[8] Iriarte J, Merritt J, Kreyche B. Using Water Hammer Characteristics as a Fracture Treatment Diagnostic. SPE Oklahoma City Oil and Gas Symposium. Day 3 Wed, 
+March 29, 2017. 2017.https://doi.org/10.2118/185087-MS.
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(e) The case5 with fracture location 1800 m, 1700 m and 1600 m
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(f) The case6 with fracture location 1800 m, 1700 m, 1600 m and 1500 m
+Cepstrogram of water hammer Cepstrum eigenvalue ijF
+(g) The case7 with fracture location 1800 m, 1700 m, 1600 m, 1500 m and 1400 m
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+1000 1100 1200 1300 1400 1500 1600 1700 1800 1900
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Fij
+Depth of well (m)
+Fig. B1. ( continued ).
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+26 
+
+===== PAGE 27 =====
+[9] Parkhonyuk S, Fedorov A, Kabannik A, Korkin R, Nikolaev M, Tsygulev I. Measurements While Fracturing: Nonintrusive Method of Hydraulic Fracturing 
+Monitoring. SPE Hydraulic Fracturing Technology Conference and Exhibition. Day 3 Thu, January 25, 2018. 2018.https://doi.org/10.2118/189886-ms.
+[10] Holzhausen GR, Gooch RP. Impedance of Hydraulic Fractures: Its Measurement and Use for Estimating Fracture Closure Pressure and Dimensions. SPE/DOE Low 
+Permeability Gas Reservoirs Symposium. All Days. 1985.https://doi.org/10.2118/13892-ms.
+[11] Holzhausen GR, Egan HN. Fracture Diagnostics in East Texas and Western Colorado Using the Hydraulic-Impedance Method. SPE Unconventional Gas Technology 
+Symposium. All Days. 1986.https://doi.org/10.2118/15215-ms.
+[12] Paige RW, Roberts JDM, Murray LR, Mellor DW. Fracture Measurement Using Hydraulic Impedance Testing. SPE Annual Technical Conference and Exhibition. All 
+Days. 1992.https://doi.org/10.2118/24824-ms.
+[13] Yew CH, Ashour AA. A Study of the Fracture Impedance Method. Annual Technical Meeting. All Days. 1996.https://doi.org/10.2118/96-91.
+[14] Patzek TW, De A. Lossy transmission line model of hydrofractured well dynamics. J Petrol Sci Eng 2000;25(1):59–77. https://doi.org/10.1016/S0920-4105(99) 
+00055-8.
+[15] Mondal S. Pressure transients in wellbores: water hammer effects and implications for fracture diagnostics. Petroleum and Geosystems Engineering. The University 
+of Texas at Austin 2010.http://hdl.handle.net/2152/ETD-UT-2010-12-2606.
+[16] Carey MA, Mondal S, Sharma MM, Hebert DB. Correlating Water Hammer Signatures with Production Log and Microseismic Data in Fractured Horizontal Wells. 
+SPE Hydraulic Fracturing Technology Conference. Day 2 Wed, February 10, 2016. 2016.https://doi.org/10.2118/179108-MS.
+[17] Haustveit K, Dahlgren K, Greenwood H, Peryam T, Kennedy B, Dawson M. New Age Fracture Mapping Diagnostic Tools-A STACK Case Study. SPE Hydraulic 
+Fracturing Technology Conference and Exhibition. Day 1 Tue, January 24, 2017. 2017.https://doi.org/10.2118/184862-MS.
+[18] Ma X, Zhou F, Ortega Andrade JA, Gosavi S, Burch D. Evaluation of Water Hammer Analysis as Diagnostic Tool for Hydraulic Fracturing. SPE/AAPG/SEG 
+Unconventional Resources Technology Conference. Day 2 Tue, July 23, 2019. 2019.https://doi.org/10.15530/urtec-2019-935.
+[19] Sakha M, Nejati M, Driesner T. On the initiation of hydraulic fractures in anisotropic rocks. International Journal of Rock Mechanics and Mining Sciences 2023; 
+169:105429.https://doi.org/10.1016/j.ijrmms.2023.105429.
+[20] Mikhailov DN, Economides MJ, Nikolaevskiy VN. Fluid leakoff determines hydraulic fracture dimensions: approximate solution for non-Newtonian fracturing 
+fluid. Int J Engng Sci 2011;49(9):809–22. https://doi.org/10.1016/j.ijengsci.2011.03.021.
+[21] Hwang J, Szabian MJ, Sharma M. Hydraulic Fracture Diagnostics and Stress Interference Analysis by Water Hammer Signatures in Multi-Stage Pumping Data. 
+SPE/AAPG/SEG Unconventional Resources Technology Conference. All Days. 2017.https://doi.org/10.15530/URTEC-2017-2687423.
+[22] Hu X, Luo Y, Zhou F, Qiu Y, Li Z, Li Y. Evaluation of multi-fractures geometry based on water hammer signals: a new comprehensive model and field application. 
+J Hydrol 2022;612:128240. https://doi.org/10.1016/j.jhydrol.2022.128240.
+[23] Kabannik A, Parkhonyuk S, Korkin R, Litvinets F, Dunaeva A, Nikolaev M, et al. Can We Trust the Diversion Pressure as a Decision-Making Tool: Novel 
+Technique Reveals the Truth. Abu Dhabi International Petroleum Exhibition & Conference. Day 2 Tue, November 13, 2018. 2018.https://doi.org/10.2118/193180- 
+MS.
+[24] Panjaitan ML, Moriyama A, McMillan D, Dunaeva A, Rutledge L, Xu J, et al. Qualifying Diversion in Multi Clusters Horizontal Well Hydraulic Fracturing in 
+Haynesville Shale Using Water Hammer Analysis, Step-Down Test and Microseismic Data. SPE Hydraulic Fracturing Technology Conference and Exhibition. Day 3 
+Thu, January 25, 2018. 2018.https://doi.org/10.2118/189850-MS.
+[25] Korkin R, Parkhonyuk S, Fedorov A, Badazhkov D, Kabannik A. High Frequency Pressure Monitoring and Data Analytics for Stimulation Efficiency 
+Determination: New Perspectives or Potential Limits. SPE Hydraulic Fracturing Technology Conference and Exhibition. Day 3 Thu, February 06, 2020. 2020.https:// 
+doi.org/10.2118/199762-MS.
+[26] Li Y, Hu X, Zhou F, Qiu Y, Li Z, Luo Y. A new comprehensive filtering model for pump shut-in water hammer pressure wave signals during hydraulic fracturing. 
+J Petrol Sci Eng 2022;208:109796. https://doi.org/10.1016/j.petrol.2021.109796.
+[27] Liao J, Wang H, Mehmood F, Cheng C, Hou Z. An anisotropic damage–permeability model for hydraulic fracturing in hard rock. Acta Geotech. 2023;18(7): 
+3661–81. https://doi.org/10.1007/s11440-022-01793-1.
+[28] He Y, Chen Z, Li X, Yang Z, Jiang M, Ran L. Self-supporting conductivity in shallow and ultra shallow shale reservoirs: under hydraulic, CO2 and Sc-CO2 
+fracturing. Geoenergy Sci Eng 2023;223:211557. https://doi.org/10.1016/j.geoen.2023.211557.
+[29] Hu Y, Gan Q, Hurst A, Elsworth D. Investigation of coupled hydro-mechanical modelling of hydraulic fracture propagation and interaction with natural 
+fractures. Int J Rock Mech Mining Sci 2023;169:105418. https://doi.org/10.1016/j.ijrmms.2023.105418.
+[30] He Y, Guo Y, Yang Z, Chang X, Jiang M, Chen Z, et al. Integrated study of hydraulic/CO2 fracturing and production coupled with a THM-D process in ultra- 
+shallow shale reservoirs. Nat Gas Ind B 2024;11(5):581–602. https://doi.org/10.1016/j.ngib.2024.09.001.
+[31] He Y, Guo Y, Bi Z, Guo W, Chang X. Study of field-scale carbon dioxide fracturing in hot dry rock reservoir based on a new 3D-THM coupled discrete block 
+model. Geoenergy Sci Eng 2025;247:213675. https://doi.org/10.1016/j.geoen.2025.213675.
+[32] Yi L-P, Li X-G, Yang Z-Z, Yang C-X. Phase field modeling of hydraulic fracturing in porous media formation with natural fracture. Eng Fract Mech 2020;236: 
+107206. https://doi.org/10.1016/j.engfracmech.2020.107206.
+[33] Liu Z, Pan Z, Li S, Zhang L, Wang F, Han L, et al. Study on the effect of cemented natural fractures on hydraulic fracture propagation in volcanic reservoirs. 
+Energy 2022;241:122845. https://doi.org/10.1016/j.energy.2021.122845.
+[34] Zhang Q, Wang X, Zhu H, Cai W, Li X. Estimation of three-dimensional diameter distributions of multiple fracture sets clustered by a multi-level clustering 
+method. Acta Geotech 2023;18(8):4429–52. https://doi.org/10.1007/s11440-023-01801-y.
+[35] Parkhonyuk S, Korkin R, Kabannik A, Fedorov A, Nikolaev M, Litvinets F. Novel Monitoring Technology Helps to Make Informed Decisions and Maximize the 
+Efficiency of Completion Strategy. SPE/AAPG/SEG Unconventional Resources Technology Conference. Day 2 Tue, July 24, 2018. 2018.https://doi.org/10.15530/ 
+URTEC-2018-2885828.
+[36] Zhang H, Mobasher ME, Shen Z, Waisman H. A unified non-local damage model for hydraulic fracture in porous media. Acta Geotech 2023;18(10):5083–121. 
+https://doi.org/10.1007/s11440-023-01873-w.
+[37] Hao T, Guo T, Chen H, Chen M, Qu Z, Wang Y, et al. Numerical simulation of multi-fracture propagation in staged multi-cluster SC-CO2 fracturing of horizontal 
+wells. Geoenergy Science and Engineering 2023;229:212125.https://doi.org/10.1016/j.geoen.2023.212125.
+[38] Shi C, Lin B, Yu H, Shi S, Zhang J. Characterization of hydraulic fracture configuration based on complex in situ stress field of a tight oil reservoir in Junggar 
+Basin, Northwest China. Acta Geotech 2023;18(2):757–75. https://doi.org/10.1007/s11440-022-01607-4.
+[39] Yang C-X, Yi L-P, Yang Z-Z, Li X-G. Numerical investigation of the fracture network morphology in multi-cluster hydraulic fracturing of horizontal wells: A DDM- 
+FVM study. J Petrol Sci Eng 2022;215:110723.https://doi.org/10.1016/j.petrol.2022.110723.
+[40] Lang X, Zhang Y, Xie L, Li P, Horch A, Su H. Detrending and denoising of industrial oscillation data. IEEE Trans Ind Inf 2023;19(4):5809–20. https://doi.org/ 
+10.1109/TII.2022.3188844.
+[41] Ghazali MF, Beck SBM, Shucksmith JD, Boxall JB, Staszewski WJ. Comparative study of instantaneous frequency based methods for leak detection in pipeline 
+networks. Mechanical Systems and Signal Processing 2012;29:187-200.https://doi.org/10.1016/j.ymssp.2011.10.011.
+[42] Qiu Y, Hu X, Zhou F-j, Li Z, Li Y, Luo Y. Water hammer response characteristics of wellbore-fracture system: multi-dimensional analysis in time, frequency and 
+quefrency domain. J Petrol Sci Engng 2022. https://doi.org/10.1016/j.petrol.2022.110425.
+[43] Song W, Yan H, Li F, Tao T, Duan H, Xin K, et al. Development of Smoothed Particle Hydrodynamics based water hammer model for water distribution systems. 
+Engng Appl Comput Fluid Mech 2023. https://doi.org/10.1080/19942060.2023.2171139.
+[44] Zhang L, Chen S, Wang W, Yang Q. Mechanism of casing deformation relieved under densified-multi-cluster fracturing based on an analytical model. Eng Fract 
+Mech 2023;289:109390. https://doi.org/10.1016/j.engfracmech.2023.109390.
+[45] Liu K, Taleghani AD, Gao D. Calculation of hydraulic fracture induced stress and corresponding fault slippage in shale formation. Fuel 2019. https://doi.org/ 
+10.1016/J.FUEL.2019.05.108.
+[46] Xiao C, Ni H, Shi X. Unsteady model for wellbore pressure transmission of carbon dioxide fracturing considering limited-flow outlet. Energy 2022;239:122289. 
+https://doi.org/10.1016/j.energy.2021.122289.
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+27 
+
+===== PAGE 28 =====
+[47] Jia M, Deng S, Li X, Jin W, Yang Z, Rao D. A numerical simulation study of the micro-mechanism of CO2 flow friction in fracturing pipe string. Gas Sci Eng 2023; 
+112:204941. https://doi.org/10.1016/j.jgsce.2023.204941 .
+[48] White CFCCM. Experiments with fluid friction in roughened pipes. PROCEEDINGS OF THE ROYAL SOCIETY A 1937.https://doi.org/10.1098/rspa.1937.0150.
+[49] Roussel N, Swan H, Snyder J, Nguyen D, Cramer D, Ouk A. Evaluation and Insights from Instantaneous Shut-in Pressures. SPE/AAPG/SEG Unconventional 
+Resources Technology Conference. Day 2 Tue, July 27, 2021. 2021.https://doi.org/10.15530/urtec-2021-5681.
+[50] Wu W, Yang S, Aguilera R, Chen Z, Aguilera RF. Characterization methods for natural fractures distribution in shale and tight reservoirs. Int J Coal Geol 2023; 
+273:104252. https://doi.org/10.1016/j.coal.2023.104252 .
+[51] Ding W, Zhu D, Cai J, Gong M, Chen F. Analysis of the developmental characteristics and major regulating factors of fractures in marine – continental transitional 
+shale-gas reservoirs: a case study of the Carboniferous – Permian strata in the southeastern Ordos Basin, central China. Marine and Petroleum Geology 2013;45: 
+121 – 33. https://doi.org/10.1016/j.marpetgeo.2013.04.022 .
+[52] Guo J, Liu Y. A comprehensive model for simulating fracturing fluid leakoff in natural fractures. J Natural Gas Sci Eng 2014;21:977 – 85. https://doi.org/ 
+10.1016/j.jngse.2014.10.020 .
+[53] Xu W, Zhao J, Rahman SS, Li Y, Yuan Y. A comprehensive model of a hydraulic fracture interacting with a natural fracture: analytical and numerical solution. 
+Rock Mech Rock Engng 2019;52(4):1095 – 113. https://doi.org/10.1007/s00603-018-1608-9 .
+[54] Zhang X, Shi W, Hu Q, Zhai G, Wang R, Xu X, et al. Developmental characteristics and controlling factors of natural fractures in the lower paleozoic marine 
+shales of the upper Yangtze Platform, southern China. J Natural Gas Sci Eng 2020;76:103191. https://doi.org/10.1016/j.jngse.2020.103191 .
+[55] Dehghan AN. An experimental investigation into the influence of pre-existing natural fracture on the behavior and length of propagating hydraulic fracture. Eng 
+Fract Mech 2020;240:107330. https://doi.org/10.1016/j.engfracmech.2020.107330 .
+[56] Wang X, Shi F, Liu C, Lu D, Liu H, Wu H. Extended finite element simulation of fracture network propagation in formation containing frictional and cemented 
+natural fractures. J Natural Gas Sci Eng 2018;50:309 – 24. https://doi.org/10.1016/j.jngse.2017.12.013 .
+[57] Tong L, Xiaochen W, Xiangjun L, Lixi L, Xuancheng W, Jin C, et al. A criterion for a hydraulic fracture crossing a natural fracture in toughness dominant regime 
+and viscosity dominant regime. Eng Fract Mech 2023;289:109421. https://doi.org/10.1016/j.engfracmech.2023.109421 .
+[58] Qiang W, Chaoneng Z, Jinzhou Z, Zhitao Y, Shouxing K, Yongquan H, et al. Numerical simulation of planar hydraulic fracture propagation with consideration to 
+transition from turbulence to laminar flow regime. Eng Fract Mech 2022;262:108258. https://doi.org/10.1016/j.engfracmech.2022.108258 .
+[59] Bassett MD, Winterbone DE, Pearson RJ. Calculation of steady flow pressure loss coefficients for pipe junctions. Proc Inst Mech Engng C J Mech Engng Sci 2001; 
+215(8):861 – 81. https://doi.org/10.1177/095440620121500801 .
+[60] Li B, Liu R, Jiang Y. Influences of hydraulic gradient, surface roughness, intersecting angle, and scale effect on nonlinear flow behavior at single fracture 
+intersections. J Hydrol 2016;538:440 – 53. https://doi.org/10.1016/j.jhydrol.2016.04.053 .
+[61] Sch
+¨
+Onfeld JC. Analogy of hydraulic, mechanical, acoustic and electric systems. Appl Scientific Res, Section B 1954;3(1):417 – 50. https://doi.org/10.1007/ 
+BF02919918 .
+[62] Carey MA. Water hammer fracture diagnostics. Petroleum and Geosystems Engineering. The University of Texas at Austin; 2014.http://hdl.handle.net/2152/ 
+28297.
+[63] Detournay E, Peirce A. On the moving boundary conditions for a hydraulic fracture. Int J Eng Sci 2014;84:147 – 55. https://doi.org/10.1016/j. 
+ijengsci.2014.06.010 .
+[64] Roussel NP. Analyzing ISIP Stage-by-Stage Escalation to Determine Fracture Height and Horizontal-Stress Anisotropy. SPE Hydraulic Fracturing Technology 
+Conference and Exhibition. Day 2 Wed, January 25, 2017. 2017.https://doi.org/10.2118/184865-MS.
+[65] Xu Y, Chen M, Wu Q, Li D, Yang N, Weng D, et al. Stress interference calculation model and its application in volume stimulation of horizontal wells. Pet Explor 
+Dev 2016;43(5):849 – 56. https://doi.org/10.1016/S1876-3804(16)30101-X .
+[66] Wang L, Duan K, Zhang Q, Li X, Jiang R, Zheng Y. Stress interference and interaction between two fractures during their propagation: insights from SCDA test 
+and XFEM simulation. Int J Rock Mechanics Mining Sci 2023;169:105431. https://doi.org/10.1016/j.ijrmms.2023.105431 .
+[67] Shlyapobersky J, Wong GK, Walhaug WW. Overpressure calibrated design of hydraulic fracture stimulations. SPE Annual Technical Conference and Exhibition 
+All Days 1988. https://doi.org/10.2118/18194-MS .
+[68] Li X-G, Yi L-P, Yang Z-Z. Numerical model and investigation of simultaneous multiple-fracture propagation within a stage in horizontal well. Environ Earth Sci 
+2017;76(7):273. https://doi.org/10.1007/s12665-017-6579-8 .
+[69] Moreno J, Tarrahi M, Gildin E, Gonzales S. Real-time estimation of hydraulic fracture characteristics from production data. SPE/AAPG/SEG Unconventional 
+Resources Technology Conference All Days 2014. https://doi.org/10.15530/URTEC-2014-1923687 .
+[70] Neyestanaki MK, Dunca G, Jonsson P, Cervantes MJ. A comparison of different methods for modelling water hammer valve closure with CFD. Water 2023;15(8): 
+1510. https://doi.org/10.3390/w15081510 .
+[71] SaemI S, Raisee M, Cervantes MJ, Nourbakhsh A. Computation of two- and three-dimensional water hammer flows. J Hydraul Res 2019;57(3):386 – 404. https:// 
+doi.org/10.1080/00221686.2018.1459892 .
+[72] Najafi AF, Saidi MH, Sadeghipour MS, Souhar M. Boundary layer solution for the turbulent swirling decay flow through a fixed pipe: SBR at the inlet. Int J Engng 
+Sci 2005;43(1):107 – 20. https://doi.org/10.1016/j.ijengsci.2004.08.010 .
+[73] Gale JFW, Laubach SE, Olson JE, Eichhubl P, Fall A. Natural fractures in shale: a review and new observations. AAPG Bull 2014;98(11):2165 – 216. https://doi. 
+org/10.1306/08121413151 .
+S. Deng et al.                                                                                                                                                                                                           Engineering Fracture Mechanics 325 (2025) 111347 
+28 

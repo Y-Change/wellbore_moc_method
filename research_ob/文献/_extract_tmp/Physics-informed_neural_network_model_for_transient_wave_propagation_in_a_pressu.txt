@@ -1,0 +1,599 @@
+SOURCE: Physics-informed neural network model for transient wave propagation in a pressurized pipeline压力管道瞬态波传播的物理信息神经网络模型.pdf
+PAGES: 10
+FULL extract 10 pages
+
+
+
+===== PAGE 1 =====
+ 
+                                                                 Proceedings of the 39th IAHR World Congress 
+                                                                                                                19-24 June 2022 
+Granada, Spain 
+                                                                                                                DOI number 
+ 
+©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+Physics-informed neural network model for transient wave propagation in a 
+pressurized pipeline 
+ 
+ 
+Muhammad Waqar (1), Moez Louati (2), Sen Li (3), and Mohamed S. Ghidaoui (4) 
+ 
+(1,2,3,4) Department of Civil and Environmental Engineering, The Hong Kong University of Science and Technology, Hong Kong, SAR 
+China  
+mwaqar@connect.ust.hk, mlouati@connect.ust.hk, cesli@ust.hk, ghidaoui@ust.hk 
+ 
+ 
+Abstract 
+ 
+This paper explores the use of neural networks (NNs) to model water-hammer waves propagation in a bounded 
+pipe system. The training dataset is obtained from a numerical solution using the Method Of Characteristics 
+(MOC). It is found that conventional NNs fail to model the water-hammer waves propagation when trained using 
+only the boundary conditions and require large datasets for training. However, the use of physics-informed NN 
+(PINN), wherein the one-dimensional wave equation, along with the boundary conditions are imposed as part 
+of the loss function , provides accurate results. The PINN model parameters (i.e., weights and  biases) are 
+optimized using (i) the Adaptive Moment Estimation (A DAM), and (ii) the limited -memory Broyden -Fletcher-
+Goldfarb-Shanno (L-BFGS) algorithms. The results show that L-BFGS based solution is in good agreement with 
+the exact MOC solution, whereas the ADAM-based solution has slow convergence . Moreover, it is found that 
+the PINN solution is sensitive to changes in boundary and initial conditions as well as to the time length of the 
+wavefield solution. In particular, our results show that as the time length (or bandwidth) of the signals increases, 
+a denser NN model architecture (in terms of number of neurons) is required to accurately predict the response. 
+It is also found that the PINN model is sensitive to the location of additional measurement point s used as a 
+constraining dataset. Detailed sensitivity analysis concerning model architecture and the constraining dataset 
+is yet to be investigated. The advantages and implications of using PINN in hydraulic transient modeling are 
+discussed. 
+ 
+ 
+Keywords: Artificial intelligence; Leak detection; Hydraulics; Machine learning; Water-hammer 
+ 
+ 
+1. INTRODUCTION 
+ 
+ Recently, Raissi et al., (2019) proposed an elegant framework, named physics-informed neural networks 
+(PINNs), to predict the solution of differential equations using neural networks (NNs). As the name implies, this 
+approach unifies data -driven machine lea rning and domain knowledge to optimize the machine learning (ML) 
+model. PINNs have gained significant attention in the scientific community and particularly in computational 
+society due to their remarkable ability to predict solutions for PDEs. Another substantial advantage of PINN is 
+that this approach requires significantly less data for training in comparison to the conventional NN models due 
+to the fact that physical laws are enforced as part of the loss function in the optimization procedure (Karniadakis 
+et al., 2021). Raissi et al., (2019) demonstrated the strength of PINNs by finding the solutions for the Burger’s 
+equation, 1D Schrödinger equation, and Allen -Cahn equation. Waheed et al., (2021) used PINNs to so lve the 
+eikonal equation to predict the seismic wave travel times for seismological applications. Lai et al., (2021) used 
+the PINN framework to solve the ODEs for structural identification applications using numerical as well as 
+experimental data. Huang et  al., (2021) extended the PINN framework to account for the point sources in the 
+PDEs.  
+ Motivated by these  recent intriguing development s of PINN , this work uses PINN for water hammer  
+application and discusses its potential and possible use in practice. Unlike other systems of interest (e.g., open-
+channel flows, or structures), pipeline systems pose different and unique challenges. That is, these systems are 
+underground, hence poorly accessible , have partially known  topologies, and are comprised of dynamic 
+boundary conditions (BCs). Under these constraints, the adoption of the PINN framework to predict the transient 
+response of buried pipe systems is not a straightforward task. For instance, it is impossible to measure the initial 
+conditions (ICs) continuously along the pipe in a functioning or operating  pipe system. This paper shows that 
+additional measurement points can compensate for the missing IC constraint. In what follows, the methodology 
+is presented at first. Then, the numerical examples are provided . In particular, the solution of the PINN is 
+compared with conventional NN and discussed. The sensitivity of the PINN model concerning the measurement 
+
+===== PAGE 2 =====
+                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+locations, initial conditions (ICs), time-extent of the response, and frequency of the wave source are explored. 
+Finally, the conclusions and future perspectives are discussed.  
+ 
+ 
+2. METHODOLOGY 
+ 
+Consider a reservoir-pipe-reservoir system. The pipe is assumed to be straight, horizontal, and frictionless 
+for simplicity.  A pulse -type forcing is imposed from the downstream end by maneuvering the downstream 
+boundary. The transient response of this  system is governed by the following one-dimensional water-hammer 
+wave equation (Ghidaoui, 2004): 
+ 
+ 
+22
+2
+22 0hh atx
+ −=  [1] 
+ 
+where 
+( ),h x t  is the pressure head, 
+a  is the wave speed, 
+ 0,tT  is the time, 
+ 0,xL  denotes the space, with 
+L
+ and 
+T being the total length of the pipe, and the total time of the experiment, respectively. The initial condition 
+(ICs) and boundary conditions (BCs) are 
+ 
+BCs: 
+( ),0 Rh t x H== ; 
+0t   [2] 
+ 
+( ) ( ),h t x L S t== ; 
+0t   [3] 
+ICs: 
+( ) ( )00,h t x H x== ; 
+0 xL  [4] 
+ 
+( ) ( )00,q t x Q x== ; 
+0 xL  [5] 
+where   
+ 
+( ) 
+
+−− 
+
+
+= +  
+  
+0
+2
+( ) exp    ;    0 )1
+2
+T
+T
+tS t H L t  [6] 
+ 
+wherein 
+RH  is the steady-state pressure head at the upstream end,  
+()St  is the Gaussian -type excitation 
+ = 0.5( / )T La
+ , 
+0.1( / )T La =  (unless specified otherwise), 
+( )0Hx  & 
+( )0Qx are the steady-state pressure head 
+& flowrate, respectively. In this paper, Eq. [1] is solved using MOC to obtain the constraining dataset for PINN 
+models. 
+ 
+2.1 Physics-informed Neural Networks (PINNs) 
+ 
+Figure 1 shows the PINN architecture used in this paper. The network is comprised of 5 layers each of 
+which contains 20 neurons  (unless specified otherwise) . The inputs of the PINN model are  
+N  number of 
+collocation points for space 
+[0, ]fxL  and time 
+[0, ]ftT . The output of the model is 
+PINN ( , )h x t . The loss 
+function is defined as 
+ 
+ 
+=+T D PLoss Loss Loss  [7] 
+wherein   
+ 
+( )
+2
+1
+1 ,
+fN
+ii
+P f f
+if
+Loss f t x N =
+=   [8] 
+ 
+22
+2
+22( , ) :ff
+hhf x t a tx
+=−  [9] 
+ 
+IC BCDLoss Loss Loss=+  [10] 
+ 
+Data PINN Data PINN
+IC 0 0 0 0 MSE MSEt t t t
+Loss h h q q
+= = = =
+= − + −   [11] 
+ 
+( ) ( ) ( ) ( )
+Data PINN Data PINN
+BC MSE MSE
+00Loss h x h x h x L h x L= = − = + = − =  [12] 
+ 
+where 
+MSE
+  represents the mean -squared error, 
+TLoss  is the total loss,  
+DLoss  is the data -based loss which 
+includes: (i) boundary conditions (
+BCLoss ) & (iii) initial conditions (
+ICLoss ),
+PLoss  denotes the physics-based loss 
+
+===== PAGE 3 =====
+          
+ 
+Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+ 
+ 
+function, 
+( , )fff x t  is the residue of the wave equation, 
+fN  is a subset of 
+N  and represents the total number 
+of 
+{ , }ffxt  inputs involved in each iteration . Since the output of the PINN model is the pressure head, 
+( )
+PINN 0qt =
+ is not known. This problem is alleviated by providing an additional dataset from one measurement 
+location from inside the pipe domain (if one IC is unknown) or two measurement points (if both ICs are unknown). 
+More analysis and discussion on this subject are provided in Section 3.2. In this case, 
+DLoss  can be redefined 
+as  
+ 
+ 
+IC BC XMDLoss Loss Loss Loss= + +  [13] 
+where   
+ 
+( ) ( )
+Data PINN
+XM MSE1
+,,
+M
+mm
+m
+Loss h t x h t x
+=
+=−  [14] 
+ 
+ICLoss
+ includes the available IC, 
+( )0,mxL  is the spatial coordinate of additional measurement point , and 
+M  
+is the total number of additional measurement points.  For the case where both ICs are unknown, 
+IC 0Loss =  in 
+Eq. [13]. The spatial and temporal derivatives involved in Eq. [9] are computed using the automatic differentiation 
+(AD) technique (Baydin et al., 2018). To optimize the model parameters  (i.e., weights of neurons 
+w , biases 
+b  
+, and activation functions 
+ ), two optimization algorithms are used: (i) Adaptive Moment Estimation (ADAM) 
+with mini -batches ( Kingma and Ba, 2014), and (ii) Limited-memory Broyden -Fletcher-Goldfarb-Shanno (L -
+BFGS) algorithm with full-batch. 
+ 
+ 
+3. NUMERICAL EXAMPLES  
+ 
+Consider a reservoir-pipe-reservoir system of length 
+100L =  m, diameter 
+0.1D =  m, and wave speed 
+1000a =  
+m.s-1. The steady-state pressure head and flow rate in the system are 
+0 20H =  m and 
+0 4Q =  l.s-1, respectively. 
+The numerical simulations are performed using the MOC. The transient wave is generated by perturbing the 
+pressure head at the downstream end in the form of a Gaussian pulse (Eq. [3]). The pipe section is discretized 
+with 
+2x=  m and the temporal discretization is 
+0.002t=  s. The total simulation time is 
+4 / 0.4T L a==  s which 
+includes one complete wave period. The simulated wavefield solution is shown in Figure  2 wherein both x and 
+y axes are respectively non-dimensionalized with respect to 
+L  and 
+/La , and the color pattern shows the non-
+dimensionalized pressure head of the system with respect to Joukowsky’s pressure (Wylie and Streeter, 1993). 
+ 
+ 
+ 
+Figure 1. Physics-informed Neural Network architecture with five layers (1 input, 3 hidden, and 1 output) each 
+of which contains 20 neurons. 
+ 
+The input data for space 
+x  and time 
+t  is obtained by generating 20×103 collocation points from the Sobol 
+set with the threshold of 
+[0, ]T  for time and 
+[0, ]L  for space. For L -BFGS, the total number of iterations and 
+maximum function evaluation are set to 30×10 3. The optimality threshold is set to 1×10 -5. For the ADAM 
+optimizer, the number of epochs is set to 7500 with the minibatch size of 5000 such that the t otal number of 
+iterations required to complete the epochs is 30×103. For both algorithms, the hyperbolic tangent function “tanh’’ 
+is used as an activation function. The choice of these hyperparameters (i.e., number of layers, size of each 
+
+
+===== PAGE 4 =====
+                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+layer, number of iterations and epochs, and activation function) is made with a trial -and-error approach. The 
+model is optimized on a CPU with the following specifications: Intel® Xeon® W-2295 CPU@ 3.00 GHz with 256 
+GB RAM.  
+ 
+Figure 2. Exact MOC solution in space-time diagram. 
+ 
+3.1 Results 
+ 
+In the initial analysis, the PINN model was optimized with two boundary conditions, and two pressure-head 
+profiles at t = 0 and 
+tt=  as ICs (the latter IC is provided to compensate for Eq. [ 5]). It is found that PINN 
+model is unable to predict the transient response of the system . Those initial results are not shown here for 
+brevity. However, by providing the steady-state pressure head profile ( at 
+0t = , i.e., Eq. [4]) and one dataset 
+from 
+/ 0.3mxL =  (i.e., 
+XMLoss ) gives satisfactory results. Therefore, in what follows,  the PINN models are 
+optimized using two BCs, one IC (pressure head profile), and one additional measurement from 
+/ 0.3mxL =  
+(unless specified otherwise). The scenario wherein both ICs are unknown is also discussed in Section 3.2. 
+ 
+3.1.1 Performance comparison between ADAM and L-BFGS algorithms 
+ 
+Figure 3 gives the loss functions of both optimizers and shows that L-BFGS has a faster convergence rate 
+in comparison to ADAM. In terms of computational cost, the ADAM optimizer was completed in about 3 hours 
+and 30 minutes, while for the same number of iterations (i.e., for 30×103 iterations), L-BFGS took around 4 hours 
+and 54 minutes to complete. Studies suggest that ADAM optimizer with a mini-batch approach requires more 
+epochs (i.e., more iterations) to achieve effective results which may increase the computational cost  Raissi et 
+al., (2019) . However, as known for any machine learning model, these suggestions are highly 
+problem/application dependent. An appealing approach to reduce the computational cost is to adopt the transfer 
+learning approach suggested by Raissi et al., (2019) wherein a pre-optimized model can be used to re-optimize 
+over a new dataset. 
+In terms of accuracy, the results  obtained with each optimizer are presented in Figure 4. The intensity of 
+the color in this figure shows the amplitude of the non-dimensional pressure head. Figure 4(a) displays the exact 
+MOC solution. Figure 4(b) shows that L-BFGS has accurately predicted the transient response of the system at 
+all time steps. In comparison, Figure 4(c) shows that the ADAM optimizer has roughly captured the overall wave 
+path and needs more iterations to further refine the model parameters. Similar observations are also noticed by 
+other researchers in this area ( e.g., Alkhalifah et al., (2021); Tartakovsky et al., (2020); Raissi et al., (2019)).  
+Therefore, in what follows, only L-BFGS algorithm is used. 
+ 
+Figure 3. Loss function versus the number of total iterations for L-BFGS (dashed line) and ADAM (solid line). 
+
+
+===== PAGE 5 =====
+          
+ 
+Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+ 
+ 
+ 
+ 
+Figure 4. Space-time diagram of wave propagation in (a) exact MOC, (b) PINN with L-BFGS optimizer, and 
+(c) PINN with ADAM optimizer. 
+ 
+3.1.2 Detailed analysis of PINN model optimization with L-BFGS algorithm  
+ 
+Figure 5 shows the timelapse of wave propagation for the first half-period 
+2/t L a= . Each box in this figure 
+contains the exact MOC solution (solid black line) and PINN solution (dotted red line) optimized with the L-BFGS 
+algorithm. The PINN model has successfully predicted the wave propagation for all spatial coordinates at 
+different time steps. A closer look at these results reveals that the predicted and exact pressure  profiles have 
+minor discrepancies in terms of predicting the sharpness of the pulse. This form of discrepancies is attributed 
+to the number of layers of the network. The original paper on PINNs by Raissi et al., (2019) showed that as the 
+number of layers  increases, the matching between the exact and PINN-based solution improves. It is worth 
+highlighting that there are no explicit (or well-defined) steps to define the optimal PINN architecture (i.e., number 
+of layers and number of neurons ). Such discrepancies can be minimized in several ways  by: (i) increasing the 
+number of layers  as increasing the number of layers helps to predict the sharp er functions (Alkhalifah et al., 
+2021; Raissi et al., 2019), (ii) using the transfer learning approach wherein PINN model parameters 
+( , , )wb   of 
+a pre-optimized PINN model for smooth wavefield can be used as an initial point for optimizing the PINN model 
+for sharp wavefield. These options will be further explored in future papers.  
+Figure 6 shows the wave propagation through the space-time diagram for (a) MOC, (b) PINN, and (c) the 
+difference between MOC and PINN. The color bars in this figure represent the non-dimensional pressure head. 
+This figure also demonstrates the effectiveness of the PINN model in terms of capturing the boundary conditions 
+and wave dynamics of th e system. It is worth highlighting that the PINN model is semi-exact (and not mesh -
+dependent) in the sense that the optimized PINN model can be used for any spatial or temporal discretization. 
+In fact, the results shown in Figure 6(b) have higher spatiotemporal resolution with 
+0.1x=  m and  
+0.0001t=  
+s which is much smaller than the discretization used in the MOC model. The PINN results in Figure 6(b) are 
+downsampled to obtain Figure 6(c). Note that the model discussed in this section is referred to as the “baseline 
+model” in the remaining part of the paper.   
+ 
+3.1.3 Comparison between PINN and ordinary NN models 
+ 
+In this section, the PINN and ordinary NN are compared to give a brief comparison in terms of learning the 
+solution to PDE. Both models are optimized under the same network and hyperparameters settings. The results 
+are presented in Figures 7 and 8. Figure 7 compares the exact MOC solution, NN solution, and PINN solution 
+at all three measurement locations which are provided as the boundary constraints . It can be seen that the 
+ordinary NN can fairly replicate the boundary conditions (7a and 7c) and partially predicted the pressure signal 
+at 
+/ 0.3mxL = . However, it fails to predict the wave signal at other locations which were not provided as boundary 
+constraints as can be seen from Figure 8. On the other hand, PINN has well -predicted the transient response 
+throughout the spatial as well as temporal domains.  It is important to note that Figure 8c does not mean that 
+NN cannot be used to predict wave propagation . This is because the NN  simulation in Figure 8c only used 
+
+
+===== PAGE 6 =====
+                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+training data set at the boundaries . However, A fair comparison between conventional NN and PINN would 
+require that the conventional NN to be trained by providing as many training datasets within the domain as the 
+number of collocation points used for PINN. The reason why such internal training dataset was not provided to 
+train NN is because it is impractical. In real system, such internal measu rements at  random spatiotemporal 
+points (20,000 points) cannot be collected. Moreover, even by using MOC numerical simulation, it is impractical 
+to generate millions of mesh points to obtain 20,000 training dataset points (as provided for PINN). This practical 
+limitation does not exist in the framework of PINN since pressure measurements at collocation points are not 
+required. PINN computes the gradients of the NN-estimated pressure at the allocation points and optimize the 
+modeling parameters 
+( , , )wb   according to the imposed wave equations ( see Eqs. [8] and [9]). The ability of 
+PINN to overcome this practical limitation is precisely the main motivation of conducting this research work.  
+ 
+ 
+Figure 5. Comparison of MOC and PINN model in terms of timelapse of wave propagation. 
+ 
+ 
+Figure 6. Space-time diagram of wave propagation in (a) Exact MOC, (b) PINN, and (c) their difference. The 
+color bar shows the non-dimensional amplitude of the wave.  
+ 
+
+
+===== PAGE 7 =====
+          
+ 
+Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+ 
+ 
+ 
+Figure 7. Pressure-time signals for MOC, NN, and PINN models at different locations. 
+ 
+ 
+Figure 8. Space-time diagram of wave propagation in (a) MOC, (b) PINN (baseline model), and (c) ordinary 
+NN. 
+3.2 Sensitivity analysis 
+ 
+In this section, the influence of (i) frequency of the source, (ii) time extent of the solution, and (iii) 
+measurement locations on the accuracy and performance of PINN models are studied systematically. Figure 9 
+shows two wave excitations in time and frequency domains : Excitation-1 has the bandwidth of [0, 5] Hz (solid 
+line) with, 
+0.1( / )T La = , and is the same as the one used in the baseline model (Figure 6); Excitation-2 has 
+the bandwidth of [0, 10] Hz , with 
+0.04( / )T La =  (dashed line) whose exact solution is shown in Figure 10(a). 
+The objective is to optimize the PINN model according to excitation -2 using the same PINN architecture and 
+hyperparameters as the baseline model. Figures 10(b) and 10(c) show the performance of two PINN models: 
+PINN-A is the solution when the model is similar to that used in the baseline model and PINN-B is the solution 
+when the number of neurons in e ach layer are increased from 20 to 100. It is observed that the  PINN model 
+which successfully predicted the response subjected to excitation -1 (see Figure 6) is prone to errors when 
+optimized according to excitation-2 that contains a sharper pressure pulse with higher frequency bandwidth (see 
+Figure 10(b)). On the other hand, as the number of neurons in each layer are increase d from 20 to 100, the 
+
+
+===== PAGE 8 =====
+                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+PINN model has accurately reproduced the response (see Figure 10(c)). Accurately modeling high frequency 
+waves is an important aspect because high frequency waves are required in transient based defect detection 
+methods (Lee et al., 2015; Waqar et al., 2022) to localize defect more accurately (higher resolution).  
+ 
+Figure 9. Space-time diagram of wave propagation in (a) MOC, (b) PINN, and (c) ordinary NN.  
+ 
+Regarding the time extent of the solution, Figure 11 shows the optimization of PINN models with the same 
+initial/boundary conditions, the number of layers, and hyperparameters as described in Section 3.1 (i.e., the 
+baseline model) but for the case where the length of the signal is 
+8/t L a=  (instead of 
+4/t L a= ). In this case, 
+two PINN models are optimized: PINN-1 with 20 neurons in each layer (i.e., same as baseline model in Section 
+3.1), and PINN-2 with 100 neurons in each layer. It can be seen that the PINN -1 model is able to capture only 
+the first half-period of the wave 
+(2 / )t L a= , while failed to capture the remaining part of the wavefield, whereas 
+PINN-2 has fairly predicted the transient response of the system with relatively fewer errors. The results 
+presented in Figures 10 and 11 are intriguing and hint that the accuracy of PINNs is sensitive to the time extent 
+of the signal as well as on the frequency content of the signal. From a practical viewpoint, the foregoing analysis 
+implies that the adoption of the PINN framework requires a trial -and-error approach to obtain the optimal PINN 
+architecture and hyperparameter settings.    
+ 
+ 
+Figure 10. Space-time diagram of wave propagation in (a) Exact MOC, (b) PINN-A with Excitation 2 (20 
+neurons per layer), (c) PINN-B with Excitation 2 (100 neurons per layer). 
+ 
+Figure 12 displays the performance of 5 PINN models which have same NN model parameters as used in 
+the baseline model but  are optimized under different constraining dataset scenarios. In particular, for PINN-I, 
+PINN-II & PINN-III, the additional measurement point (defined in Eq. [13]) is located at 
+/ 0.3mxL = , 
+/ 0.5mxL =
+
+
+===== PAGE 9 =====
+          
+ 
+Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+ 
+ 
+, & 
+/ 0.75mxL = , respectively. The results are shown in Figures 12 (b – d) which demonstrate that PINN models 
+also very sensitive to the measurement location of the constraining dataset. These results also show that the 
+sensor locations which are closer to the boundaries are relatively more useful than those in the middle of the 
+pipe. PINN-IV and PINN-V consider the scenarios when the ICs are not provided at all. In this case, PINN-IV 
+predicts the response u sing only one measurement point along the pipe located at 
+/ 0.3mxL = , and PINN-V 
+predicts the response using two measurement points located at 
+/ [0.3, 0.5]mxL = . The results are given in Figure 
+12(e-f). It is observed that providing one additional measurement location ( in addition to the upstream and 
+downstream boundary conditions) is not enough (see Fig ure 12(e)) as the predicted response is blurred. 
+However, w hen two measurements along the pipe are provided  at 
+/ [0.3, 0.5]mxL = , the PINN model has 
+accurately predicted the transient response (see Figure 12(f)). Therefore, if the initial conditions are not known 
+(which is usually the case in practice), at least two measurement locations along the pipe are needed to optimize 
+the PINN models. 
+ 
+ 
+Figure 11. Space-time diagram of wave propagation in (a) MOC, (b) PINN-1 (with 20 neurons per layer), and 
+(c) PINN-2 (100 neurons per layer).  
+ 
+ 
+Figure 12. Space-time diagram of wave propagation in (a) Exact MOC, (b) PINN-I with
+/ 0.3mxL = (baseline 
+model), (c) PINN-II with 
+/ 0.5mxL = , (d) PINN-III with 
+/ 0.75mxL = , (e) PINN-IV with 
+/ 0.3mxL = and no IC, and 
+(f) PINN-V with 
+/ [0.3, 0.5]mxL =  and no IC. 
+
+
+===== PAGE 10 =====
+                Proceedings of the 39th IAHR World Congress 
+19-24 June 2022, Granada, Spain 
+ 
+  
+                                                                                                                  ©2022 IAHR. Used with permission / ISSN-L 2521-7119                        
+ 
+4. CONCLUSIONS AND FUTURE PLANS 
+ 
+In this paper, the framework of a physics-informed neural network (PINN) is explored to predict the 
+hydraulic transient response of a reservoir-pipe-reservoir system. The results of the PINN model are compared 
+with the exact MOC solution and with the ordinary NN model. The results show that the PINN algorithm can 
+predict the transient response of the system throughout the pipe domain. However, it is also  noticed that the 
+accuracy of the model is sensitive to the (i) frequency bandwidth of the signals, (ii) time length of the solution, 
+and (iii) spatial location of data points as constraints. In particular, the results demonstrate that as the length or 
+frequency bandwidth of the signal increases, a denser PINN architecture is required to accurately predict the 
+response of the system. Furthermore, i t is noticed that some measure ment locations bring more benefit s in 
+terms of optimizing the model than others. More research is required to further elucidate the sensitivity of PINN 
+models concerning constraining datasets and PINN architecture. Currently, the PINN framework  is being 
+extended for the case where the effect of friction and fluid -structure interaction are included (e.g. , steady & 
+unsteady frictions and viscoelastic effects) . Another potential application of PINN would be to predict the 
+transient response of a pipe network which will be explored in future work. 
+ 
+ 
+5. ACKNOWLEDGEMENTS  
+ 
+The authors would like to acknowledge the financial support provided by the Research Grant Council, 
+University Grants Committee of Hong Kong (Project No. T21 -602/15R, 16203417, 16208618, 1 6214219), the 
+Chinese Estate Professorship in Engineering (Project No. R8031), and the HKUST Postgraduate Studentship. 
+ 
+ 
+6. REFERENCES  
+ 
+Alkhalifah, T., Song, C., bin Waheed, U., & Hao, Q. (2021). Wavefield solutions from machine learned functions 
+constrained by the Helmholtz equation. Artificial Intelligence in Geosciences, 2, 11 -19. 
+Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine 
+learning: a survey. Journal of Machine Learning Research, 18, 1-43. 
+Ghidaoui, M. S. (2004). On the fundamental equations of water hammer. Urban Water Journal, 1(2), 71 -83. 
+Huang, X., Liu, H., Shi, B., Wang, Z., Yang, K., Li, Y., ... & Dong, B. (2021). Solving Partial Differential Equations 
+with Point Source Based on Physics-Informed Neural Networks. arXiv preprint arXiv:2111.01394. 
+Karniadakis, G. E., Kevrekidis, I. G., Lu, L., Perdikaris, P., Wang, S., & Yang, L. (2021). Physics -informed 
+machine learning. Nature Reviews Physics, 3(6), 422-440. 
+Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.  
+Lai, Z., Mylonas, C., Nagarajaiah, S., & Chatzi, E. (2021). Structural identification with physics -informed neural 
+ordinary differential equations. Journal of Sound and Vibration, 508, 116196. 
+Lee, P. J., Duan, H. F., Tuck, J., & Ghidaoui, M. (2015). Numerical and experimental study on the effect of signal 
+bandwidth on pipe assessment using fluid transients. Journal of Hydraulic Engineering, 141(2), 04014074.  
+Raissi, M., Perdikaris, P., & Karniadakis, G. E. (2019). Physics -informed neural networks: A deep learning 
+framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal 
+of Computational Physics, 378, 686-707. 
+Tartakovsky, A. M., Marrero, C. O., Perdikaris, P., Tartakovsky, G. D., & Barajas ‐Solano, D. (2020). Physics ‐
+informed deep neural networks for learning parameters and constitutive relationships in subsurface flow 
+problems. Water Resources Research, 56(5), e2019WR026731. 
+Waheed, U.B., Haghighat, E., Alkhalifah, T., Song, C., & Hao, Q. (2021). PINNeik: Eikonal solution using 
+physics-informed neural networks. Computers & Geosciences, 104833. 
+Waqar, M., Louati, M., & Ghidaoui, M. S. (2022). Time-reversal of water-hammer waves. Journal of Hydraulic 
+Research, 60(1), 25-45. 
+Wylie, E. B., Streeter, V. L., & Suo, L. (1993). Fluid transients in systems (Vol. 1, p. 464). Englewood Cliffs, NJ: 
+Prentice Hall. 

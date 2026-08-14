@@ -1,0 +1,76 @@
+\n===== PAGE 1 =====\nCondition assessment of pressurized pipelines using
+transient waves and time-reversal technique
+by
+Muhammad WAQAR
+A Thesis Submitted to
+The Hong Kong University of Science and Technology
+in Partial Fulfillment of the Requirements for
+the Degree of Doctor of Philosophy
+in Civil Engineering
+August 2022, Hong Kong\n===== PAGE 2 =====\nAuthorization
+I hereby declare that I am the sole author of the thesis.
+I authorize the Hong Kong University of Science and Technology to lend this thesis
+to other institutions or individuals for the purpose of scholarly research.
+I further authorize the Hong Kong University of Science and Technology to reproduce
+the thesis by photocopying or by other means, in total or in part, at the request of other
+institutions or individuals for the purpose of scholarly research.
+Muhammad WAQAR
+24 August 2022
+ii
+Signature redacted\n===== PAGE 3 =====\nSignature redacted
+Signature redacted
+Signature redacted\n===== PAGE 9 =====\n4.5.2 Scenario II: damped system . . . . . . . . . . . . . . . . . . . . . . 7777
+4.6 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8181
+4.6.1 Range of time-reversibility of waves . . . . . . . . . . . . . . . . . 8282
+4.7 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8484
+Chapter 5 Time-reversal technique for pipeline defect detection . . . . . . . 8585
+5.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8585
+5.2 Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8585
+5.2.1 Analytical model . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8686
+5.2.2 Time-reversal technique . . . . . . . . . . . . . . . . . . . . . . . . 8888
+5.2.3 Solution for multiple leaks . . . . . . . . . . . . . . . . . . . . . . 9090
+5.2.4 Alternative of impulse response function . . . . . . . . . . . . . . 9191
+5.3 Numerical examples for a single pipeline . . . . . . . . . . . . . . . . . . 9292
+5.3.1 Example 1: one leak case . . . . . . . . . . . . . . . . . . . . . . . 9494
+5.3.2 Example 2: multiple leaks and spatial resolution . . . . . . . . . 9797
+5.3.3 Example 3: mixed-type of defects . . . . . . . . . . . . . . . . . . 100100
+5.4 Application to pipe network . . . . . . . . . . . . . . . . . . . . . . . . . . 101101
+5.4.1 Results and discussion . . . . . . . . . . . . . . . . . . . . . . . . . 105105
+5.5 Stability of the defect detection scheme . . . . . . . . . . . . . . . . . . . 107107
+5.6 Experimental validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 109109
+ix\n===== PAGE 13 =====\nC.5 TR using original pulse-response . . . . . . . . . . . . . . . . . . . . . . . 210210
+Appendix D Supplementary material for metamaterials . . . . . . . . . . . 212212
+D.1 Transfer matrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 212212
+D.1.1 Single, undamped pipeline . . . . . . . . . . . . . . . . . . . . . . 212212
+D.1.2 Two pipelines of different impedance without damping . . . . . 212212
+D.2 Helmholtz resonance frequency . . . . . . . . . . . . . . . . . . . . . . . . 214214
+D.3 Alternative approach to determine the dispersion relation . . . . . . . . 215215
+D.3.1 Bloch’s theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 216216
+D.3.2 Periodicity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217217
+D.3.3 Dispersion relation . . . . . . . . . . . . . . . . . . . . . . . . . . . 217217
+Bibliography . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 219219
+xiii\n===== PAGE 21 =====\n7.5 Series arrangement of pipe with periodic change in impedance Z1 and
+Z2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153153
+7.6 Dispersion curve for the case of pipeline without and with periodic
+structure (metamaterial) without damping. . . . . . . . . . . . . . . . . . 156156
+7.7 Multiple Helmholtz resonators connected in series (layout not to scale). 157157
+7.8 Received signal for system with a0 = 1000 m.s −1 in (a) time, and (b)
+frequency domains. Received signal for system with a0 = 300 m.s−1 in
+(c) time, and (d) frequency domains. . . . . . . . . . . . . . . . . . . . . . 158158
+7.9 Wave propagation in space-time diagram for system with (a) metama-
+terials, (b) discrete blockage, and (c) extended blockage. . . . . . . . . . 159159
+7.10 Dispersion curves for a0 = 1000 m.s−1 for waveguide (a) without meta-
+materials, and (b) with metamaterials. . . . . . . . . . . . . . . . . . . . 160160
+7.11 Dispersion curves for a0 = 300 m.s−1 for waveguide (a) without meta-
+materials, and (b) with metamaterials. . . . . . . . . . . . . . . . . . . . 161161
+7.12 (a) Measured signals during forward-in-time propagation; (b) time-
+reversed version of the measured signal. . . . . . . . . . . . . . . . . . . 162162
+7.13 Wave refocusing on the periodic resonators. . . . . . . . . . . . . . . . . 162162
+7.14 Layout of the pipe with meta-pipe section along with a source in the
+middle of meta-pipe with two receivers (layout not to scale). . . . . . . . 164164
+7.15 TR source localization in (i) normal pipe (solid line) and (ii) meta-pipe
+(dotted and dash-dotted lines). . . . . . . . . . . . . . . . . . . . . . . . . 164164
+7.16 Dispersion curves for (i) normal pipe (solid line) and (ii) meta-pipe
+(dotted and dash-dotted lines) . . . . . . . . . . . . . . . . . . . . . . . . 165165
+7.17 Metamaterial obtained from periodic change in wave speed. . . . . . . . 166166
+xxi

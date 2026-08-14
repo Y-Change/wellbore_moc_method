@@ -508,10 +508,15 @@ def _fracture_match_tol_m(
     v: float,
     fs: float = 1000.0,
 ) -> float:
-    """缝深匹配容差 [m]（与 analysis/cepstrum/_kb_core.peak_find_params 一致）。"""
-    sorted_d = sorted(fracture_depths_m)
-    min_spacing = float(min(np.diff(sorted_d))) if len(sorted_d) > 1 else 300.0
-    return float(np.clip(min_spacing * 0.45, 80.0, 250.0))
+    """固定缝深匹配容差 [m]。
+
+    历史实现为 ``clip(0.45 × 真实最小缝距, 80, 250)``，既泄漏真值，又因 80 m 下限
+    使近距评估对「相邻峰合并」失效模式全盲（EXP-20260730-018/-025）。
+    现改为读取 ``CEPSTRUM_CONFIG['match_tolerance_m']`` 的固定值，与真值无关。
+
+    ``fracture_depths_m`` / ``v`` / ``fs`` 仅为兼容旧调用签名保留，**已被忽略**。
+    """
+    return _peak_find_cfg()['match_tolerance_m']
 
 
 def _peak_find_cfg() -> Dict:
@@ -524,66 +529,82 @@ def _peak_find_cfg() -> Dict:
         'peak_height_pct': float(C.get('peak_height_pct', 90.0)),
         'peak_height_rel': float(C.get('peak_height_rel', 0.05)),
         'peak_height_abs': float(C.get('peak_height_abs', 0.0)),
-        'peak_distance_frac': float(C.get('peak_distance_frac', 0.35)),
+        'peak_min_separation_m': float(C.get('peak_min_separation_m', 5.0)),
+        'peak_prominence_rel': float(C.get('peak_prominence_rel', 0.0)),
         'peak_top_n': int(C.get('peak_top_n', 15)),
+        'match_tolerance_m': float(C.get('match_tolerance_m', 10.0)),
+        'match_tolerance_sweep_m': tuple(
+            C.get('match_tolerance_sweep_m', (2.0, 5.0, 10.0, 20.0, 40.0))
+        ),
     }
+
+
+def _depth_step_m(
+    depth_arr: np.ndarray,
+    v: Optional[float] = None,
+    fs: float = 1000.0,
+) -> float:
+    """深度轴步长 [m]，供最小峰距换算。"""
+    if len(depth_arr) >= 2:
+        step = float(np.median(np.abs(np.diff(depth_arr))))
+        if step > 0:
+            return step
+    if v is not None and fs > 0:
+        return float(v) / (2.0 * fs)
+    return 0.725
 
 
 def _peak_distance_bins(
     depth_arr: np.ndarray,
     n_resp: int,
-    fracture_depths_m: Optional[List[float]] = None,
     v: Optional[float] = None,
     fs: float = 1000.0,
-    distance_frac: Optional[float] = None,
+    min_separation_m: Optional[float] = None,
 ) -> int:
-    """寻峰最小间距（采样点数）。
+    """寻峰最小间距（采样点数），由固定物理间距换算。
 
-    若已知 ≥2 条缝深：按最小缝距设置（与 ``_kb_core.peak_find_params`` 一致）
-        distance = max(3, int(min_spacing / depth_step * distance_frac))
-    否则回退：max(3, n // 200)
+    历史实现按 ``0.35 × 真实最小缝距`` 设置，属真值泄漏（EXP-20260730-018/-025）。
+    现改为固定 ``min_separation_m``（默认取自 ``CEPSTRUM_CONFIG``），与真值无关。
     """
-    if distance_frac is None:
-        distance_frac = _peak_find_cfg()['peak_distance_frac']
+    if min_separation_m is None:
+        min_separation_m = _peak_find_cfg()['peak_min_separation_m']
 
-    if len(depth_arr) >= 2:
-        depth_step = float(np.median(np.diff(depth_arr)))
-    elif v is not None and fs > 0:
-        depth_step = float(v) / (2.0 * fs)
-    else:
-        depth_step = 0.725
-
-    if depth_step <= 0:
-        depth_step = 0.725
-
-    if fracture_depths_m is not None and len(fracture_depths_m) >= 2:
-        sorted_d = sorted(float(d) for d in fracture_depths_m)
-        min_spacing = float(min(np.diff(sorted_d)))
-        if min_spacing > 0:
-            return max(3, int(min_spacing / depth_step * distance_frac))
-
-    return max(3, n_resp // 200)
+    depth_step = _depth_step_m(depth_arr, v=v, fs=fs)
+    return max(1, int(round(float(min_separation_m) / depth_step)))
 
 
 def detect_1d_cepstrum_peaks(
     depth: np.ndarray,
     response: np.ndarray,
-    fracture_depths_m: Optional[List[float]] = None,
+    *,
     v: Optional[float] = None,
     fs: float = 1000.0,
+    min_separation_m: Optional[float] = None,
+    fracture_depths_m: Optional[List[float]] = None,
 ) -> List[Dict]:
-    """1D 实倒谱峰检测（与 plot_moc_cepstrum_analysis 第 3 / 5 子图同一套参数）。
+    """1D 实倒谱**盲**峰检测（与 plot_moc_cepstrum_analysis 第 3 / 5 子图同一套参数）。
 
     高度门限（可由 CEPSTRUM_CONFIG 调节）::
 
         height = max(P{pct}, rel * max(response), abs)
 
+    .. warning::
+       本函数**不得看到任何真值**。历史版本用真实最小缝距设置最小峰距，
+       导致所有历史匹配结果都不是盲结果（EXP-20260730-018/-025）。
+       ``fracture_depths_m`` 仅作为防回归护栏保留：一旦传入即抛错。
+
     Parameters
     ----------
-    fracture_depths_m : 若提供 ≥2 条缝深，最小峰间距按实际最小缝距自适应；
-        否则用 n//200 启发式。
+    min_separation_m : 最小峰间距 [m]；None 时取 ``CEPSTRUM_CONFIG['peak_min_separation_m']``。
     v, fs : 仅在 depth 轴不规则、需回退 depth_step=v/(2fs) 时使用。
     """
+    if fracture_depths_m is not None:
+        raise TypeError(
+            "detect_1d_cepstrum_peaks 不接受真值：传入 fracture_depths_m 会造成"
+            "真值泄漏（EXP-20260730-018/-025）。请改用 min_separation_m 指定固定最小峰距，"
+            "真值只允许出现在评分侧（analysis/unified_evaluation/detection_protocol.py）。"
+        )
+
     depth_arr = np.asarray(depth, dtype=float)
     resp_arr = np.asarray(response, dtype=float)
     if len(resp_arr) <= 20:
@@ -597,14 +618,14 @@ def detect_1d_cepstrum_peaks(
 
     distance = _peak_distance_bins(
         depth_arr, len(resp_arr),
-        fracture_depths_m=fracture_depths_m, v=v, fs=fs,
-        distance_frac=cfg['peak_distance_frac'],
+        v=v, fs=fs, min_separation_m=min_separation_m,
     )
-    peaks, props = scipy_signal.find_peaks(
-        resp_arr,
-        height=peak_height_thresh,
-        distance=distance,
-    )
+    find_kwargs: Dict = {'height': peak_height_thresh, 'distance': distance}
+    if cfg['peak_prominence_rel'] > 0.0:
+        span = rmax - float(np.min(resp_arr))
+        find_kwargs['prominence'] = cfg['peak_prominence_rel'] * max(span, 0.0)
+
+    peaks, props = scipy_signal.find_peaks(resp_arr, **find_kwargs)
     if len(peaks) == 0:
         return []
 
@@ -627,63 +648,40 @@ def evaluate_1d_cepstrum_fracture_match(
     fracture_nominal_m: List[float],
     v: float,
     fs: float = 1000.0,
+    min_separation_m: Optional[float] = None,
 ) -> Dict:
-    """将 1D 实倒谱检测峰与名义缝深匹配，输出 JSON 友好摘要。"""
+    """1D 实倒谱**盲检测 + 独立评分**，输出 JSON 友好摘要。
+
+    检测阶段看不到 ``fracture_nominal_m``；真值只进入评分阶段，且容差为固定值
+    （见 ``CEPSTRUM_CONFIG['match_tolerance_m']`` 与容差扫描）。
+    """
+    from analysis.unified_evaluation.detection_protocol import (
+        score_detections,
+        tolerance_sweep,
+    )
+
+    cfg = _peak_find_cfg()
     detected = detect_1d_cepstrum_peaks(
-        depth, response,
-        fracture_depths_m=fracture_nominal_m, v=v, fs=fs,
+        depth, response, v=v, fs=fs, min_separation_m=min_separation_m,
     )
     n_fracs = len(fracture_nominal_m)
-    match_tol_m = _fracture_match_tol_m(fracture_nominal_m, v, fs)
+    match_tol_m = cfg['match_tolerance_m']
 
-    if not detected:
-        matches = [{
-            'frac_id': i + 1,
-            'true_depth_m': float(d),
-            'peak_depth_m': None,
-            'peak_val': None,
-            'error_m': None,
-            'matched': False,
-        } for i, d in enumerate(fracture_nominal_m)]
-        return {
-            'detected_peaks': [],
-            'matches': matches,
-            'n_matched': 0,
-            'n_fracs': n_fracs,
-            'mean_error_m': None,
-            'max_error_m': None,
-            'snr': None,
-            'match_tol_m': match_tol_m,
-        }
+    peak_depths = [p['depth_m'] for p in detected]
+    height_by_depth = {p['depth_m']: p['response'] for p in detected}
 
-    peak_depths = np.array([p['depth_m'] for p in detected], dtype=float)
-    peak_heights = np.array([p['response'] for p in detected], dtype=float)
-    resp_arr = np.asarray(response, dtype=float)
-    bg = float(np.percentile(resp_arr, 50))
-    snr = float(np.max(resp_arr) / max(abs(bg), 1e-12))
+    primary = score_detections(peak_depths, fracture_nominal_m, match_tol_m)
+    sweep = tolerance_sweep(
+        peak_depths, fracture_nominal_m, cfg['match_tolerance_sweep_m'],
+    )
 
+    matched_by_true = {
+        round(m['true_depth_m'], 6): m for m in primary['matches']
+    }
     matches = []
-    used = set()
     for i, true_d in enumerate(fracture_nominal_m):
-        best_j, best_err = None, np.inf
-        for j, pd in enumerate(peak_depths):
-            if j in used:
-                continue
-            err = abs(float(pd) - float(true_d))
-            if err < best_err:
-                best_err = err
-                best_j = j
-        if best_j is not None and best_err <= match_tol_m:
-            used.add(best_j)
-            matches.append({
-                'frac_id': i + 1,
-                'true_depth_m': float(true_d),
-                'peak_depth_m': float(peak_depths[best_j]),
-                'peak_val': float(peak_heights[best_j]),
-                'error_m': float(best_err),
-                'matched': True,
-            })
-        else:
+        hit = matched_by_true.get(round(float(true_d), 6))
+        if hit is None:
             matches.append({
                 'frac_id': i + 1,
                 'true_depth_m': float(true_d),
@@ -692,21 +690,49 @@ def evaluate_1d_cepstrum_fracture_match(
                 'error_m': None,
                 'matched': False,
             })
+        else:
+            matches.append({
+                'frac_id': i + 1,
+                'true_depth_m': float(true_d),
+                'peak_depth_m': float(hit['pred_depth_m']),
+                'peak_val': height_by_depth.get(hit['pred_depth_m']),
+                'error_m': float(hit['error_m']),
+                'matched': True,
+            })
 
-    matched_errs = [m['error_m'] for m in matches if m['matched']]
-    mean_err = float(np.mean(matched_errs)) if matched_errs else None
-    max_err = float(np.max(matched_errs)) if matched_errs else None
-    n_matched = sum(1 for m in matches if m['matched'])
+    resp_arr = np.asarray(response, dtype=float)
+    bg = float(np.percentile(resp_arr, 50))
+    snr = float(np.max(resp_arr) / max(abs(bg), 1e-12)) if resp_arr.size else None
 
     return {
         'detected_peaks': detected,
         'matches': matches,
-        'n_matched': n_matched,
+        'n_matched': int(primary['tp']),
         'n_fracs': n_fracs,
-        'mean_error_m': mean_err,
-        'max_error_m': max_err,
+        'mean_error_m': primary['mean_error_m'],
+        'max_error_m': primary['max_error_m'],
         'snr': snr,
         'match_tol_m': match_tol_m,
+        # ---- 盲协议新增 ----
+        'n_detected': int(primary['n_pred']),
+        'precision': primary['precision'],
+        'recall': primary['recall'],
+        'f1': primary['f1'],
+        'exact_count': primary['exact_count'],
+        'separation_success': primary['separation_success'],
+        'n_likely_merged': primary['n_likely_merged'],
+        'median_error_m': primary['median_error_m'],
+        'tolerance_sweep': [
+            {
+                'tolerance_m': s['tolerance_m'],
+                'f1': s['f1'],
+                'precision': s['precision'],
+                'recall': s['recall'],
+                'separation_success': s['separation_success'],
+                'n_likely_merged': s['n_likely_merged'],
+            }
+            for s in sweep
+        ],
     }
 
 
@@ -729,6 +755,16 @@ def cepstrum_match_summary_for_json(metrics: Dict) -> Dict:
         'max_error_m': _json_float(metrics['max_error_m']),
         'snr': _json_float(metrics.get('snr')),
         'match_tol_m': _json_float(metrics.get('match_tol_m')),
+        # ---- 盲协议新增（EXP-20260730-018/-025 后）----
+        'n_detected': metrics.get('n_detected'),
+        'precision': _json_float(metrics.get('precision')),
+        'recall': _json_float(metrics.get('recall')),
+        'f1': _json_float(metrics.get('f1')),
+        'exact_count': metrics.get('exact_count'),
+        'separation_success': metrics.get('separation_success'),
+        'n_likely_merged': metrics.get('n_likely_merged'),
+        'median_error_m': _json_float(metrics.get('median_error_m')),
+        'tolerance_sweep': metrics.get('tolerance_sweep', []),
         'detected_peaks': metrics.get('detected_peaks', []),
         'matches': [
             {k: _json_float(v) if k in (
@@ -1081,8 +1117,7 @@ def plot_moc_cepstrum_analysis(
     ax3.set_ylim(y_lo, y_hi)
 
     detected_peaks = detect_1d_cepstrum_peaks(
-        depth_arr, resp_arr,
-        fracture_depths_m=fracture_positions, v=wavespeed, fs=fs,
+        depth_arr, resp_arr, v=wavespeed, fs=fs,
     )
     if detected_peaks:
         peak_depths = np.array([p['depth_m'] for p in detected_peaks])
@@ -1148,8 +1183,7 @@ def plot_moc_cepstrum_analysis(
     ax5.set_ylim(y_lo5, y_hi5)
 
     profile_peaks = detect_1d_cepstrum_peaks(
-        depth_prof, profile_2d,
-        fracture_depths_m=fracture_positions, v=wavespeed, fs=fs,
+        depth_prof, profile_2d, v=wavespeed, fs=fs,
     )
     if profile_peaks:
         pk_d = np.array([p['depth_m'] for p in profile_peaks])
@@ -1322,9 +1356,7 @@ def plot_moc_cepstrum_fracture_zoom(
         if x_lo <= p['depth_m'] <= x_hi
     ]
     if not peaks_1d and len(d1) > 20:
-        peaks_1d = detect_1d_cepstrum_peaks(
-            d1, r1, fracture_depths_m=fracture_positions, v=v, fs=fs,
-        )
+        peaks_1d = detect_1d_cepstrum_peaks(d1, r1, v=v, fs=fs)
     if peaks_1d:
         pk_d = np.array([p['depth_m'] for p in peaks_1d])
         pk_h = np.array([p['response'] for p in peaks_1d])
@@ -1384,9 +1416,7 @@ def plot_moc_cepstrum_fracture_zoom(
         if x_lo <= p['depth_m'] <= x_hi
     ]
     if not peaks_2d and len(d3) > 20:
-        peaks_2d = detect_1d_cepstrum_peaks(
-            d3, p3, fracture_depths_m=fracture_positions, v=v, fs=fs,
-        )
+        peaks_2d = detect_1d_cepstrum_peaks(d3, p3, v=v, fs=fs)
     if peaks_2d:
         pk_d = np.array([p['depth_m'] for p in peaks_2d])
         pk_h = np.array([p['response'] for p in peaks_2d])

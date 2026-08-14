@@ -1,0 +1,3933 @@
+SOURCE: A_review_of_water_hammer_theory_and_practice水锤理论与实践综述.pdf
+PAGES: 28
+FULL extract 28 pages
+
+
+
+===== PAGE 1 =====
+Mohamed S. Ghidaoui
+email: ghidaoui@ust.hk
+Ming Zhao
+email: cezhm@ust.hk
+Department of Civil Engineering, The Hong Kong
+University of Science and Technology,
+Hong Kong, China
+Duncan A. McInnis
+Surface Water Group, Komex International Ltd.,
+4500 16th Avenue, Suite 100, N. W. Calgary,
+Alberta T3B 0M6, Canada
+David H. Axworthy
+163 N. Marengo Avenue, #316, Pasadena,
+CA 91101
+email: bm300@lafn.org
+A Review of Water Hammer
+Theory and Practice
+Hydraulic transients in closed conduits have been a subject of both theoretical study and
+intense practical interest for more than one hundred years. While straightforward in terms
+of the one-dimensional nature of pipe networks, the full description of transient ﬂuid ﬂows
+pose interesting problems in ﬂuid dynamics. For example, the response of the turbulence
+structure and strength to transient waves in pipes and the loss of ﬂow axisymmetry in
+pipes due to hydrodynamic instabilities are currently not understood. Yet, such under-
+standing is important for modeling energy dissipation and water quality in transient pipe
+ﬂows. This paper presents an overview of both historic developments and present day
+research and practice in the ﬁeld of hydraulic transients. In particular, the paper dis-
+cusses mass and momentum equations for one-dimensional Flows, wavespeed, numerical
+solutions for one-dimensional problems, wall shear stress models; two-dimensional mass
+and momentum equations, turbulence models, numerical solutions for two-dimensional
+problems, boundary conditions, transient analysis software, and future practical and re-
+search needs in water hammer. The presentation emphasizes the assumptions and restric-
+tions involved in various governing equations so as to illuminate the range of applicabil-
+ity as well as the limitations of these equations. Understanding the limitations of current
+models is essential for (i) interpreting their results, (ii) judging the reliability of the data
+obtained from them, (iii) minimizing misuse of water-hammer models in both research and
+practice, and (iv) delineating the contribution of physical processes from the contribution
+of numerical artifacts to the results of waterhammer models. There are 134 refrences cited
+in this review article. @DOI: 10.1115/1.1828050#
+1 Introduction
+Thus the growth of knowledge of the physical aspect of reality
+cannot be regarded as a cumulative process. The basic Gestalt
+of this knowledge changes from time to tim e... D uring the
+cumulative periods scientists behave as if reality is exactly as
+they know it except for missing details and improvements in
+accuracy. They speak of the laws of nature, for example, which
+are simply models that explain their experience of reality at a
+certain time. Later generations of scientists typically discover
+that these conceptions of reality embodied certain implicit as-
+sumptions and hypotheses that later on turned out to be incor-
+rect. Vanderburg, @1#
+Unsteady ﬂuid ﬂows have been studied since man ﬁrst bent
+water to his will. The ancient Chinese, the Mayan Indians of Cen-
+tral America, the Mesopotamian civilizations bordering the Nile,
+Tigris, and Euphrates river systems, and many other societies
+throughout history have developed extensive systems for convey-
+ing water, primarily for purposes of irrigation, but also for domes-
+tic water supplies. The ancients understood and applied ﬂuid ﬂow
+principles within the context of ‘‘traditional,’’ culture-based tech-
+nologies. With the arrival of the scientiﬁc age and the mathemati-
+cal developments embodied in Newton’s Principia, our under-
+standing of ﬂuid ﬂow took a quantum leap in terms of its
+theoretical abstraction. That leap has propelled the entire develop-
+ment of hydraulic engineering right through to the mid-twentieth
+century. The advent of high-speed digital computers constituted
+another discrete transformation in the study and application of
+ﬂuids engineering principles. Today, in hydraulics and other areas,
+engineers ﬁnd that their mandate has taken on greater breadth and
+depth as technology rapidly enters an unprecedented stage of
+knowledge and information accumulation.
+As cited in The Structure of Scientiﬁc Revolutions , Thomas
+Kuhn @2# calls such periods of radical and rapid change in our
+view of physical reality a ‘‘revolutionary, noncumulative transi-
+tion period’’ and, while he was referring to scientiﬁc views of
+reality, his remarks apply equally to our technological ability to
+deal with a revised or more complex view of the physical uni-
+verse. It is in this condition that the ﬁeld of closed conduit tran-
+sient ﬂow, and even more generally, the hydraulic analysis, de-
+sign, and operation of pipeline systems, currently ﬁnds itself.
+The computer age is still dawning, bringing with it a massive
+development and application of new knowledge and technology.
+Formerly accepted design methodologies, criteria, and standards
+are being challenged and, in some instances, outdated and revised.
+Computer aided analysis and design is one of the principal mecha-
+nisms bringing about these changes.
+Computer analysis, computer modeling, and computer simula-
+tion are somewhat interchangeable terms, all describing tech-
+niques intended to improve our understanding of physical phe-
+nomena and our ability to predict and control these phenomena.
+By combining physical laws, mathematical abstraction, numerical
+procedures, logical constructs, and electronic data processing,
+these methods now permit the solution of problems of enormous
+complexity and scope.
+This paper attempts to provide the reader with a general his-
+tory and introduction to waterhammer phenomena, a general com-
+pendium of key developments and literature references as well as
+an updated view of the current state of the art, both with respect to
+theoretical advances of the last decade and modeling practice.
+2 Mass and Momentum Equations for
+One-Dimensional Water Hammer Flows
+Before delving into an account of mathematical developments
+related to waterhammer, it is instructive to brieﬂy note the societal
+context that inspired the initial interest in waterhammer phenom-
+ena. In the late nineteenth century, Europe was on the cusp of the
+industrial revolution with growing urban populations and indus-
+tries requiring electrical power for the new machines of produc-
+tion. As the fossil fuel era had not begun in earnest, hydroelectric
+generation was still the principal supply of this important energy
+source. Although hydroelectric generation accounts for a much
+smaller proportion of energy production today, the problems asso-
+Transmitted by Associate Editor HJS Fernando.
+Copyright © 2005 by ASMEApplied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 49
+
+===== PAGE 2 =====
+ciated with controlling the ﬂow of water through penstocks and
+turbines remains an important application of transient analysis.
+Hydrogeneration companies contributed heavily to the develop-
+ment of ﬂuids and turbomachinery laboratories that studied,
+among other things, the phenomenon of waterhammer and its con-
+trol. Some of Allievi’s early experiments were undertaken as a
+direct result of incidents and failures caused by overpressure due
+to rapid valve closure in northern Italian power plants. Frictionless
+approaches to transient phenomena were appropriate in these early
+developments because ~i! transients were most inﬂuenced by the
+rapid closure and opening of valves, which generated the majority
+of the energy loss in these systems, and ~ii! the pipes involved
+tended to have large diameters and the ﬂow velocities tended to be
+small.
+By the early 1900s, fuel oils were overtaking hydrogeneration
+as the principal energy source to meet society’s burgeoning de-
+mand for power. However, the fascination with, and need to un-
+derstand, transient phenomena has continued unabated to this day.
+Greater availability of energy led to rapid industrialization and
+urban development. Hydraulic transients are critical design factors
+in a large number of ﬂuid systems from automotive fuel injection
+to water supply, transmission, and distribution systems. Today,
+long pipelines transporting ﬂuids over great distances have be-
+come commonplace, and the almost universal development of
+sprawling systems of small pipe diameter, high-velocity water dis-
+tribution systems has increased the importance of wall friction and
+energy losses, leading to the inclusion of friction in the governing
+equations. Mechanically sophisticated ﬂuid control devices, in-
+cluding many types of pumps and valves, coupled with increas-
+ingly sophisticated electronic sensors and controls, provide the
+potential for complex system behavior. In addition, the recent
+knowledge that negative pressure phases of transients can result in
+contamination of potable water systems, mean that the need to
+understand and deal effectively with transient phenomena are
+more acute than ever.
+2.1 Historical Development: A Brief Summary. The prob-
+lem of water hammer was ﬁrst studied by Menabrea @3#~ although
+Michaud is generally accorded that distinction !. Michaud @4# ex-
+amined the use of air chambers and safety valves for controlling
+water hammer. Near the turn of the nineteenth century, researchers
+like Weston @5#, Carpenter @6# and Frizell @7# attempted to develop
+expressions relating pressure and velocity changes in a pipe. Fri-
+zell @7# was successful in this endeavor and he also discussed the
+effects of branch lines, and reﬂected and successive waves on
+turbine speed regulation. Similar work by his contemporaries
+Joukowsky @8# and Allievi @9,10#, however, attracted greater at-
+tention. Joukowsky @8# produced the best known equation in tran-
+sient ﬂow theory, so well known that it is often called the ‘‘fun-
+damental equation of water hammer.’’ He also studied wave
+reﬂections from an open branch, the use of air chambers and surge
+tanks, and spring type safety valves.
+Joukowsky’s fundamental equation of water hammer is as fol-
+lows:
+DP56
+raDV or DH56
+aDV
+g (1)
+where a5acoustic ~waterhammer! wavespeed, P5rg(H2Z)
+5piezometric pressure, Z5elevation of the pipe centerline from a
+given datum, H5piezometric head, r5ﬂuid density, V5*AudA
+5cross-sectional average velocity, u5local longitudinal velocity,
+A5cross-sectional area of the pipe, and g5gravitational accelera-
+tion. The positive sign in Eq. ~1! is applicable for a water-hammer
+wave moving downstream while the negative sign is applicable
+for a water-hammer wave moving upstream. Readers familiar with
+the gas dynamics literature will note that DP56
+raDV is obtain-
+able from the momentum jump condition under the special case
+where the ﬂow velocity is negligible in comparison to the
+wavespeed. The jump conditions are a statement of the conserva-
+tion laws across a jump ~shock!@ 11#. These conditions are ob-
+tained either by directly applying the conservation laws for a con-
+trol volume across the jump or by using the weak formulation of
+the conservation laws in differential form at the jump.
+Allievi @9,10# developed a general theory of water hammer
+from ﬁrst principles and showed that the convective term in the
+momentum equation was negligible. He introduced two important
+dimensionless parameters that are widely used to characterize
+pipelines and valve behavior. Allievi @9,10# also produced charts
+for pressure rise at a valve due to uniform valve closure. Further
+reﬁnements to the governing equations of water hammer appeared
+in Jaeger @12,13#, Wood @14#, Rich @15,16#, Parmakian @17#,
+Streeter and Lai @18#, and Streeter and Wylie @19#. Their combined
+efforts have resulted in the following classical mass and momen-
+tum equations for one-dimensional ~1D! water-hammer ﬂows
+a
+2
+g
+]V
+]x 1
+]H
+]t 50 (2)
+]V
+]t 1g
+]H
+]x 1
+4
+rD tw50 (3)
+in which tw5shear stress at the pipe wall, D5pipe diameter, x
+5the spatial coordinate along the pipeline, and t5temporal coor-
+dinate. Although Eqs. ~2! and ~3! were fully established by the
+1960s, these equations have since been analyzed, discussed, red-
+erived and elucidated in numerous classical texts ~e.g., @20–23#!.
+Equations ~2! and ~3! constitute the fundamental equations for 1D
+water hammer problems and contain all the physics necessary to
+model wave propagation in complex pipe systems.
+2.2 Discussion of the 1D Water Hammer Mass and Mo-
+mentum Equations. In this section, the fundamental equations
+for 1D water hammer are derived. Special attention is given to the
+assumptions and restrictions involved in various governing equa-
+tions so as to illuminate the range of applicability as well as the
+limitations of these equations.
+Rapid ﬂow disturbances, planned or accidental, induce spatial
+and temporal changes in the velocity ~ﬂow rate! and pressure ~pi-
+ezometric head ! ﬁelds in pipe systems. Such transient ﬂows are
+essentially unidirectional ~i.e., axial ! since the axial ﬂuxes of
+mass, momentum, and energy are far greater than their radial
+counterparts. The research of Mitra and Rouleau @23# for the lami-
+nar water hammer case and of Vardy and Hwang@25# for turbulent
+water-hammer supports the validity of the unidirectional approach
+when studying water-hammer problems in pipe systems.
+With the unidirectional assumption, the 1D classical water ham-
+mer equations governing the axial and temporal variations of the
+cross-sectional average of the ﬁeld variables in transient pipe
+ﬂows are derived by applying the principles of mass and momen-
+tum to a control volume. Note that only the key steps of the
+derivation are given here. A more detailed derivation can be found
+in Chaudhry @20#, Wylie et al. @23#, and Ghidaoui @26#.
+Using the Reynolds transport theorem, the mass conservation
+~‘‘continuity equation’’! for a control volume is as follows ~e.g.,
+@20–23#!
+]
+]t E
+cv
+rd;1 E
+cs
+r~v"n!dA 50 (4)
+where cv5control volume, cs5control surface, n5unit outward
+normal vector to control surface, v5velocity vector.
+Referring to Fig. 1, Eq. ~4! yields
+]
+]t E
+x
+x1dx
+rAdx 1 E
+cs
+r~v"n!dA 50 (5)
+The local form of Eq. ~5!, obtained by taking the limit as the
+length of the control volume shrinks to zero ~i.e., dx tends to
+zero!,i s
+50 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 3 =====
+]~rA!
+]t 1
+]~rAV !
+]x 50 (6)
+Equation ~6! provides the conservative form of the area-averaged
+mass balance equation for 1D unsteady and compressible ﬂuids in
+a ﬂexible pipe. The ﬁrst and second terms on the left-hand side of
+Eq. ~6! represent the local change of mass with time due to the
+combined effects of ﬂuid compressibility and pipe elasticity and
+the instantaneous mass ﬂux, respectively. Equation ~6! can be re-
+written as follows:
+1
+r
+Dr
+Dt 1
+1
+A
+DA
+Dt 1
+]V
+]x 50o r
+1
+rA
+DrA
+Dt 1
+]V
+]x 50 (7)
+where D/Dt 5]/]t1V]/]x5substantial ~material! derivative in
+one spatial dimension. Realizing that the density and pipe area
+vary with pressure and using the chain rule reduces Eq. ~7! to the
+following:
+1
+r
+dr
+dP
+DP
+Dt 1
+1
+A
+dA
+dP
+DP
+Dt 1
+]V
+]x 50o r
+1
+ra2
+DP
+Dt 1
+]V
+]x 50
+(8)
+where a225dr/dP 1(r/A)dA /dP . The historical development
+and formulation of the acoustic wave speed in terms of ﬂuid and
+pipe properties and the assumptions involved in the formulation
+are discussed in Sec. 3.
+The momentum equation for a control volume is ~e.g., @20–
+23#!:
+( Fext5
+]
+]t E
+cv
+rv;1 E
+cs
+rv~v"n!dA (9)
+Applying Eq. ~9! to the control volume of Fig. 2; considering
+gravitational, wall shear and pressure gradient forces as externally
+applied; and taking the limit as
+dx tends to zero gives the follow-
+ing local form of the axial momentum equation:
+]r AV
+]t 1
+]brAV 2
+]x 52 A
+]P
+]x 2pDtw2gA sin a (10)
+where g5rg5unit gravity force, a5angle between the pipe and
+the horizontal direction, b5*Au2dA /V25momentum correction
+coefﬁcient. Using the product rule of differentiation, invoking Eq.
+~7!, and dividing through by
+rA gives the following nonconser-
+vative form of the momentum equation:
+]V
+]t 1V
+]V
+]x 1
+1
+rA
+]~b21!rAV 2
+]x 1
+1
+r
+]P
+]x 1g sin a1
+twpD
+rA
+50 (11)
+Equations ~8! and ~11! govern unidirectional unsteady ﬂow of a
+compressible ﬂuid in a ﬂexible tube. Alternative derivations of
+Eqs. ~8! and ~11! could have been performed by applying the
+unidirectional and axisymmetric assumptions to the compressible
+Navier-Stokes equations and integrating the resulting expression
+with respect to pipe cross-sectional area while allowing for this
+area to change with pressure.
+In practice, the order of magnitude of water hammer wave
+speed ranges from 100 to 1400 m/s and the ﬂow velocity is of
+order 1 to 10 m/s. Therefore, the Mach number, M5U
+1 /a,i n
+water-hammer applications is often in the range 10 22 –1023,
+where U15longitudinal velocity scale. The fact that M!1 in wa-
+ter hammer was recognized and used by Allievi @9,10# to further
+simplify Eqs. ~8! and ~11!. The small Mach number approxima-
+tion to Eqs. ~8! and ~11! can be illustrated by performing an order
+of magnitude analysis of the various terms in these equations. To
+this end, let
+r0aU 15water hammer pressure scale, r05density of
+the ﬂuid at the undisturbed state, and T5zL/a5time scale, where
+L5pipe length, X5aT 5zL5longitudinal length scale, z5a
+positive real parameter, r fU 1
+2/8 5wall shear scale, and f
+5Darcy-Weisbach friction factor Td5radial diffusion time scale.
+The parameter z allows one to investigate the relative magnitude
+of the various terms in Eqs. ~8! and ~11! under different time
+scales. For example, if the order of magnitude of the various terms
+in the mass momentum over a full wave cycle ~i.e., T54L/a)i s
+desired,
+z is set to 4. Applying the above scaling to Eqs. ~8! and
+~11 ! gives
+r0
+r
+DP *
+Dt * 1
+]V*
+]x* 50o r
+r0
+r S
+]P*
+]t* 1MV* ]P*
+]x* D1
+]V*
+]x* 50 (12)
+]V*
+]t* 1MV* ]V*
+]x* 1M
+1
+rA
+]~b21!rAV *2
+]x* 1
+r0
+r
+]P*
+]x*
+1
+gzL
+Ua sin a1
+zL
+D M
+f
+2 tw*50 (13)
+where the superscript * is used to denote dimensionless quantities.
+Since M!1 in water hammer applications, Eqs. ~12! and ~13!
+become
+r0
+r
+]P*
+]t* 1
+]V*
+]x* 50 (14)
+]V*
+]t* 1
+r0
+r
+]P*
+]x* 1
+gzL
+Ua sin a1z
+L
+D M
+f
+2 1zS
+Td
+L/a Dtw*50.
+(15)
+Rewriting Eqs. ~14! and ~15! in dimensional form gives
+1
+ra2
+]P
+]t 1
+]V
+]x 50 (16)
+]V
+]t 1
+1
+r
+]P
+]x 1g sin a1
+twpD
+rA 50 (17)
+Using the Piezometric head deﬁnition ~i.e., P/gr05H2Z), Eqs.
+~16! and ~17! become
+Fig. 1 Control volume diagram used for continuity equation
+derivation
+Fig. 2 Control volume diagram used for momentum equation
+derivation
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 51
+
+===== PAGE 4 =====
+gr0
+ra2
+]H
+]t 1
+]V
+]x 50 (18)
+]V
+]t 1g
+r0
+r
+]H
+]x 1
+twpD
+rA 50 (19)
+The change in density in unsteady compressible ﬂows is of the
+order of the Mach number @11,27,28#. Therefore, in water hammer
+problems, where M!1, r’r0 , Eqs. ~18! and ~19! become
+g
+a2
+]H
+]t 1
+]V
+]x 50 (20)
+]V
+]t 1g
+]H
+]x 1
+twpD
+rA 50 (21)
+which are identical to the classical 1D water hammer equations
+given by Eqs. ~2! and ~3!. Thus, the classical water hammer equa-
+tions are valid for unidirectional and axisymmetric ﬂow of a com-
+pressible ﬂuid in a ﬂexible pipe ~tube!, where the Mach number is
+very small.
+According to Eq. ~15!, the importance of wall shear,
+tw , de-
+pends on the magnitude of the dimensionless parameter G
+5zLMf /2D1zTd/( L/a). Therefore, the wall shear is important
+when the parameter G is order 1 or larger. This often occurs in
+applications where the simulation time far exceeds the ﬁrst wave
+cycle ~i.e., large
+z!, the pipe is very long, the friction factor is
+signiﬁcant, or the pipe diameter is very small. In addition, wall
+shear is important when the time scale of radial diffusion is larger
+than the wave travel time since the transient-induced large radial
+gradient of the velocity does not have sufﬁcient time to relax. It is
+noted that T
+d becomes smaller as the Reynolds number increases.
+The practical applications in which the wall shear is important and
+the various
+tw models that are in existence in the literature are
+discussed in Sec. 4.
+If G is signiﬁcantly smaller than 1, friction becomes negligible
+and tw can be safely set to zero. For example, for the case L
+510,000 m, D50.2 m, f 50.01, and M50.001, and Td/( L/a)
+50.01 the condition G!1 is valid when z!4. That is, for the case
+considered, wall friction is irrelevant as long as the simulation
+time is signiﬁcantly smaller than 4 L/a. In general, the condition
+G!1 is satisﬁed during the early stages of the transient ~i.e.,
+z is
+small! provided that the relaxation ~diffusion! time scale is smaller
+than the wave travel time L/a. In fact, it is well known that
+waterhammer models provide results that are in reasonable agree-
+ment with experimental data during the ﬁrst wave cycle irrespec-
+tive of the wall shear stress formula being used ~e.g., @29–32#!.
+When G!1, the classical waterhammer model, given by Eqs. ~20!
+and ~21!, becomes
+g
+a2
+]H
+]t 1
+]V
+]x 50 (22)
+]V
+]t 1g
+]H
+]x 50 (23)
+which is identical to the model that ﬁrst appeared in Allievi @9,10#.
+The Joukowsky relation can be recovered from Eqs. ~22! and
+~23!. Consider a water hammer moving upstream in a pipe of
+length L. Let x5L2at deﬁne the position of a water hammer
+front at time t and consider the interval @L2at 2e,L2at 1e#,
+where e5distance from the water hammer front. Integrating Eqs.
+~22! and ~23! from x5L2at 2e to x5L2at 1e, invoking Leib-
+nitz’s rule, and taking the limit as e approaches zero gives
+DH52
+aDV
+g (24)
+Similarly, the relation for a water hammer wave moving down-
+stream is DH51 aDV/g.
+3 Water Hammer Acoustic Wave Speed
+The water hammer wave speed is ~e.g., @8,20,23,33,34#!,
+1
+a2 5
+dr
+dP 1
+r
+A
+dA
+dP (25)
+The ﬁrst term on the right-hand side of Eq. ~25! represents the
+effect of ﬂuid compressibility on the wave speed and the second
+term represents the effect of pipe ﬂexibility on the wave speed. In
+fact, the wave speed in a compressible ﬂuid within a rigid pipe is
+obtained by setting dA /dP 50 in Eq. ~25!, which leads to a
+2
+5dP /dr. On the other hand, the wave speed in an incompressible
+ﬂuid within a ﬂexible pipe is obtained by setting dr/dP 50i n
+~25!, which leads to a25AdP /rdA .
+Korteweg @33# related the right-hand side of Eq. ~25! to the
+material properties of the ﬂuid and to the material and geometrical
+properties of the pipe. In particular, Korteweg @33# introduced the
+ﬂuid properties through the state equation dP /d
+r5Kf /r, which
+was already well established in the literature, where Kf 5bulk
+modulus of elasticity of the ﬂuid. He used the elastic theory of
+continuum mechanics to evaluate dA /dP in terms of the pipe
+radius, thickness e, and Young’s modulus of elasticity E. In his
+derivation, he ~i! ignored the axial ~longitudinal! stresses in the
+pipe ~i.e., neglected Poisson’s effect! and ~ii! ignored the inertia of
+the pipe. These assumptions are valid for ﬂuid transmission lines
+that are anchored but with expansion joints throughout. With as-
+sumptions ~i! and ~ii!, a quasi-equilibrium relation between the
+pressure force per unit length of pipe DdP and the circumferential
+~hoop! stress force per unit pipe length 2 ed
+su is achieved, where
+su5hoop stress. That is, DdP 52ed su or dp 52ed su /D. Using
+the elastic stress-strain relation, dA 5pdjD2/2, where dj
+5dsu /E5radial ~lateral! strain. As a result, AdP /rdA 5eE /Dr
+and
+1
+a2 5
+r
+Kf
+1
+r
+E
+e
+D
+or a25
+Kf
+r
+11
+Kf D
+eE
+(26)
+The above Korteweg formula for wave speed can be extended
+to problems where the axial stress cannot be neglected. This is
+accomplished through the inclusion of Poisson’s effect in the
+stress-strain relations. In particular, the total strain becomes d
+j
+5dsu /E2npdsx /E, where np5Poisson’s ratio and sx5axial
+stress. The resulting wave speed formula is ~e.g., @17,23#!
+a25
+Kf
+r
+11c
+Kf D
+eE
+(27)
+where c512np/2 for a pipe anchored at its upstream end only,
+c512np
+2 for a pipe anchored throughout from axial movement,
+and c51 for a pipe anchored with expansion joints throughout,
+which is the case considered by Korteweg ~i.e., sx50).
+Multiphase and multicomponent water hammer ﬂows are com-
+mon in practice. During a water hammer event, the pressure can
+cycle between large positive values and negative values, the mag-
+nitudes of which are constrained at vapor pressure. Vapor cavities
+can form when the pressure drops to vapor pressure. In addition,
+gas cavities form when the pressure drops below the saturation
+pressure of dissolved gases. Transient ﬂows in pressurized or sur-
+charged pipes carrying sediment are examples of multicomponent
+water hammer ﬂows. Unsteady ﬂows in pressurized or surcharged
+sewers are typical examples of multiphase and multicomponent
+transient ﬂows in closed conduits. Clearly, the bulk modulus and
+density of the mixture and, thus, the wave speed are inﬂuenced by
+the presence of phases and components. The wave speed for mul-
+tiphase and multicomponent water hammer ﬂows can be obtained
+52 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 5 =====
+by substituting an effective bulk modulus of elasticity Ke and an
+effective density re in place of Kf and r in Eq. ~27!. The effective
+quantities, Ke and re , are obtained by the weighted average of the
+bulk modulus and density of each component, where the partial
+volumes are the weights ~see, @23#!. While the resulting math-
+ematical expression is simple, the explicit evaluation of the wave
+speed of the mixture is hampered by the fact that the partial vol-
+umes are difﬁcult to estimate in practice.
+Equation ~27! includes Poisson’s effect but neglects the motion
+and inertia of the pipe. This is acceptable for rigidly anchored pipe
+systems such as buried pipes or pipes with high density and stiff-
+ness, to name only a few. Examples include major transmission
+pipelines like water distribution systems, natural gas lines, and
+pressurized and surcharged sewerage force mains. However, the
+motion and inertia of pipes can become important when pipes are
+inadequately restrained ~e.g., unsupported, free-hanging pipes ! or
+when the density and stiffness of the pipe is small. Some ex-
+amples in which a pipe’s motion and inertia may be signiﬁcant
+include fuel injection systems in aircraft, cooling-water systems,
+unrestrained pipes with numerous elbows, and blood vessels. For
+these systems, a fully coupled ﬂuid-structure interaction model
+needs to be considered. Such models are not discussed in this
+paper. The reader is instead directed to the recent excellent review
+of the subject by Tijsseling @35#.
+4 Wall Shear Stress Models
+It was shown earlier in this paper that the wall shear stress term
+is important when the parameter G is large. It follows that the
+modeling of wall friction is essential for practical applications that
+warrant transient simulation well beyond the ﬁrst wave cycle ~i.e.,
+large
+z!. Examples include ~i! the design and analysis of pipeline
+systems, ~ii! the design and analysis of transient control devices,
+~iii! the modeling of transient-induced water quality problems,
+~iv! the design of safe and reliable ﬁeld data programs for diag-
+nostic and parameter identiﬁcation purposes, ~v! the application of
+transient models to invert ﬁeld data for calibration and leakage
+detection, ~vi! the modeling of column separation and vaporous
+cavitation and ~vii! systems in which L/a!T
+d. Careful modeling
+of wall shear is also important for long pipes and for pipes with
+high friction.
+4.1 Quasi-Steady Wall Shear Models. In conventional
+transient analysis, it is assumed that phenomenological expres-
+sions relating wall shear to cross-sectionally averaged velocity in
+steady-state ﬂows remain valid under unsteady conditions. That is,
+wall shear expressions, such as the Darcy-Weisbach and Hazen-
+Williams formulas, are assumed to hold at every instant during a
+transient. For example, the form of the Darcy-Weisbach equation
+used in water hammer models is ~Streeter and Wylie @36#!
+tw~t!5tws 5
+r f~t!uV~t!uV~t!
+8 (28)
+where tws (t)5quasi-steady wall shear as a function of t.
+The use of steady-state wall shear relations in unsteady prob-
+lems is satisfactory for very slow transients—so slow, in fact, that
+they do not properly belong to the water hammer regime. To help
+clarify the problems with this approach for fast transients, con-
+sider the case of a transient induced by an instantaneous and full
+closure of a valve at the downstream end of a pipe. As the wave
+travels upstream, the ﬂow rate and the cross-sectionally averaged
+velocity behind the wave front are zero. Typical transient velocity
+proﬁles are given in Fig. 3. Therefore, using Eq. ~28!, the wall
+shear is zero. This is incorrect. The wave passage creates a ﬂow
+reversal near the pipe wall. The combination of ﬂow reversal with
+the no-slip condition at the pipe wall results in large wall shear
+stresses. Indeed, discrepancies between numerical results and ex-
+perimental and ﬁeld data are found whenever a steady-state based
+shear stress equation is used to model wall shear in water hammer
+problems ~e.g., @25,30,32,37,38#!.
+Let
+twu (t) be the discrepancy between the instantaneous wall
+shear stress tw(t) and the quasi-steady contribution of wall shear
+stress tws (t). Mathematically
+tw~t!5tws ~t!1twu ~t! (29)
+twu (t) is zero for steady ﬂow, small for slow transients, and sig-
+niﬁcant for fast transients. The unsteady friction component at-
+tempts to represent the transient-induced changes in the velocity
+proﬁle, which often involve ﬂow reversal and large gradients near
+the pipe wall. A summary of the various models for estimating
+twu (t) in water hammer problems is given below.
+4.2 Empirical-Based Corrections to Quasi-Steady Wall
+Shear Models. Daily et al. @39# conducted laboratory experi-
+ments and found twu (t) to be positive for accelerating ﬂows and
+negative for decelerating ﬂows. They argued that during accelera-
+tion the central portion of the stream moved somewhat so that the
+velocity proﬁle steepened, giving higher shear. For constant-
+diameter conduit, the relation given by Daily et al. @39# can be
+rewritten as
+K
+u5Ks12c2
+L
+V2
+]V
+]t (30)
+where Ku5unsteady ﬂow coefﬁcient of boundary resistance and
+momentum ﬂux of absolute local velocity and Ks5 fL /D5 steady
+state resistance coefﬁcient. Daily et al. @39# noted that the longi-
+tudinal velocity and turbulence nonuniformities are negligible and
+Ku’K5F/rAV 2/25unsteady ﬂow coefﬁcient of boundary resis-
+tance, where F52pDL tw5wall resistance force. Therefore, Eq.
+~30! becomes
+Fig. 3 Velocity proﬁles for steady-state and af-
+ter wave passages
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 53
+
+===== PAGE 6 =====
+tw5
+r fV 2
+8 1
+c2rD
+4
+]V
+]t (31)
+Denoting c2 by k and r fV 2/8 by tws reduces Eq. ~31! to the
+following:
+tw5tws 1
+krD
+4
+]V
+]t (32)
+The formulations of Daily et al. @39# shows that coefﬁcient
+c25k is a measure of the deviations, due to unsteadiness, of the
+wall shear and momentum ﬂux. Therefore, k generally depends on
+x and t. This remark is supported by the extended thermodynam-
+ics approach used by Axworthy et al. @30#. Figure 4 clearly illus-
+trates the poor agreement between model and data when using Eq.
+~32! with a constant value of k.
+The experimental data of Daily et al. @39# show that k50.01
+for accelerating ﬂows and k50.62 for decelerating ﬂows. On the
+other hand, the research of Shuy @40# led to k52 0.0825 for ac-
+celerating ﬂows and k52 0.13 for decelerating ﬂows. In fact,
+Shuy’s data led him to conclude that unsteady wall friction in-
+creases in decelerating ﬂows and decreases in accelerating ﬂows.
+This result contradicts the previously accepted hypothesis,
+namely, that unsteady wall friction decreases in decelerating ﬂows
+and increases in accelerating ﬂows. Shuy @40# attributed the de-
+crease in wall shear stress for acceleration to ﬂow relaminariza-
+tion. Given its controversial conclusion, this paper generated a
+ﬂurry of discussion in the literature with the most notable remarks
+being those of Vardy and Brown @41#.
+Vardy and Brown @41# argued that Shuy’s results should not be
+interpreted as contradicting previous measurements. Instead, the
+results indicated that the ﬂow behavior observed in Shuy’s experi-
+ments may have been different from the ﬂow behavior in previous
+experiments. Vardy and Brown @41# put forward the time scale
+hypothesis as a possible explanation for the different ﬂow behav-
+ior between Shuy’s @40# experiments and previous ones. They also
+observed that, while Shuy’s experiments dealt with long time
+scales, previous measurements dealt with much shorter time
+scales. Vardy and Brown @41# provided insightful and convincing
+arguments about the importance of time scale to the ﬂow behavior
+in unsteady pipe ﬂows. In fact, the stability analysis of Ghidaoui
+and Kolyshkin @42# concurs with the time scale hypothesis of
+Vardy and Brown @41#. Moreover, the stability analysis shows
+that, while other experiments belong to the stable domain, the
+experiments of Shuy belong to the unstable domain.
+Theoretical investigations aimed at identifying the domain of
+applicability of Eq. ~32! have appeared in the literature. For ex-
+ample, Carstens and Roller @43# showed that Eq. ~32! can be de-
+rived by assuming that the unsteady velocity proﬁles obey the
+power law as follows:
+u
+~x,r,t!
+V~x,t! 5
+~2n11!~n11!
+2n2 S12
+r
+R D
+1/n
+(33)
+where n57 for Reynolds number Re 5105 and increases with
+Reynolds number, r5distance from the axis in a radial direction,
+R5radius of the pipe. An unsteady ﬂow given by Eq. ~33! de-
+scribes ﬂows that exhibit slow acceleration and does not allow for
+ﬂow reversal ~i.e., does not contain inﬂection points !. In fact, Eq.
+~33! cannot represent typical water hammer velocity proﬁles such
+as those found in Vardy and Hwang @25#, Silva-Araya and
+Chaudhry @37#, Pezzinga @38,44#, Eichinger and Lein @45# and
+Ghidaoui et al. @46#. The theoretical work of Carstens and Roller
+@43# shows only that Eq. ~32! applies to very slow transients in
+which the unsteady velocity proﬁle has the same shape as the
+steady velocity proﬁle. Unfortunately, the Carstens and Roller
+@43# study neither supports nor refutes the possibility of using Eq.
+~32! in water hammer problems.
+The theoretical work of Vardy and Brown @47# shows that Eq.
+~32! can be derived for the case of an unsteady pipe ﬂow with
+constant acceleration. In addition, they show that this model is
+approximately valid for problems with time dependent accelera-
+tion as long as the time scale of the transient event greatly exceeds
+the rising time, which is a measure of time required for the vor-
+ticity diffusion through the shear layer. Their work also warns
+against using Eq. ~32! for problems with time dependent accelera-
+tion induced by transient events with time scales smaller than the
+rising time (i.e., L/a!T
+d).
+Axworthy et al. @30# found that Eq. ~32! is consistent with the
+theory of Extended Irreversible Thermodynamics ~EIT! and sat-
+isfy the second law of thermodynamics. In addition, the EIT deri-
+vation shows that unsteady friction formulas based on instanta-
+neous acceleration such as Eq. ~32! are applicable to transient
+ﬂow problems in which the time scale of interest ~e.g., simulation
+time! is signiﬁcantly shorter than the radial diffusion time scale of
+vorticity. Using the vorticity equation, Axworthy et al. @30#
+showed that for such short time scales, the turbulence strength and
+structure is unchanged ~i.e., ‘‘frozen’’!, and the energy dissipation
+Fig. 4 Pressure head traces obtained from
+models and experiment
+54 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 7 =====
+behind a wave front is well represented by the degree of shift in
+the cross-sectional mean value of the velocity ~i.e., dV /dt ) and
+the cross-sectional mean value of V, itself.
+The time scale arguments by Vardy and Brown @47# and Ax-
+worthy et al. @30# represent two limit cases: very slow transients
+and very fast transients, respectively. In the former case, there is
+enough mixing such that the acceleration history pattern is de-
+stroyed, only the instantaneous acceleration is signiﬁcant to the
+wall shear stress. In the latter case, the pre-existing ﬂow structure
+is frozen, there is no additional acceleration history developed
+except that of instantaneous acceleration. The Axworthy et al.
+@30# argument represents a water hammer ﬂow situation where the
+acceleration behaves like a pulse, say, the ﬂow drops from a ﬁnite
+value to zero in a short period.
+An important modiﬁcation of instantaneous acceleration-based
+unsteady friction models was proposed by Brunone and Golia
+@48#, Greco @49#, and Brunone et al. @50,51#. The well known
+Brunone et al. @50# model has become the most widely used
+modiﬁcation in water hammer application due to its simplicity and
+its ability to produce reasonable agreement with experimental
+pressure head traces.
+Brunone et al. @50# incorporated the Coriolis correction coef-
+ﬁcient and the unsteady wall shear stress in the energy equation
+for water hammer as follows:
+]H
+]x 1
+1
+g
+]V
+]t 1
+h1f
+g
+]V
+]t 1Js50 (34)
+where h5difference from unity of the Coriolis correction coefﬁ-
+cient, Js5( f uVuV)/2gD 5steady-state friction term,
+(f/g)( ]V/]t)5difference between unsteady friction and its cor-
+responding steady friction. In Eq. ~34!, the convective term is
+dropped as the Mach number of the ﬂow is small in water hammer
+problems.
+A constitutive equation is needed for
+h1f. Brunone et al.
+@50# proposed
+h1f5kS12a
+]V
+]x Y
+]V
+]t D (35)
+or in terms of wall shear stress
+tw5tws 1
+krD
+4 S
+]V
+]t 2a
+]V
+]x D (36)
+Equation ~36! provides additional dissipation for a reservoir-pipe-
+valve system when the transient is caused by a downstream sud-
+den valve closure. The pressure head traces obtained from the
+models and experiment are plotted in Fig. 4. It is shown that
+although both the Darcy-Weisbach formula and Eq. ~32! with con-
+stant k cannot produce enough energy dissipation in the pressure
+head traces, the model by Brunone et al. @50# is quite successful in
+producing the necessary damping features of pressure peaks, veri-
+ﬁed by other researchers @29,52–55#.
+Slight modiﬁcations to the model of Brunone et al. @50#, which
+renders this model applicable to both upstream and downstream
+transients, were proposed in @44# and in @52#. In particular, Pezz-
+inga @44# proposed
+h1f5kF11signSV
+]V
+]x Da
+]V
+]x Y
+]V
+]t G (37)
+and Bergant et al. @53# proposed
+h1f5kF11sign~V!aU
+]V
+]xUY
+]V
+]t G (38)
+The dependence of h1f on x and t as well as the ﬂow accel-
+eration is consistent with the theoretical formulations in @30# and
+@39#. In addition, the form of h1f gives signiﬁcant correction for
+the unsteady friction when the ﬂow is accelerated ( V]V/]t.0)
+and small correction when the ﬂow is decelerated ( V]V/]t,0)
+@50#.
+Utilization of the models presented in this section requires a
+reliable estimate of the parameter k. The data of Brunone et al.
+@31#, Daily et al. @39#, and others show that k is not a universal
+constant. An empirical method for estimating this parameter was
+proposed by Brunone et al. @52# by ﬁtting the decay of measured
+pressure head history. Moody diagram-like charts for k were de-
+veloped by Pezzinga @44# using a quasi-two-dimensional turbu-
+lence model. Vardy and Brown@47# provided a theoretically-based
+expression for determining the coefﬁcient k. This expression was
+successfully applied by Bergant et al. @52# and Vitkovsky et al.
+@55#. Although the charts of Pezzinga @44# and the formula of
+Vardy and Brown @47# are theory-based, their reliability is limited
+by the fact that they rely on steady-state-based turbulence models
+to adequately represent unsteady turbulence. It should, however,
+be stressed that modeling turbulent pipe transients is currently not
+well understood ~see Sec. 9 !.
+The mechanism that accounts for the dissipation of the pres-
+sure head is addressed in the discussion by Ghidaoui et al. @46#.
+They found that the additional dissipation associated with the in-
+stantaneous acceleration based unsteady friction model occurs
+only at the boundary due to the wave reﬂection. It was shown that
+after n
+c complete wave cycles, the pressure head is damped by a
+factor equivalent to @1/(1 1k)#2nc.
+4.3 Physically Based Wall Shear Models. This class of un-
+steady wall shear stress models is based on the analytical solution
+of the unidirectional ﬂow equations and was pioneered by Zielke
+@56#. Applying the Laplace transform to the axial component of
+the Navier-Stokes equations, he derived the following wall shear
+expression for unsteady laminar ﬂow in a pipe:
+tw~t!5
+4nr
+R V~t!1
+2nr
+R E
+0
+t ]V
+]t8 ~t8!W~t2t8!dt 8 (39)
+where t85a dummy variable, physically represents the instanta-
+neous time in the time history; n5kinematic viscosity of the ﬂuid;
+W5weighting function
+W~t!5e226.3744~nt/R2!1e270.8493~nt/R2!1e2135.0198~nt/R2!
+1e2218.9216~nt/R2!1e2322.5544~nt/R2!
+for
+nt
+R2.0.02
+W~t!50.282095S
+nt
+R2 D
+21/2
+21.2500011.057855S
+nt
+R2 D
+1/2
+for
+nt
+R2,0.0210.937500
+nt
+R2 10.396696S
+nt
+R2 D
+3/2
+20.351563S
+nt
+R2 D
+2
+(40)
+The ﬁrst term on the right-hand side of Eq. ~39! represents the
+steady-state wall shear stress tws and the second term represents
+the correction part due to the unsteadiness of the ﬂow twu . The
+numerical integration of the convolution integral in Eq. ~39! re-
+quires a large amount of memory space to store all previously
+calculated velocities and large central processing unit ~CPU! time
+to carry out the numerical integration, especially when the time
+step is small and the simulation time large. Trikha @57# used three
+exponential terms to approximate the weighting function. The ad-
+vantage of using exponential forms is that a recursive formula can
+easily be obtained, so that the ﬂow history can be lumped into the
+quantities at the previous time step. In this way, only the calcu-
+lated quantities at the previous time step needs to be stored in the
+computer memory, and there is no need to calculate the convolu-
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 55
+
+===== PAGE 8 =====
+tion integral from the beginning at every time step. This reduces
+the memory storage and the computational time greatly. In Suzuki
+et al. @58#, for
+t,0.02, the summation is calculated in a normal
+way; for t.0.02, the recursive formula similar to that of Trikha
+@57# is used, since each of the ﬁve terms included in the weighting
+function is exponential. Although Zielke’s formula is derived for
+laminar ﬂow, Trikha @57# and others @29,52# found that this for-
+mula leads to acceptable results for low Reynolds number turbu-
+lent ﬂows. However, Vardy and Brown @47# warned against the
+application of Zielke’s formula outside the laminar ﬂow regime,
+but did note that the error in applying Zielke’s formula to turbu-
+lent ﬂows diminishes as the duration of the wave pulse reduces.
+Vardy et al. @59# extended Zielke’s approach to low Reynolds
+number turbulent water hammer ﬂows in smooth pipes. In a later
+paper, Vardy and Brown@60# developed an extension of the model
+of Vardy et al. @59# that was applicable to high Reynolds number
+transient ﬂows in smooth pipes. In addition, Vardy and Brown
+@60# showed that this model gives results equivalent to those of
+Vardy et al. @59# for low Reynolds number ﬂows and to those of
+Zielke @56# for laminar ﬂows. That is, the Vardy and Brown @60#
+model promises to provide accurate results for Reynolds numbers
+ranging from the laminar regime to the highly turbulent regime.
+This model has the following form:
+tw~t!5r f
+V~t!uV~t!u
+8 1
+4nr
+D E
+0
+t
+W~t2t8!
+]V
+]t8 dt 8 (41)
+where
+W~t!5a exp~2bt!/Apt; a5D/4An;
+b50.54n Rek/D2; k5log~14.3/Re0.05!
+and Re5Reynolds number. Similar to Zielke’s model, the convo-
+lution nature of Eq. ~41! is computationally undesirable. An accu-
+rate, simple, and efﬁcient approximation to the Vardy-Brown un-
+steady friction equation is derived and shown to be easily
+implemented within a 1D characteristics solution for unsteady
+pipe ﬂow @32#. For comparison, the exact Vardy-Brown unsteady
+friction equation is used to model shear stresses in transient tur-
+bulent pipe ﬂows and the resulting water hammer equations are
+solved by the method of characteristics. The approximate Vardy-
+Brown model is more computationally efﬁcient ~i.e., requires
+1
+6-th
+the execution time and much less memory storage ! than the exact
+Vardy-Brown model. Both models are compared with measured
+data from different research groups and with numerical data pro-
+duced by a two-dimensional ~2D! turbulence water hammer
+model. The results show that the exact Vardy-Brown model and
+the approximate Vardy-Brown model are in good agreement with
+both laboratory and numerical experiments over a wide range of
+Reynolds numbers and wave frequencies. The proposed approxi-
+mate model only requires the storage of ﬂow variables from a
+single time step while the exact Vardy-Brown model requires the
+storage of ﬂow variables at all previous time steps and the 2D
+model requires the storage of ﬂow variables at all radial nodes.
+A summary of the assumptions involved in deriving Eqs. ~39!
+and ~41! is in order. The analytical approach of Zielke @56# in-
+volves the following assumptions: ~i! the ﬂow is fully developed,
+~ii! the convective terms are negligible, ~iii! the incompressible
+version of the continuity equation is used ~i.e., the inﬂuence of
+mass storage on velocity proﬁle is negligible !, and ~iv! the veloc-
+ity proﬁle remains axisymmetric ~i.e., stable! during the transient.
+In order to extend Zielke’s approach to turbulent ﬂows, Vardy and
+Brown @60# made two fundamental assumptions in relation to the
+turbulent eddy viscosity in addition to assumptions ~i! through
+~iv!. First, the turbulent kinematic viscosity is assumed to vary
+linearly within the wall shear layer and becomes inﬁnite ~i.e., a
+uniform velocity distribution ! in the core region. Second, the tur-
+bulent eddy viscosity is assumed to be time invariant ~i.e., frozen
+to its steady-state value !. Assumptions ~i!, ~ii!, and ~iii! are accu-
+rate for practical water hammer ﬂows, where the Mach number is
+often negligibly small and pipe length far exceeds ﬂow develop-
+ment length. The validity of assumptions such as that the ﬂow
+remains axisymmetric ~stable!, that the eddy viscosity is indepen-
+dent of time, and that its shape is similar to that in steady ﬂow, is
+discussed later in the paper ~see Secs. 6 and 7 !.
+Understanding the connection between Eq. ~32! and the physi-
+cally based unsteady wall friction models proposed by Zielke @56#
+and Vardy and Brown @60# further illuminates the limitations of
+instantaneous acceleration, unsteady wall friction models as de-
+scribed in the previous section. In particular, it is evident from
+Eqs. ~39! and ~41! that Eq. ~32! is recovered when the acceleration
+is constant. In addition, plots of W in Fig. 5 show that for ﬂows
+with large Reynolds number, this function is very small every-
+where except when
+nt/R2 approaches 0, that is, when t8 ap-
+proaches t in Eq. ~41!. The region where W(t2t8) in Eq. ~41!
+becomes signiﬁcant and provides a measure of the time scale of
+the radial diffusion of vorticity T
+d . If the acceleration varies
+slowly in the region where W(t2t8) is signiﬁcant, it is clear that
+Eqs. ~39! and ~41! can be accurately approximated by Eq. ~32!.
+This is simply an alternative way to state that Eq. ~32! is accept-
+able when the acceleration is not constant as long as the time scale
+of the ﬂow disturbance far exceeds the time scale of radial diffu-
+sion of vorticity across the shear layer. Moreover, it is obvious
+that Eq. ~32! is a good approximation to Eqs. ~39! and ~41! when
+t is small, as the integral interval is so small that the integrand can
+be considered as a constant. Furthermore, the time interval where
+W(t2t
+8) is signiﬁcant reduces with Reynolds number, which
+shows that Eq. ~32! becomes more accurate for highly turbulent
+ﬂows.
+5 Numerical Solutions for 1D Water Hammer Equa-
+tions
+The equations governing 1D water hammer ~i.e., Eqs. ~20! and
+~21!! can seldom be solved analytically. Therefore, numerical
+techniques are used to approximate the solution. The method of
+characteristics ~MOC!, which has the desirable attributes of accu-
+racy, simplicity, numerical efﬁciency, and programming simplicity
+~e.g., @20,23,61#!, is most popular. Other techniques that have also
+been applied to Eqs. ~20! and ~21! include the wave plan, ﬁnite
+difference ~FD!, and ﬁnite volume ~FV! methods. Of the 11 com-
+mercially available water hammer software packages reviewed in
+Sec. 12, eight use MOC, two are based on implicit FD methods,
+and only one employs the wave-plan method.
+5.1 MOC-Based Schemes. A signiﬁcant development in
+the numerical solution of hyperbolic equations was published by
+Lister @62#. She compared the ﬁxed-grid MOC scheme—also
+called the method of ﬁxed time interval—with the MOC grid
+scheme and found that the ﬁxed-grid MOC was much easier to
+compute, giving the analyst full control over the grid selection and
+enabling the computation of both the pressure and velocity ﬁelds
+Fig. 5 Weighting function for different Reynolds numbers
+56 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 9 =====
+in space at constant time. Fixed-grid MOC has since been used
+with great success to calculate transient conditions in pipe systems
+and networks.
+The ﬁxed-grid MOC requires that a common time step ( Dt)b e
+used for the solution of the governing equations in all pipes. How-
+ever, pipes in the system tend to have different lengths and some-
+times wave speeds, making it impossible to satisfy the Courant
+condition ~Courant number C
+r5aDt/Dx<1) exactly if a com-
+mon time step Dt is to be used. This discretization problem can be
+addressed by interpolation techniques, or artiﬁcial adjustment of
+the wave speed or a hybrid of both.
+To deal with this discretization problem, Lister @62# used linear
+space-line interpolation to approximate heads and ﬂows at the foot
+of each characteristic line. Trikha @57# suggested using different
+time steps for each pipe. This strategy makes it possible to use
+large time steps, resulting in shorter execution time and the avoid-
+ance of spatial interpolation error. This increased ﬂexibility comes
+at the cost of having to interpolate at the boundaries, which can be
+a major source of error when complex, rapidly changing control
+actions are considered.
+Wiggert and Sundquist @63# derived a single scheme that com-
+bines the classical space-line interpolation with reachout in space
+interpolation. Using Fourier analysis, they studied the effects of
+interpolation, spacing, and grid size on numerical dispersion, at-
+tenuation, and stability. These researchers found that the degree of
+interpolation
+j decreases as the ratio of the wavelength of the kth
+harmonic Lk to the reach length Dx increases. As a result, both
+numerical dissipation and dispersion are improved. These conclu-
+sions are not surprising for several reasons. First, every interpola-
+tion technique can be expected to produce better results for wave
+components with larger wavelengths. Second, for a ﬁxed time step
+Dt, larger values of n imply smaller values of Dx and vice versa,
+since nDx represents the total length of the reachout on one side.
+Consequently, this scheme generates more grid points and, there-
+fore, requires longer computational times and computer storage.
+Furthermore, an alternative scheme must be used to carry out the
+boundary computations.
+The reachback time-line interpolation scheme, developed by
+Goldberg and Wylie @64#, uses the solution from m previously
+calculated time levels. The authors observed that reachback time-
+line interpolation is more accurate than space-line interpolation
+for the same discretization. This is a subjective comparison be-
+cause, as the degree of temporal interpolation
+j varies from 0 to 1,
+the degree of spatial interpolation a is only allowed to vary from
+1/(m11) to 1/ m. A fairer comparison would have been to also
+divide the distance step by m so that both j and a vary equally. In
+addition, Goldberg and Wylie @64# assert that numerical errors are
+reduced by increasing m. This is somewhat misleading because,
+for a ﬁxed Dx, increasing m means increasing the number of
+computational steps ~i.e., reducing the effective time step Dt)
+which in turn generates ﬁner interpolation intervals. Moreover, in
+cases where the friction term is large and/or when the wave speed
+is not constant, reaching back in time increases the approximation
+error of these terms.
+Lai @65# combined the implicit, temporal reachback, spatial
+reachback, spatial reachout, and the classical time and space-line
+interpolations into one technique called the multimode scheme.
+Depending on the choice of grid size ( Dt,Dx) and the limit on the
+maximum allowable reachbacks in time m, this scheme may func-
+tion as either of the methods or a combination of any two meth-
+ods. Numerical errors were studied using a mass balance ap-
+proach. Stability conditions were derived from V on Neumann
+analysis. The multimode scheme gives the user the ﬂexibility to
+select the interpolation scheme that provides the best performance
+for a particular problem.
+Yang and Hsu @66,67# published two papers dealing with the
+numerical solution of the dispersion equation in 1D and 2D, re-
+spectively. The authors propose reaching back in time more than
+one time step and then using the Holly-Preissmann method to
+interpolate either in space or in time. It is claimed that the reach-
+back Holly-Preissmann scheme is superior to the classical Holly-
+Preissmann method. An interesting discussion of this work, pub-
+lished in Bentley @68#, showed that the solution obtained by the
+classical Holly-Preissmann method when the time step equals
+mDt is identical to that obtained by the reachback in space Holly-
+Preissmann ~i.e., the foot of the characteristic line is extended
+back more than one time step until it intersects the space-line !
+with m reachbacks and a time step value of Dt. The only differ-
+ence is that the reachback approach produces m21 extra interme-
+diate solutions at the cost of more computational time.
+Sibetheros et al. @69# showed that the spline technique is well
+suited to predicting transient conditions in simple pipelines sub-
+ject to simple disturbances when the nature of the transient behav-
+ior of the system is known in advance. The most serious problem
+with the spline interpolation is the speciﬁcation of the spline
+boundary conditions.
+The authors point out that the selection procedure was a ‘‘trial
+and error’’ one involving many possibilities. This ‘‘ﬂexibility’’
+suffers from the curse of ‘‘permutability,’’ i.e., in a complex sys-
+tem the number of permutations and combinations of spline
+boundary conditions can become enormous. Moreover, in many
+multipipe applications it is not accuracy that directly governs the
+selection of the time step, but the hydraulically shortest pipe in the
+system. Since the most successful spline boundary conditions nec-
+essarily involve several reaches, application of the method be-
+comes problematic in short pipes. It would appear to require much
+smaller time steps simply to apply the method at all. Other nec-
+essary conditions for the success of spline schemes are: ~i! the
+dependent variable~s! must be sufﬁciently smooth, ~ii! the compu-
+tation of the derivatives at internal nodes must be accurate, and
+~iii! the formulation of the numerical and/or physical derivative
+boundary conditions must be simple and accurate. Conditions ~i!
+and ~iii! are a problem in water hammer analysis because the
+boundary conditions are frequently nonlinear and complex, and
+the dependent variables may be discontinuous.
+Karney and Ghidaoui @70# developed ‘‘hybrid’’ interpolation
+approaches that include interpolation along a secondary character-
+istic line, ‘‘minimum-point’’ interpolation ~which reduces the dis-
+tance from the interpolated point to the primary characteristic !,
+and a method of ‘‘wave path adjustment’’ that distorts the path of
+propagation but does not directly change the wave speed. The
+resulting composite algorithm can be implemented as a preproces-
+sor step and thus uses memory efﬁciently, executes quickly, and
+provides a ﬂexible tool for investigating the importance of dis-
+cretization errors in pipeline systems. The properties of the algo-
+rithm are analyzed theoretically and illustrated by example in the
+paper.
+5.2 Other Schemes. The wave plan method @71# is similar
+to the MOC in the sense that both techniques explicitly incorpo-
+rate wave paths in the solution procedure. However, the wave plan
+method requires that ﬂow disturbance functions such as valve
+curves be approximated by piecewise constant functions. That is,
+ﬂow disturbances are approximated by a series of instantaneous
+changes in ﬂow conditions. The time interval between any two
+consecutive instantaneous changes in ﬂow conditions is ﬁxed. The
+piecewise constant approximation to disturbance functions implies
+that the accuracy of the scheme is ﬁrst order in both space and
+time. Therefore, ﬁne discretization is required for achieving accu-
+rate solutions to water hammer problems.
+The wave plan method ‘‘lumps’’ friction at the center of each
+pipe. In particular, friction is modeled using a disturbance func-
+tion, where the form of this function is determined using the ‘‘ori-
+ﬁce analogy.’’ This disturbance function is friction approximated
+by piecewise constant functions. The modeling of friction as a
+series of discrete disturbances in space and time generates small
+spurious waves. In general, with small values of friction, these
+would be observed only as low-amplitude noise on the main tran-
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 57
+
+===== PAGE 10 =====
+sient signal. It is also unclear as to how additional physics, such as
+convolution-integral unsteady friction models, can be incorpo-
+rated with the wave plan methodology.
+Wylie and Streeter @72# propose solving the water hammer
+equations in a network system using the implicit central difference
+method in order to permit large time steps. The resulting nonlinear
+difference equations are organized in a sparse matrix form and are
+solved using the Newton-Raphson procedure. Only pipe junction
+boundary conditions were considered in the case study. It is rec-
+ognized that the limitation on the maximum time step is set by the
+frequency of the dependent variables at the boundaries. Two com-
+mercially available water hammer software packages use the four
+point implicit scheme ~see Sec. 12 Water Hammer Software!. The
+major advantage of implicit methods is that they are stable for
+large time steps ~i.e., C
+r.1 @65,72#!. Computationally, however,
+implicit schemes increase both the execution time and the storage
+requirement and need a dedicated matrix inversion solver since a
+large system of equations has to be solved. Moreover, for most
+problems, iterative schemes must also be invoked. From a math-
+ematical perspective, implicit methods are not suitable for wave
+propagation problems because they entirely distort the path of
+propagation of information, thereby misrepresenting the math-
+ematical model. In addition, a small time step is required for ac-
+curacy in water hammer problems in any case @23#. For these
+reasons, most of the work done on numerical modeling of hyper-
+bolic equations in the last three decades concentrated on develop-
+ing, testing, and comparing explicit schemes ~e.g., @63,64,73#!.
+Chaudhry and Hussaini @74# apply the MacCormack, Lambda,
+and Gabutti schemes to the water hammer equations. These three
+methods are explicit, second-order ~in time and space ! ﬁnite dif-
+ference schemes. Two types of boundary conditions are used: ~i!
+one characteristic equation and one boundary equation, or ~ii! ex-
+trapolation procedure boundary condition. The second boundary
+condition solution method adds one ﬁctitious node upstream of
+the upstream boundary and another downstream of the down-
+stream boundary. Using the L
+1 and L2 norms as indicators of the
+numerical errors, it was shown that these second-order ﬁnite-
+difference schemes produce better results than ﬁrst-order method
+of characteristics solutions for C
+r50.8 and 0.5. Spurious numeri-
+cal oscillations are observed, however, in the wave proﬁle.
+Although FV methods are widely used in the solution of hyper-
+bolic systems, for example, in gas dynamics and shallow water
+waves ~see recent books by Toro @75,76#!, this approach is seldom
+applied to water hammer ﬂows. To the authors’ knowledge, the
+ﬁrst attempt to apply FV-based schemes was by Guinot @77#.H e
+ignored the advective terms, developed a Riemann-type solution
+for the water hammer problem, and used this solution to develop
+a ﬁrst-order-based FV Godunov scheme. This ﬁrst-order scheme
+is very similar to the MOC with linear space-line interpolation. At
+the time of writing, a second paper by Hwang and Chung @78# that
+also uses the FV method for water hammer, has appeared. Unlike
+in Guinot @77#, the advective terms are not neglected in the work
+of Hwang and Chung @78#. Instead, they use the conservative form
+of the compressible ﬂow equations, in which density, and not
+head, is treated as an unknown. The application of such a scheme
+in practice would require a state equation relating density to head
+so that ~i! all existing boundary conditions would have to be re-
+formulated in terms of density and ﬂow rather than head and ﬂow,
+and ~ii! the initial steady-state hydraulic grade line would need to
+be converted to a density curve as a function of longitudinal dis-
+tance. At present, no such equation of state exists for water. Ap-
+plication of this method would be further complicated at bound-
+aries where incompressible conditions are generally assumed to
+apply.
+5.3 Methods for Evaluating Numerical Schemes. Several
+approaches have been developed to deal with the quantiﬁcation of
+numerical dissipation and dispersion. The wide range of methods
+in the literature is indicative of the dissatisfaction and distrust
+among researchers of more conventional, existing techniques.
+This section discusses a number of methods employed by tran-
+sient modelers to quantify numerical dissipation and dispersion.
+5.3.1 Von Neumann Method. Traditionally, ﬂuid transient re-
+searchers have studied the dispersion and dissipation characteris-
+tics of the ﬁxed-grid method of characteristics using the V on Neu-
+mann ~or Fourier! method of analysis @63,64#. The V on Neumann
+analysis was used by O’Brian et al. @79# to study the stability of
+the numerical solution of partial differential equations. The analy-
+sis tracks a single Fourier mode with time and dissipation by
+determining how the mode decays with time. Dispersion is evalu-
+ated by investigating whether or not different Fourier modes travel
+with different speeds.
+There are a number of serious drawbacks to the V on Neumann
+method of analysis. For example, it lacks essential boundary in-
+formation, it ignores the inﬂuence of the wave proﬁle on the nu-
+merical errors, it assumes constant coefﬁcients and that the initial
+conditions are periodic, and it can only be applied to linear nu-
+merical models @69,79–81 #. To illustrate, the work by Wiggert
+and Sundquist @63#, Goldberg and Wylie @64#, and others clearly
+shows that the attenuation and dispersion coefﬁcients obtained
+from the Fourier analysis depend on the Courant number, the ratio
+of the wavelength of the kth harmonic L
+k to the reach length Dx,
+and the number of reachbacks and/or reachouts, but does not de-
+pend on the boundary conditions. Yet, the simulation of boundary
+conditions and knowledge of how these boundary conditions in-
+troduce and reﬂect errors to the internal pipe sections is crucial to
+the study of numerical solutions of hydraulic problems. In short,
+the V on Neumann method cannot be used as the only benchmark
+for selecting the most appropriate numerical scheme for nonlinear
+boundary-value hyperbolic problems.
+5.3.2 L
+1 and L 2 Norms Method. Chaudhry and Hussaini
+@74# developed L1 and L2 norms to evaluate the numerical errors
+associated with the numerical solution of the water hammer equa-
+tions by the MacCormack, Lambda, and Gabutti schemes. How-
+ever, the L
+1 and L2 method as they apply it can only be used for
+problems that have a known, exact solution. In addition, these two
+norms do not measure a physical property such as mass or energy,
+thereby making the interpretation of the numerical values of these
+norms difﬁcult. Hence, the L
+1 and L2 norms can be used to com-
+pare different schemes, but do not give a clear indication of how
+well a particular scheme performs.
+5.3.3 Three Parameters Approach. Sibetheros et al. @69#
+used three dimensionless parameters to study various numerical
+errors. A discussion followed by Karney and Ghidaoui @82# and a
+closure was provided by the authors. Salient points from the dis-
+cussion and closure are summarized below.
+The attenuation parameter is intended to measure the numerical
+dissipation by different interpolation schemes by looking at the
+maximum head value at the valve. This parameter, however, un-
+derestimates the numerical attenuation because the computation of
+head and ﬂow at the downstream end of the pipe uses one char-
+acteristic equation and one boundary equation. The dispersion pa-
+rameter is intended to measure the numerical dispersion by differ-
+ent interpolation schemes. This parameter is determined by
+asserting that the change in the wave shape is governed by the
+constant diffusion equation with initial conditions described by
+the Heaviside function. Although this method allows a rudimen-
+tary comparison of simple system responses, general conclusions
+cannot be drawn for a hyperbolic equation based on a diffusion
+equation. The longitudinal displacement parameter is intended to
+measure the extent by which different numerical schemes artiﬁ-
+cially displace the wave front. However, this parameter only sug-
+gests to what degree the interpolation method used is symmetri-
+cally dispersive and says little about the magnitude of artiﬁcial
+displacement of the wave by the numerical scheme.
+5.3.4 Mass Balance Approach. The mass balance method
+@83,84# is a more general technique than the other existing meth-
+58 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 11 =====
+ods since this approach can be applied to a nonlinear transient
+problem with realistic boundary conditions. The basic idea is to
+check how closely a particular numerical method conserves mass.
+Note that the mass balance approach can become ineffective in
+cases where a numerical scheme conserves mass but not energy
+and momentum.
+5.3.5 EHDE Approach. Ghidaoui and Karney @85# devel-
+oped the concept of an equivalent hyperbolic differential equation
+~EHDE! to study how discretization errors arise in pipeline appli-
+cations for the most common interpolation techniques used to deal
+with the discretization problem in ﬁxed-grid MOC. In particular, it
+is shown that space-line interpolation and the Holly-Preissmann
+scheme are equivalent to a wave-diffusion model with an adjusted
+wave speed, but that the latter method has additional source and
+sink terms. Further, time-line interpolation is shown to be equiva-
+lent to a superposition of two waves with different wave speeds.
+The EHDE concept evaluates the consistency of the numerical
+scheme, provides a mathematical description of the numerical dis-
+sipation and dispersion, gives an independent way of determining
+the Courant condition, allows the comparison of alternative ap-
+proaches, ﬁnds the wave path, and explains why higher-order
+methods should usually be avoided. This framework clearly points
+out that numerical approximation of the water hammer equations
+fundamentally changes the physical problem and must be viewed
+as a nontrivial transformation of the governing equations. For ex-
+ample, implicit methods, while noted for their stability character-
+istics, transform the water hammer problem into a superposition
+of wave problems, each of which has a wave speed different from
+the physical wave speed and at least one of which has an inﬁnite
+wave speed. The inﬁnite numerical wave speed associated with
+implicit schemes ensures that the numerical domain of depen-
+dence is larger than the physical domain of dependence, and ex-
+plains why these are highly stable. While good for stability, the
+large discrepancy between the numerical and physical domains of
+dependence hinders the accuracy of these schemes. Another prob-
+lem with implicit schemes is that they are often computationally
+inefﬁcient because they require the inversion of large matrices.
+5.3.6 Energy Approach. Ghidaoui et al. @86# developed an
+integrated energy approach for the ﬁxed-grid MOC to study how
+the discretization errors associated with common interpolation
+schemes in pipeline applications arise and how these errors can be
+controlled. Speciﬁcally, energy expressions developed in this
+work demonstrate that both time-line and space-line interpolation
+attenuate the total energy in the system. Wave speed adjustment,
+on the other hand, preserves the total energy while distorting the
+partitioning of the energy between kinetic and internal forms.
+These analytic results are conﬁrmed with numerical studies of
+several series pipe systems. Both the numerical experiments and
+the analytical energy expression show that the discretization errors
+are small and can be ignored as long as there is continuous work
+in the system. When the work is zero, however, a C
+r value close
+to one is required if numerical dissipation is to be minimized. The
+energy approach is general and can be used to analyze other water
+hammer numerical schemes.
+6 Flow Stability and the Axisymmetric Assumption
+Existing transient pipe ﬂow models are derived under the
+premise that no helical type vortices emerge ~i.e., the ﬂow remains
+stable and axisymmetric during a transient event !. Recent experi-
+mental and theoretical works indicate that ﬂow instabilities, in the
+form of helical vortices, can develop in transient ﬂows. These
+instabilities lead to the breakdown of ﬂow symmetry with respect
+to the pipe axis. For example, Das and Arakeri @87# performed
+unsteady pipe ﬂow experiments where the initial ﬂow was laminar
+and the transient event was generated by a piston. They found that
+when the Reynolds number and the transient time scale exceed a
+threshold value, the ﬂow becomes unstable. In addition, they ob-
+served that the ﬂow instability results in the formation of nonsta-
+tionary helical vortices and that the breakdown of these vortices
+into turbulence is very rapid. The breakdown of the helical vorti-
+ces into turbulence resulted in strong asymmetry in the ﬂow with
+respect to the pipe axis. Brunone et al. @31,88# carried out mea-
+surements of water hammer velocity proﬁles in turbulent ﬂows.
+They also observed strong ﬂow asymmetry with respect to the
+pipe axis. In particular, they found that a short time after the wave
+passage, ﬂow reversal no longer appears simultaneously in both
+the top and the bottom sides of the pipe. Instead, ﬂow reversal
+appears to alternate between the bottom and top sides of the pipe.
+This is consistent with the asymmetry observed by Das and Arak-
+eri @87#. The impact of instabilities on wall shear stress in un-
+steady pipe ﬂows was measured by Lodahl et al. @89#. They found
+that inﬂectional ﬂow instabilities induce ﬂuctuations in the wall
+shear stress, where the root mean square of the wall shear stress
+ﬂuctuation in the pipe was found to be as high as 45% of the
+maximum wall shear stress.
+Das and Arakeri @87# applied linear stability analysis to un-
+steady plane channel ﬂow to explain the experimentally observed
+instability in unsteady pipe ﬂow. The linear stability and the ex-
+perimental results are in good qualitative agreement. Ghidaoui
+and Kolyshkin @90# investigated the linear stability analysis of
+unsteady velocity proﬁles with reverse ﬂow in a pipe subject to
+three-dimensional ~3D! perturbation. They used the stability re-
+sults to reinterpret the experimental results of Das and Arakeri
+@87# and assess their planar ﬂow and quasi-steady assumptions.
+Comparison of the neutral stability curves computed with and
+without the planar channel assumption shows that this assumption
+is accurate when the ratio of the boundary layer thickness to the
+pipe radius is below 20%. Any point in the neutral stability curve
+represents the parameters combination such that the perturbations
+neither grow nor decay. Critical values for any of these parameters
+can be obtained from the neutral stability curve. For unsteady pipe
+ﬂows, the parameters related are Re and t. Therefore, critical Re
+can be obtained.
+The removal of the planar assumption not only improves the
+accuracy of stability calculations, but also allows for the ﬂow
+stability of both axisymmetric and nonaxisymmetric modes to be
+investigated, and for the experimental results to be reinterpreted.
+For example, both the work of Ghidaoui and Kolyshkin @90# and
+the experiments of Das and Arakeri @87# show that the nonaxisym-
+metric mode is the least stable ~i.e., the helical type !.
+With the aim of providing a theoretical basis for the emergence
+of helical instability in transient pipe ﬂows, Ghidaoui and Koly-
+shkin @42# performed linear stability analysis of base ﬂow velocity
+proﬁles for laminar and turbulent water hammer ﬂows. These base
+ﬂow velocity proﬁles are determined analytically, where the tran-
+sient is generated by an instantaneous reduction in ﬂow rate at the
+downstream end of a simple pipe system. The presence of inﬂec-
+tion points in the base ﬂow velocity proﬁle and the large velocity
+gradient near the pipe wall are the sources of ﬂow instability. The
+main parameters governing the stability behavior of transient
+ﬂows are Reynolds number and dimensionless time scale. The
+stability of the base ﬂow velocity proﬁles with respect to axisym-
+metric and asymmetric modes is studied and the results are plotted
+in the Reynolds number/time scale parameter space. It is found
+that the asymmetric mode with azimuthal wave number one is the
+least stable. In addition, it is found that the stability results of the
+laminar and the turbulent velocity proﬁles are consistent with pub-
+lished experimental data. The consistency between the stability
+analysis and the experiments provide further conﬁrmation ~i! that
+water hammer ﬂows can become unstable, ~ii! that the instability
+is asymmetric, ~iii! that instabilities develop in a short ~water
+hammer! time scale and, ~iv! that Reynolds number and the wave
+time scale are important in the characterization of the stability of
+water hammer ﬂows. Physically, ﬂow instabilities change the
+structure and strength of the turbulence in a pipe, result in strong
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 59
+
+===== PAGE 12 =====
+ﬂow asymmetry, and induce signiﬁcant ﬂuctuations in wall shear
+stress. These effects of ﬂow instability are not represented in ex-
+isting water hammer models.
+In an attempt to gain an appreciation of the importance of in-
+cluding the effects of helical vortices in transient models,
+Ghidaoui et al. @46# applied current transient models to ﬂow cases
+with and without helical vortices. In the case where stability re-
+sults indicate that there are no helical vortices, Ghidaoui et al.
+@46# found that the difference between water hammer models and
+the data of Pezzinga and Scandura @91# increases with time at a
+mild rate. However, for the case where stability results and ex-
+periments indicate the presence of helical vortices, it is found that
+the difference between water hammer models and the data of
+Brunone et al. @31# exhibits an exponential-like growth. In fact,
+the difference between models and the data of Brunone et al. @31#
+reaches 100% after only six wave cycles. This marked difference
+between models and data suggests that the inﬂuence of helical
+vortices on the ﬂow ﬁeld is signiﬁcant and cannot be neglected.
+7 Quasi-Steady and Frozen Turbulence Assumptions
+The convolution integral analytical models for wall shear in
+unsteady turbulent ﬂows derived in Vardy et al. @59# and Vardy
+and Brown @60# assume that eddy viscosity remains ‘‘frozen’’~i.e.,
+time independent! during the transient. Turbulence closure equa-
+tions used by Vardy and Hwang @25#, Silva-Araya and Chaudhry
+@37#, and Pezzinga @38# assume that the turbulence changes in a
+quasi-steady manner and that the eddy viscosity expressions de-
+rived for steady-state pipe ﬂows remain applicable for water ham-
+mer ﬂows. An understanding of the response of the turbulence
+ﬁeld to water hammer waves is central to judging the accuracy of
+using either the frozen or the quasi-steady turbulence assump-
+tions.
+There is a time lag between the passage of a wave front at a
+particular location along the pipe and the resulting change in tur-
+bulent conditions at this location ~e.g., @46,92,93#!. In particular, at
+the instant when a water hammer wave passes a position x along
+the pipe, the velocity ﬁeld at x undergoes a uniform shift ~i.e., the
+ﬂuid exhibits a slug ﬂowlike motion !. The uniform shift in veloc-
+ity ﬁeld implies that the velocity gradient and turbulent conditions
+are unaltered at the instant of the wave passage. However, the
+combination of the uniform shift in velocity with the no-slip con-
+dition generates a vortex sheet at the pipe wall. The subsequent
+diffusion of this vortex ring from the pipe wall to the pipe core is
+the mechanism responsible for changing the turbulence conditions
+in the pipe.
+A short time after the wave passage, the extent of vorticity
+diffusion is limited to a narrow wall region and the turbulence
+ﬁeld is essentially frozen. In this case, both the quasi-steady tur-
+bulence and ‘‘frozen’’ turbulence assumptions are equally appli-
+cable. A similar conclusion was reached by Greenblatt and Moss
+@92# for a temporally accelerating ﬂow; by Tu and Ramparian
+@94#, Brereton et al. @95#, and Akhavan et al. @96,97# for oscilla-
+tory ﬂow; He and Jackson @93# for ramp-type transients; and
+Ghidaoui et al. @46# for water hammer ﬂows. As the time after the
+wave passage increases, the extent of the radial diffusion of vor-
+ticity becomes more signiﬁcant and begins to inﬂuence the veloc-
+ity gradient and turbulence strength and structure in the buffer
+zone. The experiments of He and Jackson @93# show that the axial
+turbulent ﬂuctuations are the ﬁrst to respond to the changes in the
+radial gradient of the velocity proﬁle and that there is a time delay
+between the changes in the axial turbulent ﬂuctuations and its
+redistribution among the radial and azimuthal turbulent compo-
+nents. The production of axial turbulent kinetic energy and the
+time lag between production and redistribution of axial turbulent
+kinetic energy within the buffer zone are not incorporated in
+steady-state-based turbulence models. The characteristics of the
+ﬂow in the core region will start to change only when the wave-
+induced shear pulse emerges from the buffer zone into the core
+region. On the basis of their unsteady ﬂow experiments, He and
+Jackson @93# provided an estimate for the time delay from the
+moment the wall vortex ring was generated at the pipe wall to the
+moment when signiﬁcant changes in the structure and strength of
+turbulence appeared near the pipe axis.
+Ghidaoui et al. @46# proposed a dimensionless parameter P for
+assessing the accuracy of quasi-steady turbulence modeling in wa-
+ter hammer problems. This parameter is deﬁned as the ratio of the
+time scale of radial diffusion of vorticity to the pipe core to the
+time scale of wave propagation from one end of the pipe to the
+other. This parameter provides a measure for the number of times
+a wave front travels from one end of the pipe to the other before
+the preexisting turbulence conditions start to respond to the tran-
+sient event. It follows that the frozen and quasi-steady assump-
+tions are ~i! acceptable when P@1, ~ii! questionable when P is of
+order 1, and ~iii! applicable when P!1. However, the last case
+does not belong to the water hammer regime. These conclusions
+are supported by the work of Ghidaoui et al. @46#, where they
+compared the results of quasi-steady turbulence models with
+available data and by the work of Ghidaoui and Mansour @32#
+where they compared the results of frozen eddy viscosity models
+with experimental data.
+8 Two-Dimensional Mass and Momentum Equations
+Quasi-two-dimensional water hammer simulation using turbu-
+lence models can ~i! enhance the current state of understanding of
+energy dissipation in transient pipe ﬂow, ~ii! provide detailed in-
+formation about transport and turbulent mixing ~important for
+conducting transient-related water quality modeling!, and ~iii! pro-
+vide data needed to assess the validity of 1D water hammer mod-
+els. Examples of turbulence models for water hammer problems,
+their applicability, and their limitations can be found in Vardy and
+Hwang @25#, Silva-Araya and Chaudhry @37,98#, Pezzinga
+@38,44#, Eichinger and Lein @45#, Ghidaoui et al. @46#, and Ohmi
+et al. @99#. The governing equations for quasi-two-dimensional
+modeling are discussed in this section. Turbulence models and
+numerical solutions are presented in subsequent sections.
+The most widely used quasi-two-dimensional governing equa-
+tions were developed by Vardy and Hwang @25#, Ohmi et al. @99#,
+Wood and Funk @100#, and Bratland @101#. Although these equa-
+tions were developed using different approaches and are written in
+different forms, they can be expressed as the following pair of
+continuity and momentum equations:
+g
+a2 S
+]H
+]t 1u
+]H
+]x D1
+]u
+]x 1
+1
+r
+]rv
+]r 50 (42)
+]u
+]t 1u
+]u
+]x 1v
+]u
+]r 52 g
+]H
+]x 1
+1
+rr
+]rt
+]r (43)
+where x,t,u,H,r are deﬁned as before, v(x,r,t)5local radial ve-
+locity, and t5shear stress. In this set of equations, compressibility
+is only considered in the continuity equation. Radial momentum is
+neglected by assuming that
+]H/]r50, and these equations are,
+therefore, only quasi-two-dimensional. The shear stress t can be
+expressed as
+t5rn
+]u
+]r 2ru8v8 (44)
+where u8 and v85turbulence perturbations corresponding to lon-
+gitudinal velocity u and radial velocity v, respectively. Turbu-
+lence models are needed to describe the perturbation term
+2ru8v8 since most practical water hammer ﬂows are turbulent.
+The governing equations can be further simpliﬁed by neglect-
+ing nonlinear convective terms, as is done in the 1D case since the
+wave speed a is usually much larger than the ﬂow velocity u or
+v.
+Then the equations become the following:
+g
+a2
+]H
+]t 1
+]u
+]x 1
+1
+r
+]rv
+]r 50 (45)
+60 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 13 =====
+]u
+]t 1g
+]H
+]x 5
+1
+rr
+]rt
+]r (46)
+These governing equations are usually solved by numerical
+means.
+For an adequately anchored or restrained pipe, i.e., the pipe is
+rigid and the radial velocity at the pipe wall is zero. From ﬂow
+symmetry, the radial velocity at the centerline is also zero. Inte-
+grating Eq. ~45! across the pipe section, the radial velocity van-
+ishes, leaving the following:
+]H
+]t 1
+a2
+gA
+]Q
+]x 50 (47)
+]u
+]t 1g
+]H
+]x 5
+1
+rr
+]rt
+]r (48)
+Q~x,t!5 E
+A
+udA (49)
+where Q5discharge. These equations are the same as those pre-
+sented by Pezzinga @38#.
+In cases where the radial velocity component ~mass ﬂux ! is
+negligible, Eqs. ~47!–~49! can be usefully applied. However, the
+inclusion of radial ﬂuxes in Eqs. ~45! and ~46! remove the incon-
+sistency that occurs near boundary elements due to the simulta-
+neous imposition of the no-slip condition and the plane wave as-
+sumption @24#. Since numerical integration of Eq. ~49! is needed
+to relate velocity distribution to discharge, even very small errors
+from neglecting radial ﬂuxes can produce spurious oscillations in
+pressure head calculations.
+Ghidaoui @26# derived quasi-two-dimensional equations from
+the complete 3D continuity equation and Navier-Stokes equations
+using an ensemble averaging process in which the assumptions
+inherent in the quasi-two-dimensional equations ~such as ﬂow axi-
+symmetry and the plane wave assumption ! are made explicit. The
+scaling analysis @26# shows that the viscous terms associated with
+the compressibility of the ﬂuid are signiﬁcantly smaller than the
+viscous term associated with angular deformation. Therefore, the
+compressibility is neglected in the momentum equations of both
+1D and 2D models.
+In Silva-Araya and Chaudhry @37,98# and Eichinger and Lein
+@45#, an integration of the momentum equation is also carried out.
+In each case, the system reduces to a 1D formulation. The quasi-
+two-dimensional momentum Eq. ~46! is only used to provide an
+unsteady friction correction for 1D governing equations. These
+corrections include: ~i! an energy dissipation factor, which is the
+ratio of the energy dissipation calculated from the cross-sectional
+velocity distribution to that calculated from the Darcy-Weisbach
+formula @37,98# or ~ii! direct calculation of wall shear stress, ei-
+ther by velocity gradient at the pipe wall or through energy dissi-
+pation @45#.
+9 Turbulence Models
+Turbulence models are needed to estimate the turbulent pertur-
+bation term for 2ru8v8. In the water hammer literature, the
+widely used turbulence models are algebraic models
+@25,37,38,98,99# in which eddy viscosity is expressed as some
+algebraic function of the mean ﬂow ﬁeld. Other sophisticated
+models ~such as the k2
+e model, which require additional differ-
+ential equations for eddy viscosity ! have also been tried @45#.
+Similar results for the pressure head traces have been obtained.
+The algebraic turbulence models used by Vardy and Hwang
+@25# and Pezzinga @38# are discussed further to illustrate some
+features of algebraic turbulence models. These models were com-
+paratively studied by Ghidaoui et al. @46#. The comparison shows
+that very similar dissipation is produced by the two models. Other
+different variations of algebraic turbulence models are available in
+Rodi @102#.
+9.1 Five-Region Turbulence Model. The model used by
+Vardy and Hwang @25# is a direct extension of the model devel-
+oped by Kita et al. @103# for steady ﬂow
+t5r~n1e!
+]u
+]r 5rn T
+]u
+]r (50)
+where e5eddy viscosity, nT5total viscosity, and the other terms
+were previously deﬁned. The total viscosity distribution is com-
+partmentalized into ﬁve regions as follows:
+1. viscous layer
+nT
+n 510 <y*<
+1
+a (51)
+2. buffer I layer
+nT
+n 5ay *
+1
+a <y*<
+a
+CB
+(52)
+3. buffer II layer
+nT
+n 5CBy*
+2
+a
+CB
+<y*<
+k
+CB1k2/4CmR*
+(53)
+4. logarithmic region
+nT
+n 5ky*@12~k/4Cm!~y* /R*!#
+3
+k
+CB1k2/4CmR*
+<y*<
+1
+k 2Cm~11A12Cc /Cm!R*
+(54)
+5. core region
+nT
+n 5CcR*
+1
+k 2Cm~11A12Cc /Cm!R*<y*
+<R* (55)
+where y5R2r, y*5u*y/n, R*5u*R/n, u*5Atw /r, and the
+coefﬁcients are a50.19, CB50.011, k50.41, Cm50.077, and
+Cc5a function of Reynolds number ~usually a value of 0.06 is
+used!. The total viscosity distribution depends on friction velocity
+u* and position y only. This is true for steady ﬂow since all
+information at interior points will ultimately propagate to the wall
+boundary. Given sufﬁcient time, the velocity proﬁle adjusts and
+ﬁnally depends on wall shear stress only. However, this model
+may be problematic for unsteady ﬂow since the interior conditions
+cannot solely be represented by wall shear stress.
+9.2 Two-Layer Turbulence Model. In the two-layer turbu-
+lence model, ﬂow is divided into two layers: ~i! a smooth pipe,
+viscous sublayer is assumed to exist near the wall; and ~ii! outside
+the viscous sublayer, the Prandtl mixing length hypothesis is used
+1. viscous sublayer
+e50 y*<11.63 (56)
+2. turbulent region e5l2U
+]u
+]r U y*>11.63 (57)
+where
+l
+R 5k
+y
+R e2(y/R) (58)
+k50.37410.0132 lnS11
+83100
+Re D (59)
+and in which l5mixing length and Re5Reynolds number for ini-
+tial ﬂow. The thickness of the viscous sublayer is determined by
+the wall shear stress. The eddy viscosity in the turbulent region
+includes some information about the velocity proﬁle. The two-
+layer model appears to be more suitable for unsteady ﬂow simu-
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 61
+
+===== PAGE 14 =====
+lation, but one should note that the expression for mixing length
+and the empirical coefﬁcient k are based on steady ﬂow equiva-
+lents.
+Ghidaoui et al. @46# compared both models ~i.e., the ﬁve-
+region and the two-layer model ! and obtained very similar results
+for pressure head estimates. The comparative study suggests that
+the pressure head is not sensitive to eddy viscosity distribution in
+the pipe core region. As these models are based on steady ﬂow
+principles, the application of these models to unsteady ﬂow prob-
+lems implicitly includes the quasi-steady assumptions discussed in
+Section 7.
+These algebraic turbulence models are widely used, mainly
+because of their simplicity and robustness. As more powerful
+computers become available and improvements are made to nu-
+merical solution techniques, detailed turbulence structures may be
+obtained using more sophisticated turbulence models, such as the
+two-equation k2
+e models, or perhaps even Reynolds stress mod-
+els, for which no eddy viscosity hypothesis is needed.
+All of the models mentioned above are based on the Reynolds-
+averaged Navier-Stokes ~RANS! equation. The averaging process
+is clearly a time average and valid for steady ﬂows. For unsteady
+ﬂows, the use of the time average is highly questionable unless the
+unsteadiness has a much larger time scale than the time scale of
+turbulence. Obviously, this is not the case for fast transients.
+As an alternative, large eddy simulation ~LES! has been devel-
+oped recently. In LES, the Navier-Stokes equation is ﬁltered,
+large-scale motion is resolved while the small-scale motion is
+modeled. If results from LES were available, then some of the
+assumptions mentioned previously could, in principle, be more
+rigorously evaluated. Unfortunately, in carrying out LES, a full
+3D system of equations must be solved using very ﬁne grids
+@104#. For steady ﬂow simulations, when the turbulence statistics
+reach steady, the ensemble average can be obtained over a time
+interval from a single run @104#. However, the ensemble average
+cannot be obtained from a single run for transient ﬂow. The re-
+quirement of many runs makes the resulting computational pro-
+cess prohibitively time consuming. As yet, such analyses have not
+been performed in pipe transients.
+10 Numerical Solution for 2D Problems
+The 2D governing equations are a system of hyperbolic-
+parabolic partial differential equations. The numerical solution of
+Vardy and Hwang @25# solves the hyperbolic part of governing
+equations by MOC and the parabolic part using ﬁnite difference.
+This hybrid solution approach has several merits. First, the solu-
+tion method is consistent with the physics of the ﬂow since it uses
+MOC for the wave part and central differencing for the diffusion
+part. Second, the use of MOC allows modelers to take advantage
+of the wealth of strategies, methods, and analysis developed in
+conjunction with 1D MOC water hammer models. For example,
+schemes for handling complex boundary elements and strategies
+developed for dealing with the 1D MOC discretization problem
+~e.g., wave speed adjustment and interpolation techniques ! can be
+adapted to quasi-two-dimensional MOC models. Third, although
+the radial mass ﬂux is often small, its inclusion in the continuity
+equation by Vardy and Hwang @25# is more physically correct and
+accurate. A major drawback of the numerical model of Vardy and
+Hwang @25#, however, is that it is computationally demanding. In
+fact, the CPU time required by the scheme is of the order N
+r
+3
+where Nr5number of computational reaches in the radial direc-
+tion. Vardy and Hwang’s scheme was modiﬁed by Zhao and
+Ghidaoui @105# to a much more efﬁcient form. The CPU time
+required is reduced to order N
+r , making the scheme more ame-
+nable to application to the quasi-two-dimensional modeling of
+pipe networks and for coupling with sophisticated turbulence
+models. Several numerical schemes for quasi-two-dimensional
+modeling are summarized in the following material.
+10.1 Vardy-Hwang Scheme. The characteristic form of
+Eqs. ~45! and ~46! is as follows @25#:
+dH
+dt 6
+a
+g
+du
+dt 52
+a2
+g
+1
+r
+]q
+]r 6
+a
+g
+1
+rr
+]~rt!
+]r
+along
+dx
+dt 56 a (60)
+where q5rv.
+The pipe is divided into Nr cylinders of varying thickness. At
+a given time t and location x along the pipe, two equations apply
+to each cylinder. Since there are Nr cylinders in total, the total
+number of equations is 2 Nr . Therefore, the governing equations
+for all cylinders can be written in matrix form as follows: Az
+5b, where A i sa2 Nr 32Nr matrix whose form is as follows:
+¤
+1 a
+g 1eCu2~1! uCq2~1!2eCu3~1!
+1 2F
+a
+g 1eCu2~1!G uCq2~1! eCu3~1!
+AA A
+1 ﬂ 2eCu1~ j! 2uCq1~ j! a
+g 1eCu2~ j! uCq2~ j! 2eCu3~ j!ﬂ
+1 ﬂ eCu1~ j! 2uCq1~ j! 2F
+a
+g 1eCu2~ j!G uCq2~ j! eCu3~ j!ﬂ
+AA A
+1 ﬂ 2eCu1~Nr ! 2uCq1~Nr ! a
+g 1eCu2~Nr !
+1 ﬂ eCu1~Nr ! 2uCq1~Nr ! 2F
+a
+g 1eCu2~Nr !G
+'
+where j5index along radial direction; Cu1 ,Cu2 ,Cu35coefﬁcients associated with axial velocity u; Cq1 ,Cq25coefﬁcients
+associated with radial ﬂux q; and e and u are weighting coefﬁcients. The unknown vector z
+5Hi
+n11 ,ui,1
+n11 ,qi,1
+n11 , ﬂ ,ui, j
+n11 ,qi, j
+n11 , ﬂ ,ui,Nr 21
+n11 ,qi,Nr 21
+n11 ,ui,Nr
+n11%T in which i5index along axial direction and the superscript T de-
+62 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 15 =====
+notes the transpose operator and b5a known vector that depends on head and velocity at time level n. Therefore, the solution for head,
+and longitudinal and radial velocities, involves the inversion of a 2 Nr32Nr matrix. The sparse nature of A is the reason the scheme is
+inefﬁcient.
+Improving the efﬁciency of the Vardy-Hwang scheme is essential if quasi-two-dimensional models are to become widely accepted
+as tools for analyzing practical pipe systems or for conducting numerical experiments. Algebraic manipulation of the coefﬁcient matrix
+leads to a highly efﬁcient scheme in which the original system becomes two subsystems with tridiagonal coefﬁcient matrices expressed
+as the following: Bu5b
+u and Cv5bv , where B is a tridiagonal Nr3Nr matrix given by
+1
+a
+g 1eCu2~1! 2eCu3~1!
+A
+ﬂ 2eCu1~ j! a
+g 1eCu2~ j! 2eCu3~ j! ﬂ
+A
+2eCu1~Nr ! a
+g 1eCu2~Nr !
+2
+The unknown vector u5$ui,1
+n11 , ﬂ ,ui, j
+n11 , ﬂ ,ui,Nr
+n11%T represents longitudinal ﬂow velocity; bu is a known vector whose elements
+depend on H, u, and q at time level n; and C is a tridiagonal Nr3Nr matrix given by
+S
+1 uCq2~1!
+0 2@uCq1~2!1uCq2~1!# uCq2~2!
+A
+ﬂ uCq1~ j21! 2@uCq1~ j!1uCq2~ j21!# uCq2~ j!ﬂ
+A
+ﬂ uCq1~Nr 21! 2@uCq1~Nr !1uCq1~Nr 21!#
+D
+Lastly, v5$Hi
+n11 ,qi,1
+n11 , ﬂqi,Nr 21
+n11 %T is an unknown vector of
+head and radial velocities and bv5a known vector whose ele-
+ments depend on H,u,q at time level n. Inversion of tridiagonal
+systems can be performed efﬁciently by using the Thomas algo-
+rithm.
+10.2 Pezzinga Scheme. The numerical solution by Pezz-
+inga @38# solves for pressure head using explicit FD from the
+continuity Eq. ~47!. Once the pressure head has been obtained, the
+momentum Eq. ~48! is solved by implicit FD for velocity proﬁles.
+This velocity distribution is then integrated across the pipe section
+to calculate the total discharge. The scheme is fast due to decou-
+pling of the continuity and momentum equations and the adoption
+of the tridiagonal coefﬁcient matrix for the momentum equation.
+It has been applied to network simulations.
+While the scheme is efﬁcient, the authors have found that there
+is a difﬁculty in the numerical integration step. Since the integra-
+tion can only be approximated, some error is introduced in this
+step that leads to spurious oscillations in the solution for pressure.
+To get rid of these oscillations, a large number of reaches in the
+radial direction may be required or an iterative procedure may
+need to be used @37#.
+10.3 Other Schemes. In Ohmi et al. @99#, the averaged 1D
+equations are solved to produce pressure and mean velocity. The
+pressure gradient is then used to calculate a velocity proﬁle using
+the quasi-two-dimensional momentum equation, from which wall
+shear stress is determined.
+A similar procedure is used in Eichinger and Lein @45#. One-
+dimensional equations are ﬁrst solved to obtain the pressure gra-
+dient. This pressure gradient is used to solve Eq. ~46! using a
+ﬁnite difference method. The eddy viscosity is obtained from a
+k2
+e model. Once the velocity proﬁle is known, the friction term
+can be calculated from the velocity gradient at the wall, which is
+then used in the 1D equations. An iterative procedure is employed
+in this calculation to obtain eddy viscosity. Although there might
+be some difference between the discharge calculated from 1D
+equations and that obtained from the velocity proﬁle integration, it
+is neglected, since the calculation of the velocity proﬁle is only
+used to estimate the friction term. This latter difference has only a
+minor inﬂuence on the calculation of the unsteady friction term, as
+argued by Eichinger and Lein @45#.
+Silva-Araya and Chaudhry’s @37,98# procedure is similar to the
+foregoing methods. Once the velocity is obtained, energy dissipa-
+tion and discharge can be calculated. The dissipation is used to
+estimate an energy dissipation ratio, which provides a correction
+factor for the friction term in the 1D equations. The adjusted 1D
+equations are then solved to give a new discharge, which is com-
+pared to that calculated from velocity proﬁle integration. If the
+difference is small ~say, less than 5%!, the calculation proceeds to
+the next time step. Otherwise, the pressure gradient is adjusted,
+and the procedure is repeated. A mixing length algebraic turbu-
+lence model ~smooth pipe, @37#, rough pipe @98#! is used in the
+calculation of the velocity proﬁle.
+11 Boundary Conditions
+The notion of boundary conditions as applied to the analysis of
+ﬂuid transient problems is analogous to, but slightly different
+from, the conventional use of the terminology in solving differen-
+tial equations. Just as a ‘‘boundary value’’ problem in the math-
+ematical sense implies conditions that must be satisﬁed at the
+edges of the physical domain of the problem, boundary conditions
+in ﬂuid transients implies the need for additional head-discharge
+relations to describe physical system components such as pumps,
+reservoirs and valves. Thus, one or more simpliﬁed auxiliary re-
+lations can be speciﬁed to solve for piezometric head, ﬂow veloc-
+ity, or other variables associated with the physical devices them-
+selves. Examples of boundary conditions include, but are not
+limited to, valves, nozzles, pumps, turbines, surge tanks, air
+valves, tanks and reservoirs, heat exchangers, condensers and
+many other application-speciﬁc devices.
+This section of the paper discusses a generalized approach to
+incorporating boundary conditions within the method of charac-
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 63
+
+===== PAGE 16 =====
+teristics framework that preserves the complex physical and topo-
+logical character of the compressible ﬂuid system. The approach
+utilizes unambiguous deﬁnitions of the nodes, links, and boundary
+conditions that represent the components of a physical pipe sys-
+tem or network. Attention is restricted to the method of character-
+istics solution because it is the most powerful and physically con-
+sistent method for dealing with physically and behaviorally
+complex devices without imposing unrealistic or difﬁcult modiﬁ-
+cations to the numerical scheme. The discussion begins by re-
+viewing the governing equations and the form of the method of
+characteristics solution that has been developed for this purpose.
+11.1 Governing Equations and Their Solution. Two
+equations—a relation of mass conservation and a momentum
+equation—are generally used to model transient ﬂow in closed
+conduits ~e.g., @20–23#!, which can be written from Eqs. ~20!,
+~21!, and ~28! as
+]V
+]t 1g
+]H
+]x 1
+fV uVu
+2D 50 (61)
+]H
+]t 1
+a2
+g
+]V
+]x 50 (62)
+To be compatible, x and V must be positive in the same direction.
+Equations ~61! and ~62! are valid as long as the ﬂow is 1D, the
+conduit properties ~diameter, wave speed, temperature, etc ! are
+constant, the ‘‘convective’’ and slope terms are small, and the
+friction force can be approximated by the Darcy-Weisbach for-
+mula for steady ﬂow. In addition, it is usually assumed that the
+friction factor f is either constant or weakly dependent on the
+Reynolds number. Note that, for simplicity, the shear model in the
+momentum Eq. ~61! above is equivalent to Eq. ~41! without the
+convolution term. Other shear models can be readily adapted for
+use in the boundary condition framework described herein.
+Because the equations governing transient ﬂuid ﬂow can sel-
+dom be solved analytically, numerical solutions are used to ap-
+proximate the solution. The most widely used procedure is the
+ﬁxed grid method of characteristics, which has the desirable at-
+tributes of accuracy, simplicity and numerical efﬁciency. The
+method is described in many standard references including
+Chaudhry @20# and Wylie et al. @23#. Again, the procedures de-
+scribed here can be easily adapted for use with any of the inter-
+polation, reach-back, reach-out, and wave speed or pipe length
+adjustment schemes mentioned previously.
+In essence, the method of characteristics combines the momen-
+tum and continuity equations to form a compatibility expression
+in terms of discharge Q and head H, that is
+dH 6BdQ 6
+R
+Dx QuQudx 50 (63)
+where B5a/gA and
+R5
+fDx
+2gDA 2 (64)
+This equation is valid only along the so-called C1 and C2 char-
+acteristic curves deﬁned by
+dx
+dt 56 a (65)
+For this reason, the x-t grid in Fig. 6 is chosen to ensure Dx
+56aDt. Then, if the dependent variables are known at A and B,
+Eq. ~63! can be integrated along both AP and BP . Integration of
+the ﬁrst two terms is straightforward, while the third requires the
+variation of Q with x to be known. Although this function is
+generally unknown, the term can usually be approximated @23#.A
+convenient linearization of the A to P integration is given by
+Karney and McInnis @106# as follows:
+E
+A
+P
+QuQudx 5@QA1e~QP2QA!#uQAuDx (66)
+in which ueu<1.
+This linearization of the friction term includes the ‘‘classical’’
+QAuQAuDx approximation ( e50.0) and the ‘‘modiﬁed’’
+QPuQAuDx linearization ( e51.0) as special cases. The approxi-
+mation associated with e50.0 has been traditionally employed,
+but is troublesome for high friction cases; the modiﬁed lineariza-
+tion is often more accurate and has improved stability properties
+@107#, but has not yet been universally adopted. Not only does Eq.
+~66! allow a single program to be used for both approximations,
+but intermediate values of
+e can be used to optimize accuracy for
+a given Dt. Preliminary results indicate values near 0.81 are well
+suited to most applications. Higher-order approximations of the
+energy loss term can also be incorporated, but generally require
+iterative solution procedures. The linearized ﬁrst-order approaches
+result in explicit formulations and provide acceptable results over
+the initial wave cycle for systems of low to moderate friction.
+If Eq. ~63! is integrated as illustrated above, two equations can
+be written for the unknowns at P
+H
+P5CP2BPQP (67)
+and
+HP5CM1BMQP (68)
+in which
+CP5HA1QA@B2RuQAu~12e!# (69)
+BP5B1eRuQAu (70)
+CM5HB2QB@B2RuQBu~12e!# (71)
+BM5B1eRuQBu (72)
+In more complex systems, a subscript to indicate the pipe number
+is often added to these equations. At points P internal to a pipe-
+line, HP can be eliminated from Eqs. ~67! and ~68! to obtain
+QP5
+CP2CM
+BP1BM
+(73)
+At the ends of a conduit, however, the solution of the character-
+istic equations is algebraically complicated by one or more
+‘‘boundary conditions.’’
+11.2 Boundary Conditions. The subject of what constitutes
+a boundary condition can be treated generally. Karney @108# pre-
+sents concise terminology for describing pipe networks and
+boundary conditions. His nomenclature is followed throughout
+this paper and is brieﬂy reviewed here. Once the time domain is
+Fig. 6 Method of characteristics grid
+64 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 17 =====
+discretized into Dt segments, most conduits in the network are
+divided into one or more reaches of length Dx. For clarity, the
+term ‘‘pipe’’ is henceforth restricted to conduits containing at least
+one characteristic reach. The end of each reach, where head and
+ﬂow values must be determined, is called a section. At sections
+internal to a pipe, the discharge can be obtained from Eq. ~73!.
+However, at each end of the pipe, an auxiliary relation between
+head and discharge must be speciﬁed. Such a head-discharge re-
+lation is called a boundary condition.
+The term ‘‘node’’ is used herein to indicate a location where
+boundary sections meet. The degree of a node is the number of
+pipes ~i.e., characteristic sections ! connected to it. However, in a
+general network, not only pipes may be connected to a node, but
+various other elements as well. For example, a node may represent
+a suction or discharge ﬂange of a pump, the location of a valve
+discharging from the network, or a connection for a pressure relief
+valve. All such nonpipe junctions are labeled external and the
+number of such connections is called the complexity of the node.
+A node of complexity zero is called simple, a node of complexity
+one ordinary, and a node of complexity greater than one complex.
+In this paper, boundary conditions associated with complex nodes
+are referred to as boundary systems. Generally, the difﬁculty of
+solving a network increases as the complexity of the nodes in the
+network increases but, as the following section shows, is indepen-
+dent of the degree of any node in the network. The terminology
+related to nodes can be extended in a natural way to networks as
+well and has been used by Karney @109# to develop a general
+approach for analyzing complex networks.
+11.2.1 Simple and Ordinary One-Node Boundary Conditions.
+Junctions of several pipes are usually modeled as frictionless in
+transient ﬂow applications ~e.g., @109,110#!. Complications arising
+by attempting to calculate junction losses at a general node are
+considerable and are not discussed in this paper. Generally, energy
+losses at junctions are relatively small and neglecting them does
+not appear to signiﬁcantly impair the accuracy of the method of
+characteristics solution for a simple pipe junction.
+The assumption that local losses are negligible is equivalent to
+representing the hydraulic grade line elevation at the node by a
+single number, designated H
+P .
+Consider now Fig. 7, which depicts a junction of any number of
+pipes at a node. Let N1 be the set of all pipes whose assumed ﬂow
+direction is toward the node in question and N2 be the set of pipes
+whose assumed ﬂow direction is away from the node. Let one
+ﬂow be identiﬁed as external and governed by an auxiliary rela-
+tion. Positive ﬂows are assumed to be from the junction. The
+following derivation is similar to that appearing in Chapter 11 of
+Fluid Transients by Wylie and Streeter @22#, but uses the notation
+proposed by Karney @108#. It differs from the latter only by the
+inclusion of the variable friction term linearization.
+For all pipes belonging to the set N
+1 , Eq. ~67! holds while Eq.
+~68! applies for members of N2 . These equations can be rear-
+ranged to obtain
+QPi52
+HP
+BPi
+1
+CPi
+BPi
+, iPN1 (74)
+and
+2QP j52
+HP
+BM j
+1
+CM j
+BM j
+, jPN2 (75)
+in which the second subscript represents the variable at the bound-
+ary section of a particular pipe in the set.
+The continuity equation for the junction requires the sum of
+the ﬂows entering the node to equal the sum of the ﬂows leaving
+the node
+(
+iPN1
+QPi2 (
+jPN2
+QP j2Qext50 (76)
+Equations ~74! and ~75! can be substituted directly into Eq. ~76! to
+produce the following expression for HP :
+HP5CC2BCQext (77)
+in which
+BC5S (
+iPN1
+1
+BPi
+1 (
+jPN2
+1
+BM j
+D
+21
+(78)
+and
+CC5BCS (
+iPN1
+CPi
+BPi
+1 (
+jPN2
+CM j
+BM j
+D (79)
+Equation ~77! represents a single relationship between junction
+head HP and external ﬂow Qext in a multipipe frictionless junc-
+tion. The form of this equation is equivalent to the single C1
+compatibility Eq. ~67! and shows that any one-node boundary
+condition located in a network can be evaluated in exactly the
+same manner as if the boundary condition occurred at the down-
+stream end of a single pipe.
+Once a functional relationship representing a particular hy-
+draulic device is substituted into Eq. ~77!, a single equation and
+unknown results. If this relationship is either linear or quadratic,
+an explicit formula for the unknown can be obtained.
+For example, the simplest boundary condition occurs when
+Q
+ext is either constant or a known function of time ~e.g., constant
+displacement pumps or ﬁxed demands !. In this case, the value of
+Qext can be substituted into Eq. ~77! to obtain the junction head. In
+particular, this equation becomes HP5CC when Qext is zero. This
+solution for a simple node is algebraically equivalent to Eq. ~73! if
+the node has only two pipes.
+Comprehensive treatment of various boundary conditions such
+as valves, pumps, turbines, accumulators, air valves and many
+others can be found in Wylie et al. @23#, Karney @108#, Chaudhry
+@20#, McInnis @111#, Karney and McInnis @82#, and McInnis et al.
+@112#. Formulations for many system-speciﬁc devices abound in
+the literature.
+12 Water Hammer Software
+With the advent of the Windows operating system, computer
+languages such as Visual Basic and Visual C, geographic informa-
+tion systems ~GIS!, and the World Wide Web, many water ham-
+mer models, previously only suited to academics and expert engi-
+neering practitioners, are now accessible to even the most novice
+analyst.
+Fig. 7 Generalized node with one external ﬂow
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 65
+
+===== PAGE 18 =====
+In this section, we describe several commercially available wa-
+ter hammer software packages. The information presented here is
+intended to aid readers in locating software appropriate to their
+water hammer analysis needs.
+It is important to note that two of the authors of this paper are
+also authors of a commercially available water hammer software
+package. To avoid any conﬂicts of interest and to be fair to all
+water hammer software developers, a critique of each water ham-
+mer software package is not presented here.
+Instead, the intention of this section is to summarize the perti-
+nent features of each computer model. These features include, but
+are not limited to, the available hydraulic devices, selectable surge
+protection measures, input facilities, and output graphical visual-
+ization options. Also listed for each software package is the nu-
+merical method used by the water hammer model to solve the
+unsteady ﬂow problem. The reader is directed to Sec. 5 for back-
+ground on these numerical methods.
+Each computer model has special features that distinguish it
+from the other reviewed models. These differences are most often
+the result of a desire to serve a speciﬁc commercial market. For
+example, some packages are best suited to ﬁre protection sprinkler
+systems, fueling systems, or oil pipelines, while others are clearly
+tailored to large municipal water distribution systems. Still other
+models specialize in the analysis of hydroelectric systems, sewage
+force mains, or industrial applications such as cooling water sys-
+tems. However, despite their obvious market focus, it is often
+possible to analyze just about any piping system with each of
+these models.
+The software packages described herein are in no particular
+order and more information on a product ~e.g., up-to-date pricing,
+new features, computer system requirements, etc ! can be obtained
+upon browsing the appropriate Internet homepage, which is listed
+at the end of each review. Unless otherwise noted, the software
+packages reviewed below operate within a Windows-based envi-
+ronment. Please also note that the information summarized below
+is largely derived from each water hammer modeler’s Internet
+homepage and is current at the writing of this paper ~2003!.
+Due to space limitations, all of the water hammer software
+packages now readily available could not be included in this sum-
+mary. The reader is encouraged to search out alternatives on the
+Internet prior to selecting one of the models described herein.
+12.1 Pipenet. This ﬂuid ﬂow program predicts pressure
+surges, calculates hydraulic transient forces, models control sys-
+tems, and has been commercially available for over 20 years.
+The interface drag-and-drop facilities are used to build a sche-
+matic of the pipeline or network and the associated boundary de-
+vices. Pipe schedules as well as ﬁtting, lining, pump and valve
+data are provided on-line for the user’s convenience. The user can
+specify the units of both the input and output data. Fluid proper-
+ties such as viscosity and speciﬁc gravity can also be input by the
+user. Boundary devices include pumps, air chambers, reservoirs,
+tanks, caissons, vacuum relief valves, check valves, ﬂow control
+valves, surge relief valves, and air release valves.
+P
+IPENET performs a surge analysis using the method of charac-
+teristics and calculates pressures and ﬂow rates at nodes, pipes,
+and boundary devices, as well as transient pressure forces on
+pipes and bends. As an option, the program calculates the forma-
+tion, growth, and collapse of a vapor cavity if the pressure in the
+pipe system drops to vapor pressure. P
+IPENET also has facilities for
+incorporating control theory ~e.g., proportional, integral, deriva-
+tive loops ! in the operation of pumps and valves. Note that a
+special module is available for analyzing sprinkler systems.
+Output data can be plotted as time history plots, each with user
+deﬁned titles. Examples include pressure and ﬂow rate time his-
+tory plots at nodes, pipe sections, or boundary devices. In addi-
+tion, graphs of ﬂuid level in an air chamber versus simulation time
+may be plotted ~Contact: www.sunrise-sys.com!.
+12.2 H
+AMMER. With H AMMER, a schematic of the piping
+layout for both pipelines and networks can be drawn on-screen
+and groups of hydraulic elements duplicated to save time during
+the input process. As an initial condition, steady-state data can be
+imported from E
+PANET and W ATERCAD. Some of the available
+boundary devices include pumps, air vessels, open surge tanks,
+reservoirs, surge control valves, vacuum relief and air release
+valves, and bypass lines with check valves.
+Commercially available for over 15 years, this method of
+characteristics-based model can be used to simulate pump power
+failure, valve closure, pipe breaks, and pump startup. Time history
+animations and plots of transient pressure, ﬂow rate, and air or
+vapor volume at nodes and along pipes are available for both
+pipelines and networks. The model also produces proﬁle views of
+network pipeline paths, showing the initial steady-state pressure
+as well as the maximum and minimum pressure envelopes ~Con-
+tact: www.ehg.dns2go.com!.
+12.3 H
+YTRAN. Drag-and-drop facilities enable on-screen
+construction or deletion of a pipeline or network in either plan or
+proﬁle views. Alternatively, node, pipe, and boundary device data
+can be directly imported from E
+PANET. Some of the selectable
+boundary devices include pumps, turbines, air chambers, vacuum
+relief valves, check valves, tanks, reservoirs, pressure relief
+valves, pressure regulating valves, and demands. On-line help,
+including a database of valve coefﬁcients and pipe material prop-
+erties, is available to the user.
+A method of characteristics-based solver generates pressure and
+ﬂow rate history traces at nodes and along the pipeline following
+pump power failure or startup. In addition, the computed transient
+hydraulic grade line at any instant in simulation time can be plot-
+ted in combination with the pipeline proﬁle. Pressure traces, hy-
+draulic grade line plots, and pipe ﬂow direction can be animated
+for real-time viewing. A column separation indicator warns the
+user when cavitation is detected ~contact: www.hytran.net!.
+12.4 H
+YPRESS. This model has an object-oriented interface
+that allows for ﬂexible input of pipe, node, and boundary device
+data for pipelines and networks. Some of the boundary devices
+that can be represented by the model include pumps, turbines,
+valves, reservoirs, surge chambers, and air vessels.
+Using a fourth-order implicit ﬁnite difference based numerical
+solver, H
+YPRESS calculates the maximum, minimum, and instan-
+taneous transient hydraulic grade line for a pipeline following
+pump power failure. The hydraulic grade lines are plotted in com-
+bination with the pipeline elevation proﬁle and the instantaneous
+transient hydraulic grade line, which can be animated in real time
+~Contact: www.hif.cz!.
+12.5 I
+MPULSE. Liquids such as water, petroleum, chemical
+products, cryogens, and refrigerants can all be modeled using the
+I
+MPULSE water hammer model. A piping schematic is created in
+the workspace using drag-and-drop facilities and data can be input
+directly by the user or obtained from a built-in database contain-
+ing properties for nine ﬂuids and eight pipe materials. Some of the
+hydraulic devices that can be incorporated into the pipe network
+include pumps, reservoirs, liquid accumulators, gas accumulators,
+vacuum breaker valves, demands, relief valves, and pressure con-
+trol valves.
+I
+MPULSE will calculate a system steady state and transfer it to
+the method of characteristics solver. Pipe length adjustment, as
+opposed to wave speed adjustment, is used in combination with
+the time step to spatially discretize the piping network. In some
+cases, this means that the modeled pipe length can approximate
+the true length of the pipe. Transient events ~e.g., pump power
+failures, pump starts, valve closures, etc! can be initiated based on
+time or a device setpoint. Liquid column separation, vapor cavi-
+tation, and cavity collapse can be modeled. This model will iden-
+tify when and where maximum pressures occur and plot ﬂow rate,
+pressure, and velocity time histories, which can be formatted by
+66 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 19 =====
+the user. At each time interval, output, such as maximum and
+minimum pressures, are tabulated for each node, pipe, and bound-
+ary device ~Contact: www.aft.com!.
+12.6 W
+ANDA. Both pressurized and nonpressurized
+branched and looped pipe systems can be simulated with this wa-
+ter hammer model. Free-surface ﬂow ~i.e., a partly ﬁlled pipe ! is
+modeled using a conjugate gradient method with an upwind ad-
+vection approximation. The effects of draining and ﬁlling a pipe-
+line can be simulated with this component.
+A schematic of the piping system can be created on-screen us-
+ing a palette of boundary devices. A user deﬁned image ~e.g., a
+street map! can be imported as a background to the schematic and
+properties of nodes, pipes, and boundary devices are input using
+dialog boxes. Some of the available boundary devices include
+pumps, control valves, check valves, taps, air vessels, air inlet
+valves, surge towers, pressure relief valves, weirs, and condensers.
+The method of characteristics-based solver can be interrupted
+and resumed during a simulation. Cavitation and control theory
+~e.g., proportional integral derivative loops, sensors, etc ! modules
+are optional. Pressure versus time histories can be plotted at user-
+deﬁned locations within the pipe system. In addition, it is possible
+to view an animation of pressure wave propagation and reﬂection
+along pipeline routes of a network ~Contact: www.wldelft.nl/soft/
+wanda/!.
+12.7 F
+LOWMASTER. This model calculates transient pres-
+sures and ﬂow rates in piping networks. In addition, calculation of
+heat transfer and simulation of partly empty pipe segments ~e.g.,
+sprinkler systems! is possible.
+Pipe networks can be drawn on-screen using a list of piping
+components and some of the boundary devices that can be repre-
+sented include pumps, reservoirs, weirs, oriﬁces, valves, accumu-
+lators, diaphragms, diffusers, heat-exchangers and pipe ﬁttings.
+User-deﬁned boundary devices can be programmed in either F
+OR-
+TRAN or C. Operational issues can be studied using predeﬁned
+controllers or user-deﬁned controllers programmed in Visual Ba-
+sic or Java.
+The method of characteristics solver generates results that can
+be viewed graphically or in tabular formats. Note that in addition
+to liquids, gas ﬂow dynamics can be simulated ~Contact: www-
+.ﬂowmaster.com!.
+12.8 S
+URGE2000. With this model, a schematic of the pip-
+ing layout can be drawn on-screen and over it can be placed an
+imported background image, such as a street or elevation contour
+map. Boundary devices include pumps, valves, reservoirs, tanks,
+air vessels, air and vacuum valves, pressure relief valves, surge
+anticipating valves, and heat exchangers.
+This model uses the wave-plan method as opposed to the
+method of characteristics or ﬁnite difference methods employed
+by the other models reviewed in this paper. Pump power failure,
+pump startup, and valve operations ~e.g., closure! are just some of
+the unsteady ﬂuid ﬂow events that can be simulated with
+S
+URGE2000. Output, such as pressures, can be tabulated, plotted
+as contours over the system map, and displayed in time history
+plots at nodes. In addition, for each pipeline path, the maximum,
+minimum, and instantaneous transient hydraulic grade lines can
+be plotted on an elevation versus distance graphic ~Contact: ww-
+w.kypipe. com!.
+12.9 L
+IQT. First introduced in 1972, L IQT can model ﬂuid
+transients in pipelines and networks subject to pump power failure
+and startup, turbine load loss, and valve closure. Some of the
+boundary devices that can be selected by the user include pumps,
+turbines, check valves, air and vacuum valves, surge tanks, stand-
+pipes, accumulators, and pressure relief valves. L
+IQT operates
+within a DOS environment window and uses the method of char-
+acteristics to compute pressures and ﬂow rates that can be ex-
+ported to spreadsheets, databases, and graphic software for pre-
+sentation ~Contact: www.advanticastoner.com!.
+12.10 W
+HAMO. This model uses a four-point implicit ﬁnite
+difference method to calculate time-varying ﬂow and head in
+pipelines and networks. The user can select boundary devices
+such as pumps, turbines, valves, tanks, reservoirs, vented or un-
+vented air chambers, pressure control valves, electric governors,
+and constant or time varying demands. A schematic of the piping
+system can be drawn on-screen with the help of a palette of
+boundary device symbols.
+Both steady-state and transient conditions are generated and
+simulations of pump power failure, valve closure, turbine load
+rejection, turbine startup, and governor controlled turbine opera-
+tion are possible ~Contact: www.cecer.army.mil/usmt/whamo/
+whamo.htm!.
+12.11 T
+RANSAM. Using this model, real-time, 3D ~i.e., dis-
+tance, time, and pressure ! animations of the transient pressure
+surface can be viewed along user-deﬁned network and pipeline
+paths. A piping layout map can be created in a designated work-
+space using point-and-click options and a combination of pull-
+down menus and dialog boxes are available for node, pipe, and
+boundary device data input. An E
+PANET to TRANSAM conversion
+utility is supplied. Some of the boundary devices that can be rep-
+resented by this model include pumps, turbines, air chambers,
+reservoirs, tanks, ﬂow control valves, air and vacuum relief
+valves, check valves, pressure relief valves, surge anticipating
+valves, pressure reducing/sustaining valves, constant and time
+varying demands, and bypass lines with check valves.
+Pump power failure and startup, variable speed pump and valve
+operations ~e.g., full and partial openings or closures !, turbine
+load rejection, and pipe breaks are just some of the event or time
+initiated unsteady ﬂow conditions that can be simulated using this
+method of characteristics-based model. Simulation of the forma-
+tion, growth, and collapse of vapor cavities is optional. Time his-
+tory plots of pressure ~and ﬂow rate at nodes ! can be produced at
+nodes and along pipes. Real-time animations of the instantaneous
+transient, maximum, and minimum hydraulic grade lines can be
+viewed for pipe paths ~Contact: www.hydratek.com!.
+13 Emerging Applications in Water Hammer
+By now, the reader is likely aware that the principal use of
+transient analysis, both historically and present day, is the predic-
+tion of peak positive and negative pressures in pipe systems to aid
+in the selection of appropriate strength pipe materials and appur-
+tenances and to design effective transient pressure control sys-
+tems.
+Two important areas in which transient modeling is now taking
+a key role are parameter estimation for leakage detection and wa-
+ter quality predictions in potable water systems. Brief discussions
+of these two important areas of application are provided in this
+section.
+13.1 Parameter Estimation for Leakage Detection and In-
+verse Models. In many pipeline related industries, such as a
+potable water supply or in oil or gas transmission, owners know
+that information is the key to successful management of their
+pipeline operation. For example, in the case of a water supply,
+physical system characteristics, customer data, production rates,
+maintenance records, quality assays, and so on, each provide man-
+agement, engineering, operations, and maintenance staff with in-
+formation they need to keep the system running efﬁciently and
+safely, and at a reasonable cost to the consumer. A large body of
+literature on the subject of information requirements and data
+management already exists, and all private and public pipeline
+utilities are aware of the importance of collecting, archiving, and
+analyzing data. Perhaps the most costly and time consuming as-
+pect of information management, however, is the collection of
+data. This section outlines how inverse transient analysis can be
+applied to gather some types of physical system data. The tech-
+nology has the potential to be both cost efﬁcient and accurate.
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 67
+
+===== PAGE 20 =====
+Using high-frequency pressure transducers, it is now possible to
+safely measure induced, or naturally occurring, pressure surge
+events. Coupling water hammer models to inverse models offers
+the possibility of inexpensive data collection with a wide coverage
+of the system. System demands, leakage, pipe condition ~rough-
+ness!, closed or partially closed valves, even pockets of trapped
+gas or air can ~in theory at least ! all be detected using recorded
+high-frequency pressure data. In addition to pressure measure-
+ments, transient ﬂow data can also be used in the inverse analysis
+procedures. However, ﬂow meters capable of accurately resolving
+the variation in ﬂow rates that occurs during water hammer events
+are quite expensive and more troublesome to install. High-
+frequency pressure transducers, on the other hand, are relatively
+inexpensive and easy to mount at common access points, such as
+valve and meter chambers, or even at ﬁre hydrants. To date, hy-
+draulic model parameters such as pipe roughness and wave speeds
+have been successfully calibrated using these techniques.
+13.1.1 Inverse Analysis of Transient Data. Whether a tran-
+sient is small or large, accidental or planned, pressure waves
+propagate from their respective points of origin to other parts of
+the system. They travel at speeds ranging from about 250 m/s to
+nearly 1500 m/s, depending on pipe material, soil and anchoring
+conditions. The shock fronts interact with any part of the system
+that either dissipates energy or does work in a thermodynamic
+sense. Thus, the energy content of the wave is diminished by
+virtue of its interaction with the physical system, and its frequency
+components, amplitude, phasing, and attenuation characteristics
+become modiﬁed through successive interaction with the system.
+In effect, a pressure signal at a given location constitutes a record
+of conditions in the system during the course of a given transient
+event.
+Deciphering this record of interaction and extracting its infor-
+mation content is precisely what an inverse transient model does.
+The inverse model evaluates the recorded pressure ~or ﬂow! signal
+and determines which set ~or sets! of system parameters, i.e., pipe
+roughness, water consumption ~leakage!, wave speed, etc, best
+matches the measured data. In this way, information ~data! of
+several types can be gathered from those areas of the pipe system
+that the transient waves have traversed. For example, pressure
+traces from two pump trip tests can be sufﬁcient to estimate pipe
+roughness values for every major pipe and consumption values at
+each node in a small city. Of course, the accuracy of the estimates
+can be improved by increasing the number of tests performed or
+by monitoring pressures ~ﬂows! at more than one location.
+There is extensive literature about inverse analysis in both sci-
+entiﬁc and engineering journals. The techniques have been applied
+for many years to structural engineering applications e.g., system
+identiﬁcation and damage detection @113#. Sykes @114#, Sun and
+Yeh @115#, and Sun @116# have used inverse methods to identify
+parameters in 2D groundwater ﬂow. Jarny et al. @117# applied the
+adjoint technique to heat conduction problems. Cacuci et al. @118#
+and Hall @119# applied the adjoint method to meteorology and
+climate modeling. Marchuk @120# applied the adjoint technique to
+air pollution problems.
+Most, though not all, inverse models utilize real measurements
+in a ‘‘data-ﬁtting’’ exercise that typically provides ‘‘best-ﬁt’’ pa-
+rameters for the mathematical model postulated to ﬁt the data.
+Least-squares data-ﬁtting is a simple example of an inverse
+method that tries to ﬁt the best mathematical model ~i.e., linear,
+exponential, polynomial, etc ! to some observed data set. The
+‘‘goodness of ﬁt,’’ i.e., how well the particular assumed math-
+ematical model represents the data, can be measured statistically
+by an analysis of the errors between the observed data and those
+predicted by the model. In fact, these errors are explicitly mini-
+mized using Lagrangian optimization such that the optimal param-
+eter set is directly solved for.
+The same concept can be applied to more complex physical
+systems using sophisticated models. In an inverse problem, output
+from a ‘‘forward’’ model is used to generate an estimate of one or
+more measured data sets using some assumed set of system pa-
+rameters. System parameters could be pipe wave speed, friction
+factor, water consumption rates and locations, leakage rates and
+locations, and so on. A ‘‘merit’’ function is used to compare the
+goodness of ﬁt between the observed data and the model output.
+Common merit functions are the error sum of squares, sum of the
+absolute values of errors, etc. Some sort of search or optimization
+procedure is employed to ﬁnd the set of parameter values that
+minimizes the discrepancy between observed data values and
+those predicted by the forward model. It is the nature of the search
+technique employed in the optimization step that characterizes the
+inverse modeling approach.
+13.1.1.1 Adjoint models. Adjoint models use a form of La-
+grangian optimization coupled with a gradient search to minimize
+the errors between the observed data and the forward model pre-
+diction. In transient ﬂow applications, the problem statement
+would take the following general form ~see also Liggett and Chen
+@121#!:
+Minimize E5
+( @~ hm2hc!21~qm2qc!2# (80)
+subject to the following physical constraints:
+]h
+]t 1
+a2
+gA
+]q
+]x 50 (81)
+]q
+]t 1gA
+]h
+]x 1 f
+ququ
+2AD 50 (82)
+where E is the error sum of squares and Eqs. ~81! and ~82! are the
+continuity and momentum equations rewritten in terms of dis-
+charge and assuming steady Darcy-Weisbach friction. The super-
+script m denotes measured data values and the superscript c de-
+notes the values computed by the forward model, h is piezometric
+pressure head, q is the ﬂow rate, a is the pipeline celerity, f is the
+Darcy-Weisbach friction factor, t is time, x is a spatial coordinate,
+g is gravitational acceleration, and A and D are the pipeline cross-
+sectional area and diameter, respectively.
+Equation ~80! can be combined with Eqs. ~81! and ~82! by
+using Lagrangian multipliers l
+1 and l2 as follows:
+E*5 E
+x
+E
+t
+F~hm2hc!2d~xm2xc!d~tm2tc!1~qm2qc!2d~xm
+2xc!d~tm2tc!1l1S
+]h
+]t 1
+a2
+gA
+]q
+]x D1l2S
+]q
+]t 1gA
+]h
+]x
+1 f
+ququ
+2AD DGdxdt (83)
+The merit ~error! function has now been designated E* to
+indicate that it includes the Lagrangian terms for the continuity
+and momentum equations, and has been expressed as an integral
+to be consistent with the continuum form of the momentum and
+continuity equations. The Dirac delta functions are included to
+ensure that merit function terms are evaluated only at those loca-
+tions and times for which observed data exist, i.e.,
+d~xm2xc!5H
+1 for xm5xc
+0 for xmÞxc
+and d~tm2tc!5H
+1 for tm5tc
+0 for tmÞtc (84)
+The conventional approach to Lagrangian optimization is to
+take partial derivatives of the merit function with respect to the
+unknown system parameters ( a or f in this simple formulation !
+and the Lagrangian multipliers l
+1 and l2, and equate these slope
+functions to zero. This provides four equations from which the
+four unknown variables a, f , l
+1 , and l2 could be determined.
+68 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 21 =====
+However, as these equations are quasi-linear hyperbolic partial
+differential equations, a more elaborate procedure must be used.
+Partial derivatives of the merit function are taken with respect to
+l
+1 and l2 and at critical points of the merit function must have a
+slope of zero. The two derivative functions given in Eq. ~85!
+below are known as the adjoint equations.
+]E*
+]l1
+5
+]h
+]t 1
+a2
+gA
+]q
+]x 50
+and
+]E*
+]l2
+5
+]q
+]t 1gA
+]h
+]x 1 f
+ququ
+2AD 50 (85)
+It sufﬁces to say that the adjoint model is solved iteratively.
+Values for physical system parameters a and f are assumed, and
+the forward model is run to determine the transient head and ﬂow.
+The adjoint equations are solved using the known heads and ﬂows
+in a backward pass to calculate the Lagrangian parameters l
+1 and
+l2 . These values are used in a gradient search step ~the conjugate
+gradient technique is often used ! to select new estimates of the
+optimal parameters. The search procedure terminates when the
+value of E* cannot be reduced any further.
+The advantage of the adjoint method is that it can be extremely
+efﬁcient for a well-conditioned problem. The model can be for-
+mulated to solve for other parameters of interest beside wave
+speed and friction.
+13.1.1.2 Genetic algorithms. Genetic algorithms ~GAs! have
+gained widespread popularity in recent years. There are many rea-
+sons for this success: ~i! GAs can be applied to a wide variety of
+problems; ~ii! GAs do not require the development of additional
+code needed to solve the adjoint of the forward problem; ~iii! a
+single GA can be used with various models that solve the same
+forward problem; ~iv! any model parameters can be speciﬁed as
+the unknown system parameters in a GA; ~v! GAs are quite suc-
+cessful in problems containing local extrema; and ~vi! GAs can
+ﬁnd not only the global optimum, but can also describe other
+suboptimal solutions of interest, particularly for ﬂat merit func-
+tions. Genetic algorithms do not work for every problem, how-
+ever, and one must be aware of their limitations. GAs work best
+for problems in which genotypes consist of a small number of
+genes that can be expressed in short length strings, i.e., problems
+having few decision variables ~parameters! that can be identiﬁed
+by a small number of binary digits. Problems with large numbers
+of real-valued parameters over an extensive and continuous do-
+main are demanding of computer resources when solved by ge-
+netic algorithms. Despite these limitations, the method seems to
+work well with pipeline problems, albeit solution procedures are
+slower than those of the adjoint method.
+In the simplest sense, genetic algorithms are an efﬁcient form
+of enumeration. A candidate set of parameters is assumed or ran-
+domly generated to form individuals in a population. Subsequent
+iterations use evolutionary ~mutation! and reproductive ~cross-
+over! functions to generate further generations of solutions. The
+mathematical principle upon which genetic algorithms are based
+is intended for use with problems in which the decision variables
+are discrete, and in these situations the method can be extremely
+efﬁcient. Modiﬁcations to the method have been developed to
+extend its application to continuous real-valued problems, al-
+though the procedures are less efﬁcient in these cases.
+Karney and Tang @122# have successfully applied the genetic
+algorithm method to parameter estimation problems in water dis-
+tribution systems using transient pressure readings. Using data
+from only two pump trip tests ~one for model validation and the
+other for the parameter estimation !, Karney and Tang have suc-
+cessfully estimated pipe roughness factors and wave speed for
+several large water distribution systems.
+13.1.1.3 Pressure wave method. Brunone @123# and Brunone
+and Ferrante @124# conducted numerical and physical experiments
+to investigate the possibility of using transient data for leakage
+detection. The transient response of a pipeline system to a given
+ﬂow disturbance with and without leakage points was measured as
+well as computed. The inﬂuence of the size and shape of small
+leaks, along with discharge conditions and initial ﬂow regime, on
+the transient response of a pipeline system were analyzed. It is
+found that the inﬂuence of the leak on the shape and amplitude of
+the pressure signal is quite noticeable, even when the leak ﬂow is
+only a few percent of the total ﬂow in the pipe. Therefore,
+Brunone @123# and Brunone and Ferrante @124# formulated a
+scheme for leakage detection on the basis of studying the differ-
+ence in transient response of a pipeline system with and without a
+leak. It is observed that the measured pressure head traces for the
+pipeline with a leak is different from that for an intact pipe. When
+the transient wave encounters a leak, part of the wave is reﬂected
+back. The leak location is determined from the time when the
+reﬂected wave arrives at the measurement station. The leak in-
+duces additional drop in the pressure head traces, the amount of
+drop depending on the size of the leak. The size of the leak is
+using a formal inverse approach. The agreement between the ac-
+tual and the computed location and size of leak points is good.
+13.1.1.4 Frequency response method. The frequency re-
+sponse method is used by Mpesha et al. @125,126#. A hydraulic
+system is made up of several components. Each component can be
+represented by a transfer matrix. Transient ﬂow is caused by the
+periodic opening and closing of a valve @125# or by the sudden
+opening or closing of a valve @126#. A frequency response dia-
+gram at the valve is developed based on the transform matrix. For
+a system with leaks, this diagram has additional resonant pressure
+amplitude peaks that are lower than the resonant pressure ampli-
+tude peaks for the system with no leaks. From the frequency of
+the peaks, the location of the leak can be detected. Very good
+agreement have been obtained between the computed and the real
+leak condition.
+In Ferrante and Brunone @127#, the governing equations for
+transient ﬂow in pipes are solved directly in the frequency domain
+by means of the impulse response method. Therefore, the solution
+of the response of the system to more attractive transient events is
+available. Harmonic analysis of the transient pressure is used to
+identify the location and the size of a leak.
+13.1.1.5 Mode damping method. Wang et al. @128# investi-
+gated the damping characteristics of a transient pressure wave by
+wall friction and by system leakage. It is found that wall friction
+damps all modes similarly, but leakage damps different Fourier
+modes differently. In addition, mode damping by leakage is found
+to depend on leak location. The marked difference in mode damp-
+ing between wall friction and system leakage was successfully
+used to identify the location and size of leaks @128#. In particular,
+Wang et al. @128# were able to accurately identify system leaks by
+investigating mode damping characteristics of transient pressure
+data obtained from numerical as well as laboratory studies. The
+damping characteristic technique was successfully applied to
+single and multiple leaks.
+13.1.1.6 Wavelet transform method. Frequency analysis can
+only deal with a stationary signal ~i.e., the signal has to be either
+periodic or decomposable into a set of periodic signals !. Wavelet
+transform can be used to detect local singularities in a measured
+signal. Whenever there is a singularity in a measured signal, a
+local maximum of the transform coefﬁcient for the measured sig-
+nal appears. The application of the transient wavelet transform to
+leakage detection in a pipeline was pioneered by Ferrante and
+Brunone @129#. The wavelet transform of pressure head history is
+performed. According to the transform of the signal, the disconti-
+nuities in pressure head traces are detected. These discontinuities
+correspond to wave reﬂections at boundary elements and at leak
+points. Using the time at which a discontinuity is observed, the
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 69
+
+===== PAGE 22 =====
+distance between the leak and the measurement station can be
+calculated. The location found by wavelet transform agrees with
+the real location very well.
+13.1.1.7 Identiﬁability and uniqueness requirements. In or-
+der for any inverse method to be successfully applied, two key
+mathematical properties of the problem must be satisﬁed: identi-
+ﬁability and uniqueness. Identiﬁability refers to the notion that a
+single set ~or a ﬁnite number of distinct sets ! of parameter values
+must reproduce, within an established level of error, the same
+response exhibited by the actual system. Uniqueness means that
+the merit function exhibits a single, global minimum. For complex
+problems, there is no rigorous mathematical procedure that can
+assure us that identiﬁability and uniqueness requirements are sat-
+isﬁed in general. However, a simple example is described in the
+following section that provides insight into the suitability of dif-
+ferent inverse modeling techniques for pipeline transient prob-
+lems.
+13.1.1.8 Identiﬁability. Let H
+m5$H0 ,H1 ,H2 ,..., Hn% de-
+note a set of measured values, e.g., piezometric head, at time steps
+0 to n corresponding to some sampling rate ( t
+n2t0)/( n21). Let
+hc5$h0 ,h1 ,h2 ,..., hn% similarly denote the set of computed
+heads at the same time steps but for a particular pair of unknown,
+but desired, parameter values
+s1 and s2 . Then, the following
+criterion for identiﬁability can be stated:
+Identiﬁability criterion: A set of parameter values s1 and s2 are
+identiﬁable if and only if Hm[hc6e, where e represents the ab-
+solute value of data, measurement, and model error. The identiﬁ-
+ability criterion can be visualized by plotting the difference be-
+tween H
+m and hc for each pair of feasible values of parameters s1
+and s2 in the domain and selecting the zero contour of the differ-
+ences. Identiﬁable parameter pairs for which Hm[hc would ap-
+pear as intersections ~loci of intersecting lines ! of all such con-
+tours.
+Uniqueness: The second condition that needs to be met if ad-
+joint methods are to be used with a reasonable expectation of
+success is uniqueness, i.e., there should ideally be only a single
+critical point of the merit function within the feasible search do-
+main.
+The adjoint technique can still be useful if the feasible search
+domain can be restricted to a smaller region containing the global
+minimum. To this end, a more robust optimization scheme is often
+employed to locate the probable region of the global minimum.
+Following this initial screening, the adjoint scheme can then be
+applied to reﬁne the solution. This two-phase optimization ap-
+proach is only worthwhile if the time required to ﬁnd a global
+minimum by other methods is too costly. Compared to the adjoint
+technique, genetic algorithms are better suited to solving problems
+with multiple critical points and those that appear to give good
+results for inverse modeling in pipeline transient applications.
+13.2 Pathogen Intrusion in Water Supply Systems. In the
+ﬁrst sentence of its proposed Ground Water Rule: Public Health
+Concerns document, the U.S. EPA Ofﬁce of Water states that,
+‘‘Assurance that the drinking water is not contaminated by human
+or animal fecal waste is the key issue for any drinking water
+system.’’ The proposed Ground Water Rule is designed to protect
+against pathogenic bacteria and viruses in source water, against
+growth of opportunistic pathogenic bacteria in ground water dis-
+tribution systems, and to mitigate against any failure in the engi-
+neered systems, such as cross-connections or sewage inﬁltration
+into distribution systems.
+There is considerable evidence in the literature that the number
+of disease outbreaks ~including a large number that are unreported
+@www.epa.gov/orgwdw000/standard/phs.html#! due to fecal con-
+tamination of distribution systems is already large and might be
+growing. From 1971–1994, 50 of 356 reported waterborne dis-
+ease outbreaks occurred as a result of pathogen entry into distri-
+bution systems. More recent statistics from the U.S. Center for
+Disease Control put the ratio of distribution system intrusions to
+other sources of drinking water contamination as high as 1:1.
+Studies by Payment @130# suggest that one third of the 99 million
+gastroenteritis cases in the U.S. each year might involve exposure
+to waterborne pathogens in the distribution system. Conserva-
+tively estimating that 20% of these cases result from pathogen
+intrusion into water pipes, then, in America alone, as many as 20
+million cases of gastroenteritis annually might be directly caused
+by contamination of drinking water distribution systems.
+Recent research into the problem is now attempting to address
+four critical questions that naturally arise in response to these
+alarming statistics. ~i! What is the nature of the pathogen intrusion
+mechanism~s!? ~ii! Why don’t routine water sampling and labora-
+tory testing detect intrusion events? ~iii! Is the health of water
+consumers in a particular system at risk? ~iv! Can the risk of
+distribution system intrusions be reduced ~and by how much ! or
+eliminated altogether? Answers to these four questions depend
+entirely on developing a clear understanding of the complex in-
+teractions with hydraulic transients in pipe systems.
+13.2.1 Distribution System Intrusion Pathways. There are
+several potential intrusion pathways whereby bacterial, protozoan,
+and viral pathogens can enter a water supply, transmission, or
+distribution pipeline: ~i! at the source; ~ii! during loss of pressure
+and subsequent exposure of the pipe interior to the external air,
+soil or groundwater ~such as may happen during a main break
+repair!; ~iii! via cross-connections on a consumer’s property; and
+~iv! via cross-connections in the distribution system.
+The ﬁrst two intrusion mechanisms are ‘‘controlled’’ situations
+insofar as the quality of ﬁnished water is carefully monitored and
+treated to ensure compliance with drinking water standards, while
+the latter two pathways are largely ‘‘uncontrolled.’’ Cross-
+connections can arise whenever a possible source of contaminated
+water or other liquid can be introduced into the potable water
+system by virtue of backpressure ~an excess of pressure causing
+ﬂow to occur in a direction opposite to its normal intended ﬂow
+direction! or siphonage ~suction or ‘‘negative’’ pressure inducing
+ﬂow from a contamination source into the distribution system !.
+While backpressure and negative pressures are usually eliminated
+through proper hydraulic design, there is one major source of
+negative pressures that is not normally accounted for in distribu-
+tion system design—hydraulic transients.
+Water hammer occurs regularly in some systems and periodi-
+cally in others whenever ﬂow conditions are changed rapidly.
+Whether these changes in ﬂow are the result of planned operations
+like pump starts and stops, or are unplanned events initiated by
+power outages, accidental valve closures, or rupturing of a pipe,
+the ensuing episodes of negative pressure can introduce contami-
+nated ﬂuids into the pipeline. Contamination can occur on a cus-
+tomer’s property or on the utility side of a service connection.
+Contaminated ﬂuids introduced at a cross-connection would be
+largely transported in the prevailing direction of ﬂow in the pipe
+after entering the system.
+Pressure dependent leakage is commonly known to occur from
+the potable system to the surrounding ~soil! environment through
+pipe joints, cracks, pinholes, and larger oriﬁce-like openings.
+Funk et al. @131# developed analytic hydraulic parameters to as-
+sess the potential for transient intrusion in a water distribution
+system. Their intrusion model was based on the percentage of
+water lost through leakage lumped at system nodes and an
+‘‘equivalent oriﬁce’’ needed to pass the discrete leakage ﬂow at
+the prevailing system pressure.
+A paper by McInnis ~in progress ! extends the work of Funk
+et al. to incorporate alternative intrusion ﬂow models based on
+laminar ﬂow, turbulent oriﬁce ﬂow, or a mixture of the two ﬂow
+types. Work done by Germanopoulos and Jowitt @132# on pressure
+dependent leakage suggests that most distributed leakage is prob-
+ably laminar in nature, occurring through larger numbers of small
+openings. The 2D water hammer equations with turbulence mod-
+els developed by Vardy and Hwang @25#, Pezzinga @38#, and
+Silva-Araya and Chaudhry @37,98# will be useful in generating
+70 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 23 =====
+models for predicting intrusion volumes, initial distribution of
+contaminant concentrations in the pipes, and the ultimate fate of
+contaminants within the distribution system.
+McInnis @133# expands the consideration of transient intrusion
+events from purely ﬂuid mechanics aspects by developing a risk-
+based framework for comparing the actual human health risks and
+relative risk reduction achieved by alternative transient-intrusion
+mitigation strategies. McInnis @133# applies transient modeling
+with some assumed reference groundwater contamination level
+and computes hypothetical intrusion volumes for a given transient
+event to predict the transitory impact of the event on system water
+quality. He has also proposed meaningful risk-based measures to
+provide quantitative comparisons of the relative reduction in the
+risk of receptor infection achieved by alternative mitigation strat-
+egies.
+14 Practical and Research Needs in Water Hammer
+Both theory and experiments conﬁrm the existence of helical
+type vortices in transient pipe ﬂows. The conditions under which
+helical vortices emerge in transient ﬂows and the inﬂuence of
+these vortices on the velocity, pressure, and shear stress ﬁelds are
+currently not well understood and, thus, are not incorporated in
+transient ﬂow models. Future research is required to accomplish
+the following:
+1! understand the physical mechanisms responsible for the emer-
+gence of helical type vortices in transient pipe ﬂows
+2! determine the range in the parameter space, deﬁned by Rey-
+nolds number and dimensionless transient time scale over
+which helical vortices develop
+3! investigate ﬂow structure together with pressure, velocity, and
+shear stress ﬁelds at subcritical, critical, and supercritical val-
+ues of Reynolds number and dimensionless time scale
+The accomplishment of the stated objectives would be sought
+through the use of linear and nonlinear analysis. Understanding
+the causes, emergent conditions, and behavior of helical vortices
+in transient pipe ﬂows as well as their inﬂuence on the velocity,
+pressure, and shear stress ﬁeld are fundamental problems in ﬂuid
+mechanics and hydraulics. Understanding these phenomena would
+constitute an essential step toward incorporating this new phe-
+nomena in practical unsteady ﬂow models and reducing signiﬁ-
+cant discrepancies in the observed and predicted behavior of en-
+ergy dissipation beyond the ﬁrst wave cycle.
+Current physically based 1D and 2D water hammer models
+assume that ~i! turbulence in a pipe is either quasi-steady, frozen
+or quasi-laminar; and ~ii! the turbulent relations that have been
+derived and tested in steady ﬂows remain valid in unsteady pipe
+ﬂows. These assumptions have not received much attention in the
+water hammer literature. Understanding the limitations and accu-
+racy of assumptions ~i! and ~ii! is essential for establishing the
+domain of applicability of models that utilize these assumptions
+and for seeking appropriate models to be used in problems where
+existing models fail. Preliminary studies by Ghidaoui et al. @46#
+show that agreement between physically based 1D and 2D water
+hammer models and experiments is highly dependent on the Rey-
+nolds number and on the ratio of the wave to turbulent diffusion
+time scales. However, the lack of in-depth understanding of the
+changes in turbulence during transient ﬂow conditions is a signiﬁ-
+cant obstacle to achieving conclusive results regarding the limita-
+tion of existing models and the derivation of more appropriate
+models. Therefore, a research program whose main objective is to
+develop an understanding of the turbulence behavior and energy
+dissipation in unsteady pipe ﬂows is needed. This research pro-
+gram needs to accomplish the following:
+1! improve understanding of and the ability to quantify changes
+in turbulent strength and structure in transient events at differ-
+ent Reynolds numbers and time scales
+2! use the understanding gained in item 1 to determine the range
+of applicability of existing models and to seek more appropri-
+ate models for problems where current models are known to
+fail
+The development of inverse water hammer techniques is an-
+other important future research area. A number of very promising
+inverse water hammer techniques have been developed in the last
+decade. Future work in this area needs to accomplish the follow-
+ing:
+1! further investigate the issues of efﬁciency, reliability, and iden-
+tiﬁability of inverse water hammer techniques
+2! develop more realistic laboratory and ﬁeld programs in order
+to further test existing inverse techniques as well as develop
+new ones
+3! develop systematic approaches ~e.g., using stochastic methods!
+that can incorporate the inﬂuence of modeling and measure-
+ment errors on the reliability of inverse methods
+4! develop identiﬁability-based methods to determine the quantity
+and quality of data necessary to carry out a successful inverse
+program
+The practical signiﬁcance of the research goals stated above is
+considerable. An improved understanding of transient ﬂow behav-
+ior gained from such research would permit development of tran-
+sient models able to accurately predict ﬂows and pressures beyond
+the ﬁrst wave cycle. One important consequence of this is that the
+behavioral aspects of control devices activated ~or reactivated! by
+local ﬂow or pressure is correctly modeled. Most importantly,
+however, reducing the modeling errors beyond the ﬁrst wave
+cycle, along with better inverse techniques, will greatly improve
+the accuracy and reliability of inverse transient models. This is
+important because inverse models have the potential to utilize
+ﬁeld measurements of transient events to accurately and inexpen-
+sively calibrate a wide range of hydraulic parameters, including
+pipe friction factors, system demands, and leakage. At this time,
+such information can only be obtained through costly ﬁeld mea-
+surements of ﬂows and pressures conducted on a few individually
+sampled pipes in the system. Transients, on the other hand,
+traverse the entire system, interacting with each pipe or device in
+the system. Thus, they contain large amounts of information re-
+garding the physical characteristics of the system. Inverse tran-
+sient analysis techniques are now being developed to decode this
+information for hydraulic model calibration as well as to identify
+and locate system leakage, closed or partially closed valves, and
+damaged pipes. The potential annual savings in routine data col-
+lection costs for water supply utilities world wide is signiﬁcant.
+Equally important, an improved understanding of the true nature
+of turbulence in transient ﬂows will be a groundbreaking step
+toward modeling transient-induced water quality problems. Nega-
+tive pressure waves can cause intrusion of contaminants from the
+pipe surroundings through cracks, pinholes, joints, and ruptures in
+the pipes. In addition, water hammer events cause bioﬁlm slough-
+ing and resuspension of particulates within the pipe, potentially
+leading to unsafe or unpleasant drinking water. Without a better
+understanding of transient ﬂow behavior, the risk and degree of
+contamination of water supply systems during transient events
+cannot be quantitatively assessed.
+15 Summary
+The scientiﬁc study of transient ﬂuid ﬂow has been undertaken
+since the middle of the nineteenth century. As is true of every
+other area of engineering research, a great many advances have
+been made in the accuracy of analysis and the range of applica-
+tions since then. Although only a few simple problems were ap-
+proachable by earlier analytical methods and numerical tech-
+niques, a much broader spectrum of transient problems could be
+solved once graphical methods were developed. More recently,
+the application of digital computing techniques has resulted in a
+rapid increase in the range and complexity of problems being
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 71
+
+===== PAGE 24 =====
+studied. This paper provides both a historical perspective and re-
+view of water hammer theory and an overview of recent develop-
+ments in this ﬁeld of ﬂuid mechanics.
+Speciﬁcally, advances in the last one or two decades dealing
+with some of the more complex and fundamental ﬂuid mechanics
+issues have been discussed:
+1! The relation between state equations and wave speeds in single
+as well as multiphase and multicomponent transient ﬂows are
+illustrated and discussed.
+2! Various forms of 1D and 2D water hammer equations, such as
+the Joukowsky model, classical 1D waterhammer equations,
+the 2D plane wave equations, and the quasi-two-dimensional
+plane wave equations are derived.
+3! Governing equations of turbulent water hammer ﬂows are ob-
+tained by ensemble averaging of the quasi-two-dimensional
+plane wave equations.
+4! Order of magnitude analysis is used throughout the paper to
+evaluate the accuracy of the assumptions in the various forms
+of water hammer governing equations.
+Water hammer models are becoming more widely used ~i! for
+the design, analysis, and safe operation of complex pipeline sys-
+tems and their protective devices; ~ii! for the assessment and miti-
+gation of transient-induced water quality problems; and ~iii! for
+the identiﬁcation of system leakage, closed or partially closed
+valves, and hydraulic parameters such as friction factors and wave
+speeds. In addition, turbulence models have been developed and
+used to perform numerical experiments in turbulent water hammer
+ﬂows for a multitude of research purposes such as the computa-
+tion of instantaneous velocity proﬁles and shear stress ﬁelds, the
+calibration and veriﬁcation of 1D water hammer models, the
+evaluation of the parameters of 1D unsteady friction models, and
+the comparison of various 1D unsteady friction models. Under-
+standing the governing equations that are in use in water hammer
+research and practice and their limitations is essential for inter-
+preting the results of the numerical models that are based on these
+equations, for judging the reliability of the data obtained from
+these models, and for minimizing misuse of water hammer mod-
+els.
+Acknowledgments
+The writers wish to thank the Research Grants Council of Hong
+Kong for ﬁnancial support under Project No. HKUST6179/02E.
+Nomenclature
+A - system matrix
+A - cross-sectional area of pipe
+a - water hammer wavespeed
+a - coefﬁcient for ﬁve-region turbulence model
+B - matrix for subsystem of longitudinal velocity
+component
+B - coefﬁcient for MOC formulation
+BC - lumped quantity for characteristics solution for
+pipe network
+BM - quantity for negative characteristics used for
+1D MOC solution
+BP - quantity for positive characteristics used for
+1D MOC solution
+b - known vector for system
+bu - known vector for subsystem of longitudinal
+velocity component
+bv - known vector for subsystem of head and radial
+component
+C - matrix for subsystem of head and radial veloc-
+ity component
+CB - coefﬁcient for ﬁve-region turbulence model
+CC - lumped quantity for characteristics solution for
+pipe network
+Cc - coefﬁcient for ﬁve-region turbulence model
+CM - quantity for negative characteristics used for
+1D MOC solution
+Cm - coefﬁcient for ﬁve-region turbulence model
+CP - quantity for positive characteristics used for
+1D MOC solution
+Cq1 , Cq2 - coefﬁcients before q
+Cr - courant number
+Cu1 , Cu2 , Cu3 - coefﬁcients before u
+c - parameter associated with pipe anchor condi-
+tion
+c - superscript denoting values predicted by for-
+ward model
+c2 - coefﬁcient used in Daily et al. @39#
+cs - control surface
+cv - control volume
+D - diameter of pipe
+E - Young’s modulus of elasticity of pipe material
+E - errors
+E* - merit ~error! function
+e - thickness of pipe wall
+F - wall resistance force
+Fext - external forces
+f - Darcy-Weisbach friction factor
+g - gravitational acceleration
+Hm - set of measured piezometric head
+H - piezometric head
+HA - piezometric head at point A
+HB - piezometric head at point B
+HP - piezometric head at point P
+hc - set of computed piezometric head
+i - index for pipes
+Js - steady friction term
+j - index for pipes
+K - unsteady resistance coefﬁcient
+Ke - effective bulk modulus of elasticity
+Kf - bulk modulus of elasticity of the ﬂuid
+Ks - steady-state resistance coefﬁcient
+Ku - unsteady resistance coefﬁcient and momentum
+ﬂux of absolute local velocity
+k - unsteady friction factor
+L - pipe length
+l - mixing length
+M - Mach number
+m - superscript denoting measured data values
+m - time level index
+N1 - set of all pipes with ﬂow toward conjuction
+node
+N2 - set of all pipes with ﬂow away from conjuc-
+tion node
+Nr - number of computational reaches in radial di-
+rection
+n - unit outward normal vector to control surface
+n - index of measured series
+n - exponential for power law of velocity proﬁle
+nc - number of complete water hammer wave
+cycles
+P - parameter for quasi-steady assumption
+P - piezometric pressure
+Q - discharge
+QA - discharge at point A
+QB - discharge at point B
+Qext - discharge of external ﬂow
+QP - discharge at point P
+q - radial ﬂux
+q - ﬂow rate
+R, R* - radius of pipe, dimensionless distance from
+pipe wall
+R - coefﬁcient for MOC formulation
+Re - Reynolds number
+72 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 25 =====
+r - radial coordinate
+T - time scale
+Td - time scale for radial diffusion of vorticity
+t - time
+t8 - time used for convolution integral
+U1 - longitudinal velocity scale
+u - unknown vector for subsystem of longitudinal
+velocity component
+u - local longitudinal velocity
+u* - frictional velocity
+u8 - turbulence perturbation corresponding to u
+V - cross-sectional average velocity
+v - velocity vector
+v - unknown vector for subsystem of head and
+radial velocity component
+v - local radial velocity
+v8 - turbulence perturbation corresponding to v
+W - weighting function
+X - longitudinal length scale
+x - distance along the pipe
+y, y* - distance from pipe wall, dimensionless dis-
+tance from pipe wall
+Z - elevation of pipe centerline from a given da-
+tum
+z - unknown vector for system
+a - angle between pipe and horizontal direction
+a - coefﬁcient in weighting function
+b - momentum correction coefﬁcient
+b - coefﬁcient in weighting function
+g - unit gravity force
+e - distance from the water hammer front
+e - eddy viscosity
+e - implicit parameter for shear stress
+e - implicit parameter for friction
+e - measured and modeled data error
+z - a positive real parameter
+h - difference from unity of Coriolis correction
+h - constant for weighting function
+u - implicit parameter for radial ﬂux
+k - coefﬁcient for weighting function
+k - coefﬁcient for ﬁve-region turbulence model
+k - coefﬁcient for two-layer turbulence model
+l1 - Lagrangian multiplier
+l2 - Lagrangian multiplier
+n - kinematic viscosity
+np - Poisson ratio
+nT - total viscosity
+j - strain
+r - ﬂuid density
+r0 - ﬂuid density at undisturbed state
+re - effective density
+s1 , s2 - unknown but desired parameters
+sx - axial stress
+su - hoop stress
+t - shear stress
+tw - wall shear stress
+tws - quasi-steady contribution of wall shear stress
+twu - discrepancy between unsteady and quasi-
+steady wall shear stress
+f - coefﬁcient in unsteady friction formula.
+References
+@1# Vanderburg, V . H., 1986, ‘‘Knowing Technology as if People Mat-
+tered,’’ Man-Env. Syst. 16, pp. 69–75.
+@2# Kuhn, T., 1962, The Structure of Scientiﬁc Revolutions , University
+of Chicago Press, Chicago, IL.
+@3# Menabrea, L. F., 1885, ‘‘Note sur les effects de choc de l’eau dans
+les conduites,’’ C. R. Hebd. Seances Acad. Sci. 47, July–Dec., pp.
+221–224.
+@4# Michaud, J., 1878, ‘‘Coups de be´lier dans les conduites. E´ tude des
+moyens employe´s pour en atteneur les effects,’’ Bull. Soc. Vaudoise
+Ing. Arch. 4~3,4!, pp. 56–64, 65–77.
+@5# Weston, E. B., 1885, ‘‘Description of Some Experiments Made on
+the Providence, RI Water Works to Ascertain the Force of Water
+Ram in Pipes,’’ Trans. Am. Soc. Civ. Eng. 14, p. 238.
+@6# Carpenter, R. C., 1893, ‘‘Experiments on Waterhammer,’’ Trans.
+ASME, 15.
+@7# Frizell, J. P., 1898, ‘‘Pressures Resulting from Changes of Velocity
+of Water in Pipes,’’ Trans. Am. Soc. Civ. Eng. 39, pp. 1–18.
+@8# Joukowski, N. E., 1898, ‘‘Memoirs of the Imperial Academy Soci-
+ety of St. Petersburg,’’ 9~5!~ Russian translated by O Simin 1904 !,
+Proc. Amer. Water Works Assoc. 24, pp. 341–424.
+@9# Allievi, L., 1903, ‘‘Teoria generale del moto perturbato dell’acqu
+ani tubi in pressione,’’ Ann. Soc. Ing. Arch. Ithaliana ~French trans-
+lation by Allievi ~1904, Revue de me´canique!.
+@10# Allievi, L., 1913, ‘‘Teoria del colpo d’ariete,’’ Atti Collegio Ing.
+Arch. ~English translation by Halmos EE 1929 !, ‘‘The Theory of
+Waterhammer,’’ Trans. ASME.
+@11# Courant, R. and Friedrichs, K. O., 1976, Supersonic Flow and
+Shock Waves, Springer-Verlag, New York.
+@12# Jaeger, C., 1933, Theorie Generale du Coup de Belier , Dunod,
+Paris.
+@13# Jaeger, C., 1956, Engineering Fluid Mechanics translated from Ger-
+man by P.O. Wolf, Blackie, London.
+@14# Wood, F. M., 1937, ‘‘The Application of Heavisides Operational
+Calculus to the Solution of Problems in Waterhammer,’’ Trans.
+ASME 59, pp. 707–713.
+@15# Rich, G., 1944, ‘‘Waterhammer Analysis by the Laplace-Mellin
+Transformations,’’ Trans. ASME, pp. 1944 –45.
+@16# Rich, G., 1951, Hydraulic Transients , 1st Edition, McGraw-Hill,
+New York, 1951 ~Dover Reprint!.
+@17# Parmakian, J., 1955, Water-Hammer Analysis. Prentice-Hall Engle-
+wood Cliffs, N.J., 1955 ~Dover Reprint, 1963 !.
+@18# Streeter, V . L., and Lai, C., 1963, ‘‘Waterhammer Analysis Includ-
+ing Fluid Friction,’’ Trans. Am. Soc. Civ. Eng. 128, pp. 1491–1524.
+@19# Streeter, V . L. and Wylie, E. B., 1967, Hydraulic Transients ,
+McGraw-Hill, New York.
+@20# Chaudhry, M. H., 1987, Applied Hydraulic Transients , Van Nos-
+trand Reinhold, New York.
+@21# Watters, G. Z., 1984, Analysis and Control of Unsteady Flow in
+Pipelines, Butterworth, Stoneham, Ma.
+@22# Wylie, E. B. and Streeter, V . .L 1984, Fluid Transients, FEB Press,
+Ann Arbor.
+@23# Wylie, E. B., Streeter, V . L., and Suo, Lisheng, 1993, Fluid Tran-
+sient in Systems , Prentice-Hall, Englewood Cliffs,
+@24# Mitra, A. K., and Rouleau W. T., 1985, ‘‘Radial and Axial Variations
+in Transient Pressure Waves Transmitted Through Liquid Transmis-
+sion Lines,’’ ASME J. Fluids Eng. 107, pp. 105–111.
+@25# Vardy, A. E., and Hwang, K. L., 1991, ‘‘A Characteristic Model of
+Transient Friction in Pipes,’’ J. Hydraul. Res. 29~5!, pp. 669–685.
+@26# Ghidaoui, M. S. 2001, ‘‘Fundamental Theory of Waterhammer,’’
+Special Issue of the Urban Water J. ~Special Issue on Transients,
+Guest Editor: B. W. Karney !, 1~2!, pp. 71–83.
+@27# Walker, J. S., 1975, ‘‘Perturbation Solutions for Steady One-
+Dimensional Waterhammer Waves,’’ ASME J. Fluids Eng. 6,p p .
+260–262.
+@28# Hinze, J. O., 1975, Turbulence, McGraw-Hill Classic Textbook Re-
+issue Series, New York.
+@29# Bergant, A. and Simpson, A. R., 1994, ‘‘Estimating Unsteady Fric-
+tion in Transient Cavitating Pipe Flow,’’ Proc. 2nd Int. Conf. on
+Water Pipeline Systems, Edinburgh, UK, May 24 –26, BHRA Group
+Conf. Series Publ. No. 110, pp. 3–15.
+@30# Axworthy, D. H., Ghidaoui, M. S., and McInnis, D. A., 2000, ‘‘Ex-
+tended Thermodynamics Derivation of Energy Dissipation in Un-
+steady Pipe Flow,’’ J. Hydraul. Eng. 126~4!, pp. 276–287.
+@31# Brunone, B., Karney, B. W., Mecarelli, M., and Ferrante, M., 2000,
+‘‘Velocity Proﬁles and Unsteady Pipe Friction in Transient Flow,’’ J.
+Water Resour. Plan. Manage. 126~4!, pp. 236–244.
+@32# Ghidaoui, M. S., and Mansour, S., 2002, ‘‘Efﬁcient Treatment of the
+Vardy-Brown Unsteady Shear in Pipe Transients,’’ J. Hydraul. Eng.
+128~1!, pp. 102–112.
+@33# Korteweg, D. J., 1878, ‘‘U ¨ ber die fortpﬂanzungsgeschwindigkeit
+des schalles in elastischen rohren,’’ Ann. Phys. Chemie 5~12!,p p .
+525–542.
+@34# Lighthill, J., 1996, Waves in Fluids , Cambridge University Press,
+UK.
+@35# Tijsseling, A. S., 1995, ‘‘Fluid-Structure Interaction in Liquid-Filled
+Pipe Systems: A Review,’’ J. Fluids Struct. 10, pp. 109–146.
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 73
+
+===== PAGE 26 =====
+@36# Streeter, V . L. and Wylie, E. B., 1985, Fluid Mechanics ~8th Edi-
+tion!, McGraw Hill New York.
+@37# Silva-Araya, W. F., and Chaudhry, M. H., 1997, ‘‘Computation of
+Energy Dissipation in Transient Flow,’’ J. Hydraul. Eng. 123~2!, pp.
+108–115.
+@38# Pezzinga, G., 1999, ‘‘Quasi-2D Model for Unsteady Flow in Pipe
+Networks,’’ J. Hydraul. Eng. 125~7!, pp. 676–685.
+@39# Daily, J. W., Hankey, W. L., Olive, R. W., and Jordaan, J. M., 1956,
+‘‘Resistance Coefﬁcients for Accelerated and Decelerated Flows
+Through Smooth Tubes and Oriﬁces,’’ Trans. ASME 78~July!, pp.
+1071–1077.
+@40# Shuy, E. B., 1996, ‘‘Wall Shear Stress in Accelerating and Deceler-
+ating Turbulent Pipe Flows,’’ J. Hydraul. Res. 34~2!, pp. 173–183.
+@41# Vardy, A. E., and Brown, J. M. B., 1997, ‘‘Discussion on Wall Shear
+Stress in Accelerating and Decelerating Pipe Flow,’’ J. Hydraul.
+Res. 35~1!, pp. 137–139.
+@42# Ghidaoui, M. S., and Kolyshkin, A. A., 2001, ‘‘Stability Analysis of
+Velocity Proﬁles in Water-Hammer Flows,’’ J. Hydraul. Eng.
+127~6!, pp. 499–512.
+@43# Carstens, M. R., and Roller, J. E., 1959, ‘‘Boundary-Shear Stress in
+Unsteady Turbulent Pipe Flow,’’ J. Hydraul. Div., Am. Soc. Civ.
+Eng. 85~HY2!, pp. 67–81.
+@44# Pezzinga, G., 2000, ‘‘Evaluation of Unsteady Flow Resistances by
+Quasi-2d or 1d Models,’’ J. Hydraul. Eng. 126~10!, pp. 778–785.
+@45# Eichinger, P. and Lein, G., 1992, The Inﬂuence of Friction on Un-
+steady Pipe Flow, Unsteady Flow and Fluid Transients, Bettess and
+Watts ~eds!, Balkema, Rotterdam, The Netherlands, 41–50.
+@46# Ghidaoui, M. S., Mansour, S. G. S., and Zhao, M., 2002, ‘‘Appli-
+cability of Quasi Steady and Axisymmetric Turbulence Models in
+Water Hammer,’’ J. Hydraul. Eng. 128~10!, pp. 917–924.
+@47# Vardy, A. E. and Brown, J, M., 1996, ‘‘On Turbulent, Unsteady,
+Smooth-Pipe Friction, Pressure Surges and Fluid Transient,’’ BHR
+Group, London, pp. 289–311.
+@48# Brunone, B. and Golia, U. M., 1991, ‘‘Some Considerations on
+Velocity Proﬁles in Unsteady Pipe Flows,’’ Proc. Int. Conf. on En-
+thropy and Energy Dissipation in Water Resources , Maratea, Italy,
+pp. 481–487.
+@49# Greco, M., 1990, ‘‘Some Recent Findings On Column Separation
+During Water Hammer,’’ Excerpta, G.N.I., Padua, Italy, Libreria
+Progetto, ed., 5, 261–272.
+@50# Brunone, B., Golia, U. M., and Greco, M., 1991, ‘‘Some Remarks
+on the Momentum Equation for Fast Transients,’’ Proc. Int. Conf.
+on Hydr. Transients With Water Column Separation , IAHR, Valen-
+cia, Spain, 201–209.
+@51# Brunone, B., Golia, U. M., and Greco, M., 1991, ‘‘Modelling of
+Fast Transients by Numerical Methods,’’ Proc. Int. Conf. on Hydr.
+Transients With Water Column Separation, IAHR, Valencia, Spain,
+273–280.
+@52# Bergant, A., Simpson, A. R., and Vitkovsky, J., 2001, ‘‘Develop-
+ments in Unsteady Pipe Flow Friction Modelling,’’ J. Hydraul. Res.
+39~3!, pp. 249–257.
+@53# Brunone, B., Golia, U. M., and Greco, M., 1995, ‘‘Effects of Two-
+Dimensionality on Pipe Transients Modeling,’’ J. Hydraul. Eng.
+121~12!, pp. 906–912.
+@54# Wylie, E. B., 1997, ‘‘Frictional Effects in Unsteady Turbulent Pipe
+Flows,’’ Appl. Mech. Rev. 50~11!, Part 2, pp. S241–S244.
+@55# Vitkovsky, J. P., Lambert, M. F., Simpson, A. R., and Bergant, A.,
+2000, ‘‘Advances in Unsteady Friction Modelling in Transient Pipe
+Flow,’’ 8th Int. Conf. on Pressure Surges , The Hague, The Nether-
+lands.
+@56# Zielke, W., 1968, ‘‘Frequency-Dependent Friction in Transient Pipe
+Flow,’’ ASME J. Basic Eng. 90~1!, pp. 109–115.
+@57# Trikha, A. K., 1975, ‘‘An Efﬁcient Method for Simulating
+Frequency-Dependent Friction in Transient Liquid Flow,’’ ASME J.
+Fluids Eng. 97~1!, pp. 97–105.
+@58# Suzuki, K., Taketomi, T., and Sato, S., 1991, ‘‘Improving Zielke’s
+Method of Simulating Frequency-Dependent Friction in Laminar
+Liquid Pipe Flow,’’ ASME J. Fluids Eng. 113~4!, pp. 569–573.
+@59# Vardy, A. E., Hwang, K. L., and Brown, J. M. B., 1993, ‘‘A Weight-
+ing Model of Transient Turbulent Pipe Friction,’’ J. Hydraul. Res.
+31, pp. 533–548.
+@60# Vardy, A. E., and Brown, J. M. B., 1995, ‘‘Transient, Turbulent,
+Smooth Pipe Friction,’’ J. Hydraul. Res. 33, pp. 435–456.
+@61# Almeida, A. B. and Koelle, E., 1992, Fluid Transients in Pipe Net-
+works, Computational Mechanics Publications, Elsevier, New York.
+@62# Lister, M., 1960, The Numerical Solution of Hyperbolic Partial Dif-
+ferential Equations by the Method of Characteristics, A Ralston and
+HS Wilf ~eds!, Numerical Methods for Digital Computers , Wiley
+New York, 165–179.
+@63# Wiggert, D. C., and Sundquist, M. J., 1977, ‘‘Fixed-Grid Character-
+istics for Pipeline Transients,’’ J. Hydraul. Div., Am. Soc. Civ. Eng.
+103~HY12!, pp. 1403–1415.
+@64# Goldberg, D. E., and Wylie, E. B., 1983, ‘‘Characteristics Method
+Using Time-Line Interpolations,’’ J. Hydraul. Eng. 109~5!, pp. 670–
+683.
+@65# Lai, C., 1989, ‘‘Comprehensive Method of Characteristics Models
+for Flow Simulation,’’ J. Hydraul. Eng. 114~9!, pp. 1074 –1095.
+@66# Yang, J. C., and Hsu, E. L., 1990, ‘‘Time-Line Interpolation for
+Solution of the Dispersion Equation,’’ J. Hydraul. Res. 28~4!,p p .
+503–523.
+@67# Yang, J. C., and Hsu, E. L., 1991, ‘‘On the Use of the Reach-Back
+Characteristics Method of Calculation of Dispersion,’’ Int. J. Nu-
+mer. Methods Fluids 12, pp. 225–235.
+@68# Bentley, L. R., 1991, Discussion of ‘‘On the Use of the Reach-Back
+Characteristics Method for Calculation of Dispersion,’’ by J. C.
+Yang, and EL Hsu, Int. J. Numer. Methods Fluids 13~5!, pp. 1205–
+1206.
+@69# Sibertheros, I. A., Holley, E. R., and Branski, J. M., 1991, ‘‘Spline
+Interpolations for Water Hammer Analysis,’’ J. Hydraul. Eng.
+117~10!, pp. 1332–1349.
+@70# Karney, B. W., and Ghidaoui, M. S., 1997, ‘‘Flexible Discretization
+Algorithm for Fixed Grid MOC in Pipeline Systems,’’ J. Hydraul.
+Eng. 123~11!, pp. 1004 –1011.
+@71# Wood, D. J., Dorsch, R. G., and Lightnor, C., 1966, ‘‘Wave-Plan
+Analysis of Unsteady Flow in Closed Conduits,’’ J. Hydraul. Div.,
+Am. Soc. Civ. Eng. 92~HY12!, pp. 83–110.
+@72# Wylie, E. B. and Streeter, V . L., 1970, ‘‘Network System Transient
+Calculations by Implicit Method,’’ 45th Annual Meeting of the So-
+ciety of Petroleum Engineers of AIME , Houston, Texas October
+4 –7, paper No. 2963.
+@73# Holly, F. M., and Preissmann, A., 1977, ‘‘Accurate Calculation of
+Transport in Two Dimensions,’’ J. Hydraul. Div., Am. Soc. Civ.
+Eng. 103~HY11!, pp. 1259–1277.
+@74# Chaudhry, M. H., and Hussaini, M. Y ., 1985, ‘‘Second-Order Accu-
+rate Explicitly Finite-Difference Schemes for Water Hammer
+Analysis,’’ ASME J. Fluids Eng. 107, pp. 523–529.
+@75# Toro, E. F., 1997, Riemann Solvers and Numerical Methods for
+Fluid Dynamics, Springer-Verlag, Berlin.
+@76# Toro, E. F., 2001, Shock-Capturing Methods for Free-Surface Shal-
+low Flows, Wiley Ltd, Chichester, England.
+@77# Guinot, V ., 2002, ‘‘Riemann Solvers for Water Hammer Simulations
+by Godunov Method,’’ Int. J. Numer. Methods Eng. 49, pp. 851–
+870.
+@78# Hwang, Y . H., and Chung, N. M., 2002, ‘‘A Fast Godunov Method
+for the Water-Hammer Problem,’’ Int. J. Numer. Methods Fluids 40,
+pp. 799–819.
+@79# O’Brian, G. G., Hyman, M. A., and Kaplan, S., 1951, ‘‘A Study of
+the Numerical Solution of Partial Differential Equations,’’ J. Math.
+Phys. 29~4!, pp. 223–251.
+@80# Damuller, D. C., Bhallamudi, S. M., and Chaudhry, M. H., 1989,
+‘‘Modelling Unsteady Flow in Curved Channel,’’ J. Hydraul. Eng.
+115~11!, pp. 1471–1495.
+@81# Samuels, G. P., and Skeel, P. C., 1990, ‘‘Stability Limits for Preiss-
+mann’s Scheme,’’ J. Hydraul. Div., Am. Soc. Civ. Eng. 116~HY8!,
+pp. 997–1011.
+@82# Karney, B. W., and Ghidaoui, M. S., 1992, ‘‘Discussion on Spline
+Interpolations for Water Hammer Analysis,’’ J. Hydraul. Eng.
+118~11!, pp. 1597–1600.
+@83# Sivaloganathan, K., 1978, ‘‘Flood Routing by Characteristic Meth-
+ods,’’ J. Hydraul. Div., Am. Soc. Civ. Eng. 107~HY7!, pp. 1075–
+1091.
+@84# Wylie, E. B., 1980, ‘‘Inaccuracies in the Characteristics Method,’’
+Proc. Spec. Conf. on Comp. and Physical Modelling in Hydr. Eng.
+ASCE, Chicago, 165–176.
+@85# Ghidaoui, M. S., and Karney, B. W., 1994, ‘‘Equivalent Differential
+Equations in Fixed-Grid Characteristics Method,’’ J. Hydraul. Eng.
+120~10!, pp. 1159–1176.
+@86# Ghidaoui, M. S., Karney, B. W., and McInnis, D. A., 1998, ‘‘Energy
+Estimates for Discretization Errors in Waterhammer Problems,’’ J.
+Hydraul. Eng. 123~11!, pp. 384 –393.
+@87# Das, D., and Arakeri, J. H., 1998, ‘‘Transition of Unsteady Velocity
+Proﬁles with Reverse Flow,’’ J. Fluid Mech. 374, pp. 251–283.
+@88# Brunone, B., Karney, B. W., and Ferrante, M., 1999, ‘‘Velocity Pro-
+ﬁles Unsteady Friction Losses and Transient Modelling,’’Proc. 26th
+Annu. Water Resour. Plng. and Mgmt. Conf. ASCE, Reston, V A~on
+CD-ROM!.
+@89# Lodahl, C. R., Sumer, B. M., and Fredsoe, J., 1998, ‘‘Turbulent
+74 Õ Vol. 58, JANUARY 2005 Transactions of the ASME
+
+===== PAGE 27 =====
+Combined Oscillatory Flow and Current in Pipe,’’ J. Fluid Mech.
+373, pp. 313–348.
+@90# Ghidaoui, M. S., and Kolyshkin, A. A., 2002, ‘‘A Quasi-Steady
+Approach to the Instability of Time-Dependent Flows in Pipes,’’ J.
+Fluid Mech. 465, pp. 301–330.
+@91# Pezzinga, G., and Scandura, P., 1995, ‘‘Unsteady Flow in Installa-
+tions with Polymeric Additional Pipe,’’ J. Hydraul. Eng. 121~11!,
+pp. 802–811.
+@92# Greenblatt, D., and Moss, E. A., 1999, ‘‘Pipe-Flow Relaminariza-
+tion by Temporal Acceleration,’’ Phys. Fluids 11~11!, pp. 3478–
+3481.
+@93# He, S., and Jackson, J. D, 2000, ‘‘A Study of Turbulence Under
+Conditions of Transient Flow in a Pipe,’’ J. Fluid Mech. 408,p p .
+1–38.
+@94# Tu, S. W., and Ramaprian, B. R., 1983, ‘‘Fully Developed Periodic
+Turbulent Pipe Flow–Part 1: Main Experimental Results and Com-
+parison with Predictions,’’ J. Fluid Mech. 137, pp. 31–58.
+@95# Brereton, G. L., Reynolds, W. C., and Jayaraman, R., 1990, ‘‘Re-
+sponse of a Turbulent Boundary Layer to Sinusoidal Free-Stream
+Unsteadiness,’’ J. Fluid Mech. 221, pp. 131–159.
+@96# Akhavan, R., Kamm, R. D., and Shapiro, A. H., 1991, ‘‘Investiga-
+tion of Transition to Turbulence in Bounded Oscillatory Stokes
+Flows–Part 1: Experiments,’’ J. Fluid Mech. 225, pp. 395–422.
+@97# Akhavan, R., Kamm, R. D., and Shapiro, A. H., 1991, ‘‘Investiga-
+tion of Transition to Turbulence in Bounded Oscillatory Stokes
+Flows–Part 2: Numerical Simulations,’’ J. Fluid Mech. 225, pp.
+423–444.
+@98# Silva-Araya, W. F., and Chaudhry, M. H., 2001, ‘‘Unsteady Friction
+in Rough Pipes,’’ J. Hydraul. Eng. 127~7!, pp. 607–618.
+@99# Ohmi, M., Kyomen, S., and Usui, T., 1985, ‘‘Numerical Analysis of
+Transient Turbulent Flow in a Liquid Line,’’ Bull. JSME 28~239!,
+pp. 799–806.
+@100# Wood, D. J., and Funk, J. E., 1970, ‘‘A Boundary-Layer Theory for
+Transient Viscous Losses in Turbulent Flow,’’ ASME J. Basic Eng.
+102, pp. 865–873.
+@101# Bratland, O., 1986, ‘‘Frequency-Dependent Friction and Radial Ki-
+netic Energy Variation in Transient Pipe Flow,’’Proc. 5th Int. Conf.
+on Pressure Surges, BHRA, Hannover, Germany, 95–101.
+@102# Rodi, W., 1993, Turbulence Models and Their Application in Hy-
+draulics: A State-of-the-Art Review, 3rd Edition, Int. Association for
+Hydraulic Research, Delft, Balkema.
+@103# Kita, Y ., Adachi, Y ., and Hirose, K., 1980, ‘‘Periodically Oscillating
+Turbulent Flow in a Pipe,’’ Bull. JSME 23~179!, pp. 654 –664.
+@104# Eggels, J. G. M., 1994, ‘‘Direct and Large Eddy Simulation of
+Turbulent Flow in a Cylindrical Pipe Geometry,’’ PhD Dissertation,
+Delft University of Technology.
+@105# Zhao, M., and Ghidaoui, M. S., 2003, ‘‘An Efﬁcient Solution for
+Quasi-Two-Dimensional Water Hammer Problems,’’ J. Hydraul.
+Eng., 129~12!, pp. 1007–1013.
+@106# Karney, B. W., and McInnis, D., 1990, ‘‘Transient Analysis of Water
+Distribution Systems,’’ J. AWWA 82~7!, pp. 62–70.
+@107# Wylie, E. B., 1983, ‘‘The Microcomputer and Pipeline Transients,’’
+J. Hydraul. Div., Am. Soc. Civ. Eng. 109~HY12!, pp. 539–42.
+@108# Karney, B. W., 1984, ‘‘Analysis of Fluid Transients in Large Distri-
+bution Networks,’’ Ph.D. thesis, University of British Columbia,
+Vancouver, Canada.
+@109# Fox, J. A., 1977, Hydraulic Analysis and Unsteady Flow in Pipe
+Networks, MacMillan Press, London.
+@110# Koelle, E., 1982, ‘‘Transient Analysis of Pressure Conduit Hydrau-
+lic Systems,’’ Proc the Int. Institute on Hydraulic Transients and
+Cavitation, Sao Paulo, Brazil, B1.1–B1.38.
+@111# McInnis, D. A., 1992, ‘‘Comprehensive Hydraulic Analysis of
+Complex Pipe Systems,’’ Ph.D. thesis, University of Toronto, Tor-
+onto, Canada.
+@112# McInnis, D. A., Karney, B. W., and Axworthy, D. H., 1997, ‘‘Efﬁ-
+cient Valve Representation in Fixed-Grid Characteristics Method,’’
+J. Hydraul. Eng. 123~8!, pp. 709–718.
+@113# Beck, J. L. and Katafygiotis, L. S., 1992, ‘‘Updating Dynamic Mod-
+els and Their Associated Uncertainties for Structural Systems,’’Pro.
+the 9th Engineering Mechanics Conference ,L .D .L u t e sa n dJ .M .
+Niedzwecki, eds., ASCE, Reston, V A, pp. 681–684.
+@114# Sykes, J. F., 1985, ‘‘Sensitivity Analysis for Steady State Ground
+Water Flow Using Adjoint Operators,’’ Water Resour. Res. 21~3!,
+pp. 359–371.
+@115# Sun, N. Z., and Yeh, W. G., 1990, ‘‘Coupled Inverse Problems in
+Groundwater Modeling–2: Identiﬁability and Experimental De-
+sign,’’ Water Resour. Res. 26~10!, pp. 2527–2540.
+@116# Sun, N. Z., 1994, Inverse Problems in Groundwater Modeling, Klu-
+wer Academic Publishers.
+@117# Jarny, Y ., Ozisik, M. N., and Bardon, J. P., 1991, ‘‘A General Opti-
+mization Method Using Adjoint Equation for Solving Multidimen-
+sional Inverse Heat Conduction,’’ Int. J. Heat Mass Transfer 34~11!,
+pp. 2911–2919.
+@118# Cacuci, D. G., and Hall, M. C. G., 1984, ‘‘Efﬁcient Estimation of
+Feedback Effects with Application to Climate Models,’’ J. Atmos.
+Sci. 13~2!, pp. 2063–2068.
+@119# Hall, M. C. G. , 1986, ‘‘Application of Adjoint Sensitivity Theory to
+an Atmospheric General Circulation Model,’’ J. Atmos. Sci. 43~22!,
+pp. 2644 –2651.
+@120# Marchuk, G. I., 1995, Adjoint Equations and Analysis of Complex
+Systems, Kluwer, London.
+@121# Liggett, J. A., and Chen, L. C., 1994, ‘‘Inverse Transient Analysis in
+Pipe Networks,’’ J. Hydraul. Eng. 120~8!, pp. 934 –995.
+@122# Karney, B. W. and Tang, K., 2003, personal communication.
+@123# Brunone, B., 1999, ‘‘Transient Test-Based Technique for Leak De-
+tection in Outfall Pipes,’’ J. Water Resour. Plan. Manage. 125~5!,
+pp. 302–306.
+@124# Brunone, B., and Ferrante, M., 2001, ‘‘Detecting Leaks in Pres-
+surised Pipes by Means of Transient,’’ J. Hydraul. Res. 39~5!,p p .
+539–547.
+@125# Mpesha, W., Gassman, S. L., and Chaudhry, M. H., 2001, ‘‘Leak
+Detection in Pipes by Frequency Response Method,’’ J. Hydraul.
+Eng. 127~2!, pp. 137–147.
+@126# Mpesha, W., Chaudhry, M. H., and Gassman SL 2002, ‘‘Leak De-
+tection in Pipes by Frequency Response Method Using a Step Ex-
+citation,’’ J. Hydraul. Res. 40~1!, pp. 55–62.
+@127# Ferrante, M., and Brunone, B., 2002, ‘‘Pipe System Diagnosis and
+Leak Detection by Unsteady-State Tests–1: Harmonic Analysis,’’
+Adv. Water Resour. 26, pp. 95–105.
+@128# Wang, Xiao-Jian, Lambert, M. F., Simpson, A. R., and Liggett, J.
+A., 2002, ‘‘Leak Detection in Pipelines Using the Damping of Fluid
+Transients,’’ J. Hydraul. Eng. 128~7!, pp. 697–711.
+@129# Ferrante, M., and Brunone, B., 2002, ‘‘Pipe System Diagnosis and
+Leak Detection by Unsteady-State Tests–2: Wavelent Analysis,’’
+Adv. Water Resour. 26, pp. 107–116.
+@130# Payment, P., 1999, ‘‘Poor Efﬁcacy of Residual Chlorine Disinfec-
+tant in Drinking Water to Inactivate Waterborne Pathogens in Dis-
+tribution system,’’ Can. J. Microbiol. 45~8!, pp. 709–715.
+@131# Funk, J. E., van Vuuren, S. J., Wood, D. J., and LeChevallier, M.,
+1999, ‘‘Pathogen Intrusion into Water Distribution Systems Due to
+Transients,’’Proc. 3rd ASME/JSME Joint Fluids Engineering Conf.,
+July 18–23, San Francisco, California.
+@132# Germanopoulos, G. and Jowitt, P. W., 1989, ‘‘Leakge Reduction by
+Excessive Pressure Minimization in a Water Supply Network,’’
+Proc. Inst. of Civ. Eng. ~UK!, 195–214.
+@133# McInnis, D. A., 2003, ‘‘A Relative-Risk Assessment Framework for
+Evaluating Pathogen Intrusion During Transient Events in Water
+Pipelines,’’ Urban Water J. ~Special Issue on Transients, Guest Edi-
+tor: B. W. Karney!, 1~2!, pp. 113–127.
+Applied Mechanics Reviews JANUARY 2005, Vol. 58 Õ 75
+
+===== PAGE 28 =====
+Mohamed Ghidaoui received his B.A.Sc., M.A.Sc. and Ph.D. all in Civil Engineering from
+the University of Toronto, Canada, in 1989, 1991, and 1993, respectively. Since July 1993,
+he has been with the Department of Civil Engineering at the Hong Kong University of
+Science and Technology (HKUST) where he is an Associate Professor. His research interests
+include modeling of surface water ﬂows and water hammer: unsteady friction in conduits,
+turbulence modeling of fast transients, ﬂow stability of time-dependent ﬂows and turbulent
+shallow shear ﬂow, numerical modeling of surface and closed conduit ﬂows, and application
+of Bolzmann theory in hydraulics. He is a member of the International Association of
+Hydraulic Research (IAHR) and the American Society of Civil Engineers (ASCE). He is a
+founding member of IAHR-Hong Kong and currently serves as its president. He is an Asso-
+ciate Editor of the Journal of Hydraulic Research and an advisory board member of the
+Journal of Hydroinformatics. His awards include the Albert Berry Memorial Award, Ameri-
+can Water Works Association; runner-up for the Hilgard Award for best paper, Journal of
+Hydraulic Engineering; and Teaching Excellence Awards, School of Engineering, HKUST.
+Ming Zhao obtained his Ph.D. in April 2004 from the Department of Civil Engineering, at
+Hong Kong University of Science and Technolgy. He obtained both his B.A.Eng. in hydraulic
+engineering and B.A.Sc. in eneterprise management in 1999 from Tsinghua University. His
+research interests include numerical simulation of unsteady pipe ﬂows, open channel ﬂows,
+turbulence modeling in hydraulics, and stability analysis for ﬂuid ﬂows.
+David H. Axworthy is a registered professional engineer with a consulting engineering ﬁrm
+in Los Angeles, California. He obtained his B.A.Sc. (1991), M.A.Sc. (1993) and Ph.D. (1997)
+in civil engineering from the University of Toronto. Axworthy has analyzed pressure tran-
+sients created by the operation of pump stations and valves and designed surge protection
+for water supply, wastewater, ﬁre protection, deicing, diesel, and jet fuel systems. A member
+of the ASCE and AWWA, Axworthy is coauthor of a water hammer analysis model (Tran-
+sAM), serves as a reviewer for the ASME Journal of Fluids Engineering, and has published
+scientiﬁc papers in the area of pipe network transients.
+Duncan A. McInnis (Ph.D., P .Eng., MHKIE) has degrees in environmental biology and civil
+engineering. He has 20 years of scientiﬁc and professional engineering experience in com-
+putational hydraulics, simulation, and computer modeling of surface water and pipeline
+systems. McInnis has been a Lecturer of Civil Engineering and Senior Project Manager at
+the Hong Kong University of Science and Technology. He is currently the Manager of Water
+Resources with Komex International Ltd., an international environmental consulting ﬁrm.
+76 Õ Vol. 58, JANUARY 2005 Transactions of the ASME

@@ -4,6 +4,8 @@ authors: [Author Name]
 journal: "Target SCI Journal (e.g., SPE Journal / Mechanical Systems and Signal Processing)"
 ---
 
+> **SUPERSEDED as SPEJ Paper A.** Canonical draft: [PaperA_Topology-Organized_Cepstral_Response_倒谱拓扑组织与首缝非局部性.md](./PaperA_Topology-Organized_Cepstral_Response_倒谱拓扑组织与首缝非局部性.md). Keep this file only as a methods/narrative source. Do not cite its 350-case table, diagonal-accumulation isolation claim, stretched-exponential anomalous diffusion, or proven constructive/destructive paths.
+
 # 停泵水击波多裂缝监测：一维/二维倒谱解析与信号干涉机理（稳态模型）
 **Cepstrum-Based Multi-Fracture Identification Using Pump-Shut-In Water Hammer: 1D/2D Resolution and Signal Interference Mechanisms under Steady Flow**
 

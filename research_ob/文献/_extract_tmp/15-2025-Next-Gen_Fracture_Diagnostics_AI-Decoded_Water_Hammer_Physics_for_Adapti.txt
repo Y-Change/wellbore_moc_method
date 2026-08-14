@@ -1,0 +1,255 @@
+SOURCE: 15-2025-Next-Gen Fracture Diagnostics AI-Decoded Water Hammer Physics for Adaptive Design and Field-Wide Optimization.pdf
+PAGES: 7
+FULL extract 7 pages
+
+
+
+===== PAGE 1 =====
+SPE-230381-MS
+Next-Gen Fracture Diagnostics: AI-Decoded Water Hammer Physics for
+Adaptive Design and Field-Wide Optimization
+R. M. Iuzofatov, SPE; I. A. Seleznev, A. A. Borisenko, and A. V. Fedorov, STISS LLC, Russia
+Copyright 2025, Society of Petroleum Engineers DOI 10.2118/230381-MS
+This paper was prepared for presentation at the SPE Caspian Technical Conference and Exhibition scheduled to be held in Baku, Azerbaijan, 25 – 27 November 2025.
+This paper was selected for presentation by an SPE program committee following review of information contained in an abstract submitted by the author(s). Contents
+of the paper have not been reviewed by the Society of Petroleum Engineers and are subject to correction by the author(s). The material does not necessarily reflect
+any position of the Society of Petroleum Engineers, its officers, or members. Electronic reproduction, distribution, or storage of any part of this paper without the written
+consent of the Society of Petroleum Engineers is prohibited. Permission to reproduce in print is restricted to an abstract of not more than 300 words; illustrations may
+not be copied. The abstract must contain conspicuous acknowledgment of SPE copyright.
+Abstract
+Hydraulic fracturing is performed to intensify hydrocarbon production by applying high pressure to the
+productive formation in order to initiate the creation of a fracture and its further development in the
+formation with subsequent placement of a propping agent (proppant) to ensure inflow to the production well.
+The job is performed as per preliminary design according to the model, which is necessary for achieving
+the optimal parameters of the fracture. At the modeling stage, the expected parameters of the hydraulic
+fracture and production rate assessment is made on the basis of information on the physical properties of the
+formation according to core studies and well logging data, data from previously performed fracturing jobs
+on adjacent wells, a job plan, information on the types and properties of fracturing fluids and proppants.
+After conducting hydraulic fracturing and calibrating the fracture model based on the obtained data, it
+becomes possible to form a more accurate representation of the actual fracture parameters for productivity
+evaluation. However, this representation comes with a significant degree of uncertainty regarding the
+actual fracture geometry and fracture planes propagation direction, the uniformity of change in the fracture
+half-length within the reservoir in both directions from the wellbore (symmetry), and the distribution of
+proppant volume between the fracture planes. Under these circumstances, making decisions regarding the
+optimization of the hydraulic fracturing program for a field remains a highly challenging task.
+For the studied waterhammer signals, it is difficult to obtain the true values of the fracture parameters;
+the available data is a result of related inverse problems` solving.
+Recording the pressure signal with a high sampling rate (in practice, up to 200 Hz) makes possible a
+detailed analysis of the oscillations observed after pumps shutdown (Ma et al., 2019; Qiu et al., 2023). One
+of the problems that can be solved by analyzing the high-frequency pressure signal is the localization of the
+hydraulic fracturing zone (Oparin et al., 2024). Knowing the fracturing zone and assuming the influence of
+the fracture geometry on the shape of the recorded signal, the task of estimating the fracture parameters is set.
+The waterhammer signal recorded at the wellhead can have a complex shape due to the well design, fluid
+properties, fracture geometry, and reservoir properties. The variable velocity of acoustic wave propagation
+along the wellbore further complicates the solution of the inverse problem.
+Currently, there is an increasing number of signal analysis techniques based on the utilization of various
+novel neural network algorithms. The development and implementation of these solutions in production
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+2 SPE-230381-MS
+processes allows to explore new approaches to data management and significantly reduce production costs.
+On the other hand, it is of the highest priority for the oil industry to ensure the reliable operation and safety of
+any forecasts, and therefore, it is necessary to monitor the physical plausibility of neural network algorithms
+or apply it in combination with robust mathematical modeling.
+This paper proposes a method for estimating fracture parameters based on the analysis of waterhammer
+signals. For this purpose, the use of the latent space parameters of a variational autoencoder trained on a
+set of simulated waterhammer data is proposed. Based on the field data analysis results, the possibility of
+additional estimation of fracture parameters is demonstrated.
+Methodology
+The described method consists of two main parts: direct modeling of waterhammer signals using the
+Hydraulic Impedance Testing (HIT) method (Paige et al., 1995), and the use of a neural network based on
+a variational autoencoder (VAE) scheme (Doersch, 2016) which is trained on simulated data, to estimate
+changes in the model parameters of the signal.
+HIT method
+For modeling the training dataset of waterhammers, a model using the acoustic approximation is applied.
+The solution is performed in the frequency domain, transition to which is carried out using the Laplace
+transform. The solution is represented as:
+where s = σ + i ω –is the Laplace transform variable. The following also holds true:
+where  – is the characteristic impedance of the segment. For a segment with a known characteristic
+impedance, a system of equations for transferring the hydraulic impedance Z(x, s) from one end of the
+segment to the opposite end is formulated:
+Thus, the sequence of characteristic impedances of the segments defines the physical configuration of
+the system. To account for the influence of the fracture, the formula for the parallel connection of segments
+is used at the point where the fracture adjoins the wellbore:
+Where  – is the lumped impedance, which depends on the fracture parameters and
+affects the signal propagation along the wellbore. After setting the no-flow boundary condition at the bottom
+of the well, the impedance transfer equation is used for each allocated segment until the wellhead is reached.
+A second boundary condition is set at the wellhead in the form of a given flow rate function `Q`, which
+satisfies the requirements for performing the inverse Laplace transform and describes the fluid injection
+process during hydraulic fracturing. The final solution in the time domain is obtained after calculating the
+inverse Laplace transform at the wellhead.
+Procedural modeling was used to create the training dataset of waterhammers, varying several system
+parameters: geometric parameters of the fracture model, fracture depth, fracture fluid parameters, wellbore
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+SPE-230381-MS 3
+fluid parameters, and source function parameters. Furthermore, several wellbore configurations were used
+in the modeling to reflect the influence of various pipe joints on the resulting signal. Fig.1 shows examples
+of simulated waterhammers used for training.
+Figure 1—Examples of training dataset signals.
+VAE scheme
+A neural network based on a variational autoencoder scheme is used for training on model signals. It is
+crucial to mention that learning is unsupervised. In other words, during training this neural network does
+not use the model parameters of the signal as prediction targets but learns to reconstruct the signal based
+on a chosen metric. By learning to extract core features from the input signal and decoding it to latent
+representation, the neural network forms latent space distributions. This allows the use of the latent space
+for working with signal parameters.
+Using the encoder, each real signal is uniquely mapped to a point in the latent space. Since the latent space
+vector is the carrier of all available information for further decoding, vectors of similar signals will be close.
+Analyzing the parameters of the nearest neighbors allows obtaining the parameters of the model signals
+that are most similar to the input unknown signal from the perspective of the chosen metric. The averaged
+parameter values of the neighbors, or the selection of parameters using any clustering method, can be used
+as an initial approximation for an accurate initial approximation of the inverse problem (Petrov et al., 2023)
+or for estimating the model parameters of the fracture. However, for such an analysis of a single signal, a
+preliminary analysis of the inverse problem is necessary. For example, if there are dependent parameters in
+the problem, and their mutual change can be compensated, then a clear distribution in the latent space cannot
+be achieved, since in this case, changes in the parameters of the initial model do not affect the final signal.
+Since this model does not account for the spatial characteristics of the fracture but represents it as a
+parallel segment of the well, the solution of the inverse problem based on a single signal contains significant
+assumptions. In order to benefit from the resulting distributions in the latent space, instead of analyzing
+single signal we propose finding the difference between successive responses to estimate the evolution over
+time during the work process. In this case, all system parameters for both signals remain unchanged and any
+differences between them are attributed solely to variations in the model's fracture parameters. To assess
+the quality of the performed hydraulic fracture, one can study the dynamics of the change in the fracture
+response signal, for example, by comparing datafrac (or mini frac) waterhammers with main fracturing job
+waterhammers within the same stage.
+Despite the inaccurate coincidence of the reconstructed signal with the original field signal, the signal
+sequence retains its key differences. The changes in the latent space are of particular importance, and the
+analysis of these shifts is of primary interest.
+In the context of using the autoencoder, each signal has a uniquely corresponding point in the encoded
+latent space, which can be used to investigate the relative characteristics of two signals: to extract the vector
+responsible for increasing one of the system parameters. Using model data, we subtract the averaged latent
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+4 SPE-230381-MS
+representation of signals with a small parameter value from the averaged latent representation of signals
+with a large parameter. Thus, we obtain an abstract vector in the latent space, which corresponds to the
+averaged direction of increase of the selected parameter. An abstract increase vector is unique for each
+single parameter in mathematical modeling. We analyze only those parameters where the projection of the
+latent representation increases monotonically with an increase in the model parameter. In this case, the
+parameters are the components of fracture impedance. If the monotony is violated, it indicates uncertainty
+in the distribution in latent space and makes it unreasonable to base further analysis on the average
+representation. An example of such a parameter would be the water hammer celerity. Fig. 2 shows a graph of
+the monotonicity of parameters in the latent space. To construct it, an increase vector is allocated, on which
+the difference between the successively increasing parameters is sequentially projected. As can be seen on
+the left plot of Fig. 2, the latent representations of fracture's half-length are distributed monotonically, thus
+they could be analyzed by the proposed method. On the other hand, right plot of Fig. 2 shows distribution of
+water hammer celerity and demonstrates the uncertainty in determining the change using a scalar product.
+Figure 2—Example of projections of the distribution of an increasing model
+parameter onto the corresponding increase vector in the latent space.
+On the contrary, we may observe the inherent physicality of the obtained result of non-monotonous
+distribution of certain parameters. For instance, if the water hammer celerity was unambiguously determined
+by a solitary signal, it would suggest an artefact in the modelling process, allowing for non-physical
+inferences.
+Then, for two field signals, we obtain the vector difference of their latent representations, project it onto
+the pre-calculated parameter increase vector, and based on the projection value, we estimate the change in
+the model parameters of the system. For example, if the vector difference of two signals from the same
+stage, calculated in this way, is co-directed with the abstract vector of fracture width increase, it is concluded
+that one of the results of the operations performed was an increase in the model parameter of fracture width.
+Case History
+Example 1
+The described methodology applied to the field data is presented in Fig. 3. The dataset under analysis
+comprises a number of water hammer events – an injection test, a mini-frac, and a main frac for one stage.
+In this case, all other variables in the system are held constant, including the well configuration, reflection
+from joints, and water hammer celerity for these events.
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+SPE-230381-MS 5
+Figure 3—Example of 3 signals from one stage. The corresponding decoded waterhammers are shown on the lower graph.
+During processing, we obtain 2 vectors of parameter changes in the latent space, as described above. To
+illustrate the relative change, we take the initial parameter values of the first signal as 1, then subsequent
+parameter changes are calculated relative to the first one using the formula:
+where  – is the pre-calculated parameter change vector, and f1, f2 – are the latent representations of the
+corresponding field signals.
+Fig. 4 shows the result of the signal analysis The water hammer signals in Fig. 4 are normalized to the
+maximum values for clarity of presentaion. In this case, one can see a consistent increase in the amplitude of
+the signal reflection, which indicates an increase in the fracture parameters as a result of hydraulic fracturing
+operations. Through an assessment using the latent space, it is possible to determine the impact of the work
+performed immediately after pressure release in the well. The graph on the right picture of Fig. 4 shows a
+sequential increase in the model fracture parameter as a result of the hydraulic fracturing operation.
+Figure 4—Example of the algorithm's operation on field data from one stage.
+Example 2
+To demonstrate the operation of the method, we will compare estimates from the proposed method with
+reported calculated metrics for increasing fracture opening width. At each stage of this dataset, there are
+mini-frac and main-frac jobs an analysis of the difference between which is shown in the Fig. 5.
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+6 SPE-230381-MS
+Figure 5—Example of the algorithm's operation on field data from several stages.
+The blue line of the graph shows the reported difference in fracture width before and after hydraulic
+fracturing operations while the dotted lines show estimates of the change in width and half-length using
+the proposed algorithm at each stage. It is important to mention a consistent polarity of changes in the
+reported parameters and the estimated values provided by the method. Since the fracture impedance of the
+model depends on a combination of width and half-length parameters, the detailed numerical representation
+depends on the joint calculation of changes in the estimation parameters.
+An important result is the speed of obtaining estimates of the effectiveness of the use of intensification
+methods. While detailed estimates based on adjusting well parameters through software modeling require
+time for data collection and the work of a model expert, estimates using the proposed method involve
+analyzing effectiveness immediately after completion in the automatic background mode. Proposed
+approach allows for the early detection of potential faults related to hydraulic fracturing operations, and
+enables the adjustment of the work plan on-site.
+Conclusions
+Neural networks are increasingly playing a significant role in digital data processing algorithms. By
+leveraging existing architectures and customizing them to meet specific needs, experts in the field can
+greatly enhance their day-to-day operations. At the same time, it is crucial in the oil industry to minimize
+errors associated with the statistical nature of neural networks in order to prevent inaccurate forecasts. To
+achieve this, it may be possible to utilize physically informed neural networks or develop one's own robust
+algorithms designed to clarify the solution to inverse problems or accelerate optimization techniques.
+This paper presents a novel approach to using the latent space of a generative neural network trained
+on the generated dataset of water hammer events to assess changes in fracture parameters during hydraulic
+fracturing operations. In combination with the monotonicity of the projection of model parameter changes
+in the latent space, as illustrated in Fig. 3 , this approach may be considered physically plausible. The
+automation of routine tasks through the implementation of advanced algorithms can significantly reduce
+costs and allow for the use of innovative tools for quality assurance and prevention of work-related errors.
+Based on the results of this work, an approach to solving the problem of additional fracture parameter
+estimation during hydraulic fracturing by analyzing the waterhammer event is described:
+1. A novel methodology that combines physics-based modeling (HIT) with machine learning
+(variational autoencoder) to interpret complex waterhammer signals for hydraulic fracture
+characterization, moving beyond traditional inverse problem techniques is proposed.
+2. The research validates that the latent space of a VAE, trained solely on signal reconstruction,
+effectively encodes meaningful information about the physical parameters of the fracture system. This
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+SPE-230381-MS 7
+allows for the estimation of fracture properties by analyzing the proximity and vector relationships
+between data points in this compressed representation.
+3. The method is particularly powerful for conducting comparative analysis. It can reliably track relative
+changes in fracture parameters (e.g., an increase in width or length) between different stages (e.g.,
+mini frac vs. main frac) on the same well, providing valuable insights into the fracture's evolution.
+4. The technique offers a significant practical advantage by generating a well-informed initial
+approximation of fracture parameters. This can drastically improve the convergence speed and
+accuracy of subsequent, more precise, inverse problem-solving methods.
+5. The conclusion rightly acknowledges the model's simplifications (e.g., representing the fracture as
+a lumped impedance) and the significant uncertainties inherent in fracture diagnostics. The method
+is positioned as a supplementary tool for evaluation rather than a definitive standalone solution,
+highlighting a scientifically honest approach.
+Further development of the methodology for improving the forecast may involve both a more in-depth
+analysis of the physics of the phenomenon under study and the addition of various signals of different nature
+to the shared latent space. In the latter case, the existence of a shared latent space would allow the integration
+of solutions from various mathematical models into a unified view of the developing production facility,
+which would lead to a more in-depth analysis of events and improvement of existing forecasts.
+References
+Doersch, C., 2016, Tutorial on variational autoencoders: arXiv preprint, arXiv:1606.05908.
+Ma, X. , Zhou, F., Ortega Andrade, J. A. , Gosavi, S. , and Burch, D.  2019. Evaluation of Water Hammer Analysis
+as a Diagnostic Tool for Hydraulic Fracturing. Presented at the SPE/AAPG/SEG Unconventional Resources
+Technology Conference, Denver, Colorado, USA, 22-24 July. URTEC-2019-935-MS. doi: https://doi.org/10.15530/
+urtec-2019-935.
+Oparin, M. , Crawford, E. , Alzahrani, B. , Tineo, R., Najmi, A. , Enkababian, P., Borisenko, A. , and Fedorov, A.
+2024. Nonintrusive Rapid Evaluation of Fracture Isolation in Plug-And-Perf Completions Based on Data Science
+Methodology. Presented at the International Petroleum Technology Conference, Dhahran, Saudi Arabia, 12-14
+February. IPTC-24435-EA. doi: https://doi.org/10.2523/IPTC-24435-EA.
+Paige, R. W., Murray, L. R., and Roberts, J. D. M. 1995. Field Application of Hydraulic Impedance Testing for Fracture
+Measurement. SPE Prod & Fac 10 (1): 7–12. SPE-26525-PA. https://doi.org/10.2118/26525-PA.
+Petrov, I.B., Stankevich, A.S., Vasyukov, A.V. 2023. On Obtaining Initial Approximation For Full Wave Inversion Problem
+Using Convolutional Neural Network (in Russian). Ross. Akademija Nauk Mat. Inform. Processy Upr. 512 (1): 58–64.
+Qiu, Y., Hu, X. , Zhou, F., Yi, P., Wang, Y., and Jiang, Z.  2023. A New Investigation of Wellbore Parameters
+Influence on Shut-In Pressure Transient Signatures from Water Hammer Fracture Diagnostics. Presented at the
+SPE International Hydraulic Fracturing Technology Conference and Exhibition, Muscat, Sultanate of Oman, 12-14
+September. SPE-215709-MS. doi: https://doi.org/10.2118/215709-MS.
+Downloaded from onepetro.​org/​SPECTCE/​proceedings-pdf/​25CTC/​25CTC/​D021S007R002/​5300922/​spe-230381-ms.​pdf by China University of Petroleum Beijing user on 13 August 2026

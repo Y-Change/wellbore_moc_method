@@ -12,7 +12,7 @@
 | :--- | :---: | :---: | :---: | :--- |
 | **压裂簇数** | $N_{cl}$ | 离散均匀分布 | $1 \sim 6$ 簇 | 模拟单缝改造至水平井段多簇穿孔压裂 |
 | **缝网分布深界** | $Z_{start}\sim Z_{end}$ | 连续均匀分布 | $3500 \text{ m} \sim 4800 \text{ m}$ | 定位在中深层压裂作业井段 (总井深 $5000\text{ m}$) |
-| **簇间最小间距** | $\Delta d_{min}$ | 硬约束下限 | $\ge 15.0 \text{ m}$ | 防止物理重叠，保证水击回波具备基础可辨识度 |
+| **簇间间距** | $\Delta d$ | 连续均匀硬约束 | $5 \sim 20 \text{ m}$（`min_spacing`–`max_spacing`） | 与 `lhs_config.py` 一致；近距超分辨训练集用。旧文档曾误写 ≥15 m |
 | **集总柔度** | $C_f$ | **对数均匀分布** | $10^{-8.7} \sim 10^{-5.5} \text{ m}^3/\text{Pa}$ | 对标现场 $0.01 \sim 1.0 \text{ bbl/psi}$ 储能效应 |
 | **分布滤失系数** | $k_{leak}$ | **对数均匀分布** | $10^{-6.0} \sim 10^{-3.0} \text{ m}^2\cdot\text{s/kg}$ | 对标超低渗页岩到中渗缝网的基质渗漏耗散 |
 
@@ -66,7 +66,31 @@ output/lhs_dataset/
 
 ---
 
-## 4. PyTorch 神经算子与扩散去噪器 Dataset 示例对接代码
+## 4. 分层含噪基准集（`BENCH_STRATIFIED_CONFIG` / S1）
+
+分辨率与噪声诊断**不要**用上面的连续间距 LHS，而应使用分层基准：
+
+| 轴 | 取值 | 说明 |
+| :--- | :--- | :--- |
+| 间距格子 | 5, 8, 12, 20, 30, 38, 50, 80, 120 m | 补齐 20–50 m 空白；38 m 对齐 DR=80 谱支撑基线 |
+| SNR | inf, 40, 30, 20, 10 dB | **后处理** AWGN，不进 MOC |
+| 每格清洁样本 | ≥30 | EXP-021 预注册下限 |
+| 默认缝数 | 2 | 排除缝数混杂，专攻间距可分辨性 |
+
+```bash
+# smoke
+python moc_simulate/run_stratified_bench.py --smoke
+
+# 生产
+python moc_simulate/run_stratified_bench.py --n-per-spacing 30 --workers 14
+```
+
+输出根目录默认 `output/bench_stratified/`：`data_clean/` + `manifest.csv`（含 `noise_seed`）+ `bench_metadata.json`。
+含噪波形默认按种子即时生成；需要落盘时加 `--materialize-noise`。
+
+---
+
+## 5. PyTorch 神经算子与扩散去噪器 Dataset 示例对接代码
 
 后续在编写 Phase 3 训练代码时，只需用以下最精简的模板即可将上述数据喂入我们的**相幅倒谱双流条件编码器**：
 

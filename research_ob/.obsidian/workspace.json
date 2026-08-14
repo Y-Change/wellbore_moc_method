@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "aea20e1377229071",
+        "id": "a61020947a0981d7",
         "type": "tabs",
         "children": [
           {
-            "id": "e8083a4faf7cd4cb",
+            "id": "4bf80aeb0eec1d5e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "实验/06-神经算子与DCCDM/EXP-20260730-001-P0A原始波形直接裂缝定位.md",
+                "file": "主题/drafts/方法迁移尝试计划.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "EXP-20260730-001-P0A原始波形直接裂缝定位"
+              "title": "方法迁移尝试计划"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 207.50260543823242
+    "width": 475.5026054382324
   },
   "right": {
     "id": "cd077ee3bfb37572",
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "实验/06-神经算子与DCCDM/EXP-20260730-001-P0A原始波形直接裂缝定位.md",
+                "file": "主题/T05-稀疏反卷积.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "EXP-20260730-001-P0A原始波形直接裂缝定位 的反向链接列表"
+              "title": "T05-稀疏反卷积 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "实验/06-神经算子与DCCDM/EXP-20260730-001-P0A原始波形直接裂缝定位.md",
+                "file": "主题/T05-稀疏反卷积.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "EXP-20260730-001-P0A原始波形直接裂缝定位 的出链列表"
+              "title": "T05-稀疏反卷积 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "实验/06-神经算子与DCCDM/EXP-20260730-001-P0A原始波形直接裂缝定位.md",
+                "file": "主题/T05-稀疏反卷积.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "EXP-20260730-001-P0A原始波形直接裂缝定位 的大纲"
+              "title": "T05-稀疏反卷积 的大纲"
             }
           },
           {
@@ -195,22 +195,37 @@
       "realclaudian:Open Claudian": false
     }
   },
-  "active": "e8083a4faf7cd4cb",
+  "active": "4bf80aeb0eec1d5e",
   "lastOpenFiles": [
-    "主题/研究总览.md",
-    "主题/一些认识.md",
-    "主题/主题索引.md",
+    "实验/01-MOC正演与验证/EXP-20260806-001-LHS稳态摩阻对照数据集2000.md",
+    "主题/drafts/paper3_topological_scaling.md",
+    "主题/drafts/paper2_brunone_dispersion.md",
+    "主题/drafts/paper_B_resolvability_waveform_degradation.md",
     "主题/T01-倒谱分辨率极限.md",
+    "主题/T03-首缝干涉机制.md",
     "主题/T04-Brunone频散效应.md",
-    "主题/T05-稀疏反卷积.md",
-    "实验/06-神经算子与DCCDM/EXP-20260730-001-P0A原始波形直接裂缝定位.md",
-    "实验/99-失败与负结果/EXP-20260729-001-DCCDM-overfit16稀疏生成失败.md",
+    "实验/06-神经算子与DCCDM/EXP-20260730-011-超分辨定位框架重构与模块化架构路线.md",
+    "主题/drafts/项目收敛路线.md",
+    "实验/06-神经算子与DCCDM/EXP-20260730-008-P1三通道物理特征N8192.md",
+    "实验/06-神经算子与DCCDM/EXP-20260730-007-水击诊断系统优化与路线图.md",
+    "实验/06-神经算子与DCCDM/EXP-20260730-006-P0A-count头与过采样.md",
     "主题/T07-DCCDM代理模型.md",
-    "首页.md",
-    "未命名.canvas",
-    "文献/主题综述/倒谱分析 相关参数分析.md",
+    "主题/T05-稀疏反卷积.md",
     "主题/T06-频散补偿后向传播.md",
-    "概念/Brunone非定常摩阻仿真建模.md",
-    "主题/T03-首缝干涉机制.md"
+    "主题/T02-多裂缝拓扑衰减.md",
+    "91-附件/7b2428df5d5628aa658c0c9f6984b303.jpg",
+    "91-附件",
+    "概念/P0字典层剥离.md",
+    "实验/04-Brunone频散/EXP-20260730-010-LHS数据集实际生效k实测.md",
+    "未命名.base",
+    "文献/02-文献笔记/水击与瞬变流/AziziNadian2025_两阶段小波ITA泄漏检测.md",
+    "实验/02-倒谱与分辨率/EXP-20260801-001-盲检测协议落地与历史结果复算.md",
+    "文献/主题综述/瞬变波异常检测五类方法综述.md",
+    "文献/主题综述/倒谱分析 相关参数分析.md",
+    "主题/研究总览.md",
+    "首页.md",
+    "实验/04-Brunone频散/EXP-20260730-024-T04波形退化指标审计.md",
+    "实验/04-Brunone频散/EXP-20260730-020-T04既有波形退化输出证据审计.md",
+    "未命名.canvas"
   ]
 }

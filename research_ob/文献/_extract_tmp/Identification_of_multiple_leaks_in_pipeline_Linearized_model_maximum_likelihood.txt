@@ -1,0 +1,1498 @@
+SOURCE: Identification of multiple leaks in pipeline Linearized model maximum likelihood and super-resolution localization 管道多处泄漏识别线性化模型最大似然估计与超分辨率定位.pdf
+PAGES: 20
+FULL extract 20 pages
+
+
+
+===== PAGE 1 =====
+Identiﬁcation of multiple leaks in pipeline: Linearized model,
+maximum likelihood, and super-resolution localization
+Xun Wang ⇑, Mohamed S. Ghidaoui
+Department of Civil and Environmental Engineering, Hong Kong University of Science and Technology, Clear Water Bay, Hong Kong, China
+article info
+Article history:
+Received 19 June 2017
+Received in revised form 21 December 2017
+Accepted 29 January 2018
+Keywords:
+Leak detection
+Defect detection
+Transient wave
+Maximum likelihood
+Super-resolution
+Cramér-Rao lower bound
+abstract
+This paper considers the problem of identifying multiple leaks in a water-ﬁlled pipeline
+based on inverse transient wave theory. The analytical solution to this problem involves
+nonlinear interaction terms between the various leaks. This paper shows analytically and
+numerically that these nonlinear terms are of the order of the leak sizes to the power
+two and; thus, negligible. As a result of this simpliﬁcation, a maximum likelihood (ML)
+scheme that identiﬁes leak locations and leak sizes separately is formulated and tested.
+It is found that the ML estimation scheme is highly efﬁcient and robust with respect to
+noise. In addition, the ML method is a super-resolution leak localization scheme because
+its resolvable leak distance (approximately 0 :15k
+min , where kmin is the minimum
+wavelength) is below the Nyquist-Shannon sampling theorem limit (0 :5kmin ). Moreover,
+the Cramér-Rao lower bound (CRLB) is derived and used to show the efﬁciency of the
+ML scheme estimates. The variance of the ML estimator approximates the CRLB proving
+that the ML scheme belongs to class of best unbiased estimator of leak localization
+methods.
+/C2112018 Elsevier Ltd. All rights reserved.
+1. Introduction
+Leaks in water supply pipelines is a problem of increasing interest due to their associated ﬁnancial cost from the wastage
+of resources as well as their ability to act as entry points for contaminants into the treated water system. Various leak detec-
+tion methods have been developed in the past decades with acoustic analysis as one of the more popular techniques. The fact
+that 40% of water is lost from pipes around the world is a clear testimony that current methods are far from satisfactory and
+there is an urgent need to ﬁll this gap. As a result, recent researches have focused on transient-based leak detection methods
+(TBDMs). TBDMs utilize the hydraulics of transient ﬂows to detect leaks in the pipeline, e.g., Refs. [1–18]. The tenet of TBDM
+is that leaks can be identiﬁed by injecting perturbations into a pipeline and measuring and analysing the system response
+(e.g., pressure head) at speciﬁed location(s). The reason that such methods are expected to work is that a leak in a pipeline
+system is known to result in an increased damping of the transient pressure and acts as ‘‘reﬂector” to the transient wave [19].
+Many TBDMs have been developed by researchers and applied to water piping systems. The class of TBDM that uses the
+reﬂective property of a leak is called transient reﬂection based method (TRM) [2,20–23]. Another class that uses the damping
+property of leak is called transient damping based Method (TDM) [5]. A third class of TBDM uses both damping and reﬂective
+properties and can be found in Refs. [1,3,4,6–9,24–30]. Note that the TBDMs mainly concern transmission mains but they
+https://doi.org/10.1016/j.ymssp.2018.01.042
+0888-3270//C2112018 Elsevier Ltd. All rights reserved.
+⇑ Corresponding author.
+E-mail addresses: xunwang@ust.hk, xunwang00@gmail.com (X. Wang).
+Mechanical Systems and Signal Processing 107 (2018) 529–548
+Contents lists available at ScienceDirect
+Mechanical Systems and Signal Processing
+journal homepage: www.else vier.com/locate/ymssp
+
+
+===== PAGE 2 =====
+have been used in distribution mains [16]. Furthermore, TBDMs can detect not only leaks but also partial blockages, partially
+closed in-line valves, branches, etc [16,31–33]. However, there is no proof that these methods maximize signal-to-noise ratio
+(SNR) and there is no concerted effort in the literature to theoretically or analytically study the effect of noise on these exist-
+ing methods using a probabilistic framework such as the maximum likelihood theory, although there have been attempts at
+evaluating the reliability of leak detection techniques with respect to noise [22]. Yet, ultimately, such methods would need to
+be applied in an often highly noisy environment due to trafﬁc, turbulence, and mechanical devices.
+Nomenclature
+q discharge oscillation
+h head oscillation
+xL leak location
+zL pipe elevation at leak
+sL leak size
+Q L
+0; HL
+0 steady-state discharge and head of leak
+xM sensor coordinate
+Dh head difference
+n measurement noise
+a wave speed
+A area of pipeline
+l pipe length
+g gravitational acceleration
+Z characteristic impedance
+R frictional resistance
+F Darcy-Weisbach friction factor
+l propagation function
+x angular frequency
+xth fundamental frequency
+kmin minimum wavelength
+M sensor number
+N leak number
+J frequency number
+T sample size
+r2 variance of noise
+log L log-likelihood function
+Superscripts
+L leak
+U upstream node
+D downstream node
+NL no leak
+SL single leak
+M measurement
+H conjugate transpose
+Acronyms
+CRLB Cramér-Rao lower bound
+FIM Fisher information matrix
+FRF frequency response function
+MFP matched-ﬁeld processing
+MFP(1) MFP with one-leak model
+ML maximum likelihood
+MLE maximum likelihood estimate
+MSE mean square error
+PDF probability density function
+RE relative error
+RMSE root mean square error
+SNR signal-to-noise ratio
+530 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 3 =====
+Recently, the authors of this paper formulated a transient leak detection method based on a matched-ﬁeld processing
+(MFP) method [34] and found that this approach is efﬁcient, robust, accurate, provides a unique solution and maximizes
+SNR. MFP uses the full information in the measured signal, i.e., both the reﬂective and damping properties of leaks are incor-
+porated. As a result, MFP uses all available frequencies, not just resonant frequencies. Therefore, there is no need to identify
+which frequencies are resonant frequencies. The fact that MFP uses all frequencies (i.e., all measured information) together
+with its ability to maximize SNR means that the MFP method provides precise localization estimates even in noisy environ-
+ments. In fact, it is shown that the MFP method can locate and size leaks in the presence of (i) noise even for SNR as low as
+SNR ¼/C0 3:0 dB and (ii) uncertainty in the wave speed. For the case of multiple leaks, MFP identiﬁes separate leaks provided
+the distance between leaks is of the same order or larger than half the shortest probing wavelength. For cases where half of
+the shortest probing wavelength is large compared to the distance between the leaks, separation of individual leaks in the
+pipe is not possible. It is precisely this shortcoming of MFP that this paper addresses.
+Following this introduction, a statement of the problem being addressed is given in Section 2. Then, a frequency-domain
+transient wave model for pipe systems is introduced in Section 3. The head difference due to the transient wave propagating
+from one end of the pipe to the other while passing by multiple leaks is analyzed. The head changes are then approximated
+by a linear combination of individual leak contributions, where the accuracy of this linear approximation is justiﬁed both
+mathematically and numerically. In Section 4, a maximum likelihood (ML) leak detection method is introduced and used
+to estimate both the positions and sizes of multiple leaks in a pipe system. In Section 5, the Cramér-Rao lower bound (CRLB)
+of leak locations and sizes is derived and it is shown that the ML approach maximizes SNR. Numerical simulations are intro-
+duced to illustrate the properties of the ML method in Section 6. Finally, some conclusions are drawn in Section 7.
+2. Problem statement and goal of the paper
+As stated in the introduction, although the MFP method introduced by the authors in Ref. [34] has several desirable attri-
+butes including efﬁciency, robustness, accuracy, uniqueness of solution and maximizing SNR, it is unable to separate mul-
+tiple leaks when the shortest probing wavelength is large compared to the distance between the leaks. Numerical
+examples are introduced here to illustrate and clarify this deﬁciency in the MFP method proposed in Ref. [34]. The numerical
+test pipe system is shown in Fig. 1 . A single, horizontal pipeline is connected by two reservoirs, whose coordinates are
+x ¼ xU ¼ 0 and x ¼ xD and their heads relative to pipeline centreline are respectively H1 ¼ 25 m and H2 ¼ 20 m. The pipe
+length is l ¼ 2 km and the diameter is D ¼ 0:5 m. The Darcy-Weisbach friction factor of the pipe is F ¼ 0:02, the steady-
+state discharge is Q 0 ¼ 0:0306 m3/s (the subscript ‘‘0” indicates the steady-state condition), and the wave speed is assumed
+to be a ¼ 1200 m/s. A valve is located at the downstream end of the pipe and two pressure sensors are situated upstream of
+the valve. An impulse wave is generated by the valve. The measurements from the sensors at xM1 ¼ 1800 m and xM2 ¼ 1960
+m are used in the leak estimation process. First, two leaks at xL1 ¼ 300 m and xL2 ¼ 700 m with sizes sL1 ¼ 1 /C2 10/C0 4 m2 and
+sL2 ¼ 1:2 /C2 10/C0 4 m2 are considered. The leak size, ﬂow and head relations are deﬁned in the following section. Fig. 2(a) shows
+the estimate using the MFP with single-leak model: the cost function clearly shows two local maxima which correspond to
+the two leaks but the estimates of both leaks have slight errors (the two local maxima are at 295 m and 703 m). Then, two
+close leaks are considered, whose locations are xL1 ¼ 400 m and xL2 ¼ 460 m. Here, the frequencies
+x ¼f ð1 þ aÞxth : a ¼ 0; 0:02; 0:04; ... ; 30g are used, in which xth ¼ ap=ð2lÞ¼ 0:94 Hz is the fundamental frequency (ﬁrst
+resonant frequency). Therefore, the minimum wavelength is kmin ¼ 258 m. Fig. 2 (b) shows that in this case the two close
+leaks, whose distance is approximately 0 :23kmin, cannot be separately identiﬁed. In fact, Ref. [34] has shown that the min-
+imum resolvable range that two leaks can be individually estimated is approximately 0 :5kmin.
+The main goal of this paper is to develop a method capable of identifying ‘‘close” multiple leaks using a super-resolution
+method. A super-resolution method should be able to identify multiple leaks even when the distance between them is less
+than half the shortest probing wavelength, and it should do so without sacriﬁcing efﬁciency, robustness, accuracy, unique-
+ness, or maximum SNR attributes.
+3. Linearized model of transient wave in pipeline with multiple leaks
+This section describes a model for propagation of a transient wave in a pipeline. The main result and advantage of the
+proposed model is that the pressure head difference due to leakage can be approximated by a linear form, which is a super-
+Fig. 1. Setup of the simulation experiment.
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 531
+
+===== PAGE 4 =====
+position of contributions from individual leaks. Each individual contribution is a product of the leak size and a function of the
+corresponding leak location and is independent of other leaks. This property is used later in this paper to formulate an efﬁ-
+cient multi-leak detection scheme that identiﬁes leak locations and leak sizes separately.
+3.1. Model description
+The pipeline system setup is same as in Section 2. A pressure sensor is assumed to be set near the downstream node
+whose coordinate is denoted by xM . A model with N leaks is considered, the coordinates of the leaks are xLn ; n ¼ 1; ... ; N,
+(xL1 < /C1/C1/C1 < xLN < xM ), zLn denotes the elevation of the pipe at each leak, and Q Ln
+0 and HLn
+0 are the steady-state discharge
+and head at each leak. The leak size is represented by the lumped leak parameter sLn ¼ CdALn , where Cd is the discharge coef-
+ﬁcient of the leak and ALn is the ﬂow area of the leak oriﬁce. The steady-state discharge of a leak is related to the lumped leak
+parameter by Q Ln
+0 ¼ sLn
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2gðHLn
+0 /C0 zLn Þ
+q
+, in which g is the gravitational acceleration.
+The oscillations of discharge (volume rate of water ﬂow) and pressure head due to a ﬂuid transient are represented by q
+and h. Given the discharge qðxU Þ and head hðxU Þ at the upstream node xU , the quantities at xM can be computed in the fol-
+lowing way [35]:
+qðxM Þ
+hðxM Þ
+/C18/C19
+¼ MNLðxM /C0 xLN Þ
+Y1
+n¼N
+1 /C0
+Q Ln
+0
+2ðHLn
+0 /C0 zLn Þ
+01
+0
+@
+1
+AMNLðxLn /C0 xLn/C0 1 Þ
+8
+<
+:
+9
+=
+;
+qðxU Þ
+hðxU Þ
+/C18/C19
+; ð1Þ
+in which xL0 ¼ xU ,
+MNLðxÞ¼ cosh lxðÞ /C0 1
+Z sinh lxðÞ
+/C0 Z sinh lxðÞ cosh lxðÞ
+ !
+ð2Þ
+is the ﬁeld matrix, Z ¼ la2=ðixgAÞ is the characteristic impedance, l ¼ a/C0 1 ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+/C0 x2 þ igAxR
+p
+is the propagation function, a is
+the wave speed, x is the angular frequency, A is the area of pipeline, and R is the frictional resistance term. Note that
+R ¼ð FQ 0Þ=ðgDA2Þ for turbulent ﬂows, in which D is the pipe diameter and Q0 is the steady-state discharge. If the pipe is fric-
+tionless ( F ¼ 0), l ¼ ik where k ¼ x=a is the wavenumber.
+In the case of small leaks, i.e., sLn /C28 1, the right hand side of Eq. (1) can be approximated by a linear form being equal to
+the sum of a term independent of leaks and contributions from various leaks:
+qðxM Þ
+hðxM Þ
+/C18/C19
+/C25 MNLðxM Þþ
+XN
+n¼1
+sLn MSLðLn; xLn ; xM Þ
+ !
+qðxU Þ
+hðxU Þ
+/C18/C19
+; ð3Þ
+in which
+Fig. 2. Double-leak detection using MFP based on the single-leak model. The leak positions are (a) 300 m and 700 m and (b) 400 m and 460 m.
+532 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 5 =====
+MSLðLn; xLn ; xM Þ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃg
+2ðHLn
+0 /C0 zLn Þ
+q Z sinh lxLn
+/C0/C1
+cosh lðxM /C0 xLn Þ
+/C0/C1
+/C0 cosh lxLn
+/C0/C1
+cosh lðxM /C0 xLn Þ
+/C0/C1
+/C0 Z2 sinh lxLn
+/C0/C1
+sinh lðxM /C0 xLn Þ
+/C0/C1
+Z cosh lxLn
+/C0/C1
+sinh lðxM /C0 xLn Þ
+/C0/C1
+ !
+ð4Þ
+is a matrix related to the location xLn of the n-th leak (zLn and HLn
+0 are decided by xLn ), but is independent of the other leaks and
+the size sLn of n-th leak.
+In the following two subsections, the approximation in Eq. (3) is mathematically and numerically veriﬁed.
+3.2. Mathematical justiﬁcation of Eq. (3)
+The aim of this section is to justify the use of Eq. (3), which will be shown in Theorem 1. To prove this theorem, two lem-
+mas are ﬁrst given.
+Lemma 1. The matrices M NL and M SL have the following properties:
+(1) MNLðx1ÞMNLðx2Þ¼ MNLðx1 þ x2Þ;
+(2) MSLðLn; x1; x2ÞMNLðx3Þ¼ MSLðLn; x1 þ x3; x2 þ x3Þ;
+(3) MNLðx1ÞMSLðLn; x2; x3Þ¼ MSLðLn; x2; x1 þ x3Þ.
+Proof. (1) can be easily obtained from the basic sum rule of hyperbolic functions.
+(2):
+MSLðLn; x1; x2ÞMNLðx3Þ
+¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+g
+2ðHLn
+0 /C0 zLn Þ
+s Z sinh lx1ðÞ cosh lðx2 /C0 x1ÞðÞ /C0 cosh lx1ðÞ cosh lðx2 /C0 x1ÞðÞ
+/C0 Z2 sinh lx1ðÞ sinh lðx2 /C0 x1ÞðÞ Z cosh lx1ðÞ sinh lðx2 /C0 x1ÞðÞ
+ !
+cosh lx3ðÞ /C0 1
+Z sinh lx3ðÞ
+/C0 Z sinh lx3ðÞ cosh lx3ðÞ
+ !
+¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+g
+2ðHLn
+0 /C0 zLn Þ
+s Z sinh lðx1 þ x3ÞðÞ cosh lðx2 /C0 x1ÞðÞ /C0 cosh lðx1 þ x3ÞðÞ cosh lðx2 /C0 x1ÞðÞ
+/C0 Z2 sinh lðx1 þ x3ÞðÞ sinh lðx2 /C0 x1ÞðÞ Z cosh lðx1 þ x3ÞðÞ sinh lðx2 /C0 x1ÞðÞ
+ !
+¼ MSLðLn; x1 þ x3; x2 þ x3Þ:
+ð5Þ
+(3):
+MNLðx1ÞMSLðLn; x2; x3Þ
+¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+g
+2ðHLn
+0 /C0 zLn Þ
+s cosh lx1ðÞ/C0 1
+Z sinh lx1ðÞ
+/C0 Z sinh lx1ðÞ cosh lx1ðÞ
+ !
+Z sinh lx2ðÞ cosh lðx3 /C0 x2ÞÞðÞ /C0 cosh lx2ðÞ cosh lðx3 /C0 x2ÞðÞ
+/C0 Z2 sinh lx2ðÞ sinh lðx3 /C0 x2ÞðÞ Z cosh lx2ðÞ sinh lðx3 /C0 x2ÞðÞ
+ !
+¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+g
+2ðHLn
+0 /C0 zLn Þ
+s Z sinh lx2ðÞ cosh lðx1 þ x3 /C0 x2ÞÞðÞ /C0 cosh lx2ðÞ cosh lðx1 þ x3 /C0 x2ÞðÞ
+/C0 Z2 sinh lx2ðÞ sinh lðx1 þ x3 /C0 x2ÞðÞ Z cosh lx2ðÞ sinh lðx1 þ x3 /C0 x2ÞðÞ
+ !
+¼ MSLðLn; x2; x1 þ x3Þ: /C3
+ð6Þ
+Lemma 2. Assume that the pipe has N leaks with locations x Ln and sizes s Ln ðn ¼ 1; ... ; NÞ, then the head and discharge at
+xLN þ ¼ limd!0þ xLN þ d
+/C0/C1/C0/C1
+are
+qðxLN þÞ
+hðxLN þÞ
+/C18/C19
+¼ MNLðxLN Þþ
+XN
+n¼1
+sLn MSLðLn; xLn ; xLN Þ
+ !
+qðxU Þ
+hðxU Þ
+/C18/C19
+þ o max
+n¼1;...;N
+ðsLn Þ
+/C18/C19
+ð7Þ
+as maxn¼1;...;N ðsLn Þ! 0, where o ð/C15Þ stands for an inﬁnitesimal amount with respect to /C15, i.e., o ð/C15Þ=/C15 ! 0.
+Proof. In the case of single leak,
+qðxL1 þÞ
+hðxL1 þÞ
+/C18/C19
+¼ 1 /C0
+Q
+L1
+0
+2ðH
+L1
+0 /C0 zL1 Þ
+01
+0
+@
+1
+AMNLðxL1 Þ qðxU Þ
+hðxU Þ
+/C18/C19
+¼ MNLðxL1 Þþ sL1 MSLðL1; xL1 ; xL1 Þ
+/C16/C17 qðxU Þ
+hðxU Þ
+/C18/C19
+: ð8Þ
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 533
+
+===== PAGE 6 =====
+Assume that Eq. (7) holds for N /C0 1 leaks, then in the case of N leaks,
+qðxLN þÞ
+hðxLN þÞ
+/C18/C19
+¼ 1 /C0
+Q
+LN
+0
+2ðH
+LN
+0 /C0 zLN Þ
+01
+0
+@
+1
+AMNLðxLN /C0 xLN/C0 1 Þ qðxLN/C0 1 þÞ
+hðxLN/C0 1 þÞ
+/C18/C19
+¼ MNLðxLN /C0 xLN/C0 1 Þþ sLN MSLðLN ; xLN /C0 xLN/C0 1 ; xLN /C0 xLN/C0 1 Þ
+/C16/C17
+MNLðxLN/C0 1 Þþ
+XN/C0 1
+n¼1
+sLn MSLðLn; xLn ; xLN/C0 1 Þþ o max
+n¼1;...;N/C0 1
+ðsLn Þ
+/C18/C19 !
+qðxU Þ
+hðxU Þ
+/C18/C19
+¼ MNLðxLN Þþ sLN MSLðLN ; xLN ; xLN Þþ
+XN/C0 1
+n¼1
+sLn MSLðLn; xLn ; xLN Þ
+ 
+þ
+XN/C0 1
+n¼1
+sLn sLN MSLðLN ; xLN /C0 xLN/C0 1 ; xLN /C0 xLN/C0 1 ÞMSLðLn; xLN/C0 1 ; xLn Þþ o max
+n¼1;...;N/C0 1
+ðsLn Þ
+/C18/C19 !
+qðxU Þ
+hðxU Þ
+/C18/C19
+¼ MNLðxLN Þþ
+XN
+n¼1
+sLn MSLðLn; xLn ; xLN Þ
+ !
+qðxU Þ
+hðxU Þ
+/C18/C19
+þ o max
+n¼1;...;N
+ðsLn Þ
+/C18/C19
+: /C3
+ð9Þ
+Theorem 1. Assume that the pipe has N leaks with locations x Ln and sizes s Ln ; n ¼ 1; ... ; N, then the head and discharge at x M
+(xM > xLN > /C1/C1/C1 > xL1 )i s
+qðxM Þ
+hðxM Þ
+/C18/C19
+¼ MNLðxM Þþ
+XN
+n¼1
+sLn MSLðLn; xLn ; xM Þ
+ !
+qðxU Þ
+hðxU Þ
+/C18/C19
+þ o max
+n¼1;...;N
+ðsLn Þ
+/C18/C19
+ð10Þ
+as maxn¼1;...;N ðsLn Þ! 0.
+Proof. The head and discharge at xM is
+qðxM Þ
+hðxM Þ
+/C18/C19
+¼ MNLðxM /C0 xLN Þ qðxLN þÞ
+hðxLN þÞ
+/C18/C19
+: ð11Þ
+By Lemmas 1 and 2, Eq. (10) can be directly obtained. /C3
+3.3. Numerical justiﬁcation of Eq. (3)
+In the following, the precision of the approximation given by Eq. (3) is investigated via numerical examples. A single pipe
+is considered; its characteristic is same as in Section 2. First, it is assumed that the pipe has three leaks at xL1 ¼ 400 m,
+xL2 ¼ 520 m and xL3 ¼ 800 m. The three leaks have the same size. Two cases of leak sizes CdAL ¼ 8 /C2 10/C0 4 m2 and
+CdAL ¼ 3 /C2 10/C0 4 m2 are considered; correspondingly, the ratio between the leak size and the pipe area is respectively
+CdAL=A ¼ 4 /C2 10/C0 3 and CdAL=A ¼ 1:5 /C2 10/C0 3. The frequency response function (FRF) at xM ¼ 1900 m due to transient wave
+from the downstream valve is shown in Fig. 3 (a). The solid line and the dash line are obtained from the transfer matrix
+method Eq. (1) and its linear approximation Eq. (3) respectively. In the case of large leak where CdAL ¼ 8 /C2 10/C0 4 m2, the
+shape of FRF is well-replicated but at resonant frequencies the error is relatively large. For the smaller leak size
+CdAL ¼ 3 /C2 10/C0 4 m2, the amplitudes at all frequencies are accurate. Similarly, the results of two cases of double-leak are dis-
+played in Fig. 3 (b) xL1 ¼ 400 m, xL2 ¼ 520 m and (c) xL1 ¼ 400 m, xL2 ¼ 460 m. In both cases, the FRF for the larger leak size
+CdAL ¼ 8 /C2 10/C0 4 m2 is better replicated using the linear approximation Eq. (3).
+The average relative error (RE) of FRF with respect to leak size is also studied and plotted in Fig. 4. Here, the average RE is
+deﬁned by
+RE ¼ 1
+30xth
+Z 31xth
+xth
+k~hðxM ; xÞk /C0 k hðxM ; xÞk
+khðxM ; xÞk
+/C12/C12/C12/C12
+/C12
+/C12/C12/C12/C12
+/C12d
+x; ð12Þ
+where h and ~h are pressure heads obtained from Eqs. (1) and (3) , respectively. The three cases of leak locations are consid-
+ered here again: (i) xL1 ¼ 400 m, xL2 ¼ 520 m and xL3 ¼ 800 m; (ii) xL1 ¼ 400 m and xL2 ¼ 520 m; (iii) xL1 ¼ 400 m and
+xL2 ¼ 460 m. In all three cases the approximation precision decreases as the leak size increases. However, for a small leak
+size (the main concern in the leakage detection problem), say CdAL 6 2 /C2 10/C0 4 m2 (CdAL=A ¼ 1 /C2 10/C0 3), the approximation
+errors for all the three cases are acceptable: the average RE is always less than 2%. Furthermore, Fig. 4 also shows that
+534 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 7 =====
+the three-leak case has a larger error than the other two cases. Besides, a larger distance between the two leaks introduces a
+slight increase of FRF error.
+4. Maximum likelihood estimation of multiple leaks
+4.1. Data model
+In this section, multiple leaks are again estimated by the ML approach but this time in the presence of white noise. The
+head measurement at the station xm (m ¼ 1; ... ; M) near the downstream for the frequency xj (j ¼ 1; ... ; J) is assumed to
+follow the theoretical expression from Eq. (3) plus a noise term:
+hðxj; xmÞ¼ h
+NL
+ðxj; xmÞþ
+XN
+n¼1
+sLn Gðxj; xLn ; xmÞþ njm; ð13Þ
+wherein
+Fig. 3. Frequency response function (head magnitude) at xM ¼ 1900 m obtained from the transfer matrix method (solid line) and the linearized model (dash
+line). The leak locations are (a) xL1 ¼ 400 m, xL2 ¼ 520 m and xL3 ¼ 800 m; (b) xL1 ¼ 400 m and xL2 ¼ 520 m; (c) xL1 ¼ 400 m and xL2 ¼ 460 m. The leak size is
+Cd AL ¼ 8 /C2 10/C0 4 m2 (left) and Cd AL ¼ 3 /C2 10/C0 4 m2 (right). The pipe length is l ¼ 2000 m.
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 535
+
+===== PAGE 8 =====
+h
+NL
+ðxj; xmÞ¼/C0 Z sinh lxmðÞ qðxU Þþ cosh lxmðÞ hðxU Þ; ð14Þ
+Gðxj; xLn ; xmÞ¼/C0
+ﬃﬃﬃgp Z sinh lðxm /C0 xLn Þ
+/C0/C1
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2ðHLn
+0 /C0 zLn Þ
+q Z sinh lxLn
+/C0/C1
+qðxU Þ/C0 cosh lxLn
+/C0/C1
+hðxU Þ
+/C0/C1
+; ð15Þ
+and njm’s are independent random variables and follow Gaussian random distribution with 0-mean and variance r2.I ti s
+noticeable that the noise is assumed to be white noise, i.e., the power (variance) is constant with various frequencies. For
+non-white noise, the signal can be whitened such that the white noise assumption is satisﬁed [34]. Note that the discharge
+qðxU Þ at the upstream node xU can be estimated by adding a measurement station near the upstream boundary [36,37],
+denoted by xU þ /C15, and assuming there is no leak between xU and xU þ /C15. Using the pressure head measurement hðxU þ /C15Þ
+at xU þ /C15 and applying a boundary condition hðxU Þ of head at xU , the discharge at the upstream node qðxU Þ can be solved via
+qðxU Þ
+hðxU Þ
+/C18/C19
+¼ MNLð/C0 /C15Þ qðxU þ /C15Þ
+hðxU þ /C15Þ
+/C18/C19
+¼ coshðl/C15Þ 1
+Z sinhðl/C15Þ
+Z sinhðl/C15Þ coshðl/C15Þ
+ !
+qðxU þ /C15Þ
+hðxU þ /C15Þ
+/C18/C19
+; ð16Þ
+that is,
+^qðxU Þ¼ coshðl/C15ÞhðxU Þ/C0 hðxU þ /C15Þ
+Z sinhðl/C15Þ : ð17Þ
+Let Dhjm /C17 hðxj; xmÞ/C0 h
+NL
+ðxj; xmÞ denote the head difference between the head measurement in the presence of leaks and
+the theoretical head that does not include the leak terms at the frequency xj and at the measurement station xm, and denote
+Dh ¼ð Dh11; ... ; DhJ1; ... ; Dh1M ; ... ; DhJM Þ
+>
+; ð18Þ
+then we have the following equation:
+Dh ¼ GðxLÞsL þ n: ð19Þ
+In this equation, G is a JM /C2 N-dimensional matrix whose n-th column is
+GnðxLn Þ¼ð Gðx1; xLn ; x1Þ; ... ; GðxJ ; xLn ; x1Þ; ... ; Gðx1; xLn ; xM Þ; ... ; GðxJ ; xLn ; xM ÞÞ
+>
+; ð20Þ
+xL ¼ð xL1 ; ... ; xLN Þ
+>
+; sL ¼ð sL1 ; ... ; sLN Þ
+>
+; ð21Þ
+and
+n ¼ð n11; ... ; nJ1; ... ; n1M ; ... ; nJM Þ>: ð22Þ
+In the following, the data Dh will be used to estimate the leak locations xL and sizes sL.
+Fig. 4. Average relative error of FRF due to model linearization with respect to leak size Cd AL . The measurement station locates at xM ¼ 1900 m. The leak
+locations are (i) xL1 ¼ 400 m, xL2 ¼ 520 m and xL3 ¼ 800 m; (ii) xL1 ¼ 400 m and xL2 ¼ 520 m; (iii) xL1 ¼ 400 m and xL2 ¼ 460 m. The pipe length is l ¼ 2000 m.
+536 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 9 =====
+4.2. Maximum likelihood estimation for leak locations and sizes
+Since the vector of head difference Dh follows a JM-dimensional complex-valued Gaussian distribution, its probability
+density function (PDF) is
+pðDh; xL; sLÞ¼ð pr2Þ
+/C0 JM
+exp /C0 1
+r2 Dh /C0 GðxLÞsL/C13/C13 /C13/C132
+/C18/C19
+: ð23Þ
+Therefore, the log-likelihood function is
+log LðxL; sL; DhÞ¼/C0 JM logðpr2Þ/C0 1
+r2 kDh /C0 GðxLÞsLk2: ð24Þ
+The ML estimation of the parameters xL and sizes sL are obtained by maximizing Eq. (24):
+f^xL; ^sLg¼ arg max
+xL ;sL
+log LðDh; xL; sLÞ¼ arg min
+xL ;sL
+kDh /C0 GðxLÞsLk2: ð25Þ
+For any xL, the corresponding estimate of sL has the form of least square (LS) solution:
+sL ¼ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh: ð26Þ
+Therefore, by inserting Eq. (26) into Eq. (25), the estimate of N leak locations are obtained:
+^xL ¼ arg min
+xL
+Dh /C0 GðxLÞ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh
+/C13/C13
+/C13
+/C13
+/C13/C13
+/C13
+/C13
+2
+¼ arg max
+xL
+Dh
+H
+GðxLÞ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh
+/C18/C19
+: ð27Þ
+The size estimates of the N leaks are then obtained by
+^sL ¼ GH ð^xLÞGð^xLÞ
+/C16/C17 /C0 1
+GH ð^xLÞDh: ð28Þ
+Finally, the multiple-leak identiﬁcation algorithm using the ML approach is summarized in Algorithm 1 .
+Algorithm 1. Maximum likelihood approach for multiple-leak detection
+1. Select J frequencies x1; ... ; xJ ;
+2. Estimate the discharge at the upstream qðxU Þ from Eq. (17);
+3. Calculate hNL
+jm at the j-th frequencies and m-th measurement station ( j ¼ 1; ... ; J; m ¼ 1; ... ; M) via Eq. (14) and use the
+head differences Dhjm as the data;
+4. Estimate the locations of the N leaks by solving the maximization problem Eq. (27);
+5. Estimate the size of the N leaks from Eq. (28).
+5. Analytical properties of the maximum likelihood leak detection
+The analytical properties of the proposed ML method are introduced in this section. The equivalence to matched-ﬁeld and
+matched-ﬁlter approaches is also presented.
+5.1. Properties of maximum likelihood and Cramér-Rao lower bound
+The proposed leak identiﬁcation method inherits the properties of maximum likelihood estimation (MLE). More specif-
+ically, the estimates converge in probability to the actual leak positions and sizes and the variance of each estimator achieves
+the CRLB when the sample size tends to inﬁnity [38]. The latter implies that the proposed estimator has the lowest mean
+squared error (MSE) for large sample size. A brief introduction of CRLB can be found in Appendix A. The CRLBs of leak loca-
+tions and sizes, denoted as H ¼ xL; sL/C8/C9
+, are given by
+Covð ^HÞ P CRLBðHÞ¼ TIðHÞðÞ /C0 1; ð29Þ
+in which T is the sample size and IðHÞ is the Fisher information matrix (FIM):
+IðHÞ¼ 1
+r2
+diagðsLÞ 0
+0I N
+/C18/C19 ðG0Þ
+H
+G0 þð G0Þ
+H
+G0
+/C16/C17 >
+ðG0Þ
+H
+G þ GH G0
+/C16/C17>
+GH G0 þð G0Þ
+H
+G
+/C16/C17 >
+GH G þ GH G
+/C16/C17>
+0
+B@
+1
+CA diagðsLÞ 0
+0I N
+/C18/C19
+: ð30Þ
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 537
+
+===== PAGE 10 =====
+The CRLBs of ^xLn and ^sLn , which represent the minimum achievable MSE, are n-th and ðN þ nÞ-th diagonal elements of
+CRLBðHÞ. The detailed derivation can be found in Appendix B .
+Fig. 5. jGj and jG0 j as a function of normalized frequencies x=xth at xM ¼ 1980 m. The pipe has a single leak at xL ¼ 300 m and the pipe length is l ¼ 2000 m.
+Fig. 6. CRLB of RMSE of the estimator ^xL1 and ^xL2 with respect to leak distance. The leak locations are xL1 ¼ 400 m and xL2 2½ 402; 600/C138 . The minimum
+wavelength is 258 m.
+538 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 11 =====
+Fig. 5 shows an example that plots Gðx; xL; xM Þ
+/C12/C12 /C12/C12and @Gðx;xL ;xM Þ
+@xL
+/C12/C12
+/C12
+/C12/C12
+/C12as a function of normalized angular frequency
+x=xth at
+xM ¼ 1980 m and the leak location is xL ¼ 300 m (the pipe length is l ¼ 2000 m). Both plots have higher amplitude at reso-
+nant frequencies, implying that these frequencies bring more information and contribute more to leak detection precision
+than others, according to Eqs. (29) and (30) . However, using more frequencies, as well as more sensors, pushes down the
+CRLB for both leak location and size estimators and is thus preferable.
+In Fig. 6 , another example is considered, wherein two leaks exist in a pipe. Fig. 6 plots the CRLBs for estimators of both
+leak locations ^xL1 and ^xL2 with respect to various leak distances. More exactly, the leak locations are xL1 ¼ 400 m and
+xL2 2½ 402; 600/C138 . The minimum wavelength of probing wave is 258 m. Note that when the two leaks are close to each other
+meaning that j^xL1 /C0 ^xL2 j < kmin=2 (but greater than around 20 m), the CRLB stays at almost the same level (approximately 1
+m), which implies that detecting reliably two very close leaks is inherent in the proposed ML method according to the con-
+vergence property of ML. When the distance between the two leaks tends to zero, the CRLB dramatically increases, which
+implies that two very close leaks cannot be localized accurately no matter which detection method is used. The reason is
+that in this case the measurement does not bring enough information (e.g., too narrow bandwidth of probing wave) for
+the desired parameter estimation. Note that the result in Fig. 6 is obtained with sample size T ¼ 1. When more data are avail-
+able, the CRLB, as well as the minimum resolvable distance between leaks, can be further decreased, which can be justiﬁed
+by Eq. (29). More detailed discussion and numerical analysis concerning the resolution (the capacity to separately estimate
+two close leaks) of leak characterization methods is presented in Section 6.
+5.2. Equivalence to matched-ﬁeld and matched-ﬁlter approaches
+In the following, the proposed ML method is proved to be equivalent to the MFP and the matched-ﬁlter method [39–42]
+under the multi-leak model. This means that the proposed ML method equally maximizes the SNR and is thus robust with
+respect to noise. Note that the MFP and the matched-ﬁlter method mentioned in this section are different with the ones in
+Ref. [34] where a single leak is assumed in the model. More speciﬁcally, two parameters (location and size of the single leak)
+are estimated in Ref. [34], while 2 N parameters are considered in the present paper.
+MFP uses a weighting vector w with unit norm ( kwk¼ 1) to match the measurement Dh by maximizing
+jBj2 ¼j wH Dhj2 ¼ wH DhDh
+H
+w: ð31Þ
+By replacing Dh by Eq. (19) and maximizing the expectation of Eq. (31), the optimal weight w is obtained by
+^w ¼ arg max
+w
+EðjBj2Þ¼ arg max
+w
+wH GsLðsLÞ
+H
+GH w þ r2
+/C16/C17
+¼ arg max
+w
+wH GsL
+/C16/C17/C12/C12/C12
+/C12/C12/C12
+2
+¼ GsL
+GsL
+/C13/C13
+/C13
+/C13/C13
+/C13
+: ð32Þ
+The last equality holds due to the property of inner product. By inserting Eq. (32) into Eq. (31), the model parameters can be
+estimated:
+f^xL; ^sLg¼ arg max
+xL ;sL
+Dh
+H
+GðxLÞsL
+/C12/C12
+/C12
+/C12/C12
+/C12
+2
+GðxLÞsLkk
+2 : ð33Þ
+Note that for any ﬁxed xL, the right hand side of Eq. (33) can be seen as maximizing a ratio of two quadratic forms of sL, also
+known as the generalized Rayleigh quotient, which has the solution
+^sL ¼ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh: ð34Þ
+The derivation of Eq. (34) can be found in Appendix C . Inserting Eq. (34) into Eq. (33) results in the estimate of xL:
+^xL ¼ arg max
+xL
+Dh
+H
+GðxLÞ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh
+/C12/C12
+/C12
+/C12
+/C12/C12
+/C12
+/C12
+2
+GðxLÞ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh
+/C13/C13
+/C13
+/C13
+/C13/C13
+/C13
+/C13
+2 ¼ arg max
+xL
+Dh
+H
+GðxLÞ GH ðxLÞGðxLÞ
+/C16/C17 /C0 1
+GH ðxLÞDh: ð35Þ
+Therefore, the equivalence between the MLE and the MFP is proved.
+The matched-ﬁlter approach applies a ﬁlter w to the head difference
+wH Dh ¼ wH GsL þ wH n; ð36Þ
+such that the SNR reaches its maximum, i.e., to ﬁnd the optimal ﬁlter
+^w ¼ arg max
+w
+wH GsL
+/C12/C12
+/C12
+/C12/C12
+/C12
+2
+E wH njj
+2
+/C16/C17 ¼ arg max
+w
+wH GsL
+/C12/C12
+/C12
+/C12/C12
+/C12
+2
+r2 wkk 2 ¼ arg max
+w
+wH
+wkk GsL
+/C12/C12
+/C12
+/C12
+/C12/C12
+/C12
+/C12
+2
+: ð37Þ
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 539
+
+===== PAGE 12 =====
+To obtain a non-trivial solution, the ﬁlter is assumed to have a unit norm, i.e., kwk¼ 1, thus
+^w ¼ GsL
+GsL
+/C13/C13
+/C13
+/C13/C13
+/C13
+; ð38Þ
+which is identical to the optimal weight of MFP (Eq. (32)). The above presentation illustrates that the proposed ML approach
+minimizes the inﬂuence of noise and is thus robust in a noisy environment.
+6. Numerical simulations
+In this section, numerical examples are introduced, where the performance of the ML method based on the model of mul-
+tiple leaks is compared with the MFP method based on the single leak model introduced in Ref. [34]. Note that the MFP is
+equivalent to the ML method with single-leak assumption. To avoid confusion in this section, MLE refers to the ML method
+based on the model of multiple leaks and MFP(1) refers to the ML method with single-leak model. The numerical simulation
+test system is shown in Fig. 1 . The cases introduced in Fig. 2 are considered to illustrate the improvement of multiple-leak
+detection by the proposed method (i.e., MLE) over the MFP(1). Note that the wave propagation simulation in the forward
+problem is accomplished using the transfer matrix method while in the inverse problem the linearized model is used.
+First, the case in Fig. 2 (a) is considered, i.e., two leaks at xL1 ¼ 300 m and xL2 ¼ 700 m with sizes sL1 ¼ 1 /C2 10/C0 4 m2 and
+sL2 ¼ 1:2 /C2 10/C0 4 m2 (the relative leak size CdAL1 =A ¼ 0:5 /C2 10/C0 3 and CdAL2 =A ¼ 0:6 /C2 10/C0 3). The boundary condition
+hðxU Þ¼ 0 is applied and qðxU Þ is calculated from Eq. (17) by measuring the head pressure at xM0 ¼ 50 m. The measurements
+from the other two transducers at xM1 ¼ 1800 m and xM2 ¼ 1960 m are used in the leak estimation process. Gaussian white
+noise with 0-mean is added to the head measurements from all three transducers (at xM0 ; xM1 and xM2 ). Here, the SNR is 10 dB,
+which is deﬁned by
+SNR ¼ 20log10 EðDhÞjj =r
+/C16/C17
+¼ 20log10
+sL
+r Gjj
+/C18/C19
+; ð39Þ
+where EðDhÞjj stands for the average head difference and r is the standard deviation of the Gaussian white noise. It can be
+seen from Eq. (39) that increasing SNR is equivalent to increasing the leak size sL or decreasing the noise standard deviation
+r. Furthermore, the inﬂuence of the steady-state pressure head HLn
+0 at n-th leak, which also affect the localization accuracy
+[24,43], can be equivalently quantiﬁed by varying SNR, since its square root is proportional to the leak size sLn when zLn ¼ 0
+(cf. Eqs. (13) and (15) ). Therefore, although this section shows the simulation results with varying SNR and ﬁxed sLn and HLn
+0 ,
+their inﬂuences are equivalently quantiﬁed. The frequencies x ¼f ð1 þ aÞxth : a ¼ 0; 0:02; 0:04; ... ; 30g are used. In the
+results obtained from MFP(1), the estimates of both leaks have slight errors (the two local maxima are at 295 m and 703
+mi n Fig. 2 (a)). Fig. 7 (a) displays the objective function of MLE (Eq. (27)) under the two-leak assumption, which reaches a
+maximum corresponding to the estimated locations of the leaks. The estimate is very close to the actual location, which
+is represented by the cross in the ﬁgure. The leak sizes are estimated via Eq. (28), being ^sL1 ¼ 1:025 /C2 10/C0 4 m2 (the actual
+value is 1 /C2 10/C0 4 m2) and ^sL2 ¼ 1:188 /C2 10/C0 4 m2 (the actual value is 1 :2 /C2 10/C0 4 m2). Fig. 7(b) shows the comparison between
+the MLE (circles) and the actual values (lines) in terms of the leak location ( x-axis) and size ( y-axis). Since the results are
+affected by random error, particularly for low SNR, each simulation (from data generation to leak estimation) is repeated
+30 times. Fig. 8 shows the root mean square error (RMSE) of localization using both methods with respect to various SNR
+(/C0 3; 0; 3; 6; 9 dB), along with CRLB, which here is actually the square root of Eq. (29), i.e., the lower limit of RMSE. Here, RMSE
+is deﬁned by
+RMSEð^xLÞ¼ e2ð^xLÞ
+/C16/C17 1
+2
+; ð40Þ
+in which the overline stands for the average and eð^xLÞ is the L2-error between the actual and estimated locations of the leaks:
+eð^xLÞ¼k xL /C0 ^xLkL2
+¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðxL1 /C0 ^xL1 Þ
+2
+þð xL2 /C0 ^xL2 Þ
+2
+q
+: ð41Þ
+Note that Eqs. (40) and (41) have the dimension of length, which is deliberate because it helps to deﬁne the errors in physical
+units. It is clear that MFP(1) has a much larger error while MLE is very accurate with a RMSE less than 1 m for all SNRs and
+very close to the CRLB. 1 The reason is that, as previously stated, the error of MFP(1) comes from not only the noise but also the
+imprecise (non-parameterized) model. It is remarkable that the RMSE of MLE can converge to the CRLB but it requires a large
+sample size; here, however, only one experimental result ( T ¼ 1) is used for leak detection, even so the RMSE is very close to the
+CRLB.
+Next, two close leaks are considered, i.e., the case in Fig. 2(b), whose locations are xL1 ¼ 400 m and xL2 ¼ 460 m. The fre-
+quencies used for leak detection are the same as the previous case, implying that the minimum wavelength is kmin ¼ 258 m.
+1 Here, CRLB corresponds to the lower bound of Eq. (41) and is thus obtained from
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+CRLBðxL1 Þþ CRLBðxL2 Þ
+p
+.
+540 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 13 =====
+Fig. 7. Double-leak detection using MLE. The leak positions are (a,b) 300 m and 700 m and (c,d) 400 m and 460 m. Subﬁgures (a) and (c) plot the 2D
+objective function in Eq. (27). Subﬁgures (b) and (d) show the locations and sizes of actual (lines) and estimated (circles) leaks.
+Fig. 8. Leak localization error using MFP(1) and MLE. The leak locations are xL1 ¼ 300 m and xL2 ¼ 700 m.
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 541
+
+===== PAGE 14 =====
+On the other hand, the leak distance is jxL1 /C0 xL2 j¼ 60m ¼ 0:23kmin. In this case, as indicated in Ref. [34] as well as the
+Nyquist-Shannon sampling theorem, since the distance between the two leaks is less than the half minimum wavelength,
+MFP(1) cannot separately identify the two leaks (cf. Fig. 2 (b)). However, it is clear that the MLE is not limited by this min-
+imum resolvable range and returns a super-resolution estimate: as is illustrated in Fig. 7 (c) and (d), in this case
+(jxL1 /C0 xL2 j < kmin=4) both the locations and sizes of the two leaks are accurately estimated.
+Fig. 9 (a) shows the leak localization error with respect to various SNR and leak distances jxL1 /C0 xL2 j¼
+0:08kmin; 0:15kmin; 0:23kmin; 0:46kmin. Again, the RMSE is shown in the ﬁgures and is obtained from 30 simulation results.
+The CRLB (corresponding to the lower bound of RMSE as in the previous example) for the case jxL1 /C0 xL2 j¼ 0:46kmin is also
+shown; actually the CRLBs for all the four cases are very close, thus only one of them is shown. For any leak location, the
+localization error increases as SNR decreases. Also, for a given SNR, decreasing the distance between the two leaks increases
+the localization error, which implies that a shorter distance results in a more sensitive localization result with respect to
+error. However, the error for the range jxL1 /C0 xL2 j P 0:15kmin is acceptable: RMSE is less than 10 m even for a very low
+SNR of /C0 3 dB. A further advantage of the proposed method is that it is not limited to resonant frequencies but can use
+Fig. 9. RMSEs of leak localization (a,b) and size estimation (c,d) with respect to SNR ( /C0 3; 0; 3; 6; 9 dB). Frequencies used are (a,c)
+x ¼f ð1 þ aÞxth : a ¼ 0; 0:02; 0:04; ... ; 30g and (b,d) x ¼f ð1 þ aÞxth : a ¼ 0; 2; 4; ... ; 30g. The distance between the two leaks is
+0:46kmin ; 0:23kmin ; 0:15kmin , and 0 :08kmin .
+542 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 15 =====
+any measured frequencies generated by the transient wave. Fig. 9(b) displays the localization error where only resonant fre-
+quencies x ¼f ð1 þ aÞxth : a ¼ 0; 2; 4; ... ; 30g are used. In this case, the localization error is obviously higher than the pre-
+vious case since less information from the measurement is used, which can also be inferred from the higher CRLB. The RMSE
+of leak size estimation is also shown in Fig. 9(c) and (d). Similar to the leak location estimation, in those cases having a leak
+distance greater than 0 :15kmin and for which frequencies x ¼f ð1 þ aÞxth : a ¼ 0; 0:02; 0:04; ... ; 30g are used, the estimation
+error is acceptable for all the SNRs. However, the estimation error using only resonant frequencies is larger than when using
+more frequencies, since less information is used in the parameter estimation. Furthermore, the RMSE of the leak size esti-
+mate is relatively further away from the corresponding CRLB than the leak location estimate. One possible reason is that
+the proposed ML approach independently estimates the leak location ﬁrst and then uses the result of the ﬁrst step to decide
+the leak size, therefore the error in the ﬁrst step is possibly magniﬁed in the second step.
+Fig. 10. Two ML identiﬁcation results of double leaks. The leak locations are xL1 ¼ 400 m and xL2 ¼ 420 m and the leak sizes are sL1 ¼ 1 /C2 10/C0 4 m2 and
+sL2 ¼ 1:2 /C2 10/C0 4 m2. The lines and circles stand for the actual and estimated leaks, respectively.
+Fig. 11. Leak localization error with respect to leak size Cd AL . The distance between the two leaks are 0 :46kmin (left) and 0 :23kmin (right).
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 543
+
+===== PAGE 16 =====
+It is somewhat remarkable that a large error of leak localization or size estimation does not always mean a useless result.
+Fig. 10 shows two leak identiﬁcation results (with two speciﬁc realizations of random error) that plot leak location and size
+estimates, wherein SNR = /C0 3 dB and leak distance is 0 :08kmin. In both cases, the L2-error of leak localization computed from
+Eq. (41) is respectively 110 m and 526 m, the relative error (RE) of leak size estimation computed from
+REð^sLÞ¼ 1
+60
+X30
+n¼1
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+^sL1
+n /C0 sL1
+sL1
+ ! 2
+þ ^sL2
+n /C0 sL2
+sL2
+ ! 22
+4
+3
+5
+vuu
+u
+t ð42Þ
+is respectively 82% and 100%. However, in both ﬁgures one leak estimate with high amplitude locates between the two
+actual leaks (represented by the crosses) and the other leak estimate has a low amplitude and thus can be neglected. This
+result implies that the two leaks are not separated (i.e., a poor resolution) but replaced by a large leak estimate (the esti-
+mated size is approximately equal to the sum of the sizes of the two actual leaks) in between.
+Finally, in order to justify the leak detection accuracy due to the model linearization Eq. (3), the localization error with
+respect to various leak size is investigated. The result is shown in Fig. 11 for leak distance equal to 0 :46kmin (xL1 ¼ 400 m
+and xL2 ¼ 520 m) and 0 :23kmin (xL1 ¼ 400 m and xL2 ¼ 460 m). The SNR is set to be relatively large, being 30 dB, to ignore
+the inﬂuence of random error. For realistic leak sizes the localization error is always acceptable; even for a very large size
+CdAL 6 2 /C2 10/C0 3 m2 (the relative leak size is CdAL1 =A ¼ 1 /C2 10/C0 2) the L2-error is less than 5 m for both cases. It is interesting
+that in the case of shorter distance (0 :23kmin) between the two leaks, the localization error is larger, although the modeling
+error due to linearization is smaller (cf. the dash line and the solid line in Fig. 4), which implies that a shorter leak range leads
+to a more sensitive leak localization with respect to modeling error.
+7. Conclusions
+This paper proposes a maximum likelihood (ML) approach for identifying multiple leaks in a water-ﬁlled pipeline based
+on inverse transient wave theory. The key ﬁndings are summarized below.
+/C15 The analytical solution of the multi-leak problem involves nonlinear interaction terms between the various leaks. This
+paper shows analytically and numerically that these nonlinear terms are of the order of the leak sizes to the power
+two. Therefore, the leak-leak interaction terms are relatively small and thus negligible.
+/C15 The fact that the leak-leak interaction terms are negligible is then exploited in the formulation of a ML scheme that iden-
+tiﬁes leak locations and leak sizes separately and sequentially.
+/C15 It is found that the ML estimation scheme is highly efﬁcient and robust with respect to noise. In addition, the ML method
+is a super-resolution leak localization scheme because its resolvable leak distance (approximately 0 :15kmin (kmin is the
+minimum wavelength)) is below the Nyquist-Shannon sampling theorem limit (0 :5kmin).
+/C15 The Cramér-Rao lower bound (CRLB) is derived and used to show the efﬁciency of the ML estimates. The variance of the
+ML estimator approximates the CRLB proving that the ML scheme belongs to class of best unbiased estimator of leak
+localization methods.
+/C15 The ML scheme maximizes the signal-to-noise ratio (SNR). In addition, it uses the full information in the measured signal
+(i.e., it uses all available frequencies, not just resonant frequencies).
+/C15 The fact that this class of schemes deals with noise and searches for leaks by maximizing the SNR is an important ﬁrst step
+to applying TBDM to real-world systems in the ﬁeld where noise from various sources (trafﬁc, turbulence, mechanical
+devices, construction activities, etc) is ubiquitous.
+Future work may be conducted in several directions. In real ﬁeld application, the existence of uncertainties makes the leak
+detection more difﬁcult. The current work provides a systematic framework for handling uncertainties when their distribu-
+tion is known. In practice, the distribution of uncertainties that originate from lack of knowledge of system’s topology and
+behavior of its devices, numerical and modeling errors, noise from trafﬁc and other sources, and imprecise measurement of
+wave speed, friction factor and steady-state discharge is generally not known. Therefore, further progress requires efforts in
+studying the various uncertainties that could affect the leak detection. Furthermore, in the numerical examples in this paper,
+only the case of two-leak is considered, where the leak localization can be accomplished by plotting the two-dimensional
+likelihood function. In the case of high leak number, optimization problem has to be solved and other techniques are desired
+to decrease the computational complexity and cost. This issue is currently under development by the authors.
+Acknowledgements
+This work has been supported by research grants from the Research Grant Council of the Hong Kong SAR, China (Project
+No. T21-602/15R). The Chinese Estates are acknowledged for their support of this research. The authors would like to thank
+Duncan A. McInnis for discussion and editing.
+544 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 17 =====
+Appendix A. Fisher information and Cramér-Rao lower bound
+In the parameter estimation theory, Fisher information is a measure of information. More speciﬁcally, for a random vari-
+able X with PDF pðxjhÞ, the information of a sample of data that can provide about the unknown parameter h is quantiﬁed by
+its Fisher information, which is deﬁned by
+IðhÞ¼/C0 E d
+2
+log pðxjhÞ
+dh2
+ !
+¼/C0
+Z d
+2
+log pðxjhÞ
+dh2 pðxjhÞdx: ðA:1Þ
+Furthermore, this information determines the lower bound of the variance of an estimator of h.I f ^h is an unbiased estimator
+of h, i.e., Eð^hÞ¼ h, then
+Varð^hÞ P 1
+TIðhÞ : ðA:2Þ
+The right hand side of the above equation is known as CRLB.
+For the case of multiple unknown parameters, denoted as H ¼ð h1; ... ; hN Þ, the sample information is described by the
+Fisher information matrix (FIM):
+IðHÞ¼/C0 E d
+2
+log pðxjHÞ
+dH2
+ !
+¼/C0
+Z d
+2
+log pðxjHÞ
+dhn1 dhn2
+pðxjHÞdx
+ ! N;N
+n1 ¼1;n2 ¼1
+: ðA:3Þ
+Similarly, CRLB for the covariance matrix is obtained from FIM:
+Covð ^HÞ P TIðHÞðÞ /C0 1: ðA:4Þ
+Appendix B. Derivation of CRLB of leak location and size estimators
+The log-likelihood function Eq. (24) is written as
+log LðxL; sL; DhÞ¼/C0 JM logðpr2Þ/C0 1
+r2 Dh /C0
+XN
+n¼1
+GnðxLn ÞsLn
+/C13/C13/C13
+/C13
+/C13
+/C13/C13/C13
+/C13
+/C13
+2
+¼/C0 JM logðpr2Þ/C0 1
+r2 Dh
+H
+Dh /C0 Dh
+HXN
+n¼1
+GnsLn /C0
+XN
+n¼1
+GnsLn
+ ! H
+Dh þ
+XN
+n1 ¼1
+XN
+n2 ¼1
+sLn1 sLn2 GH
+n1
+Gn2
+0
+@
+1
+A: ðB:1Þ
+If n1 – n2,
+@2 log L
+@xLn1 @xLn2
+¼/C0 1
+r2 sLn1 sLn2 ðG0
+n1
+Þ
+H
+G0
+n
+2
+þð G0
+n2
+Þ
+H
+G0
+n
+1
+/C16/C17
+ðB:2Þ
+and
+E @2 log L
+@ðxLn Þ2
+ !
+¼/C0 1
+r2 E /C0 Dh
+H
+G00
+nsLn /C0ð G00
+nsLn Þ
+H
+Dh þð sLÞ
+H d
+2
+f ðxLÞ
+dðxLn Þ2 sL
+ !
+¼/C0 1
+r2 /C0ð GsLÞ
+H
+G00
+nsLn /C0ð G00
+nsLn Þ
+H
+GsL þ sLn ðG00
+nÞ
+H
+GsL þð sLÞ
+H
+GH G00
+nsLn þ 2jsLn j2kG0
+nk2
+/C16/C17
+¼/C0 2
+r2 jsLn j2kG0
+nk2; ðB:3Þ
+therefore
+E @2 log L
+@ðxLÞ
+2
+ !
+¼/C0 1
+r2 diagðsLÞð G0Þ
+H
+G0 þð G0Þ
+H
+G0
+/C16/C17 >/C18/C19
+diagðsLÞ; ðB:4Þ
+in which G0 ¼ dG1 ðxL1 Þ
+dxL1 ; ... ; dGN ðxLN Þ
+dxL1
+/C16/C17
+and diagðsLÞ is a diagonal matrix with diagonal elements sL1 ; ... ; sLN .
+For any n1 and n2,
+@2 log L
+@sLn1 @sLn1
+¼/C0 1
+r2 GH
+n1
+Gn2 þ GH
+n2
+Gn1
+/C16/C17
+; ðB:5Þ
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 545
+
+===== PAGE 18 =====
+thus
+E @2 log L
+@ðsLÞ
+2
+ !
+¼/C0 1
+r2 GH G þ GH G
+/C16/C17>
+/C18/C19
+; ðB:6Þ
+If n1 – n2,
+@2 log L
+@xLn1 @sLn2
+¼/C0 1
+r2 sLn1 ðG0
+n1
+Þ
+H
+Gn2 þ GH
+n2
+G0
+n
+1
+/C16/C17
+; ðB:7Þ
+and
+E @2 logL
+@xLn @sLn
+ !
+¼/C0 1
+r2 E /C0 Dh
+H
+G0
+n /C0ð G0
+nÞ
+H
+Dh þð G0
+nÞ
+H
+GsL þ sLn ðG0
+nÞ
+H
+Gn þ GsL
+/C16/C17H
+G0
+n þ sLn GH
+n G0
+n
+/C18/C19
+¼/C0 1
+r2 sLn ðG0
+nÞ
+H
+Gn þ GH
+n G0
+n
+/C16/C17
+; ðB:8Þ
+therefore
+E @2 log L
+@xL@sL
+ !
+¼/C0 1
+r2 diagðsLÞð G0Þ
+H
+G þ GH G0
+/C16/C17>
+/C18/C19
+ðB:9Þ
+and
+E @2 log L
+@sL@xL
+ !
+¼/C0 1
+r2 GH G0 þð G0Þ
+H
+G
+/C16/C17 >
+/C18/C19
+diagðsLÞ: ðB:10Þ
+Denote H ¼f xL; sLg, by Eqs. (B.4), (B.6), (B.9), (B.10) , the FIM is obtained:
+IðHÞ¼/C0 E
+@2 log L
+@ðxL Þ2
+@2 log L
+@xL @sL
+@2 log L
+@sL @xL
+@2 log L
+@ðsL Þ2
+0
+B@
+1
+CA ¼ 1
+r2
+diagðsLÞ 0
+0I N
+/C18/C19 ðG0Þ
+H
+G0 þð G0Þ
+H
+G0
+/C16/C17 >
+ðG0Þ
+H
+G þ GH G0
+/C16/C17>
+GH G0 þð G0Þ
+H
+G
+/C16/C17 >
+GH G þ GH G
+/C16/C17>
+0
+B@
+1
+CA diagðsLÞ 0
+0I N
+/C18/C19
+:
+ðB:11Þ
+Thus, the CRLB of H estimator reduces to
+CRLBð ^HÞ¼ TIðHÞðÞ /C0 1: ðB:12Þ
+Here, G0
+nðxLn Þ is obtained from the derivative of Eqs. (20) and (15) . Assume that zLn
+0 ¼ 0, i.e., the pipe is in the same hor-
+izontal plane, and HLn
+0 ¼ HU þð HD /C0 HU ÞxLn =l, then each entry of G0
+nðxLn Þ is
+Gðxj; xLn ; xmÞ
+dx
+Ln
+¼
+ﬃﬃﬃgp Z2qðxU Þﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2HLn
+0
+q sinh l xm /C0 2xLn
+/C0/C1/C0/C1
+/C0 l þ HD /C0 HU
+4lH
+Ln
+0
+sinh lxLn
+/C0/C1
+ !
+: ðB:13Þ
+Appendix C. Derivation of leak size estimate of MFP
+The proof of Eq. (34) is given here. Denote
+v ¼ GðxLÞsL; ðC:1Þ
+where G is an MJ /C2 N matrix. Assuming that MJ > N, then the left pseudo inverse of G is
+G/C0 1
+left ¼ð GH GÞ
+/C0 1
+GH ; ðC:2Þ
+thus
+sL ¼ G/C0 1
+left v ¼ð GH GÞ
+/C0 1
+GH v: ðC:3Þ
+For any ﬁxed xL, the optimal sL is obtained by inserting Eqs. (C.1) and (C.3) into the denominator and numerator of Eq. (33)
+and maximizing it:
+546 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548
+
+===== PAGE 19 =====
+^sL ¼ arg max
+sL
+Dh
+H
+GsL
+/C12/C12
+/C12
+/C12/C12
+/C12
+2
+GsL
+/C13/C13/C13
+/C13/C13/C13
+2 ¼ arg max
+sL
+Dh
+H
+GðGH GÞ
+/C0 1
+GH v
+/C12/C12
+/C12
+/C12/C12
+/C12
+2
+vkk 2 ¼ arg max
+sL
+GðGH GÞ
+/C0 1
+GH Dh; v
+vkk
+/C28/C29/C12/C12
+/C12
+/C12
+/C12/C12
+/C12
+/C12
+2
+¼ arg max
+sL
+GðGH GÞ
+/C0 1
+GH Dh; GsL
+GsL
+/C13/C13
+/C13
+/C13/C13
+/C13
+*+/C12/C12
+/C12
+/C12
+/C12
+/C12
+/C12/C12
+/C12
+/C12
+/C12
+/C12
+2
+¼ GH G
+/C16/C17/C0 1
+GH Dh: ðC:4Þ
+The last equality holds due to Cauchy-Schwarz inequality and /C1 ; /C1hi stands for inner product.
+References
+[1] J.A. Liggett, L.-C. Chen, Inverse transient analysis in pipe networks, J. Hydraulic Eng. 120 (8) (1994) 934–955 .
+[2] B. Brunone, Transient test-based technique for leak detection in outfall pipes, J. Water Resources Plann. Manage. 125 (5) (1999) 302–306 .
+[3] J.P. Vítkovsky` , A.R. Simpson, M.F. Lambert, Leak detection and calibration using transients and genetic algorithms, J. Water Resources Plann. Manage.
+126 (4) (2000) 262–265 .
+[4] W. Mpesha, S.L. Gassman, M.H. Chaudhry, Leak detection in pipes by frequency response method, J. Hydraul. Eng. 127 (2) (2001) 134–147 .
+[5] X.-J. Wang, M.F. Lambert, A.R. Simpson, J.A. Liggett, J.P. Vítkovsky` , Leak detection in pipelines using the damping of ﬂuid transients, J. Hydraul. Eng. 128
+(7) (2002) 697–711 .
+[6] P.J. Lee, J.P. Vitkovsky, M.F. Lambert, A.R. Simpson, J.A. Liggett, Frequency response coding for the location of leaks in single pipeline system s, in: The
+Int. Conference on Pumps, Electromechanical Devices and Systems Applied to Urban Water Management, IAHR and IHRA, Valencia, Spain, April 22–25,
+2003.
+[7] P.J. Lee, J.P. Vítkovsky` , M.F. Lambert, A.R. Simpson, J.A. Liggett, Frequency domain analysis for detecting pipeline leaks, J. Hydraul. Eng. 131 (7) (2005)
+596–604.
+[8] P.J. Lee, J.P. Vítkovsky ` , M.F. Lambert, A.R. Simpson, J.A. Liggett, Leak location using the pattern of the frequency response diagram in pipelines: a
+numerical study, J. Sound Vib. 284 (3) (2005) 1051–1073 .
+[9] P.J. Lee, M.F. Lambert, A.R. Simpson, J.P. Vítkovsky` , J. Liggett, Experimental veriﬁcation of the frequency response method for pipeline leak detection, J.
+Hydraul. Res. 44 (5) (2006) 693–707 .
+[10] H.-F. Duan, P.J. Lee, M.S. Ghidaoui, Y.-K. Tung, Essential system response information for transient-based leak detection methods, J. Hydraul. Res . 48 (5)
+(2010) 650–657 .
+[11] H.-F. Duan, P.J. Lee, M.S. Ghidaoui, Y.-K. Tung, Leak detection in complex series pipelines by using the system frequency response method, J. Hydraul .
+Res. 49 (2) (2011) 213–221 .
+[12] H.-F. Duan, P.J. Lee, M.S. Ghidaoui, Y.-K. Tung, System response function–based leak detection in viscoelastic pipelines, J. Hydraul. Eng. 138 (2) ( 2011)
+143–153.
+[13] W. Nixon, M.S. Ghidaoui, Numerical sensitivity study of unsteady friction in simple systems with external ﬂows, J. Hydraul. Eng. 133 (7) (2007) 736–
+749.
+[14] M.F. Ghazali, S.B.M. Beck, J.D. Shucksmith, J.B. Boxall, W.J. Staszewski, Comparative study of instantaneous frequency based methods for leak dete ction
+in pipeline networks, Mech. Syst. Signal Process. 29 (2012) 187–200 .
+[15] A.C. Zecchin, L.B. White, M.F. Lambert, A.R. Simpson, Parameter identiﬁcation of ﬂuid line networks by frequency-domain maximum likelihood
+estimation, Mech. Syst. Signal Process. 37 (1) (2013) 370–387 .
+[16] S. Meniconi, B. Brunone, M. Ferrante, C. Capponi, C.A. Carrettini, C. Chiesa, D. Segalini, E.A. Lanfranchi, Anomaly pre-localization in distributi on–
+transmission mains by pump trip: preliminary ﬁeld tests in the milan pipe system, J. Hydroinformat. 17 (3) (2015) 377–389 .
+[17] S. Meniconi, B. Brunone, M. Ferrante, C. Massari, Potential of transient tests to diagnose real supply pipe systems: what can be done with a single
+extemporary test, J. Water Resources Plann. Manage. 137 (2) (2010) 238–241 .
+[18] M.L. Stephens, M.F. Lambert, A.R. Simpson, J.P. Vitkovsky, Calibrating the water-hammer response of a ﬁeld pipe network by using a mechanical
+damping model, J. Hydraul. Eng. 137 (10) (2011) 1225–1237 .
+[19] K.W. Tang, B. Brunone, B. Karney, A. Rossetti, Role and characterization of leaks under transient conditions, in: Building Partnerships-Proc. ASCE Joint
+Conf. Water Resource Engineering and Management Minneapolis MN, 7–30, 2000.
+[20] B. Brunone, M. Ferrante, Detecting leaks in pressurised pipes by means of transients, J. Hydraul. Res. 39 (5) (2001) 539–547 .
+[21] D. Covas, H. Ramos, N. Graham, C. Maksimovic, Application of hydraulic transients for leak detection in water supply systems, Water Sci. Technol.:
+Water Supp. 4 (5–6) (2005) 365–374 .
+[22] M. Ferrante, B. Brunone, S. Meniconi, Wavelets for the analysis of transient pressure signals for leak detection, J. Hydraul. Eng. 133 (11) (2007) 127 4–
+1282.
+[23] S.T.N. Nguyen, J. Gong, M.F. Lambert, A.C. Zecchin, A.R. Simpson, Least squares deconvolution for leak detection with a pseudo random binary sequenc e
+excitation, Mech. Syst. Signal Process. 99 (2018) 846–858 .
+[24] J.C. Liou, Pipeline leak detection by impulse response extraction, J. Fluids Eng. 120 (4) (1998) 833–838 .
+[25] M. Ferrante, B. Brunone, Pipe system diagnosis and leak detection by unsteady-state tests. I. Harmonic analysis, Adv. Water Resources 26 (1) (2003)
+95–105.
+[26] D. Covas, H. Ramos, A.B. De Almeida, Standing wave difference method for leak detection in pipeline systems, J. Hydraul. Eng. 131 (12) (2005) 1106–
+1116.
+[27] A.M. Sattar, M.H. Chaudhry, Leak detection in pipelines by frequency response method, J. Hydraul. Res. 46 (EI1) (2008) 138–151 .
+[28] M. Taghvaei, S.B.M. Beck, J.B. Boxall, Leak detection in pipes using induced water hammer pulses and cepstrum analysis, Int. J. COMADEM 13 (1) (2010)
+19.
+[29] M.L. Stephens, Transient response analysis for fault detection and pipeline wall condition assessment in ﬁeld water transmission and distribu tion
+pipelines and networks (Ph.D. thesis), University of Adelaide, 2008.
+[30] D. Covas, H. Ramos, Case studies of leak detection and location in water pipe systems by inverse transient analysis, J. Water Resources Plann. Manage.
+136 (2) (2010) 248–257 .
+[31] S. Meniconi, H.F. Duan, P.J. Lee, B. Brunone, M.S. Ghidaoui, M. Ferrante, Experimental investigation of coupled frequency and time-domain transien t
+test–based techniques for partial blockage detection in pipelines, J. Hydraul. Eng. 139 (10) (2013) 1033–1040 .
+[32] I. Rubio Scola, G. Besançon, D. Georges, Blockage and leak detection and location in pipelines using frequency response optimization, J. Hydraul. En g.
+143 (1) (2016) 04016074 .
+[33] S. Meniconi, B. Brunone, M. Ferrante, C. Massari, Transient hydrodynamics of in-line valves in viscoelastic pressurized pipes: long-period analys is, Exp.
+Fluids 53 (1) (2012) 265–275 .
+[34] X. Wang, M.S. Ghidaoui, Pipeline leak detection using the matched-ﬁeld processing method, J. Hydraul. Eng. (2008), https://doi.org/10.1061/(ASCE)
+HY.1943-7900.0001476.
+[35] M.H. Chaudhry, Applied Hydraulic Transients, third ed., Springer, 2014 .
+X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548 547
+
+===== PAGE 20 =====
+[36] A. Kashima, P. J Lee, R. Nokes, Numerical errors in discharge measurements using the KDP method, J. Hydraul. Res. 50 (1) (2012) 98–104 .
+[37] A. Kashima, P.J. Lee, M.S. Ghidaoui, M. Davidson, Experimental veriﬁcation of the kinetic differential pressure method for ﬂow measurements, J.
+Hydraul. Res. 51 (6) (2013) 634–644 .
+[38] S.M. Kay, Fundamentals of statistical signal processing, volume I: estimation theory, 1993.
+[39] H. Krim, M. Viberg, Two decades of array signal processing research, IEEE Signal Process. Mag. 13 (4) (1996) 67–94 .
+[40] A.B. Baggeroer, W.A. Kuperman, P.N. Mikhalevsky, An overview of matched ﬁeld methods in ocean acoustics, IEEE J. Oceanic Eng. 18 (4) (1993) 401–
+424.
+[41] X. Wang, B. Quost, J.-D. Chazot, J. Antoni, Estimation of multiple sound sources with data and model uncertainties using the EM and evidential EM
+algorithms, Mech. Syst. Signal Process. 66–67 (2016) 159–177 .
+[42] X. Wang, B. Quost, J.-D. Chazot, J. Antoni, Iterative beamforming for identiﬁcation of multiple broadband sound sources, J. Sound Vib. 365 (2016) 260 –
+275.
+[43] M. Ferrante, B. Brunone, S. Meniconi, B.W. Karney, C. Massari, Leak size, detectability and test conditions in pressurized pipe systems, Water Resou rces
+Manage. 28 (13) (2014) 4583–4598 .
+548 X. Wang, M.S. Ghidaoui / Mechanical Systems and Signal Processing 107 (2018) 529–548

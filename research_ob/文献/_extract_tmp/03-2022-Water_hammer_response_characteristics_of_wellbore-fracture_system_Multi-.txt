@@ -1,0 +1,1313 @@
+SOURCE: 03-2022-Water hammer response characteristics of wellbore-fracture system Multi-dimensional analysis in time, frequency and quefrency domain.pdf
+PAGES: 13
+FULL extract 13 pages
+
+
+
+===== PAGE 1 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+Available online 23 March 2022
+0920-4105/© 2022 Elsevier B.V. All rights reserved.
+Water hammer response characteristics of wellbore-fracture system: 
+Multi-dimensional analysis in time, frequency and quefrency domain 
+Yang Qiu, Xiaodong Hu
+*
+, Fujian Zhou
+**
+, Zhuolong Li, Yujiao Li, Yinghao Luo 
+China University of Petroleum-Beijing, Beijing, 102249, China   
+ARTICLE INFO  
+Keywords: 
+Hydraulic fracturing 
+Water hammer 
+Fracture diagnostics 
+Cepstrum analysis 
+Fourier transform 
+ABSTRACT  
+Water hammer fracture diagnostics is a promising fracture diagnostic method, which is nonintrusive, econom -
+ical, timely performed and easily operated. In present studies, the propagation behavior of the water hammer in 
+the wellbore-fracture system remains unclear, which brings uncertainty to locating the hydraulic-stimulated 
+fractures. In this paper, the transient flow model was used to describe the water hammer pressure fluctuation, 
+which was generated after the pump shut down during the hydraulic fracturing treatment, and the wellbore- 
+fracture system was built by introducing the branch pipe to the wellbore as the fracture. The method of char -
+acteristics (MOC) was used to solve this model, then was validated by the computational fluid dynamics software 
+FLUENT. Combining water hammer signal analysis in time, frequency, and quefrency domain, the fracture effect 
+on the water hammer response characteristics in the wellbore-fracture system was investigated in multiple di -
+mensions. We then built eight cases to simulate the water hammer pressure fluctuation in different wellbore- 
+fracture systems, including the existence, the varied location and the varied length of the fracture and con -
+ducted the multi-dimensional analysis. After that, results were discussed and the response characteristics of the 
+water hammer in the wellbore-fracture system were summarized. From this work, a multi-dimensional analysis 
+method in time, frequency and quefrency domain is proposed. Meanwhile, the water hammer response char -
+acteristics of the wellbore-fracture system are sufficiently presented for the first time to accurately investigate the 
+water hammer pressure propagation in the wellbore-fracture system and provide useful insights for water 
+hammer diagnostics in field application.   
+Credit author statement 
+Yang Qiu: Conceptualization, Methodology, Data analysis, Visuali -
+zation and Writing. Xiaodong Hu: Funding acquisition, Supervision, 
+Conceptualization, Writing-Review and Editing. Fujian Zhou: Super -
+vision. Zhuolong Li: Validation. Yujiao Li: Software. Yinghao Luo: 
+Data Curation. 
+1. Introduction 
+Fracture diagnostics is an important and well-concerned research 
+topic nowadays in the development of unconventional reservoir since 
+the wide application of hydraulic fracturing treatment ( Parkhonyuk 
+et al., 2018a ; Liu et al., 2021 ). Hydraulic fracturing treatment is crucial 
+to the successful exploitation of unconventional oil and gas resources 
+( William et al., 2018 ; Dong et al., 2019 ; Sadykov et al., 2019 ; Guo et al., 
+2020 ; He et al., 2020 ; Wang et al., 2020 ). A large amount of fracturing 
+fluid and proppants are pumped underground at the surface. Fractures 
+are generated under the high pressure of the fluid, which provide a 
+conductive pathway for oil and gas transportation. The scale of the 
+fracture network after hydraulic fracturing treatment directly de -
+termines the final production ( Ciezobka et al., 2016 ; Iriarte et al., 2017 ; 
+Dung et al., 2021 ). As reported, there are many perforation clusters 
+within horizontal well completion, which do not contribute to oil and 
+gas production, and poor stimulation seriously affects the final pro -
+duction ( Barraza et al., 2017 ; Parkhonyuk et al., 2018a ). Methods are 
+required to evaluate the effectiveness of the hydraulic fracturing and to 
+provide real-time guidance and optimizations to completion strategies. 
+Fracture diagnostics is an effective evaluation method. 
+Water hammer fracture diagnostics has been developed and vali -
+dated in the field application since 2016 ( Bogdan et al., 2016 ; Korkin 
+et al., 2020 ). Compared with traditional intrusive diagnostics, the water 
+* Corresponding author. 
+** Corresponding author. 
+E-mail addresses: huxiaodong@cup.edu.cn (X. Hu), zhoufj@cup.edu.cn (F. Zhou).  
+Contents lists available at ScienceDirect 
+Journal of Petroleum Science and Engineering 
+journal homepag e: www.else vier.com/loc ate/petro l 
+https://doi.org/10.1016/j.petrol.2022.110425 
+Received 6 September 2021; Received in revised form 24 January 2022; Accepted 16 March 2022   
+
+===== PAGE 2 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+2
+hammer fracture diagnostics is easy to operate. Meanwhile, the eco -
+nomic benefit of this technique is high, providing decisions optimizing 
+fracturing stimulation in time and satisfying the requirements of the 
+large-scale application in field. The process of the water hammer frac -
+ture diagnostics is as follows. After the pumps shut down at the surface, 
+water hammer wave is generated. Propagating along the wellbore, water 
+hammer pressure wave will interact with downhole events (such as 
+hydraulic-connected fractures or case leaking) and reflect ( Liang et al., 
+2017 ; Parkhonyuk et al., 2018b ). These events, altering the water 
+hammer response characteristics, can be located by conducting ceps -
+trum analysis of the water hammer pressure data collected by pressure 
+gauge at the surface. The cepstrum of pressure signal includes the 
+reflection time of events and can be used for echoes detection ( Par -
+khonyuk et al., 2018b ). Borrowing from principles of the convolution 
+model of recorded seismogram, reflection time of downhole events like 
+fractures or case leaking can be determined by conducting cepstrum 
+analysis. Therefore, cepstrum analysis is the key method for water 
+hammer diagnostics. 
+The mechanism of the water hammer propagation is complicated 
+( Hou et al., 2021 ). The water hammer responds differently while the 
+fracture is introduced to the wellbore system. Understanding the water 
+hammer response characteristics in the wellbore-fracture system is a 
+challenge. However, water hammer propagation behavior has not been 
+fully understood, especially in the wellbore-fracture system after hy -
+draulic fracturing treatment. This brings uncertainty to cepstrum anal -
+ysis of field water hammer data. In addition, noises exist in water 
+hammer data, which bring difficulty in the following cepstrum analysis. 
+How to understand the water hammer response characteristics accu -
+rately in a wellbore-fracture system is a challenging issue for the analysis 
+of water hammer data cepstrum. 
+Many field studies applying the water hammer diagnostics, collect -
+ing pressure data by high-frequency transducers at the wellhead and 
+locating the position of the stimulated fractures, have been reported in 
+the literature. The fundamental frequency and harmonic series of water 
+hammer signatures were used to calculate the hydraulic length of the 
+wellbore, which indicated the location of hydraulic fractures ( Clark 
+et al., 2018 ). The water hammer pressure data were used to obtain the 
+period, identifying the wellbore boundary conditions, including treat -
+ment stage isolation, casing failure depth or extended length of the 
+fracture ( Dung et al., 2021 ). Since 2016, a new method called 
+high-frequency pressure monitoring (HFPM), based on the signal pro -
+cessing technique, analyzing the wellbore pressure oscillations recorded 
+at the wellhead has been developed and applied in hydraulic fracturing 
+monitoring ( Bogdan et al., 2016 ; Klem et al., 2017 ; Rutzinger et al., 
+2017 ; Kabannik et al., 2018 ; Parkhonyuk et al., 2018a , 2018b , 2018c ; 
+Panjaitan et al., 2018 ; Korkin et al., 2020 ). Combining the reflection 
+time and the wave speed, the depth of downhole events, such as ball 
+landing, location of the zone accepting the fluid, diverter efficiency and 
+the casing failure depth, are calculated and determined. This method 
+monitors the fracturing treatment in real time and makes it possible to 
+conduct cost-effective strategies in time during the treatment. 
+However, the real features of the fracture after fracturing remains 
+unknown underground. The corresponding response characteristics of 
+the water hammer are not clear. Moreover, no study has been performed 
+so far to investigate the water hammer propagation behavior in the 
+wellbore-fracture system. Only the water hammer propagating in the 
+wellbore system is considered to simplify the analysis. As the fracture is 
+introduced to the wellbore system, the effects that the pressure wave 
+propagating in the fracture in the wellbore-fracture system are not taken 
+into consideration. Thus, experimental and numerical studies are 
+needed to explain the water hammer response characteristics in a 
+wellbore-fracture system. 
+Many experimental and numerical studies of water hammer have 
+also been reported. Water hammer propagation behavior in pipeline 
+system was experimentally studied and numerically simulated ( Nikpour 
+et al., 2014 ; Wang et al., 2015 ; Mounir and Ali, 2019 ; Rahul and Arun, 
+2020 ). This pressure behavior was very important in long-distance 
+transportation and valve operation. Thus, many experimental and nu -
+merical studies were conducted to prevent mistake operation in valve 
+switching and to ensure the pipeline and pumps safety ( Asadiniazi et al., 
+2010 ; Pierre and Gudmundsson, 2011 ; Wu et al., 2015 ). The pressure 
+transient behavior was also studied in pipeline blockage and leakage. 
+According to different pressure transient responses, algorithms were 
+developed and applied to block or leak detection and evaluate the 
+blockage or leakage characteristics ( Qiang et al., 2018 ; Lang and Yuan, 
+2020 ; Zhang et al., 2021 ; Fu et al., 2021 ). All the studies can help to 
+understand the water hammer propagation behavior. 
+However, all these researches are studied in the pipeline system. No 
+brunched pipe exists in this system. The water hammer response char -
+acteristics of the wellbore-fracture system are completely different from 
+those in the pipeline system. In addition, analysis of water hammer 
+signatures mentioned above is only considered in time or frequency 
+dimension. The water hammer propagation behavior in a complex sys -
+tem is complicated. Combining methods in multi-dimensions can help to 
+better understand the water hammer response in a complex system. 
+In this work, we proposed a multi-dimensional analysis method in 
+time, frequency and quefrency domain for water hammer analysis. 
+Meanwhile, the water hammer response characteristics of the wellbore- 
+fracture system are sufficiently presented for the first time to accurately 
+investigate the water hammer propagation in the wellbore-fracture 
+system. First, the wellbore-fracture system was built by modifying the 
+fracture as the branch pipe to the wellbore, and the water hammer 
+propagation in the wellbore-fracture system was derived from the 
+transient flow model. This model was then validated by the computa -
+tional fluid dynamics software FLUENT. Second, eight cases were 
+designed to simulate the water hammer fluctuation in different 
+wellbore-fracture systems, including the existence of the fracture, the 
+varied location of the fracture, and the varied length of the fractures in 
+the system and conducted multi-dimensional analysis in time, frequency 
+and quefrency domain, respectively. Third, the results were discussed 
+and the water hammer response characteristics in the wellbore-fracture 
+system were summarized. This study can provide clear insights into the 
+water hammer fracture diagnostics and improve the identification of 
+fractures and other downhole events. 
+2. Methodology 
+First, the mathematical model was presented including the transient 
+flow model simulating water hammer fluctuation in the wellbore- 
+fracture system and the multi-dimensional analysis method. Second, 
+the configuration of the physical model was presented. Third, the model 
+was validated with FLUENT. 
+2.1. Transient flow model 
+2.1.1. Method of characteristics 
+The pressure transient behavior like water hammer in the wellbore is 
+governed by the motion and continuity equations. A more detailed re -
+view can be found in Carey et al. (2015) . By describing pressure and 
+velocity, P and V , in terms of pressure head and discharge, H and Q , and 
+the governing equations can be written as: 
+∂ H
+∂ t
++
+a
+2
+gA
+∂ Q
+∂ x
+= 0 (1)  
+∂ Q
+∂ t
++ gA
+∂ H
+∂ x
++
+f Q | Q |
+2 DA
+= 0 , (2)  
+where a is the wave speed (m/s), A is the area of pipe cross-section (m
+2
+), 
+H is the pressure head (m), Q is the discharge (m
+3
+/s), D is the pipe 
+diameter (m), and f is the friction coefficient. 
+The pressure wave speed in the pipe can be written as: 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 3 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+3
+a =
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+K / ρ
+1 +
+(
+K
+E
+)
+ψ
+√
+√
+√
+√
+√
+, (3)  
+where K is the fluid bulk modulus, ρ is fluid density (kg/m
+3
+), E is pipe 
+Young ’ s modulus of elasticity and ψ was determined from the expression 
+for a thin-walled elastic pipe anchored against the longitudinal 
+movement, 
+ψ =
+D
+e
+ 
+1   v
+2
+)
+, (4)  
+where e is the thickness (m) and v is the pipe Poisson ’ s ratio. However, 
+to simplify the analysis, the wave speed in the wellbore was specially set 
+in this study. More details can be seen in the following part model 
+configuration. 
+The water hammer equations Eq. (1) and (2) are a pair of quasi-linear 
+hyperbolic partial differential equations, which can ’ t be solved directly. 
+The method of characteristics (MOC) is used to transform the two partial 
+differential equations into four ordinary differential equations along the 
+characteristic lines C
++
+and C
+ 
+in the x-t plane, as shown in Eq. (5) and 
+Eq. (6) : 
+C
++
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+d Q
+dt
++
+gA
+a
+d H
+dx
++
+f Q | Q |
+2 DA
+= 0
+dx
+d t
+= a
+, (5)  
+C
+ 
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+d Q
+dt
+ 
+gA
+a
+d H
+dx
++
+f Q | Q |
+2 DA
+= 0
+dx
+d t
+=   a
+. (6) 
+The solutions of ordinary differential equations are not always valid 
+in the x - t plane. Assuming that a is constant, they are only valid along 
+the lines with the slope of 1/ a and   1/ a in the x-t plane instead. 
+2.1.2. Finite difference method 
+The transient flow model can be solved numerically by the finite 
+difference method. Dividing the wellbore into n sections with the length 
+Δ x , the time step can be determined by Δ t = Δ x / a to ensure the stability 
+of the model. Eq. (7) and Eq. (8) : 
+C
++
+: H
+P
+= H
+A
+  B ( Q
+P
+  Q
+A
+)   RQ
+P
+| Q
+A
+| , (7)  
+C
+ 
+: H
+P
+= H
+B
++ B ( Q
+P
+  Q
+B
+) + RQ
+P
+| Q
+B
+| , (8)  
+including second-order approximation, are the finite difference equa -
+tions of Eq. (5) and Eq. (6) for C
++
+and C
+ 
+, respectively. 
+B and R represent pipe characteristic impedance and pipe resistance 
+coefficient, respectively. 
+B =
+a
+gA
+, (9)  
+R =
+f Δ x
+2 gDA
+2
+, (10)  
+where f is the friction coefficient and Δ x is the space step. 
+This model starts at t = 0 s. H and Q of each grid in the wellbore are 
+known under initial steady-state conditions. Then H and Q at every Δ t 
+can be calculated from the known values at previous time steps i -1 and i 
++ 1. Therefore, the finite difference equation can be written as Eq. (11) to 
+Eq. (12) according to time, 
+C
++
+: H
+t + Δ t
+i
+= C
+P
+  B
+P
+Q
+t + Δ t
+i
+, (11)  
+C
+ 
+: H
+t + Δ t
+i
+= C
+M
++ B
+M
+Q
+t + Δ t
+i
+, (12)  
+where i refers to every intersection point. C
+P
+, B
+P
+, C
+M
+, and B
+M 
+are con -
+stants, which can be calculated from Eq. (13) to Eq. (16) : 
+C
++
+: H
+t + Δ t
+i
+= C
+P
+  B
+P
+Q
+t + Δ t
+i
+, (13)  
+C
+ 
+: H
+t + Δ t
+i
+= C
+M
++ B
+M
+Q
+t + Δ t
+i
+, (14)  
+C
++
+: H
+t + Δ t
+i
+= C
+P
+  B
+P
+Q
+t + Δ t
+i
+, (15)  
+C
+ 
+: H
+t + Δ t
+i
+= C
+M
++ B
+M
+Q
+t + Δ t
+i
+. (16) 
+Solving Eq. (11) and Eq. (12) . yields: 
+H
+t + Δ t
+i
+=
+C
+P
+B
+M
++ C
+M
+B
+P
+B
+M
++ B
+P
+, (17)  
+Q
+t + Δ t
+i
+=
+C
+P
+  C
+M
+B
+M
++ B
+P
+. (18) 
+Eq. (17) and (18) are only valid within the pipe section that both C
++
+and C
+ 
+equations are present. Additional boundary conditions are also 
+required, containing the inlet on the surface, outlet at the end of the 
+fracture, the downhole endpoint, or the pipe junction. 
+2.1.3. Boundary conditions 
+The main boundary conditions used in this simulation in this paper 
+were inlet boundary, bottom hole zero-flow boundary, outlet pressure 
+boundary, and the junction point between the wellbore and the 
+hydraulic-connected fracture. 
+The pump is assumed to be the linear shutdown. Thus, the flow rate is 
+decreased in a short time from the initial flow to zero. Then, the pressure 
+head H at the inlet of each time step is solved by combining the C
+ 
+equation with the boundary condition of the linear pump shutdown as, 
+Q =
+⎧
+⎪
+⎨
+⎪
+⎩
+Q
+0
+(
+1  
+t
+T
+shutdown
+)
+, t ≤ T
+shutdown
+0 , t > T
+shutdown
+, (19)  
+where Q
+0 
+is the initial flow rate (m
+3
+/s), T
+shutdown 
+is the total time the 
+flow rate goes to zero (s), and Q (m
+3
+/s) is the flow rate at time t (s). 
+Considering the outlet pressure boundary is a constant, the charac -
+teristic equation C
++
+is used. Integrating with the outlet boundary con -
+dition, the outlet discharge Q is solved at each time step. 
+As shown in Fig. 1 , the pressure head H at node n in pipe 1 (which is 
+also the first point in pipe 2 and pipe 3) is equal, as shown in Eq. (20) . 
+Assuming that the fluid flow in from pipe 1 and out from pipe 2 and pipe 
+3, the total discharge Q should satisfy Eq. (21) . The first subscript rep -
+resents the label of the corresponding pipeline, while the second 
+subscript represents the node number in each pipe. The superscript 
+represents the computation time. 
+H
+t
+1 , n
+= H
+t
+2 , 1
+= H
+t
+3 , 1
+= H
+t
+, (20)  
+Q
+t
+1 , n
+  Q
+t
+2 , 1
+  Q
+t
+3 , 1
+= 0 . (21) 
+Fig. 1. The boundary condition of the intersection point between the wellbore 
+and the fracture. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 4 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+4
+During the hydraulic fracturing treatment, the fluid stopped at the 
+bottom of the wellbore theoretically, for the presence of the well bottom 
+or bridge. Integrating the zero-flow discharge with the C
++
+equation, the 
+pressure head H at the bottom can be calculated. 
+2.2. Multi-dimensional analysis model 
+In previous research, water hammer characteristics including period, 
+amplitude, and decay rate were the important content of water hammer 
+analysis. In this study, the key interest is the propagation behavior of the 
+water hammer wave in the wellbore-fracture system. After exited at the 
+wellhead, the water hammer wave propagates along the wellbore and 
+reflects when the wave incidents on the hydraulic stimulated fracture or 
+other downhole events. This phenomenon is the key point in our study. 
+To understand the propagation behavior and reveal the relevant 
+reflection events, analysis in time, frequency, and quefrency domain was 
+Fig. 2. The calculation process of the function of reflection time: (a) The cepstrogram of water hammer signal; (b) The functions of reflection time.  
+Fig. 3. The sketch of the wellbore-fracture system.  
+Table 1 
+The basic parameters for model validation.  
+Parameters Fluent MOC 
+Injection rate (m
+3
+/min) 0.06 0.06 
+Shut-in time (s) 0.005 0.005 
+Wellbore length, L
+w 
+(m) 10 10 
+Fracture location, Lx (m) 7 7 
+Fracture length, L
+f 
+(m) 5 5 
+Wave speed (m/s) - 1490 
+Mesh size (m) 0.01 – 
+Mesh numbers 15,224 – 
+Wellbore diameter (m) 0.1 0.1 
+Pressure boundary (MPa) 0 0  
+Fig. 4. Comparison of Fluent and MOC simulation results.  
+Table 2 
+Physical parameters and boundary conditions used in the simulation.  
+Case 1 2 3 4 5 6 7 8 
+Injection rate 
+(m
+3
+/min) 
+6 6 6 6 6 6 6 6 
+Shut-in time (s) 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 
+Wellbore length, 
+L
+w 
+(m) 
+150 150 150 150 150 150 150 150 
+Fracture 
+location, L
+x 
+(m) 
+100 100 100 100 100 60 80 120 
+Fracture length, 
+L
+f 
+(m) 
+0 25 50 100 200 100 100 100 
+Wellbore 
+diameter (m) 
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 
+Pressure 
+boundary 
+(MPa) 
+10 10 10 10 10 10 10 10  
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 5 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+5
+conducted to the simulated water hammer fluctuation in the wellbore- 
+fracture system by the fluid transient model mentioned above. 
+2.2.1. Time analysis 
+Water hammer signal, whether acquired from the wellhead trans -
+ducers or collected from the simulation results, is the variable changing 
+over time. The water hammer wave oscillates in the pipeline with period 
+T and decays with time. However, the period identification would be 
+difficult when the fracture is introduced to the wellbore system. In this 
+study, the change points of the pressure trend were read, named as 
+pressure response time. Every pressure response time at the wellhead 
+corresponds to the water hammer reflection behavior. The reflection 
+location is calculated by 
+L
+1
+=
+a × t
+r
+2
+, (22)  
+where L
+1 
+is the location of the reflection event (m), a is the wave speed in 
+the pipeline and t
+r 
+is the time when the pressure trend is changed (s). 
+2.2.2. Frequency analysis 
+Water hammer is the free oscillation that is exited by the sudden 
+change of the discharge, representing the resonance of the vibration 
+system in the frequency domain. The complicated the vibration system 
+Fig. 5. The transformation of zero-length fracture in wellbore-fracture system.  
+Fig. 6. The results of case 1 to 4 in the time domain: (a) case 1 fracture length: 0 m, location: 100 m; (b) case 2 fracture length: 25 m, location: 100 m; (c) case 3 
+fracture length: 50 m, location: 100 m; (d) case 4 fracture length: 100 m, location: 100 m. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 6 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+6
+was, the harder the water hammer period identification would be. Thus, 
+another method is needed. Fourier transform is a mathematical tool to 
+analyze the frequency characteristics of periodic or aperiodic signals 
+( Martinez et al., 2014 ). It can transform the signal from the time domain 
+to the frequency domain for analysis, and it is solved by 
+Fig. 7. The results of case 5 to 8 in the time domain: (a) case 5 fracture length: 200 m, location:100 m; (b) case 6 fracture length: 100 m, location:60 m; (c) case 7 
+fracture length: 100 m, location: 80 m; (d) case 8 fracture length: 100 m, location:120 m. 
+Fig. 8. The first 1.5 s detail results of case 7 and 8 in the time domain: (a) case 7 fracture length: 100 m, location: 80 m; (b) case 8 fracture length: 100 m, 
+location:120 m. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 7 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+7
+̂x ( ω ) =
+1
+2 π
+∫
+x ( t ) e
+  i ω t
+dt , (23)  
+where x ( t ) and ̂x ( ω ) shows the signal in the time and frequency domain, 
+respectively. The pressure signal collected from simulation or trans -
+ducers is discrete. Thus, discrete time fourier transform (DTFT) was 
+used. Fast Fourier transform is usually used to compute DTFT efficiently 
+in practical applications. In previous study, the frequency was used to 
+determine the water hammer period and influence of boundary condi -
+tions, and the water hammer period was used to locate the downhole 
+events. 
+The harmonic series of the water hammer fundamental frequency are 
+odd in open boundary, which can be used to calculate the hydraulic 
+length of the system according to Eq. (24) , 
+L
+2
+=
+a ( 2 n   1 )
+4 f
+n
+, (24)  
+where L
+2 
+is hydraulic length (m), n is the n
+th 
+harmonic of the funda -
+mental frequency and f
+n 
+is the frequency of n
+th 
+harmonic (Hz). The 
+hydraulic length shared the same value of the events ’ location from the 
+wellhead ( Clark et al. 2018 ). 
+2.2.3. Cepstrum analysis 
+Cepstrum analysis is used in nonlinear signal analysis and process -
+ing. This technique, first developed by Bogert in 1963, was used to 
+identify the echoes of seismic waves generated by earthquakes or bomb 
+explosions ( Parkhonyuk et al., 2018b ). By taking the inverse Fourier 
+transform of the logarithm of the Fourier transform of the signal, the 
+cepstrum result is calculated according to 
+̂x ( τ ) =
+1
+2 π
+∫
+log
+[ ⃒
+⃒
+⃒
+⃒
+∫
+x ( t ) e
+i ω t
+d t
+⃒
+⃒
+⃒
+⃒
+]
+e
+  i ωτ
+d ω , (25)  
+where x ( t ) and ̂x ( τ ) shows the signal in time and quefrency domain, 
+respectively. 
+In cepstrum, the independent variable τ is quefrency and has the 
+characteristics in the time dimension. In 2016, cepstrum analysis was 
+first applied to analyze the water hammer signals during the fracturing 
+operation, calculating the reflection time of downhole events. A time- 
+frequency analysis method was employed to assess how the que -
+frencies varied in time. The water hammer signal was broken into a 
+series of windows of finite length and the cepstrum analysis was applied. 
+Integrating the cepstrum results of all windows, the cepstrogram of the 
+water hammer was calculated. The cepstrogram is a visual representa -
+tion of the water hammer cepstrum matrix. Different downhole events 
+correspond to the different polarity of cepstrum coefficients, and then 
+the computed cepstrum matrix is divided into positive and negative 
+cepstrum matrices. Choosing vectors having different physical time ( t
+i 
+and t
+j
+), the scalar product was taken to generate the following function, 
+F
+ij τ
+= V
+t
+i
+, τ
+V
+t
+j
+, τ
+. (26) 
+Fig. 9. The results of case 1 to 4 in the frequency domain: (a) case 1 fracture length: 0 m, location: 100 m; (b) case 2 fracture length: 25 m, location: 100 m; (c) case 3 
+fracture length: 50 m, location: 100 m; (d) case 4 fracture length: 100 m, location: 100 m. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 8 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+8
+Here i, j correspond to two different points at different physical 
+times, and τ means a centroid of each vector in the reflection time 
+domain. Taking the sum of all vectors with the different physical time 
+( t ), the function F
+τ 
+of reflection time would be generated ( Korkin et al. 
+2020 ), 
+F
+τ
+=
+∑
+ij
+F
+ij
+=
+∑
+ij
+V
+t
+i
+V
+t
+j
+. (27) 
+The quefrency τ of the peaks in F
+τ 
+represents the reflection time of 
+downhole events. Fig. 2 below shows the process of the functions of 
+reflection time F
+τ 
+calculation. 
+The positive and negative cepstrum coefficient matrices were then 
+calculated to obtain F
++
+τ 
+and F
+ 
+τ
+. In previous study, the reflections of 
+hydraulic-stimulated fractures (negative reflection events) are man -
+ifested by strong negative peaks in F
+ 
+τ
+. Similarly, the reflections of 
+wellbore restriction (positive reflection event) result in strong positive 
+peaks in F
++
+τ 
+( Bogdan et al., 2016 ; Parkhonvuk et al., 2018b ) . The 
+location of the reflection events L
+3 
+can be calculated by ( Parkhonvuk 
+et al. 2018b ): 
+L
+3
+=
+a × τ
+2
+. (28)  
+2.3. Model configuration 
+During the hydraulic fracturing treatment, fluid is injected into the 
+Fig. 10. The results of case 5 to 8 in the frequency domain: (a) case 5 fracture length: 200 m, location:100 m; (b) case 6 fracture length: 100 m, location:60 m; (c) 
+case 7 fracture length: 100 m, location: 80 m; (d) case 8 fracture length: 100 m, location:120 m. 
+Fig. 11. The fracture location estimation calculated by frequency har -
+monic series. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 9 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+9
+wellbore by fracturing pumps at the surface. Fluid flows in the wellbore 
+first and then through the perforation holes into the formation. After the 
+pump shuts down, the pressure fluctuation is generated in the wellbore 
+called the water hammer. Pressure wave propagates rapidly in the 
+wellbore and reflects after interacting with downhole events. In this 
+model, we designed a linear discharge decrease as the inlet boundary. 
+The pump shut-in time was short to get a direct water hammer. At the 
+other end of the wellbore, a zero-flow boundary condition was assigned, 
+representing the well bottom, the bridge, or the plug. To consider the 
+influence of that pressure wave propagating in the fracture, we assumed 
+the hydraulic connected fracture of the wellbore as an equivalent branch 
+pipe. A pressure boundary was set at the outlet of the branch pipe to 
+simulate the fracture connection to the formation. These boundaries 
+enable the fluid flow in the pipeline system to match the actual condi -
+tions. The fracture location was defined as the distance between the 
+fracture and the wellhead, and the fracture length was the length of the 
+branch pipe. As shown in Fig. 3 , the whole numerical configuration 
+included a wellbore and a branch-pipe-like fracture. 
+The output result of the model calculation was the water hammer 
+pressure fluctuation at the wellhead in the wellbore-fracture system 
+within 10 s. After normalizing the pressure, a multi-dimensional analysis 
+method was used to study the response characteristics of the water 
+hammer wave in the wellbore-fracture system. 
+According to the previous research, the pressure wave speed is varied 
+in the wellbore and the fracture ( Carey et al., 2015 ; Liang et al., 2017 ; 
+Dung et al., 2021 ). The pressure wave propagating in the Fluid-filled 
+fractures was known as Krauklis waves, which was much slower than 
+the tube wave. In this work, the wave speed in the wellbore and the 
+hydraulic-connected fracture were assumed as 1000 m/s and 100 m/s, 
+respectively. 
+2.4. Model validation 
+Before applying this transient flow model to study the response 
+characteristics of the water hammer in a wellbore-fracture system, the 
+computational fluid dynamics (CFD) software FLUENT was used to 
+validate this model. FLUENT is a widely used CFD software at present 
+and has good reliability. The basic parameters in model validation are 
+shown in Table 1 . 
+When the inlet discharge decreased, the pressure in the system began 
+to drop rapidly, and the water hammer wave was generated at the inlet 
+and propagated along the pipe. Fig. 4 shows the simulation results 
+comparison of the FLUENT and our model solved by MOC in this study. 
+By comparing the normalized pressure data, there was a good agreement 
+in water hammer signatures, including the shape, period, and ampli -
+tude. The cross-correlation coefficient of the two results was 99.8%, and 
+the mean square error was 0.055%. The FLUENT simulation result is 
+consistent with the results of our model. The MOC method can calculate 
+the pressure fluctuation in a very short time rather than the CFD method. 
+Therefore, the model presented in this paper is effective in simulating 
+the propagation of the water hammer in the wellbore-fracture system. 
+Fig. 12. The results of case 1 to 4 in the quefrency domain: (a) case 1 fracture length: 0 m, location: 100 m; (b) case 2 fracture length: 25 m, location: 100 m; (c) case 
+3 fracture length: 50 m, location: 100 m; (d) case 4 fracture length: 100 m, location: 100 m. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 10 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+10
+3. Results and discussion 
+In this section, we presented eight cases to study the water hammer 
+response in the wellbore-fracture system in time, frequency and que -
+frency domain respectively, while the existence of the fracture, the 
+location and the length of the stimulated fracture were varied. The pa -
+rameters and boundary conditions used in the simulation are shown in 
+Table 2 . Case 1 and 4 compared the effect of the fracture existence on 
+water hammer response. Case 2 to 5 compared the effect of varied 
+fracture length on water hammer response. Case 4 and case 6 to 8 
+compared the effect of varied fracture location on water hammer 
+response. 
+In case 1, with zero-meter fracture, the outlet consistent pressure 
+boundary is directly located at the position of the fracture. The wellbore- 
+fracture system can be equivalent to a wellbore with a length of 100 m, 
+as shown in Fig. 5 . 
+3.1. Water hammer response in the time domain 
+The time-domain response of the water hammer wave without the 
+influence of the hydraulic-connected fracture is shown in Fig. 6 (a). As 
+the water hammer pressure wave propagated, the water hammer 
+response gradually attenuated. When the system was converted into the 
+wellbore-fracture system, the response of the water hammer in the time 
+domain changed significantly, as shown in Figs. 6 and 7 . The pressure 
+signatures had more obvious attenuation and were affected with other 
+pressure pulses. The longer the fracture was, the more obvious the 
+pressure attenuation would be. 
+As the discharge decreased, the pressure dropped instantly and 
+sharply. When the value was completely reduced to zero, the trend of the 
+pressure drop changed. The results of all cases simulated in this work 
+showed the same that the time of the first pressure response was 0.01 s. 
+It was consistent with the time the discharge value was set from the 
+initial condition reducing to zero. Therefore, the first water hammer 
+pressure response in the time domain was affected by the pump shut-in 
+time in the direct water hammer of this work. The change of pressure 
+during the pump shut-in time represents the cumulative pressure change 
+at this time. Thus, the water hammer pressure signatures will be influ -
+enced by the shut-in time (the setting in this work was 0.01 s) under the 
+direct water hammer condition. 
+In case 1 to 5 (fracture with the same location but different length), 
+the second pressure change-point were consistent with 0.2 s. In case 6 to 
+8 (fracture with the same length but different location), the time of the 
+second change-point was 0.12, 0.16, and 0.24 s. The reflection position 
+of all eight cases, calculated from Eq. (22) , shared the same value with 
+the fracture location. Therefore, the second pressure response time of 
+the water hammer was determined by the position of the fracture. The 
+third pressure response time, 0.01 s after the second one, was the effect 
+of the shut-in time. 
+The water hammer pressure trend in case 1 was the same in the 
+Fig. 13. The results of case 5 to 8 in the quefrency domain: (a) case 5 fracture length: 200 m, location:100 m; (b) case 6 fracture length: 100 m, location:60 m; (c) 
+case 7 fracture length: 100 m, location: 80 m; (d) case 8 fracture length: 100 m, location:120 m. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 11 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+11
+following moment, changing only at every 0.2 s (boundary reflection 
+time) and 0.01 s (pump shut-in time). When the system condition con -
+verted into the wellbore-fracture system in case 2 to 8, the time-domain 
+response of water hammer pressure was different from that of case 1 
+because of the addition of the fracture and well bottom. In case 2 to 8, 
+the fourth pressure change moment was 0.3 s, which matched the time 
+of the well bottom reflection. 
+The pressure wave propagates in the fracture as a slow wave. 
+Therefore, the effect of the fracture on the pressure wave response was 
+much slower than that of the tube wave in the wellbore. When the water 
+hammer wave propagated in the fracture and reflects, taking case 4 for 
+instance, the attenuation of the water hammer pressure changes at the 
+time of 2.2 s. The trend of water hammer pressure attenuation changed 
+every 2 s in case 2 and case 6 to 8 (fracture with the same length), which 
+was consistent with the time of water hammer wave reflected in the 
+fracture. Other cases had the same changing law of this pressure pulse 
+affected by the fracture, which responded every 0.5 s, 1 s, and 4 s in case 
+2, case 3, and case 5, respectively. The pressure pulse from the fracture 
+was labeled in Figs. 6 and 7 with blue arrows. 
+In case 8, significant oscillations between the fracture and the bridge 
+plug were discovered. The duration of the first and the second pressure 
+reflection time between the fracture and the bridge plug were studied. 
+Between 0.24 s and 0.48 s, the pressure fluctuation occurred every 0.06 
+s, excluding the influence of pump shutdown time of 0.01 s. The 
+calculated reflection distance was consistent with the distance between 
+the well bottom and the fracture. This pressure fluctuation was obvious 
+before the oscillation of the fracture traveled back to the wellhead. 
+When the distance between the fracture to the well bottom and the 
+distance of the fracture to the wellhead was similar (80 m and 70 m in 
+case 7, respectively), these two oscillations would affect each other. The 
+pressure response time marked in case 7 was 0.02 s, which was the 
+difference between the reflection time of these two oscillations. These 
+two discoveries were labeled in Fig. 8 with blue circles. 
+3.2. Water hammer response in the frequency domain 
+In the frequency domain, the amplitude peaks were considered as the 
+frequency of the water hammer response. Under the condition of the 
+wellbore and wellbore-fracture system, the frequency responses of the 
+water hammer were similar and multiple repeating peaks were shown. 
+The energy of the fundamental frequency was the strongest when the 
+fracture length was zero. The harmonic series of the water hammer 
+resonance was shown in Fig. 9 and Fig. 10. All the spectrums had a very 
+strong zero-frequency component. The frequency series of the water 
+hammer signal occurred at the odd-integer multiples of the fundamental 
+frequency, which was consistent with previous studies. The higher- 
+frequency components represented the high-order harmonic. In addi -
+tion, when the fracture was introduced to the system, amplitude peaks at 
+different frequencies appeared in the spectrum of the water hammer 
+signal, located beside the main events’ peaks. The reason was that the 
+addition of the fracture brings different types of vibration into the sys -
+tem, which led to the modulation of the water hammer signals. 
+Fig. 11 presents the hydraulic length calculated by the fundamental 
+frequency and its’ harmonic series of the water hammer fluctuation. 
+Case 1 (no fracture) and case 4 (fracture with 100 m length) have the 
+same fundamental and harmonic series. According to Eq. (25), the hy -
+draulic length results were calculated and the fracture location was 
+estimated. The fracture locations of all cases were almost the same, 
+whereas errors were acceptable. In case 2 (fracture with 25 m length) 
+and 3 (fracture with 50 m length), due to the shorter fracture, the water 
+hammer reflection within the fracture returned rapidly to the wellbore 
+and affected the water hammer response. Although the inlet position 
+was the same as case 1 and case 2, the fundamental frequency and 
+harmonic sequence were different, the calculated hydraulic length and 
+errors of the fracture location were larger than those in case 1 and case 4. 
+The calculation errors of the fundamental frequency were the largest, 
+and the errors decreased with the increase of the harmonic series. 
+In case 4 and 5 (fracture with 100 m and 200 m length), when the 
+fracture length was long, the internal reflection of the fracture had little 
+influence on the wellbore water hammer response. The fundamental 
+frequency and harmonic sequence were the same as those in case1, and 
+the calculated hydraulic length and fracture location were also the same. 
+In case 4 and case 6 to 8 (fracture with different location), the values of 
+fundamental frequency and harmonic series became smaller as the 
+fracture location became further from the wellhead. The hydraulic 
+length was consistent with the fracture location under acceptable errors. 
+The response of oscillations between the fracture and the well bottom 
+was not obvious in the spectral results. 
+The response characteristics of the water hammer signal in the fre -
+quency domain represented the flow entrance in the wellbore-fracture 
+system. The calculated hydraulic length represented the fracture loca -
+tion. The calculation errors of hydraulic length by harmonic frequency 
+were smaller than those by the fundamental frequency. The possible 
+reason was that the harmonics were slightly affected by the water 
+hammer attenuation than the fundamental frequency. 
+3.3. Water hammer response in the quefrency domain 
+In the cepstrum results, the response of the fracture appeared as non- 
+zero peaks at T, 2 T, 3 T …, where T represents the reflection time, and 
+the polarity changes (Parkhonvuk et al., 2018b). According to the results 
+of water hammer reflection functions in this paper, which were shown in 
+Fig. 12 and Fig. 13, the first peak was the negative response with the 
+maximum intensity. At the moment doubling the time of the first peak 
+appeared positive response, which was consistent with the results of 
+former research. 
+In case 1 to 5 (fracture with different length but same location), the 
+moment corresponding to the negative response was 0.2 s, consistent 
+with the time of the second pressure change point in the time domain. 
+The reflection position was found to be 100 m from the inlet by Eq. (28), 
+which was consistent with the fracture location. The moment corre -
+sponding to the positive response was 0.4 s, which was twice the time of 
+the negative response. The third and the fourth response moment also 
+followed this rule. With the change of fracture length, the response time 
+of the cepstrum remained unchanged, which represented the reflection 
+response of the fracture mouth. In case 4 and case 6 to 8 (fracture with 
+different location), the response time changed with the increase of the 
+fracture location, but the reflection position corresponding to the 
+reflection time was always the location of the fracture mouth. In the 
+cepstrum results, the oscillations between the fracture and the bridge 
+had no obvious characteristics. Regardless of the change of the fracture 
+length or the fracture location, the response characteristics of the water 
+hammer in the quefrency domain represented the flow entrance in the 
+wellbore-fracture system, which was the length from the fracture mouth 
+to the wellhead. 
+4. Conclusions 
+In this work, we proposed a multi-dimensional analysis method in 
+time, frequency and quefrency domain for water hammer pressure 
+analysis. Meanwhile, the water hammer pressure response characteris -
+tics of the wellbore-fracture system were sufficiently presented for the 
+first time to accurately investigate the water hammer propagation in the 
+wellbore-fracture system. The model was built on the transient flow 
+model and the fracture was added in as a branch pipe to the wellbore, 
+then verified by FLUENT. Eight cases were designed to analyze and 
+summarize the water hammer response characteristics in the wellbore- 
+fracture system, where the fracture existence, location, and length of 
+the fractures were varied. The conclusions can be summarized as 
+follows: 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 12 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+12
+1. In the time domain, the existence of the fracture will enhance the 
+attenuation of the water hammer wave. When the shut-in time is 
+short and a direct water hammer is generated, the reflections of the 
+water hammer interacting with the fracture mouth, well bottom and 
+the fracture toe have a clear manifestation, which alters the pressure 
+trend.  
+2. In the time domain, the oscillation between the fracture mouth and 
+the bridge has an obvious response in the water hammer signal. 
+Moreover, this pressure fluctuation behavior is obvious before the 
+pressure oscillation from the inlet to the fracture mouth is back to the 
+wellhead. If the length of the inlet to the fracture mouth and the 
+length of the fracture mouth to the well bottom are similar, these two 
+oscillations will affect each other and additional pressure oscillation 
+will appear in the time domain.  
+3. In the frequency domain, the peaks in the spectrum of the water 
+hammer signal represent the flow entrance in the wellbore-fracture 
+system. The fracture introduced to the system will lead to spec -
+trum energy reduction. The calculated hydraulic length represents 
+the fracture location. The calculation errors of hydraulic length 
+calculated by harmonic frequency are smaller than those by the 
+fundamental frequency.  
+4. In the quefrency domain, the response characteristics of the water 
+hammer represent the flow entrance in the wellbore-fracture system, 
+which is consistent with the fracture location.  
+5. The results of the multi-dimensional analysis are closely related to 
+the flow entrance of the fracture, which is hydraulically connected to 
+the wellbore. They should be considered together to accurately 
+locate the fracture position and investigate more downhole events 
+when water hammer fracture diagnostics is applied. 
+Declaration of competing interest 
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper. 
+Acknowledgments 
+The authors would like to acknowledge the financial support from 
+the National Natural Science Foundation of China (No. 52004300). 
+References 
+Asadiniazi, M., Ebrahim, M., 2010. Study on mechanism and control methods of water 
+hammer in pump station and pipe lines. In: Paper Presented at the Twentieth 
+International Offshore and Polar Engineering Conference. Beijing, China, 20 June 
+2010. ISOPE-I-10-269.  
+Barraza, J., Capderou, C., Jones, M.C., Lannen, C.T., Singh, A.K., Shahri, M.P., Babey, A. 
+G., Koop, C.D., Ahmed, M.R., 2017. Increased cluster efficiency and fracture network 
+complexity using degradable diverter particulates to increase production: permian 
+basin Wolfcamp Shale case study. In: Paper Presented at the SPE Annual Technical 
+Conference and Exhibition. https://doi.org/10.2118/187218-MS. San Antonio, 
+Texas, USA, 9-11 October. SPE 187218-MS.  
+Bogdan, A.V., Keilers, A., Oussoltsev, D., Bruno, L., 2016. Real-time interpretation of leak 
+isolation with degradable diverter using high frequency pressure monitoring. In: 
+Paper Presented at the SPE Asia Pacific Oil & Gas Conference and Exhibition. 
+https://doi.org/10.2118/182451-MS. Perth, Australia, 1 October. SPE-182451-MS.  
+Carey, M.A., Mondal, S., Sharma, M.M., 2015. Analysis of water hammer signatures for 
+fracture diagnostics. In: Paper Presented at the SPE Annual Technical Conference 
+and Exhibition. https://doi.org/10.2118/174866-MS. Houston, Texas, USA, 
+September. SPE-174866-MS.  
+Ciezobka, J., Maity, D., Salehi, I., 2016. Variable pump rate fracturing leads to improved 
+production in the Marcellus Shale. In: Paper Presented at the SPE Hydraulic 
+Fracturing Technology Conference. https://doi.org/10.2118/179107-MS. The 
+Woodlands, Texas, USA, 1 February. SPE-179107-MS.  
+Clark, J., Miskimins, L., Dana, L., 2018. Diagnostic applications of borehole hydraulic 
+signal processing. In: Paper Presented at the SPE/AAPG/SEG Unconventional 
+Resources Technology Conference. https://doi.org/10.15530/URTEC-2018- 
+2902141. Houston, Texas, USA, 23-25 July. URTEC-2018-2902141.  
+Dong, J., Chen, M., Jin, Y., Hong, G., Zaman, M., Li, Y., 2019. Study on micro-scale 
+properties of cohesive zone in Shale. Int. J. Solid Struct. 163, 178–193. https://doi. 
+org/10.1016/j.ijsolstr.2019.01.004. 
+Dung, N., David, C., Tom, D., Jon, S., Nico, R., Ouk, A., 2021. Practical applications of 
+water hammer analysis from hydraulic fracturing treatments. In: Paper Presented at 
+the SPE Hydraulic Fracturing Technology Conference and Exhibition, Virtual. 
+https://doi.org/10.2118/204154-MS, 4-6 May. SPE-204154-MS.  
+Fu, H., Wang, S., Ling, K., 2021. Detection of two-point leakages in a pipeline based on 
+lab investigation and numerical simulation. J. Petrol. Sci. Eng. 204 https://doi.org/ 
+10.1016/j.petrol.2021.108747. 
+Guo, T., Tang, S., Liu, S., Liu, X., Xu, J., Qi, N., Rui, Z., 2020. Physical simulation of 
+hydraulic fracturing of large-sized tight sandstone outcrops. SPE J 26 (1), 372–393. 
+https://doi.org/10.2118/204210-PA. SPE-204210-PA.  
+He, Y., Cheng, S., Sun, Z., Chai, Z., 2020. Improving oil recovery through fracture 
+injection and production of multiple fractured horizontal wells. J. Energy Resour. 
+Technol. 142 (5) https://doi.org/10.1115/1.4045957, 053002.1-053002.11.  
+Hou, Y., Peng, Y., Chen, Z., Liu, Y., Zhang, G., Ma, Z., Weibing, T., 2021. Investigation on 
+the controlling factors of pressure wave propagation behavior induced by pulsating 
+hydraulic fracturing. SPE J. https://doi.org/10.2118/205384-PA, 1-20. SPE- 
+205384-PA.  
+Iriarte, J., Merritt, J., Kreyche, B., 2017. Using water hammer characteristics as a fracture 
+treatment diagnostic. In: Paper Presented at the SPE Oklahoma City Oil and Gas 
+Symposium. https://doi.org/10.2118/185087-MS. Oklahoma City, Oklahoma, USA, 
+27 March 2017. SPE-185087-MS.  
+Kabannik, A., Parkhonyuk, S., Korkin, R., Litvinets, F., Dunaeva, A., Nikolaev, M., 
+Dmitry, U., 2018. Can we trust the diversion pressure as a decision-making tool: 
+novel technique reveals the truth. In: Paper Presented at the Abu Dhabi International 
+Petroleum Exhibition & Conference. https://doi.org/10.2118/193180-MS. Abu 
+Dhabi, UAE, 12 November. SPE-193180-MS.  
+Klem, R.A., Rutzinger, G., Shulman, M., Pedam, S., Keilers, A., Bogdan, A., Dmitri, O., 
+2017. Sequenced fracturing technique improves production from an 
+underperforming lateral: an interpretation based on high frequency pressure 
+monitoring. In: Paper Presented at the SPE Hydraulic Fracturing Technology 
+Conference and Exhibition. https://doi.org/10.2118/184827-MS. The Woodlands, 
+Texas, USA, 24 January. SPE-184827-MS.  
+Korkin, R., Parkhonyuk, S., Fedorov, A., Badazhkov, D., Kabannik, A., 2020. High 
+frequency pressure monitoring and data analytics for stimulation efficiency 
+determination: new perspectives or potential limits. In: Paper Presented at the SPE 
+Hydraulic Fracturing Technology Conference and Exhibition, the Woodlands. 
+https://doi.org/10.2118/199762-MS. Texas, USA, 28 February. SPE-199762-MS.  
+Lang, X., Yuan, W., 2020. Localization method of multiple leaks based on time-frequency 
+analysis and improved differential evolution. IEEE Sensor. J. 20 (23), 14383–14390. 
+https://doi.org/10.1109/JSEN.2020.3009091. 
+Liang, C., Ossian, O.R., Eric, M.D., Dan, M., 2017. Hydraulic fracture diagnostics from 
+Krauklis wave resonance and tube wave reflections. Geophysics 82 (3), D171–D186. 
+https://doi.org/10.1190/geo2016-0480.1 geo2016-0480.1.  
+Liu, Y., Jin, G., Wu, K., Moridis, G., 2021. Hydraulic-fracture-width inversion using low- 
+frequency distributed-acoustic-sensing strain data—Part I: algorithm and sensitivity 
+analysis. SPE J. 26, 359–371. https://doi.org/10.2118/204225-PA. 
+Martinez, R., Hill, A., Zhu, D., 2014. Diagnosis of fracture flow conditions with acoustic 
+sensing. In: Paper Presented at the SPE Hydraulic Fracturing Technology Conference. 
+https://doi.org/10.2118/168601-MS. The Woodlands, Texas, USA, 4 February 2014. 
+SPE-168601-MS.  
+Mounir, T., Ali, T., 2019. Dual control technique for mitigating water-hammer 
+phenomenon in pressurized steel-piping systems. Int. J. Pres. Ves. Pip. 172, 397–413. 
+https://doi.org/10.1016/j.ijpvp.2019.04.011. 
+Nikpour, M.R., Nazemi, A.H., Dalir, A.H., Shoja, F., Varjavand, P., 2014. Experimental 
+and numerical simulation of water hammer. Arabian J. Sci. Eng. 39 (4), 2669–2675. 
+https://doi.org/10.1007/s13369-013-0942-1. 
+Panjaitan, M.L., Moriyama, A., McMillan, D., Dunaeva, A., Rutledge, L., Xu, J., 
+Parkhonyuk, S., Kabannik, A., Korkin, R., Warren, M., Shanmugam, V., 2018. 
+Qualifying diversion in multi clusters horizontal well hydraulic fracturing in 
+Haynesville Shale using water hammer analysis, step-down test and microseismic 
+data. In: Paper Presented at the SPE Hydraulic Fracturing Technology Conference 
+and Exhibition. https://doi.org/10.2118/189850-MS. The Woodlands, Texas, USA, 
+23 January. SPE-189850-MS.  
+Parkhonyuk, S., Korkin, R., Kabannik, A., Fedorov, A., Nikolaev, M., Litvinets, F., 2018a. 
+Novel monitoring technology helps to make informed decisions and maximize the 
+efficiency of completion strategy. In: Paper Presented at the SPE/AAPG/SEG 
+Unconventional Resources Technology Conference. https://doi.org/10.15530/ 
+URTEC-2018-2885828. Houston, Texas, USA, 23-25 July. URTEC-2885828-MS.  
+Parkhonyuk, S., Fedorov, A., Kabannik, A., Korkin, R., Nikolaev, M., Tsygulev, I., 2018b. 
+Measurements while fracturing: nonintrusive method of hydraulic fracturing 
+monitoring. In: Paper Presented at the SPE Hydraulic Fracturing Technology 
+Conference and Exhibition. https://doi.org/10.2118/189886-MS. The Woodlands, 
+Texas, USA, 23 January. SPE-189886-MS.  
+Parkhonyuk, S., Nikolaev, M., Fedorov, A., Konchenko, A., Vik, T., 2018c. Cloud-based 
+solution for advanced real-time fracturing evaluation. In: Paper Presented at the SPE 
+Annual Technical Conference and Exhibition. https://doi.org/10.2118/191680-MS. 
+Dallas, Texas, USA, 24 September. SPE-191680-MS.  
+Pierre, B., Gudmundsson, S., 2011. Water hammer in offloading systems: contribution of 
+detailed modeling to design and safety. SPE Proj. Facil. Constr. 6 (3), 132–137. 
+https://doi.org/10.2118/134140-PA. SPE-134140-PA.  
+Qiang, C., Shen, G., Jiang, J.C., Xu, D., Wang, Z., Lei, N., 2018. Effect of rubber washers 
+on leak location for assembled pressurized liquid pipeline based on negative pressure 
+wave method. Process Saf. Environ. Protect. 119, 181–190. https://doi.org/ 
+10.1016/j.psep.2018.07.023. 
+Y. Qiu et al.                                                                                                                                                                                                                                      
+
+===== PAGE 13 =====
+Journal of Petroleum Science and Engineering 213 (2022) 110425
+13
+Rahul, K., Arun, K., 2020. Experimental and numerical investigations of water hammer 
+analysis in pipeline with two different materials and their combined configuration. 
+Int. J. Pres. Ves. Pip. 188 https://doi.org/10.1016/j.ijpvp.2020.104219. 
+Rutzinger, G., Wages, D., Shrider, J., Robertson, D.B., Hanzik, C., Bogdan, A., Keilers, A., 
+Oussoltsev, D., 2017. Sequenced fracturing technique with high-frequency pressure 
+monitoring improves horizontal injection well performance on the North slope of 
+Alaska. In: Paper Presented at the SPE Western Regional Meeting, Bakersfield. 
+https://doi.org/10.2118/185738-MS. California, 23 April. SPE-185738-MS.  
+Sadykov, A., Baki, S., Mechkak, K., Momin, A.M., Rueda, J.I., Kazakoff, S., Kalbani, A., 
+Kurdi, M., Mulhim, N.I., 2019. Diversion techniques applications in unconventional 
+resources fields. In: Paper Presented at the SPE Middle East Oil and Gas Show and 
+Conference. https://doi.org/10.2118/194791-MS. Manama, Bahrain, 18–21 March. 
+SPE-194791-MS.  
+Wang, B., Zhou, F., Yang, C., Wang, D., Yang, K., Liang, T., 2020. Experimental study on 
+injection pressure response and fracture geometry during temporary plugging and 
+diverting fracturing. SPE J 25 (2), 573–586. https://doi.org/10.2118/199893-PA. 
+SPE-199893-PA.  
+Wang, C., Yang, J., Nilsson, H., 2015. Simulation of water level fluctuations in a 
+hydraulic system using a coupled liquid-gas model. Water 7 (8), 4446–4476. https:// 
+doi.org/10.3390/w7084446. 
+William, P.S., Kyle, J.P., David, W.S., Roberto, B., 2018. Novel diversion case studies for 
+improved near-wellbore connection between wellbore and hydraulic fracture. In: 
+Paper Presented at the SPE/AAPG/SEG Unconventional Resources Technology 
+Conference. https://doi.org/10.15530/URTEC-2018-2881395. Houston, Texas, 
+USA, 23-25 July. URTEC-2018-2881395.  
+Wu, D., Yang, S., Wu, P., Wang, L., 2015. MOC-CFD coupled approach for the analysis of 
+the fluid dynamic interaction between water hammer and pump. J. Hydraul. Eng. 
+141 (6), 06015003 https://doi.org/10.1061/(ASCE)HY.1943-7900.0001008. 
+Zhang, C., Zhang, J., Ma, C., Korobkov, G.E., 2021. Algorithm for detecting multiple 
+partial blockages in liquid pipelines by using inverse transient analysis. SPE J. 1–29 
+https://doi.org/10.2118/205519-PA. 
+Y. Qiu et al.                                                                                                                                                                                                                                      

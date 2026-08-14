@@ -76,6 +76,7 @@ class MocConfig:
     # 摩阻
     roughness_height: float = 4.5e-5         # [m] 商用钢绝对粗糙度
     friction_model: str = "steady"           # steady / quasi-steady
+    brunone_k_scale: float = 1.0             # Brunone 系数 k 的标定倍率（1.0=纯 Vardy）
     # 仿真时间
     dt: float = 1.0e-3                       # [s]
     tf: float = 3.0                          # [s]
@@ -327,6 +328,7 @@ def simulate_wellbore(
     f_steady = darcy_friction_factor(Re0, K_D, model=cfg.friction_model)
     use_quasi = (cfg.friction_model == "quasi-steady")
     use_brunone = (cfg.friction_model == "brunone")
+    k_scale = float(cfg.brunone_k_scale)
 
     # ── 裂缝设置 ─────────────────────────────────────────────
     has_fractures = fracture_positions is not None and len(fracture_positions) > 0
@@ -465,7 +467,7 @@ def simulate_wellbore(
             dVdt1 = (V_prev_right[:-2] - V_prev2_right[:-2]) / dt
             dVdx1 = (V_prev_right[1:-1] - V_prev_right[:-2]) / dx
             Re1b = np.abs(V1) * D / nu
-            k1 = brunone_k_vec(Re1b)
+            k1 = brunone_k_vec(Re1b) * k_scale
             sign_V1 = np.tanh(V1 / V_smooth)   # 平滑符号函数
             Ju1 = (k1 / 2.0) * dt * (dVdt1 + a * sign_V1 * np.abs(dVdx1))
 
@@ -473,7 +475,7 @@ def simulate_wellbore(
             dVdt2 = (V_prev_left[2:] - V_prev2_left[2:]) / dt
             dVdx2 = (V_prev_left[2:] - V_prev_left[1:-1]) / dx
             Re2b = np.abs(V2) * D / nu
-            k2 = brunone_k_vec(Re2b)
+            k2 = brunone_k_vec(Re2b) * k_scale
             sign_V2 = np.tanh(V2 / V_smooth)
             Ju2 = (k2 / 2.0) * dt * (dVdt2 + a * sign_V2 * np.abs(dVdx2))
 
@@ -533,7 +535,7 @@ def simulate_wellbore(
             dVdt_0 = (V_prev_left[1] - V_prev2_left[1]) / dt
             dVdx_0 = (V_prev_left[1] - V_prev_left[0]) / dx
             Re_0b = abs(V2_0) * D / nu
-            k_0 = brunone_k(Re_0b)
+            k_0 = brunone_k(Re_0b) * k_scale
             J_0 += brunone_friction_Ju(k_0, dt, dVdt_0, dVdx_0, V2_0, a)
         Cm_0 = -V2_0 + ga * H2_0 + J_0 + ga * dt * V2_0 * theta
 
@@ -566,7 +568,7 @@ def simulate_wellbore(
             dVdt_N = (V_prev_right[N - 1] - V_prev2_right[N - 1]) / dt
             dVdx_N = (V_prev_right[N] - V_prev_right[N - 1]) / dx
             Re_Nb = abs(V1_N) * D / nu
-            k_N = brunone_k(Re_Nb)
+            k_N = brunone_k(Re_Nb) * k_scale
             J_N += brunone_friction_Ju(k_N, dt, dVdt_N, dVdx_N, V1_N, a)
         Cp_N = V1_N + ga * H1_N - J_N + ga * dt * V1_N * theta
 

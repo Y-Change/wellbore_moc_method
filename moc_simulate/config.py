@@ -38,20 +38,33 @@ FRACTURE_CONFIG = {
 
 # ── 倒谱参数（leakoff 标准倒谱图 / 2D cepstrogram）────────
 # win_type: rect | hamming | hanning | kaiser | gauss
+#
 # 寻峰（1D 实倒谱 & 2D 时间平均剖面共用 detect_1d_cepstrum_peaks）:
 #   height = max(P{peak_height_pct}, peak_height_rel*max, peak_height_abs)
 #   Brunone 次峰偏弱：把 peak_height_abs 降到 0、peak_height_rel 降到 0.03~0.05
 #   可检出更多峰；过大则噪声峰也会进来。
+#
+# ⚠ 盲检测约定（EXP-20260730-018/-025 审计后引入）
+#   历史实现把真值泄漏进了检测器：最小峰距按真实最小缝距、top_n 按真实缝数、
+#   匹配容差按真实最小缝距且带 80 m 下限。这使所有历史匹配结果都不是盲结果，
+#   且对「相邻峰合并」失效模式全盲。
+#   现改为：检测侧只用与真值无关的固定量，评分侧用固定容差 + 容差扫描。
+#   权威实现见 analysis/unified_evaluation/detection_protocol.py。
 CEPSTRUM_CONFIG = {
     'wlen_sec': 30.0,        # 2D 倒谱窗长 [s]
     'hop_sec': 5.0,          # 2D 倒谱 hop [s]
     'win_type': 'kaiser',   # 2D 倒谱窗型
-    # ---- 寻峰 ----
+    # ---- 寻峰（盲，不得由真值导出）----
     'peak_height_pct': 85.0,     # 高度下界：响应分位数 [%]（原隐含 95）
     'peak_height_rel': 0.03,     # 高度下界：相对全局 max 的比例（替代硬门限 0.01）
     'peak_height_abs': 0.0,      # 绝对高度下限；0=关闭（原为 0.01，Brunone 易漏次峰）
-    'peak_distance_frac': 0.25,  # 最小峰间距 = frac × 最小缝距 / Δd_bin
-    'peak_top_n': 10,            # 最多保留峰数
+    'peak_min_separation_m': 5.0,  # 最小峰间距 [m]（固定物理量，取代原 frac×真实缝距）
+                                   # 5.0 是约定初值而非标定结果，EXP-021 会将其作为扫描轴
+    'peak_prominence_rel': 0.0,  # 相对显著度门限 ×(max-min)；0=关闭（历史 1D 完全未用）
+    'peak_top_n': 10,            # 最多保留峰数（固定，取代原 真实缝数+4）
+    # ---- 评分（与检测解耦）----
+    'match_tolerance_m': 10.0,   # 固定匹配容差 [m]（取代原 clip(0.45×真实缝距, 80, 250)）
+    'match_tolerance_sweep_m': (2.0, 5.0, 10.0, 20.0, 40.0),  # 必须同时报告的容差扫描点
     # ---- 裂缝区放大图（cepstrum_fracture_zoom.png）----
     'fracture_zoom_margin_m': 100.0,  # 缝群两侧各扩展 [m]
 }

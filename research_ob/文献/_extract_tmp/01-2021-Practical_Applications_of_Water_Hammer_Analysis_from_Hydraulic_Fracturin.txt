@@ -1,0 +1,1263 @@
+SOURCE: 01-2021-Practical Applications of Water Hammer Analysis from Hydraulic Fracturing Treatments.pdf
+PAGES: 47
+FULL extract 47 pages
+
+
+
+===== PAGE 1 =====
+SPE-204154-MS
+Practical Applications of Water Hammer Analysis from Hydraulic Fracturing
+Treatments
+Nguyen Dung, Cramer David, Danielson Tom, Snyder Jon, Roussel Nico, and Ouk Annie, ConocoPhillips Company
+Copyright 2021, Society of Petroleum Engineers
+This paper was prepared for presentation at the SPE Hydraulic Fracturing Technology Conference and Exhibition to be held virtually on 4 - 6 May 2021. The official
+proceedings were published online on 27 April 2021.
+This paper was selected for presentation by an SPE program committee following review of information contained in an abstract submitted by the author(s). Contents
+of the paper have not been reviewed by the Society of Petroleum Engineers and are subject to correction by the author(s). The material does not necessarily reflect
+any position of the Society of Petroleum Engineers, its officers, or members. Electronic reproduction, distribution, or storage of any part of this paper without the written
+consent of the Society of Petroleum Engineers is prohibited. Permission to reproduce in print is restricted to an abstract of not more than 300 words; illustrations may
+not be copied. The abstract must contain conspicuous acknowledgment of SPE copyright.
+Abstract
+Water hammer is oscillatory pressure behavior in a wellbore resulting from the inertial effect of flowing
+fluid being subjected to an abrupt change in velocity. It is commonly observed at the end of large-scale
+hydraulic fracturing treatments after fluid injection rate is rapidly reduced or terminated.
+In this paper, factors affecting treatment-related water hammer behavior are disclosed, and field studies
+are introduced correlating water hammer characteristics to fracture intensity and well productivity.
+A simulator based on fundamental fluid-mechanics concepts was developed to model water hammer
+responses for various wellbore configurations and treatment characteristics. Insight from the modeling work
+was used to develop an optimal process of terminating fluid injection to obtain a consistent, identifiable
+oscillatory response for evaluating water hammer periodicity, decay rate, and oscillatory patterns.
+A completion database was engaged in a semi-automated process to evaluate numerous treatments. A
+data screening method was developed and implemented for enhancing interpretation reliability. Derived
+water hammer components were correlated to fracture intensity, well productivity and in certain cases, loss
+of treatment confinement to the intended treatment interval. Using the above process, thousands of hydraulic
+fracturing treatments were evaluated, and the results of that work are included in this study. The treatments
+were performed in wells based in Texas, South America, and Canada and completed in low permeability
+and unconventional reservoirs.
+The water hammer decay rate was determined to be a reliable indication of the system friction (friction
+in the wellbore and hydraulic fracture network) that drains energy from the water hammer pulse. In
+unconventional reservoirs characterized by small differences in the minimum and maximum horizontal
+stresses, high system friction correlated positively with fracture intensity/complexity and well performance.
+Results were constrained with instantaneous shut-in pressure (ISIP) and pressure falloff measurements to
+identify instances of direct communication with previously treated offset wellbores. The resulting analyses
+provided:
+– identification of enhanced-permeability intervals
+– indications of hydraulic fracture geometry
+– assessment of treatment modifications intended to enhance fracture complexity
+– identification of loss of treatment confinement to the intended interval
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+2 SPE-204154-MS
+– location of associated points of failure in the wellbore
+Topics covered in the paper include:
+• Introduction
+◦ Joukowsky Equation
+◦ Period and Boundary Conditions
+• Review of Prior Work on Water Hammer Analysis
+• Shut-In Pressure Data, Analysis, and Model
+◦ Data collection frequency
+◦ Data issues and requirements
+◦ Water Hammer Analytical Method
+◦ Water Hammer Model
+• Effects on Water hammer signature
+◦ Fluid properties
+◦ Step-down rate change and duration
+◦ Perforation friction
+• Applications
+◦ Identification of Boundary Condition
+◦ Identification of Treatment Stage Isolation
+◦ Identification of Casing Failure Depth
+◦ Identification of Excess Period (Excess Length)
+• Case Study – Water Hammer Data in an Unconventional Reservoir
+◦ Interpretation of frac geometry and friction in the fracture
+◦ Relationship to well productivity
+Introduction
+Water hammer occurs when there is a fast change in operating conditions for a well or pipeline. This may
+involve the sudden closing of a valve or change in injection or production rate. In this paper, the focus is
+for rate step-downs or termination (shut-in) conducted near the end of fracturing treatments.
+For routine hydraulic fracturing applications, the following are the steps that result in the water hammer
+signature (see 
+Fig. 1):
+• Pump trucks inject fracturing fluid and proppant into the well.
+• Upon sudden rate reduction and/or pump shutoff, a pressure pulse is measured at the wellhead. For
+Fig. 1
+, two rate reductions were conducted. The first was to half rate; the second was to zero rate.
+With each rate reduction, separate water hammer signatures resulted.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+SPE-204154-MS 3
+• This pulse moves from the surface down through the wellbore, interacts with the created hydraulic
+fractures, and is reflected up the wellbore. This process will repeat periodically until energy is
+drained from the pulse.
+Figure 1—Schematic of a well, hydraulic fracture treatment, and water hammer signature.
+The water hammer pressure signature is the result of the conversion of the kinetic energy of the fluid
+to potential energy when the surface injection rate is sharply reduced or terminated. The potential energy
+change is expressed as a sudden increase or decrease of fluid pressure.
+Joukowsky Equation
+Fig. 2 shows a pipe carrying fluid moving at a speed ΔV with a density of ρ and pressure of P which is
+stopped by a fast-closing valve from a fixed frame of reference. This sudden closure leads to:
+– a velocity decrease to 0,
+– a density increase of ρ + Δρ,
+– a pressure increase of P + ΔP upstream of the valve,
+– and the creation of a pressure wave (indicated by the dashed line) moving from right to left at the
+fluid speed of sound, C.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+4 SPE-204154-MS
+Figure 2—Pipe carrying fluid with a fast closing valve (fixed frame).
+Fig. 3 shows the same concept as Fig. 2, but the difference is the frame of reference. Fig. 2 is a fixed
+frame of reference while Fig. 3 is a moving frame of reference where the coordinate system moves with
+the pressure wave at the speed of sound. The pressure wave is indicated by the dashed vertical line. For the
+modeling concept of using a moving frame reference, the mass rate is the same upstream and downstream
+of the pressure wave.
+Figure 3—Pipe carrying fluid with a fast closing valve (moving frame).
+Applying a force balance across the pressure wave in the moving frame,
+(1)
+Finally,
+(2)
+The equation above is the Joukowsky equation, which relates the pressure change ΔP in response to a
+change in velocity ΔV . The pressure change ΔP can be either positive or negative, depending on how it was
+created. For example, for a sudden valve closure in the middle of a wellbore where fluid was being pumped
+down the wellbore, there will be a pressure increase upstream of the valve as pressure ‘piles up’ against the
+closed valve. There will also be a corresponding pressure decrease downstream of the valve as fluid moving
+downstream of the closed valve ‘pulls’ on the fluid that has been stopped by the closed valve.
+The resultant pressure wave created by the water hammer event moves at the speed of sound of the fluid
+through the wellbore (adjusted to accommodate wellbore and multiphase effects as necessary). This pressure
+wave then reflects off wellbore diameter reductions, leaks, perforations, and ultimately the hydraulic fracture
+system.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+SPE-204154-MS 5
+Period and Boundary Conditions
+Depending on the nature of the boundary condition imposed at the bottom of the well, the periodicity of
+the water hammer signature at the top of the well induced by the injection pump step-down will change
+significantly. For unconventional reservoirs characterized by low and ultra-low permeability, the following
+are examples of the two boundary condition scenarios. The following inputs were used in the company's
+developed water hammer simulator.
+• Well length is 6,000 m (19,694 ft)
+• Well diameter is 11.86 cm (4.67 inch)
+• The fluid density is 1,000 kg/m3 (8.34 lb/gal)
+• Fluid speed of sound: 1,500 m/s (4,920 ft/s)
+• For simplification, hydrostatic pressure variations within the wellbore are not considered.
+Scenario 1 – Closed inlet and constant pressure outlet.   This condition exists during shut-in at the end of a
+treatment, where hydraulic fractures were created thereby having large fracture capacity (closed inlet = shut-
+in of well at the surface; constant pressure outlet = large fracture capacity at the bottom of the wellbore).
+Fig. 4
+ shows the behavior of a well which is closed at the inlet while maintaining a constant pressure at the
+outlet. After 1.5 seconds into the shut-in, a pressure deficit is created at the inlet of the well. The fluid has
+stopped near the inlet (velocity equals zero) but is moving elsewhere further down from the inlet.
+Figure 4—Pressure and velocity vs. wellbore length from inlet, 1.5
+seconds into the shut-in: closed inlet, constant pressure outlet.
+As indicated in Fig. 5, the wave pattern repeats itself every 16 seconds, meaning that a pressure wave
+moving at 1,500 m/s will make two round trips back and forth through the wellbore per cycle (per period).
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+6 SPE-204154-MS
+Figure 5—Wellhead (inlet) pressure and velocity as a function of time: closed inlet, constant pressure outlet.
+Fig. 6 provides a visual to further explain the relationship between this boundary condition (closed inlet
+and constant pressure outlet) and the water hammer period.
+– The time for the pressure wave to travel the distance of the 6,000 m pipeline would be the length of
+the wellbore divided by the fluid speed of sound (6,000 m / (1,500 m/s) = 4 seconds).
+– Two round trips equal four times the length of the pipeline.
+– The cycle or period is equal to four times the wave travel time for the length of the pipeline. (For
+this example, 4 × 4 s = 16 seconds.)
+Figure 6—Schematic of wave travel time for one water hammer cycle (period): closed inlet, constant pressure outlet.
+Scenario 2 – Closed inlet and closed outlet.   Field examples of this condition include shut-in as the result
+of a screen out event (closed inlet = shut-in of well at the surface; closed outlet = screen out at the bottom
+of the wellbore) and generated shock waves (e.g., perforating event) when there is nil fracture capacity at
+the wellbore outlet.
+Fig. 7 shows the behavior of a well that is closed at the inlet and the outlet. After 1.5 seconds into the
+shut-in, a pressure deficit is created at the inlet of the well. The fluid has stopped near the inlet and the outlet
+(velocity equals zero) but is still moving forward in the middle of the pipe.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+SPE-204154-MS 7
+Figure 7—Pressure and velocity vs. wellbore length from inlet, 1.5 seconds into the shut-in: closed inlet, closed outlet.
+As indicated in Fig. 8, the wave pattern repeats itself every 8 seconds, meaning that a pressure wave
+moving at 1,500 m/s will make one round trip back and forth through the pipeline per cycle (per period).
+Figure 8—Wellhead (inlet) pressure and velocity as a function of time: closed inlet, closed outlet.
+Fig. 9 provides a visual to further explain the relationship between this boundary condition (closed inlet
+and closed outlet) and the water hammer period.
+– The time for the pressure wave to travel the distance of the 6,000 m pipeline would be the length of
+the wellbore divided by the fluid speed of sound (6,000 m / (1,500 m/s) = 4 seconds).
+– One round trip equals two times the length of the pipeline.
+– For the boundary conditions of closed inlet and closed outlet, the pressure period is equal to two times
+the wave travel time for the length of the pipeline. (For this example, 2 × 4 s = 8 seconds.)
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+8 SPE-204154-MS
+Figure 9—Schematic of wave travel time for one water hammer cycle (period): closed inlet, closed outlet.
+Water Hammer Period Calculation.   The following equation can be used to calculate the expected period
+for a water hammer signature.
+(3)
+Where B = Boundary Condition factor
+  B = 4 for closed inlet and constant pressure outlet
+  B = 2 for closed inlet and closed outlet
+  MD = measured depth to flow exit (such as the perforation depth), ft or m
+  C = fluid speed of sound in the wellbore, ft/s or m/s.
+Review of Prior Work on Water Hammer Analysis
+The use of water hammer signatures as a cost-effective, scalable diagnostic solution to characterize aspects
+of hydraulically induced fractures has been of great interest to the industry and academic communities.
+The properties of the signal can indicate the quality of the connection between the wellbore, the fracture
+network, and the reservoir.
+Holzhausen and Gooch (1985) first introduced the idea of using water-hammer signatures for fracture
+diagnostics, under the term impedance analysis. The method, referred to in later publications as Hydraulic
+Impedance Testing or HIT, relies on a lumped resistance-capacitance model to evaluate hydraulic fracture
+dimensions from changes in downhole impedance at the well-fracture interface. The model is analogous to
+an electrical circuit, where resistance (R) and capacitance (C) elements are combined in series, and fracture
+impedance is expressed as a function of flow resistance and fluid storage. An additional inertance term (I),
+describing the pressure difference required to cause a unit change in the rate of change of volumetric flow
+rate with time, was later added to the model formulation (Paige, 1992).
+The technique was evaluated experimentally by Paige et al. (1995) and performed in water injection wells
+and mini-fracs (Holzhausen and Egan, 1986), where the interpreted fracture dimensions were compared to
+traditional well tests and reservoir simulations. Fracture length is calculated assuming the pulse transmitted
+into the fracture is reflected at the tip and by estimating excess travel time beyond the perforations. Wave
+speed is significantly lower in the fracture compared to the wellbore because of increased compliance,
+impacting travel time in the fracture. Fracture dimensions (width, height, and length) are interrelated through
+fracture compliance, which can be expressed analytically (Sneddon, 1946) for a semi-infinite fracture (L f
+>>hf).
+While early efforts were directed primarily toward fractured vertical wells, recent studies assessed
+the applicability of the HIT methodology to characterize hydraulic fractures in modern horizontal well
+completions. Mondal (2010) modeled the presence of multiple hydraulic fractures connected to the wellbore
+in any given fracturing stage by multiple capacitance elements in parallel, and solved water-hammer
+equations numerically using the explicit method of characteristics (MOC). By lumping the effect of
+multiple fractures into a single equivalent fracture, Carey et al. (2015) was able to characterize the average
+dimensions of the individual fractures in various field examples. Carey et al. (2016) also highlighted the
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+SPE-204154-MS 9
+impact of R, C, I values on the simulated water-hammer signatures. and correlated them with microseismic
+surveys and production logs. Hwang et al. (2017) further extended the method to multi-stage hydraulic
+fracture treatments by accounting for mechanical stress interference in successive treatment stages.
+Ma et al. (2019) proposed a new analytical formulation of water hammer pressure oscillation including
+pressure-dependent leak-off and perforation friction to determine fracture growth and near wellbore
+tortuosity. The boundary condition was derived through a fracture entry friction equation instead of using
+an electrical-circuit analogous system.
+Another approach consists of recording reflected low-frequency tube waves generated at the wellhead
+and analyzing their interaction with fractures intersecting a wellbore in the frequency domain ( Dunham
+et al. 2017; Liang et al. 2017). By quantifying amplitude ratios and tube-wave attenuation over a range
+of frequencies, Bakku et al. (2013) were able to estimate the compliance, aperture, and lateral extent of a
+fluid-filled fracture intersecting a wellbore. Dunham et al. (2017) applied the concept of fracture impedance
+to estimate created hydraulic fracture conductivity. Following a similar methodology, Clark et al. (2018)
+focused on the frequency characteristics of hydraulic impulse events.
+While many of the proposed models have been successful in recreating and matching water hammer
+signatures, it appears the optimization problem is ill-constrained, leading to non-unique solutions. The
+number of physical relationships is insufficient to resolve the variables of interest, such as fracture length,
+height, and width. The range of fracture geometry predictions for a particular stage is often shown to be
+broad despite matching the water hammer waveform. While the analysis of water hammer signatures is
+unlikely by itself to resolve the fracture geometry, combining it with various other analyses of pressure
+signatures in treatment well data (e.g., ISIP, net pressure) could provide additional constraints and help
+narrow down the range of solutions.
+Shut-In Pressure Data, Analysis, and Model
+Fig. 10
+ provides an example of a water hammer signature that was induced at the end of a treatment stage
+when the injection rate was shut down rapidly. The x-axis is the time in seconds since the rate shutdown.
+The red series is the treating pressure; the green series is the rate.
+Figure 10—Water hammer example
+In the company's completions database, there are over 1,200 wells with over 40,000 stages of one-second
+treatment data. The capability to iteratively develop and improve the analysis method/modeling and to
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+10 SPE-204154-MS
+efficiently use the treatment data from the completions database facilitated our learning in respect to the
+shut-in process and the subsequent water hammer signature.
+This section reviews the data considerations/requirements, the data analysis methods, and modeling.
+Data Collection Frequency
+Treatment pressure data is typically recorded at a frequency of 1 Hz (1 data point per second). A high
+frequency pressure gauge was used to determine if 1 Hz was an acceptable sampling frequency to adequately
+capture the characteristics of the water hammer that is induced by sharply reducing or terminating the
+treatment injection rate.
+Data Collection Frequency Study using High Frequency Pressure Transducer Data.   Pressure data was
+recorded at a sampling frequency of 50 Hz, and the resulting data was edited to lower sampling frequencies
+to compare the resulting quality of the water hammer signature. A key assumption for this exercise is that
+the specifications (e.g., accuracy, resolution, frequency response) for the high frequency pressure transducer
+would be similar to the pressure transducer being provided by the service company for the standard one-
+second frequency treatment data.
+The water hammer pressure data shown in Fig. 11 is from a treatment with an average perforation depth
+of 17,370 ft MD with the original sampling frequency of 50 Hz and edited sampling frequencies of 2 Hz,
+1 Hz, and 0.5 Hz.
+Figure 11—Water hammer data at various sampling frequencies (50, 2, 1, 0.5 Hz).
+Sampling frequency observations on 50 Hz data and its edited low frequency data sets:
+1. While the data recorded at 50 Hz shows more detail, the sampling frequency of 1 Hz captures the
+overall characteristics of the water hammer signature.
+2. For this data set, 2 Hz was the lowest sampling frequency that appeared to show the full shape of the
+water hammer signature.
+3. At 1 Hz and 0.5 Hz, the water hammer signature becomes much more smoothed with less character.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+SPE-204154-MS 11
+4. A sampling frequency of 1 Hz is adequate to characterize the water hammer period and decay rate.
+Higher sampling frequencies could be beneficial for performing more detailed analysis.
+Comparison of Pressure Transducers (50 Hz versus 1 Hz Data from Service Company).   For the same
+operation noted in the prior section, two transducers recorded wellhead pressure. One was the 50 Hz pressure
+transducer (non-standard for our normal hydraulic fracturing treatments); the other was the service company
+pressure transducer which provides one-second frac data (standard for our normal hydraulic fracturing
+treatments). The two data sets are compared in Fig. 12.
+Figure 12—Comparison of high frequency versus one-hertz service company data.
+The following are observations on the comparison of the 50 Hz pressure transducer versus the 1 Hz
+service company transducer:
+1. The top chart in Fig. 12 compares the 50 Hz pressure data set (blue series) against the 1 Hz service
+company pressure data (red series). A 3 second offset between the two data sets was identified. On
+the bottom chart in Fig. 12
+, the 50 Hz pressure data was corrected with a time offset (yellow series)
+to line up with the 1 Hz service company pressure data. One data consideration/requirement is time
+synchronization of sensors during operations to minimize time offset corrections for analysis.
+2. Overall, the water hammer signature corresponds between the two transducers. Both data sets have
+the same water hammer period and general shape.
+3. The 1 Hz service company pressure data seems to be more smoothed (captures less of the water
+hammer character) and has lower peaks/higher troughs compared to the 50 Hz transducer. This is
+due to differences in pressure transducer specifications. The 50 Hz transducer has a faster frequency
+response to pressure changes compared to the 1 Hz service company transducer. For water hammer
+modeling and pressure matching, pressure transducer specifications should be considered.
+4. The 1 Hz service company transducer measurement is adequate to characterize the water hammer
+period and decay rate. Higher sampling frequencies and improved pressure transducer specifications
+could be beneficial for performing more detailed analysis and water hammer modeling.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+12 SPE-204154-MS
+Data Collection Frequency for Shorter Wells.   The water hammer period is a function of the speed of
+sound in fluid and the measured depth of the stage. On very shallow stages, the water hammer peaks will
+return to surface much faster and a sampling frequency of 1 Hz may not be adequate to fully capture the
+shape of the water hammer. The expected water hammer period can be calculated by using a rough estimate
+of 1 second per every 1,200 ft MD (4,000 m MD) of stage depth. It is recommended to use a sampling
+frequency that will collect at least 8 data points per water hammer period to ensure that the water hammer
+signature is adequately sampled.
+The input assumptions for Table 1 is that the fluid speed of sound is ∼5,000 ft/s (∼1,500 m/s), and the
+boundary condition for the well is a closed inlet and a constant pressure outlet. For the boundary condition
+of closed inlet and closed outlet, the water hammer period is half of the values listed below.
+Table 1—Perforation depth and water hammer period for closed inlet and constant pressure outlet.
+Data Issues and Requirements
+Over the course of evaluating shut-in pressure data, various data issues have been encountered that result
+in analysis issues. From over 15,000 stages analyzed from hydraulic fracturing treatments in Texas, South
+America, and Canada, approximately 20% of stages had confirmed data quality issues. The following are
+the data quality issues encountered:
+1. Data stops before water hammer ends
+2. Incorrect representation of wellhead pressure
+3. False injection rates
+4. Smoothed data
+5. Data accuracy
+There are operational considerations and data requirements that can be implemented to reduce these data
+quality issues. Data quality requirements can further to referenced in the Data Quality Assurance Contract
+Addendum posted on the Operators Group for Data Quality website (http://www.OGDQ.org).
+Currently, the predominant method of acquiring treatment data from service companies is through CSV
+(comma-separated values) files. After the end of a treatment stage, an engineer from the treatment service
+company provides a post job report and a CSV file containing 1 Hz data for the hydraulic fracturing
+treatment. The data includes time, pressure, and rate. For the treatment stage, the engineer manually selects
+the start and end time of the data to be exported into the CSV file.
+As third-party aggregation services further develop and improve in the completions space, these same
+data quality issues will need to be reviewed and addressed.
+Issue #1 – Data Stops before Water Hammer Ends.   Fig. 13
+ shows an example of a treatment stage where
+only 10 seconds of data was provided for the shut-in period. This is insufficient time to evaluate the water
+hammer signature.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+SPE-204154-MS 13
+Figure 13—Provided data stops before water hammer ends.
+Issue #2 – Incorrect Representation of Wellhead Pressure.   Below are examples where the Treating
+Pressure transducer does not represent the wellhead pressure.
+Scenario #1.   Fig. 14 shows the equipment configuration where a valve is shut isolating the treating pressure
+transducer from the wellhead. When the valve is closed, Pressure Sensor #1 measures the pressure in the
+surface lines upstream of the valve (blue colored line) and not in the surface lines downstream of the valve
+(black colored line) which would be the wellhead pressure.
+Figure 14—Configuration of Pressure Transducer, Valve and Wellhead
+Three examples of Scenario 1 are provided in Fig. 15. Pressure Sensor #1 (in Fig. 14) is providing the
+Treating Pressure noted in Fig. 15. The dashed blue vertical line represents the time at which the valve was
+closed. Once the valve is closed, the Treating Pressure no longer represents the wellhead pressure.
+1. For first and second example, after the valve was closed, the pressure was not bled off immediately.
+The pressure trend between the valve closure and the pressure bleed off represents the pressure in
+the surface line upstream of the closed valve. This pressure trend does not represent the wellhead
+pressure. A flat pressure trend means the pressure is holding, a declining pressure trend means there
+is a loss of pressure (like a leak), and an inclining pressure trend means there is an increase in pressure
+(due to pumping or temperature fluid expansion).
+2. For the third example, after the valve was closed, the pressure in the upstream surface lines was bled
+off immediately.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 14 =====
+14 SPE-204154-MS
+Figure 15—Incorrect representation of wellhead pressure - Valve closed
+Scenario #2.   Multiple pressure transducers may be installed in the surface treating lines. The service
+company engineer selects which are to be viewed and recorded in the Treating Pressure channel during
+the treatment operation. If the pressure sensor selected as the Treating Pressure channel is located on
+the injection pump side and upstream of check valves, and the injection rate is terminated, the pressure
+transducer could become isolated from the wellhead pressure.
+The basic configuration is shown in Fig. 16. Pressure Sensor #1 and Pressure Sensor #2 are two
+transducers on the surface line from which the service company engineer can select to represent the Treating
+Pressure. Pressure Sensor #1 is upstream of the check valve; Pressure Sensor #2 is downstream of the check
+valve. Check valves allow flow in one direction, from left to right as indicated by the arrow on the check
+valve symbol. If the pressure is greater downstream of the check valve than upstream, the check valve will
+prevent flow going back upstream thereby isolating Pressure Sensor #1 from Pressure Sensor #2. Afterward,
+the two pressure sensors will have different readings.
+Figure 16—Configuration of Pressure Transducer, Check Valve and Wellhead
+The example shown in Fig. 17 indicates that initially Pressure Sensor #1 was selected as the Treating
+Pressure channel. The Treating Pressure channel properly represented the wellhead pressure until the rate
+dropped to zero. At this time, wellhead pressure dropped due to the Joukowsky effect. Eventually the
+wellhead pressure increased due to rebound of the water hammer pulse. The associated reverse flow up
+the wellbore caused the check valve to close, resulting in the pressure upstream of the check valve being
+lower than the pressure downstream of the check valve. At this point, Pressure Sensor #1 was isolated from
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 15 =====
+SPE-204154-MS 15
+Pressure Sensor #2 by the check valve. Around 10 seconds into the shutdown, the service company engineer
+recognized the wellhead pressure was not reading correctly, then switched to Pressure Sensor #2 for the
+Treating Pressure channel. An estimate of the missing water hammer pressure is drawn in blue.
+Figure 17—Incorrect transducer selected
+Issue #3 – False injection rates.   Fig. 18 shows an example where there is an indication of rate during
+the shut-in period. As there is no associated pressure increase related to the rate, this is considered a "false
+injection rate" as this rate is not representative of rate being injected down the well but indicates pumping
+for a surface only operation. The issue with the false injection rate is that rate is used to identify the shut-in
+period. False injection rates may result in the incorrect identification of the shut-in period.
+Figure 18—False injection rate
+Issue #4 – Smoothed data.   Treatment data may not be instantaneous values but be smoothed by averaging
+over a set amount of time (e.g., over 10 seconds). This results in difficulty in connecting pressure with rate
+changes and to identify events such as the start of the shut-in period. An example of the injection rate being
+smoothed by averaging it over a 40-50 second period is shown in Fig. 19. Issues related to smoothing of
+rate are:
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 16 =====
+16 SPE-204154-MS
+– If shutdown is identified by using a rate threshold (like 0.1 barrels per minute), the start of shutdown
+may be delayed by 40 seconds. Multiple periods of the water hammer may not be identified correctly.
+– Also due to the smoothing, it is difficult to identify the distinct step-down rates.
+Figure 19—Smoothed injection rate
+With smoothing of pressure data, the water hammer signature will be delayed in time and will lose its
+character.
+Issue #5 – Data accuracy.   In the example presented in Fig. 12, two pressure gauges (50 Hz and 1 Hz
+Service Company) matched overall in respect to the water hammer signature (same water hammer period
+and general shape) and the average pressure (minimal offset). This was a positive observation for these
+two pressure gauges. A comparison of two gauges on a different treatment is shown in Fig. 20. One was
+a recently calibrated memory gauge (blue series); the other was the service company gauge (red series).
+Although the pressure of the two gauges have similar trends, there is a pressure offset between the gauges
+of about 120 psi as determined during the shut-in period.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 17 =====
+SPE-204154-MS 17
+Figure 20—Comparison of memory gauge versus service company gauge
+Data for the step-down and shut-in part of this treatment stage is expanded in Fig. 21. At the stepped
+down injection rate of ∼12 bbl/min, the service company gauge exhibited an erratic pressure pattern rather
+than the expected decaying pattern for the induced water hammer. For the shut-in period, the two gauges
+had the general trend. The service company gauge did not capture accurately the detail of the water hammer
+signature compared to the memory gauge.
+Figure 21—Comparison of memory gauge versus service company gauge
+Fig. 22 shows data from the same service company gauge compared against two other pressure gauges
+(piezo resistive strain gauge, dual quartz gauge). The application was a diagnostic fracture injection test
+(DFIT) which requires high accuracy and resolution pressure data. The service company gauge registered
+false pressure drops and spikes.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 18 =====
+18 SPE-204154-MS
+Figure 22—Comparison of memory gauge versus service company gauge, post injection shut-in period
+In respect to accuracy, there may be:
+1. a measurement offset (120 psi offset)
+2. a device artifact/issue (false pressure drops and spikes)
+3. a measurement responsiveness difference (difference in capturing slight characteristics of the water
+hammer)
+Depending upon the application, instrumentation specifications should be considered. For the case of the
+service company gauge (Fig. 20–22), this gauge is adequate for overall pressure trends but is not suited for
+water hammer analysis or more precise pressure analysis (ex: DFIT).
+Corrections for Data Quality Issues
+There are three levels of actions to address the noted data quality issues.
+1. File corrections:
+a. Request that the service company provide a corrected CSV file by re-exporting the treatment
+stage data and include more shut-in data. This will correct situations where more shut-in data
+was recorded, but the frac engineer did not select sufficient shut-in data for the CSV file.
+b. Request that the service company provide a corrected CSV file by re-exporting the treatment
+stage data and correcting the Treating Pressure channel to the appropriate sensor.
+c. Manually correct the received CSV file to remove the false injection rates.
+2. Algorithm corrections/improvements:
+a. Develop algorithms to address smoothed injection rates for the identification of the shut-in
+period.
+b. Develop algorithms to address false injection rates for the identification of the shut-in period.
+3. Frac data requirements:
+a. A minimum of 3 minutes is required for the shut-in period. This data requirement may conflict
+with goals for reducing time between operations. The operator will need to determine the priority
+of the requirements.
+b. Installation of a pressure gauge to record wellhead pressure downstream of valves used to
+isolate multiple wells being treated sequentially. This will allow sufficient data to be acquired
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 19 =====
+SPE-204154-MS 19
+without delaying sequencing operations. The continuous recording of wellhead pressures can
+also facilitate data acquisition.
+c. Request service company to ensure that all injection rate channels accurately reflect what is
+being injected into the well. This may require a process to zero-out the injection rate during
+the shut-in period.
+d. Set instrumentation and data collection system requirements on time synchronization, reading
+accuracy, reading resolution, data collection frequency, and data transformations (instantaneous
+versus smoothed readings).
+Water Hammer Analysis
+The water hammer analysis consists of 4 parts:
+1. Identification of the shut-in period.
+2. Identification of water hammer peaks and troughs.
+3. Calculation of water hammer period and the number of periods.
+4. Calculation of water hammer decay rate (based on peak and trough pressure differences).
+See 
+Fig. 23 for the parts of the water hammer nomenclature.
+Figure 23—Water hammer nomenclature
+The shut-in period is identified using the total injection rate. At the end of the treatment stage, the start
+of the shut-in period is based on a rate threshold considered to be zero rate. Due to potential noise in the
+rate sensor, values of zero may not be recorded so data is reviewed for an appropriate rate threshold (e.g.,
+reading less than 0.1 barrels per minute is considered zero). As noted in the Data Issues and Requirements
+section, additional conditions/adjustments are required to handle false injection rates or smoothed rate data.
+The next step is to identify the peaks and troughs of the water hammer signature as shown in Fig. 24.
+Peaks and troughs are identified with yellow vertical lines. A simple algorithm to select peaks and troughs
+is the following.
+– A point is a peak if the adjacent points on either side of it have values lower than it.
+– A point is a trough if the adjacent points on either side of it have values higher than it.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 20 =====
+20 SPE-204154-MS
+For water hammers of this shape, this simple algorithm can be used to identify the peaks and troughs,
+and their values and respective times.
+Figure 24—Picking peaks and troughs
+Due to varying water hammer shapes or potentially noisy pressure data, the simple peak/trough algorithm
+is not sufficient in all cases. This is exemplified in Fig. 25. Additional conditions and/or signal processing
+is required to handle more water hammer cases automatically.
+Figure 25—Picking incorrect peaks and troughs
+The next step is to calculate period and the number of periods. A period is from peak to peak or trough
+to trough. A half period is from peak to trough or trough to peak. As shown in Fig. 24, once the water
+hammer signature decays to a point where the difference between peak and trough pressures are below a
+specified differential pressure threshold, half period are no longer identifiable. The values tabulated for the
+case depicted in Fig. 24 are shown in Table 2.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 21 =====
+SPE-204154-MS 21
+Table 2—Water hammer calculations for the case depicted in Fig. 24.
+The total number of periods is the count of half periods divided by two. For this case, there are 12 half
+periods, so the number of periods is 6. To calculate the period, the differential time between the half periods
+are calculated. The average of the half period differential time is calculated. For this case, the average is
+7.7 seconds for the half periods. The period is twice the half period average which is 15.4 seconds. With
+more half periods, the average period becomes more accurate as issues with properly picking the start and
+end times of the half periods get averaged out.
+The last step is to calculate the water hammer decay rate, as shown in Fig. 26.
+– The log of peak and trough differential pressure plotted versus shut-in time (seconds) is linear. The
+decay rate is represented by an exponential decay.
+– The decay rate for this case is −0.039.
+– The R2 value of 0.986 indicates a good correlation.
+In the development of the decay rate function, the exponential relationship was found to provide the best
+correlation.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 22 =====
+22 SPE-204154-MS
+Figure 26—Water hammer decay for the case depicted in Fig. 24.
+This measurement provides an indication of the friction of the system that may facilitate at least a
+qualitative understanding of the hydraulic fracture network and its connection with the wellbore.
+Water Hammer Model
+The water hammer numerical method used in this study is described as follows. A staggered-grid method
+is used, with the one-dimensional momentum equation solved on the primary grid in Fig. 27 and the mass
+conservation equation solved on the staggered grid in Fig. 28. The nomenclature for the below figures is:
+Ak: cross-sectional area in momentum grid at position k
+yk: elevation in momentum grid at position k
+zk: distance in momentum grid at position k
+: distance in mass grid at position k
+ρk: density in momentum grid at position k
+: density in mass grid at position k
+Pk: pressure at position k
+Δzk: length of momentum grid at position k
+: length of in mass grid at position k
+: volume of in mass grid at position k
+: mass rate at position k
+Figure 27—Grid for one dimensional momentum equation
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 23 =====
+SPE-204154-MS 23
+Figure 28—Grid for mass conservation equation
+The velocities and mass rates are stored at the cell centers of the primary grid zk, and the pressures,
+temperatures, fluid properties, and masses are stored on the staggered grid , i.e., at the boundaries of the
+primary grid.
+The volume of the staggered cell at position k, , is given by:
+(4)
+where Ak is the cross-sectional area of cell k, Δzk is the length of cell k.
+The momentum conservation equation is written as follows:
+(5)
+where the spatial momentum terms are given by a first-order upwind scheme
+(6)
+and the forces acting on the fluid are given by:
+(7)
+where the first term is the pressure force acting on cell k, the second term is the frictional force acting on
+cell k, and the third term is the gravitational force acting on cell k. The density in this cell is given by:
+(8)
+The mass conservation equation is written:
+(9)
+This equation can be re-written:
+(10)
+where ck is the speed of sound at the boundary of cell k. The mass equation is then solved as follows:
+(11)
+ is the pressure at position k at the beginning of the time step and Pk is the pressure at the end of the
+time step. Using this relationship, derived from the mass conservation equation, the pressure term in the
+momentum equation is then replaced as follows:
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 24 =====
+24 SPE-204154-MS
+(12)
+This gives the momentum equation of the form:
+(13)
+These equations produce a tri-diagonal matrix which can be inverted directly, without iteration. This
+matrix allows for an implicit solution of the mass rate vector, . Once the mass rates at the new time step
+are determined, they are used to update the pressure vector, Pk.
+The native speed of sound in a material is related to its density and bulk modulus according to the equation
+(14)
+where
+• ρ is the fluid density
+• Co is the native speed of sound of the liquid
+• K is the bulk modulus of the liquid
+In addition, the speed C of a pressure impulse in a pipe must be modified to accommodate
+• Pipe geometry
+◦ Inner diameter, D
+◦ Wall thickness, T
+• Pipe material
+◦ Young's modulus E
+◦ Poisson's ratio, ν
+◦ Nature of anchoring, ψ
+The modified speed of sound C in a pipe is given by:
+(15)
+where, for a line anchored throughout (casing cemented in):
+(16)
+The water hammer model is completely general, and can accommodate:
+• Complex well geometries, including changing diameter
+• Changing properties through the well, including density, speed of sound, and viscosity
+• Influence of drag reduction chemical on friction factor
+• Pressure drop across the perforations (using a simplified choke model)
+• Bulk modulus of the well casing (including the effects of the steel and cement)
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 25 =====
+SPE-204154-MS 25
+In the event that there is some gas entrained in the liquid, the native speed of sound Co must be modified
+still further, as even a small amount of gas will have a very large impact on the speed of sound in the fluid.
+For a gas-liquid flow, the bulk modulus of the fluid is given by:
+(17)
+where HL and HG are the liquid and gas volume fractions, and C L and CG are the speed of sound in liquid
+and gas, respectively.
+The model has been tested against dozens of wells and hundreds of stages, with good fit to data, sometimes
+including small details in the pressure signature. Fig. 29 shows a comparison of the wellhead pressure during
+ramp-down of the slurry injection rate predicted by the water hammer model and measured in the field.
+Figure 29—Fit of water hammer model to field data
+This current developed model incorporates wellbore properties including perforations but does not
+incorporate the fracture network. The model provides the influence of the wellbore to the water hammer
+signature. Differences between the model and the actual field data can provide insight into the influence of
+the fracture network on the water hammer signature.
+Model Comparison to Actual Data.   The following are the main levers for history matching the water
+hammer signature with the model as demonstrated in Fig. 30.
+1. Outlet constant pressure condition is set to the ISIP and used to match wellhead pressure.
+2. Friction is adjusted to affect the decay rate
+a. Drag reduction factor, which affects the pipe friction
+b. Perforation friction
+3. Well length plus excess length. The excess length is added to increase the period. This additional
+length may be an indicator of the extent of the fracture network or fluid/casing property anomalies
+that reduce the fluid speed of sound.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 26 =====
+26 SPE-204154-MS
+The parameters are tuned for a stage and applied to following stages.
+Figure 30—Model tuning
+Observations on applied tuned model parameters to other stages, as exemplified in Fig. 31.
+Figure 31—Tuned model applied to other stages
+– The tuned model parameters provide a good match between the model and actual field pressure for
+stage 5 and 6. This is an indication that stages 4-6 are similar in respect to the wellbore, fluids, and
+fracture network created.
+– For Stage 8, the actual water hammer signature does not match the model at the start of the shut-
+in. The difference may be due to data collection issues and/or friction changes which are causing
+the dampening.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 27 =====
+SPE-204154-MS 27
+– For Stage 11, the fit is good at the start; however, for this stage, the actual water hammer signature
+is dampening quicker than the model. It is uncertain whether the additional friction is due to fluid
+changes and/or the creation of a larger fracture network.
+Effects on Water Hammer Signature
+As the injection pumps reduce or terminate rate near the end of the treatment, a water hammer pressure
+signature will be created at the pump discharge. The nature of this signature depends on:
+• fluid speed of sound in casing
+• friction in the wellbore/fracture system
+• the boundary condition at the top and bottom of the well.
+• the nature of the step-down (i.e., step-down rate change and duration)
+The following water hammer model sensitivity studies were conducted to understand the effect of key
+parameters on the water hammer signature.
+Fluid properties
+In order from highest to lowest effect, the following fluid properties affect the water hammer signature.
+• fluid speed of sound in casing (affects the period).
+• turbulence suppression - friction reducers in the fluid affect the development of turbulent eddy
+currents which thereby reduce friction (affects the water hammer decay rate).
+• shear behavior – can affect friction reducer performance and/or actual fluid in respect to it gelling
+tendency (affects the decay rate).
+• viscosity – increase in viscosity increases friction (affects the decay rate).
+• density - impacts the speed of sound (affects the period).
+The fluid speed of sound in casing is affected by fluid properties (e.g., density, bulk modulus) and casing
+properties (Poisson's ratio, bulk modulus, internal diameter, wall thickness). The fluid speed of sound affects
+the period.
+(18)
+ C = fluid speed of sound in casing, m/s
+ ρ = fluid density, kg/m3
+ K = fluid bulk modulus, Pa
+ υ = casing Poisson ratio
+ d = casing internal diameter, m
+ E = casing bulk modulus, Pa
+ t = casing wall thickness, m
+An example of the injection rate being stepped down in multiple steps is shown in Fig. 32. The frac fluid
+was guar-borate crosslinked gel, and the flush fluid in the wellbore was low viscosity slick water. For the
+rate step-down to 13 bbl/min, the water hammer signature had up to 6 periods while following the shutdown
+when injection was completely terminated, there were only 2 periods.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 28 =====
+28 SPE-204154-MS
+– At 13 bbl/min, the fluid was subject to shear forces thereby reducing its viscosity and tendency to
+form a rigid gel structure (characterized by a high yield point). Having greater fluidity resulted in less
+friction and less decay of the water hammer signature.
+– At shutdown (0 bbl/min), there was no shear forces induced by pumping acting on the fluid. The fluid
+thickened which resulted in more friction and a quicker decay of the water hammer signature.
+Figure 32—Effect of eliminating shear on fluid viscosity, yield point and water hammer signature
+Step-down rate change and duration
+The water hammer model described in the above section was used to perform a sensitivity analysis on the
+effect of step-down rate change and duration on the water hammer signature.
+The concept of step-down rate change and duration is outlined in Fig. 33. The green series is the injection
+rate.
+• Near the end of the hydraulic fracturing treatment, the injection rate is ∼75 bbl/min.
+• The injection rate is reduced by 35 bbl/min, from 75 bbl/min to 40 bbl/min.
+• The injection rate is held at 40 bbl/min for a duration of about 30 seconds.
+• The injection is completely terminated as rate is reduced from 40 to 0 bbl/min.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 29 =====
+SPE-204154-MS 29
+Figure 33—Illustration of step-down rate and duration
+For the sensitivity cases below, the fixed model inputs are:
+1. 20,000 ft from the wellhead to the perforations.
+2. Fluid speed of sound through the wellbore is 5,000 ft/s.
+3. Boundary conditions: closed inlet and constant pressure outlet, Boundary Condition Factor = 4
+4. Injection rate prior to rate step-downs = 66 bbl/min.
+With the above inputs, the calculated period is 16 seconds per Equation 3 (4 × 20,000 ft / 5,000 ft/s =
+16 seconds).
+Sensitivity Analysis #1:.   The results of a sensitivity analysis for three cases in which the initial rate is 66
+bbl/min, the rate is reduced to 33 bbl/min with varied step-down duration time less than the period (15, 12,
+and 8 seconds), and then shut-in are shown in Fig. 34.
+Figure 34—Model results, comparison of step-down durations when less than period.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 30 =====
+30 SPE-204154-MS
+Observations:
+1. For step-down duration equal to 15 seconds, the peaks are showing an upward slope to the right.
+2. For step-down duration equal to 12 seconds, the peaks are showing a half downward slope, then a
+half upward slope.
+3. For step-down duration equal to 8 seconds, the peaks are showing a full downward slope.
+4. With short step-down duration times, the water hammer signature induced by the first step-down does
+not have enough time to dissipate. The water hammer signature seen at shut-in is a combination of
+pressure wave remaining from the first step-down and the pressure wave created by the second step-
+down (shut-in).
+5. A pressure superpositioning effect is seen with step-down durations less than the period resulting in
+the gradual change in slope from upward sloping to downward sloping. When the duration is half the
+period, the slope becomes completely downward sloping.
+6. When the step-down duration equals half the period, this results in a 180° phase offset between the
+water hammer signature induced by the first and second step-downs. 180° phase offset means the peak
+of one pressure waveform coincides with the trough of the second pressure waveform.
+The following are pressure-rate plots of actual treatments on the same well validating the modeling
+outcomes. For the treatment stage plotted in Fig. 35
+ (stage 23), the period was 13 seconds, calculated by
+measuring peak to peak. The last step-down rate was 30 bbl/min which was held for 12 seconds, close to
+the period. The peaks were upward sloping to the right.
+Figure 35—Actual data – upward slope related to step-down duration equal to period.
+For the treatment stage plotted in Fig. 36 (stage 18), the period was 14 seconds. The last step-down rate
+was 28 bbl/min which was held for 4 seconds or less than half the period. The peaks are downward sloping
+to the right.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 31 =====
+SPE-204154-MS 31
+Figure 36—Actual data – downward slope related to step-down duration less than half the period.
+This sensitivity analysis and actual treatment data observations indicate that the sloping nature of the
+water hammer signature is a function of the step-down duration time. It is recommended that step-down
+duration time is designed so that it is not less than the expected water hammer period.
+Sensitivity Analysis #2:.   The results of a sensitivity analysis for two cases in which the initial rate is 66
+bbl/min, the rate is reduced to 33 bbl/min with varied step-down duration times greater than the period (30
+and 60 seconds), and then shut-in are shown in Fig. 37.
+Figure 37—Model results, comparison of rate step-down duration when greater than period.
+Observations:
+1. For the simulation with a hold duration of 60 seconds, the water hammer signature is mostly dissipated
+around 30-40 seconds.
+2. The final rate reduction (33 bbl/min to 0 bbl/min, shut-in) exhibited greater peak and trough pressure
+differentials than the first rate reduction (from 66 bbl/min to 33 bbl/min) even though both had the
+same 33 bbl/min rate reduction. The magnitude of the water hammer peaks and troughs are affected
+by continued fluid injection. For injection rate reductions of the same magnitude, zero rate during the
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 32 =====
+32 SPE-204154-MS
+water hammer signature will have the greatest peaks and troughs while any rate greater than zero will
+reduce the water hammer signature. The higher the stabilized injection rate following the step-down,
+the greater the impact on water hammer signature reduction.
+3. Reviewing the 30 second duration hold (case 1), there is a slight superpositioning effect seen during
+the zero rate section, but it is minimal when compared against the 60 second duration hold (case 2).
+Based on the above results, it is recommended to hold constant the final rate step for at least 30 seconds
+to minimize water hammer superpositioning effects when operations require rate step-downs.
+Sensitivity Analysis #3:.   The following injection rate sensitivity was conducted to determine the effect of
+stepped down injection rate and the results are shown in Fig. 38. Maximum injection rate is established at
+66 bbl/min. Rate is stepped down to various levels and held for 30 seconds. The rates modeled were 40, 35,
+30, 25, 20 and 15 bbl/min. Injection rate is finally terminated, dropping to zero.
+Figure 38—Model results - comparison of variable step-down rates, each held for 30 seconds.
+Observations from the rate drop sensitivity are:
+1. Maintaining a higher injection rate before shut-in results in higher water hammer peaks and troughs
+following shut-in (Joukowsky effect).
+2. There are greater superpositioning effects on water hammer waveforms for the cases of relatively low
+injection rate before shut-in since the 1st rate drop is higher than the 2nd rate drop. For these cases, there
+is more energy from the 1st rate drop persisting through the 2nd rate drop. The rate drops are tabulated
+in Table 3. Rows with red font note the scenarios with observable superposition effects caused by
+the 1st rate drop.
+3. The period is the same for all cases. This is expected as the well configuration is the same for all cases.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 33 =====
+SPE-204154-MS 33
+Table 3—Rate drops
+The recommendation is to have equivalent rate reductions or to have the last rate reductions to be
+higher than the prior rate reduction to minimize the superpositioning effect on the water hammer signature
+following shut-in.
+Sensitivity Analysis #4:.   The following 3 cases evaluate the effect of varying the number of equal-duration
+rate drops on the water hammer signature. The results are shown in Fig. 39.
+1. Start at 100 bbl/min, four 25 bbl/min drops, each held for 30 seconds
+2. Start at 100 bbl/min, three 25 bbl/min drops, last rate at 5 bbl/min, each held for 30 seconds
+3. Start at 100 bbl/min, go half rate (50 bbl/min), hold for 30 seconds
+Figure 39—Sensitivity on the number of step-downs and step-down rate
+Observations from this step-down sensitivity are:
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 34 =====
+34 SPE-204154-MS
+1. Comparing Case 1 and 2, if a 5 bbl/min step-down is conducted after a larger step-down (20 bbl/min
+step-down), the prior water hammer signature covers the water hammer signature from the 5 bbl/min
+step-down. For the water hammer analysis of Case 2, the 5 bbl/min rate slightly reduces the peak/
+trough magnitude and water hammer shape compared to Case 1. For Case 2, the shut-in water hammer
+analysis could be considered to start after the 20 bbl/min step-down since the 5 bbl/min step-down
+had minimal effect on the water hammer signature.
+2. For Case 1 and 2, a superpositioning effect is seen for each 25 bbl/min step-down.
+3. Both 25 and 50 bbl/min rate reductions with 30 second duration provide clear water hammer
+signatures. A 25 bbl/min rate drop seems to be sufficient for analysis.
+Recommendations:.  
+ The recommendations are:
+1. The last rate step should be at least 25 bbl/min to generate a clear water hammer signature.
+2. Avoid stepping down the rate to 5 bbl/min.
+3. If the service company prefers to use multiple rate step-downs to lessen the impact of shut-down on
+the pumping equipment, the last step-down should be at a rate of 25 bbl/min or greater.
+4. The duration of rate steps should be a minimum of 30 seconds to minimize superpositioning effects
+of multiple water hammer pulses.
+5. KEY POINT – Performing the step-down in a consistent way is the most beneficial measure for
+obtaining meaningful comparisons of water hammer signatures across multiple treatment stages.
+Perforation Friction
+Three cases were simulated for the perforation friction sensitivity analysis (450, 1000, 1500 psi perforation
+friction). The injection rate starts at 66 bbl/min, is dropped to 33 bbl/min and held for 30 seconds, and then
+dropped to zero rate to initiate the shut-in period. The results of the evaluation are shown in 
+Fig. 40.
+Figure 40—Perforation friction sensitivity analysis
+Observations from the perforation friction sensitivity are:
+1. As expected, the highest perforation friction case (1,500 psi) had the highest wellhead pressure while
+pumping at full injection rate.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 35 =====
+SPE-204154-MS 35
+2. Lower perforation friction equates to higher peaks and deeper troughs as compared to higher
+perforation friction.
+3. During the 30-second hold period of the rate step-down (33 bbl/min), higher perforation friction
+correlates with greater dampening of the water hammer signature.
+4. During the shut-in period, the 1,000 and 1,500 psi perforation friction cases exhibited minimal to no
+superposition effect from the water hammer signature created from the initial rate reduction. This
+outcome was the result of signal dampening. For the 450-psi case, there is a slight superposition effect
+as the water hammer signature from the initial rate reduction was not completely dampened.
+5. Initially, the difference between the water hammer peaks and troughs were:
+i. 400-500 psi between the 450 and 1,500 psi perforation friction cases.
+ii. 200 psi between the 1,000 and 1,500 psi perforation friction cases.
+6. The pressure difference among the three cases decreases over time with the decay of the water hammer
+signature.
+7. Additional perforation friction dampens the water hammer signature only slightly, and not
+significantly.
+Application of Water Hammer Analysis
+Identification of Boundary Conditions
+A case demonstrating differing boundary conditions is presented for two different types of operations in
+the same well. Fig. 41
+ shows the water hammer signature after a perforating event while Fig. 42 shows the
+water hammer signature after the main hydraulic fracturing treatment. The perforation depth was 9,416 ft.
+Figure 41—Water hammer after perforation detonation event
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 36 =====
+36 SPE-204154-MS
+Figure 42—Water hammer after hydraulic fracturing treatment
+For the perforation event, the period was 4 seconds. Assuming a fluid speed of sound of 5,000 ft/s, the
+boundary condition factor is 2.1 seconds or approximately 2 as per Equation 3 (4 sec × 5,000 ft/s / 9,416
+ft = 2.1). A boundary condition factor of 2 denotes that the boundary condition is a closed inlet and closed
+outlet. There was nil fracture capacity at the perforations.
+For shut-in period following the fracturing treatment performed on this well, the period was 8 to 9
+seconds. This is double the period for the perforating event. The boundary condition factor was about 4,
+indicative of a closed inlet and constant pressure outlet. This denotes that the well was in communication
+with a large capacity hydraulic fracture system. A question still to be further understood is how much
+fracture capacity is required to switch from a boundary condition factor of 2 to 4.
+Another case demonstrating differing boundary conditions is presented for two treatment stages in the
+same well. Stage 6 had a successfully completed hydraulic fracture treatment with a period of 15 seconds,
+as shown in Fig. 43
+. The boundary condition factor for this treatment was 4. Stage 7 had a screen out which
+resulted in a period of 7 to 8 seconds, as shown in Fig. 44. This was half the period of Stage 6, indicative
+of a boundary condition of a closed inlet and a closed outlet. The screen out in Stage 7 completely bridged
+the wellbore and fracture system near the perforations, disconnecting the travel path of the water hammer
+from the high capacity hydraulic fracture system.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 37 =====
+SPE-204154-MS 37
+Figure 43—The corresponding water hammer of a treatment with no operational issues (Stage 6).
+Figure 44—The corresponding water hammer of a treatment with a screen out event (Stage 7).
+Identification of Treatment Stage Isolation
+Water hammer boundary condition calculations can provide indicators for evaluating isolation among
+treatment stages in pumpdown diagnostic testing. As described in SPE-201376 ( Cramer et al. 2020 ),
+pumpdown diagnostics are performed during plug-and-perf horizontal well treatments when isolating a
+previous treatment stage and perforating a new interval, and they consist of the following activities.
+1. Pump down the frac plug and perforating guns.
+2. Pressure test the frac plug.
+3. Perforate the first cluster, closest to the toe end of the well.
+4. Conduct an injectivity test.
+5. Perforate the remaining clusters.
+For Fig. 45 - 47, the activity numbering is identified on the charts with associated color coding.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 38 =====
+38 SPE-204154-MS
+Figure 45—Pumpdown diagnostics showing stage isolation.
+Figure 46—Pumpdown diagnostic testing showing frac plug failure (loss of stage isolation).
+Figure 47—Pumpdown diagnostics showing an unseated frac ball (loss of stage isolation).
+Fig. 45 - 47 are pumpdown diagnostic plots for three stages in the same well. Fig. 45 shows a case in
+which testing confirmed the newly-perforated stage was isolated from the prior treatment stage. During
+testing, two water hammer signatures occurred, one after the pump down injection and the other after the
+frac plug pressure test.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 39 =====
+SPE-204154-MS 39
+– The dashed line box around the first water hammer signature after the pump down denotes that the
+boundary condition factor was 4 (closed inlet and constant pressure outlet). This notes there was a
+connection to a large fracture capacity (the previous stage that was hydraulically fractured).
+– The solid line box around the second water hammer signature after the frac plug pressure test denotes
+that the boundary condition factor was 2 (closed inlet and closed outlet). This confirms that at this
+point the wellbore was a closed system with no leakage past the frac plug. The ball successfully seated
+in the frac plug and a water hammer pulse was generated from the sudden rate termination.
+After the last three activities (perforation of the first cluster, injectivity test, and perforation of the
+remaining clusters), there was a gradual decline in pressure with no water hammer signature. Additionally,
+the fall-off pressures are greater than the extrapolated pumpdown pressure fall-off trendline, when there
+was still connectivity to the prior stage. When combined, these indications strongly confirmed that the new
+treatment interval was isolated from the previous treatment interval.
+Fig. 46
+ shows a frac plug failure occurring during pumpdown operations. This is indicated by the extreme
+pressure drop at the start of the injectivity test. For this stage, there were six water hammer signatures. The
+first water hammer signature after the pump down had a boundary condition factor of 4, indicating wellbore
+connection to the large fracture capacity of the prior stage. The second water hammer signature after the
+frac plug test had a boundary condition factor of 2, indicating that the frac plug achieved isolation from
+the prior stage. The last four water hammer signatures that occurred after the frac plug failure all had a
+boundary condition factor of 4, confirming loss of isolation and connection once again to the large fracture
+capacity of the prior stage.
+Fig. 47  shows a stage where a frac ball unseated as indicated by a rapid pressure decline after the
+perforation of the first cluster. The water hammer signatures for this scenario were the same as the frac plug
+failure scenario, showing that stage isolation was lost.
+Identification of Casing Failure Depth
+For the following case, treatment stage 1 of a well was performed with no noticeable issues. The average
+injection rate and surface treating pressure for this stage were 65 bbl/min and 9,000 psi, respectively.
+Treatment stage 2 initially exhibited similar rate and pressure behavior as stage 1. However, 25 minutes
+into the treatment, the rate and pressure changed significantly, as the rate increased to 90 bbl/min and the
+surface treating pressure decreased to 7,500 psi. This change indicated that the depth of the fluid moving
+out of the wellbore could be significantly lower than expected, potentially as a result of a casing failure
+located far from the perforated interval.
+Fig. 48
+ compares the water hammer signature from stage 1 and 2. The period for stage 1 was 20 seconds;
+the period for stage 2 was 9 seconds.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 40 =====
+40 SPE-204154-MS
+Figure 48—Comparison of stage 1 and stage 2 water hammer period
+The boundary condition for this case is closed inlet and constant pressure outlet, so the boundary condition
+factor was 4. Assuming the fluid speed of sound was 5,000 ft/s, the following measured depths were
+calculated for periods of 8, 9, and 10 seconds (period sensitivity of +/− 1 second to account for the data
+collection frequency of 1 second). Measured depth of the flow exit is calculated by multiplying the period
+by the fluid speed of sound and then dividing by the boundary condition factor and the results are shown
+in Table 4.
+Table 4—Measured depth of flow exit (potential casing failure depth)
+Later, caliper logs and downhole camera imaging identified casing pits at depths ranging from 10,125 to
+10,153 ft, intermediate to the calculated depths associated with 8 and 9 seconds of period.
+Determination of Excess Period (Excess Length)
+In Fig. 48, the period predicted for the perforation depth (18,160 ft) and 5,000 ft/s fluid speed of sound was
+14.5 seconds (18,160 ft / 5,000 ft/s * 4). However, the water hammer signature from stage 1 showed a period
+of 20 seconds. The excess period was 5.5 seconds (20 s −14.5 s). Excess period can also be expressed as
+excess length. The predicted length for 20 second period is 25,000 ft (20 /4 * 5,000). Correspondingly, the
+excess length is 6,840 ft (25,000 ft – 18,160 ft). This is an increase of 38% in respect to period or length.
+Further investigation is required to determine if excess period and the associated excess length value
+provide indications of hydraulic fracture dimensions or rather fluid/casing property anomalies that reduce
+the fluid speed of sound. Within the water hammer model described previously, additional length can be
+added to the perforation depth to account for the excess period. However, as compared to water hammer
+wave travel in casing, the speed of sound in hydraulic fractures is much slower, highly variable, and difficult
+to determine (Paige et al. 1992). Consequently, the above calculation for excess length should not be
+considered as equivalent to fracture length.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 41 =====
+SPE-204154-MS 41
+Case Study – Water Hammer Analysis in an Unconventional Reservoir
+Using the methods described in the sections above, water hammer data was analyzed for 8,831 fracturing
+stages in 395 wells in a North America unconventional reservoir. The analysis focused on the relationship
+of water hammer characteristics with the completion design and resulting well productivity. Water hammer
+data was not available on all stages of every well due to data quality issues. For production analysis, only
+the wells with water hammer data available on at least 50% of the stages were evaluated.
+A high-level summary of the findings from the analysis indicated the following.
+• The water hammer decay rate is most affected by near-wellbore fracture surface area.
+• A higher water hammer decay rate equates to contacting more near-wellbore fracture surface area.
+• A very low water hammer decay rate correlates with lower well productivity.
+• Low water hammer decay rates also correlate with long distance fracture-driven interactions (FDI),
+also known as frac hits.
+• The water hammer decay rate becomes more variable as the total treatment volume for a well
+increases.
+This study was limited to wells within a single field and geologic basin. The relationship of water hammer
+characteristics such as decay rate with well productivity observed in this field may not be the same in other
+geologic settings with differing rock properties or in-situ stress distributions.
+For this analysis, the total number of water hammer periods was used as a proxy for the water hammer
+decay rate due to ease of calculation and its sufficiency for performing a straightforward comparison among
+fracturing stages. The terminology of water hammer oscillation characteristics is covered in Fig. 23. As
+indicated there, the decay rate is inversely proportional to the number of water hammer periods.
+Interpretation of frac geometry and friction in the fracture
+Impact of Friction on Water Hammer Decay Rate.   As the water hammer pulse travels back and forth
+within the wellbore and hydraulic fracture system, friction causes it to dampen over time. There are three
+potential sources of friction that dampen water hammer pulses:
+• Fluid viscosity
+• Contact with surface area inside the wellbore
+• Contact with surface area outside the wellbore
+Of the three sources, friction due to contact with surface area outside the wellbore and primarily within
+the hydraulic fracture system is typically dominant and is the primary reason for water hammer decay rates
+varying for fracturing stages having the same treatment design.
+High viscosity fluids, such as crosslinked gel, will cause a water hammer signature to dampen faster. For
+analysis purposes, this is not typically an issue because in any given well, the same fluid type is used for
+each fracturing stage. However, this needs to be accounted for when comparing water hammer data between
+wells that were treated with different fluid types. Even though crosslinked gel stages are flushed with slick
+water, when the water hammer pulse exits the wellbore, it will travel through the crosslinked gel filling the
+fractures which can influence the water hammer decay rate.
+In this dataset, 5,484 stages were completed with crosslinked gel and 3,347 stages were completed with
+slick water. When comparing stages that had the same treatment size (2,600 lbs of proppant/ft), it was found
+that the difference in number of water hammer periods between crosslinked gel and slick water is roughly
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 42 =====
+42 SPE-204154-MS
+0.5 periods, as shown in Fig. 49. When compared to the range of values for number of water hammer
+periods, a difference of 0.5 periods is small but not negligible.
+Figure 49—Completions fluid type versus number of water hammer periods
+When evaluating water hammer data for all stages, there is not a clear trend between number of water
+hammer periods and stage depth. The primary reason for this is that friction within the hydraulic fracture
+system can have the dominant effect on friction and thus the water hammer decay rate during the post-
+treatment shut-in period. This is primarily the result of differences in surface area as demonstrated in the
+following hypothetical example.
+A wellbore consisting of 5-1/2 in. casing at a measured depth of 20,000 ft has an internal surface area of
+24,450 ft2. The cumulative fracture surface area for a stage with 10 perforation clusters, each connected to
+one smooth-walled, planar fracture extending 75 ft radially from the wellbore is 176,700 ft2. In this example,
+the fracture surface area is more than seven times greater than the wellbore surface area. It is a conservative
+estimate of the potential difference. Hydraulic fractures typically extend much farther than 75 ft radially
+from the wellbore. Field studies indicate that hydraulic fracture systems can be complex, with much greater
+surface area and fracture-width variation than the simple case presented above (
+Raterman et al. 2019).
+The above exercise is continued to demonstrate the relative effects of variations in wellbore and fracture
+system components on surface area and thus friction. The difference in surface area between the two-fold
+difference in measured depth of 10,000 and 20,000 ft is 12,225 ft2. The difference in surface area between a
+stage that treated half fracture per cluster with a stage that treated one fracture per cluster (two-fold difference
+in the number of fractures) is a conservatively estimated difference of 88,350 ft2. Variation in fracture system
+properties will have a greater impact on surface area and consequently on friction and water hammer decay
+rate.
+There are qualifications to the above assessment. The data used for this analysis was primarily on wells
+with 5-1/2 in. 23 lb/ft casing using plug-and-perf completions, with measured depths varying between
+11,000 ft and 21,000 ft among all fracturing stages. Perforation friction typically has a minor influence on
+water hammer characteristics in this style of completion. Yet the situation may be somewhat different for
+other completion types. For instance, as reported by Iriarte et al. (2017), treatments using the ball-actuated
+sliding sleeve method of treatment sequencing exhibit relatively high water hammer decay rates due to the
+sleeve ball seats acting as baffles as the water hammer pulses flow in and out of the wellbore.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 43 =====
+SPE-204154-MS 43
+Water Hammer Decay Rate as an Indication of Near-Wellbore Fracture Geometry.   As postulated by
+Ciezobka et al. (2016), water hammer dampening or decay is affected by the degree of fracture connectivity
+with the wellbore. Being in contact with a greater number of fractures results in more rapid signal dampening
+or decay since friction is proportional to fracture surface area and complexity. This case is exemplified in
+comparing Fig. 50a. and Fig.50b. with Fig. 50c. and Fig. 50d. Being in contact with fewer fractures or a
+less complex fracture network results in less friction and slower signal dampening or decay.
+Figure 50—Proposed relationship of water hammer decay rate with contacted fracture area (Iriarte et al. 2017)
+Two relationships observed in analyzing the case study data support the above postulation. Wells with
+very low water hammer decay rates typically have poorer well productivity. Low water hammer decay rates
+also correlate with instances of long-distance FDI's, i.e., frac hits resulting from creating fewer and longer
+hydraulic fractures.
+A related observation was that the water hammer decay rate became more variable as the volume of
+fracturing fluid and proppant per lateral foot treatment size increased. This relationship is shown in Fig.
+51
+. Increases in treatment volume were the result of increasing the number of perforation clusters (fracture
+initiation points) per foot of lateral or increasing the treatment volume (proppant and fluid) per cluster.
+Although these tactics can lead to increased fracture density, cumulative fracture surface area and water
+hammer decay rate, they can also lead to increased communication among clusters and proppant bridging
+within less advantaged fractures (Cramer et al. 2020). The latter outcomes will reduce the number of active
+hydraulic fractures, forcing more volume into fewer fractures which decreases cumulative fracture surface
+area, friction acting on the water hammer pulse, and the water hammer decay rate.
+Figure 51—Average number of water hammer periods per well versus proppant volume.
+Of all variables analyzed, treatment volume per foot of lateral had the strongest correlation with the
+number of water hammer periods per stage. As shown in Fig. 52 , wells characterized by low average
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 44 =====
+44 SPE-204154-MS
+water hammer decay rates (red bar) typically had much longer-reaching FDI's. FDI's were determined by
+identifying pressure increases in passive offset wells that were synchronous with treatments being performed
+in the active analyzed well. The data in Fig. 52 is from 68 wells that had the same perforation cluster spacing,
+number of clusters and proppant volume for each treatment stage. The cutoff used for low decay rate was
+six or more water hammer periods per treatment stage and the cutoff for high decay rate was four or fewer
+periods per treatment stage. This data suggests that for a given treatment volume, treatments with low water
+hammer decay rates are associated with the creation of fewer, longer, less complex fractures, resulting in
+less cumulative fracture surface area.
+Figure 52—FDI's versus distance from the well being actively treated.
+Relationship Between Water Hammer and Well Productivity
+Wells that have very low water hammer decay rates commonly exhibit lower well productivity,
+underperforming by 10% to 20% as compared to wells with higher water hammer decay rates. The cutoff
+used for determining a very low decay rate depended on the size of the treatment. For the wells in this
+data set, treatments characterized by 3,200 lbs of proppant/ft of lateral were considered to have a very low
+decay rate if it had an average of seven or more water hammer periods per treatment stage. Treatments
+characterized by 2,600 lbs of proppant/ft of lateral, six or more water hammer periods per treatment stage
+was classified as a very low decay rate.
+Fig. 53
+ and Fig. 54  show the relationship of well performance to water hammer decay for the two
+treatment-volume categories. Type curve expectation is the 35-year estimated ultimate recovery (EUR) for
+each well. It is based on a correlation of geologic, petrophysical and treatment characteristics with historical
+well productivity in the area. The results for both groupings show that well productivity is lower on wells
+that have longer-lasting water hammers, and substantially lower for instances of very low water hammer
+decay rate as defined previously.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 45 =====
+SPE-204154-MS 45
+Figure 53—Well performance versus average number of water hammer periods for wells with 2600 lbs/ft proppant.
+Figure 54—Well performance versus average number of water hammer periods for wells with 3200 lbs/ft proppant.
+Conclusions
+• Setting data requirements with service companies and data aggregation companies will lead to
+obtaining high quality data for water hammer analysis.
+• The numerical water hammer model presented in the paper provides insight into physical processes
+associated with water hammer waveforms and is a vehicle for sensitivity testing of wellbore and
+treatment variables to evaluate the corresponding effect on water hammer signatures.
+• Using a consistent injection-rate step-down process at the end of fracturing treatments leads to
+more reliable results when comparing water hammer characteristics among multiple treatments
+and wells.
+• The water hammer decay rate is affected by pipe friction and friction in hydraulic fracture network.
+◦ Continuing to pump during a water hammer, as is done during the injection rate step-down
+process at the end of treatments, increases the decay rate.
+◦ During the shut-in period, there is no active pumping. However, there is still friction from the
+back-and-forth movement of fluid within the wellbore/fracture system that affects decay rate.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 46 =====
+46 SPE-204154-MS
+◦ When fluid viscosity, friction reducer effectiveness, and pipe geometry are consistent among
+treatments being evaluated, pipe friction has a smaller impact on variations in the water hammer
+decay rate as compared to friction in the fracture network.
+• The water hammer decay rate appears to be mostly influenced by the fracture surface area near the
+wellbore. High decay rates are an indication of a large amount of near-wellbore fracture surface
+area and low decay rates indicate less near-wellbore fracture surface area.
+• For the wells analyzed in the unconventional reservoir case study data set, low water hammer decay
+rates correlated with relatively lower well productivity and long FDI's.
+• Optimal water hammer characteristics as related to well productivity may vary across fields and
+completion design types. Consequently, water hammer comparative analysis studies should be
+limited to specific completion styles, and geographic and geologic settings.
+Nomenclature
+Ak cross-sectional area in momentum grid at position k
+yk elevation in momentum grid at position k
+zk distance in momentum grid at position k
+distance in mass grid at position k
+ρk density in momentum grid at position k
+density in mass grid at position k
+Pk pressure at position k
+Δzk length of momentum grid at position k
+length of in mass grid at position k
+volume of in mass grid at position k
+mass rate at position k
+bpm barrel per minute; bbl/min
+CSV comma separate values
+dP change in pressure
+d derivative
+FDI fracture driven interactions
+ISIP instantaneous shut-in pressure
+t time
+TVD true vertical depth
+References
+Bakku, S. K., Fehler, M., and Burns, D. 2013. Fracture compliance estimation using borehole tube waves. Geophysics
+78(4): D249–D260.
+Carey, M. A., Mondal, S. and Sharma, M. M. 2015. Analysis of Water Hammer Signatures for Fracture Diagnostics.
+SPE-174866-MS, Annual Technical Conference and Exhibition, 28-30 September, Houston, Texas, USA.
+Carey, M. A., Mondal, S., Sharma, M. M. and Hebert, D. B. 2016. Correlating Water Hammer Signatures with Production
+Log and Microseismic Data in Fractured Horizontal Wells . SPE-179108-MS, Hydraulic Fracturing Technology
+Conference and Exhibition, 9-11 February, The Woodlands, Texas, USA.
+Ciezobka, J., Maity, D., and Salehi, I. 2016. Variable Pump Rate Fracturing Leads to Improved Production in the Marcellus
+Shale. SPE-179107-MS, Hydraulic Fracturing Technology Conference and Exhibition, 9-11 February, The Woodlands,
+Texas, USA.
+Clark, C. J., Miskimins, J. L., and Gallegos, D. L. 2018. Diagnostic Application of Borehole Hydraulic Signal Processing.
+URTeC-2902141, Unconventional Resources Technology Conference, 23-25 July 2018, Houston, Texas, USA.
+Cramer, D.D., Snyder, J., Zhang, J. 2020. Pump-Down Diagnostics for Plug-and-Perf Treatments. SPE-201376-MS, SPE
+Virtual Annual Technical Conference and Exhibition. 27-29 October.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 47 =====
+SPE-204154-MS 47
+Dunham, E. M., Harris, J. M., Zhang, J., Quan, Y . and Mace, K. 2017. Hydraulic Fracture Conductivity Inferred from
+Tube Wave Reflections. SEG-2017-17664595, SEG International Exposition and Annual Meeting, 24-29 September,
+Houston, Texas, USA.
+Holzhausen, G., Branagan, P. , Egan, H., and Wilmer, R. 1989. Fracture Closure Pressures from Free-Oscillation
+Measurements During Stress Testing in Complex Reservoirs. Int. J. Rock Mech. Min. Sci. & Geomech. 26 (6): 533–540.
+Holzhausen, G. R. and Egan, H. N. 1986. Fracture Diagnostics in East Texas and Western Colorado Using the Hydraulic-
+Impedance Method. SPE-15215-MS, Unconventional Gas Technology Symposium, 18-21 May, Louisville, Kentucky,
+USA.
+Holzhausen, G. R. and Gooch, R. P. 1985. Impedance of Hydraulic Fractures: Its Measurement and Use for Estimating
+Fracture Closure Pressure and Dimensions. SPE-13892-MS. Low Permeability Gas Reservoirs, 19-22 May, Denver,
+Colorado, USA.
+Hwang, J., Szabian, M. J., and Sharma, M. M. 2017. Hydraulic Fracture Diagnostics and Stress Interference Analysis by
+Water Hammer Signatures in Multi-Stage Pumping Data. URTeC-2687423. Unconventional Resources Technology
+Conference, 24-26 July 2017, Austin, Texas, USA.
+Iriarte, J.
+, Merritt, J., and Kreyche, B. 2017. Using Water Hammer Characteristics as a Fracture Treatment Diagnostic.
+SPE-185087-MS, Oklahoma City Oil and Gas Symposium, 27-30 March, Oklahoma City, Oklahoma, USA.
+Liang, C., O’Reilly, O., Dunham, E. M., & Moos, D. (2017). Hydraulic fracture diagnostics from Krauklis-wave resonance
+and tube-wave reflections. Geophysics 82(3): D171–D186.
+Ma, X., Zhou, F., Ortega Andrade, J. A. , Gosavi, S. V ., and Burch, D. 2019. Evaluation of Water Hammer Analysis
+as Diagnostic Tool for Hydraulic Fracturing. URTeC-2019-935, Unconventional Resources Technology Conference,
+22-24 July 2019, Denver, Colorado, USA.
+Mondal, S.  2010. Pressure Transients in Wellbores: Water Hammer Effects and Implications . PhD Dissertation, The
+University of Texas at Austin.
+Operators Group for Data Quality, "Operators Group for Data Quality"-"CONTRACT ADDENDUM", www.OGDQ.org.
+Paige, R. W., Murray, L. R., & Roberts, J. D. 1995. Field Application of Hydraulic Impedance Testing for Fracture
+Measurement. SPE-26525-PA, SPE Production & Facilities 10(1):7 – 12.
+Paige, R. W., Roberts, J. D., Murray, L. R., and Mellor, D. W. 1992. Fracture Measurement Using Hydraulic Impedance
+Testing. SPE-24824-MS, Annual Technical Conference and Exhibition, October 4-7, Washington, DC, USA.
+Raterman, K., Liu, Y ., Warren, L. 2019. Analysis of a Drained Rock V olume: An Eagle Ford Example. URTeC-2019-263,
+Unconventional Resources Technology Conference, 31 July, Denver, Colorado, USA.
+Sneddon, I.N. 1946. The Distribution of Stress in the Neighborhood of a Crack in an Elastic Solid . Proc. R. Soc. Lond.
+A187 (1009): 229–260.
+Downloaded from onepetro.​org/​SPEHFTC/​proceedings-pdf/​21HFTC/​21HFTC/​D011S002R009/​2433875/​spe-204154-ms.​pdf/​1 by China University of Petroleum Beijing user on 13 August 2026

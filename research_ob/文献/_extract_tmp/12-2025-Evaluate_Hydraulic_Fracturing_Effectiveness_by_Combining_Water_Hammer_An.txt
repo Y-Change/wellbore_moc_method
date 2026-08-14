@@ -1,0 +1,994 @@
+SOURCE: 12-2025-Evaluate Hydraulic Fracturing Effectiveness by Combining Water Hammer Analysis and Unified Transient Analysis.pdf
+PAGES: 17
+FULL extract 17 pages
+
+
+
+===== PAGE 1 =====
+November 2025 SPE Journal 6913
+Evaluate Hydraulic Fracturing 
+Effectiveness by Combining Water 
+Hammer Analysis and Unified Transient 
+Analysis: A Case Study of Gulong Shale Oil
+HanYi Wang1*, YinJia Chen1, and Mao Zhu1
+1Chongqing University, China
+Summary
+Accurate evaluation of hydraulic- fracturing (HF) effectiveness in shale oil reservoirs remains challenging because of complex induced 
+fracture networks and limited access to low- cost, high- resolution diagnostics. In this study, we present an integrated, data- driven work-
+flow that combines water hammer analysis (WHA) and unified transient analysis (UTA) to quantify both stimulated fracture geometry and 
+the production- contributing fracture surface area from routinely available shut- in pressure and production records. WHA interprets early- 
+time shut- in pressure oscillations to infer fracture complexity and characteristic dimensions, while UTA uses superposition principle and 
+slope analysis to estimate the effective fracture surface area during production. Field case study indicates that the fracture surface area 
+estimated by WHA is less than half of that estimated by UTA, indicating that a large fraction of the stimulated volume may not contribute 
+to sustained flow. Correlating WHA and UTA results with logging data and operational parameters helps identify key drivers of fracture 
+usage and provides actionable guidance to refine stimulation designs in data- limited shale plays.
+Introduction
+HF is an essential technique for unlocking hydrocarbon resources in unconventional reservoirs, where low permeability restricts natural 
+fluid flow. By injecting large volumes of water, proppants, and chemical additives, HF creates and maintains high- conductivity fractures 
+that enhance hydrocarbon migration from the reservoir to the wellbore (Economides and Martin 2007; Tang et al. 2011). However, as 
+unconventional resource development expands, accurately evaluating HF performance and optimizing treatment designs are becoming 
+critical for maximizing recovery, minimizing environmental impact, and managing operational costs.
+The evaluation of HF- induced fractures traditionally relies on mechanical models, numerical simulations, and field- based monitoring 
+techniques. Classical models, including the Perkins- Kern- Nordgren and Khristianovich- Geertsma- de Klerk models, have long been uti-
+lized to estimate fracture dimensions and propagation characteristics based on fundamental rock mechanics (Perkins and Kern 1961; 
+Geertsma and De Klerk 1969; Nordgren 1972). With advances in computational methods, these models have evolved into pseudo- 3D, 
+planar- 3D, and fully 3D approaches, offering improved accuracy in fracture characterization (Adachi et al. 2007; Zhuang et al. 2016). 
+Nevertheless, these models often require extensive computational resources and lack the capability for real- time analysis, making them 
+impractical during live HF operations in the field (Shen et al. 1997).
+Beyond model- based approaches, real- time field monitoring techniques, such as microseismic and distributed fiber- optic sensing (i.e., 
+distributed temperature sensing and distributed acoustic sensing), have emerged as key tools for HF evaluation. Microseismic monitoring 
+captures seismic events associated with fracturing, generating 3D fracture maps that reveal fracture orientation, length, and height. 
+However, it suffers from resolution limitations, increasing uncertainty in complex fracture networks, and requires costly downhole mon-
+itoring equipment (Li et al. 2021a; Fang et al. 2022). Distributed fiber- optic sensing provides real- time acoustic and thermal data along 
+the wellbore, aiding in the detection of fracture initiation and fluid flow patterns; however, the high installation and data- processing costs 
+limit its widespread application in HF projects (Huang and Liu 2017). These challenges have prompted the search for alternative or com-
+plementary methods that are both cost- effective and applicable to real- time operations.
+WHA has recently emerged as a promising alternative for real- time fracture diagnostics. The water hammer effect, which generates 
+transient pressure waves following sudden changes in flow within a closed system, offers insights into fracture characteristics when ana-
+lyzed during HF operations (Holzhausen and Gooch 1985). During HF, abrupt pump shutoff induces pressure pulses that travel through 
+the wellbore and dissipate within the reservoir. This phenomenon allows for the estimation of fracture length, complexity, and potentially 
+proppant placement by analyzing the wave behavior. Mondal (2010) introduced a semi- analytical model using the method of characteris-
+tics to quantify the water hammer effect, which incorporates wellbore and reservoir impedance to predict fracture properties. Later, Carey 
+et al. (2015) expanded this model, demonstrating that water hammer signals can reveal critical fracture parameters, including fracture 
+length and complexity, particularly in scenarios involving multiple fractures. While WHA provides valuable insights, it may not capture 
+all fracture dynamics comprehensively.
+Traditional analysis methods, such as rate transient analysis (RTA) and pressure transient analysis (PTA), are widely used for well 
+performance evaluation. RTA primarily focuses on analyzing production data to infer formation permeability and fracture effectiveness 
+over time (Wattenbarger et al. 1998; El- Banbi and Wattenbarger 1998). However, RTA requires a sufficiently long production history and 
+is highly sensitive to production rate variations, making it difficult to apply in early production stages. Moreover, RTA alone cannot pro-
+vide direct information on reservoir pressure, which limits its ability to accurately characterize early- time reservoir behavior. PTA, on the 
+other hand, relies on shut- in pressure buildup tests to estimate reservoir properties. It provides crucial insights into reservoir connectivity 
+and formation permeability but is limited by the need for controlled shut- in conditions. Furthermore, in unconventional reservoirs where 
+fluid mobility is low, pressure buildup tests may take an extended period to yield meaningful results, delaying decision- making processes 
+*Corresponding author; email: hanyi.wang@cqu.edu.cn
+Copyright © 2025 Society of Petroleum Engineers
+Original SPE manuscript received for review 21 December 2024. Revised manuscript received for review 28 August 2025. Paper (SPE 230315) peer approved 3 September 2025.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+November 2025 SPE Journal6914
+(Anderson et al. 2010; Chu et al. 2017). To overcome these limitations, UTA addresses this limitation by integrating RTA and into a single 
+framework. Unlike conventional methods that treat production and shut- in data separately, UTA utilizes all available transient data in a 
+unified manner, allowing for a more accurate evaluation of reservoir and fracture properties without requiring prior knowledge of initial 
+reservoir pressure (Wang et al. 2022). This approach enables a holistic interpretation of flow regimes and fracture behavior, particularly 
+in unconventional plays where traditional diagnostic methods may be inadequate. The UTA provides a unique advantage in estimating the 
+effective fracture surface area that actively contributes to hydrocarbon production. By integrating production and shut- in data, UTA cap-
+tures the dynamic behavior of the reservoir and fractures, focusing on the portion of the fracture network that effectively contributes to 
+flow. During production, the pressure drop across the fracture network reflects the connectivity and conductivity of the fractures, while 
+shut- in data provides additional insights into the reservoir’s ability to recharge the fractures. This holistic approach ensures that only the 
+fractures contributing to production are accounted for, offering critical insights for optimizing HF designs and improving 
+well performance.
+Our aim with this study is to evaluate the effectiveness of HF in the Gulong shale oil field by integrating WHA and UTA, both applied 
+to the same horizontal well. WHA is used to estimate stage- level fracture geometry and oscillation behavior immediately after shut- in, 
+while UTA is used to quantify the dynamic flow contributing area over time. The analysis reveals that fracture length and complexity 
+exhibit moderate positive correlations with gamma ray index, indicating that more organic- rich and clay- rich intervals tend to generate 
+longer and more complex fractures. Furthermore, the effective fracture surface area derived from UTA accounts for only 47% of the total 
+area estimated by WHA, implying that a substantial portion of the stimulated volume does not contribute to production. By jointly inter-
+preting WHA and UTA results, we can assess what proportion of the created fracture area remains conductive under specific treatment and 
+operational conditions, offering valuable guidance for optimizing stimulation design and improving fracture use efficiency.
+Gulong Shale Oil Field
+Gulong Shale Oil Formation Overview. The Gulong shale oil formation, located in the Songliao Basin in northeastern China, represents 
+one of the most prolific unconventional oil reservoirs in the country, with complex geological characteristics that make it both a significant 
+resource and a technical challenge for HF (Sun et al. 2021, 2023; Ji et al. 2024). The Songliao Basin, covering approximately 260,000 
+km2, is the largest continental hydrocarbon basin in China and has undergone four major tectonic evolution stages since the Jurassic, 
+including thermal uplift and rifting, extensional faulting, thermal subsidence, and tectonic inversion (Fig. 1a) (Li et al. 2021b). These 
+tectonic processes, along with varying sedimentation rates, have contributed to the basin’s diverse structural units, which include the 
+northern and southern depressions, northeastern and southeastern uplifts, and the central depression—the primary location of the Gulong 
+shale oil deposits (Fig. 1b) (Wang et al. 2016).
+Fig. 1—(a) Location of the central depression, (b) shale oil wells distributed in the Gulong Sag, and (c) stratigraphic column of the 
+Upper Cretaceous Formation in the Songliao Basin. The contours of vitrinite reflectance (Ro) of the K2qn1 organic matter (OM) 
+were modified after Sun et al. (2021).
+Composed mainly of the Cretaceous Qingshankou Formation, the Gulong shale oil reservoir is characterized by high organic content, 
+thick shale intervals, and complex pore structures. With shale content exceeding 95%, the formation exhibits interbedded layers of dolo-
+mite, shell limestone, and siltstone, each only a few centimeters thick, contributing to its low permeability and significant heterogeneity 
+(Fig. 1c) (Feng et al. 2010). The clay mineral content, which ranges from 25 to 40% with an average of 35.6%, primarily consists of illite 
+with minor amounts of montmorillonite below 1650 m depth (Zhang 2021). The presence of these clay minerals influences fracture prop-
+agation, as higher clay content often correlates with increased ductility, potentially limiting fracture extension under 
+hydraulic stimulation.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+November 2025 SPE Journal 6915
+Pore structures in the formation are intricate, ranging from nano- to micron- scale pores combined with microfractures. Matrix pores, 
+typically ranging from 10 nm to 50 nm in diameter, include intergranular mineral pores, clay pores, organic matter pores, and dissolution 
+pores, with a median pore size between 20 nm and 30 nm (Sun et al. 2024). Field emission scanning electron microscopy has revealed 
+that bedding fractures are approximately 50–150 nm wide, while intergranular pores and microfractures form a network that facilitates 
+fluid flow within the shale matrix. This intricate pore system, combined with the high organic matter content, presents a favorable envi-
+ronment for hydrocarbon accumulation but also poses challenges for efficient fracture connectivity and fluid extraction.
+Stratigraphic sequences in the Songliao Basin range from 3000 m to 7000 m thick, comprising formations from the Triassic through 
+the Neogene, overlaying a metamorphic basement. The Gulong shale is particularly notable for its high total organic carbon content, 
+averaging 2.35%, which provides a significant hydrocarbon source. Additionally, the brittle mineral components, including dolomite and 
+calcite, contribute to the brittleness index of approximately 50%, making the shale moderately responsive to fracturing. The high brittle-
+ness index aids in fracture initiation, while the clay- rich, ductile interbeds may restrict fracture propagation, resulting in a complex frac-
+ture network essential for enhancing well connectivity and production efficiency (Liu et al. 2019; Sun et al. 2023).
+The combination of these unique geological properties within the Gulong shale oil formation necessitates tailored HF approaches to 
+optimize hydrocarbon recovery. Understanding the interplay between clay and brittle minerals, pore structure, and organic matter distri-
+bution is crucial for designing effective fracturing treatments that maximize fracture connectivity and stimulate productive fractures. In 
+this study, insights from WHA and UTA provide critical evaluations of fracture characteristics in this complex reservoir, guiding strategies 
+for optimizing production from the Gulong shale oil formation.
+A-Well Overview. A- Well is a representative horizontal producer within the Gulong Sag of the central depression. The well targets 
+the Q9 member of the Qingshankou Formation and was drilled to a measured depth of 4630 m with a long horizontal section in Q9. 
+Petrophysical partitioning defines 21 pay subintervals totaling 2080 m, including 16 Type I- 1 layers (2000 m cumulative length) and five 
+Type I- 2 layers (78.9 m), reflecting a high- quality but laminated reservoir architecture (Sun et al. 2023). Core- and log- constrained rock 
+physics indicate an average brittleness index near 51% with effective porosity of 7–8%, consistent with moderate- to- high fracturability 
+while preserving sufficient matrix storage (Li et al. 2021b).
+Reservoir and fluid conditions used in subsequent modeling are derived from high- pressure pressure/volume/temperature in adjacent 
+Q9 wells and on- site measurements: in- situ oil density of 0.564 g/cm³, oil viscosity of 0.26 mPa·s, formation volume factor of 1.9, gas/
+oil ratio of 397.36 m³/t, and bubblepoint pressure of 30.811 MPa. The pressure coefficient is 1.51, indicating an overpressured system 
+favorable for sustained conductivity after stimulation (Liu et al. 2019).
+Completion used casedhole multistage HF with 45 stages and 178 clusters to maximize reservoir contact within Q9 (Zhang 2021). 
+Shut- in and early flowback were monitored with an automatic surface pressure logger synchronized with production rate records, yielding 
+good quality data required by both methods: WHA interprets the immediate shut- in oscillatory response to infer fracture complexity and 
+a stimulated surface area Af,WHA; UTA interprets the variable rate production history to estimate the effective contributing fracture area 
+Af,WHA from linearflow slope analysis.
+A pressure decline and water hammer data example is provided in Fig. 2. These figures illustrate the multistage fracturing layout, 
+pressure response, and production trends observed in Stage 1, serving as representative examples for multistage fracturing response across 
+the well. Fig. 3 further presents production data, showing both the time vs. production plot and the time vs. pressure plot. These figures 
+collectively illustrate the well’s production trends and the relationship between pressure and production rates across different stages, 
+providing essential data for subsequent analysis. The pressure and production data will be further analyzed using WHA and UTA to eval-
+uate fracture effectiveness and refine production optimization strategies for the Gulong shale oil field.
+Methodology
+This section briefly introduces the fundamentals of WHA and UTA, which form the basis for subsequent fracture characterization.
+WHA. The transient behavior of pressure in the wellbore is governed by 1D equations of motion and continuity (Wylie et al. 1993).
+ 
+@Q
+@t + gA @H
+@x + fQ
+ˇˇQ
+ˇˇ
+2DA = 0,  
+(1)
+Fig. 2—Pressure decline and water hammer data for Stage 1 of A- Well.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+November 2025 SPE Journal6916
+ 
+@H
+@t + a2
+gA
+@Q
+@x = 0,
+  
+(2)
+ 
+H = P
+/SUBg + z,
+  (3)
+where a is the wave velocity, f is the Darcy- Weisbach friction factor, A is the pipe cross- sectional area, Q is the flow rate, D is the pipe 
+diameter, and H is the pressure head.
+The water hammer wave velocity in the wellbore is expressed by Halliwell (1963) as
+ 
+a =
+s
+K//SUB
+1+
+/NUL
+K/E
+/SOH
+ ,
+  
+(4)
+where K is the bulk modulus, ρ is the density, E is the Young’s modulus of elasticity of the pipe, and ψ depends on a dimensionless variable 
+of the elastic properties of the pipe.
+  = D
+e
+/NUL
+1 /NUL/ETB2/SOH
+,  (5)
+where v is the pipe Poisson’s ratio and e is the wall thickness.
+Eqs. 1 and 2 of the water hammer equation are a pair of proposed linear hyperbolic partial differential equations, which can only be 
+solved numerically. Therefore, the system of partial differential equations is transformed into four ordinary differential equations using 
+the method of characteristic lines method, and then the system of equations is solved using the finite difference method, and the charac -
+teristic lines C+ and C− equations are represented by Eqs. 5 and 6 (Wylie et al. 1993).
+ C+W Ht+/c129t
+i = Ht
+i/NUL1 + B
+/DLE
+Qt+/c129t
+i /NULQt
+i/NUL1
+/DC1
+/NULrQt
+i/NUL1
+ˇˇQt
+i/NUL1
+ˇˇ ,  (6)
+ C/NULW Ht+/c129t
+i = Ht
+i+1 + B
+/DLE
+Qt+/c129t
+i /NULQt
+i+1
+/DC1
+/NULrQt
+i+1
+ˇˇQt
+i+1
+ˇˇ ,  (7)
+where B is the pipe characteristic impedance, given by  B = a
+gA ; r is the pipe resistance coefficient, given by  r = f/c129x
+2gDA2  ; the wellbore system 
+was divided into n equal reaches or subsections, each Δx in length.
+Eqs. 5 and 6 are valid only when both C+ and C− equations are present, whereas there is only one equation, C+ or C−, for the wellhead 
+and bottomhole, so boundary conditions need to be added to solve for H and Q at the wellhead and bottoming (Wylie et al. 1993).
+Boundary Conditions at the Wellhead. The boundary conditions for the fracture- containing water hammer model are divided into two 
+main parts, which are the wellhead boundary conditions and the fracture boundary conditions at the bottom of the well. At the wellhead, 
+the flow rate at the wellhead is assumed to decrease linearly to zero during pump shutdown. Therefore, the boundary conditions at the 
+wellhead can be defined in terms of the change in flow rate. Based on the wellhead boundary flow, the wellhead boundary head can be 
+calculated by the C− equation.
+Wellbore Fracture Boundary Condition. Fracture boundary conditions are typically modeled as either single- fracture or 
+multifracture systems.
+In the single- fracture case, according to the description of the wellbore fracture boundary by Carey et al. (2015), in the wellbore frac-
+ture boundary condition, the wellbore fracture boundary condition can consist of a fixed resistance R, capacitance C, and inductance I of 
+an equivalent circuit (RCI model).
+The boundary condition is denoted as
+ 
+/SUBg/c129H= RQ + 1
+C
+ˆ
+Qdt + I dQ
+dt .
+  (8)
+The relationship between R, C, and I is shown in Eqs. 9 through 12 (Schönfeld 1954; Holzhausen and Gooch 1985; Mondal 2010; 
+Feynman et al. 2015).
+ 
+R = /c129Pnwf
+Q0
+,
+  (9)
+Fig. 3—(Left) Time vs. production; (right) time vs. pressure.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+November 2025 SPE Journal 6917
+ C = /c129V
+/c129P,  (10)
+ Q = C dP
+dt ,  (11)
+ /c129P = RQ = I dQ
+dt ,  (12)
+where Q0 is the injection rate before pump shutdown,  /c129Pnwf   is the near- well friction pressure drop; ΔV is the fracture volume change, and 
+ΔP is the fracture pressure change.
+The average net pressure  /c129P0  is the difference between the average pressure in the fracture  
+/NUL
+PBH /NULPnwf
+/SOH
+  and the minimum horizontal 
+ground stress  (SHmin ) .
+ /c129P0 =
+/NUL
+PBH /NUL/c129Pnwf
+/SOH
+/NULSHmin.  (13)
+Single-Fracture Model. Shlyapobersky et al. (1988) united the average net pressure with the crack size by the following equation and 
+classified the cracks into long  (2Lf/hf /NAK1)   and short  (2Lf/hf < 1)  cracks.
+ 
+/c129P0 = 4
+/EM2
+E
+1 /NUL/ETB2 E
+/NUL
+m
+/SOH
+w max
+/DC21
+Lf
+, 2
+Lf
+/DC3
+.
+  
+(14)
+E(m) is an elliptic integral of the second type, and the defining equation for m is shown in Eq. 15.
+ 
+E
+/NUL
+m
+/SOH
+=
+ˆ 1
+0
+p
+1 /NULm2t2
+1 /NULt2 dt,
+  
+(15)
+ 
+m = 1 /NUL
+0
+BB@
+min
+/DC2
+Lf, hf
+2
+/DC3
+max
+/DC2
+Lf, hf
+2
+/DC3
+1
+CCA
+2
+.
+  
+(16)
+The formulae for obtaining the length, width, and height of the cracks are shown below (Carey et al. 2015):
+ 
+Lf =
+s
+CI/c129P0
+/SUB,
+  
+(17)
+ 
+hf =
+8
+ˆˆˆˆˆ<
+ˆˆˆˆˆ:
+4E0E
+/NUL
+m
+/SOH
+C
+/EM2L2
+f
+/NUL
+short fracture
+/SOH
+vuut 4E0E
+/NUL
+m
+/SOH
+C
+/EM2L2
+f
+/NUL
+long fracture
+/SOH,
+  
+(18)
+ 
+w = /SUBLf
+Ihf
+,
+  
+(19)
+ E0 = E
+1 /NUL/ETB2 ,  (20)
+where v is the Poisson’s ratio.
+Multifracture Model. The multifractures boundary condition is based on the single- fracture boundary condition, which accounts for the 
+stress interference effect between multiple fractures (the number of hydraulic fractures equals the number of perforation clusters), and a 
+method to consider the effect of stress interference on fracture modeling is proposed on the basis of the conservation of fracture volume. 
+That is, the ratio of each maximum fracture width is incorporated into the equivalence relation for each fracture. The value of each fracture 
+geometry can then be calculated, and the multiple fracture equivalent circuit model is shown in Fig. 4. The RT, CT, and IT of the equivalent 
+single fracture are obtained by fitting the field data (Hu et al. 2022).
+Through the RCI circuit, the capacitances of each fracture are connected in parallel, so the capacitance of N fractures can be expressed as
+ 
+CT =
+NX
+i=1
+Ci,
+  
+(21)
+From Eq. 22, the half- length of the equivalent single fracture can be written as the sum of each fracture, and the conversion formula for 
+the fracture half- length can be expressed as
+ 
+LfE =
+vuut
+NX
+i=1
+L2
+i .
+  
+(22)
+where LfE is the half- length of the equivalent total fracture. Similarly, the equivalent single- fracture width can be written as the sum of 
+each fracture’s width. The conversion formula for fracture width can be expressed as
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+November 2025 SPE Journal6918
+ 
+wE =
+vuut
+NX
+i
+wi2.
+  
+(23)
+According to the assumption that all initial fractures have the same height, the height of each fracture can be defined as
+ hfE = hfi
+/NUL
+i = 1, 2, 3 ::: N
+/SOH
+.  (24)
+Subsequently, the stress interference between each fracture is calculated according to the following equation:
+ 
+/c129/ESCij
+/DLE= (PBH /NULSHmin)
+/DC4
+1 /NUL
+/DC2
+1+
+/DLEhf
+2dij
+/DC12/DC3/NUL
+3
+2
+/NAK
+.
+  
+(25)
+Among them,  /c129/ESCij  is the stress interference between the ith and jth fractures, and  dij  is the fracture spacing between the ith and jth frac-
+tures. When calculating the mutual stress interference between fractures, the net pressure of each fracture can be obtained based on the 
+stress interference between fractures. The formula can be expressed as
+ 
+Pnet,i = PBH /NULSHmin
+NX
+j=1,j¤1
+/c129/ESCji
+/CAN,
+  
+(26)
+where Pnet,i is the average net pressure of the ith fracture. It should be noted that if the net pressure of a certain fracture is calculated as a 
+negative value during the calculation process, it is considered that the fracture cannot propagate normally and should be removed, and the 
+net pressure of the remaining fractures should be recalculated. After obtaining the net pressure of all fractures, the fracture width of each 
+fracture under the stress interference model is calculated according to the fracture width expression derived by Sneddon and Elliot, and 
+the formula can be expressed as (Sneddon and Elliot 1946)
+ wi = 2hf
+/NUL
+1 /NULv2/SOH
+Pnet,i
+E .  
+(27)
+Solve for the half- length of each crack according to Eq. 28
+ 
+Lfi = IThfi
+/SUBwi
+.
+  
+(28)
+Among them, IT and hfi can be derived from the equivalent single fracture. Eq. 14 can be modified to the net pressure of 
+each multifracture.
+ 
+/c129P0i = 4
+/EM2
+E
+1 /NULv2 E
+/NUL
+m
+/SOH
+wi
+/DC21
+Lfi
+, 2
+hfi
+/DC3
+.
+  
+(29)
+Among them,  /GS  is the Poisson’s ratio. The calculated half- length (Lft) and width (wi) of each of the multiple fractures are used in Eq. 30 
+to calculate the net pressure ( /c129P0i ) of each fracture. Finally, Eq. 17 can be modified to the half- length of multiple fractures.
+ 
+Lf =
+s
+CiIT/c129P0i
+/SUB.
+  
+(30)
+Then, Eq. 30 can be transformed into
+Fig. 4—Schematic of multicrack equivalent circuit (Carey et al. 2015).
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+November 2025 SPE Journal 6919
+ 
+Ci =
+h2
+fi /SUB
+IT/c129P0i
+.
+  (31)
+Ci of each fracture with multiple fractures as well as the half- length Lfi, fracture width wi and fracture height hfi of each fracture can all 
+be calculated.
+Carey et al. (2015) suggested that the wellbore fracture boundary condition proposed by Mondal (2010) in the case of single- stage 
+multicluster fracturing is to equate multiple fracture effects into a single fracture. Carey et al. (2015) found a strong correlation between 
+the water hammer model and the fracture lengths explained by microseismicity. Iriarte et al. (2017) investigated the decay rate of water 
+hammer. The energy absorbed by the pressure pulse as it passes through the fracture network was considered, and the larger the fracture 
+network, the greater the water hammer attenuation. Thereafter, Hwang et al. (2017) investigated the effect of each parameter in the RCI 
+model on the water hammer signal and applied the RCI model to multicluster fracturing. Even though WHA is used and compared with 
+other diagnostic methods (Haustveit et al. 2017) during and after hydraulic- fracture propagation, no work has been done that can relate 
+WHA to post- production behavior.
+Although the geometry of hydraulic fractures can be complex at the near- wellbore scale, such as in en echelon or branching patterns, 
+multiple studies have demonstrated that on a reservoir scale, fracture geometry is often planar in many cases. Shahri et al. (2021) used 
+high- resolution fiber- optic measurements combined with fracture modeling to demonstrate that fracture swarms in HF treatments often 
+exhibit planar, vertically contained, and parallel geometries across multiple stages. Similar conclusions were drawn from the Hydraulic 
+Fracturing Test Site core- through project, which revealed that induced fractures were predominantly planar and subparallel, reflecting a 
+consistent propagation direction (Gale et al. 2014). Shahri et al. (2021) compared waterfall plot simulations and fiber- optic data, revealing 
+that hydraulic fractures can be very well modeled as nearly linear cracks. Furthermore, microseismic monitoring during HF operations 
+has shown that fractures generally align with the maximum horizontal stress and exhibit planar propagation patterns (Alalli and Zoback 
+2018). Cao et al. (2025) integrated microseismic data and numerical modeling and found that almost all hydraulic fractures propagate 
+along maximum horizontal stress with an average azimuth of NE 83° in a Gulong shale oil well. Liu et al. (2023) analyzed and tested core 
+samples from the Gulong shale formation, which is characterized by high clay mineral content (average 46.6 %) and strong plasticity, thus 
+favorable to planar fracture geometry. Therefore, while acknowledging small- scale complexity, the assumption of planar fracture geom-
+etry remains reasonable for modeling and interpreting fracture behavior in the Gulong shale formation. In A- Well, the number of clusters 
+per stage varies from 3 to 5, except for Stage 1, which contains only a single cluster. Consequently, the multifracture RCI model was 
+applied to all stages except Stage 1, where the single- fracture model was used. This differentiation ensures accurate fracture geometry 
+estimation based on cluster configuration.
+UTA. UTA integrates production data and shut- in pressure data to evaluate well performance and fracture effectiveness under transient 
+flow conditions. Under linear flow, the pressure response to variable rate production can be interpreted using the following expression:
+ 
+Pbh = P0 /NUL25.4 /STX103 B
+Af
+r /SYN
+k/RSct
+nX
+i=1
+/NUL
+qi /NULqi/NUL1
+/SOHrX
+ti /NUL
+X
+ti/NUL1,
+  (32)
+where Af is the effective fracture surface area, μ is the fluid viscosity, k is the permeability,  /RS  is the porosity, Ct is the total compressibility, 
+and B is the formation volume factor.
+To normalize the impact of variable production rates over time, a superposition variable τ, also known as convolution time, is intro-
+duced. It is calculated as
+ 
+/FSi =
+nX
+i=1
+/NUL
+qi /NULqi/NUL1
+/SOHrX
+ti /NUL
+X
+ti/NUL1.
+  (33)
+This transformation enables the plotting of pressure under variable rate conditions as a function of equivalent constant rate time. When 
+bottomhole pressure is plotted against τ, a straightline segment often emerges under linear flow conditions.
+The slope m of this linear segment is related to Af by
+ 
+m = 25.4 /STX103 B
+Af
+r /SYN
+k/RSct
+.
+  (34)
+By identifying the linear portion of the pressure–τ plot and fitting the slope  m = dPbh
+d/FS , the effective fracture surface area Af can be backcal-
+culated assuming known reservoir parameters. This process forms the core of UTA’s capability to quantitatively estimate fracture effec-
+tiveness using standard field data. The method is illustrated in Fig. 5 and offers a cost- effective alternative to image- based or 
+microseismic- based fracture diagnostics. UTA is advantageous over traditional RTA, which only uses production data, as it allows for 
+simultaneous analysis of production and shut- in data, providing a more complete picture of the well’s performance (Wang et al. 2021, 
+2022).
+All relevant simulation parameters are summarized in Table 1. These include wellbore dimensions, formation properties, fluid charac-
+teristics, and RCI circuit elements used in the water hammer and transient analysis. The values listed for resistance (R), capacitance (C), 
+and inductance (I) represent the initial guesses required to start the RCI- based WHA simulation. These values are not measured directly 
+but are assumed based on engineering judgment and used as starting points for iterative calibration. The final fracture dimension estima-
+tions are obtained after tuning these parameters to match observed pressure responses.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+November 2025 SPE Journal6920
+Parameter Value Parameter Value
+Pipe thickness (m) 0.01 Fluid viscosity (mPa·s) 10
+Pipe diameter (m) 0.11 Fluid density (kg/m3) 1000
+Pipe vertical length (m) 4000 Compressibility (1/MPa) 2.09×10−5
+Pipe horizontal length (m) 2000 Formation porosity 0.075
+Poisson’s ratio 0.28 Formation permeability (m2) 9.87×10−19
+Young’s modulus (GPa) 16.4 Formation volume factor 1.9037
+Friction factor 0.05 Minimum horizontal stress (MPa) 51.6
+Fracture pressure (MPa) 56.7 Number of clusters per stage 1
+Table 1—Input parameters used in WHA and UTA simulations.
+To illustrate the calibration process, Table 2 presents a typical set of initial and final values used for R, C, and I for Stage 1 of A- Well. 
+These values are tuned iteratively during simulation to improve agreement between modeled and observed pressure oscillation responses.
+Fig. 5—Workflow for stimulation evaluation and optimization based on integrated WHA and UTA interpretation. WHP = wellhead 
+pressure; GRI =gamma ray index.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+November 2025 SPE Journal 6921
+Parameter Initial Value Final Value
+Resistance (Pa·s/m3) 107 1.9×107
+Capacitance (m3/Pa) 10-5 1.5×10−5
+Inductance (Pa·s2/m6) 105 5.8×105
+Table 2—Initial and final RCI values used in WHA 
+simulation calibration for Stage 1 of A- Well.
+The overall diagnostic procedure integrating WHA and UTA is illustrated in Fig. 6. This workflow highlights the key steps in pressure 
+data processing, fracture modeling, and effective area estimation, forming the basis for all subsequent analyses.
+Fig. 6—Workflow for evaluating HF using WHA and UTA.
+Analysis and Results
+This section presents the results obtained from WHA and UTA, applied to A- Well in the Gulong shale oil field. The focus is on fracture 
+characterization, production effectiveness, and potential optimization strategies.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+November 2025 SPE Journal6922
+WHA Results. Water Hammer Model Validation. To verify the reliability of the WHA model, simulated wellhead pressure was 
+compared with field- measured pressure data during the shut- in period. As shown in Fig. 7, the simulated pressure curve (red) closely 
+replicates the measured oscillations (black), matching key characteristics, such as peak amplitude, oscillation frequency, and attenuation 
+behavior. This strong agreement validates the WHA model simulation and supports its use for fracture geometry estimation in subsequent 
+stages of A- Well.
+Fig. 7—Comparison between simulated (red) and observed (black) wellhead pressures during HF shut- in for Stage 1 of A- Well.
+Fracture Geometry Estimation From WHA. Fracture dimensions for all 45 stages in A- Well were estimated using WHA, under both 
+single- fracture and multifracture model assumptions. The key parameters—fracture half- length and fracture height—are summarized in 
+Figs. 8 through 10.
+Fig. 8—Total fracture half- length vs. stage diagram.
+Total Fracture Half-Length (Single-Fracture Model). As shown in Fig. 8, the total fracture half- length, estimated under the single- 
+fracture RCI model assumption, ranged from 114 m (Stage 1) to 281 m (Stage 21), with an average value of 228 m. The significant 
+Fig. 9—Per- cluster equivalent fracture half- length vs. stage diagram.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+November 2025 SPE Journal 6923
+variation among stages reflects the combined effects of local stress heterogeneity, rock mechanical properties, and injection parameters. 
+Longer fractures are generally observed in stages with higher fluid volumes and less resistive lithologies.
+Per-Cluster Equivalent Fracture Half-Length (Multifracture Model). In the multifracture model, fracture wave attenuation was ana-
+lyzed and decomposed into multiple oscillatory components, each associated with a fracture cluster. The equivalent half- length of each 
+cluster, derived based on energy partitioning and signal decay, is shown in Fig. 9. The values range from 76 m to 136 m, with a mean of 
+112 m. This distribution provides a refined view of the stimulation effectiveness across individual clusters and confirms that wave inter-
+ference and stress shadowing reduce effective fracture extension.
+Fracture Height. Fracture height estimates are summarized in Fig. 10, ranging from 26 m (Stage 18) to 47 m (Stage 9), with an average 
+of 36 m. Unlike fracture length, the variation in fracture height is relatively limited. This suggests that vertical growth is likely governed 
+by geological constraints, such as bedding planes, lamination density, or stress barriers, rather than by pumping volume alone. No statis-
+tically significant correlation was observed between fracture height and injection volume. Although the data in Fig. 10 may appear ran-
+dom, the overall trend aligns with the expected behavior of fracture propagation in heterogeneous reservoirs. The deviations from the 
+mean values are relatively small, indicating that the observed patterns are not merely random noise but reflect the inherent complexity of 
+the reservoir.
+Correlation between Fracture Dimensions and Injection Parameters. To explore how injection parameters influence fracture geom-
+etry, statistical correlations between total injection volume and both fracture half- length and fracture height were evaluated. The results 
+are shown in Fig. 11.
+Fig. 11—(Left) Single- fracture length vs. pumped volume, (middle) fracture height vs. pumped volume, and (right) number of water 
+hammer oscillations across 45 fracturing stages.
+Single-Fracture Length vs. Pumped Volume. As shown in Fig. 11 (left), there is a moderate positive correlation between total injection 
+volume and total fracture half- length. The Pearson correlation coefficient (r) is 0.47, and the Spearman rank correlation coefficient (ρ) is 
+0.48, indicating a consistent monotonic association. Pearson’s correlation coefficient r measures the strength of linear correlation between 
+two continuous variables, while Spearman’s correlation coefficient ρ assesses the strength and direction of a monotonic (nonlinear or 
+linear) relationship. In general, correlation coefficients between 0.4 and 0.6 are interpreted as moderate correlations (Mukaka 2012). 
+However, the coefficient of determination (R2) for linear regression is only 0.20, suggesting that injection volume alone explains a limited 
+portion of fracture length variability. This result implies that while higher injection volumes may promote longer fractures, other factors—
+such as formation brittleness, stress anisotropy, and natural fracture systems—also significantly influence fracture propagation.
+Fracture Height vs. Pumped Volume. In contrast, Fig. 11 (middle) shows that fracture height is not correlated with injection volume. 
+The Pearson coefficient is 0.02, and the R2 value is only 0.0004, indicating negligible linear dependence. This suggests that vertical frac-
+ture growth is not governed by pumping intensity but rather constrained by lithological layering, mechanical stratigraphy, and stress 
+barriers that inhibit upward or downward propagation. The relative invariance in height across stages supports the hypothesis that vertical 
+growth is geologically limited.
+Number of Water Hammer Oscillations across 45 Fracturing Stages. To further investigate the controls on fracture propagation, we 
+introduce Fig. 11 (right), which illustrates the number of water hammer oscillations detected across the 45 fracturing stages in A- Well. 
+The average number of oscillations per stage is 5. Based on oscillation counts, the stages were classified into three categories: high com-
+plexity (≤4 oscillations, 15 stages), moderate complexity (5–6 oscillations, 25 stages), and low complexity (≥7 oscillations, 5 stages). 
+Notably, regions with lower oscillation counts—indicating higher fracture complexity—tend to have shorter fracture lengths, even when 
+the injection volumes are high. A correlation analysis between oscillation count and fracture half- length yields a Pearson’s correlation 
+Fig. 10—Fracture height vs. stage diagram.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+November 2025 SPE Journal6924
+coefficient of –0.65, indicating a moderate negative correlation. This supports the interpretation that fracture complexity, rather than 
+injection volume alone, is a dominant control on fracture length in complex reservoir zones.
+Correlation With Petrophysical Properties. To investigate the relationship between petrophysical properties and fracture propagation 
+behavior, we performed Spearman’s rank correlation analysis using logging- derived parameters and WHA- derived fracture metrics, 
+including single- fracture length, per- cluster equivalent fracture half- length, fracture height, and the number of water hammer oscillations 
+(used as a proxy for fracture complexity). The results are illustrated in Fig. 12.
+Fig. 12—Correlation between pressure oscillation count and petrophysical properties.
+The gamma ray log (API), indicative of shale content, exhibits a moderate positive correlation with single- fracture length (ρ = 0.561), 
+fracture height (ρ = 0.486), and oscillation count (ρ = 0.401), and a weaker positive correlation with per- cluster equivalent fracture half- 
+length (ρ = 0.287). These relationships suggest that intervals with higher natural radioactivity may favor more extensive fracture growth 
+and preserve more coherent pressure wave responses. A possible explanation is that bedding- parallel weaknesses in shale- rich zones 
+promote vertical fracture containment and facilitate effective stimulation while also enhancing post- shut- in wave reflections due to 
+improved fracture continuity.
+In contrast, Young’s modulus shows moderate negative correlations with single- fracture length (ρ = –0.572), per- cluster equivalent 
+fracture half- length (ρ = –0.462), and fracture height (ρ = –0.450). This trend aligns with mechanical expectations that stiffer formations 
+are more resistant to tensile opening and fracture extension. The weak negative correlation between Young’s modulus and oscillation 
+count (ρ = –0.246) further implies that higher- stiffness zones may reduce fracture connectivity and suppress pressure 
+oscillation propagation.
+The brittleness index, often regarded as a favorable indicator for fracture growth, shows weak to moderate negative correlations with 
+fracture- related metrics: ρ = –0.253 for single- fracture length, ρ = –0.145 for per- cluster equivalent fracture half- length, and ρ = –0.288 
+for fracture height. Its correlation with oscillation count is minimal (ρ = –0.093). These results indicate that in this specific reservoir, 
+higher brittleness does not consistently correspond to longer or more complex fractures. This may reflect the overriding influence of other 
+geological factors such as stress anisotropy, natural fracture distribution, or proppant placement efficiency.
+Finally, the number of water hammer oscillations, serving as a proxy for fracture complexity and post- shut- in wave energy retention, 
+exhibits moderate positive correlations with single- fracture length (ρ = 0.522), per- cluster equivalent fracture half- length (ρ = 0.435), and 
+fracture height (ρ = 0.511). This suggests that higher oscillation counts are more likely associated with larger and more continuous fracture 
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+November 2025 SPE Journal 6925
+systems, rather than simply reflecting increased fracture tortuosity. In this case, pressure oscillations appear to represent fracture extent 
+and coherence, not necessarily complexity in the classical sense.
+Overall, these findings emphasize that fracture propagation and complexity in the studied formation are governed by interacting pet-
+rophysical and mechanical factors and that commonly used proxies such as brittleness may not always be reliable predictors on their own. 
+The integrated use of fracture geometry data, petrophysical logs, and WHA- derived oscillation behavior offers a more pronounced under-
+standing of stimulation effectiveness.
+UTA Results. UTA was applied to evaluate the effective fracture surface area contributing to production during post- fracture flow. 
+This method integrates both pressure and rate data to extract flow regime characteristics and diagnose the dynamic connectivity of the 
+stimulated reservoir volume. Specifically, two time intervals were selected for analysis: Stage 1 (Days 48–51) representing the early 
+linear flow regime and Stage 2 (Days 59–62) representing the later flow period. Slope fitting was applied to these segments to estimate 
+and compare the effective fracture surface area Af, as shown in Fig. 13. The variable  /FS  enables the pressure response to be interpreted in 
+a rate- normalized domain, facilitating flow regime identification and fracture surface estimation.
+Fig. 13—Superposition plot of bottomhole pressure vs. superposition time variable for A- Well. Two analysis intervals are selected: 
+Stage 1 (Days 48–51) and Stage 2 (Days 59–62), corresponding to early and later flow periods, respectively. These intervals are 
+used for slope fitting to estimate effective fracture surface area Af.
+In Interval 1 (Days 48–51), the UTA- derived effective fracture area was calculated to be 231 538.91 m², while in Interval 2 (Days 
+59–62), the area increased to 752 668.45 m². This near- threefold increase illustrates the progressive activation of the fracture network over 
+time. The difference reflects the evolution of reservoir pressure distribution and improved fracture connectivity as the reservoir system 
+transitions from near- wellbore dominance to broader drainage. Early- time production is typically influenced by steeper pressure gradients 
+and restricted flow near the wellbore, where fluid cleanup, capillary effects, or residual fracturing fluids may temporarily hinder conduc-
+tivity. In contrast, later- time data represent a more stabilized flow regime with lower pressure gradients and enhanced communication with 
+distal fracture segments. The observed increase in effective fracture area may be associated with improved drawdown efficiency with 
+flowback of residual fracturing fluid and the mobilization of previously less- connected flow paths. While Fig. 13 alone does not directly 
+capture pressure propagation depth, the evolution of Af suggests an expansion of conductive fracture surface that could reflect enhanced 
+fracture connectivity or delayed activation of distal branches (Deen et al. 2015).
+Fig. 14 provides a comparison between fracture surface areas estimated by UTA and those derived from WHA. The total fracture 
+surface area was calculated through WHA using 
+ 
+Af = 2 /STX
+45X
+i=1
+(Li /STXHi)
+ 
+, where Li and Hi represent the half- fracture length (total or per- 
+cluster sum) and height for each stage. The single- fracture model yielded a total area of 1 426 271.56 m², while the multifracture model 
+yielded 1 404 359.69 m². These results represent the maximum geometrically stimulated region, regardless of long- term conductivity. The 
+results also indicate that the single- fracture model and multifracture model yield similar results.
+In comparison, the UTA- derived area from Interval 2 accounts for only 47% of the WHA- estimated total, revealing that a large portion 
+of the hydraulically stimulated fracture network does not contribute meaningfully to production. This discrepancy underscores the impor-
+tance of dynamic fracture evaluation: WHA captures the static mechanical footprint immediately after shut- in, while UTA reflects the 
+evolving flow- effective volume that is both conductive and connected. Moreover, the similarity between fracture areas calculated using 
+single- and multifracture WHA models implies that the half- length derived from the multifracture model per stage is approximately equal 
+to the single- fracture model- derived half- length divided by the number of fracture clusters per stage. In other words, a single- fracture 
+model can be used to estimate the average half- length per stage by using derived half- length divided by the total cluster number. Despite 
+slight discrepancies due to modeling assumptions or input uncertainties, this result confirms the consistency of WHA geometry estimation 
+under appropriate parameter selection.
+Taken together, these findings highlight the diagnostic complementarity of UTA and WHA. UTA offers a time- dependent perspective 
+of effective fracture contribution, critical for understanding stimulation efficiency. Operational strategies—such as choke tuning or flow-
+back design—can be optimized using UTA insights to increase fracture utilization, reduce unproductive volume, and enhance 
+overall recovery.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 14 =====
+November 2025 SPE Journal6926
+Uncertainty Analysis. The discrepancy between fracture surface areas estimated by WHA and UTA can also arise from multiple 
+sources of uncertainty, including model assumptions, measurement quality, reservoir heterogeneity, and fundamental differences in the 
+physical behavior that each method captures. Understanding these limitations is critical to interpreting diagnostic results and guiding 
+stimulation optimization.
+Model Assumptions. WHA typically assumes planar, symmetrical, biwing fractures with uniform height, which may oversimplify the 
+true geometry of multicluster fractures in horizontal wells. These assumptions can lead to overestimations of fracture dimensions, espe-
+cially in zones affected by asymmetric growth or fracture interaction. UTA, by contrast, does not explicitly define fracture geometry but 
+infers the effective contributing area from flow behavior, often assuming linear or bilinear flow regimes. When nonlinear flow, delayed 
+connectivity, or progressive fracture closure is present, UTA may underestimate the area actively participating in production.
+Measurement Errors. Both WHA and UTA are sensitive to data quality. Errors in bottomhole pressure reconstruction, pressure- 
+dependent in fluid properties (e.g., viscosity and compressibility), and fluctuations in surface production rates or choke settings can intro-
+duce inaccuracies. In WHA, these uncertainties influence the estimation of fracture length and height from pressure oscillations. In UTA, 
+they affect the identification of flow regimes and slope determination used to calculate effective fracture area.
+Reservoir Heterogeneity. The Gulong shale formation exhibits substantial heterogeneity in lithology, rock properties, and in- situ stress 
+distribution. These characteristics influence both fracture propagation and fluid flow paths, leading to spatial variability that cannot be 
+fully captured by idealized models. As a result, the same diagnostic method may yield different results in different stratigraphic intervals, 
+even under similar operational conditions.
+Fundamental Physical Differences. WHA captures the total hydraulic footprint of the fracture system immediately after shut- in—
+specifically, all zones that responded to pressure wave propagation regardless of long- term conductivity. Because pressure waves travel 
+rapidly and are unaffected by proppant distribution in the short term, WHA may reflect noncontributing or poorly connected fractures. 
+In contrast, UTA reflects only the effectively contributing area—that is, portions of the fracture system that remain open, propped, and 
+hydraulically connected over time. This distinction explains why UTA often produces smaller but more production- relevant estimates.
+These differences are illustrated in this study, where the UTA- derived effective fracture area was approximately 47% of the area esti-
+mated by WHA (Fig. 14). This implies that less than one- half of the hydraulically stimulated volume ultimately contributes to production, 
+providing a practical metric for evaluating proppant placement efficiency and fracture utilization. Such ratios can help diagnose treatment 
+quality and guide decisions on refracturing or well spacing. These findings are consistent with previous studies. For example, Xu et al. 
+(2015) used a material balance approach based on flowback data and found that the recovered volume was significantly less than the 
+estimated created volume. Similarly, Mayerhofer et al. (2010) reported that although microseismic mapping could delineate the total 
+stimulated reservoir volume, only a fraction of that volume was conductive and contributed to sustained flow, due to nonuniform proppant 
+distribution, insufficient fracture conductivity, or disconnected flow paths. In summary, integrating WHA and UTA provides a more com-
+prehensive understanding of fracture effectiveness. WHA defines the spatial extent of initial stimulation, while UTA evaluates its produc-
+tive impact. These uncertainties are rooted in specific geological and engineering conditions. For example, strong stress contrasts between 
+layers or the presence of natural fractures can lead to asymmetric fracture growth, which deviates from the planar assumptions of WHA. 
+Proppant distribution in high- viscosity fluids may result in uneven conductivity, affecting UTA- derived area estimates. Surface flow rate 
+fluctuations or choke control changes introduce signal noise that can interfere with pressure derivative stability. Additionally, the estima-
+tion of R, C, and I parameters is highly sensitive to the shut- in response duration and signal resolution. Recognizing these dependencies 
+allows engineers to identify high- risk uncertainty sources and improve operational planning, such as using a supervisory control and data 
+acquisition system for automatic flow measurement, tailoring injection, and shut- in schedules, and ensuring high- fidelity pressure data 
+acquisition. This low- cost dual approach enhances diagnostic reliability and supports more effective HF design and reservoir management 
+in unconventional formations.
+Based on the combined insights from WHA and UTA, a practical workflow for stimulation evaluation and optimization is proposed, 
+as illustrated in Fig. 5. The workflow begins with the acquisition of high- frequency shut- in pressure and production rate data. WHA is 
+applied to interpret fracture complexity and estimate the total stimulated area immediately after shut- in. UTA is used to quantify the 
+effective fracture surface area over time during production. These two diagnostic methods are applied in parallel and then integrated to 
+identify discrepancies between stimulated and productive fracture surface area. The comparison of WHA- derived and UTA- derived areas 
+provides a quantitative measure of fracture utilization. These results are then correlated with geological (such as logging data and seismic 
+data) and design parameters (such as cluster spacing, perforation number, injection rate, fracturing fluid viscosity, and injection volume). 
+Based on the diagnosis, treatment designs can be iteratively refined to improve proppant placement, fracture connectivity, and overall 
+Fig. 14—Comparison of estimated surface between different methods.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 15 =====
+November 2025 SPE Journal 6927
+stimulation efficiency (e.g., iteratively optimize design parameters for a certain geological formation to achieve maximum effective frac-
+ture surface area and/or to maximize the ratio of WHA- derived fracture surface area/UTA- derived fracture surface area).
+Conclusions
+With this study, we present a dual- method framework that integrates WHA and UTA to evaluate hydraulic- fracture effectiveness in the 
+Gulong shale oil reservoir. WHA captures the initial extent and complexity of the fracture network immediately after shut- in while frac-
+tures area open, whereas UTA quantifies the long- term contributing surface area during production while fracture area is closed. The 
+combination of these two diagnostics offers a more complete picture of both stimulation scale and productive impact.
+Field application demonstrates that the UTA- derived effective fracture area was approximately 47% of the WHA- estimated area, high-
+lighting a significant discrepancy between the total stimulated volume and the portion that ultimately contributes to production. This 
+finding emphasizes the importance of evaluating not only the created fracture geometry but also its sustained conductivity.
+The proposed integrated approach is cost- effective, nonintrusive, and relies solely on routinely acquired pressure and production data. 
+A practical workflow is established for stimulation optimization, including data acquisition, diagnostic interpretation, and treatment 
+design feedback. By applying this framework across multiple wells, operators can optimize HF design iteratively to maximize stimulation 
+effectiveness and improve well performance.
+Nomenclature
+ a =  pressure wave velocity, m/s
+ A =  cross- sectional or surface area, m²
+ Af =  effective fracture surface area (single wing), m²
+ Af,UTA =  fracture area estimated from unified transient analysis, m²
+ Af,WHA =  fracture area estimated from water- hammer analysis, m²
+ B =  formation volume factor or pipe impedance, dimensionless
+ C =  capacitance in RCI model, m³/Pa
+ C+ =  positive characteristic line
+ C− =  negative characteristic line
+ Ct =  total compressibility, 1/MPa
+ dij =  distance between fractures, m
+ D =  inner diameter of pipe, m
+ e =  pipe wall thickness, mm
+ E =  Young’s modulus, GPa
+ E′ =  plane strain elastic modulus, GPa
+ E(m) =  elliptic integral of second kind
+ f =  friction factor, dimensionless
+ g =  gravitational acceleration, m/s²
+ hf =  fracture height, m
+ H =  piezometric head, m
+ I =  inductance in RCI model, Pa·s²/m⁶
+ K =  formation permeability, m2
+ Lf =  fracture half- length, m
+ n =  subsection index of pipe
+ P =  pressure, Pa or MPa
+ Pbh =  bottomhole pressure, Pa or MPa
+ Pf =  average fracture pressure or net pressure, Pa
+ ΔPnwf =  near- wellbore friction loss, Pa
+ Q =  flow rate, m³/s
+ Q0 =  flow rate before shut- in, m³/s
+ R =  resistance in RCI model, Pa·s/m³
+ Re =  Reynolds' number
+ S =  skin factor
+ SHmin =  minimum horizontal stress, MPa
+ t =  time, seconds or days
+ v =  Poisson’s ratio
+ V =  fluid velocity, m/s
+ Wf =  fracture width from viscous dissipation, mm
+ x =  spatial coordinate, m
+ z =  elevation above datum, m
+ λ =  multiplier or regression coefficient, dimensionless
+ μ =  fluid viscosity, mPa·s
+ ρ =  fluid density, kg/m³
+ τ =  superposition time variable, seconds
+ ψ =  formation porosity, dimensionless
+Reference
+Adachi, J., Siebrits, E., Peirce, A. et al. 2007. Computer Simulation of Hydraulic Fractures. Int J Rock Mech Min Sci 44 (5): 739–757. https://doi.org/10. 
+1016/j.ijrmms.2006.09.008.
+Alalli, A. A. and Zoback, M. D. 2018. Microseismic Evidence for Horizontal Hydraulic Fractures in the Marcellus Shale, Southeastern West Virginia. Lead 
+Edge 37 (5): 356–361. https://doi.org/10.1190/tle37050356.1.
+Anderson, D. M., Nobakht, M., Moghadam, S. et al. 2010. Analysis of Production Data from Unconventional Gas Wells. Paper presented at the Presented 
+at the SPE Unconventional Gas Conference, Pittsburgh, Pennsylvania, USA.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 16 =====
+November 2025 SPE Journal6928
+Cao, J., Cai, M., Li, J. et al. 2025. Optimization of V olumetric Fracturing Stages and Clusters in Continental Shale Oil Reservoirs Based on Geology- 
+Engineering Integration. Energies 18 (12): 3066. https://doi.org/10.3390/en18123066.
+Carey, M. A., Mondal, S., and Sharma, M. M. 2015. Analysis of Water Hammer Signatures for Fracture Diagnostics. Paper presented at the Presented at 
+the SPE Annual Technical Conference and Exhibition, Houston, Texas, USA, 28−30 September. https://doi.org/10.2118/178034-MS.
+Chu, W., Lee, W. J., and Onur, M. 2017. A Novel Semianalytical Approach for Rate- Transient Analysis of Tight/Shale Gas Reservoirs With Complex- 
+Fracture Geometries. SPE J . (6): 1883–1900.
+Deen, T., Daal, J., and Tucker, J. 2015. Maximizing Well Deliverability in the Eagle Ford Shale Through Flowback Operations. Paper presented at the SPE 
+Annual Technical Conference and Exhibition, Houston, Texas, USA, 28−30 September. https://doi.org/10.2118/174831-MS.
+Economides, M. J. and Martin, T. 2007. Modern Fracturing: Enhancing Natural Gas Production. Houston, Texas, USA: Gulf Publishing Company.
+El- Banbi, A. H. and Wattenbarger, R. A. 1998. Analysis of Linear Flow in Gas Well Production. Paper presented at the SPE Gas Technology Symposium, 
+Denver, Colorado, USA, 5−8 April. https://doi.org/10.2118/39972-MS.
+Fang, D. Z., Gu, H. T., Qian, J. et al. 2022. Real- Time Microseismic Monitoring for the Hydraulic Fracture of Horizontal Wells at NC Block. Prog Geophy 
+37 (2): 577–587. https://doi.org/10.6038/pg2022DD0100.
+Feng, Z., Jia, C., Xie, X. et al. 2010. Tectonostratigraphic Units and Stratigraphic Sequences of the Nonmarine Songliao Basin, Northeast China. Basin 
+Research 22 (1): 79–95. https://doi.org/10.1111/j.1365-2117.2009.00445.x.
+Feynman, R. P., Leighton, R. B., and Sands, M. 2015. The Feynman Lectures on Physics. New York, USA: The New Millennium Edition, Basic Books.
+Gale, J. F. W., Laubach, S. E., Olson, J. E. et al. 2014. Natural Fractures in Shale: A Review and New Observations. Bull J N Y State Archeol Assoc 98 (11): 
+2165–2216. https://doi.org/10.1306/08121413151.
+Geertsma, J. and De Klerk, F. 1969. A Rapid Method of Predicting Width and Extent of Hydraulically Induced Fractures. J Pet Technol 21 (12): 1571–1581. 
+https://doi.org/10.2118/2458-PA.
+Halliwell, A. R. 1963. Velocity of a Water- Hammer Wave in an Elastic Pipe. J Hydr Div 89 (4): 1–21. https://doi.org/10.1061/JYCEAJ.0000897.
+Haustveit, K., Dahlgren, K., Greenwood, H. et al. 2017. New Age Fracture Mapping Diagnostic Tools- A STACK Case Study. Paper presented at the SPE 
+Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 24−26 January. https://doi.org/10.2118/184862-MS.
+Holzhausen, G. R. and Gooch, R. P. 1985. Impedance of Hydraulic Fractures: Its Measurement and Use for Estimating Fracture Closure Pressure and 
+Dimensions. Paper presented at the SPE/DOE Low Permeability Gas Reservoirs Symposium, Denver, Colorado, USA, 25−28 March. https://doi.org/ 
+10.2118/13892-MS.
+Hu, X., Luo, Y ., Zhou, F. et al. 2022. Evaluation of Multi- Fractures Geometry Based on Water Hammer Signals: A New Comprehensive Model and Field 
+Application. J Hydrol 612: 128240. https://doi.org/10.1016/j.jhydrol.2022.128240.
+Huang, B. and Liu, J. 2017. Experimental Investigation of the Effect of Bedding Planes on Hydraulic Fracturing Under True Triaxial Stress. Rock Mech 
+Rock Eng 50 (10): 2627–2643. https://doi.org/10.1007/s00603-017-1261-8.
+Hwang, J., Szabian, M. J., and Sharma, M. M. 2017. Hydraulic Fracture Diagnostics and Stress Interference Analysis by Water Hammer Signatures in 
+Multi- Stage Pumping Data. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology Conference, Austin, Texas, USA, 24−26 
+July. https://doi.org/10.15530/urtec-2017-2687423.
+Iriarte, J., Merritt, J., and Kreyche, B. 2017. Using Water Hammer Characteristics as a Fracture Treatment Diagnostic. Paper presented at the SPE 
+Oklahoma City Oil and Gas Symposium, Oklahoma City, Oklahoma, USA, 27−31 March. https://doi.org/10.2118/185087-MS.
+Ji, W., Hao, F., and Gong, F. 2024. Petroleum Migration and Accumulation in a Shale Oil System of the Upper Cretaceous Qingshankou Formation in the 
+Songliao Basin, Northeastern China. Am Assoc Pet Geol Bull 108 (8): 1611–1648. https://doi.org/10.1306/02282423012Li.
+Li, Z.-Q., Chen, J.-L., Zou, H. et al. 2021a. Mesozoic–Cenozoic Tectonic Evolution and Dynamics of the Songliao Basin, NE Asia: Implications for the 
+Closure of the Paleo- Asian Ocean and Mongol- Okhotsk Ocean and Subduction of the Paleo- Pacific Ocean. Earth Sci Rev 218: 103471. https://doi.org/ 
+10.1016/j.earscirev.2020.103471.
+Li, N., Fang, L., Sun, W. et al. 2021b. Evaluation of Borehole Hydraulic Fracturing in Coal Seam Using the Microseismic Monitoring Method. Rock Mech 
+Rock Eng 54 (2): 607–625. https://doi.org/10.1007/s00603-020-02297-8.
+Liu, H., Ma, S., Wang, S. et al. 2023. Mechanical Characteristics and Fracture Propagation Mechanisms of the Gulong Shale. Oil & Gas Geology 44 (4): 
+820–828. https://doi.org/10.11743/ogg20230402.
+Liu, B., Wang, H., Fu, X. et al. 2019. Lithofacies and Depositional Setting of a Highly Prospective Lacustrine Shale Oil Succession from the Upper 
+Cretaceous Qingshankou Formation in the Gulong Sag, Northern Songliao Basin, Northeast China. Bull J N Y State Archeol Assoc 103 (2): 405–432. 
+https://doi.org/10.1306/08031817416.
+Mayerhofer, M. J. . J., Lolon, E. P. . P., Warpinski, N. R. . R. et al. 2010. What Is Stimulated Reservoir V olume? SPE Prod & Oper 25 (1): 89–98. https:// 
+doi.org/10.2118/119890-PA.
+Mondal, S. 2010. Pressure Transients in Wellbores: Water Hammer Effects and Implications for Fracture Diagnostics. MS Thesis, The University of Texas 
+at Austin, Austin, Texas, USA.
+Mukaka, M. M. 2012. Statistics Corner: A Guide to Appropriate Use of Correlation Coefficient in Medical Research. Malawi Med J 24 (3): 69–71.
+Nordgren, R. P. 1972. Propagation of a Vertical Hydraulic Fracture. SPE J. 12 (4): 306–314. https://doi.org/10.2118/3009-PA.
+Perkins, T. K. and Kern, L. R. 1961. Widths of Hydraulic Fractures. J Pet Technol 13 (9): 937–949. https://doi.org/10.2118/89-PA.
+Schönfeld, J. C. 1954. Analogy of Hydraulic, Mechanical, Acoustic and Electric Systems. Appl Sci Res 3 (1): 417–450. https://doi.org/10.1007/BF02123920.
+Shahri, M., Tucker, A., Rice, C. et al. 2021. High Fidelity Fibre- Optic Observations and Resultant Fracture Modeling in Support of Planarity. Paper 
+presented at the SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 4−5 May. https://doi.org/10.2118/ 
+204172-MS.
+Shen, J., Zhao, Y . S., and Duan, K. L. 1997. Numerical Simulation of Hydraulic Fracture in Low- Permeable Coal and Rock Mass. J China Coal Soc 22 
+(6): 580–585.
+Shlyapobersky, J., Wong, G. K., and Walhaug, W. W. 1988. Overpressure Calibrated Design of Hydraulic Fracture Stimulations. Paper presented at the SPE 
+Annual Technical Conference and Exhibition, Houston, Texas, USA, 2−5 October. https://doi.org/10.2118/18194-MS.
+Sneddon, I. N. and Elliot, H. A. 1946. The Opening of a Griffith Crack under Internal Pressure. Quart Appl Math 4 (3): 262–267. https://doi.org/10.1090/ 
+qam/17161.
+Sun, L., Cui, B., Zhu, R. et al. 2023. Shale Oil Enrichment Evaluation and Production Law in Gulong Sag, Songliao Basin, NE China. Pet Explor Dev 50 
+(3): 505–519. https://doi.org/10.1016/S1876-3804(23)60406-9.
+Sun, L., Liu, H., He, W. et al. 2021. An Analysis of Major Scientific Problems and Research Paths of Gulong Shale Oil in Daqing Oilfield, NE China. Pet 
+Explor Dev 48 (3): 527–540. https://doi.org/10.1016/S1876-3804(21)60043-5.
+Sun, L., Wang, F., Bai, X. et al. 2024. Discovery of Nano Organo- Clay Complex Pore- Fractures in Shale and Its Scientific Significance: A Case Study 
+of Cretaceous Qingshankou Formation Shale, Songliao Basin, NE China. Pet Explor Dev 51 (4): 813–825. https://doi.org/10.1016/S1876-3804(24) 
+60508-2.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 17 =====
+November 2025 SPE Journal 6929
+Sun, L., Zhang, J., Tan, X. et al. 2023. Mechanical Properties and Fracture Characteristics of Deep Continental Shale: A Case Study of the Gulong Shale 
+in the Songliao Basin. NE China. J Pet Sci Eng 220: 111162.
+Tang, Y ., Tang, X., Wang, G. et al. 2011. Summary of Hydraulic Fracturing Technology in Shale Gas Development. Geol Bu China 30 (2–3): 393–399.
+Wang, P. J., Mattern, F., Didenko, N. A. et al. 2016. Tectonics and Cycle System of the Cretaceous Songliao Basin: An Inverted Active Continental Margin 
+Basin. Earth Sci Rev 159: 82–102. https://doi.org/10.1016/j.earscirev.2016.05.005.
+Wang, H. Y ., McGowen, H., and Sharma, M. M. 2022. Unified Transient Analysis (UTA) of Production and Shut- in Data from Hydraulic Fractured 
+Horizontal Wells. Journal of Petroleum Science and Engineering 209: 109876. https://doi.org/10.1016/j.petrol.2021.109876.
+Wang, H. Y ., Sharma, M., and McGowen, H. 2021. Unified Pressure and Rate Transient Analysis of Production and Shut- in Data from Fractured Horizontal 
+Wells. Paper presented at the SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 4−6 May. https://doi. 
+org/10.2118/204136-MS.
+Wattenbarger, R. A., El- Banbi, A. H., Villegas, M. E. et al. 1998. Production Analysis of Linear Flow Into Fractured Tight Gas Wells. Paper presented at 
+the SPE Rocky Mountain Regional/Low- Permeability Reservoirs Symposium, Denver, Colorado, USA, 5−8 April. https://doi.org/10.2118/39931-MS.
+Wylie, E. B., Streeter, V . L., and Suo, L. 1993. Fluid Transients in Systems. Englewood Cliffs, New Jersey, USA: Prentice Hall.
+Xu, W., Guo, Y ., Sun, Y . et al. 2015. Evaluation of Hydraulic Fracture Effectiveness Using Material Balance and Flowback Analysis in Shale Gas Wells. J 
+Nat Gas Sci Eng 27 (3): 1223–1233. https://doi.org/10.1016/j.jngse.2015.09.030.
+Zhang, Y . 2021. Analysis of Reservoir Characteristics and the Same Main Controlling Factors in Gulong Area of Songliao Basin. In Proceedings of the 
+International Field Exploration and Development Conference 2021 (IFEDC 2021), ed. J. Lin, 4920–4929. Singapore: Springer Series in Geomechanics 
+and Geoengineering, Springer. https://doi.org/10.1007/978-981-19-2149-0_455.
+Zhuang, Z., Wang, Y ., Wang, T. et al. 2016. The Key Mechanical Problems on Hydraulic Fracture in Shale. Chin Sci Bull 61 (1): 72–81. https://doi.org/ 
+10.1360/N972015-00347.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​11/​6913/​5267105/​spe-230315-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026

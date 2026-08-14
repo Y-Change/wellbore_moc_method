@@ -1,0 +1,1113 @@
+SOURCE: 16-2026-Real-Time Diagnostics of Hydraulic Fracture Propagation Using Continuous Wavelet Transform of Transient Pressure Fluctuation.pdf
+PAGES: 18
+FULL extract 18 pages
+
+
+
+===== PAGE 1 =====
+2026 SPE Journal 1
+Real- Time Diagnostics of Hydraulic 
+Fracture Propagation Using Continuous 
+Wavelet Transform of Transient 
+Pressure Fluctuation
+Jialin Zhang1,2, Mao Sheng1,2*   , Yulong Jiang 1,2, Shizhong Cheng3, Jie Li4, Xiaodong He4, and Shouceng Tian1,2
+1State Key Laboratory of Deep Geothermal Resources, China University of Petroleum (Beijing), Beijing, China 
+2Research Center for Intelligent Drilling & Completion Technology and Equipment, China University of Petroleum (Beijing), Beijing, China
+3China Coal Technology and Industry Group Co. Ltd., Beijing, China
+4PetroChina Xinjiang Oilfield Company, Karamay, Xinjiang, China
+Summary
+Hydraulic fracturing diagnostics are essential for the efficient stimulation of unconventional reservoirs. Treating pressure is an accessible 
+field signal and provides a low- cost and nonintrusive basis for characterizing hydraulic fracture propagation. However, conventional time- 
+domain analysis often fails to capture transient fluctuations associated with fracture propagation because of the interference from wellbore 
+resonance, operational adjustments, and background noise. More valuable pressure fluctuation distributes across the various frequency 
+components. In this paper, we propose a real- time diagnostic approach using the continuous wavelet transform (CWT) to extract rate- 
+corrected transient pressure fluctuations intrinsic from the stress release and accumulation of hydraulic fractures propagation. It enables 
+the dynamic classification of fracture propagation patterns, including primary fracture growth, complex fracture development, discontinu-
+ities intersection, and fracture interruption. CWT in particular is used to decompose the treating pressure signal, and the fracture- induced 
+fluctuations are characterized as broadband impulsive responses in the time- frequency energy spectrum. Wavelet coherence analysis 
+between pressure and slurry rate is introduced to identify time- frequency regions minimally disturbed by variable rates. Results indicated 
+that the 0.3–0.5- Hz frequency components are identified as an effective diagnostic band for data sampling of 1 Hz. Pressure fluctuation 
+energy in the 0.4–0.5- Hz sub- band serves as a surrogate for instantaneous stress release of hydraulic fracture propagation and reflects 
+the efficiency with which the hydraulic energy is converted into new fracture surfaces. The pressure fluctuation attenuation coefficient 
+is defined from the pressure energy distribution contrast between high- and low- frequency components. Increased hydraulic- energy dis-
+sipation along the fracture path and hindered stress reaccumulation produce frequency variation within the pressure fluctuation period, 
+leading to a stronger transfer of pressure energy toward the 0.3–0.4- Hz sub- band. Based on these two quantified features, rule- based fuzzy 
+inference is then used to classify the fracture propagation patterns into four categories on a 5- second window basis. Supporting evidence 
+for the proposed method was provided by independent microseismic and distributed fiber- optic measurements. The fracturing stages 
+dominated by complex fracture development are further supported by higher interstage tracer production. In addition, locally prolonged 
+elevated energy near 0.35–0.4 Hz in the pressure time- frequency spectrum is identified as a potential indicator of enhanced fracture 
+complexity associated with large- scale discontinuities activation and fracture branching. The proposed technique provides an automated, 
+quantitative connection between treating pressure fluctuations and fracture propagation dynamics, offering a practical real- time alterna-
+tive for the evaluation of hydraulic fracturing performance.
+Introduction
+Hydraulic fracturing diagnostics are essential for the efficient stimulation of unconventional reservoirs. Understanding fracture propaga-
+tion behavior is critical for evaluating treatment performance and guiding real- time optimization of pumping parameters. As the routinely 
+recorded field signal, treating pressure provides an economical and nonintrusive solution for diagnosing fracture propagation dynamics. 
+It reflects the integrated response to treatment strategy, resonances in the fluid column from wellbore or fracture deformation, propagation 
+of fluid connected fractures, and background noise (MacKay et al. 2018; Wei et al. 2025). Accurate characterization of pressure evolution 
+associated with distinct fracture propagation patterns is fundamental to pressure- based diagnostics.
+Nolte and Smith (1981) pioneered pressure- based diagnostics through log- log interpretation of net pressure vs. time. Subsequent stud-
+ies extended this framework to pressure- trend classification (stable, fluctuation, rise, and drop) for identifying fracture propagation pat-
+terns such as normal propagation, fracture- height growth, and proppant screenout (Chen et al. 2020
+). However, the Nolte- Smith method 
+generally relies on assumptions including continuous fracture propagation, fixed pumping rate, or prior knowledge of closure pressure, 
+which may not hold during large- scale volume fracturing. Besides, compression of pressure data imposed by the log- log plot makes real- 
+time interpretation hard. The Nolte- Smith framework was further extended by introducing intermittent fracture propagation with alternat-
+ing growth and ballooning periods, which led to the moving reference point (MRP) method for real- time diagnosis of fracturing events 
+(Soliman et al. 2014; Pirayesh et al. 2015). Although MRP does not require prior knowledge of closure pressure and presents results in 
+Cartesian coordinates, it still depends on a relatively complex mathematical formulation for determining the moving reference exponent. 
+Numerical simulations based on Biot’s theory indicate that hydraulic fracture propagation is inherently intermittent. Fracture opening 
+releases stress and causes a rapid pressure drop, while subsequent fluid filling drives stress reaccumulation and pressure recovery until the 
+next rupture ( Tzschichholz and Herrmann 1995 ; Milanese et al. 2016; Cao et al. 2018). As  a result, fracture growth leaves transient 
+*Corresponding author; email: shengmao@cup.edu.cn
+Copyright © 2026 Society of Petroleum Engineers
+Original SPE manuscript received for review 11 January 2026. Revised manuscript received for review 20 May 2026. Paper (SPE 234685) peer approved 9 June 2026.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+2026 SPE Journal2
+pressure fluctuations superimposed on the global pressure trend. Transient pressure fluctuations have also been observed in laboratory 
+true- triaxial hydraulic fracturing tests. Bian et al. (2016) related fluctuation frequency and amplitude on the treatment curve to fracture 
+complexity and far- field fracture geometry. Abdelaziz and Grasselli (2024) observed the difference in pressure fluctuation between tensile 
+and shear fractures, which provided key physical evidence for the characteristics of pressure fluctuation. Tensile fracture exhibits a sharp 
+pressure drop with quick recovery, while shear fracture shows a slower pressure recovery. These observations indicate that pressure fluc-
+tuations are informative indicators of complex fracture evolution. Owing to formation heterogeneity and varying fracture types, such 
+fluctuations appear not as continuous water- hammer oscillations, but as frequency- varying transient responses.
+Because fracture- induced pressure fluctuations are nonstationary and frequency- varying, time- domain analysis alone is often insuffi-
+cient. Wavelet transform provides localized resolution in both time and frequency, enabling effective capture of abrupt singularities with 
+less temporal smearing than Fourier- based global transforms (Mallat and Hwang 2002; Daubechies 1990; Addison 2005). It is therefore 
+well suited for preserving rupture- related energy bursts and identifying frequency transitions in fracturing pressure signals. Accordingly, 
+wavelet transform has recently been applied to pressure- based fracture diagnostics without requiring simplifying assumptions or sophis-
+ticated models (Li et al. 2022a; Sheng et al. 2022; Hu et al. 2025). Wavelet transform mainly includes discrete wavelet transform (DWT) 
+and CWT. DWT has been used in pumping pressure and diagnostic fracture injection test (DFIT) analysis to identify events such as lea-
+koff, ballooning, and fracture closure, and to reduce rate- related interference through pressure- rate wavelet- energy comparison (Unal 
+et al. 2018, 2019b; Hu et al. 2022). While DWT offers efficient computation, its fixed decomposition scales and substantial downsampling 
+inherently limit frequency resolution in high- frequency components. By contrast, CWT provides superior frequency resolution through 
+continuous decomposition scales, making it better suited for capturing the evolution of transient responses in nonstationary pressure 
+signals (Arts and van den Broek 2022). Although the computational cost of CWT is more intensive, CWT maintains acceptable processing 
+efficiency for field data with one- second interval while preserving high- frequency components resolution. Gabry et al. (2023a, 2023b) 
+applied CWT to DFIT analysis and identified fracture closure from minimum stabilized signal energy during pressure falloff, with support 
+from field- scale strain measurements. Wei et al. (2024) applied CWT to post- fracturing pressure falloff data to identify the nearly pure 
+leakoff and invert fracture area, and the CWT- derived estimates correlated more strongly with stage production. Gabry et al. (2024a, 
+2024b) also generated normalized CWT scalograms of pumping pressure to interpret 3D fracture- propagation modes in comparison with 
+microseismic observations. In addition, Zhang et al. (2025) applied CWT- based time- frequency features of treating pressure to identify 
+multifracture propagation modes and evaluate diverting effectiveness, capturing the transition from frequent pressure fluctuations under 
+fracture competition to gradual stabilization as primary fractures became established.
+Despite these advances, previous studies mainly focused on the propagation and closure behavior of primary hydraulic fractures, with 
+limited attention to interactions between hydraulic fractures and discontinuities such as natural fractures, bedding planes, and interlayers. 
+Fundamentally, fracture propagation emerges from competition between tensile and shear failure mechanisms under hydraulic loading. 
+Primary hydraulic fractures are typically tensile- dominated, whereas interaction with pre- existing discontinuities promotes shear- 
+dominated failure and complex fracture- network development (Warpinski and Teufel 1987; Wu et al. 2022; Li et al. 2025; Xu et al. 2026). 
+These competing mechanisms also affect transient pressure fluctuations: Rapid pressure recovery indicates relatively simple fracture 
+paths with efficient stress redistribution and limited hydraulic- energy dissipation, whereas slower recovery reflects increased dissipation 
+and hindered stress reaccumulation associated with more tortuous propagation and complex discontinuity interaction. Therefore, estab-
+lishing a quantitative link between fracture- propagation stress states and CWT signatures of transient pressure fluctuations is essential for 
+expanding the diagnostics of fracture- discontinuity interaction.
+To address the above issues, we develop a real- time diagnostic method that links transient pressure fluctuations to stress release and 
+accumulation under different interaction scenarios between hydraulic fractures and natural discontinuities. Starting from routinely 
+acquired treating pressure under standard 1- Hz sampling, rate- decoupled transient fluctuations are extracted in the time- frequency domain 
+using CWT. Two key features are defined to quantify the transient pressure fluctuations intrinsic from the stress release and accumulation 
+of hydraulic fractures propagation and are further input into a fuzzy inference system for dynamic classification of fracture propagation 
+patterns (Fig. 1). The fracture- related physical processes underlying the proposed method are supported by independent field measure -
+ments, including microseismic monitoring, distributed fiber- optic observations, and stage- level tracer production data. Overall, it would 
+provide a low- cost, noninvasive tool for evaluating fracture propagation events and complexity during hydraulic fracturing.
+Fig. 1—Schematic framework of fracture diagnostics based on transient pressure analysis.
+Methodology
+Workflow of the Proposed Method. A transient- pressure analysis workflow is developed for diagnosing fracture propagation patterns 
+during hydraulic fracturing. It consists of three main steps. First, the CWT is applied to decompose treating pressure in the time-  
+frequency domain and extract rate- decoupled transient fluctuations using wavelet coherence analysis. Second, the target diagnostic 
+band is determined and two features of pressure fluctuation energy and attenuation are defined to quantify the transient pressure 
+fluctuations intrinsic from the stress release and accumulation of hydraulic fractures propagation. Third, based on the two quantified 
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+2026 SPE Journal 3
+features, a rule- based fuzzy inference system is constructed to classify fracture propagation behaviors into four distinct patterns: 
+primary fracture growth, complex fracture development, discontinuities intersection, and fracture interruption. Fig. 2 summarizes the 
+overall workflow.
+Fig. 2—Transient- pressure analysis workflow for diagnosing fracture propagation patterns. FIS = fuzzy inference system.
+Extraction of Transient Pressure Fluctuations Using CWT. Transient pressure fluctuations are often subtle and short- lived, and 
+are easily obscured in raw time- domain pressure records by operational adjustments, wellbore resonance, and background noise. 
+Time- frequency analysis is therefore required to separate fracture- induced pressure fluctuations from interference. As a mathematical 
+microscope for transient- signal detection, CWT enables adaptive time-  frequency resolution and has been widely applied in mechanical 
+fault diagnosis (Nikolaou and Antoniadis 2002; Yan et al. 2014). By performing scale and translation operations on a selected mother 
+wavelet, CWT decomposes 1D signal into multiple frequency components, allowing the detailed examination of fluctuations at different 
+frequencies. CWT of a signal f(t) is defined as follows (Addison 2017):
+ 
+C
+/NUL
+a, b
+/SOH
+= 1pa
+ˆ 1
+/NUL1
+f
+/NUL
+t
+/SOH
+'
+/DC2t /NULb
+a
+/DC3
+dt,
+  
+(1)
+where  f
+/NUL
+t
+/SOH
+  is the time- series signal, and  '  is the mother wavelet that becomes  '/ETX 
+ when employing a complex wavelet. The scale param-
+eter  
+a  controls the frequency of the wavelet by compressing or stretching the mother wavelet. A smaller scale corresponds to a higher 
+frequency, whereas a larger scale corresponds to a lower frequency. The location parameter  b  determines the time localization of the 
+wavelet. The wavelet coefficients  C
+/NUL
+a, b
+/SOH
+  are obtained through the convolution of the signal with the wavelet across various scales and 
+locations, serving as an indicator of their local similarity. The complex Morlet wavelet provides smooth energy continuity and high- 
+frequency resolution due to its Gaussian- window form. Its complex representation enables simultaneous extraction of amplitude and 
+phase, making it well suited for identifying transient high- frequency responses associated with fracture behavior. Practical applications 
+show that the complex Morlet wavelet with a bandwidth of 1.5 and a center frequency of 1 Hz is effective for identifying fracture propa-
+gation and closure events, as well as analyzing water- hammer energy attenuation under a 1- Hz sampling rate (Gabry et al. 2024b, 2025). 
+The complex Morlet wavelet function is defined as
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+2026 SPE Journal4
+ 
+'/ETX= 1p
+/EMB
+e
+t2
+B ei2/EMfc t,
+  
+(2)
+where  B  is the bandwidth, and  fc  is the center frequency (Hz). Because the treating pressure is usually acquired at a sampling rate of 1 Hz 
+for most field applications, the Nyquist sampling theory indicates that the effective frequency components are concentrated in the 0–0.5- 
+Hz band (Ricci et al. 2024). Accordingly, linear frequency within the range of 0–0.5 Hz is used, and the corresponding scales are mapped 
+using Eq. 3 (Unal et al. 2019a):
+ 
+a = fc
+Tsfa
+,
+  
+(3)
+where  Ts  is the sampling period (seconds), and  fa  is the frequency corresponding to scale  a . A total of 256 scales are established to 
+enhance the resolution in the high- frequency components while maintaining adequate coverage of the low- frequency components. Signal 
+energy is a key attribute that characterizes the strength and variation of the signal (Unal et al. 2019a). CWT can effectively decompose 
+and preserve the energy distribution of pressure fluctuation across different frequency scales, where the energy is calculated from the 
+squared modulus of the wavelet coefficients.
+ E
+/NUL
+a, b
+/SOH
+=
+ˇˇC
+/NUL
+a, b
+/SOHˇ
+ˇ
+2 .  (4)
+Wavelet coherence provides a powerful time- frequency tool for quantifying the coupling influence of external signals on the target signal. 
+Based on CWT, it measures localized correlation and phase consistency between two time series and is particularly effective for analyzing 
+nonstationary signals (Peng et al. 2020). The wavelet coherence analysis consists of three main steps. First, CWT is applied separately to 
+the treating pressures and slurry rates to obtain their time- frequency energy spectrum  Ex
+/NUL
+a, b
+/SOH
+  and  Ey
+/NUL
+a, b
+/SOH
+ 
+, respectively. Subsequently, 
+the time- frequency cross spectrum  
+Exy
+/NUL
+a, b
+/SOH
+ 
+ is estimated by Eq. 5:
+ 
+Exy
+/NUL
+a, b
+/SOH
+= Cx
+/NUL
+a, b
+/SOH
+C/ETX
+y
+/NUL
+a, b
+/SOH
+,  (5)
+where  Cx
+/NUL
+a, b
+/SOH
+  and  Cy
+/NUL
+a, b
+/SOH
+ 
+ are the wavelet coefficients of the pressure and rate signals across various scales and locations, and  
+/ETX  denotes 
+the complex conjugate. To reduce the influence of random noises, Gaussian smoothing is applied to both the individual and cross spectra. 
+Finally, the wavelet coherence coefficient is calculated as
+ 
+R2 /NUL
+a, b
+/SOH
+= S
+/STX
+Exy
+/NUL
+a, b
+/SOH/ETX
+S
+/STX
+Ex
+/NUL
+a, b
+/SOH/ETX
+S
+/STX
+Ey
+/NUL
+a, b
+/SOH/ETX,
+  
+(6)
+where  S
+/STX
+/SOH
+/ETX
+  denotes the Gaussian smoothing operator. It can be defined as
+ 
+S
+/NUL
+t
+/SOH
+= 1p
+2/EM/ESC
+e/NULt2
+2/ESC2 ,
+  
+(7)
+where  t  is the time (seconds), and  /ESC  is the standard deviation that controls the width of the Gaussian kernel and the degree of smoothing. 
+The wavelet coherence coefficients vary within the interval [0, 1], where a value close to 1 indicates a strong correlation.
+Quantification of Transient Pressure Fluctuation Features. Building on the time- frequency decomposition, this section converts 
+the CWT- resolved transient fluctuations into quantitative metrics. During fracture propagation, intermittent stress release and 
+reaccumulation generate transient pressure- drop and pressure- recovery fluctuations superimposed on the global pressure trend. Unlike 
+continuous sinusoidal oscillations, these transient fluctuations exhibit asymmetric half- cycles and corresponding frequency variation, 
+exciting broadband impulsive responses in the time- frequency domain characterized by rapid low- to- high frequency energy transfer and 
+nonuniform energy distribution across frequencies. On this basis, two quantitative features—pressure fluctuation energy and attenuation 
+coefficient—are defined to characterize the stress release and reaccumulation intrinsic to hydraulic fractures propagation. The pressure 
+fluctuation energy is calculated within a diagnostic frequency sub- band by integrating along the frequency axis:
+ 
+Eband
+/NUL
+Na, b
+/SOH
+= 1
+a1 /NULa2
+ˆ a1
+a2
+E
+/NUL
+a, b
+/SOH
+da,
+  
+(8)
+where  Eband
+/NUL
+Na, b
+/SOH
+  denotes the mean pressure energy in the target sub- band, and  a1  and  a2 
+ are the scales corresponding to the lower and 
+upper cutoff frequencies, respectively. Consequently, pressure fluctuation energy provides a quantitative proxy for how efficiently the 
+hydraulic energy is converted into new fracture surfaces within the wellbore/formation system. Higher conversion efficiency corresponds 
+to stronger instantaneous stress release from new fracture surfaces, which, in turn, tends to excite higher pressure fluctuation energy. 
+Furthermore, the pressure peak energy is identified to characterize the temporal distribution of prominent fracture- propagation events 
+during the treatment. The detection of peak energy combines both a local threshold and a global threshold. The local threshold baseline 
+ 
+ılocal  is constructed using the exponential moving average and the corresponding standard deviation:
+ 
+8
+ˆˆ
+<
+ˆˆ
+:
+ılocal = /SYNi +2 /ESCi
+/SYNi = ˛Ei +
+/NUL
+1 /NUL˛
+/SOH
+/SYNi/NUL1
+/ESCi =
+q
+˛
+/NUL
+Ei /NUL/SYNi
+/SOH2 +
+/NUL
+1 /NUL˛
+/SOH
+/ESC2
+i/NUL1
+,
+  
+(9)
+where  i  is the time index (seconds);  ılocal  is the threshold at the ith step;  /SYNi  and  /ESCi  are the sample mean and standard deviation at the ith 
+step;  ˛  is the smoothing coefficient, set to 0.05;  Ei  is the pressure energy at the ith step; and  /SYNi/NUL1  and  /ESCi/NUL1  are the sample mean and stan-
+dard deviation at the previous timestep. The local threshold adapts to nonstationary fluctuations and highlights the short- term significance 
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+2026 SPE Journal 5
+of pressure fluctuation energy. In contrast, the global threshold provides a stable baseline for cross- comparison among different lithologies 
+and reservoirs, ensuring consistent peak- discrimination criteria to suppress background noise. Specifically, the global threshold baseline 
+ ıglobal  can be statistically determined as the minimum level of the pressure energy distribution across different lithologies and formations. 
+The minimum level is set to the order of 25% quantile according to statistical characteristics. As a result, the peak energy detection algo-
+rithm identifies local maxima of the pressure fluctuation energy that satisfy the following conditions.
+ 
+(
+Ei/NUL1< Ei > Ei+1
+Ei /NAKmax
+/NUL
+ılocal, ıglobal
+/SOH
+ 
+.
+ 
+(10)
+A pressure- fluctuation filter is then applied to remove false energy peaks. For each detected peak energy, the presence of a negative pres-
+sure trough is checked within a ±5- second window. If no negative trough is found, the peak is treated as a pressure discontinuity incon-
+sistent with the fracture- induced fluctuation, and the corresponding pressure energy is set to zero. This ensures that only reliable pressure 
+energy peaks are retained to represent actual fracture propagation events.
+In addition, the pressure fluctuation attenuation coefficient is defined from the pressure energy distribution contrast between high- and 
+low- frequency sub- bands. To compress the amplitude difference in pressure energy and enhance the contrast of different frequency com-
+ponents, the pressure time- frequency energy spectrum is logarithmically transformed:
+ Elog
+/NUL
+a, b
+/SOH
+= log2
+/STX
+E
+/NUL
+a, b
+/SOH/ETX
+.  (11)
+The log- transformed pressure energy within each sub- band is then calculated using Eq. 8, yielding two time series of the mean pressure 
+energy denoted as  X =
+/STX
+x1, x2, /SOH/SOH/SOH, xn
+/ETX
+  and  Y =
+/STX
+y1, y2, /SOH/SOH/SOH, yn
+/ETX
+ 
+. When the evolution trends of pressure energy between sub- bands begin to 
+diverge, it indicates the occurrence of pressure fluctuation attenuation, with a stronger transfer of pressure energy toward the low- 
+frequency band. A 30- second sampling window with a 5- second step size is applied to traverse the entire time series, and the Pearson 
+correlation coefficient between  
+X   and  Y   is calculated within each sampling window:
+ 
+rXY =
+nP
+i=1
+/NUL
+xi /NULNx
+/SOH/NUL
+yi /NULNy
+/SOH
+s
+nP
+i=1
+/NUL
+xi /NULNx
+/SOH2
+s
+nP
+i=1
+/NUL
+yi /NULNy
+/SOH2
+,
+  
+(12)
+where rXY is the Pearson correlation coefficient, the value range of which is [−1, 1],  n  is the total length of the sampling window (seconds), 
+ xi  and  yi  are the values of mean normalized pressure energy in the high- and low- frequency bands, and  Nx  and  Ny  are their respective aver-
+ages. Furthermore, the correlation coefficients of each sampling window are linearly interpolated to match the original time- series length. 
+The interpolated correlation coefficient  Ori
+XY   is then integrated with the absolute difference in pressure energy between the two series to 
+quantify the pressure fluctuation attenuation coefficient:
+ 
+(
+/c129Ei
+XY = xi /NULyi
+Di
+XY = max
+˚
+0, min
+/STX/NUL
+1 /NULOri
+XY
+/SOH
+,1
+/ETX/TAB
+/STXmax
+/NUL
+0, /c129Ei
+XY
+/SOH,
+  
+(13)
+where  /c129Ei
+XY  
+ is the absolute difference in pressure energy, and  
+Di
+XY  
+ is the pressure fluctuation attenuation coefficient at a given time. 
+Similarly, the global threshold baseline of the pressure fluctuation attenuation coefficient across different lithologies and formations can 
+be determined as the minimum level of statistical distribution, consistent with its order of 25% quantile. Pressure fluctuation attenuation 
+is defined as a quantitative proxy for the degree of hydraulic- energy dissipation along the fracture path within the wellbore/formation 
+system. When the energy input is consumed by additional dissipation after the creation of new fracture surfaces, stress reaccumulation 
+becomes slower, resulting in increased attenuation. Such dissipation is commonly associated with the influence of discontinuities, such as 
+natural fractures, bedding planes, and interlayers.
+Based on the two quantitative features, transient pressure fluctuations can be classified into four representative behaviors that interpret 
+the tendency of hydraulic energy allocation within the wellbore/formation system and correspond to four common fracture propagation 
+patterns (Fig. 3). (i) Primary fracture growth: Most hydraulic energy is efficiently converted into new fracture surfaces, with limited 
+additional dissipation. Fractures propagate actively through the intact matrix under tensile opening, resulting in high pressure fluctuation 
+energy and low attenuation. (ii) Complex fracture development: Hydraulic energy is partly converted into new fracture surfaces, but 
+additional dissipation increases as fractures deviate along weak discontinuities, generating branches and tortuous paths. In this case, the 
+competition of tensile and shear failure leads to elevated energy and attenuation. (iii) Discontinuities intersection: Hydraulic energy is 
+preferentially captured by pre- existing discontinuities, making new fracture- surface creation difficult. Increased shear failure and hydrau-
+lic energy dissipation retard stress release and reaccumulation, leading to reduced energy and higher attenuation. (iv) Fracture interrup -
+tion: Hydraulic energy is further dissipated within nonfracture spaces of the wellbore/formation system, hindering hydraulic fracture 
+propagation. Under increased leakoff and limited fracture volume, stress variations are too weak to sustain transient pressure fluctuations, 
+so both energy and attenuation remain at low levels. These categories reflect hydraulic- energy allocation within the wellbore/formation 
+system rather than unique fracture geometries. Accordingly, the represented scenarios are broader than the schematic interactions in 
+Fig. 3: Fracture branching, redirection, and larger- scale fracture network may all be categorized as “Complex fracture development,” 
+whereas nongeological dissipation, such as interstage communication, may also be interpreted as “Discontinuities intersection.”
+Fuzzy Inference System of Fracture Propagation Patterns. With the two pressure- fluctuation features quantified, the remaining 
+task is to translate these continuous metrics into interpretable fracture propagation patterns. Because field signals are noisy and the 
+boundaries between fracture behaviors are not strictly separable, a soft- decision framework is preferred over hard thresholds. Fuzzy logic 
+accommodates such uncertainty by representing inputs with membership functions and linguistic if- then rules. In this study, a Mamdani- 
+type fuzzy inference system (Mamdani and Assilian 1975) is adopted for its transparency and ease of incorporating expert knowledge. 
+The workflow includes fuzzification, rule- based inference, and defuzzification to obtain the final fracture- pattern label.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+2026 SPE Journal6
+For real- time diagnosis, a rule- based fuzzy classification algorithm is established using pressure fluctuation energy  Ei  and attenuation 
+coefficient  Di
+XY   as key indicators. The 1- Hz time series is segmented into nonoverlapping 5- second windows, which approximately 
+encompass the typical 2–5 seconds duration of individual transient pressure fluctuations. Within each window, the median and median 
+absolute deviation (MAD) are calculated for both  Ei  and  Di
+XY   to serve as robust feature inputs:
+ 
+( OX = median
+/NUL
+Xi
+/SOH
+MADX = 1.4826 /STXmedian
+/DLEˇˇ
+ˇ
+Xi /NULOX
+ˇˇˇ
+/DC1,
+  
+(14)
+where  OX   is the median of the sampled data  Xi , and  MADX   is the median of the absolute deviations from the median, which is normalized 
+using the factor 1.4826 under Gaussian assumptions. The ratio of outliers is defined as values exceeding k times MAD from the median:
+ 
+8
+ˆ<
+ˆ:
+RE = 1
+n
+Pn
+i=1
+hˇˇˇEi /NULOE
+ˇˇˇ k /SOHMADE
+i
+RD = 1
+n
+Pn
+i=1
+hˇˇˇDi /NULOD
+ˇˇˇ k /SOHMADD
+i ,
+  
+(15)
+where  OE  and  OD  are the median within the analysis window, and  k  is the MAD multiplier controlling outlier sensitivity; it may be adjusted 
+according to the temporal sparsity of transient pressure fluctuations, with sparser and more temporally concentrated responses generally 
+favoring a smaller  k . To ensure the consistency and significance of fracture- induced pressure fluctuation features under specific litholog-
+ical and reservoir conditions, the 25th- percentile levels of the pressure energy and attenuation coefficient distributions are adopted as 
+global thresholds. If the window mean does not exceed the corresponding threshold, the outlier ratio is set to zero to suppress background 
+noise. The fuzzy system uses the ratios of pressure- energy and attenuation- coefficient outliers ( RE  and  RD 
+) as inputs, each divided into 
+two LOW and HIGH by trapezoidal membership functions for computational efficiency and direct visualization of threshold- based deci-
+sion regions in engineering diagnostics (Artun and Kulga 2020). The fuzzy inference result is discretized into four dominant fracture 
+propagation patterns according to the rules listed in Table 1. Centroid defuzzification converts the fuzzy inference result into a crisp value 
+from 0 to 4, which is rounded to the nearest integer to identify the dominant pattern for each window.
+Rules
+Ratio of Pressure Energy Outliers,
+ RE 
+Ratio of Attenuation Coefficient,
+ RD Categories
+1 LOW LOW Fracture interruption
+2 HIGH LOW Primary fracture growth
+3 LOW HIGH Discontinuities intersection
+4 HIGH HIGH Complex fracture development
+Table 1—Rules to characterize fracture propagation pattern.
+Fig. 4 illustrates a working example of the rule- based fuzzy inference system within a single 5- second analysis window. Each subfigure 
+shows the trapezoidal membership function of an input or output variable, with variable value on the x- axis and membership degree on 
+the y- axis, and different colors denoting different fuzzy classes. For the example inputs  RE  = 0.35 and  RD 
+ = 0.42, fuzzification assigns  
+RE 
+ 
+= 0.35 to both “LOW” and “HIGH” with membership degrees determined by the corresponding trapezoidal functions, whereas  
+RD 
+ = 0.42 
+belongs only to “HIGH” with a membership degree of 1. This activates two rules: (1) HIGH  
+RE 
+ and HIGH  
+RD 
+ correspond to “Complex 
+Fig. 3—Four dominant fracture propagation patterns classified by pressure fluctuation energy and attenuation coefficient.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+2026 SPE Journal 7
+fracture development,” and (2) LOW  RE  and HIGH  RD 
+ correspond to “Discontinuities intersection.” Each of them represents the possible 
+fracture pattern implied by the current inputs. Using the minimum operator, the corresponding candidate output fuzzy sets are generated, 
+shown by the shaded hatched regions in Fig. 4. These outputs are then aggregated into the fuzzy inference result by the gray region in the 
+lower- right panel. Centroid defuzzification finally gives an output value of 3.5, corresponding to the final classification of “Complex 
+fracture development.”
+Applying the fuzzy inference system to each analysis window yields a sequence of fracture- pattern labels. Each 5- second window 
+characterizes the local tendency of hydraulic energy allocation within the wellbore/formation system. For engineering interpretation, 
+these labels are more meaningfully aggregated over a longer interval, and the proportion of each category can be treated as an empirical 
+indicator of the relative tendency of different fracture- propagation behaviors.
+Results
+Real-Time Diagnostics of Fracture Propagation Patterns. Pressure Time-Frequency Energy Spectrum Based on CWT. First, CWT 
+is applied to the treating pressure signal to obtain the time- frequency distribution of pressure energy. Fig. 5 shows an example based 
+on field data from a representative hydraulic fracturing stage in the Montney Basin. Higher amplitudes in the time- frequency energy 
+spectrum indicate stronger pressure fluctuations at the corresponding time and frequency. Transient pressure fluctuations appear as 
+broadband impulsive responses, characterized by a rapid low- to- high frequency energy transfer and nonuniform energy distribution 
+across frequencies (e.g., around 2,000s and 3,010s). Although such responses are intrinsically broadband and do not theoretically require 
+a unique diagnostic band, practical pumping adjustments can introduce rate- coupled interference into part of the spectrum. It is therefore 
+necessary to separate rate- coupled components and identify the band most representative of fracture propagation.
+The original time-  frequency energy spectrum is corrected for slurry rate effects using the wavelet coherence analysis. The wavelet 
+coherence spectrum quantifies the time- frequency correlation between pressure and rate. High- coherence regions where coefficients 
+approach unity correspond to pressure fluctuations dominated by rate adjustments. Fig. 6a highlights significant coherence regions 
+( 
+R2 /NUL
+a, b
+/SOH
+  > 0.8, gray contour), which are predominantly concentrated below 0.3 Hz. Phase difference  /DC2  between the two signals is esti-
+mated to characterize the positive or negative coherence.  /DC2  is indicated by arrow direction, where right- pointing arrows correspond to 
+zero, counterclockwise rotation toward the left indicates zero to π, and clockwise rotation back toward the right indicates zero to −π. In 
+the significant coherence regions, arrows predominantly point to the right, indicating  /DC22
+/STX
+/NUL/EM
+2 , /EM
+2
+/ETX
+ . This confirms positive coherence and 
+approximately in- phase variation between pressure and rate, with slight phase deviations.
+In the 0.3–0.5- Hz band, wavelet coherence is insignificant, suggesting weak pressure/rate coupling. This band is therefore selected as 
+the effective diagnostic window for 1- Hz sampled data. A localized time- domain correction is then applied by averaging the coherence 
+coefficients along the frequency axis within this band:
+ 
+R2 /NUL
+Na, b
+/SOH
+= 1
+a1 /NULa2
+ˆ a1
+a2
+R2 /NUL
+a, b
+/SOH
+da,
+  
+(16)
+Fig. 4—Aggregation of rules using the graphical Mamdani inference method and center of gravity calculation.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+2026 SPE Journal8
+where  R2 /NUL
+Na, b
+/SOH
+  is the mean coherence coefficient within the current subfrequency band, and  a1  and  a2 
+ are the scales corresponding to the 
+lower and upper cutoff frequencies, which are set to 0.3 Hz and 0.5 Hz here, respectively. Local high- coherence moments are extracted 
+using the standard score (z- score), defined as
+ Z =
+ˇˇR2 /NUL
+Na, b
+/SOH
+/NULNR2 /NUL
+Na, b
+/SOHˇˇ
+S ,  
+(17)
+where  Z  is the standard score,  R2 /NUL
+Na, b
+/SOH
+  is the mean coherence coefficient at a certain moment,  NR2
+norm
+/NUL
+Na, b
+/SOH
+ 
+ is the average value of the 
+mean coherence coefficients at all moments, and  
+S  is the standard deviation of the mean coherence coefficients at all moments. As shown 
+in Fig. 6b, a threshold of  Z >2   is applied to identify instants of local significant coherence. A rate- coupled interval is then defined as a 
+ ˙ 5- second window surrounding each identified instant. Accordingly, the pressure energy within these intervals is corrected to zero to 
+mitigate local rate effects.
+Diagnostic Sub-Band Selection and Feature Quantification. Using wavelet coherence analysis, the 0.3–0.5- Hz range is identified 
+as the diagnostic band for fracture- induced transient pressure fluctuations. To further define physically meaningful sub- bands within this 
+range, reported 3D finite- discrete element method simulation results are analyzed (Cheng et al. 2026). Spearman rank correlation (de 
+Winter et al. 2016) between sub- band pressure energy within 0–0.5 Hz and incremental fracture volume increases markedly above 0.3 Hz 
+(Fig. 7b). This indicates reduced low- frequency trend interference and stronger temporal localization of broadband impulsive responses, 
+making the 0.3–0.5- Hz band more representative of fracture propagation. Together with true- triaxial experimental observations reported 
+by Abdelaziz and Grasselli (2024), these results further support that transient pressure fluctuations reflect the inherently unstable stress 
+state of fracture propagation and typically exhibit asymmetric drop- recovery half- cycles (Fig. 8). The pressure drop, triggered by rapid 
+fracture opening and instantaneous stress release, is short and approaches the 0.4–0.5- Hz component under 1- Hz sampling. By contrast, 
+the pressure recovery, triggered by hydraulic- energy supplement and progressive stress reaccumulation, is longer and contributes more 
+strongly below 0.5 Hz. The dominant failure mechanism mainly affects the recovery stage: Tensile- and shear- dominated failures show 
+comparable pressure- drop half- cycles, but shear responses exhibit markedly longer recovery half- cycles. This produces a larger energy 
+contrast between the 0.3–0.4- Hz and 0.4–0.5- Hz sub- bands in shear responses. Accordingly, the 0.4–0.5- Hz sub- band energy is used as a 
+surrogate for instantaneous stress release and defines the pressure fluctuation energy in Eq. 8, while the adjacent 0.3–0.4- Hz sub- band is 
+used as a reference to quantify pressure fluctuation attenuation. Greater energy transfer toward 0.3–0.4 Hz indicates slower stress reaccu-
+mulation and a higher likelihood of hydraulic fracture interaction with natural discontinuities.
+Fig. 5—Time- frequency energy spectrum derived from field treating pressure acquired from a hydraulic fracturing stage in the 
+Montney Basin.
+Fig. 6—(a) Wavelet coherence spectrum between treating pressures and slurry rates. (b) Localization of local significant coherence 
+in 0.3–0.5- Hz band.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+2026 SPE Journal 9
+Classification Results of Fracture Propagation Patterns. Rule- based fuzzy inference is used to classify fracture propagation patterns 
+into four categories based on these two features. Their global thresholds are statistically determined for different lithologies and reservoirs 
+using the field data sets summarized in Table 2. As shown in Fig. 9, both pressure fluctuation energy and attenuation coefficient in shale 
+reservoirs are approximately one order of magnitude higher than those in sandstone reservoirs, mainly because shale is more brittle and 
+commonly contains bedding discontinuities that promote stronger stress release and more tortuous fracture propagation (Hou et al. 2016; 
+Li et al. 2023). Specifically, the global thresholds for shale reservoirs are set to 1×10
+−5 for pressure energy and 0.1 for the attenuation 
+coefficient.
+Data Source Number of Wells and 
+Stages
+Sample Size Formation Coverage
+Ordos Basin 4 wells/85 stages 777,703 Mud shale with thin, silty, fine sandstone interbeds
+Ordos Basin 7 wells/64 stages 467,836 Medium- grained sandstone
+Table 2—Statistical characterization of pressure- derived features in shale and sandstone reservoirs.
+Using 5- second analysis windows, a sequence of fracture- pattern labels is obtained, and visualized as a time- varying color map. As 
+detailed in Fig. 10, treating pressure, slurry rate, and proppant concentration are plotted as black, blue, and orange lines, respectively. To 
+visualize how hydraulic energy within the wellbore/formation system is distributed between new fracture- surface creation and dissipa-
+tion, cumulative pressure fluctuation energy and cumulative attenuation coefficient are shown as purple and green curves. Purple scatter 
+points superimposed on the pressure curve denote identified pressure fluctuation events, serving as proxies for prominent fracture events, 
+with marker size proportional to the intensity of instantaneous stress release. Notably, transient pressure fluctuations are sparse during the 
+first 640 seconds, and the “Fracture interruption” pattern appears frequently. However, the large breakdown- related pressure drop over-
+laps with the pressure rise induced by rapid rate increase, producing a distorted pressure response in which fracture- induced transient 
+fluctuations are no longer clearly distinguishable. Fracture- pattern diagnosis during near- wellbore breakdown is therefore more suscepti-
+ble to operational interference, and the results in this interval should be interpreted with caution.
+Fig. 7—(a) Fracture volume increment and the response of fluid pressure at the injection point (calculated from simulation results 
+reported by Cheng et al. 2026). (b) Spearman rank correlation between band- limited pressure energy and fracture volume increment.
+Fig. 8—(a) Tensile/shear fracture volume increment and corresponding fluid- pressure response (Calculated from simulation 
+results reported by Cheng et al. 2026). (b) Pressure fluctuation of tensile and shear failure. (c) Frequency- domain pressure energy 
+distribution for tensile and shear failure.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+2026 SPE Journal10
+Supporting Evidence from Independent Measurements. Supporting Evidence from Microseismic Observations. The MIP- 3H well 
+from the Marcellus Shale Energy and Environment Laboratory is selected as Case 1 (Carr et al. 2019). Effective pumping data from 
+21 stages are analyzed and compared with corresponding microseismic observations. The 1- Hz treating- pressure signal is processed 
+by CWT using the complex Morlet wavelet and 256 linearly discretized frequency scales. Within the 0.3–0.5- Hz diagnostic band, 
+pressure fluctuation energy and attenuation coefficient are calculated, and fracture propagation patterns are classified by the rule- based 
+fuzzy inference system with 5- second windows. Pressure- derived metrics include pressure fluctuation events (as proxies for prominent 
+fracture events), cumulative pressure fluctuation energy, cumulative attenuation coefficient, and fracture- pattern labels, with the temporal 
+proportion of “Complex fracture development” calculated using a 60- second sliding window with a 5- second step. Microseismic metrics 
+include cumulative seismic moment and b- value. Seismic moment scales with the source deformation of individual events and is the 
+fundamental attribute of moment magnitude (Hanks and Kanamori 1979). Cumulative seismic moment captures the overall fracture- 
+energy release and collective fracture activity. The b- value is an important statistical parameter in earthquake monitoring that describes 
+the quantitative distribution of events, commonly written as (Gutenberg and Richter 1941)
+ log N = a /NULb /STXM,  (18)
+where  N   is the cumulative microseismic events,  M   is the magnitude of microseismic events,  a  is the level of seismic activity, and  b  is the 
+slope that represents the distribution of microseismic event magnitude. In hydraulic fracturing applications, the b- value is discussed as a 
+potential indicator related to fracture complexity. Higher b- values indicate a larger proportion of small- magnitude events and, in some 
+cases, may be associated with more dispersed fracture growth (Wu et al. 2017). Fig. 11 summarizes the temporal association between 
+transient- pressure diagnostics and microseismic activity.
+Because microseismic monitoring provides discrete events over a broader time scale, its curves are naturally smoother than the 
+pressure- derived metrics. Cumulative pressure fluctuation energy accelerates during intervals of accelerated seismic moment accumula -
+tion (e.g., during 2:40–3:05), indicating that more frequent fracture stress- release events excite stronger transient pressure- energy 
+Fig. 9—Boxplot of (a) log10 pressure fluctuation energy and (b) log10 pressure attenuation coefficient for shale and sandstone.
+Fig. 10—Fracturing treatment curves and diagnostic results from the proposed method.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+2026 SPE Journal 11
+responses. Time windows with elevated b- values moderately correspond to higher proportions of the “Complex fracture development” 
+pattern inferred from pressure analysis, providing moderate support for the interpretation that more distributed and branched fracture 
+paths can induce jointly elevated pressure fluctuation energy and attenuation. Some local discrepancies remain (e.g., during 3:10–3:25), 
+reflecting differences in temporal resolutions and sensing mechanisms of microseismic and pressure measurements. Nevertheless, these 
+moderate temporal associations support the interpretation that the target- band transient pressure fluctuations are more likely induced by 
+fracture stress- state changes than by random perturbations.
+To further statistically substantiate this relationship, the analysis is extended to 21 fracturing stages from Case 1 (Fig. 12). Spearman 
+rank correlation shows that the count of microseismic events and cumulative seismic moment are positively correlated with the number 
+of identified pressure fluctuation events and cumulative pressure fluctuation energy, respectively. The overall b- value is positively cor -
+related with cumulative pressure energy associated with the “Complex fracture development” pattern, offering supplementary but non-
+unique support for the pressure- based interpretation of fracture complexity.
+Fig. 12—Spearman rank correlation against microseismic observations.
+Supporting Evidence from Distributed Fiber-Optic Observations. A horizontal well in the Junggar Basin is selected as Case 2 to com-
+pare the transient- pressure diagnostics with distributed acoustic sensing (DAS) observations. The optical fiber is permanently installed 
+outside the casing of the treatment well, allowing real- time monitoring of the fluid- entry distribution among perforation clusters during 
+stimulation. A total of 35 stages, each with three to six clusters, are included in the analysis. For these stages, the injected fluid volume 
+ranged from 2,004.91 m3 to 2,393.56 m3, the average cluster spacing is 11.5 m, and the mean proppant intensity is 2.0 m3/m. The shale 
+reservoir is influenced by bedding planes and high- stress interbeds, with locally developed natural fractures. This case compares stage- 
+level pressure- derived attributes with DAS- observed cluster fluid- entry uniformity. The pressure- derived attributes include cumulative 
+pressure fluctuation energy and the proportion of the four fracture propagation patterns, while DAS- derived uniformity is quantified by 
+the uniformity index:
+ 
+UI = 1 /NUL/ESC
+/SYN,
+  (19)
+where  /ESC  is the standard deviation of the fluid- entry volume of clusters per stage, and  /SYN  is the average. Spearman rank analysis (Fig. 13a) 
+shows that the uniformity index is positively correlated with cumulative pressure fluctuation energy and the proportions of “Primary 
+fracture growth” and “Complex fracture development,” but negatively correlated with “Discontinuities intersection” and “Fracture inter-
+ruption.” This suggests that more uniform cluster- level fluid entry is generally associated with higher fracture- fluid efficiency, stronger 
+stress release, and more effective fracture development. However, uneven distribution tends to promote growth barriers controlled by 
+bedding planes or high- stress interbeds, resulting in reduced fluid efficiency and retarded stress accumulation. The effect of pre- existing 
+Fig. 11—Pressure diagnostic results from the proposed method, and microseismic observations.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+2026 SPE Journal12
+natural fractures is further examined by grouping stages into matrix- dominated intervals (Label 0) and natural- fracture intervals (Label 
+1). As shown in Fig. 13b, cumulative pressure energy associated with “Complex fracture development” exhibits a strongest positive 
+correlation with the natural- fracture development index than that associated with “Primary fracture growth,” providing statistical support 
+that natural fractures may promote fracture deviation, reorientation, and increased complexity.
+DAS can also diagnose stage- isolation integrity. Fig. 14 shows a stage with isolation failure and pronounced interstage communica -
+tion, where a low- resistance diversion pathway triggers an abrupt pressure drop. After this abnormal pressure drop, the proportion of the 
+“Discontinuities intersection” pattern, shown by the cyan curve, rapidly increases, nearly doubles, and remains high for an extended 
+period, accompanied by decreasing pressure fluctuation energy and increasing attenuation. This divergence suggests that hydraulic energy 
+is dissipated through leakage or diversion rather than converted into new fracture surfaces. At earlier times, pressure fluctuations may still 
+indicate discontinuity- related dissipation even without a distinct DAS interference pattern, because pressure reflects the integrated well-
+bore/formation response, whereas DAS is more sensitive to pronounced near- wellbore fluid- entry redistribution. Thus, interstage commu-
+nication can be distinguished from geological discontinuity interaction by the combined signature of a discontinuity- dominated proportion 
+and a sharp abnormal pressure drop.
+Fig. 14—(a) DAS observation of interstage communication. (b)  Diagnostic results of the proposed method for interstage 
+communication.
+Supporting Evidence from Tracer Production Data. To provide post- fracturing productivity support, interstage chemical tracer moni-
+toring is analyzed. Chemical tracers quantify the fluid contribution from individual stages during flowback. For 46 shale fracturing stages 
+with comparable oil saturation, Spearman rank correlations are computed between tracer production normalized by stage length and 
+pressure- derived metrics (Fig. 15). Tracer production shows a significant positive correlation with cumulative pressure energy attributed 
+to the “Complex fracture development” pattern, suggesting that pressure- inferred fracture complexity corresponds to greater stimulated 
+contact and higher stage contribution. This provides additional support for the productivity relevance of the proposed diagnostics.
+Effect of Pressure Acquisition Conditions. Effect of the Pressure Measurement Location. In most field operations, wellhead pressure 
+is readily available, whereas bottomhole pressure requires downhole gauges. Because the proposed attributes are extracted from 
+broadband pressure transients, wellbore transmission can potentially filter or distort broadband responses through frictional losses, fluid 
+compressibility, and wave propagation effects. Therefore, the influence of measurement location on the quantified pressure fluctuation 
+features is evaluated in Fig. 16. Overall, both measurements exhibit synchronous temporal evolution in pressure fluctuation energy and 
+attenuation within the diagnostic band, indicating weak sensitivity of the inferred fracture propagation patterns to measurement location. 
+Bottomhole pressure more directly captures local fracture- induced fluctuations because it is inherently decoupled from hydrostatic head 
+and wellbore friction variations. Under the proposed workflow, bottomhole fluctuations produce stronger 0.3–0.5- Hz responses and 
+are less likely to be corrected due to prominent pressure/rate coherence, yielding higher cumulative pressure fluctuation energy and 
+attenuation. By comparison, attenuation is less sensitive to measurement location than energy because location mainly affects the overall 
+signal amplitude while weakly altering the intraband energy distribution. Thus, bottomhole pressure can improve robustness under 
+frequent operational adjustments and reduce the risk of missing effective fracture- growth intervals caused by wellbore transmission 
+effects. Nevertheless, given the limited deployment of downhole gauges, wellhead pressure remains the preferred and more practical input 
+for routine field applications.
+Fig. 13—Spearman rank correlation against (a) cluster fluid- entry uniformity and (b) natural fracture development.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+2026 SPE Journal 13
+Effect of the Sampling Frequency. Standard 1- Hz field acquisition enables efficient CWT- based fracture propagation identification. 
+Although higher sampling rates help capture broadband impulsive responses and improve the timing accuracy of fracture- event 
+localization, their practical benefit is limited by wellbore resonance, which may dominate high- frequency pressure components and 
+constrain the observable bandwidth of fracture- induced impulses.
+Fig. 17 shows the time- frequency energy spectrum obtained from 10- Hz pressure data. The impulse bandwidth extends to approxi-
+mately 1 Hz but is strongly masked by pronounced wellbore characteristic frequencies at higher frequencies, indicating that the coupled 
+wellbore/fracture system becomes resonance- dominated beyond this range. Thus, increasing the sampling rate does not necessarily 
+expand the usable diagnostic bandwidth. Nevertheless, high- rate acquisition remains advantageous because antialias filtering before 
+downsampling suppresses resonant clutter and prevents its aliasing into the diagnostic band. As shown in Fig. 18, direct 1- Hz acquisition 
+suffers from persistent contamination of wellbore resonance near 0.3 Hz, which may reduce the apparent fracture- induced energy while 
+exaggerating attenuation. In contrast, antialias filtered downsampling from high- rate data mitigates this interference and yields clearer 
+transient signatures for fracture propagation classification.
+Discussion
+Practical Applicability of the Proposed Method. With this paper, we present a CWT- based diagnostic method that links transient pressure 
+fluctuations to stress release and accumulation of hydraulic fracture propagation. Under standard 1- Hz sampling, pressure fluctuation 
+energy in the 0.4−0.5- Hz sub- band is used to characterize stress release and hydraulic energy conversion into new fracture surfaces, while 
+attenuation toward the 0.3−0.4- Hz sub- band reflects enhanced hydraulic- energy dissipation and hindered stress reaccumulation along the 
+fracture path. Based on these two quantified features, fracture propagation is dynamically classified into four patterns: primary fracture 
+growth, complex fracture development, discontinuities intersection, and fracture interruption.
+Strengths of the Method. The physical interpretation of the proposed method is supported by independent monitoring, including 
+microseismic, DAS, and tracer observations. In the Marcellus Shale Energy and Environment Laboratory case, periods of accelerated 
+cumulative seismic moment represent intensified fracture activity and more frequent stress- release events, which excite intense transient 
+pressure drop and accelerated accumulation of pressure fluctuation energy. In addition, intervals with elevated b- values coincide with 
+higher proportions of the “Complex fracture development” pattern, providing moderate support for the interpretation that more complex 
+Fig. 15—Spearman rank correlation against stage- level tracer production normalized by stage length.
+Fig. 16—(a) Comparison of pressure fluctuation energy from wellhead and bottomhole pressure. (b)  Comparison of pressure 
+attenuation coefficient from wellhead and bottomhole pressure.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 14 =====
+2026 SPE Journal14
+fracture paths excite high pressure fluctuation energy and attenuation relatively. In the Junggar Basin case, higher DAS- derived unifor-
+mity and dynamic cluster- intake redistribution generally enhance rock breaking and fracture growth, thereby increasing pressure fluctua-
+tion energy. Once dominant fractures are established, however, hydraulic energy is preferentially dissipated along these paths, stabilizing 
+pressure and reducing pressure fluctuation energy. This interpretation is further supported by prior numerical simulations of multifracture 
+propagation in horizontal wells (Li et al. 2022b; Wu and Olson 2016). Moreover, the tracer- based productivity comparison supports the 
+view that enhanced fracture- network connectivity improves fracture conductivity and fluid recovery, thereby extending the proposed 
+method from fracture- pattern diagnosis to productivity- relevant stimulation evaluation.
+Fundamentally, the method diagnoses whether hydraulic energy in the wellbore/formation system is preferentially converted into new 
+fracture surfaces or dissipated along the fracture path. This enables the identification of fracture- growth intensity, propagation complexity, 
+and abnormal stimulation behaviors such as interstage communication. Previous studies have also shown that transient pressure fluctua-
+tions carry diverse fracture- pattern information related to fracture geometry and multifracture competition (Gabry et al. 2024b; Zhang 
+Fig. 17—Time- frequency energy spectra obtained from 10- Hz pressure data.
+Fig. 18—Time- frequency energy spectra of 1- Hz pressure signals derived from (a) native 1- Hz acquisition and (b) 10- Hz acquisition 
+after antialias filtered downsampling.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 15 =====
+2026 SPE Journal 15
+et al. 2025). Compared with independent monitoring techniques, pressure signals provide a physically grounded and broadly applicable 
+diagnostic source. In practice, the method relies only on routinely recorded treatment data, with wellhead pressure and slurry rate as the 
+minimum inputs, requiring no additional monitoring cost. Independent monitoring data sets are used only as supporting benchmarks 
+rather than deployment prerequisites. By updating fracture- pattern information every few seconds, the method can support real- time 
+treatment optimization. For example, persistently weak “Complex fracture development” accompanied by insufficient pressure energy 
+may indicate poor fracture- fluid efficiency or risks such as interstage communication and screen out, thereby motivating timely adjust-
+ments of diversion timing or pumping schedule.
+Limitations. Despite these advantages, the proposed method should be regarded as a realistic but simplified system- scale classification 
+of hydraulic- energy allocation rather than a geometric reconstruction of fracture propagation because pressure signals inherently lack 
+spatial information. As a single- point response of the integrated wellbore/formation system, pressure cannot directly resolve fracture 
+geometry, orientation, or stimulation location. Compared with microseismic and DAS measurements, pressure analysis can evaluate the 
+efficiency of hydraulic- energy conversion, cluster- stimulation uniformity, and abnormal interstage communication, but cannot reconstruct 
+3D fracture geometry or locate stimulation precisely. Spatially different effects, such as asymmetric fracture- wing growth and additional 
+frictional losses along extended fracture paths, may be superimposed in the single- point pressure response, reducing observability and 
+potentially weakening event detection. Therefore, complementary measurements, including offset- well pressure, microseismic, and dis-
+tributed fiber optic, are valuable for providing spatial and directional constraints for a more comprehensive assessment of fracture geom-
+etry, orientation, and complexity.
+Another limitation is the reduced applicability during near- wellbore breakdown. In this stage, the pressure signal may be dominated 
+by the overall trend, while transient fluctuations are weak, distorted by operational adjustments before the designed pumping rate is 
+reached. In addition, fracture propagation develops the fracture process zone ahead of the fracture tip, where distributed microcracking 
+and material softening reduce the effective cohesion and promote localized failure (Li et al. 2026). By contrast, breakdown is less favor-
+able for generating frequent resolvable transient events because the rock remains largely intact and the threshold for hydraulic energy to 
+be converted into new fracture surfaces is higher. As a result, diagnostic interpretation in this stage becomes less stable. A practical miti-
+gation is to exclude the breakdown stage from the main diagnostic target and focus instead on the more stable fracture- propagation stage. 
+When available, bottomhole pressure and stable hydraulic conditions can further reduce distortion caused by frequent operational adjust-
+ments. In addition, wellbore resonance and background noise may affect the time- frequency response. Resonance contaminates specific 
+frequency bands and can be mitigated by antialias filtered downsampling from high- rate data. Background noise reduces the overall 
+signal- to- noise ratio across the time- frequency domain; in such cases, appropriate filtering strategies, such as wavelet denoising, may help 
+to improve the robustness of the interpretation.
+Comparison with Existing Pressure-Based Diagnostics. Compared with traditional time- domain pressure analysis, the proposed 
+method better captures discrete fracture- propagation events and complexity. Classical approaches, such as the Nolte- Smith framework, 
+mainly interpret monotonic net- pressure trends to infer fracture geometry evolution (Nolte and Smith 1981), which overlooks discrete 
+transient fluctuations distributed throughout the treatment. Other fluctuation- based studies have related pressure amplitude and frequency 
+to fracture complexity but often remain limited to 1D time- domain interpretation (Bian et al. 2016). In contrast, our method directly 
+quantifies transient pressure fluctuations in the 2D time- frequency domain, avoiding idealized- fracture assumptions and the iterative 
+computations required by moving pressure- reference points (Pirayesh et al. 2015). Combined with CWT multiresolution localization 
+and wavelet- coherence screening, the workflow reduces rate- driven interference and enables time- resolved classification of fracture- 
+propagation patterns. This improves diagnostic resolution and provides a quantitative and interpretable basis for future realization of 
+intelligent fracture pattern diagnosis.
+Recent CWT- based diagnostics have demonstrated the value of time- frequency representations for identifying general fracture propa-
+gation modes (Gabry et al. 2024b). To provide supporting evidence for the physical consistency of our proposed diagnostic method, we 
+benchmark our results against Case 3 (Stage 28, Well MIP- 3H) of Gabry et al. (2024b). In their study, high normalized CWT magnitudes 
+of 0.8−0.95 were validated by MRP analysis and microseismic monitoring as periods dominated by fracture height breakthrough (Fig. 19). 
+Our method observes a synchronous increase in effective fracture growth, defined as the sum of primary fracture growth and complex 
+fracture development, during these periods of high normalized CWT values. This agreement supports a shared physical interpretation: 
+The fracture height breakthrough or significant fracture expansion induces strong instantaneous stress release and elevated pressure 
+energy in the time- frequency domain. Building upon these shared benchmarks, the fracture propagation patterns identified by our method 
+can be further subdivided into dominant height growth or length extension. While both methods rely on CWT, they differ in signal decom-
+position strategy. Gabry et al. (2024b) used a series of linear wavelet scales, which compress high- frequency components to provide a 
+visual interpretation of general fracture modes. However, our workflow prioritizes the most diagnostic high- frequency components 
+(0.3−0.5 Hz) and further enhances the spectral resolution using a linear- frequency binning strategy, thereby expanding the separable 
+structure of high- frequency components that would otherwise be compressed. This refinement not only improves localization of fracture 
+propagation patterns but also facilitates more reliable attenuation analysis of individual fluctuations. Notably, this attenuation analysis 
+extends existing CWT- based approaches, which primarily focus on pressure fluctuation intensity. The proposed method provides a more 
+detailed assessment of fracture complexity and supports real- time tracking of fracture dynamics.
+Calibration and Future Work. In the current workflow, thresholds for pressure fluctuation energy and attenuation are derived from 
+statistical distributions as practical global baselines for noise suppression and fuzzy classification. Future work could develop more 
+physically grounded calibration by first establishing formation- specific thresholds from historical stages and then comparing stage- level 
+cumulative pressure fluctuation energy, cumulative attenuation, and inferred fracture- pattern proportions with post- fracture pressure 
+falloff estimates of fracture area, closure behavior, and fracture complexity (Liu et al. 2020; Wei et al. 2024; Zeinabady and Clarkson 
+2023). Stages showing significant discrepancies could be used for local correction of the feature distributions and global thresholds. Post- 
+fracture pressure falloff analysis provides a cost- effective pathway for post- fracture calibration because it uses routinely acquired pressure 
+data without additional equipment deployment. Combining real- time transient- pressure diagnostics during pumping with post- fracture 
+pressure falloff analysis would enable a unified pressure- based workflow across the full treatment cycle.
+In addition, locally prolonged elevated energy is defined as a sustained narrow- band energy concentration near 0.35−0.4 Hz over a 
+finite time interval and likely indicates the development tendency of a complex fracture network (Fig. 20). Rapid development of complex 
+fracture paths can trigger successive stress- release episodes and repeated pressure drops, while hydraulic- energy dissipation along tortu-
+ous paths delays pressure recovery. As a result, fracture- induced transients occur repeatedly before the system fully re- equilibrates, 
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 16 =====
+2026 SPE Journal16
+enhancing pressure energy over a finite time interval. Meanwhile, relatively stronger high- frequency attenuation shifts and concentrates 
+this sustained elevated energy near 0.35−0.4 Hz, thereby deriving a narrow- band energy response from the broadband impulsive response. 
+This suggests that different fracture behaviors may contain richer diagnostic details in the time- frequency spectrum than can be captured 
+by band- level statistical features alone. In the current workflow, pressure fluctuation energy and attenuation quantify the stress state during 
+fracture propagation, and fuzzy inference provides an interpretable engineering- oriented classifier in data- scarce scenarios. The fuzzy 
+inference results can further serve as preliminary labels for future data- driven interpretation when independent fracture monitoring is 
+insufficient. However, the workflow summarizes each diagnostic band into averaged statistical features and may underutilize fine- scale 
+spectral details at individual frequencies. Future work could enrich the data set and integrate computer- vision learning with time- frequency 
+spectrum to link localized broadband impulses and prolonged energy trails to specific fracture patterns, enabling a more objective and 
+higher- resolution diagnosis of fracture propagation dynamics.
+Fig. 19—(a) Normalized CWT scalogram and MRP technique for Stage 28 in MIP- 3H (after Gabry et al. 2024b, their Figs. 21 and 22). 
+(b) Diagnostic results of the proposed method for Stage 28 in MIP- 3H.
+Fig. 20—Locally prolonged elevated energy indicative of a complex fracture network.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 17 =====
+2026 SPE Journal 17
+Conclusions
+For this paper, we developed a real- time diagnostic method utilizing CWT to extract rate- corrected transient pressure fluctuations associ-
+ated with hydraulic fracture propagation, enabling the dynamic classification of fracture propagation patterns, including primary fracture 
+growth, complex fracture development, discontinuities intersection, and fracture interruption. The proposed method is supported by 
+independent measurements from microseismic monitoring, distributed fiber- optic measurements, and stage- level tracer production data. 
+It can be concluded that:
+1. CWT effectively extracts transient pressure fluctuations intrinsic from the stress release and accumulation of hydraulic fracture propa-
+gation, which manifest as broadband impulses in the time- frequency domain. Assisted by wavelet coherence analysis to exclude rate- 
+coupled responses, the 0.3–0.5- Hz frequency components are identified as the optimal diagnostic window for standard 1- Hz sampling 
+data.
+2. Pressure fluctuation energy in the 0.4–0.5- Hz sub- band serves as a surrogate for instantaneous stress release of fracture opening and 
+reflects the efficiency with which the hydraulic energy is converted into new fracture surfaces. Pressure fluctuation attenuation toward 
+the 0.3–0.4- Hz sub- band reflects increased hydraulic- energy dissipation along the fracture path and hindered stress reaccumulation. 
+Locally prolonged elevated energy near 0.35–0.4 Hz in the pressure/time- frequency spectrum serves as a potential indicator of en-
+hanced fracture complexity and a diagnosis corroborated by the higher tracer production observed in stages dominated by complex 
+fracture development patterns.
+3. The diagnostic precision can be enhanced by mitigating wellbore transmission effects. Bottomhole pressure better preserves local pres-
+sure energy by reducing the influence of hydrostatic head and wellbore friction filtering. Furthermore, a higher sampling rate enables 
+antialias filtering that suppresses wellbore resonant contamination within the diagnostic band. This combination effectively isolates 
+fracture- induced responses from wellbore system interference, leading to superior sensitivity to subtle fracture propagation events 
+under frequent operational adjustments.
+Acknowledgments
+The authors acknowledge the financial support provided by the National Natural Science Foundation of China (No. 52421002 & 
+52320105002) and Science and Technology Program of Xinjiang Uyghur Autonomous Region, China (No. 2024B01013).
+References
+Abdelaziz, A. and Grasselli, G. 2024. Crack Opening and Slippage Signatures During Stimulation of Bedded Montney Rock Under Laboratory True- 
+Triaxial Hydraulic Fracturing Experiments. Rock Mech Rock Eng 57 (11): 9827–9845. https://doi.org/10.1007/s00603-024-04048-5.
+Addison, P. S. 2005. Wavelet Transforms and the ECG: A Review. Physiol Meas 26 (5): R155–R199. https://doi.org/10.1088/0967-3334/26/5/R01.
+Addison, P. S. 2017. The Illustrated Wavelet Transform Handbook: Introductory Theory and Applications in Science, Engineering, Medicine and Finance. 
+Boca Raton, Florida, USA: CRC Press.
+Arts, L. P. A. and van den Broek, E. L. 2022. The Fast Continuous Wavelet Transformation (fCWT) for Real- Time, High- Quality, Noise- Resistant Time- 
+Frequency Analysis. Nat Comput Sci 2 (1): 47–58. https://doi.org/10.1038/s43588-021-00183-z.
+Artun, E. and Kulga, B. 2020. Selection of Candidate Wells for Re- Fracturing in Tight Gas Sand Reservoirs Using Fuzzy Inference. Pet Explor Dev 47 (2): 
+413–420. https://doi.org/10.1016/S1876-3804(20)60058-1.
+Bian, X., Jiang, T., Jia, C. et al. 2016. A New Post- Frac Evaluation Method for Shale Gas Wells Based on Fracturing Curves. Natural Gas Industry B 3 (2): 
+146–151. https://doi.org/10.1016/j.ngib.2016.03.010.
+Cao, T. D., Hussain, F., and Schrefler, B. A. 2018. Porous Media Fracturing Dynamics: Stepwise Crack Advancement and Fluid Pressure Oscillations. J 
+Mech Phys Solids 111: 113–133. https://doi.org/10.1016/j.jmps.2017.10.014.
+Carr, T. R., Ghahfarokhi, P. K., Carney, B. J. et al. 2019. Marcellus Shale Energy and Environmental Laboratory (MSEEL) Results and Plans: Improved 
+Subsurface Reservoir Characterization And Engineered Completions. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology 
+Conference, Denver, Colorado, USA, 22−24 July. https://doi.org/10.15530/urtec-2019-415.
+Chen, Y ., Liu, D., Cai, Y . et al. 2020. Fracturing Curve and Its Corresponding Gas Productivity of Coalbed Methane Wells in the Zhengzhuang Block, 
+Southern Qinshui Basin, North China. Energy Explor Exploit 38 (5): 1387–1408. https://doi.org/10.1177/0144598720923820.
+Cheng, S., Sheng, M., Li, G. et al. 2026. Numerical Modeling of 3D Hydraulic Fractures Propagation in Bedding- Riched Shale Oil Reservoir. Rock Mech 
+Rock Eng. https://doi.org/10.1007/s00603-026-05295-4.
+Daubechies, I. 1990. The Wavelet Transform, Time- Frequency Localization and Signal Analysis. IEEE Trans Inform Theory 36 (5): 961–1005. https://doi. 
+org/10.1109/18.57199.
+de Winter, J. C. F., Gosling, S. D., and Potter, J. 2016. Comparing the Pearson and Spearman Correlation Coefficients across Distributions and Sample 
+Sizes: A Tutorial Using Simulations and Empirical Data. Psychol Methods 21 (3): 273–290. https://doi.org/10.1037/met0000079.
+Gabry, M. A., Eltaleb, I., Soliman, M. Y . et al. 2023a. Validation of Estimating Stress from Fracture Injection Tests Using Continuous Wavelet Transform 
+with Experimental Data. Energies 16 (6): 2807. https://doi.org/10.3390/en16062807.
+Gabry, M. A., Eltaleb, I., Soliman, M. Y . et al. 2023b. A New Technique for Estimating Stress from Fracture Injection Tests Using Continuous Wavelet 
+Transform. Energies 16 (2): 764. https://doi.org/10.3390/en16020764.
+Gabry, M. A., Gharieb, A., Soliman, M. Y . et al. 2024a. Calibration of Continuous Wavelet Transform for Dynamic Hydraulic Fracture Propagation with 
+Micro- Seismic Data: Field Investigation. Paper presented at the SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, 
+Texas, USA, 6−8 February. https://doi.org/10.2118/217789-MS.
+Gabry, M. A., Gharieb, A., Y . Soliman, M. et al. 2024b. Advanced Deep Learning for Microseismic Events Prediction for Hydraulic Fracture Treatment via 
+Continuous Wavelet Transform. Geoenergy Sci Eng 239: 212983. https://doi.org/10.1016/j.geoen.2024.212983.
+Gabry, M. A., Ramadan, A., and Soliman, M. Y . 2025. Estimating Water Hammer Damping Ratios Using Continuous Wavelet Transform for Induced 
+Hydraulic Fracture Complexity Characterization. SPE J. 30 (6): 3587–3611. https://doi.org/10.2118/225459-PA.
+Gutenberg, B. and Richter, C. F. 1941. 34: Seismicity of the Earth. In Seismicity of the Earth, V ol. 34. V ol. 34. Boulder, Colorado, USA: Geological Society 
+of America. https://doi.org/10.1130/SPE34-p1.
+Hanks, T. C. and Kanamori, H. 1979. A Moment Magnitude Scale. J Geophys Res 84 (B5): 2348–2350. https://doi.org/10.1029/JB084iB05p02348.
+Hou, P., Gao, F., Ju, Y . et al. 2016. Experimental Investigation on the Failure and Acoustic Emission Characteristics of Shale, Sandstone and Coal under 
+Gas Fracturing. J Nat Gas Sci Eng 35: 211–223. https://doi.org/10.1016/j.jngse.2016.08.048.
+Hu, X., Huang, G., Zhou, F. et al. 2022. Pressure Response Using Wavelet Analysis in the Process of Hydraulic Fracturing: Numerical Simulation and Field 
+Case. J Pet Sci Eng 217: 110837. https://doi.org/10.1016/j.petrol.2022.110837.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 18 =====
+2026 SPE Journal18
+Hu, S. M., Sheng, M., Liu, B. B. et al. 2025. Mechanism- Guided Data- Driven Model for Optimized Completion Design. Pet Sci 22 (12): 5068–5083. 
+https://doi.org/10.1016/j.petsci.2025.09.031.
+Li, D., Han, M., and Zhu, Q. 2023. Evaluation of Rock Brittleness Index under Dynamic Load. App Sci 13 (8): 4698. https://doi.org/10.3390/app13084698.
+Li, X., Ji, H., Wang, H. et al. 2025. Controlling Factors of Hydraulic Fractures Based on a Post- Fracturing Cored Well in Glutenite Reservoirs: A Case 
+Study from Mahu Depression, Junggar Basin. SPE J. 30 (3): 1037–1051. https://doi.org/10.2118/223958-PA.
+Li, S., Sheng, M., Hao, X. et al. 2026. In- Situ SEM- DIC Imaging on Fracture Process Zone Evaluation of Laminated Shale Rock Fracturing. Theor Appl 
+Fract Mech 141: 105334. https://doi.org/10.1016/j.tafmec.2025.105334.
+Li, G., Song, X., Tian, S. et al. 2022a. Intelligent Drilling and Completion: A Review. Eng 18: 33–48. https://doi.org/10.1016/j.eng.2022.07.014.
+Li, M.-H., Zhou, F.-J., Wang, B. et al. 2022b. Numerical Simulation on the Multiple Planar Fracture Propagation with Perforation Plugging in Horizontal 
+Wells. Pet Sci 19 (5): 2253–2267. https://doi.org/10.1016/j.petsci.2022.05.004.
+Liu, G., Zhou, T., Li, F. et al. 2020. Fracture Surface Area Estimation from Hydraulic- Fracture Treatment Pressure Falloff Data. SPE Drill & Compl 35 (3): 
+438–451. https://doi.org/10.2118/199895-PA.
+MacKay, M., Zanganeh, B., Eaton, D. et al. 2018. Time- Frequency Analysis of Treatment Pressure from Hydraulic Fracturing. Paper presented at the 2nd 
+International Discrete Fracture Network Engineering Conference, Seattle, Washington, USA, 20−22 June.
+Mallat, S. and Hwang, W. L. 2002. Singularity Detection and Processing with Wavelets. IEEE Trans Inform Theory 38 (2): 617–643. https://doi.org/10. 
+1109/18.119727.
+Mamdani, E. H. and Assilian, S. 1975. An Experiment in Linguistic Synthesis with a Fuzzy Logic Controller. Int J Man Mach Stud 7 (1): 1–13. https://doi. 
+org/10.1016/S0020-7373(75)80002-2.
+Milanese, E., Rizzato, P., Pesavento, F. et al. 2016. An Explanation for the Intermittent Crack Tip Advancement and Pressure Fluctuations in Hydraulic 
+Fracturing. Hydraulic Fracturing J 3 (2): 30–43.
+Nikolaou, N. G. and Antoniadis, I. A. 2002. Demodulation of Vibration Signals Generated by Defects in Rolling Element Bearings Using Complex Shifted 
+Morlet Wavelets. Mech Syst Signal Process 16 (4): 677–694. https://doi.org/10.1006/mssp.2001.1459.
+Nolte, K. G. and Smith, M. B. 1981. Interpretation of Fracturing Pressures. J Pet Technol 33 (9): 1767–1775. https://doi.org/10.2118/8297-PA.
+Peng, J., Qiao, R., Liu, Y . et al. 2020. A Wavelet Coherence Approach to Prioritizing Influencing Factors of Land Surface Temperature and Associated 
+Research Scales. Remote Sens Environ 246: 111866. https://doi.org/10.1016/j.rse.2020.111866.
+Pirayesh, E., Soliman, M. Y ., Rafiee, M. et al. 2015. A New Method To Interpret Fracturing Pressure—Application to Frac Pack. SPE J. 20 (3): 508–517. 
+https://doi.org/10.2118/166132-PA.
+Ricci, L., Perinelli, A., and Prevedelli, M. 2024. Nyquist–Shannon Sampling Theorem. In The Physics Behind Electronics, 199–212. Cham, Switzerland: 
+UNITEXT for Physics Series, Springer Cham. https://doi.org/10.1007/978-3-031-55460-5_9.
+Sheng, M., LI, G., Tian, S. et al. 2022. Research Status and Prospect of Artificial Intelligence in Reservoir Fracturing Stimulation. Drill & Pro Tech 45 (4): 
+1–8. https://doi.org/10.3969/J.ISSN.1006-768X.2022.04.01.
+Soliman, M. Y ., Wigwe, M., Alzahabi, A. et al. 2014. Analysis of Fracturing Pressure Data in Heterogeneous Shale Formations. Hydraulic Fracturing J 
+1 (2).
+Tzschichholz, F. and Herrmann, H. J. 1995. Simulations of Pressure Fluctuations and Acoustic Emission in Hydraulic Fracturing. Phys Rev E 51 (3): 
+1961–1970. https://doi.org/10.1103/PhysRevE.51.1961.
+Unal, E., Rezaei, A., Siddiqui, F. et al. 2019a. Improved Understanding of Dynamic Fracture Behavior in Unconventional Horizontal Wells Using Wavelet 
+Transformation. Paper presented at the SPE Annual Technical Conference and Exhibition, Calgary, Alberta, Canada, 30 September−2 October. https:// 
+doi.org/10.2118/195889-MS.
+Unal, E., Siddiqui, F., and Soliman, M. Y . 2018. Wavelet Analysis of Fracturing Pressure Data. Paper presented at the SPE Hydraulic Fracturing Technology 
+Conference and Exhibition, The Woodlands, Texas, USA, 23−25 January. https://doi.org/10.2118/189885-MS.
+Unal, E., Siddiqui, F., Soliman, M. Y . et al. 2019b. Wavelet Analysis of DFIT Data to Identify Fracture Closure Parameters. Paper presented at the SPE 
+Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 5−7 February. https://doi.org/10.2118/194326-MS.
+Warpinski, N. R. and Teufel, L. W. 1987. Influence of Geologic Discontinuities on Hydraulic Fracture Propagation (Includes Associated Papers 17011 and 
+17074 ). J Pet Technol 39 (2): 209–220. https://doi.org/10.2118/13224-PA.
+Wei, Z., Sheng, M., Hu, Z. et al. 2024. Identification of Nearly Pure Leakoff Phase from Pressure Falloff Curve and Its Interpretation on Stimulated Fracture 
+Areas. SPE J. 29 (11): 6185–6197. https://doi.org/10.2118/223119-PA.
+Wei, Z., Sheng, M., Li, J. et al. 2025. Pressure Diagnostics in Hydraulic Fracturing for Unconventional Completion Optimization. Adv Geo- Energy Res 17 
+(3): 196–211. https://doi.org/10.46690/ager.2025.09.03.
+Wu, S., Gao, K., Wang, X. et al. 2022. Investigating the Propagation of Multiple Hydraulic Fractures in Shale Oil Rocks Using Acoustic Emission. Rock 
+Mech Rock Eng 55 (10): 6015–6032. https://doi.org/10.1007/s00603-022-02960-2.
+Wu, S., Ge, H., Wang, X. et al. 2017. Shale Failure Processes and Spatial Distribution of Fractures Obtained by AE Monitoring. J Nat Gas Sci Eng 41: 
+82–92. https://doi.org/10.1016/j.jngse.2017.02.015.
+Wu, K. and Olson, J. E. 2016. Mechanisms of Simultaneous Hydraulic- Fracture Propagation From Multiple Perforation Clusters in Horizontal Wells. SPE 
+J. 21 (3): 1000–1008. https://doi.org/10.2118/178925-PA.
+Xu, W., Wang, Q., Li, B. et al. 2026. Oscillatory Instability of Quasistatic Fluid- Driven Fracturing in Porous Materials. Phys Rev Lett 136 (8): 086103. 
+https://doi.org/10.1103/6fks-qtvp.
+Yan, R., Gao, R. X., and Chen, X. 2014. Wavelets for Fault Diagnosis of Rotary Machines: A Review with Applications. Signal Process 96: 1–15. https:// 
+doi.org/10.1016/j.sigpro.2013.04.015.
+Zeinabady, D. and Clarkson, C. R. 2023. Stage- by- Stage Hydraulic Fracture and Reservoir Characterization through Integration of Post- Fracture Pressure 
+Decay Analysis and the Flowback Diagnostic Fracture Injection Test Method. SPE Res Eval & Eng 26 (3): 634–650. https://doi.org/10.2118/212726- 
+PA.
+Zhang, J., Sheng, M., Si, L. et al. 2025. Evaluation Method for the Effectiveness of Temporary Plugging Fracturing Based on Time- Frequency Characteristics 
+of Pump Pressure. Acta Petrolei Sinica 46 (11): 2128–2140. https://doi.org/10.7623/syxb202511010.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​doi/​10.​2118/​234685-PA/​5390946/​spe-234685-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026

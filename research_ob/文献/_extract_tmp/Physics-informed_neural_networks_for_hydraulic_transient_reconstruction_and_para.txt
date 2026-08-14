@@ -1,0 +1,2062 @@
+SOURCE: Physics-informed neural networks for hydraulic transient reconstruction and parameter estimation in pipeline systems基于物理信息神经网络的管道系统水力瞬变重构与参数辨识.pdf
+PAGES: 16
+FULL extract 16 pages
+
+
+
+===== PAGE 1 =====
+Water Research 221 (2022) 118828
+Available online 6 July 2022
+0043-1354/© 2022 Elsevier Ltd. All rights reserved.
+Physics-informed neural networks for hydraulic transient analysis in 
+pipeline systems 
+Jiawei Ye, Nhu Cuong Do, Wei Zeng, Martin Lambert
+* 
+School of Civil, Environmental and Mining Engineering, University of Adelaide, SA 5005, Australia   
+ARTICLE INFO  
+Keywords: 
+Hydraulic transient 
+Physics-informed neural network 
+Artificial intelligence 
+Pipeline system 
+Partial differential equations 
+ABSTRACT  
+In water pipeline systems, monitoring and predicting hydraulic transient events are important to ensure the 
+proper operation of pressure control devices (e.g., pressure reducing valves) and prevent potential damages to 
+the network infrastructure. Simulating transient pressures using traditional numerical methods, however, require 
+a complete model with known boundary and initial conditions, which is rarely able to obtain in a real system. 
+This paper proposes a new physics-based and data-driven method for targeted transient pressure reconstruction 
+without the need of having a complete pipe system model. The new method formulates a physics-informed neural 
+network (PINN) by incorporating both measured data and physical laws of the transient flow in the training 
+process. This enables the PINN to learn and explore hidden information of the hydraulic transient (e.g., boundary 
+conditions and wave damping characteristics) that is embedded in the measured data. The trained PINN can then 
+be used to predict transient pressures at any location of the pipeline. Results from two numerical and one 
+experimental case studies showed a high accuracy of the pressure reconstruction using the proposed approach. In 
+addition, a series of sensitivity analyses have been conducted to determine the optimal hyperparameters in the 
+PINN and to understand the effects of the sensor configuration on the model performance.   
+1. Introduction 
+Hydraulic transient phenomena widely exist in pipeline systems, 
+from water distribution networks ( Boulos et al., 2005 ) and hydroelectric 
+power plants ( Afshar et al., 2010 ) to gas pipelines ( Reddy et al., 2006 ) or 
+industrial piping systems. The pressure induced by hydraulic transient 
+events (e.g., valve closure) can change rapidly and reach an extremely 
+level ( El-Hazek et al., 2020 ). Those extreme pressures have significant 
+impacts on the reliability of a pipeline system and may result in device 
+failures, pipe bursts ( Misiunas et al., 2006 ), water loss and contaminant 
+intrusion ( Ebacher et al., 2012 ). 
+The adoption of smart sensor networks, with a number of high- 
+frequency loggers deployed across the water pipeline system ( Xing 
+and Sela, 2019 ; Wu et al., 2021 ), can be used to capture and monitor the 
+transient pressure. Large amounts of collected data enable smart water 
+network operation and management ( PUB, 2016 ) to mitigate the nega -
+tive impact of transient events. However, high-frequency loggers are 
+often sparsely distributed in a water distribution system (WDS), leading 
+to limited monitoring of the pressure variations among the entire sys -
+tem. Locations without measurement devices may possess a hidden risk 
+since abnormal pressures occurring in these regions could not be 
+recorded by existing sensors at other locations. Therefore, transient 
+analysis for unmonitored locations using pressure measurements at 
+sparsely existing loggers is crucial for water utilities to better understand 
+the impact of transient events and thus take preventive operational 
+actions. 
+Over the past several decades, various numerical models have been 
+developed to simulate and predict pressure variations of hydraulic 
+transient events, including the wave characteristic method ( Wood et al., 
+1966 ), method of characteristics (MOC) ( Wylie and Streeter, 1993 ), 
+finite-different method (FDM) ( Chaudhry, 2014 ), and finite volume 
+method (FVM) ( Hwang and Chung, 2002 ). These physical-based 
+methods construct the transient pressure by solving a set of partial dif -
+ferential equations (PDEs) that govern the transient flow. However, the 
+accuracy and reliability of these methods are built on full knowledge of 
+the boundary conditions and transient excitation, which is very chal -
+lenging to obtain in a real system. In practice, the hydraulic devices as 
+boundary nodes in these models are difficult to formulate accurately (e. 
+g., how a valve is closed is normally unknown). Furthermore, the 
+physical characteristics of the pressure wave propagation involve 
+* Corresponding author. 
+E-mail address: martin.lambert@adelaide.edu.au (M. Lambert).  
+Contents lists available at ScienceDirect 
+Water Research 
+journal homepag e: www.el sevier.com/loc ate/watre s 
+https://doi.org/10.1016/j.watres.2022.118828 
+Received 12 March 2022; Received in revised form 10 June 2022; Accepted 4 July 2022   
+
+===== PAGE 2 =====
+Water Research 221 (2022) 118828
+2
+various uncertain factors that are normally difficult to calibrate in the 
+field. These include but are not limited to pipe network parameters (e.g., 
+pipe diameters, wave speeds), the dynamic effect of unsteady friction 
+( Brunone et al., 2000 ; Vardy and Brown, 1995 ; Vítkovský et al., 2000 ) 
+and pipe-wall viscoelasticity ( Covas et al., 2005 ). 
+With the increasing availability of wireless sensors in recent years, 
+data-driven solvers become popular in WDS modeling and analysis since 
+they can avoid the requirement of a detailed physical model. These 
+approaches use measurement data, such as pressures and flowrates, to 
+infer the hydraulic states and system parameters. Applications of data- 
+driven solvers in pipeline systems can be found in various research 
+topics, ranging from pipe condition assessment ( Khan et al., 2006 ; Jafar 
+et al., 2010 ) and water quality evaluation (
+¨
+Omer Faruk, 2010 ; Khatri 
+et al., 2019 ) to pipe failure detection ( Wu et al., 2016 ; Zhou et al., 2019 ; 
+Bohorquez et al., 2021 ). The data-driven solvers, especially machine 
+learning, have also been applied for pressure prediction at steady state 
+( Lima et al., 2017 ). For example, Ridolfi et al. (2014) applied the arti -
+ficial neural network (ANN) with an entropy-based method to determine 
+water pressure at unknown nodes. The small discrepancy between 
+simulated and observed water pressure at each node demonstrated the 
+capability of this method for pressure prediction. Hajgat ´o et al. (2021) 
+used a graph neural network (GNN), a machine learning model that can 
+explicitly include the topology information of a pipe network, to 
+reconstruct all the nodal pressures based on partially observed nodal 
+pressures in three different WDSs. A GNN model was also proposed by 
+Xing and Sela (2022) to estimate the flows and heads in WDSs. In this 
+study, the physical laws that govern the steady-state hydraulics were 
+incorporated into the training process to improve the performance of the 
+trained model. 
+Although the above examples achieved some success in pressure and 
+flowrate prediction in hydraulic steady states, there is a lack of study on 
+transient state prediction, specifically for predicting transient pressure 
+in pipeline networks. The key obstacles to this problem are, firstly, the 
+sparsely measured data due to a limited number of sensors and large 
+uncertainties that exist in practice, such as uncertain parameters of 
+pipes, dispersion and dissipation of pressure waves (also referred to as 
+damping) and background noise of measured data. Secondly, it can be 
+seen that the traditional physics-based methods for transient pressure 
+prediction are not well fit to use with field measurement data as they 
+require complete knowledge of the transient source/excitation to char -
+acterize the acceleration/deceleration of transient flows (i.e., solving a 
+set of complex PDEs). 
+The physics-informed neural network (PINN) proposed by Raissi 
+et al. (2019) is a potential effective tool to overcome these obstacles. 
+Different to purely data-driven models, the PINN can utilize hidden 
+physical information from the observed dataset to support solving 
+nonlinear PDEs. Given its high accuracy in predicting complex dynamics 
+from incomplete models and sparse data, the PINN has recently been 
+applied to various fields, such as computational fluid dynamics (CFD) 
+( Buhendwa et al., 2021 ; Mao et al., 2020 ; Rao et al., 2020 ), power 
+systems ( Misyris et al., 2020 ), metamaterial design ( Chen et al., 2020 ) 
+and transient electrodynamics ( Noakoasteen et al., 2020 ). 
+In this paper, a PINN-based transient analysis method has been 
+proposed for transient pressure prediction. To the authors ’ knowledge, 
+this is the first such attempt to enhance hydraulic transient analysis 
+without a complete model by incorporating a PINN into the analysis. 
+Compared with the traditional physics-based numerical methods, the 
+PINN-based method developed in this paper incorporates the hidden 
+information (physical characteristics such as wave damping and 
+boundary conditions, etc) embedded in the measured data into the 
+transient analysis and thus does not require a fully complete physics- 
+based model. Compared with the purely data-driven methods, the 
+PINN-based method incorporates the physical laws of transient flow into 
+the training process and thus provides physically consistent solutions 
+even with sparsely measured data ( Karniadakis et al., 2021 ). 
+2. Methodology 
+For the purpose of developing the PINN-based hydraulic transient 
+analysis to determine the pressure and flowrate variations, it is neces -
+sary to understand the fundamental of hydraulic transient. In this sec -
+tion, the governing equations of hydraulic transients are, therefore, 
+firstly depicted. Then, the PINN architecture is illustrated, which in -
+corporates both the above-mentioned physical laws (governing equa -
+tions) and available measurements. 
+2.1. Mathematical representation of hydraulic transients 
+Dynamic behaviours of the transient flow in pressure pipes are rep -
+resented by a set of conservation of mass and momentum equations. 
+These are a set of PDEs since the flowrate q ( x , t ) and pressure (i.e., 
+piezometric head) h ( x , t ) are functions of distance ( x ) and time ( t ) . 
+Assuming the flow is one-dimensional and slightly compressible in a 
+pressurized pipe having linearly elastic walls, the governing equations 
+for the transient flow can be written as follows ( Wylie and Streeter, 
+1993 ): 
+A
+∂ q
+∂ t
++ q
+∂ q
+∂ x
++ gA
+2
+∂ h
+∂ x
++ f
+| q | q
+2 D
+= 0 (1)  
+A
+∂ h
+∂ t
++ q
+∂ h
+∂ x
++
+a
+2
+g
+∂ q
+∂ x
+= 0 (2)  
+where h ( x , t ) is the piezometric head, q ( x , t ) is the flowrate; x is the 
+distance along the pipeline and t is time; a is the wave speed, g is the 
+gravitational acceleration, D is the pipe diameter and A = π D
+2
+/ 4 is the 
+cross-section area of the pipeline and f is the Darcy – Weisbach friction 
+factor. 
+2.2. Problem definition for the PINN-based hydraulic transient analysis 
+For a pipeline system with unknown boundary conditions, as shown 
+in Fig. 1 , it is assumed that the pipe parameters λ = { a , f , D , L } are 
+given and L is the pipe length. The system is characterized by a state 
+vector Φ that consists of hydraulic head and flowrate and depends on 
+time and space. This state vector Φ can be expressed by: 
+Φ ( x , t ) = [ h ( x , t ) , q ( x , t )] x ∈ [ 0 , L ] , t ∈ [ 0 , T ] (3)  
+where T is the total time of the investigated transient event. 
+To solve the system state Φ with unknown boundaries, it is assumed 
+that there are k
+d 
+sensors installed on the pipe wall at locations P
+1
+, P
+2
+, ⋯ 
+, P
+k
+d 
+to collect additional information. These locations are referred to as 
+observation points as shown in Fig. 1 . The subscript d indicates the 
+observed data. 
+Define M
+d 
+as the set of all the spatially-temporally observed data 
+points and M
+i
+d 
+as the i
+th 
+observed data point consisting of the recorded 
+physical quantity φ
+i
+d 
+by the sensor and its spatial-temporal characteris -
+tics x
+i
+d 
+and t
+i
+d
+. The term φ
+i
+d 
+can be either the observed pressure head h or 
+the observed flowrate q , determined by the type of sensors. Each 
+observation contains N data points in time series. Therefore, the set of 
+all the observed data points can be expressed as: 
+M
+d
+=
+⎧
+⎨
+⎩
+M
+1
+d
+, M
+2
+d
+, … , M
+N
+d
+⏞̅̅̅̅̅̅̅̅̅̅ ̅⏟⏟̅̅̅̅̅̅̅̅̅̅ ̅⏞
+P
+1
+, M
+N + 1
+d
+, … , M
+2 N
+d
+⏞̅̅̅̅̅̅̅̅̅ ̅⏟⏟̅̅̅̅̅̅̅̅̅ ̅⏞
+P
+2
+, … , M
+( k   1 ) N + 1
+d
+, … , M
+N
+d
+d
+⏞̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅⏟⏟̅̅̅̅̅̅̅̅̅̅ ̅̅̅ ̅⏞
+P
+k
+d
+⎫
+⎬
+⎭
+=
+{
+x
+i
+d
+, t
+i
+d
+, φ
+i
+d
+}
+N
+d
+i = 1
+, φ
+i
+d
+∈ Φ
+ 
+x
+i
+d
+, t
+i
+d
+)
+(4)  
+where N
+d
+= k
+d
+× N and is the total number of observed data points at all 
+the observation points and at all the time steps. 
+Using this definition, the hydraulic transient analysis can be taken as 
+the estimation of the system states Φ (outputs) at any space x and time t 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 3 =====
+Water Research 221 (2022) 118828
+3
+(inputs) when the system parameters λ and observation dataset M
+d 
+are 
+available. Without knowing the initial and boundary conditions, the 
+Eqs. (1) and (2) cannot be solved. In other words, the state variables Φ 
+cannot be obtained by conventional numerical transient solvers that use 
+this set of transient governing equations. In addition, the inevitable 
+uncertainties existing in the pipeline system and observation data may 
+affect the accuracy of the result from these deterministic methods where 
+all the parameters and data require to be known exactly. To solve this 
+state estimation problem with various uncertainties, a PINN-based 
+transient analysis method is formulated in the next section. 
+2.2. Physics-informed neural networks 
+To formulate a PINN for transient flow which is governed by the 
+aforementioned PDEs (i.e., Eqs. (1) and (2) ), a deep neural network 
+(DNN) is first constructed as a surrogate of the PDE solution. Here, the 
+feed-forward neural network (FNN) which is relatively simple but suf -
+ficient for most PDE problems is employed. The FNN is trained by a two- 
+step process: forward propagation and back propagation. In the forward 
+propagation, the FNN takes the spatial-temporal variables { x , t } as input 
+and the mix-variable solution 
+̂
+Φ ( x , t ; θ ) = [
+̂
+h ( x , t ; θ ) , ̂q ( x , t ; θ )] as output. 
+The symbol θ is a vector containing all weights and biases in the neural 
+network that are adjusted by a gradient descent algorithm in the back 
+propagation. The hat above the variables indicates that the variables are 
+calculated by the neural network. 
+The next key step is to constrain the output 
+̂
+Φ ( x , t , θ ) to satisfy the 
+data observations as well as the physical laws defined by Eqs. (1) and 
+(2) . To quantify the compliance of the neural network with the physical 
+laws, the residuals are defined as: 
+F
+1
+= A
+∂ ̂q
+∂ t
++ ̂q
+∂ ̂q
+∂ x
++ gA
+2
+∂
+̂
+h
+∂ x
++ f
+| ̂q | ̂q
+2 D
+(5)  
+F
+2
+= A
+∂
+̂
+h
+∂ t
++ ̂q
+∂
+̂
+h
+∂ x
++
+a
+2
+g
+∂ ̂q
+∂ x
+(6) 
+The residual vector F = [ F
+1
+, F
+2
+] represents the degree of compliance 
+of the PINN with the physical laws, with small residual values indicating 
+high compliance. The spatial and time derivatives 
+∂
+̂
+h
+∂ x
+, 
+∂
+̂
+h
+∂ t
+,
+∂ ̂q
+∂ x
+and
+∂ ̂q
+∂ t 
+in F
+1 
+and F
+2 
+are computed by using the Automatic Differentiation (AD) al -
+gorithm ( Baydin et al., 2018 ). Note that the AD can accurately calculate 
+the derivative of numeric functions expressed as a graph structure, 
+especially for neural networks, since it does not require any approxi -
+mation schemes (e.g., the finite difference approximation) and avoids 
+the errors such as truncation and round-off errors. Thus, the PINN is a 
+mesh-free method without the requirement of a discrete mesh to solve 
+the PDEs. 
+A set of predefined points (herein, referred to as collocation points) 
+at k
+f 
+different locations C
+1
+, C
+2
+, … , … , C
+k
+f 
+(see Fig. 1 ) with N time steps 
+for each are selected to evaluate their residuals. The collocation dataset 
+can be defined as 
+M
+f
+=
+{
+x
+j
+f
+, t
+j
+f
+}
+N
+f
+j = 1
+(7)  
+where the subscript f indicates the collocation points, N
+f 
+indicates the 
+number of the data points at all the collocation points and at all the time 
+steps, and N
+f
+= k
+f
+× N . Note that the solutions from the PINN at these 
+points must comply with the partial differential equations and the 
+evaluation of their residuals does not require the true ‘target value ’ of Φ 
+(i.e., the observation data). Therefore, these points can be placed at any 
+location along the pipelines. Since it is impossible to make collocation 
+points cover the whole continuous spatial-temporal domain, a limited 
+number of collocation points are selected to account for the global PDEs. 
+The number of collocation points can be determined by an Adaptive 
+Collocation Method ( van der Meer et al., 2021 ). 
+Different from other PINN applications, the PINN for transient flow 
+analysis in this paper assumes the boundary and initial conditions are 
+unknown for practical reasons. Based on the description above, the loss 
+function L ( θ ) in the PINN is constructed by only considering terms 
+corresponding to PDEs and the field observations, and is given by: 
+L ( θ ) = L
+data
++ w
+f
+L
+PDE
+(8)  
+where w
+f 
+is the weighting value required to balance the PDE loss term 
+L
+PDE 
+and the data loss term L
+data
+, expressed by: 
+L
+data
+=
+1
+N
+d
+∑
+N
+d
+j = 1
+ 
+̂φ
+ 
+x
+j
+d
+, t
+j
+d
+; θ
+)
+  φ
+j
+d
+ 
+x
+j
+d
+, t
+j
+d
+))
+2
+(9)  
+L
+PDE
+=
+1
+N
+f
+∑
+N
+f
+j = 1
+(
+F
+2
+1
+(
+x
+j
+f
+, t
+j
+f
+; θ
+)
++ F
+2
+2
+(
+x
+j
+f
+, t
+j
+f
+; θ
+))
+(10) 
+In Eqs. (8) – (10) , the data loss term L
+data 
+aims to fit the observed 
+physical quantity φ
+d 
+(in Eq. (4) ) with the corresponding ̂φ from the 
+neural network output; while the PDEs loss term L
+PDE 
+enforces the hy -
+draulic transient flow structure imposed by Eqs. (1) and (2) at the 
+collocation points by minimizing both the residuals F
+1 
+and F
+2
+. 
+The architecture of the proposed PINNs for hydraulic transient flow 
+is presented in Fig. 2 . For the input layer, the input matrix is: 
+Input :
+⃒
+⃒
+⃒
+⃒
+x
+d
+t
+d
+x
+f
+t
+f
+⃒
+⃒
+⃒
+⃒
+=
+Space Time
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+x
+1
+d
+t
+1
+d
+x
+2
+d
+t
+2
+d
+⋯ ⋯
+x
+N
+d
+d
+t
+N
+d
+d
+x
+1
+f
+t
+1
+f
+x
+2
+f
+t
+2
+f
+⋯ ⋯
+x
+N
+f
+f
+t
+N
+f
+f
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+(11)  
+where the components { x
+d
+, t
+d
+} are the vectors of spatial-temporal var -
+iables from the observation dataset M
+d
+; the components { x
+f
+, t
+f
+} are the 
+vectors of spatial-temporal variables from a set of collocation points M
+f
+. 
+The output matrix for the output layer is: 
+Fig. 1. A pipeline system with unknown left and right boundaries. At observation points, pressure or flowrate traces are measured as observation data. At collocation 
+points, physical laws are imposed by Eqs. (1) and (2) . At testing points, the pressure and flowrate traces are predicted and evaluated to validate the accuracy and 
+efficacy of the PINN approach ’ s solutions. 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 4 =====
+Water Research 221 (2022) 118828
+4
+Head Flow
+Output :
+̂
+Φ ( x , t , θ ) =
+⃒
+⃒
+⃒
+⃒
+⃒
+̂
+h
+d
+̂q
+d
+̂
+h
+f
+̂q
+f
+⃒
+⃒
+⃒
+⃒
+⃒
+=
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+̂
+h
+1
+d
+̂q
+1
+d
+̂
+h
+2
+d
+̂q
+2
+d
+⋯ ⋯
+̂
+h
+N
+d
+d
+̂q
+N
+d
+d
+̂
+h
+1
+f
+̂q
+1
+f
+̂
+h
+2
+f
+̂q
+2
+f
+⋯ ⋯
+̂
+h
+N
+f
+f
+̂q
+N
+f
+f
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+⃒
+(12) 
+To build the PINN model as shown in Fig. 2 , a training procedure is 
+required to optimize the neural network parameters θ to minimize the 
+loss function. During the training process, a set of observation points M
+d 
+and a set of collocation points M
+f 
+are fed to the PINN model. Firstly, the 
+forward propagation is performed in the PINN to compute the output 
+̂
+Φ ( x , t , θ ) , i.e., the head 
+̂
+h and flow ̂q , and evaluate the loss, defined by 
+Eqs. (8) – (10) In particular, the head 
+̂
+h
+d 
+and flow ̂q
+d 
+at the observation 
+points are used to calculate the data loss term L
+data 
+using Eq. (9) . The 
+head 
+̂
+h
+f 
+and flow ̂q
+f 
+at the collocation points are used to calculate the 
+partial differential terms 
+∂
+̂
+h
+∂ x
+,
+∂
+̂
+h
+∂ t
+,
+∂ ̂q
+∂ x
+and
+∂ ̂q
+∂ t 
+through the AD algorithm. 
+These partial differential terms together with 
+̂
+h
+f 
+and ̂q
+f 
+are subsequently 
+used to calculate the PDEs loss term L
+PDE 
+specified by Eq. (10) . The total 
+loss is then computed by taking the weighted sum as expressed in Eq. 
+(8) . Secondly, the gradients of the total loss with respect to the neural 
+network parameters θ are calculated using the back propagation rules. 
+The parameter set θ is iteratively updated through this process on the 
+whole training dataset until the total loss converges. The convergence of 
+the total loss function, in this paper, is evaluated by the Adaptive 
+Moment Estimation (Adam) algorithm (i.e., a variant of stochastic 
+gradient descent (SGD) optimization) with a prescribed stop criterion 
+and by the L-BFGS-B optimizer, a Quasi-Newton based algorithm that 
+can efficiently solve large nonlinear optimization problems ( Byrd et al., 
+1995 ). 
+After the training stage, the PINN model can be used to estimate the 
+transient pressure and flowrate traces at any location along the pipeline. 
+In this paper, the performance of the proposed PINN scheme is evaluated 
+on a set of preselected testing points at unmonitored locations. The 
+testing dataset M
+e 
+is defined by: 
+M
+e
+=
+{
+x
+i
+e
+, t
+i
+e
+, φ
+j
+e
+}
+N e
+i = 1
+(13)  
+where N
+e 
+is the total number of the data points at the selected testing 
+points and at the selected time steps, and the subscript e indicates testing 
+data. The relative L
+2 
+error defined in Eq. (14) is used as the metric for 
+evaluation. 
+L
+2
+=
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅ ̅
+∑
+N e
+i = 1
+[
+̂
+φ
+i
+e
+( x , t , θ )   φ
+i
+e
+( x , t )
+] 2
+∑
+N e
+i = 1
+[
+φ
+i
+e
+( x , t )
+]
+2
+√
+√
+√
+√
+(14) 
+In addition to these output errors, the pressure traces at testing points 
+are also given to demonstrate the accuracy and efficiency of the pro -
+posed method. 
+3. Numerical studies on reservoir-pipeline-valve system with 
+unknown boundaries 
+3.1. Reservoir-pipeline-valve system 
+Fig. 3 depicts the reservoir-pipeline-valve system, which has been 
+widely used to understand and analyze the fundamental transient phe -
+nomena occurring in pipeline systems due to its simple form. In this 
+paper, numerical studies on this system were also firstly conducted to 
+validate the proposed PINN-based transient analysis method. 
+In general, the numerical solution of the transient pressure h and 
+flowrate q along the pipe requires boundary conditions including the 
+information of the transient excitation and the initial condition. For this 
+system, the upstream boundary is often a constant-level reservoir, 
+written as: 
+h
+res
+( t ) = h
+up
+(15)  
+where h
+up 
+is the upstream water level. At the downstream boundary, the 
+flow is exposed to the atmosphere through a valve. The relationship 
+between the flowrate and pressure at the downstream valve can be 
+written as: 
+q
+v
+( t )   τ ( t )( C
+d
+A
+v
+)
+0
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+2 gh
+v
+( t )
+√
+= 0 (16)  
+where h
+v
+and q
+v 
+is the pressure head and flowrate at the valve, respec -
+tively; τ is the relative valve opening and τ = 1 corresponds to the initial 
+valve opening; when C
+d 
+is the coefficient of flowrate and A
+v 
+is the area of 
+valve opening; the subscript 0 denotes the initial condition. 
+The transient simulation starts from the steady state where the initial 
+flowrate is constant along the pipe. 
+3.2. System setup 
+The reservoir-pipeline-valve system in this case study possesses the 
+following properties: the internal diameter of the pipeline is assumed to 
+be D = 1.81 m; the length of the pipeline is L = 500 m; the wave speed a 
+= 1000 m/s; the Darcy-Weisbach factor f = 0.012; the water level of the 
+upstream reservoir h
+up 
+= 100 m; and the initial flowrate q
+0 
+is 0.314 m
+3
+/ 
+s. To test the capacity of the proposed PINN for analyzing complex wave 
+forms, a continuous valve excitation as shown in Fig. 4 has been applied. 
+In addition, three pressure transducers { P
+1
+, P
+2
+, P
+3
+} is assumed to be at 
+Fig. 2. Schematic diagram of the physics-informed neural networks (PINNs) for the hydraulic transient flow.  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 5 =====
+Water Research 221 (2022) 118828
+5
+100 m, 300 m, and 400 m away from the upstream reservoir as shown in 
+Fig. 3 . The transient pressures recoded by these transducers were used to 
+train the PINN model. 
+Ten seconds of pressure traces at these locations were generated by 
+the method of characteristics (MOC) as shown in Fig. 5 . The time step of 
+the pressure from the MOC model was selected as Δ T = 0.01 s. However, 
+the simulated pressure traces were then uniformly downsampled to Δ T 
+= 0.05 s to reduce the computational cost, which results in a total of 200 
+samples for each transducer. Therefore, the observation data M
+d 
+at P
+1
+,
+P
+2
+and P
+3 
+used for the training process contained N
+d 
+= 600 samples. In 
+addition, 20 uniformly distributed locations were selected as collocation 
+points M
+f
+, resulting in N
+f 
+= 4, 000 collocation samples (20 collocation 
+points with 200 samples at each point). These locations were used to 
+impose the physics of the hydraulic transient to the PINN by minimizing 
+the L
+PDE 
+term in Eq. (10) . Finally, the pressure and flowrate traces at two 
+testing points T
+1 
+( x = 50 m) and T
+2 
+( x = 350 m) were also generated as 
+the testing dataset M
+e 
+for the transient state prediction. The total 
+number of testing points was N
+e 
+= 800 (two testing points with 200 
+samples at each point for each of the pressure head and flowrate traces). 
+It is noted that a reasonable duration of the data series should be 
+determined for specific applications. A long duration can provide more 
+training data for the PINN model, but in the meantime, it increases the 
+complexity of the transient analysis which may require a larger neural 
+network to fit. The selection of the time step mainly depends on the 
+sampling rate of pressure sensors. The higher sampling rate allows the 
+higher resolution of the transient to be captured. Therefore, a small time 
+step is required for simulating a rapid transient, and vice versa. 
+3.3. PINN for transient analysis in the reservoir-pipeline-valve system 
+3.3.1. Neural network training 
+Various PINN structures were evaluated through the training and 
+testing process, in which the following PINN structure obtained the 
+lowest relative L
+2 
+error on the test data: the FNN has 10 layers, including 
+one input layer, one output layer, and eight hidden layers with 20 
+neurons in each hidden layer. The hyperbolic tangent activation 
+Fig. 3. Pipeline configuration of the numerical case.  
+Fig. 4. The relative valve opening of the downstream valve.  
+Fig. 5. Observed pressure head traces simulated by MOC (a) at P
+1 
+( x = 100 m); (b) at P
+2 
+( x = 300 m); (c) P
+3 
+( x = 400 m).  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 6 =====
+Water Research 221 (2022) 118828
+6
+function is used for the hidden layers ( Tartakovsky et al., 2020 ) and it is 
+used in all the simulation tests in the present work. The neural network 
+has been trained with the Adam optimizer for 500, 000 steps followed by 
+the L-BFGS-B optimizer with 50, 000 steps, which took around 48 min 
+on a GPU device of GeForce GTX 1080 Ti. A weight w
+f 
+= 0.1 in the loss 
+function ( Eq. (8) ) is determined for PINN through a sensitivity analysis. 
+The details of the sensitivity analysis are reported in Section 3.4 . For 
+comparison, a conventional ANN is also built with the same configura -
+tion, which can be simply achieved by setting w
+f 
+= 0 in the constructed 
+PINN. 
+Fig. 6 plots the convergences of the loss functions of the PINN and the 
+ANN models. It can be seen that the value of the loss function of ANN 
+reached a smaller value in the end. The lower loss values indicate ANN 
+can better fit the training pressure traces. The total loss function L ( θ ) , the 
+component corresponding to the PDEs loss term L
+PDE 
+and the compo -
+nent corresponding to the observation data L
+data 
+were also included in 
+Fig. 6 . The stochastic gradient descent method in the Adam algorithm 
+causes the oscillations in the loss function, which allows a better ANN 
+generalization. Then the quasi-Newton L-BFGS-B method enables a 
+higher rate of convergence to the minimum identified by the Adam 
+algorithm. 
+3.3.2. Pressure and flowrate prediction 
+The predicted pressure variations at the testing points compared 
+with the simulated results are shown in Fig. 7 . The solid lines depict the 
+simulated results by the MOC, the dash lines depict the predicted results 
+by the PINN, and the dot lines depict the predicted results by the ANN. In 
+contrast to the comparison of the total loss in the training process 
+(smaller loss for the ANN and larger loss for the PINN), the relative L
+2 
+error defined in Eq. (14) is 0.4% for the pressure prediction using PINN, 
+while it is 4.78% using ANN. This means the actual prediction (see 
+Figs. 7 and 8 ) is better when using PINN. Without the constraints of 
+physical laws, the ANN overfits the training data (i.e., pressure traces) at 
+observation points and is not able to fit the testing data at unmonitored 
+locations. This demonstrates the advantage of incorporating physics- 
+related information into the neural network and shows the superiority 
+of the proposed PINN method. This advantage is more obvious when 
+looking at the flowrate prediction results of the ANN and the PINN. 
+Although the initial boundary (initial flowrate q
+0
+) is not included in 
+the loss function, the PINN is found to be able to predict the variation of 
+flowrate accurately with a different initial value. To match the predicted 
+flowrate variation with the simulated flowrate, the predicted flowrate 
+traces are adjusted by: 
+̃q = ̂q + ( q
+0
+  ̂q
+0
+) (17)  
+where ̂q is the vector consisting of the originally predicted flowrate 
+trace, ̃q is the vector consisting of the adjusted predicted flowrate trace 
+and q
+0 
+is the predicted initial flowrate (at t = 0 s). The predicted flowrate 
+traces after adjustment by Eq. (17) are shown in Fig. 8 . The relative L
+2 
+error for the flowrate prediction is 6.1% using PINN, while it is 
+extremely large ( > 100%) using ANN. The better agreement of flowrate 
+trace using PINN demonstrates its capability of accurate flowrate pre -
+diction. Overall, the results illustrate the efficacy of PINN for transient 
+analysis to predict persistent pressure and flow variations at targeted 
+locations along the pipe. 
+One of the main advantages of PINN is its ability to automatically 
+approximate the partial derivatives in PDEs. This makes the process of 
+solving PDEs and matching the predictions with observations much 
+faster without the need for discretization which is computationally 
+expensive in traditional methods. 
+Ensuring the correctness of approximated partial derivatives by 
+PINN provides a more rigorous way to validate the proposed PINN-based 
+method. In the transient flow analysis, four different partial derivatives 
+∂ h
+∂ x
+,
+∂ h
+∂ t
+,
+∂ q
+∂ x
+, and
+∂ q
+∂ t 
+are constrained by the two governing equations Eqs. (1) 
+and ( (2) ) and are embedded in the pressure measurements as well. Those 
+approximated partial derivatives at testing point T
+1 
+were compared with 
+those computed by a numerical method, referred as to four-point- 
+centred finite-difference (FD) scheme Chaudhry, 2014 ). With the 
+simulated head and flow by MOC, the partial derivatives of Eqs. (1) and 
+( (2) were computed by the FD method described in the Supporting 
+Information. 
+Fig. 9 shows the comparison of the derivatives at the testing point T
+1 
+between PINN and FD approximations. By substituting the partial de -
+rivatives 
+∂ h
+∂ x
+,
+∂ h
+∂ t
+,
+∂ q
+∂ x
+, and
+∂ q
+∂ t 
+into Eq. (14) to replace the physical quantity φ , 
+the L
+2 
+error of these predicted derivatives can be obtained as 2.49%, 
+4.31%, 4.01%, and 2.34%, respectively. The results rigorously confirm 
+that PINN can effectively solve the PDEs to obtain the correct pressure 
+heads and flow rates (in Figs. 7 and 8 ) and the correct corresponding 
+derivatives (in Fig. 9 ). 
+3.4. Sensitivity analysis of the hyperparameters 
+To balance the trade-off between accuracy and efficiency, it is 
+important to choose appropriate hyperparameters in the training pro -
+cess. Fig. 10 illustrates the effects of the weight on the loss function, 
+Fig. 6. The loss value L
+A
+( θ ) of conventional ANN compared with the loss values L ( θ ) , L
+PDE
+and L
+data 
+corresponding to the total loss, PDEs loss and observation loss in 
+the PINN, respectively. 500, 000 iterations (epochs) trained with Adam optimizer followed by L-BFGS-B optimizer with the recording interval of 100 iterations. 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 7 =====
+Water Research 221 (2022) 118828
+7
+neural network depth (number of layers), neural network width (num -
+ber of neurons of each hidden layer), and training epochs on the pre -
+diction accuracy. To assess the effect of each parameter, the 
+hyperparameters used in the case as shown in Figs. 7 and 8 are set as the 
+benchmark. Only a single parameter varies in each case in the following 
+sensitivity analyses and the remaining parameters keep the same as 
+those of the benchmark. 
+In Fig. 10 (a), when w
+f 
+reaches a proper value of 0.1 which penalizes 
+the PDEs loss less than the data loss, the predicted pressure traces match 
+the simulated pressure traces better. Fig. 10 (b) indicates that 10 hidden 
+layers are deep enough to achieve good matches of the pressure traces. 
+The result of width = 30 in Fig. 10 (c) shows a slightly low relative L
+2 
+error than the result of width = 20. Fig. 10 (d) shows that more training 
+epochs lead to lower relative L
+2 
+error. However, a larger neural network 
+and more training epochs mean increasing computational cost. The 
+training time with epochs of 100 k, 300 k, 500 k, and 800 k in Fig. 10 (d) 
+is 10 min, 29 min, 48 min, and 76 min, respectively. A trade-off between 
+accuracy and speed should be made based on the sensitivity analysis. 
+Therefore, the parameters in the benchmark, which achieved satisfac -
+tory relative L
+2 
+error = 0.5%, are applied to the PINN architectures in all 
+the numerical experiments in the following. 
+3.5. Effect of the locations of observation points 
+In the above case studies, the locations of observation points x
+d 
+are 
+selected randomly. However, preliminary studies by the authors show 
+Fig. 7. Predicted and simulated pressure heads at testing points: (a) T
+1
+; (b) T
+2
+.  
+Fig. 8. Predicted and simulated flowrates at testing points: (a) T
+1
+; (b) T
+2
+.  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 8 =====
+Water Research 221 (2022) 118828
+8
+Fig. 9. Comparison of derivatives obtained by PINN and FD at T1: (a) 
+∂ h
+∂ x
+; (b) 
+∂ h
+∂ t
+; (c) 
+∂ q
+∂ x
+; (d) 
+∂ q
+∂ t
+.  
+Fig. 10. Relative L
+2 
+error of predicted pressure obtained by PINN with different (a) weights; (b) depth; (c) width; (d) epochs.  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 9 =====
+Water Research 221 (2022) 118828
+9
+the selection of the locations of observation points has a significant ef -
+fect on the performance of the prediction results. This effect was 
+investigated in this study to explore a better choice of the locations of 
+observation points. 
+Three different schemes of the locations of three observation points, 
+as shown in Fig. 11 , have been investigated to find the optimal sensor 
+placement. 
+Scheme 1 involves three observation points distributed at 100 m, 200 
+m and 300 m. Scheme 2 involves two observation points same with 
+Scheme 1 at 100 m and 200 m, respectively and the other one point at 
+450 m, which is close to the adjacent boundaries. Scheme 3 involves one 
+observation point at the upstream boundary and the other two obser -
+vation points same as Scheme 2. To make the L
+2 
+error reflect the accu -
+racy of the results generally, 11 testing points are uniformly distributed 
+along the pipe (from 0 m to 500 m). 
+Fig. 12 presents the relative L
+2 
+errors between simulated pressures 
+obtained by MOC and predicted pressures obtained by the PINN, 
+involving the 11 uniformly distributed testing points and average errors 
+(solid lines) for each scheme. Along the pipe, it can be seen that the 
+testing points near the observation points show lower errors than those 
+far away from the observation points. For example, the testing point at 
+0 m in Scheme 1 ( Fig. 12 (a)) or Scheme 2 ( Fig. 12 (b)) has a larger error 
+than the testing point at 50 m when the nearest observation points are at 
+100 m and 200 m. However, the errors at 0 m and 50 m in Scheme 2 are 
+smaller than those in Scheme 1, even with the third observation point (at 
+450 m) in Scheme 2 farther away than the point (at 300 m) in Scheme 1. 
+This indicates that the results are not only affected by the distance be -
+tween the testing point and the observation point, but also by the dis -
+tribution of the sensors. When the sensors are placed closer to 
+boundaries that contain essential information about the transient event, 
+the accuracy of the pressure prediction over the whole pipe can be 
+improved. This conclusion is also demonstrated by the results in Scheme 
+3 which has one observation point exactly at the upstream boundary (0 
+m) and shows the smallest error of 0.12% between simulated predicted 
+pressures. 
+4. Numerical studies on reservoir-pipeline-valve system with an 
+incomplete model 
+4.1. Effect of uncertainties of pipe characteristics 
+Analyses in the previous section assume the pipe characteristics (e.g., 
+pipe diameter and wave speed) are perfectly known. In this case, the 
+effect of uncertainties of these pipe characteristics on the performance of 
+PINN is investigated by introducing errors to the pipe diameter D or the 
+wave speed a . 
+The pipe system in Fig. 3 with the same valve excitation in Fig. 4 is 
+considered in this case. The pressure traces at P
+1
+, P
+2
+and P
+3 
+simulated 
+by MOC with true pipe parameters ( D = 1 . 81 m and a = 1000 m / s ) are 
+still used as the observation dataset M
+d 
+and testing dataset M
+e
+. To 
+introduce parameter errors to the PINN model, the governing equations 
+Eqs. (1) and (2) are set with either incorrect pipe diameter or wave 
+speed. In particular, four different cases have been considered with D =
+1 . 72 m , D = 1 . 90 m , a = 900 m / s , and a = 1100 m / s , respectively. 
+Here, the pipe diameter or wavespeed is changed independently and 
+changing pipe diameter does not change the wave speed. Other pa -
+rameters are unchanged in these four cases. Fig. 13 shows the simulated 
+pressure variations at T
+1 
+( x = 50 m) and T
+2 
+( x = 350 m). It can be seen 
+that large deviations are caused by the change in the diameter or wave 
+speed. 
+Fig. 14 shows the simulated or “ true ” pressure traces for the 
+benchmark case and the predicted pressures obtained from four PINN 
+models trained with incorrect pipe parameters. The relative L
+2 
+errors for 
+the four cases ( D = 1 . 72 m , D = 1 . 90 m , a = 900 m / s , and a =
+1100 m / s ) are negligible, with the values of 0.50%, 0.47%, 0.67%, and 
+0.70%, respectively. It can be seen that the performance of the trained 
+PINN models is consistent and accurate even with consideration of large 
+uncertainties from pipe characteristics. 
+4.2. Effect of wave damping 
+4.2.1. Observed data involving wave damping 
+Factors such as pipe wall viscoelasticity ( Covas et al., 2004 ), un -
+steady friction ( Vardy and Brown, 1995 ), fluid-structure interaction 
+( Tijsseling, 1996 ), all contribute to the damping of transient pressure 
+waves. Strong wave dissipation and dispersion have been observed in 
+Fig. 11. Schemes of the locations of observed points: (a) Scheme 1 (randomly selected); (b) Scheme 2 (close to the boundaries); (c) Scheme 3 (including up -
+stream boundary) 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 10 =====
+Water Research 221 (2022) 118828
+10
+Fig. 12. Relative L
+2 
+errors between simulated pressures obtained by MOC and predicted pressures obtained by the PINN of each testing point and the average errors 
+(solid lines) of (a) Scheme 1; (b) Scheme 2; (3) Scheme 3 
+Fig. 13. Effects of the parameter errors on the hydraulic transient pressure simulated by the MOC model (a) at T
+1 
+( x = 50 m); (b) at T
+2 
+( x = 350 m). The numerical 
+case with true pipe parameters ( D = 1.81 m and a = 1000 m/s) was used to generate the observation and testing datasets. 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 11 =====
+Water Research 221 (2022) 118828
+11
+laboratory tests on copper pipes ( Budny et al., 1991 ), high-density 
+polyethylene pipes ( Covas et al., 2004 ) and also on a mild steel 
+cement-lined pipe in the field ( Stephens et al., 2011 ). Therefore, the 
+effect of damping needs to be considered to obtain an accurate charac -
+terization of transient flow conditions. However, it is difficult to obtain a 
+well-calibrated physics-based numerical model that can accurately 
+incorporate wave dissipation and dispersion caused by all different 
+factors. 
+In this section, the observed pressure data involving wave damping 
+were used to train the PINN. However, the effect of damping is not 
+included in the physical laws that guide the training of the PINN, which 
+means the standard PDEs Eqs. (1) and (2) are still used to construct the 
+loss function in Eq. (8) and the viscoelastic model is unknown in the 
+training process. 
+The following case study shows how the wave damping information 
+embedded in the observed pressure traces is incorporated into the 
+pressure prediction by the PINN with an incomplete physical model. 
+4.2.2. Dataset generation by a viscoelastic transient model 
+To generate the training data containing wave dissipation and 
+dispersion, the Kelvin-Voigt viscoelastic model ( Covas et al., 2005 ) has 
+been utilized in this case for hydraulic transient simulation. The visco -
+elastic model incorporates the dynamic effects of pipe wall viscoelas -
+ticity into the hydraulic transient simulation by adding a retarded 
+viscoelastic term in the continuity equation ( Eq. (2) ), yielding: 
+A
+∂ h
+∂ t
++ q
+∂ h
+∂ x
++
+a
+2
+g
+∂ q
+∂ x
++
+2 a
+2
+A
+g
+∂ε
+r
+∂ t
+= 0 (18)  
+in which ε
+r 
+is the retarded strain. The viscoelastic behaviour of the pipe 
+wall is described by a creep compliance function that can be approxi -
+mated by the following expression: 
+J ( t ) = J
+0
++
+∑
+N
+i = 1
+J
+i
+ 
+1   e
+  t / τ i
+)
+(19)  
+in which J
+0
+= creep-compliance of the first spring defined by J
+0
+= 1 / E
+0
+;
+J
+i
+= creep compliance of the spring of the Kelvin-Voigt element i defined 
+by J
+i
+= 1 / E
+i
+; E
+i
+= modulus of elasticity of the spring of i-element τ
+i
+=
+retardation time of the dashpot of i-element, τ
+i
+= μ
+i
+/ E
+i
+and μ
+i 
+is the 
+viscosity of the dashpot of i -element. 
+Considering the creep function defined by Eq. (19) , the term is 
+calculated as the sum of this factor for each Kelvin-Voigt element i : 
+ε
+r
+( x , t ) =
+∑
+N
+i = 1
+ε
+ri
+( x , y )
+=
+∑
+N
+i = 1
+{
+α D ρ g
+2 e
+∫
+t
+0
+[ H ( x , t   t
+′
+)   H
+0
+( x )]
+J
+i
+τ
+i
+e
+  t
+′
+/ τ
+i
+d t
+′
+}
+(20)  
+in which is the pipe wall constraint coefficient; e is the wall thickness. 
+The details of the numerical solution of Eqs. (1) , (18) and (20) can be 
+found in Covas et al. (2005) . 
+The pipe system shown in Fig. 3 with the same valve excitation as 
+shown in Fig. 4 is used in this case with a one-element viscoelastic model 
+used to model the pipe. The parameters of the pipe are: J = [5.029 × 10
+-6
+] 
+Pa
+-1
+, τ = [5.05], α = 1.07 and e = 63 mm and other parameters are the 
+same as those in the previous section. Fig. 15 shows the simulated 
+pressure traces at P
+1
+, P
+2 
+and P
+3 
+by using the viscoelastic model and the 
+non-viscoelastic model (standard MOC). It can be seen from Fig. 15 that 
+the pressure traces simulated by the viscoelastic model suffer strong 
+damping, which leads to the clear reduction of the magnitude of the 
+pressure waves. The simulated pressures at P
+1
+, P
+2 
+and P
+3 
+by the visco -
+elastic model will be used as the observed data in the PINN. 
+4.2.3. Neural network training and results 
+Three cases have been conducted with the weight w
+f 
+= 0.1, 0.01, and 
+0, respectively. Fig. 16 compares the pressure traces obtained by the 
+Fig. 14. Simulated pressure heads by MOC with true pipe parameters and predicted pressures by PINNs trained with incorrect pipe parameters (a) at T
+1 
+( x = 50 m); 
+(b) at T
+2 
+( x = 350 m). 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 12 =====
+Water Research 221 (2022) 118828
+12
+viscoelastic model and the estimated results by the PINN with three 
+different weights w
+f
+. 
+In Fig. 16 , the results obtained by ANN ( w
+f 
+= 0) showed the largest 
+error as expected. However, compared with the predicted pressure 
+traces with w
+f 
+= 0.1 which led to the best performance in sensitivity 
+analysis, the results with w
+f 
+= 0.01 show much better agreement with 
+the simulated pressure traces. The relative L
+2 
+error with w
+f 
+= 0.01 is 
+0.54%, while the relative L
+2 
+error with w
+f 
+= 0.1 is 1.70%. This indicates 
+that it is necessary to set a smaller w
+f 
+to enforce a weaker penalty on the 
+Fig. 15. Observed pressure variations simulated by the viscoelastic model and non-viscoelastic model (standard MOC) (a) at P
+1 
+(x = 100 m); (b) at P
+2 
+(x = 300 m); 
+(c) P
+3 
+(x = 400 m) 
+Fig. 16. Simulated pressure heads with wave damping by the viscoelastic model and predicted pressures by PINNs with the weight w
+f
+= 0 . 1 , 0 . 01 , and 0, 
+respectively: (a) at T
+1 
+( x = 50 m); (b) at T
+2 
+( x = 350 m). 
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 13 =====
+Water Research 221 (2022) 118828
+13
+L
+PDE 
+term (see Eq. (8) ) which is formulated by the incomplete model and 
+inversely a stronger penalty on the L
+data 
+term. In this way, the obser -
+vation data containing essential damping information can have domi -
+nant effects on the training process, and thus drive the prediction 
+approach to the true damped pressure traces. 
+Overall, the results in Fig. 16 demonstrate that PINN can successfully 
+incorporate wave damping into transient analysis for pressure predic -
+tion even without an accurate physics-based numerical model. 
+5. Numerical studies on a pipe network 
+In real practice, most of the pipes are embedded in a pipe network. 
+Transients in a network can be much more complicated due to the 
+complex wave propagation and reflections that depends on the topology 
+of the network. The transient response of the excitation can be formed by 
+a variety of incident and reflected waves, proposing challenges for the 
+PINN to reconstruct the complex transient process. 
+The applicability and accuracy of the proposed PINN-based method 
+for transient analysis have also been evaluated through numerical 
+transient analysis on a water pipe that is embedded in a pipe network as 
+shown in Fig. 17 . This pipe network consists of six nodes (including an 
+upstream reservoir and an end valve) and six pipes. The information 
+about the pipes is given in Table 1 . The water level of the upstream 
+reservoir and the initial flowrate through the end valve keep the same as 
+those of the single pipe system ( Fig. 3 ) and are 100 m and 0.314 m
+3
+/s, 
+respectively. The valve in the pipe system is assumed to oscillate 
+following the pattern as shown in Fig. 4 . 
+For the pipe network, the PINN-based transient analysis has been 
+carried out on the pipe P
+3   4 
+with three hypothetical pressure sensors at 
+50 m, 200 m and 250 m from Node 3, respectively. Assuming the 
+boundary conditions and the transient source are unknown, the PINN- 
+based method is used to predict pressure variations at some selected 
+locations on the pipe P
+3   4
+. 
+The transient process of the whole pipe network has been stimulated 
+by the MOC model with a time step Δ T of 0.01 s and a total time T = 10 s. 
+The simulated pressure traces at the three sensors and their corre -
+sponding locations and time series are used to form the observation 
+dataset M
+d 
+(Eq. ( 4 )). Ten uniformly distributed locations on the pipe 
+P
+3   4 
+are selected for the collocation dataset M
+f 
+( Eq. (7) ). 
+The PINN is built with the same layers and hyperparameters as that 
+for the reservoir-pipeline-valve system. To test the applicability of the 
+PINN-based method in this pipe network, the predicted pressure traces 
+at Node 3 and Node 4 are represented in Fig. 18 . The relative L
+2 
+errors 
+are 2.69% for Node 3 and 1.39% for Node 4. The predicted pressure 
+trace at Node 4 shows better agreement with the simulation results. This 
+is because there are two sensors near Node 4 but only one sensor near 
+Node 3. The good fitness between predicted and simulated pressure 
+traces demonstrates the ability of the proposed PINN-based method for 
+transient analysis on a pipe that is embedded in a network with un -
+known boundary conditions. 
+6. Experimental verification 
+Laboratory experiments have been conducted on a single copper 
+pipeline system in the Robin Hydraulics Laboratory at the University of 
+Adelaide to validate the PINN-based method for hydraulic transient 
+analysis. 
+Fig. 19 shows the layout of the experimental pipeline system. A 
+reservoir-pipeline-valve system was configured by connecting the 
+pipeline with a pressurized tank at the upstream side, and a dead-end 
+was created by the closure of the in-line valve at the downstream side. 
+The pipeline is 37.21 m in length with an internal diameter D of 22.14 
+mm throughout the pipe. The wave speed of the pressure wave in the 
+pipe was calculated using the theoretical formula as a = 1319 m/s. The 
+Darcy – Weisbach friction factor is assumed as 0.012. Five pressure 
+transducers are installed along the pipe with a sampling time step △ t of 
+0.0001 s. The locations of these pressure transducers can be found in 
+Fig. 19 . A side-discharge solenoid valve was located 144 mm down -
+stream from the closed inline valve, for the generation of transient 
+waves. 
+In the transient experiment, the side-discharge solenoid valve was 
+closed suddenly. A period of 1 s, in which the pressure wave can prop -
+agate back and forth a couple of times, was selected for the analysis. The 
+measured pressure traces by the transducers are shown in Fig. 20 . 
+Several kinds of uncertainties are included in the measured data, such as 
+unsteady friction, damping, sensor noise, system errors, and other un -
+certainties associated with the experiments. 
+To reduce the computational cost, the pressure traces were uniformly 
+downsampled to 0.001 s. In this case, the weight w
+f 
+in Eq. (8) equals 50, 
+which was determined by a sensitivity analysis. The architecture and 
+training steps of the neural network are the same as before. 
+Three cases are considered here by regarding different transducer 
+locations as observation points. Table 2 summarizes the two cases with 
+their relative L
+2 
+errors given. The results demonstrate a good pressure 
+prediction by PINN as all the relative L
+2 
+errors in the cases are within 
+2%. Case 2 shows a slightly lower error than Case 1 because of more 
+observation points. 
+Figs. 21 and 22 present the experimental and predicted pressures at 
+the testing points for each case. It can be seen that the proposed PINN- 
+based method can well predict the pressure trace whether the testing 
+point is between the observation points (Point 3) or out of them (Point 
+5). 
+Fig. 17. The pipe network configuration of the numerical case.  
+Table 1 
+Pipe parameters for the example pipe network.  
+Pipe Start 
+node 
+End 
+node 
+Length 
+(m) 
+Diameter 
+(m) 
+Wave 
+speed (m/ 
+s) 
+Friction 
+factor 
+P
+1   2 
+1 2 100 1.81 1000 0.012 
+P
+2   3 
+2 3 100 0.56 1000 0.012 
+P
+3   4 
+3 4 300 0.56 1000 0.012 
+P
+4   5 
+4 5 100 0.56 1000 0.012 
+P
+5   6 
+5 6 100 1.81 1000 0.012 
+P
+2   5 
+2 5 300 1.81 1000 0.012  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 14 =====
+Water Research 221 (2022) 118828
+14
+7. Conclusions 
+In this paper, a data-driven PINN-based method has been proposed 
+for one-dimensional hydraulic transient analysis. The proposed method 
+is capable of predicting transient pressure (and flowrate) variations at 
+unmonitored locations with limited measurements and without the 
+requirement of a complete physical model of the pipe system (for 
+example, boundary conditions and/or the wave propagation 
+Fig. 18. Simulated (MOC) and predicted (PINN) pressure variations: (a) at Node 3; (b) at Node 4 in the pipe network.  
+Fig. 19. Experimental pipeline system.  
+Fig. 20. Measured pressures in the transient experiment.  
+Table 2 
+Two cases and their corresponding relative L
+2 
+errors.  
+Cases Observation points Testing points Relative L
+2 
+error 
+Case 1 2, 4 3, 5 1.3% 
+Case 2 1, 2, 4 3, 5 0.8%  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 15 =====
+Water Research 221 (2022) 118828
+15
+characteristics can be unknown). The new method can incorporate the 
+missing physical information that is embedded in the measured data into 
+the transient analysis constrained by the physical laws (unsteady con -
+tinuity and momentum equations). Numerical and experimental studies 
+were carried out to validate the applicability and accuracy of this 
+method. The key findings are shown as follows. 
+The numerical case in a reservoir-pipe-valve system shows the pro -
+posed PINN-based method can accurately predict pressure and flowrate 
+variations with unknown boundary conditions. The method has a much 
+better performance than the traditional ANN which ignores the key 
+governing equations in the prediction. Further sensitivity analyses on 
+this pipe system show the locations and number of the observation 
+points in the learning process can have an effect on the predicted results. 
+Putting the sensors closer to the boundary is found to be able to effec -
+tively improve the accuracy of the pressure prediction. The numerical 
+case using observation data incorporating wave damping shows that the 
+PINN-based transient analysis is reliable even with an incomplete model 
+which misses the physical representation of the wave damping in gov -
+erning equations (e.g. creep function of the viscoelastic behaviour of the 
+pipe wall in this case). Apart from the reservoir-pipe-valve system, the 
+proposed PINN-based method is also validated on a pipe that is 
+embedded in a network which is a more common situation in real 
+practice. In the end, laboratory experiments with high accuracy show 
+the potential of this method to be applied to real WDSs. 
+The above results showcase the potential for successful application of 
+the PINN-based method in real transmission pipes, unlocking a series of 
+opportunities for water supply security and optimization, achieving 
+good accuracy and high computational speed given various un -
+certainties in system parameters, boundary conditions and physical 
+processes. As this is the first application of transient flow and PINNs, the 
+proposed approach has only been evaluated on simple pipeline systems 
+and for a single transient scenario. The extension of this research will 
+focus on applications of the PINN approach to more complex pipe net -
+works. Furthermore, the development of the PINN model for arbitrary 
+transient events will be considered in future work. 
+Declaration of Competing Interest 
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper. 
+Data availability 
+Data will be made available on request. 
+Fig. 21. Experimental and predicted pressures: (a) at Testing Point 3; (b) at Testing Point 5 of Case 1.  
+Fig. 22. Experimental and predicted pressures: (a) at Testing Point 3; (b) at Testing Point 5 of Case 2.  
+J. Ye et al.                                                                                                                                                                                                                                        
+
+===== PAGE 16 =====
+Water Research 221 (2022) 118828
+16
+Acknowledgements 
+This research is funded by the Australian Research Council through 
+the Discovery Project Grant DP210103565. The first author thanks the 
+Chinese Scholarship Council and the University of Adelaide for 
+providing a joint postgraduate scholarship. 
+Supplementary materials 
+Supplementary material associated with this article can be found, in 
+the online version, at doi: 10.1016/j.watres.2022.118828 . 
+References 
+Afshar, M.H., Rohani, M., Taheri, R., 2010. Simulation of transient flow in pipeline 
+systems due to load rejection and load acceptance by hydroelectric power plants. Int. 
+J. Mech. Sci. 52, 103 – 115. https://doi.org/10.1016/j.ijmecsci.2009.10.014 . 
+Baydin, A.G., Pearlmutter, B.A., Radul, A.A., Siskind, J.M., 2018. Automatic 
+differentiation in machine learning: a survey. J. Mach. Learn. Res. 18, 1 – 43 . 
+Bohorquez, J., Simpson, A.R., Lambert, M.F., Alexander, B., 2021. Merging fluid 
+transient waves and artificial neural networks for burst detection and identification 
+in pipelines. J. Water Resour. Plan. Manag. 147, 04020097 https://doi.org/ 
+10.1061/(ASCE)WR.1943-5452.0001296 . 
+Boulos, P.F., Karney, B.W., Wood, D.J., Lingireddy, S., 2005. Hydraulic transient 
+guidelines for protecting water distribution systems. J. Am. Water Works Assoc. 97, 
+111 – 124. https://doi.org/10.1002/j.1551-8833.2005.tb10892.x . 
+Brunone, B., Karney, B.W., Mecarelli, M., Ferrante, M., 2000. Velocity profiles and 
+unsteady pipe friction in transient flow. J. Water Resour. Plan. Manag. 126, 
+236 – 244. https://doi.org/10.1061/(ASCE)0733-9496(2000)126:4(236) . 
+Budny, D.D., Wiggert, D.C., Hatfield, F.J., 1991. The influence of structural damping on 
+internal pressure during a transient pipe flow. J. Fluids Eng. 113, 424 – 429. https:// 
+doi.org/10.1115/1.2909513 . 
+Buhendwa, A.B., Adami, S., Adams, N.A., 2021. Inferring incompressible two-phase flow 
+fields from the interface motion using physics-informed neural networks. 
+ArXiv210109833 Phys. 
+Byrd, R.H., Lu, P., Nocedal, J., Zhu, C., 1995. A limited memory algorithm for bound 
+constrained optimization. SIAM J. Sci. Comput. 16, 1190 – 1208 . 
+Chaudhry, M.H., 2014. Applied Hydraulic Transients. Springer New York, New York, NY. 
+https://doi.org/10.1007/978-1-4614-8538-4 .  
+Chen, Y., Lu, L., Karniadakis, G.E., Negro, L.D., 2020. Physics-informed neural networks 
+for inverse problems in nano-optics and metamaterials. Opt. Express 28, 11618. 
+https://doi.org/10.1364/OE.384875 . 
+Covas, D., Stoianov, I., Mano, J.F., Ramos, H., Graham, N., Maksimovic, C., 2005. The 
+dynamic effect of pipe-wall viscoelasticity in hydraulic transients. Part II — model 
+development, calibration and verification. J. Hydraul. Res. 43, 56 – 70. https://doi. 
+org/10.1080/00221680509500111 . 
+Covas, D., Stoianov, I., Ramos, H., Graham, N., Maksimovic, C., 2004. The dynamic effect 
+of pipe-wall viscoelasticity in hydraulic transients. Part I — experimental analysis and 
+creep characterization. J. Hydraul. Res. 42, 517 – 532. https://doi.org/10.1080/ 
+00221686.2004.9641221 . 
+Ebacher, G., Besner, M.C., Cl ´ement, B., Pr ´evost, M., 2012. Sensitivity analysis of some 
+critical factors affecting simulated intrusion volumes during a low pressure transient 
+event in a full-scale water distribution system. Water Res. 46, 4017 – 4030. https:// 
+doi.org/10.1016/j.watres.2012.05.006 . 
+El-Hazek, A.N., Ahmed, M.F., Badawy, N.A.M., 2020. Transient flow simulation, analysis 
+and protection of pipeline systems. J. Water Land Dev. https://doi.org/10.24425/ 
+JWLD.2020.135031 . 
+Hajgat ´o, G., Gyires-T ´oth, B., Pa ´al, G., 2021. Reconstructing nodal pressures in water 
+distribution systems with graph neural networks. 10.48550/arXiv.2104.13619 . 
+Hwang, Y.H., Chung, N.M., 2002. A fast Godunov method for the water-hammer 
+problem. Int. J. Numer. Methods Fluids 40, 799 – 819. https://doi.org/10.1002/ 
+fld.372 . 
+Jafar, R., Shahrour, I., Juran, I., 2010. Application of Artificial Neural Networks (ANN) to 
+model the failure of urban water mains. Math. Comput. Model. 51, 1170 – 1180. 
+https://doi.org/10.1016/j.mcm.2009.12.033 . 
+Karniadakis, G.E., Kevrekidis, I.G., Lu, L., Perdikaris, P., Wang, S., Yang, L., 2021. 
+Physics-informed machine learning. Nat. Rev. Phys. 3, 422 – 440. https://doi.org/ 
+10.1038/s42254-021-00314-5 . 
+Khan, A., Widdop, P.D., Day, A.J., Wood, A.S., Mounce, R., Machell, J., 2006. Artificial 
+neural network model for a low cost failure sensor: performance assessment in 
+pipeline distribution 15, 8. 
+Khatri, P., Gupta, K.K., Gupta, R.K., 2019. Smart water quality monitoring system for 
+distribution networks. SSRN Electron. J. https://doi.org/10.2139/ssrn.3352296 . 
+Lima, G.M., Brentan, B.M., Manzi, D., Luvizotto, E., 2017. Metamodel for nodal pressure 
+estimation at near real-time in water distribution systems using artificial neural 
+networks. J. Hydroinform. 20, 486 – 496. https://doi.org/10.2166/hydro.2017.036 . 
+Mao, Z., Jagtap, A.D., Karniadakis, G.E., 2020. Physics-informed neural networks for 
+high-speed flows. Comput. Methods Appl. Mech. Eng. 360, 112789 https://doi.org/ 
+10.1016/j.cma.2019.112789 . 
+Misiunas, D., Vítkovský, J., Olsson, G., Lambert, M., Simpson, A., 2006. Failure 
+monitoring in water distribution networks. Water Sci. Technol. 53, 503 – 511. 
+https://doi.org/10.2166/wst.2006.154 . 
+Misyris, G.S., Venzke, A., Chatzivasileiadis, S., 2020. Physics-informed neural networks 
+for power systems. ArXiv191103737 Cs Eess. 
+Noakoasteen, O., Wang, S., Peng, Z., Christodoulou, C., 2020. Physics-informed deep 
+neural networks for transient electromagnetic analysis. IEEE Open J. Antennas 
+Propag. 1, 404 – 412. https://doi.org/10.1109/OJAP.2020.3013830 . 
+¨
+Omer Faruk, D., 2010. A hybrid neural network and ARIMA model for water quality time 
+series prediction. Eng. Appl. Artif. Intell. 23, 586 – 594. https://doi.org/10.1016/j. 
+engappai.2009.09.015 . 
+PUB, 2016. Managing the water distribution network with a Smart water grid. Smart 
+Water 1, 4. https://doi.org/10.1186/s40713-016-0004-4 . .  
+Raissi, M., Perdikaris, P., Karniadakis, G.E., 2019. Physics-informed neural networks: a 
+deep learning framework for solving forward and inverse problems involving 
+nonlinear partial differential equations. J. Comput. Phys. 378, 686 – 707. https://doi. 
+org/10.1016/j.jcp.2018.10.045 . 
+Rao, C., Sun, H., Liu, Y., 2020. Physics-informed deep learning for incompressible 
+laminar flows. Theor. Appl. Mech. Lett. 10, 207 – 212. https://doi.org/10.1016/j. 
+taml.2020.01.039 . 
+Reddy, H.P., Narasimhan, S., Bhallamudi, S.M., 2006. Simulation and state estimation of 
+transient flow in gas pipeline networks using a transfer function model. Ind. Eng. 
+Chem. Res. 45, 3853 – 3863. https://doi.org/10.1021/ie050755k . 
+Ridolfi, E., Servili, F., Magini, R., Napolitano, F., Russo, F., Alfonso, L., 2014. Artificial 
+neural networks and entropy-based methods to determine pressure distribution in 
+water distribution systems. Proc. Eng. 89, 648 – 655. https://doi.org/10.1016/j. 
+proeng.2014.11.490 . 
+Stephens, M.L., Lambert, M.F., Simpson, A.R., Vitkovsky, J.P., 2011. Calibrating the 
+water-hammer response of a field pipe network by using a mechanical damping 
+model. J. Hydraul. Eng. 137, 1225 – 1237. https://doi.org/10.1061/(ASCE)HY.1943- 
+7900.0000413 . 
+Tartakovsky, A.M., Marrero, C.O., Perdikaris, P., Tartakovsky, G.D., Barajas-Solano, D., 
+2020. Physics-informed deep neural networks for learning parameters and 
+constitutive relationships in subsurface flow problems. Water Resour. Res. 56 
+https://doi.org/10.1029/2019WR026731 . 
+Tijsseling, A.S., 1996. Fluid-structure interaction in liquid-filled pipe systems: a review. 
+J. Fluids Struct. 10, 109 – 146. https://doi.org/10.1006/jfls.1996.0009 . 
+van der Meer, R., Oosterlee, C., Borovykh, A., 2021. Optimally Weighted Loss Functions 
+for Solving PDEs with Neural Networks. ArXiv200206269 Cs Math . 
+Vardy, A.E., Brown, J.M.B., 1995. Transient, turbulent, smooth pipe friction. J. Hydraul. 
+Res. 33, 435 – 456. https://doi.org/10.1080/00221689509498654 . 
+Vítkovský, J., Lambert, M., Simpson, A., Bergant, A., 2000. Advances in unsteady friction 
+modelling in transient pipe flow. Presented at. In: The 8th International Conference 
+on Pressure Surges. The Hague, The Netherlands, p. 14 . 
+Wood, D., Dorsch, R., Lightner, C., 1966. Wave-plan analysis of unsteady flow in closed 
+conduits. J. Hydraul. Div. 92, 83 – 110. https://doi.org/10.1061/JYCEAJ.0001447 . 
+Wu, Y., Liu, S., Wu, X., Liu, Y., Guan, Y., 2016. Burst detection in district metering areas 
+using a data driven clustering algorithm. Water Res. 100, 28 – 37. https://doi.org/ 
+10.1016/j.watres.2016.05.016 . 
+Wu, Z., Chew, A., Meng, X., Cai, J., Pok, J., Kalfarisi, R., Lai, K.C., Hew, S.F., Wong, J.J., 
+2021. Data-driven and model-based framework for smart water grid anomaly 
+detection and localization. J. Water Supply Res. Technol. https://doi.org/10.2166/ 
+aqua.2021.091 . -Aqua jws2021091.  
+Wylie, E.B., Streeter, V.L., 1993. Fluid Transients in Systems. Prentice-Hall, Englewood 
+Cliffs .  
+Xing, L., Sela, L., 2022. Graph neural networks for state estimation in water distribution 
+systems: application of supervised and semisupervised learning. J. Water Resour. 
+Plan. Manag. 148, 04022018 https://doi.org/10.1061/(ASCE)WR.1943- 
+5452.0001550 . 
+Xing, L., Sela, L., 2019. Unsteady pressure patterns discovery from high-frequency 
+sensing in water distribution systems. Water Res. 158, 291 – 300. https://doi.org/ 
+10.1016/j.watres.2019.03.051 . 
+Zhou, X., Tang, Z., Xu, W., Meng, F., Chu, X., Xin, K., Fu, G., 2019. Deep learning 
+identifies accurate burst locations in water distribution networks. Water Res. 166, 
+115058 https://doi.org/10.1016/j.watres.2019.115058 . 
+J. Ye et al.                                                                                                                                                                                                                                        

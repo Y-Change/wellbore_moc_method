@@ -1,0 +1,110 @@
+\n===== PAGE 1 =====\nDEVELOPMENTS OF MA TCHED-FIELD
+PROCESSING FOR P ARAMETER INVERSION IN
+PRESSURIZED PIPELINES
+by
+CAN XU
+A Thesis Submitted to
+The Hong Kong University of Science and Technology
+in Partial Fulfillment of the Requirements for
+the Degree of Doctor of Philosophy
+in Civil Engineering
+June 2025, Hong Kong
+Copyright © by Can XU 2025\n===== PAGE 2 =====\nDEVELOPMENTS OF MA TCHED-FIELD
+PROCESSING FOR P ARAMETER INVERSION IN
+PRESSURIZED PIPELINES
+by
+CAN XU
+Department of Civil and Environmental Engineering
+The Hong Kong University of Science and Technology
+ABSTRACT
+This thesis develops an innovative inverse analysis framework for accurate determination of defect
+characteristics and material properties of pressurized water supply systems (WSSs) based on the
+matched-field processing (MFP) methodology—a signal processing approach widely and success-
+fully used in other domains such as underwater acoustics for source localization and environmental
+characterization. The MFP methodology involves (i) an experimental step where transient waves,
+propagating at high speed (km/s), are introduced into the pipe system and the response is sensed;
+and (ii) a theoretical step where the measured response is “matched” with the replica response (de-
+rived from the mathematical model of waves in pipes). The proposed MFP framework is found to
+be (i) super-resolving; thus, beating the diffraction limit and enabling each defect in a cluster of
+ii\n===== PAGE 3 =====\ndensely (defect-to-defect distance is less than half of the minimum probing wavelength) spaced de-
+fects to be individually and clearly detected; (ii) able to significantly suppress unwanted side-lobes;
+thus, addressing the issue of ambiguous main-lobe identification; (iii) robust and stable against
+various noise types, including white, colored, and impulse noise, even under low signal-to-noise
+ratio conditions; and (iv) accurate. These substantial advantages are due to the following three
+attributes. First, MFP fully leverages both amplitude and phase information of the broadband tran-
+sient signals. Second, MFP is statistically optimal under Gaussian noise; thus, ideally suited for
+WSSs since laboratory and field data show that the noise in these systems is well described by
+the Gaussian probability distribution. Third, a novel understanding of the mechanism responsible
+for the development of side-lobes is acquired in this research, resulting in approaches to deal with
+these unwanted phenomena in parameter estimation in WSSs. The proposed MFP methodology
+is validated through comprehensive simulation and experimental studies in three specific applica-
+tions: determination of location and size of a single leak; determination of location and size of
+clustered leaks where the leak-to-leak distance is smaller than half a wavelength; and determina-
+tion of the viscoelastic parameters of our testing facilities. The MFP method is generalizable across
+pipeline systems, applicable to all types of unknown parameters, rapid to perform, non-intrusive,
+non-destructive, and supports real-time health condition assessment of WSSs.
+iii\n===== PAGE 9 =====\n3.1 Theoretical foundation 43
+3.2 Single-frequency MFP 44
+3.3 Modified Broadband MFP 47
+3.4 Improved MB-MFP Versions 49
+3.4.1 Enhanced MB-MFP 1 with Side-Lobe Canceling Algorithm 49
+3.4.2 Advanced MB-MFP 2 with Peak Extraction Algorithm 50
+3.5 Summary 52
+Chapter 4 Single-Defect Detection by Matched-Field Processing 54
+4.1 Introduction 55
+4.2 Problem Statement 57
+4.2.1 Model Description 57
+4.2.2 CB-MFP Technique for Leak Localization and Its Challenges 62
+4.3 Mechanism behind Single-Frequency MFP Side-Lobes Formation 65
+4.3.1 Definition of the Single-Frequency MFP Output Function 65
+4.3.2 The Convergence of Surface Side-Lobes Trajectories into the Leak Loca-
+tion on the Defect Location-Frequency Plane 69
+4.3.3 Numerical Simulations 72
+4.4 Definition of The Modified Broadband MFP (MB-MFP) 73
+4.5 Developed MB-MFP Methods for Side-Lobe Suppression 78
+ix\n===== PAGE 13 =====\nLIST OF FIGURES
+1.1 The calculated transient signals corresponding to intact pipe and leaky pipe from
+numerical simulations. 5
+1.2 Current research gaps of using CB-MFP for leak localization. 12
+2.1 The general control volume for pipe flow with a leak, from which 𝑞 and ℎ can
+be derived as functions of time 𝑡 and spatial coordinate 𝑥 during transient wave
+propagation. 23
+2.2 Field transfer matrix for an intact pipe segment. 27
+2.3 Point transfer matrix for a leak in pipe. 30
+2.4 Overall transfer matrix for a single-leak pipe by multiplying the field and point
+transfer matrices. 32
+2.5 Overall transfer matrix for a single-leak pipe by summing the field transfer matrix
+of intact pipe and the leak-induced scattering matrix. 33
+2.6 Overall transfer matrix for a multi-leak pipe by multiplying the field and point
+transfer matrices. 34
+2.7 Overall transfer matrix for a multi-leak pipe by summing the field transfer matrix
+of intact pipe and the multiple leak-induced scattering matrices. 35
+3.1 Inverse Analysis Framework Based on the MFP Method. 44
+3.2 The performance comparison between single-frequency MFP (SF-MFP), MB-
+MFP, MB-MFP1 and MB-MFP2 for an example of single-leak detection, wherein
+the black vertical dashed line represents the real leak location. 47
+xiii\n===== PAGE 21 =====\n𝐴 cross-sectional area, page 23
+𝑎 frequency-dependent wave speed , page 26
+𝑎0 the elastic component of wave speed, page 24
+𝐵 the single-frequency MFP output function, page 45
+𝐵𝑀 𝐵 the output function of MB-MFP, page 48
+𝐵1
+𝑀 𝐵 the output function of MB-MFP1 , page 50
+𝐵2
+𝑀 𝐵 the output function of MB-MFP2 , page 51
+𝐶 Creep compliance function, page 24
+𝐶0 the instantaneous creep compliance, page 24
+𝐶𝑛𝑘𝑣 the creep compliance coefficient in K-V model, page 24
+𝐷 pipe internal diameter, page 23
+𝐸 Young’s modulus of elasticity of pipe wall, page 23
+E the expectation operator used to calculate the expected value, page 39
+𝑒 pipe wall thickness, page 23
+𝑓𝐷𝑊 Darcy-Weisbach friction factor, page 23
+𝑓𝑡ℎ the system’s fundamental frequency, page 58
+𝐺, 𝐺 𝑀
+𝜔 the Green’s function of leak scattering at frequency 𝜔 and measurement location 𝑥 𝑀,
+page 60
+𝑔 gravitational acceleration, page 23
+𝐻 this superscript signifies the operation of taking the conjugate transpose of a complex vector,
+page 45
+xxi

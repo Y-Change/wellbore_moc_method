@@ -1,0 +1,1868 @@
+SOURCE: Time-reversal technique for pipeline defect detection管道缺陷检测的时间反转技术.pdf
+PAGES: 18
+FULL extract 18 pages
+
+
+
+===== PAGE 1 =====
+Water Research 243 (2023) 120375
+Available online 18 July 2023
+0043-1354/© 2023 Elsevier Ltd. All rights reserved.
+Contents lists available at ScienceDirect
+Water Research
+journal homepage: www.elsevier.com/locate/watres
+Time-reversal technique for pipeline defect detection
+Muhammad Waqar ∗, Moez Louati, Mohamed S. Ghidaoui
+Department of Civil and Environmental Engineering, The Hong Kong University of Science and Technology, Clear Water Bay, Sai Kung, New Territories, Hong Kong
+A R T I C L E I N F O
+Keywords:
+Defect detection
+Imaging
+Time-reversal
+Water-hammer
+Water supply
+A B S T R A C T
+In this paper, time-reversal (TR) technique is proposed for the detection of discrete defects (e.g., leaks and
+blockages) in pressurized fluid-filled pipelines using active transient waves. The proposed technique is based
+on the one-dimensional wave equation and decouples the search for the location from that of the size of the
+defect. Another key feature of this method is that the measured pressure head signal can be truncated so as to
+eliminate undesirable reflections from unknown or uncertain parts of the pipe system so as not to compromise
+the accuracy and robustness of the detection. The proposed method is tested through numerical simulations
+for a single leak, multiple leaks, and multiple mixed-type of defects (i.e., leaks and blockages) in elastic as well
+as visco-elastic pipe systems. The proposed method is also validated through laboratory experiments wherein
+leaks and blockages of various sizes are considered. The sensitivity analysis of the method with respect to
+wave speed and signal-to-noise ratio (SNR) is also performed. In all cases, the method has shown accurate
+results in terms of localization, classification, and size estimation of the defects even for SNR as low as 0 dB.
+1. Introduction
+Freshwater pipelines are susceptible to defects such as leaks, block-
+ages, malfunctioning devices, etc. Such defects are responsible for loss
+of water, energy and financial resources ( Colombo and Karney, 2002).
+According to the World Bank report, leaks in freshwater pipelines
+are responsible for about 32 billion cubic meters of water loss per
+year worldwide ( World Bank, 2016, pp. 43). To place this number in
+some perspective, this amount of lost water could fill 12,800 Olympic
+size swimming pools. To control such huge losses, development of
+defect detection technologies is the pragmatic solution recommended
+by many organizations concerned with water resources such as UN-
+ESCO ( UNESCO, 2020 ) and Asian Development Bank ( Strazzabosco,
+2020).
+In past three decades, immense attention has been given by hy-
+draulic researchers to develop transient-based defect detection methods
+(TBDDMs; Che et al., 2021). These methods are based on the principle
+that injected transient wave propagates through water column and
+interacts with all physical features of the pipeline including defect
+(if present). The transient response of the system is recorded through
+pressure transducers which are mounted at several locations along the
+pipe. The recorded data is then used for pipeline condition assessment.
+In literature, a variety of TBDDMs have been proposed to extract
+the defect information from the recorded transient signals. Some of
+these methods directly analyze the measured signals using the wave
+reflectometry principles (e.g., Brunone , 1999 ; Ferrante et al. , 2007 ;
+∗ Corresponding author.
+E-mail address: mwaqar@connect.ust.hk (M. Waqar).
+Meniconi et al. , 2015). A number of closed-form analytical solutions
+are also proposed in literature to extract defect information for simple
+systems such as reservoir-pipe-reservoir, reservoir-pipe-valve, etc. (see
+e.g., Mpesha et al., 2002; Lee et al., 2005; Sattar and Chaudhry, 2008;
+Duan et al. , 2011 ; Louati et al. , 2020 , 2018 , 2017 ). A great deal of
+attention has been devoted to the development of inverse techniques to
+estimate the parameters of defects based on matching the measured and
+modeled transient response (e.g., Liggett and Chen , 1994 ; Vitkovsky
+et al., 2001; Kapelan et al., 2003; Covas and Ramos, 2010; Soares et al.,
+2011; Wang and Ghidaoui, 2018b).
+In theory, the various inverse methods are efficient given that: (i)
+the defect type (leak/blockage) and number of defects are known a pri-
+ori (Puust et al., 2010), (ii) the topology of the system and its physical
+and geometrical properties are well-known and fully incorporated in
+the hydraulic model (Stephens, 2008; Waqar et al., 2021), and (iii) the
+signal-to-noise ratio (SNR) is large ( Wang and Ghidaoui, 2018b; Wang
+et al. , 2020b ). In real-world, however, most of the foregoing condi-
+tions are not met. Consequently, the application of existing TBDDMs
+(e.g., the time-domain reflectometry, gradient-based optimization algo-
+rithms, and/or resonant peak frequency pattern methods) is restricted
+to simple pipelines with large SNR and known defect type.
+The time reversal-based (TR) techniques are known to be robust
+to noise and model uncertainties ( Tolstoy, 1993; Schmidt et al. , 1990;
+Kuperman et al., 1998; Edelmann et al., 2002; Kuperman and Jackson,
+https://doi.org/10.1016/j.watres.2023.120375
+Received 15 September 2022; Received in revised form 16 May 2023; Accepted 15 July 2023
+
+===== PAGE 2 =====
+Water Research 243 (2023) 120375
+2
+M. Waqar et al.
+2002; Grigoropoulos et al., 2022). They have been extensively devel-
+oped in various fields for defect detection purposes such as (i) in med-
+ical imaging to detect and destroy brain tumors & kidney stones (Fink
+et al., 2003); (ii) in structures to detect fractures (Park et al., 2007);
+(iii) in geophysics to localize earthquake source (Larmat et al., 2010);
+(iv) in underwater acoustics to assist in long-distance communica-
+tions (Roux and Fink, 2000; Edelmann et al., 2005); and (v) in the study
+of Phononic Crystals and meta-materials to control and manipulate
+waves (Lemoult et al., 2016; Liu et al., 2020; Li et al., 2021; Ahmed
+et al., 2022; Waqar et al., 2023). In the context of pipeline hydraulics,
+the authors of this paper recently showed that the time reversal of
+transient waves works efficiently, allowing the waves to refocus on
+their source location even in the presence of waveguide damping such
+as steady friction (SF), unsteady friction (UF) and visco-elastic (VE)
+effects of the polyethylene pipes (Waqar et al., 2020, 2022). Thus, the
+TR technique has a great potential to be used as a tool for pipeline
+defect detection which is the primary objective of this paper.
+The remainder of the paper is organized as follows. First, the
+TR technique for defect detection in pipelines is developed wherein
+analytical models in both time and frequency domains are provided.
+In this paper, only discrete defects such as leaks or discrete blockages
+are considered. Second, numerical examples of single leak, multiple
+leaks and mixed-type of defects (e.g., leak and discrete blockage) are
+considered in a single transmission-like pipeline. Third, the proposed
+method is validated through laboratory experiments under different
+SNR values ranging between 10 to −7 dB. Finally, the conclusions of
+this study are stated.
+1.1. Analytical model
+Consider a visco-elastic (VE) pipe system as shown in Fig. 1. The
+system is comprised of a valve at the downstream end ( 𝑥 = 𝑥𝑆) and a
+wave reflector at 𝑥 = 𝜒 which scatters back part of the incident wave.
+In this paper, two kinds of reflectors are considered: (i) mass source
+reflector (e.g., leak or active illegal branch), and (ii) momentum source
+reflector (e.g., discrete blockage or partially closed in-line valve, etc.).
+Let the injected signal be 𝛿 (𝑥 − 𝑥𝑆 , 𝑡 − 𝑡𝑆
+), where 𝑥𝑆 is the location
+of the source and 𝑡𝑆 denotes the timing of the source. The impulse
+response of the system is derived in Appendix A and the final expression
+is given by Eq. (A.29) as
+̃ℎ (𝜔, 𝑥𝑅|𝜒)= 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥𝑅 − 𝑥𝑆
+)]+ ̃𝐴𝜒 ̃𝐺 (𝜔, 𝜒) (1)
+where ̃ℎ is the impulse response function in the frequency domain, 𝜔
+is the angular frequency, 𝑥𝑅 is the receiver location, 𝑘 is the wave
+number (given by Eq. (A.7)), 𝑍 is the characteristic impedance of the
+pipe (given by Eq. (A.10)), ̃ 𝑞𝑆 = 1 represents the unit strength of the
+point source in the frequency domain and has the dimension of [L 3],
+̃𝐺 (𝜔, 𝜒) = exp [−2𝑖𝑘 (𝜒 − 𝑥𝑆
+)]exp [𝑖𝑘 (𝑥𝑅 − 𝑥𝑆
+)] (2)
+is the propagation function from reflector location 𝜒 to measurement
+location 𝑥𝑅,
+̃𝐴𝜒 =
+⎧
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪⎩
+̃𝐴𝜒
+mass = − |𝑍|2
+𝑍 + 2𝑍𝜒
+mass
+̃ 𝑞𝑆 for mass source reflector (i.e., a leak)
+̃𝐴𝜒
+mom = 𝑍𝑍 𝜒
+mom
+2𝑍 + 𝑍𝜒
+mom
+̃ 𝑞𝑆 for momentum source reflector
+(i.e., a blockage)
+(3)
+is the amplitude of the reflection from the reflector and has the di-
+mension of [L.T] in the frequency domain, 𝑍𝜒
+mass is the impedance
+of the mass source reflector (given by Eq. (A.19)), and 𝑍𝜒
+mom is the
+impedance of the momentum source reflector (given by Eq. (A.26)).
+Note that 𝑘 and 𝑍 are complex which include linearized steady-state
+friction (SF), unsteady friction (UF) and VE effects of the pipe wall. All
+these damping effects are accounted for in the characteristic impedance
+of the pipe wall (denoted by Z and defined in Eq. A10 in Appendix A).
+In this paper, the UF is modeled using Vardy–Brown model (Vardy and
+Brown, 1995) and VE effects are incorporated using the Kelvin–Voigt
+(KV) model (Covas et al., 2005). Let
+𝛥̃ℎ = ̃ℎ − 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥𝑅 − 𝑥𝑆
+)]
+and 𝑥𝑅 = 𝑥𝑆, then Eq. (1) becomes
+𝛥̃ℎ (𝜔, 𝑥𝑅|𝜒)= ̃𝐴𝜒 ̃𝐺 (𝜔, 𝜒) (4)
+For an ideal system where there is no damping,𝑍 = 𝑎0∕ (𝑔𝐴), 𝑘 = 𝜔∕𝑎0,
+where 𝑎0 is the wave speed (given by Eq. (A.3)),𝐴 is the cross-sectional
+area of the pipe, and 𝑔 is the gravitational acceleration constant. Then,
+the inverse Fourier transform of Eq. (4) results
+𝛥ℎ (𝑡, 𝑥𝑅|𝜒)= 𝐴𝜒 𝐺 (𝑡, 𝜒) , (5)
+where 𝛥ℎ(𝑡) = ℱ −1 [𝛥̃ℎ(𝜔)], ℱ −1 denotes the inverse Fourier transform,
+𝐴𝜒 denotes the amplitude of the reflected wave in time domain,
+𝐺(𝑡, 𝜒) = ℱ −1 [̃𝐺 (𝜔, 𝜒)
+]= 𝛿
+[
+𝑡 −
+2 (𝜒 − 𝑥𝑆
+)
+𝑎0
+]
+(6)
+is the propagation function, and 𝑥𝑆 is the location of transient source.
+While it may be tempting to think of 𝐺(𝑡) as the Green’s function, this
+is not the case in this paper. 𝐺(𝑡) is a generic propagation function
+which accounts for the wave propagation between source (valve) and
+the defect. In practice, 𝛿(𝑥 − 𝑥𝑆 , 𝑡 − 𝑡𝑆 ) is realized by injecting a pulse-
+type waveform by rapidly closing and opening the initially open valve.
+As such, the response of the system subjected to a pulse-type waveform
+has a finite bandwidth and is represented by
+𝛥 (𝑡, 𝑥𝑅|𝜒)= 𝑞𝑖𝑛(𝑡) ∗ 𝛥ℎ (𝑡, 𝑥𝑅|𝜒) (7)
+where 𝛥(𝑡) is the pressure head response of the system, 𝛥ℎ(𝑡) is the
+impulse response function, and 𝑞𝑖𝑛(𝑡) is the non-dimensional pulse-type
+forcing function whose magnitude is equals to the Joukowsky pressure
+head (Wylie et al., 1993). Additionally, since noise is inevitably present
+in the measured signals, 𝛥 (𝑡) is contaminated with measurement
+noise 𝑛 such that
+𝛥𝑚
+(𝑡, 𝑥𝑅|𝜒)= 𝛥 + 𝑛 (8)
+where 𝛥𝑚 denotes the measured pressure head response and 𝑛 is
+assumed to follow Gaussian distribution with zero mean and fixed
+variance 𝜎2 (i.e., 𝑛 ∼  (0, 𝜎 2)). The objective of this paper is to
+extract the defect characteristics (i.e., 𝜒 and 𝐴𝜒) from 𝛥𝑚 using the
+time-reversal technique.
+1.2. Time-reversal technique
+The standard time-reversal technique is a two stage process. In
+stage 1: a point source is injected into the system and the response
+of the system is measured. For a pipe system in Fig. 1, the measured
+pressure head response is denoted by 𝛥𝑚
+(𝑡, 𝑥𝑅|𝜒)(i.e. Eq. (8)). In
+stage 2, the measured response is first reversed (flipped) in time such
+that 𝛥𝑚
+(𝑡, 𝑥𝑅|𝜒)becomes 𝛥𝑚
+(−𝑡, 𝑥𝑅|𝜒). This time-reversed signal
+is then re-emitted back to the medium and the response of the system
+is measured again. For leak detection application, this second stage is
+performed in the computer and not in the pipeline system wherein the
+response is predicted by taking the convolution product of the input
+signal 𝛥𝑚
+(−𝑡, 𝑥𝑅|𝜒)with the theoretical impulse response function
+of the system 𝛥ℎ (𝑡, 𝑥𝑅| ̂ 𝜒), where ̂ 𝜒is the estimated value of 𝜒. It is
+shown in Appendix B that the time-reversed signal 𝛥𝑚
+(−𝑡, 𝑥𝑅|𝜒)acts
+as an optimal filter during the second stage of TR which maximizes the
+signal-to-noise ratio only when ̂ 𝜒= 𝜒. Hence, the optimal estimate for
+leak location ̂ 𝜒can be obtained by maximizing the following objective
+function 𝐵:
+̂ 𝜒= arg max
+⃗ 𝜒
+𝐵 = arg max
+⃗ 𝜒 ∫
+∞
+−∞
+ (𝜏, 𝑥𝑅| ̂ 𝜒)
+‖‖‖ (𝜏, 𝑥𝑅| ̂ 𝜒)‖‖‖
+⋅ 𝛥𝑚
+(𝜏, 𝑥𝑅|𝜒)𝑑 𝜏. (9)
+
+===== PAGE 3 =====
+Water Research 243 (2023) 120375
+3
+M. Waqar et al.
+Fig. 1. Waveguide with a wave source (valve) at the end of the pipe and a single
+wave reflector located at a distance 𝜒 from the source location.
+where (𝑡) = 𝑞𝑖𝑛(𝑡) ∗ 𝐺(𝑡), 𝐺(𝑡) is given by Eq. ( 6), ‖⋅‖ represents
+the L2-norm, and 𝑥𝑅 is the location of sensor for transient response
+measurements. Using the Plancherel–Parseval theorem ( Axisa, 2003 ,
+pp. 314), Eq. (9) is expressed in the frequency domain as
+̂ 𝜒= arg max
+⃗ 𝜒
+̃𝐵 = arg max
+⃗ 𝜒
+⟨ ̃ (𝜔, 𝑥𝑅| ̂ 𝜒)
+√
+̃ (𝜔, 𝑥𝑅| ̂ 𝜒) ̃ (𝜔, 𝑥𝑅| ̂ 𝜒), 𝛥 ̃𝑚
+(𝜔, 𝑥𝑅|𝜒)
+⟩
+(10)
+where ⟨⋅, ⋅⟩ represents the inner product, ̃(𝜔) = ℱ [(𝑡)] and  in
+the superscript denotes the complex conjugate. Note that Eq. ( 10)
+is equivalent to the objective function of matched-field processing
+(MFP; Wang and Ghidaoui , 2018b , Eq. (16)) . This means that the
+time-reversed signal acts as a ‘matched-filter’ in the frequency domain
+whose frequency spectrum depends on the estimate of 𝜒. This further
+implies that the two complex wave fields (i.e., ̃(𝜔, ̂ 𝜒) and 𝛥 ̃𝑚(𝜔, 𝜒) in
+Eq. (10)) have an optimal phase match only when ̂ 𝜒= 𝜒. The equiva-
+lence of the proposed technique and MFP is not surprising because both
+methods are inherently based on TR technique. However, the strength
+of the proposed method lies in detecting multiple defects of different
+kinds simultaneously (as shown below) and the flexibility to truncate
+the undesired transient signal which is not the case for MFP.
+Once the defect location ̂ 𝜒is determined by using Eq. ( 9) (or
+Eq. (10)), ̂𝐴𝜒 is solved for using the following relation (see Eq. (C.3) in
+Appendix C)
+̂𝐴𝜒 =
+(
+∫
+𝜔max
+−𝜔max
+̃
+
+(𝜔, ̂ 𝜒) ̃ (𝜔, ̂ 𝜒) 𝑑 𝜔
+)−1
+⋅ ∫
+𝜔max
+−𝜔max
+̃ (𝜔, ̂ 𝜒) 𝛥 ̃𝑚 (𝜔, 𝜒, 𝐴𝜒 ) 𝑑 𝜔.
+(11)
+where 𝜔max is the maximum angular frequency that is injected into
+the system. Note that according to Eq. ( 3), if ̂𝐴𝜒 has a negative sign,
+it implies that the reflector is a mass source (leak), otherwise ̂𝐴𝜒
+represents a momentum source (blockage).
+For a mass source reflector, the defect size 𝑠𝜒
+𝐿 is estimated by
+substituting ̂𝐴𝜒 and ̂ 𝜒in the Eq. (3) and leads to
+̂ 𝑠𝜒
+𝐿 = 4 ̂𝐴𝜒 (𝑔𝐴)2
+𝑎0
+(𝑎0 ̃ 𝑞𝑆 − 𝑔𝐴 ̂𝐴𝜒 )
+√
+̂𝐻0,𝜒
+2𝑔 (12)
+where ̂𝐻0,𝜒 = 𝐻0(𝑥𝑅) + ̂ 𝜒𝑅𝑄0(𝑥𝑆 )∕(2𝑔𝐴) is the estimated value of
+steady-state pressure head at the estimated reflector location. Like-
+wise, the head loss coefficient ̂𝑘𝜒
+𝐻𝐿 of a momentum source reflector is
+estimated by substituting ̂𝐴𝜒 and ̂ 𝜒in Eq. (3) which gives
+̂𝑘𝜒
+𝐻𝐿 = 2𝑔𝐴2𝑎0 ̂𝐴𝜒
+𝑄0
+(𝑎0 ̃ 𝑞𝑆 − 𝑔𝐴 ̂𝐴𝜒 ). (13)
+where ̃ 𝑞𝑆 = 1 m3 is kept in Eqs. ( 12) and (13) to conserve the units,
+and 𝑄0
+(𝑥𝑆
+)is the steady-state flow rate at the source location.
+1.3. Solution for multiple defects
+Consider a pipe system as shown in Fig. 2 where a mass point source
+is located at 𝜒1 and a momentum point source is placed at 𝜒2. The
+solution for 𝛥̃ℎ is derived in Appendix D and given by Eq. ( D.26) as
+𝛥̃ℎ (𝜔, 𝑥𝑅| ⃗ 𝜒)= ̃𝐴𝜒1
+mass ̃𝐺 (𝜔, 𝜒1
+)+ ̃𝐴𝜒2
+mom ̃𝐺 (𝜔, 𝜒2
+) (14)
+where ⃗ 𝜒= (𝜒1, 𝜒2
+). Note that Eq. ( 14) is a linear combination of
+reflected waves from reflector 1 and reflector 2. Therefore, a general
+expression of 𝛥̃ℎ for 𝑁𝑅 number of reflectors can be written as
+𝛥̃ℎ (𝜔, 𝑥𝑅| ⃗ 𝜒)=
+𝑁𝑅∑
+𝑗=1
+̃𝐴𝜒𝑗 ̃𝐺 (𝜔, 𝜒𝑗
+) (15)
+where ⃗ 𝜒=
+(
+𝜒1, … , 𝜒𝑁𝑅
+)
+, and 𝛥̃ℎ (𝜔, 𝑥𝑅| ⃗ 𝜒)is the impulse response due
+to 𝑁𝑅 number of reflectors in the system. For the case of no damping,
+the inverse Fourier transform of Eq. ( 15) gives
+𝛥ℎ (𝑡, 𝑥𝑅| ⃗ 𝜒)=
+𝑁𝑅∑
+𝑗=1
+𝐴𝜒𝑗 𝐺 (𝑡, 𝜒𝑗
+) (16)
+where
+𝐺 (𝑡, 𝜒𝑗
+)= 𝛿
+[
+𝑡 −
+2 (𝜒𝑗 − 𝑥𝑆
+)
+𝑎0
+]
+(17)
+Note that the reflection arrival time of each reflector is given by its
+own transfer function 𝐺(𝑡) which is independent of other reflectors’
+locations, given that the defect-defect interaction is negligible ( Wang
+and Ghidaoui, 2018a) in comparison to the primary reflection of in-
+dividual defects. As such, for multiple defect localization problem, a
+single reflector model can be employed to estimate the locations of
+multiple defects in the system. In such manner, the objective function𝐵
+(in Eq. (9)) would have multiple significant peaks. Mathematically, the
+objective function for multiple defects search using one defect model
+can be written as
+⃗̂ 𝜒= arg max
+⃗ 𝜒
+𝐵 = arg max
+⃗ 𝜒 ∫
+∞
+−∞
+ (𝜏, 𝑥𝑅| ̂ 𝜒)
+‖‖‖ (𝜏, 𝑥𝑅| ̂ 𝜒)‖‖‖
+⋅ 𝛥𝑚
+(𝜏, 𝑥𝑅| ⃗ 𝜒)𝑑 𝜏 (18)
+or, in the frequency domain,
+⃗̂ 𝜒= arg max
+⃗ 𝜒
+̃𝐵 = arg max
+⃗ 𝜒
+⟨ ̃ (𝜔, 𝑥𝑅| ̂ 𝜒)
+√
+̃ (𝜔, 𝑥𝑅| ̂ 𝜒) ̃ (𝜔, 𝑥𝑅| ̂ 𝜒), 𝛥 ̃𝑚
+(𝜔, 𝑥𝑅| ⃗ 𝜒)
+⟩
+(19)
+Finally, the procedure to apply the proposed TR-based defect detection
+method is described in the following Algorithm.
+2. Numerical test cases
+In this section, numerical examples of multiple defects in a single
+pipeline are discussed using a transient model based on method of
+characteristics (MOC) ( Wylie et al. , 1993). Consider a pipe of length
+𝐿 = 200 m with a valve (wave source) at 𝑥 = 𝑥𝑆 = 0 , and a reservoir
+at 𝑥 = 𝐿. The internal diameter of the pipe is 𝐷 = 79 .2 mm . Other
+pipe properties are listed in Table 1 . The steady-state flow rate and
+
+===== PAGE 4 =====
+Water Research 243 (2023) 120375
+4
+M. Waqar et al.
+Fig. 2. Waveguide with two reflectors of different types.
+Algorithm Defect detection procedure using TR technique
+1. Excite the system from the point of access to the pipe system us-
+ing a pulse-type forcing, record the pressure head response𝑚(𝑡)
+and subtract the incident pulse from the measured response
+which is denoted by 𝛥𝑚(𝑡).
+2. Estimate the wave speed 𝑎0 from the data or using Eq. ( A.3)
+and truncate the measured signal such that the length of the
+signal 𝑡 ∈ [0, 2𝑙𝑘∕𝑎0
+], where 𝑙𝑘 denotes the length of the pipeline
+being inspected. For the case of system with unknown topology,
+𝑙𝑘 denotes the distance between measurement location 𝑥𝑅 and
+location of the known boundary condition at the most upstream
+side.
+3. Reverse (flip) the truncated signal in time such that 𝛥𝑚(𝑡)
+becomes 𝛥𝑚(−𝑡).
+4. Determine |𝐵| using Eq. (9) (or Eq. ( 10) in frequency domain)
+for each ̂ 𝜒and plot |𝐵| with respect to ̂ 𝜒. Each peak with a
+significant amplitude in the plot represents a potential defect
+candidate.
+5. Determine the amplitude of the reflected wave ̂𝐴𝜒 using Eq. (11)
+for each estimated defect location ̂ 𝜒.
+6. If ̂𝐴𝜒 has a negative sign, ̂𝐴𝜒 = ̂𝐴𝜒
+mass which is further char-
+acterized by its size 𝑠𝜒
+𝐿 that can be estimated using Eq. ( 12).
+Otherwise, ̂𝐴𝜒 = ̂𝐴𝜒
+mom which is described by its head-loss
+coefficient 𝑘𝜒
+𝐻𝐿 that can be estimated using Eq. ( 13).
+pressure head at the valve are 𝑄0 = 0.4 l/s and 𝐻0 = 20 m, respectively.
+Transient waves in the form of Gaussian pulses are generated by rapidly
+closing and opening the valve. The temporal width of the incident
+pulse is 𝑇𝑃 = 0 .04 s, where 𝑇𝑃 denotes the valve maneuver time. The
+signals in these examples are collected at 𝑥𝑅 = 𝑥𝑆 = 0 . Numerical
+simulations are performed for single and multiple (up to 3) defects.
+For each simulation, Gaussian white noise with zero mean and fixed
+variance is added to the signal. The noise variance is obtained by the
+following expression (Wang and Ghidaoui, 2018b; Waqar et al., 2019)
+𝜎 = |𝐴𝜒 | × 10−SNR∕20 (20)
+Table 1
+System characteristics used for numerical simulations.
+Variable Description
+Length, 𝐿 200 m
+Internal diameter, 𝐷 79.2 mm
+Wall thickness, 𝑒 5.4 mm
+Elastic modulus, 𝐸 117 GPa (for elastic pipe)
+1.47 GPa (for HDPE pipe)
+Wave speed, 𝑎0 1302 m s −1 (for elastic pipe)
+324 m s −1 (for HDPE pipe)
+Joukowsky’s pressure head, 𝐻𝐽 10.8 m (for elastic pipe)
+2.7 m (for HDPE pipe)
+Sampling frequency 2048 Hz
+Minimum wavelength, 𝜆min 26.04 m (for elastic pipe)
+6.48 m (for HDPE pipe)
+Steady friction factor, 𝑓𝐷𝑊 0.02
+Creep compliance, 𝐽 [2.16, 0.73, 0.55, 0.25, 0.008] × 10−10 Pa−1
+Retardation time, 𝜏 [0.052, 0.62, 0.81, 6.56, 9.05] s
+where 𝜎 is the standard deviation of noise, SNR is in decibels (dB) and
+|𝐴𝜒 | is the absolute magnitude of reflected wave from the defect. For
+the case of multiple defects, min (|𝐴𝜒1 |, |𝐴𝜒2 |, …) is used in Eq. ( 20) to
+determine 𝜎. The localization accuracy is determined by taking the
+absolute difference between the actual 𝜒 and and the estimated ̂ 𝜒.
+The diffraction limit ( Waqar et al. , 2022 ; Fink , 2006 ) is determined
+as 0.5𝜆min = 𝑎0∕(2𝑓max), where 𝑎0 is the wave speed and 𝑓max is
+the maximum frequency of the injected signal. If |𝜒 − ̂ 𝜒| ≤ 0.5𝜆min,
+the localization is deemed successful and unsuccessful otherwise. The
+numerical simulations are performed for both elastic and VE pipe. The
+VE effects are incorporated using Kelvin–Voigt model ( Covas et al. ,
+2005) and the unsteady friction is incorporated using Vardy–Brown
+model (Vardy and Brown, 1995)
+2.1. Example 1: one leak case
+A leak of size 𝑠𝐿 = 4 .92 mm 2 (i.e. 0.1% of pipe area, steady-state
+leak flowrate, 𝑄0,𝐿 = 0 .1 l/s) is simulated at 𝜒∕𝐿 = 0 .6 from the
+valve. The simulated signals in the elastic pipe and in the VE pipe
+are shown in Fig. 3 a and 3b, respectively. The VE model parameters
+(e.g., creep compliance and retardation time) are provided in Table 1 .
+In Fig. 3 , the horizontal axes are normalized with respect to 𝐿∕𝑎0
+(i.e. the characteristic time period of the system). The vertical axes are
+normalized with respect to the Joukowsky pressure head 𝐻𝐽 (Wylie
+
+===== PAGE 5 =====
+Water Research 243 (2023) 120375
+5
+M. Waqar et al.
+Fig. 3. Numerically simulated signals in (a) elastic pipe, and (b) visco-elastic pipe for one leak case.
+Fig. 4. Leak localization results for elastic pipe system where damping is (a) neglected and (b) included, and VE pipe system where frictional and VE effects are (c) neglected
+and (d) included. Dashed line shows the exact leak location.
+et al., 1993). The difference in the temporal width of the incident pulse
+in elastic and visco-elastic pipe is due to the difference in the wave
+speed in the elastic and VE pipe systems (see the numeric values of
+wave speed in Table 1). Moreover, each plot in Fig. 3 contains a noise-
+free signal (solid line, for reference only) and a noisy signal (dashed
+line) with SNR = 10 dB, wherein, 𝜎 ≈ 0.3|𝐴𝜒 |.
+For defect localization, a vector for defect candidates is ⃗̂ 𝜒=
+(0, 0.01, … , 𝐿). Following the Algorithm (step 1), the incident pulse
+(i.e., the pulse between 𝑡 ∈ [0 , 𝑇𝑃 ], where 𝑇𝑃 = 0 .04 s) is subtracted
+from the signals to obtain 𝛥(𝑡). The obtained signal is then used
+for defect localization. The results are shown in Fig. 4 a and 4 b for
+elastic pipe and Figs. 4 c and 4 d for visco-elastic pipe, respectively.
+Damping is neglected in Fig. 4 (a,c) but included in Fig. 4 (b,d). In all
+subplots of Fig. 4, the solid lines represent the estimated defect location,
+dashed lines show the exact defect location. It can be seen from Fig. 4
+that the models with and without damping accurately localize the
+defect with the average absolute localization error of 0.15 m. These
+results are supported by the findings in Waqar et al. ( 2022) where the
+effect of damping was investigated in detail. While damping has little
+influence on leak localization ( Fig. 4(a,c)), it has profound influence
+on determining the leak size. Therefore, only the model that include
+damping is used in the estimation of 𝐴𝜒. Following the Algorithm
+(step 6), the leak size is then estimated using Eq. ( 12) and found to
+be ̂ 𝑠𝐿 = 4.94 mm 2. The relative error between 𝑠𝐿 and ̂ 𝑠𝐿 is about 0.4%
+for both elastic and VE pipe.
+2.2. Example 2: multiple leaks and spatial resolution
+For multiple leaks case, two sub-cases are considered. Sub-case 1
+includes two leaks located at 𝜒1∕𝐿 = 0 .3 and 𝜒2∕𝐿 = 0 .6. Their cor-
+responding effective leak sizes are 𝑠𝐿1 = 4 .92 mm 2 (0.1% of pipe area;
+𝑄0,𝐿 = 0 .1 l/s) and 𝑠𝐿2 = 9 .85 mm 2 (0.2% of pipe area; 𝑄0,𝐿 = 0 .2 l/s).
+Sub-case 2 includes an additional leak to sub-case 1 at 𝜒3∕𝐿 = 0.8 with
+the effective area of 𝑠𝐿3 = 7 .38 mm 2 (0.15% of pipe area; 𝑄0,𝐿 = 0 .15
+l/s). The numerical simulations are performed with the same system
+variables as defined in previous sub-section (or see Table 1 ) and the
+
+===== PAGE 6 =====
+Water Research 243 (2023) 120375
+6
+M. Waqar et al.
+Fig. 5. Numerically simulated signals with two leaks in (a) elastic pipe & (b) VE pipe, and with three leaks in (c) elastic pipe & (d) VE pipe.
+Fig. 6. Results for two leaks case in (a) elastic pipe & (b) VE pipe, and for three leaks case in (c) elastic pipe & (d) VE pipe. Vertical lines show the exact leak locations.
+acquired signals are plotted in Fig. 5. Figs. 5a and 5b corresponds to two
+leaks case in the elastic and the VE pipe, respectively. Figs. 5 c and 5d
+correspond to three leaks case in the elastic and VE pipe, respectively.
+For the two leaks case, the localization results are presented in
+Figs. 6a (for elastic pipe) and 6 b (for VE pipe). For three leaks case,
+the results are given in Figs. 6 c and 6 d for elastic and VE pipes,
+respectively. It can be seen that all the leaks are accurately localized in
+all scenarios. Note that the search for multiple leaks is conducted using
+the one leak model as discussed in Section 1.3. The absolute localization
+error for the two and three leaks cases is smaller than 0.5𝜆min. In terms
+of leak size estimate, the results are presented in Fig. 7 wherein the
+real leak sizes are denoted by solid bars and the estimated leak sizes
+are shown by the vertical lines. In all scenarios, the absolute relative
+error among various estimated leaks’ sizes ranges between 7% to 18%.
+The accuracy of the proposed method in the context of detecting
+two closely located defects is also investigated. Let 𝑑𝐿 be the distance
+between two consecutive leaks. Numerical simulations with variable𝑑𝐿
+ranging between 0.20𝜆min to 0.65𝜆min are performed and the selective
+leak localization results are presented in Fig. 8. All the results in Fig. 8(a
+to d) are for the case of elastic pipe. It can be seen that the proposed TR
+technique successfully localizes the leaks that are as close as 0.35𝜆min.
+Same findings are also applicable for visco-elastic pipe system; and
+therefore, the results are not presented here for the sake of brevity.
+Moreover, for higher resolution, high-frequency acoustic waves can be
+used which excite radial wave modes and provide B- or C-scans of the
+pipe (Louati and Ghidaoui, 2017a,b; Nasraoui et al., 2023).
+2.3. Example 3: mixed-type of defects
+In this example, two scenarios are considered: In scenario I, one leak
+and one discrete blockage are simulated at 𝜒1∕𝐿 = 0.4 and 𝜒2∕𝐿 = 0.6,
+respectively. The effective leak size is 𝑠𝐿 = 4 .92 mm 2 (0.1% of pipe
+area; 𝑄0,𝐿 = 0 .1 l/s). The pressure head loss coefficient of the discrete
+blockage is 𝑘𝜒2
+𝐻𝐿 = 1000 which corresponds to 0.62 m of pressure head
+loss in the steady-state condition. Other system properties are same
+as previous example. The simulated transient signals are presented in
+
+===== PAGE 7 =====
+Water Research 243 (2023) 120375
+7
+M. Waqar et al.
+Fig. 7. Estimated leak sizes for two leaks case in (a) elastic pipe & (b) visco-elastic pipe, and for three leaks case in (c) elastic pipe & (d) visco-elastic pipe. In this plot, the
+location of bar (or line) indicate the defect location and the height of bar (or line) shows the size of the defect.
+Fig. 8. Spatial resolution of two closely placed leaks with distance 𝑑𝐿 = (a) 0.25𝜆min, (b) 0.30𝜆min, (c) 0.35𝜆min, and (d) 0.40𝜆min.
+Fig. 9 a (for elastic pipe) and in Fig. 9 b (for VE pipe). In scenario
+II, an additional discrete blockage is simulated at 𝜒3∕𝐿 = 0 .8 whose
+loss coefficient is 𝑘𝜒3
+𝐻𝐿 = 1200 and produces 0.52 m of pressure drop
+during the steady-state condition. The corresponding numerical signals
+are presented in Figs. 9 c (for elastic pipe) and 9 d (for visco-elastic
+pipe).
+Fig. 10 shows the defect localization results for both scenario I (10a
+and 10 b) and scenario II ( 10c and 10 d). In all cases, the proposed
+method has successfully localized the defects as the exact defect loca-
+tions and multiple peaks of the objective function |𝐵| are within the
+interval of 0.5𝜆min (see Table 1). The overall absolute defect localization
+error is less than 0.2 m. After localization, the next step is to identify
+the type of the defect and its corresponding size. This task is performed
+according to step 6 of the Algorithm and the results are shown in
+Fig. 11. In particular, Figs. 11a and 11c show the estimated parameters
+for scenario I wherein both leak and discrete blockage are successfully
+classified for both elastic and VE pipes. For scenario II, where there
+is one leak and two discrete blockages, the results are presented in
+Figs. 11b and 11d, respectively. In terms of leak size ̂ 𝑠𝐿 and head loss
+coefficient estimation ̂𝑘𝜒
+𝐻𝐿, the overall relative error is between 10%–
+25%. The higher value of relative error is ascribed to the fact that single
+defect model is used to match the data with two defects. This error
+can be minimized using multi-defect model wherein the search space
+is multi-dimensional (instead of one dimensional). More details on this
+approach can be found in Wang and Ghidaoui ( 2018a).
+3. Stability of the defect detection scheme
+In this section, the stability of the proposed method is investigated
+with respect to the SNR and uncertain wave speed.
+
+===== PAGE 8 =====
+Water Research 243 (2023) 120375
+8
+M. Waqar et al.
+Fig. 9. Numerically simulated signals with two different defects in (a) elastic pipe & (b) VE pipe, and with three defects of mixed-type in (c) elastic pipe & (d) VE pipe.
+Fig. 10. Results for two defects of different types in (a) elastic pipe & (b) VE pipe, and for three defects of different types in (c) elastic pipe & (d) VE pipe. Vertical lines show
+the exact defect locations.
+3.1. SNR
+The influence of different values of SNR ranging between 10 dB
+(𝜎 ≈ 0 .3|𝐴𝜒 |) to −5 dB ( 𝜎 ≈ 1 .8|𝐴𝜒 |) on the leak localization and leak
+size estimation is shown in Fig. 12 a and 12b, respectively. In Fig. 12 ,
+solid lines represent the elastic pipe system and dashed lines represent
+the VE pipe system. Each line shows the average value of 30 simulations
+and vertical bars show the 95% confidence. It can be seen that for
+SNR ≥ 0 dB, the absolute leak localization error is < 0.5𝜆min and the
+absolute leak size error is ≤ 1 mm 2 for both the elastic and the visco-
+elastic pipes. However, for SNR < 0 dB, leak localization accuracy is
+relatively more affected for the visco-elastic pipe than the elastic pipe.
+It is because the reflection coefficient of a leak in the visco-elastic pipe
+is relatively smaller than that in the elastic pipe. Therefore, for a given
+SNR, it is more difficult to detect a small leak in visco-elastic pipe than
+in elastic pipe for a given incident wave. One possible treatment to
+detect such small leaks under low SNR would be to conduct multiple
+transient tests and obtain the average signal ( Wang et al., 2020b).
+3.2. Uncertain wave speed
+In real-field experiments, the theoretical and experimental wave
+speeds, denoted as ̂ 𝑎𝑡ℎ and 𝑎𝑒𝑥𝑝, respectively, often has discrepancy
+which may goes up to 15% (Wylie et al. , 1993; Wang and Ghidaoui ,
+2018b). In terms of defect localization, imprecise estimate of wave
+speed leads to inaccurate results ( Wang et al. , 2020a ). For this pur-
+pose, accuracy of the proposed method is tested under uncertain wave
+speed whereby ̂ 𝑎𝑡ℎ is varied up to ±15%. The numerical simulations
+are performed for one leak case with SNR = 10 dB. The results are
+presented in Figs. 13 a and 13 b for elastic and VE pipe systems, re-
+spectively. In both figures, the x-axes show the non-dimensional wave
+speed variability and y-axes show the normalized absolute error in the
+estimated leak location. The region below 0.5 on the vertical scale
+represent the reliable localization as the error between the estimated
+and exact leak location in this region is smaller than 0.5 𝜆min. In both
+pipe system, leaks are localized using both damping-free and damped
+wave model and their corresponding results are found to be consistent
+
+===== PAGE 9 =====
+Water Research 243 (2023) 120375
+9
+M. Waqar et al.
+Fig. 11. Estimated leak size and head loss coefficient for scenario I in (a) & (c), and for (ii) scenario II in (b) & (d) respectively. Each subplot contains exact defect parameters,
+estimated defect parameters in elastic pipe and estimated defect parameters in VE pipe.
+Fig. 12. Absolute error in single (a) leak localization, and (b) leak size estimation with respect to SNR.
+with each other. These plots indicate that, for elastic pipe ( Fig. 13a),
+the interval between exact and estimated defect is relatively large
+which covers about ±10% uncertainty in wave speed and still gives
+the localization error smaller than 0.5𝜆min. For the visco-elastic pipe
+(Fig. 13b) only 2.5% of uncertainty in wave speed gives the localization
+error within the half wavelength interval. This implies that if ̂ 𝑎𝑡ℎ varies
+more than 2.5% of the experimental wave speed in visco-elastic pipe,
+the localization error would be larger than the half-wavelength interval.
+It is because the wavelength in visco-elastic pipes is much smaller than
+the wavelength in the elastic pipe; and therefore, the tolerance in wave
+speed uncertainty in visco-elastic pipe is smaller than that for the elastic
+pipe system.
+To further illustrate the foregoing analysis, the objective function
+plots with 10% variability in the wave speed in an elastic and 2.5%
+variability in VE pipe systems are given in Figs. 13 c and 13d, respec-
+tively. In these figures, the x-axes are centered with respect to actual
+leak location 𝜒 and normalized with respect to minimum wavelength
+and y-axes show the normalized objective function |𝐵|, the solid line
+represents the case where ̂ 𝑎𝑡ℎ = 𝑎𝑒𝑥𝑝, and the dash line denotes the case
+when the uncertain value of wave speed is used. In both Figs. 13 c and
+13d, the position of the peak of dash line coincides with the first zero
+of the solid line, implying that the error between estimated and exact
+leak location would exceed the half-wavelength interval if the variation
+in the theoretical wave speed is further increased. Overall, these results
+show that the proposed technique can handle uncertain wave speed up
+to some level depending on the pipe properties.
+4. Experimental validation
+In this section, the proposed TR technique is validated through
+laboratory experiments. The test rig is comprised of a Pump-Pipe-Valve
+system and situated at the Water Research Resources Laboratory of
+the Hong Kong University of Science and Technology (HKUST). The
+schematic of the system is given in Fig. 14. A buffer tank (BT) is located
+
+===== PAGE 10 =====
+Water Research 243 (2023) 120375
+10
+M. Waqar et al.
+Fig. 13. Sensitivity analysis for leak localization with uncertain wave speed using undamped model (solid line) and damped model (dash line) in (a) elastic pipe, (b) visco-elastic
+pipe. Objective function plots with exact wave speed (solid line) and with uncertain wave speed (dash line) in (c) elastic pipe, and (d) visco-elastic pipe.
+at the extreme upstream side that supplies water through a booster
+pump (BP) (Model: KIKAWA KRS16-3) to the 145.4 m long high density
+polyethylene (HDPE-PE100) pipe. The internal diameter of the pipe is
+79.2 mm. Other pipe properties including the VE modeling parameters
+(i.e., creep compliance coefficients and retardation time) are provided
+in Table 2 . On the downstream end, the pipe is connected back to
+BT resulting in a recirculating system. A gate valve (GV7) is installed
+between downstream end of pipe and BT to regulate the flow in the
+system. Along the pipe, there are fourteen manual ball valves of small
+diameter (12.7 mm) and six additional GVs installed. These small ball
+valves are referred as manual valves (MVs) which can be used to release
+the entrapped-air in the system, to install pressure transducers or to
+simulate leaks in the system. Due to the limited space in the laboratory,
+combination of straight pipe sections, curved pipe sections, elbows and
+tees are used in the setup. The degree of curvatures varies from 70o to
+90o and the radius of curvatures varies from 20 cm to 30 cm depending
+on the setup orientation. This experimental facility also includes (i)
+an air bladder tank (ABT) as an upstream boundary condition, (ii) a
+20 m long branch pipeline, (iii) a discrete blockage, and (iv) a portable
+pressure wave maker (PPWM) at the downstream end. In this paper,
+ABT, PPWM, and branch line are not included (i.e., isolated by valves).
+Moreover, GV7 is fully closed and the flow is regulated through a
+12.7 mm diameter valve located at MV1. Thus, the effective pipe length
+from MV1 (downstream) to BP (upstream) is 𝐿 = 142.08.
+4.1. Defect simulation, transient generation and data acquisition
+The steady-state flow rate is established through MV1 (fully open).
+The transient wave is generated by manually and fully closing MV1
+in time 𝑇𝑐 ranging between 0.025 s to 0.043 s. The transient response
+of the system is recorded at 𝑥𝑅 = MV2 = 2 .46 m using a UNIK5000
+pressure transducer with the range of 0.5 MPa (5 bar) and with the
+accuracy of 0.04% (full scale best straight line) as shown in Fig. 14 .
+Another pressure transducer of the same specifications is also placed
+at 𝑥 = MV4 = 22 .65 m to determine the wave arrival time for wave
+speed estimation. The data is collected at a sampling frequency of
+1000 Hz using the National Instrument cRIO-9030 data acquisition
+system. In addition, two ultrasonic flow meters (Model: DXNP-UHS-NN)
+are also installed near the upstream and downstream ends to estimate
+Table 2
+Test rig pipe properties.
+Property Value
+Internal diameter, 𝐷 79.2 mm
+Wall thickness, 𝑒 5.4 mm
+Elastic modulus, 𝐸 1.66 GPa
+Friction factor, 𝑓𝐷𝑊 0.028
+Poisson’s ratio, 𝜈 0.43
+Creep compliance, 𝐽 [1.206, 1.417, 0.902, 0.558, 0.096] × 10−10 Pa−1
+Retardation time, 𝜏 [0.0570, 0.5644, 0.6355, 3.9655, 10.9254] s
+the steady-state flow rate in the system. Leaks are simulated using
+a side-discharge valve located at LKV. Discrete blockage is simulated
+using an in-line gate valve located at GV6.
+4.2. Results and discussion
+Six cases of one leak with variable leak sizes, three cases of one
+discrete blockage with variable sizes, and three cases of two defects
+(a leak and a discrete blockage) are considered. The detailed descrip-
+tion of these test cases (including the estimated wave speed, valve
+time closure, steady-state flowrate and pressure head at the valve) is
+provided in Table 3 where the test cases are sorted according to the
+measured SNR. The measured pressure head response of the system in
+each test case is given in Fig. 15 . For each case, the step response is
+transformed into a pulse response by creating a copy of the original
+step signal with a delay of about𝑇𝑐 seconds and subtracting the delayed
+signal from the original step response as suggested by Lee ( 2005). A
+low pass filter is then applied to minimize electromagnetic interference
+induced by the pump and other electrical appliances located near the
+data acquisition device. Only the first half-period of the signal is used
+for defect detection as it contains the sufficient information to localize
+defects in the system ( Covas and Ramos , 2010; Ferrante et al. , 2009;
+Meniconi et al., 2011; Zouari et al., 2020).
+For defect detection, the average wave speed of 𝑎0 = 357 .3 m s −1
+is used. The estimated defect location for each test case is presented in
+Fig. 16. The results show that for SNR ≥ 0 dB (i.e., C1 to C10), the de-
+fects are accurately localized. The average absolute defect localization
+error is around 3.2 m and is within the interval of 0.5𝜆min = 0.5 𝑎0𝑇𝑐 =
+
+===== PAGE 11 =====
+Water Research 243 (2023) 120375
+11
+M. Waqar et al.
+Fig. 14. Experimental setup at Water Research Resources Laboratory of the Hong Kong University of Science and Technology, Hong Kong.
+Table 3
+System properties during different test cases. The leak and discrete blockage are located at 𝜒𝐿 = 97.9 m and 𝜒𝐷𝐵 = 43.72 m,
+respectively from the downstream valve location.
+Case 𝑄0 𝐻0 𝑇𝑐 𝑎0 Defect type 𝑄𝐿,0 𝑠𝐿 𝑘𝜒
+𝐻𝐿 SNR
+(l s −1) (m) (s) (m s −1) – (l s −1) (mm 2) – (dB)
+C1 0.487 20.82 0.026 356.46 Leak 2.89 142.86 – 9.68
+C2 0.307 23.77 0.040 358.49 Leak + DB 2.13 98.53 3000 8.00
+C3 0.318 25.26 0.025 357.15 Leak + DB 1.65 73.89 3000 7.74
+C4 0.577 27.03 0.043 359.25 Leak 3.06 133.01 – 6.17
+C5 0.543 21.72 0.025 358.21 DB – – 775.89 6.15
+C6 0.323 25.43 0.026 354.21 Leak + DB 1.65 73.89 2200 5.81
+C7 0.324 25.67 0.028 354.69 DB – – 2200 4.85
+C8 0.519 21.77 0.024 355.69 DB – – 518.72 4.69
+C9 0.582 26.89 0.039 359.26 Leak 2.26 98.53 – 2.38
+C10 0.487 26.59 0.028 362.52 Leak 3.60 157.64 – 0.26
+C11 0.547 21.13 0.030 356.46 Leak 1.81 88.67 – −2.03
+C12 0.530 22.09 0.025 358.86 Leak 1.13 54.19 – −6.26
+6.98 m, where 𝑇𝑐 = 0 .024 s is considered as it is the fastest valve
+closure among all test cases. For the cases where SNR < 0 dB (i.e. C11,
+C12), the peak of the objective function |𝐵| is far from the exact defect
+location, implying inaccurate localization. It is because, in these cases,
+the reflection signatures of the defects are completely buried under
+the electromagnetic interference and hydraulic noise of the system.
+These outcomes are previously predicted in Fig. 12 (for VE pipe) where
+the accuracy of the proposed method is tested under various noise
+levels. In terms of defect type identification and its corresponding size
+estimation, the results are presented in Figs. 17 (for leaks) and 18
+(for discrete blockages). The maximum relative error in the estimated
+size is around 19.6% (for leak cases) and 20.2% (for discrete blockage
+cases).
+5. Conclusions
+In this paper, the problem of defect detection in pressurized fluid-
+filled pipelines is addressed. A time-reversal technique is proposed
+for discrete defect detection of mixed-type such as leaks and discrete
+blockages in the elastic and the visco-elastic pipe systems. The solution
+for defect localization is based on time-reversal technique, and the
+solution for defect type and its corresponding size estimate is obtained
+
+===== PAGE 12 =====
+Water Research 243 (2023) 120375
+12
+M. Waqar et al.
+Fig. 15. Measured pressure head signals at MV2 for single defect (C1, C4, C5, C7-C12) and multiple defects (C2, C3, C6) defect.
+Fig. 16. Defect localization results for all test cases. Vertical dashed-lines show the exact defect location.
+using the maximum likelihood estimation procedure. Moreover, the
+proposed TR technique is formulated to consider only the first half-
+period of the transient signal. The proposed technique is proved to be
+optimal in the sense of signal to noise ratio provided that the noise
+distribution is normal and can be applied in both the time and the
+frequency domains.
+Numerical simulations for single leak, multiple leaks, and mixed-
+type of defects (e.g., leak and discrete blockage) in both an elastic and
+
+===== PAGE 13 =====
+Water Research 243 (2023) 120375
+13
+M. Waqar et al.
+Fig. 17. Estimated leak location and leak size for Case C1–C4, C6, C9–C12. Solid bar represents the exact leak properties and dash line denotes the estimated leak properties.
+Fig. 18. Estimated discrete blockage location and head-loss coefficient for C2, C3, C5–C8. Solid bar represents the exact blockage properties and dash line denotes the estimated
+blockage properties.
+a visco-elastic pipes are considered. In all cases, the proposed technique
+has accurately localized and identified the defects with the absolute
+localization error smaller than the half wavelength. In addition, it is
+demonstrated that an undamped wave model can be used to localize
+defects in damped systems such as the elastic pipe which has steady
+as well as unsteady friction or visco-elastic pipe which includes steady
+friction, unsteady friction and visco-elastic effects. In terms of resolu-
+tion, the proposed technique has successfully localized two consecutive
+defects which are 0.35−wavelength distance apart in both elastic and
+visco-elastic pipes. Moreover, the stability of the proposed method is
+investigated under various signal-to-noise ratios and uncertain wave
+speed. For stability against noise, the SNR is varied between 10 dB
+to −5 dB. The results show that the localization error in elastic pipe
+remains within the interval of half wavelength for SNR ≥ −5 dB. For
+visco-elastic pipe, however, the localization error is relatively larger for
+SNR < 0 dB. For the case of uncertain wave speed, the results show that
+the localization error remains within the half wavelength interval for
+up to 10% uncertainty in wave speed. For visco-elastic pipe, however,
+only 2.5% uncertainty in wave speed gives the reliable localization.
+The proposed method is also validated with laboratory experiments.
+In particular, six cases of single leak with variable size, three cases
+of single discrete blockage with different head-loss coefficient and
+three cases of two defects (a leak and a blockage) are considered. The
+results show that for cases with SNR ≥ 0 dB, the proposed method
+is quite accurate in terms of localization, defect type determination
+and defect size estimation. For SNR < 0 dB, on the other hand,
+the accuracy of the method is affected by the noise in the system.
+This issue can be addressed by conducting multiple measurements and
+taking the average pressure head response. Overall, the proposed TR
+technique has shown excellent results to be considered for further
+development.
+Declaration of competing interest
+The authors declare that they have no known competing finan-
+cial interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+===== PAGE 14 =====
+Water Research 243 (2023) 120375
+14
+M. Waqar et al.
+Data availability
+Data will be made available on request
+Acknowledgments
+This work is supported by the Hong Kong Research Grant Council
+(Project No. T21-602/15R, 16203417, 16208618, 16214219), the Chi-
+nese Estate Professorship in Engineering (Project No. R8031) and the
+HKUST Postgraduate Studentship.
+Appendix A. Detailed derivation of analytical models
+To describe the transient response of the system, the one dimen-
+sional water-hammer equations (i.e., mass and momentum conserva-
+tions) are used. These two equations in the frequency domain are
+written as
+𝜕 ̃ 𝑞
+𝜕𝑥 + 𝑔𝐴
+𝑎2
+𝑣𝑒
+𝑖𝜔̃ℎ = 0 (A.1a)
+𝜕 ̃ℎ
+𝜕𝑥 + 1
+𝑔𝐴
+(𝑖𝜔 + 𝑅 + 𝑖𝜔 ̂𝑅)̃ 𝑞= 0, (A.1b)
+where 𝑥 is the spatial coordinate, ̃ℎ is the pressure head perturbation,
+̃ 𝑞is the flow rate perturbation, 𝑔 is the gravitational constant, 𝐴 is the
+cross-sectional area of the pipe, 𝑖 =
+√
+−1,
+𝑎𝑣𝑒 =
+[
+1
+𝑎2
+0
++ 𝜌𝐷
+𝑒
+(1 − 𝜈2)𝑁𝑘𝑣∑
+𝑗=1
+𝐽𝑗
+1 + 𝑖𝜔𝜏𝑗
+]−1∕2
+, 𝑎 𝑣𝑒 ∈ C (A.2)
+is the frequency-dependent wave speed (Wang et al., 2019), wherein
+𝑎0 =
+( 𝜌
+𝐾 + (1 − 𝜈2)𝜌𝐷
+𝑒𝐸
+)−1∕2
+, 𝑎 0 ∈ R, (A.3)
+is the elastic wave speed, 𝜌 is the density of the fluid, 𝐾 is the bulk
+modulus of fluid, 𝜈 is the Poisson’s ratio, 𝐸 is the elastic modulus of
+pipe, 𝐷 is the inner diameter of the pipe,
+̂𝑅(𝜔) = 4
+𝐷
+√ 𝜐
+𝑖𝜔 + 𝛽 , ̂𝑅 ∈ C, (A.4)
+is the frequency-dependent wall shear stress model to govern the
+unsteady-friction (Vardy and Brown, 1995), 𝜐 = 10 −6 m2s−1 is the
+kinematic viscosity of fluid, 𝜅 = log(14 .3∕𝖱𝖾0.05), 𝛽 = 0 .54𝜐𝖱𝖾𝜅 ∕𝐷2,
+𝖱𝖾 = 𝑄0𝐷∕𝐴𝜐 is the Reynolds number, 𝑅 is the linearized steady-state
+friction term
+𝑅 = (𝑓𝐷𝑊 𝑄0
+)∕ (𝐷𝐴) ,
+𝑓𝐷𝑊 is the Darcy–Weisbach friction factor, 𝑄0 is the steady-state flow
+rate, 𝑒 is the pipe wall thickness, 𝜔 is the angular frequency, R denotes
+real variable, C denotes complex variable, 𝐽 is the creep compliance, 𝜏
+is the strain retardation time and𝑁𝑘𝑣 represents the Kelvin-Voigt model
+elements. Differentiating Eq. (A.1a) with respect to 𝑥 and subtracting
+it from Eq. (A.1b) gives the one-dimensional wave equation in terms of
+flow rate as
+𝜕2 ̃ 𝑞
+𝑑𝑥2 +
+(
+𝜔2
+𝑎2
+𝑣𝑒
+− 𝑖𝜔
+𝑎2
+𝑣𝑒
+𝑅 + 𝜔2
+𝑎2
+𝑣𝑒
+̂𝑅
+)
+̃ 𝑞= 0 (A.5)
+For the pipe system shown in Fig. 1, consider that the wave is injected
+through a mass point source in the form of 𝛿 (𝑥 − 𝑥𝑆 , 𝑡 − 𝑡𝑆
+), where 𝑥𝑆
+is the location of the source and 𝑡𝑆 denotes the timing of the source.
+The source term can also be expressed as ̃ 𝑞(𝜔, 𝑥𝑆 |𝑥𝑆
+) = ̃ 𝑞𝑆 (𝜔) = 1 ,
+where ̃ 𝑞𝑆 denotes the unit strength of the point source in the frequency
+domain. The general expression for excitation in terms of ̃ 𝑞(𝑥) is written
+as
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (A.6)
+Taking the second derivative of Eq. (A.6) with respect to 𝑥 and substi-
+tuting in Eq. (A.5) gives
+𝑘 =
+√
+𝜔2
+𝑎2
+𝑣𝑒
+− 𝑖𝜔
+𝑎2
+𝑣𝑒
+𝑅 + 𝜔2
+𝑎2
+𝑣𝑒
+̂𝑅 ; 𝑘 ∈ C (A.7)
+where 𝑘 is known as the wave number. For pipe Section 1 in Fig. 1,
+the expression for incident and reflected wave from a reflector can be
+written as
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃ 𝑞𝑅 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (A.8)
+where, ̃ 𝑞𝑅 is the reflected wave from the reflector. Substituting Eq. (A.8)
+in Eq. (A.1a) and solving for ̃ℎ (𝜔, 𝑥|𝑥𝑆
+)yields
+̃ℎ (𝜔, 𝑥|𝑥𝑆
+)= 𝑍
+[
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)]]
+(A.9)
+where 𝑥 ∈ [𝑥𝑆 , 𝜒], 𝜒 is the reflector location, and
+𝑍 = 𝑎𝑣𝑒
+𝑔𝐴
+√
+1 − 𝑖
+𝜔 𝑅 + ̂𝑅 ; 𝑍 ∈ C (A.10)
+is the characteristic impedance of the pipe. Similarly, the expression for
+flow rate perturbation ̃ 𝑞and pressure head ̃ℎ in Section 2 (see Fig. 1)
+are defined as
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑞𝑇 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)], (A.11a)
+and
+̃ℎ (𝜔, 𝑥|𝑥𝑆
+)= 𝑍 ̃ 𝑞𝑇 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)], (A.11b)
+respectively, where 𝑥 ≥ 𝜒 and ̃ 𝑞𝑇 is the amplitude of the transmitted
+wave through the reflector. To further develop the model, two kinds of
+reflectors are considered: (i) mass source reflector (for example, leak,
+active unauthorized demand, etc.), and (ii) momentum source reflector
+(discrete blockage, partially closed in-line valve, etc.).
+A.1. Scenario I: Mass source reflector
+Consider that the reflector is a mass point source which extracts
+fluid at position 𝜒 at a rate ̃ 𝑞𝜒 from the main pipe. The pressure head
+and flow conditions at such type of reflector are
+lim
+𝜀→0
+̃ℎ (𝜒 − 𝜀) = lim
+𝜀→0
+̃ℎ (𝜒 + 𝜀) (A.12a)
+and
+lim
+𝜀→0
+̃ 𝑞(𝜒 − 𝜀) − ̃ 𝑞𝜒 = lim
+𝜀→0
+̃ 𝑞(𝜒 + 𝜀) (A.12b)
+respectively, where ̃ 𝑞𝜒 is the flow rate escaping from the pipe and 𝜀 is
+the infinitesimal distance from the reflector location 𝜒. The proofs for
+Eqs. (A.12a) and (A.12b) can be made by integrating Eqs. (A.1a) and
+(A.1b) from 𝜒 − 𝜀 to 𝜒 + 𝜀, respectively. Evaluating Eq. (A.9) at 𝜒 − 𝜀,
+Eq. (A.11b) at 𝜒 + 𝜀 and substituting these two in Eq. (A.12a) gives
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒 − 𝑥𝑆
+)]= ̃ 𝑞𝑇 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)]
+(A.13)
+Likewise, evaluating Eq. (A.8) at 𝜒 − 𝜀, Eq. (A.11a) at 𝜒 + 𝜀, and
+substituting these two in Eq. (A.12b) provide
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)]+ ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒 − 𝑥𝑆
+)]− ̃ 𝑞𝜒 = ̃ 𝑞𝑇 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)]
+(A.14)
+Addition of Eqs. (A.13) and (A.14) results
+̃ 𝑞𝑇 (𝜔) = ̃ 𝑞𝑆 −
+̃ 𝑞𝜒
+2 exp [𝑖𝑘 (𝜒 − 𝑥𝑆
+)] (A.15)
+Substituting Eq. (A.15) in Eq. (A.14) and solving for ̃ 𝑞𝑅 gives
+̃ 𝑞𝑅 (𝜔) =
+̃ 𝑞𝜒
+2 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)] (A.16)
+
+===== PAGE 15 =====
+Water Research 243 (2023) 120375
+15
+M. Waqar et al.
+The mass outflow through reflector (i.e., ̃ 𝑞𝜒) can be modeled as an
+orifice (Wylie et al., 1993). For steady-state, the orifice equation is
+given by
+𝑄𝜒
+0 = 𝑠𝜒
+𝐿
+√
+2𝑔𝐻 𝜒
+0 (A.17)
+where 𝐻 𝜒
+0 is the steady-state pressure head at the reflector location,𝑄𝜒
+0
+is the steady-state flow rate extracted by the mass source, and 𝑠𝜒
+𝐿 is the
+effective cross-sectional area of the mass source. For transient state, a
+linearized expression of Eq. (A.17) is often used (Wang et al., 2002; Lee
+et al., 2006; Duan, 2017). The linearized orifice equation is given as
+̃ 𝑞𝜒 = ̃ℎ𝜒
+𝑍𝜒
+mass
+(A.18)
+wherein
+𝑍𝜒
+mass =
+2𝐻 𝜒
+0
+𝑄𝜒
+0
+(A.19)
+is the characteristic impedance of the reflector and ̃ℎ𝜒 is the head at
+the reflector location during transient state that can be obtained from
+Eq. (A.9). Thus, evaluating Eq. (A.9) at 𝑥 = 𝜒 and substituting the
+resulting expression in Eq. (A.18) gives
+̃ 𝑞𝜒 = 𝑍
+𝑍𝜒
+mass
+[
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒 − 𝑥𝑆
+)]]
+(A.20)
+Substituting Eq. (A.20) in Eq. (A.16) and solving for ̃ 𝑞𝑅 results
+̃ 𝑞𝑅 = 𝑍
+𝑍 + 2𝑍𝜒
+mass
+̃ 𝑞𝑆 exp [−2𝑖𝑘 (𝜒 − 𝑥𝑆
+)], (A.21)
+Substituting Eq. (A.21) in Eq. (A.9) gives
+̃ℎ (𝜔, 𝑥|𝜒) = 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃𝐴𝜒
+mass ̃𝐺 (𝜔, 𝜒) , (A.22)
+wherein
+̃𝐴𝜒
+mass = − |𝑍|2
+𝑍 + 2𝑍𝜒
+mass
+̃ 𝑞𝑆 , (A.23a)
+̃𝐺 (𝜔, 𝜒) = exp [−2𝑖𝑘 (𝜒 − 𝑥𝑆
+)]exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)]. (A.23b)
+A.2. Scenario II: Momentum source reflector
+For a momentum point source (e.g., a drag force at a discrete
+blockage) which exhibits pressure head drop across the reflector, the
+pressure head and flow conditions are
+lim
+𝜀→0
+̃ℎ (𝜒 − 𝜀) = lim
+𝜀→0
+̃ℎ (𝜒 + 𝜀) + ̃ℎ𝜒 (A.24a)
+and
+lim
+𝜀→0
+̃ 𝑞(𝜒 − 𝜀) = lim
+𝜀→0
+̃ 𝑞(𝜒 + 𝜀) (A.24b)
+respectively, where ̃ℎ𝜒 denotes the head loss across the reflector and
+can be modeled as
+̃ℎ𝜒 = ̃ 𝑞𝜒 𝑍𝜒
+mom (A.25)
+where ̃ 𝑞𝜒 can be determined using Eq. (A.8),
+𝑍𝜒
+mom =
+2𝐻 𝜒
+0
+𝑄𝜒
+0
+=
+𝑘𝜒
+𝐻𝐿 𝑄𝜒
+0
+𝑔𝐴2 , (A.26)
+and 𝑘𝜒
+𝐻𝐿 is the pressure head loss coefficient across the momentum
+source. Following the same steps as Eqs. (A.13)–(A.22) along with
+Eq. (A.24) yields
+̃ℎ (𝜔, 𝑥|𝜒) = 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃𝐴𝜒
+mom ̃𝐺 (𝜔, 𝜒) , (A.27)
+wherein
+̃𝐴𝜒
+mom = 𝑍𝑍 𝜒
+mom
+2𝑍 + 𝑍𝜒 ̃ 𝑞𝑆 (A.28a)
+̃𝐺 (𝜔, 𝜒) = exp [−2𝑖𝑘 (𝜒 − 𝑥𝑆
+)]exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (A.28b)
+Note that both Eqs. (A.22) and (A.27) have the same form except ̃𝐴𝜒.
+Thus, for a general case where defect type is not known, Eq. (A.22) (or
+Eq. (A.27)) can be written as
+̃ℎ (𝜔, 𝑥|𝜒) = 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃𝐴𝜒 ̃𝐺 (𝜔, 𝜒) (A.29)
+Appendix B. Time-reversal as optimal filter
+Convolve the measured signal 𝛥𝑚
+(𝑡, 𝑥𝑅|𝜒)with a function 𝑔(𝑡) as
+𝑔(𝑡) ∗ 𝛥𝑚
+(𝑡, 𝑥𝑅|𝜒)= 𝑔(𝑡) ∗ 𝛥 (𝑡, 𝑥𝑅|𝜒)+ 𝑔(𝑡) ∗ 𝑛(𝑡) (B.1)
+The objective is to determine 𝑔(𝑡) which maximizes the signal-to-noise
+ratio (SNR). To avoid obtaining 𝑔(𝑡) = ∞ , the following constraint is
+used: ‖𝑔(𝑡)‖ = 1. The SNR is defined as
+SNR =
+‖‖‖𝑔(𝑡) ∗ 𝛥 (𝑡, 𝑥𝑅|𝜒)‖‖‖
+2
+E ‖𝑔(𝑡) ∗ 𝑛(𝑡)‖2 =
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝛥 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+} 2
+E
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝑛 (𝑡 − 𝜏) 𝑑 𝜏
+} 2
+(B.2)
+where ‖⋅‖ represents the L2-norm and E is the expected value. Accord-
+ing to Cauchy-Schwartz inequality, the numerator of Eq. (B.2) has an
+upper bound given by
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝛥 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+} 2
+≤ ∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏 ∫
+∞
+−∞
+𝛥2 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏. (B.3)
+The denominator of Eq. (B.2) is developed as follows:
+E
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝑛 (𝑡 − 𝜏) 𝑑 𝜏
+} 2
+= E
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝑛 (𝑡 − 𝜏) 𝑑 𝜏 ∫
+∞
+−∞
+𝑔(𝜏′)𝑛 (𝑡 − 𝜏′)𝑑 𝜏 ′
+}
+= ∫
+∞
+−∞ ∫
+∞
+−∞
+𝑔(𝜏)𝑔(𝜏′)E { 𝑛 (𝑡 − 𝜏) 𝑛 (𝑡 − 𝜏′)} 𝑑 𝜏 𝑑 𝜏 ′
+= 𝜎2
+∫
+∞
+−∞ ∫
+∞
+−∞
+𝑔(𝜏)𝑔(𝜏′)𝛿 (𝜏′ − 𝜏)𝑑 𝜏 ′ 𝑑 𝜏
+= 𝜎2
+∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏 (B.4)
+where 𝛿 is the Dirac delta function. To arrive at Eq. (B.4), the white
+noise assumption is invoked so that E { 𝑛(𝑡 − 𝜏)𝑛(𝑡 − 𝜏′)} = 𝛿(𝜏 − 𝜏′).
+Substituting Eqs. (B.3) and (B.4) in Eq. (B.2) gives
+SNR =
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝛥 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+} 2
+𝜎2
+∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏
+≤ ∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏 ∫
+∞
+−∞
+𝛥2 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+𝜎2
+∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏
+=
+{
+∫
+∞
+−∞
+𝑔(𝜏)𝛥 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+} 2
+𝜎2 ‖𝑔(𝜏)‖2 ≤ 1
+𝜎2 ∫
+∞
+−∞
+𝛥2 (𝑡 − 𝜏, 𝑥𝑅|𝜒)𝑑 𝜏
+(B.5)
+where
+‖𝑔(𝜏)‖2 = ∫
+∞
+−∞
+𝑔2(𝜏) 𝑑 𝜏 > 0.
+The inequality in Eq. (B.5) becomes equality, implying maximum SNR,
+only when 𝑔(𝜏) is linearly proportional to 𝛥(𝑡 − 𝜏). That is, 𝑔(𝜏) =
+𝛼𝛥(𝑡 − 𝜏, 𝑥𝑅|𝜒) ∀𝛼 ∈ R, where 𝛼 is an arbitrary coefficient and often
+
+===== PAGE 16 =====
+Water Research 243 (2023) 120375
+16
+M. Waqar et al.
+chosen as ‖‖𝛥(𝑡 − 𝜏, 𝑥𝑅|𝜒)‖‖
+−1 to obtain a non-trivial solution (Turin,
+1960; Krim and Viberg, 1996) such that ‖𝑔(𝜏)‖ = 1 . This implies that
+𝑔(𝑡) that maximizes the SNR is 𝛥(−𝑡)∕ ‖𝛥(−𝑡)‖. Moreover, substitut-
+ing 𝛥 from Eq. (7) in the foregoing proposed expression of 𝑔(𝑡) gives
+𝑔(𝑡) = 𝛥(−𝑡, 𝑥𝑅|𝜒)
+‖‖𝛥(−𝑡, 𝑥𝑅|𝜒)‖‖
+= (−𝑡, 𝑥𝑅|𝜒)
+‖‖(−𝑡, 𝑥𝑅|𝜒)‖‖
+(B.6)
+where (𝑡) = 𝑞𝑖𝑛(𝑡) ∗ 𝐺(𝑡) and 𝐺(𝑡) is defined in Eq. (6). Thus, the
+optimal estimate for ̂ 𝜒can be obtained by convolving Eq. (B.6) with
+the measurement 𝛥𝑚 and evaluating the integral at 𝑡 = 0 as
+̂ 𝜒= arg max
+𝜒
+𝐵 = arg max
+𝜒 ∫
+∞
+−∞
+ (𝜏, 𝑥𝑅| ̂ 𝜒)
+‖‖‖ (𝜏, 𝑥𝑅| ̂ 𝜒)‖‖‖
+⋅ 𝛥𝑚
+(𝜏, 𝑥𝑅|𝜒)𝑑 𝜏 (B.7)
+Appendix C. Estimation of defect size
+For a noisy measurement 𝛥𝑚(𝑡), where it is assumed that noise
+follows Gaussian distribution with zero mean and fixed variance, the
+maximum likelihood estimation for defect size ̂𝐴𝜒 is equivalent to the
+least-square solution, described as
+̂𝐴𝜒 = arg min
+𝐴𝜒
+‖‖‖𝛥 ̃𝑚 (𝜔, 𝜒, 𝐴𝜒 ) − 𝛥 ̃ (𝜔, ̂ 𝜒,̂𝐴𝜒 )‖‖‖
+2
+(C.1)
+where
+‖‖‖𝛥 ̃𝑚 (𝜔, 𝜒, 𝐴𝜒 ) − 𝛥 ̃ (𝜔, ̂ 𝜒,̂𝐴𝜒 )‖‖‖
+2
+= ∫
+𝜔max
+−𝜔max
+(𝛥 ̃
+𝑚𝛥 ̃𝑚 + 𝛥 ̃ 𝛥 ̃ − 2 ̃ ̃𝑚
+)𝑑 𝜔
+= ∫
+𝜔max
+−𝜔max
+(
+𝛥 ̃
+𝑚𝛥 ̃𝑚 + (̂𝐴𝜒 )2 ̃ ̃ − 2 ̂𝐴𝜒 ̃ ̃𝑚
+)
+𝑑 𝜔 (C.2)
+𝜔max is the maximum angular frequency of the injected transient signal,
+ denotes the complex conjugate and ̃ = ̃ (𝜔, ̂ 𝜒), and ̂ 𝜒is estimated
+using the time-reversal technique (i.e. Eq. (9) or Eq. (10)). Differ-
+entiating Eq. (C.2) with respect to ̂𝐴𝜒 and equating it to zero gives
+̂𝐴𝜒 =
+(
+∫
+𝜔max
+−𝜔max
+̃ (𝜔, ̂ 𝜒) ̃ (𝜔, ̂ 𝜒) 𝑑 𝜔
+)−1
+⋅ ∫
+𝜔max
+−𝜔max
+̃ (𝜔, ̂ 𝜒) 𝛥 ̃𝑚 (𝜔, 𝜒, 𝐴𝜒 ) 𝑑 𝜔
+(C.3)
+Appendix D. Reflection coefficient of multiple defects
+Consider a pipe system as shown in Fig. 2. Two reflectors in the
+pipeline exhibit discontinuities which split the pipe into three sections.
+In particular, reflector 1 at 𝜒1 is considered as a mass source reflector
+and reflector 2 at 𝜒2 is considered as a momentum source reflector.
+The pressure head perturbation ̃ℎ (𝜔, 𝑥|𝑥𝑆
+)and flow rate perturbation
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+), subjected to a mass point source at 𝑥𝑆, in each pipe section
+are given as
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃ 𝑞𝑅 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (D.1a)
+̃ℎ (𝜔, 𝑥|𝑥𝑆
+)= 𝑍
+(
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)])
+(D.1b)
+for Section 1;
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑐1 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]+ ̃ 𝑐2 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (D.2a)
+̃ℎ (𝜔, 𝑥|𝑥𝑆
+)= 𝑍
+(
+̃ 𝑐1 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)]− ̃ 𝑐2 exp [𝑖𝑘 (𝑥 − 𝑥𝑆
+)])
+(D.2b)
+for Section 2; where, ̃ 𝑐1 and ̃ 𝑐2 are the frequency-dependent amplitude
+of transmitted and reflected waves in Section 2, respectively,
+̃ 𝑞(𝜔, 𝑥|𝑥𝑆
+)= ̃ 𝑐3 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (D.3a)
+̃ℎ (𝜔, 𝑥|𝑥𝑆
+)= 𝑍
+(
+̃ 𝑐3 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)])
+(D.3b)
+for Section 3; where ̃ 𝑐3 is the amplitude of the transmitted wave
+through reflector 2. Eqs. (D.1)–(D.3) are obtained in the same manner
+as Eqs. (A.8)–(A.11). Also, the boundary conditions for reflector 1 and
+reflector 2 are
+lim
+𝜀→0
+̃ℎ (𝜒1 − 𝜀)= lim
+𝜀→0
+̃ℎ (𝜒1 + 𝜀), (D.4a)
+lim
+𝜀→0
+̃ 𝑞(𝜒1 − 𝜀)− ̃ 𝑞𝜒1 = lim
+𝜀→0
+̃ 𝑞(𝜒1 + 𝜀), (D.4b)
+lim
+𝜀→0
+̃ℎ (𝜒2 − 𝜀)= lim
+𝜀→0
+̃ℎ (𝜒2 + 𝜀)+ ̃ℎ𝜒2 , (D.4c)
+lim
+𝜀→0
+̃ 𝑞(𝜒2 − 𝜀)= lim
+𝜀→0
+̃ 𝑞(𝜒2 + 𝜀). (D.4d)
+Evaluating Eq. (D.1b) at 𝜒1 − 𝜀, Eq. (D.2b) at 𝜒1 + 𝜀 and substituting the
+resulting expressions in Eq. (D.4a) gives
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]
+= ̃ 𝑐1 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]
+− ̃ 𝑐2 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)] (D.5)
+Likewise, evaluating Eq. (D.1a) at 𝜒1 − 𝜀, Eq. (D.2a) at 𝜒1 + 𝜀 and
+substituting the resulting expressions in Eq. (D.4b) gives
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]+ ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− ̃ 𝑞𝜒1
+= ̃ 𝑐1 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]
++ ̃ 𝑐2 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)] (D.6)
+Adding Eqs. (D.5) & (D.6) and solving for ̃ 𝑐1 gives
+̃ 𝑐1 (𝜔) = ̃ 𝑞𝑆 − ̃ 𝑞𝜒1
+2 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)] (D.7)
+Evaluating Eq. (D.2b) at 𝜒2 − 𝜀, Eq. (D.3b) at 𝜒2 + 𝜀 and substituting the
+resulting expressions in Eq. (D.4c) gives
+̃ 𝑐1 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]− ̃ 𝑐2 exp [𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
+= ̃ 𝑐3 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]+ 𝑍𝜒2
+𝑍 ̃ 𝑞𝜒2 (D.8)
+Similarly, evaluating Eq. (D.2a) at 𝜒2 − 𝜀, Eq. (D.3a) at 𝜒2 + 𝜀 and
+substituting the resulting expressions in Eq. (D.4d) gives
+̃ 𝑐1 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]+ ̃ 𝑐2 exp [𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]= ̃ 𝑐3 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
+(D.9)
+Adding Eqs. (D.8) & (D.9) and solving for ̃ 𝑐3 gives
+̃ 𝑐3 = ̃ 𝑐1 − 𝑍𝜒2
+2𝑍 ̃ 𝑞𝜒2 exp [𝑖𝑘 (𝜒2 − 𝑥𝑆
+)] (D.10)
+Eq. (D.10) is further simplified by substituting ̃ 𝑐1 from Eq. (D.7) which
+gives
+̃ 𝑐3 = ̃ 𝑞𝑆 − 1
+2
+[
+̃ 𝑞𝜒1 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]+ 𝑍𝜒2
+𝑍 ̃ 𝑞𝜒2 exp [𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]]
+(D.11)
+The expression for ̃ 𝑐2 is obtained by substituting Eqs. (D.7) and (D.11)
+in Eq. (D.8) and given as
+̃ 𝑐2 = − 𝑍𝜒2
+2𝑍 ̃ 𝑞𝜒2 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)] (D.12)
+Recall that the prime interest is to find an explicit expression for ̃ 𝑞𝑅
+in terms of reflectors’ properties which is obtained by substituting
+Eqs. (D.7) and (D.12) in Eq. (D.5) that gives
+̃ 𝑞𝑅 (𝜔) = ̃ 𝑞𝜒1
+2 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− 𝑍𝜒2
+𝑍
+̃ 𝑞𝜒2
+2 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)] (D.13)
+It is intuitive that the reflected wave ̃ 𝑞𝑅 in Section 1 is composed of
+reflections from both reflector 1 and reflector 2. To further resolve,
+linearized orifice equation (i.e., Eq. (A.18)), along with Eq. (D.1b)
+(evaluated at 𝜒1) gives the expression for 𝑞𝜒1 as
+̃ 𝑞𝜒1 = 𝑍
+𝑍𝜒1
+(
+̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− ̃ 𝑞𝑅 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)])
+(D.14)
+
+===== PAGE 17 =====
+Water Research 243 (2023) 120375
+17
+M. Waqar et al.
+wherein,
+𝑍𝜒1 =
+2𝐻 𝜒1
+0
+𝑄𝜒1
+0
+. (D.15)
+is the characteristic impedance of reflector 1. Similarly, the expression
+for ̃ 𝑞𝜒2 is obtained by evaluating Eq. (D.2b) at 𝜒2 and substituting in
+the linearized orifice equation (i.e. Eq. (A.18)) which gives
+̃ 𝑞𝜒2 = 2𝑍
+2𝑍 + 𝑍𝜒2
+[̃ 𝑞𝑆 exp [−𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
+− ̃ 𝑞𝜒1
+2 exp [𝑖𝑘 (𝜒1 − 𝑥𝑆
+)− 𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]]
+(D.16)
+wherein,
+𝑍𝜒2 =
+2𝐻 𝜒2
+0
+𝑄𝜒2
+0
+(D.17)
+is the characteristic impedance of reflector 2. Substituting Eqs. (D.14)
+and (D.16) in (D.13) and solving for ̃ 𝑞𝑅 gives
+̃ 𝑞𝑅 =
+{
+𝑍
+2𝑍𝜒1
+exp [−2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− 𝑍 𝜒2
+(2𝑍 + 𝑍 𝜒2 ) exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
++ 𝑍𝑍 𝜒2
+2𝑍 𝜒1 (2𝑍 + 𝑍𝜒2 ) exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]}
+×
+⎡
+⎢
+⎢
+⎢⎣
+̃ 𝑞𝑆
+1 + 𝑍
+2𝑍𝜒1
++ 𝑍𝑍 𝜒2
+2𝑍 𝜒1 (2𝑍 + 𝑍 𝜒2 ) exp [2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
+⎤
+⎥
+⎥
+⎥⎦
+(D.18)
+The expression for ̃ 𝑞𝑅 is comprised of information from reflector 1,
+information from reflector 2 and the reflector–reflector interaction
+(i.e., the last term in the numerator and denominator of Eq. (D.18)). For
+small wave reflectors, which are difficult to detect by visual inspection,
+𝑍𝜒 > 𝑍 . This implies that
+{ 𝑍
+2𝑍𝜒1
+, 𝑍𝜒2
+2𝑍 + 𝑍𝜒2
+}
+≫ 𝑍𝑍 𝜒2
+2𝑍𝜒1 (2𝑍 + 𝑍𝜒2 ) (D.19)
+This relation can be explicitly seen by considering a damping free pipe
+system wherein 𝑍 = 𝑎0∕(𝑔𝐴) and Eq. (D.19) which gives
+{
+𝑎0
+𝑔𝐴 ≫ 0 and 4 ≫ 1
+2𝐻 𝜒1
+0
+( 𝑎0
+𝑔𝐴 𝑄𝜒1
+0
+)}
+(D.20)
+Let 𝐻 𝜒
+𝐽 = 𝑎0𝑄𝜒
+0 ∕(𝑔𝐴) be the Joukowsky’s pressure change caused by
+the reflector, Eq. (D.20) becomes
+{
+𝑎0
+𝑔𝐴 ≫ 0 and 4 ≫
+𝐻 𝜒1
+𝐽
+2𝐻 𝜒1
+0
+}
+(D.21)
+From practical viewpoint, 𝐻 𝜒
+0 ≫ 𝐻 𝜒
+𝐽 , that is, the steady-state pressure
+at the leak location is much larger than the reflected wave ampli-
+tude due to a leak. Thus, the non-linear terms can be neglected from
+Eq. (D.18) which yields
+̃ 𝑞𝑅 = 𝑍
+𝑍 + 2𝑍𝜒1
+̃ 𝑞𝑆 exp [−2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]
+− 𝑍𝜒2
+(2𝑍 + 𝑍𝜒2 )
+(
+1 + 𝑍
+2𝑍𝜒1
+)−1
+̃ 𝑞𝑆 exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)] (D.22)
+Since 𝑍∕𝑍𝜒 < 1, applying the Taylor series expansion on
+(1 + 𝑍∕(2𝑍𝜒1 ))−1 and keeping only the first order terms of the expan-
+sion gives
+̃ 𝑞𝑅 = 𝑍
+𝑍 + 2𝑍𝜒1
+̃ 𝑞𝑆 exp [−2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]
++
+(
+− 𝑍𝜒2
+(2𝑍 + 𝑍𝜒2 ) + 𝑍𝑍 𝜒2
+2𝑍𝜒1 (2𝑍 + 𝑍𝜒2 )
+)
+̃ 𝑞𝑆 exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)](D.23)
+According to Eq. (D.19), the last term is negligible in comparison
+with other two terms; and therefore, can be ignored. Thus, the final
+expression for linearized ̃ 𝑞𝑅 becomes
+̃ 𝑞𝑅 = 𝑍 ̃ 𝑞𝑆
+𝑍 + 2𝑍𝜒1
+exp [−2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)]− 𝑍𝜒2 ̃ 𝑞𝑆
+(2𝑍 + 𝑍𝜒2 ) exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)]
+(D.24)
+Substituting Eq. (D.24) in Eq. (D.1b) gives the final expression for 𝛥ℎ
+as
+𝛥̃ℎ (𝜔, 𝑥| ⃗ 𝜒)= − |𝑍|2 ̃ 𝑞𝑆
+𝑍 + 2𝑍𝜒1
+exp [−2𝑖𝑘 (𝜒1 − 𝑥𝑆
+)+ 𝑖𝑘 (𝑥 − 𝑥𝑆
+)]
++ 𝑍𝑍 𝜒2 ̃ 𝑞𝑆
+(2𝑍 + 𝑍𝜒2 ) exp [−2𝑖𝑘 (𝜒2 − 𝑥𝑆
+)+ 𝑖𝑘 (𝑥 − 𝑥𝑆
+)] (D.25)
+or
+𝛥̃ℎ (𝜔, 𝑥| ⃗ 𝜒)= ̃𝐴𝜒1
+mass ̃𝐺 (𝜔, 𝑥|𝜒1
+)+ ̃𝐴𝜒2
+mom ̃𝐺 (𝜔, 𝑥|𝜒2
+) (D.26)
+where 𝛥̃ℎ = ̃ℎ − 𝑍 ̃ 𝑞𝑆 exp [−𝑖𝑘 (𝑥 − 𝑥𝑆
+)], ̃𝐴𝜒1
+mass is given by Eq. (A.23a),
+̃𝐴𝜒2
+mom is given by Eq. (A.28a) & ̃𝐺(𝜔, 𝑥|𝜒) is known by Eq. (A.23b),
+⃗ 𝜒= (𝜒1, 𝜒2
+), 𝑥 ∈ [𝑥𝑆 , 𝜒1
+](see Fig. 2) and 𝛥̃ℎ (𝜔, 𝑥| ⃗ 𝜒)is the impulse
+response function due to both mass and momentum reflectors in the
+system.
+References
+Ahmed, U., Nasroui, S., Louati, M., Ghidaoui, M.S., 2022. Time-reversal in phononic
+crystal-based water filled pipe. J. Acoust. Soc. Am. 152 (4), A170.
+Axisa, F., 2003. Modelling of Mechanical Systems: Discrete Systems. Elsevier.
+Brunone, B., 1999. Transient test-based technique for leak detection in outfall pipes. J.
+Water Resour. Plan. Manag. 125 (5), 302–306.
+Che, T.-C., Duan, H.-F., Lee, P.J., 2021. Transient wave-based methods for anomaly
+detection in fluid pipes: A review. Mech. Syst. Signal Process. 160, 107874.
+Colombo, A.F., Karney, B.W., 2002. Energy and costs of leaky pipes: toward
+comprehensive picture. J. Water Resour. Plan. Manag. 128 (6), 441–450.
+Covas, D., Ramos, H., 2010. Case studies of leak detection and location in water
+pipe systems by inverse transient analysis. J. Water Resour. Plan. Manag. 136 (2),
+248–257.
+Covas, D., Stoianov, I., Mano, J.F., Ramos, H., Graham, N., Maksimovic, C., 2005. The
+dynamic effect of pipe-wall viscoelasticity in hydraulic transients. Part II—Model
+development, calibration and verification. J. Hydraul. Res. 43 (1), 56–70.
+Duan, H.-F., 2017. Transient frequency response based leak detection in water supply
+pipeline systems with branched and looped junctions. J. Hydroinform. 19 (1),
+17–30.
+Duan, H.-F., Lee, P.J., Ghidaoui, M.S., Tung, Y.-K., 2011. Leak detection in complex
+series pipelines by using the system frequency response method. J. Hydraul. Res.
+49 (2), 213–221.
+Edelmann, G.F., Akal, T., Hodgkiss, W.S., Kim, S., Kuperman, W.A., Song, H.C., 2002.
+An initial demonstration of underwater acoustic communication using time reversal.
+IEEE J. Ocean. Eng. 27 (3), 602–609.
+Edelmann, G.F., Song, H., Kim, S., Hodgkiss, W., Kuperman, W., Akal, T., 2005.
+Underwater acoustic communications using time reversal. IEEE J. Ocean. Eng. 30
+(4), 852–864.
+Ferrante, M., Brunone, B., Meniconi, S., 2007. Wavelets for the analysis of transient
+pressure signals for leak detection. J. Hydraul. Eng. 133 (11), 1274–1282.
+Ferrante, M., Brunone, B., Meniconi, S., 2009. Leak detection in branched pipe
+systems coupling wavelet analysis and a Lagrangian model. J. Water Supply Res.
+Technol.-AQUA 58 (2), 95–106.
+Fink, M., 2006. Time-reversal acoustics in complex environments. Geophysics 71 (4),
+SI151–SI164.
+Fink, M., Montaldo, G., Tanter, M., 2003. Time-reversal acoustics in biomedical
+engineering. Ann. Rev. Biomed. Eng. 5 (1), 465–497.
+Grigoropoulos, G., Ghidaoui, M.S., Louati, M., Nasraoui, S., 2022. Time reversal of
+waves in hydraulics: experimental and theoretical proof with applications. J.
+Hydraul. Res. 60 (1), 1–24.
+Kapelan, Z.S., Savic, D.A., Walters, G.A., 2003. A hybrid inverse transient model for
+leakage detection and roughness calibration in pipe networks. J. Hydraul. Res. 41
+(5), 481–492.
+Krim, H., Viberg, M., 1996. Two decades of array signal processing research: the
+parametric approach. IEEE Signal Process. Mag. 13 (4), 67–94.
+Kuperman, W., Hodgkiss, W.S., Song, H.C., Akal, T., Ferla, C., Jackson, D.R., 1998.
+Phase conjugation in the ocean: Experimental demonstration of an acoustic
+time-reversal mirror. J. Acoust. Soc. Am. 103 (1), 25–40.
+Kuperman, W.A., Jackson, D.R., 2002. Ocean acoustics, matched-field processing and
+phase conjugation. In: Imaging of Complex Media with Acoustic and Seismic Waves.
+Springer, pp. 43–97.
+Larmat, C.S., Guyer, R.A., Johnson, P.A., 2010. Time-reversal methods in geophysics.
+Phys. Today 63 (8), 31–35.
+
+===== PAGE 18 =====
+Water Research 243 (2023) 120375
+18
+M. Waqar et al.
+Lee, P.J., 2005. Using System Response Functions of Liquid Pipelines for Leak and
+Blockage Detection (Ph.D. thesis). The University of Adelaide, South Australia.
+Lee, P.J., Lambert, M.F., Simpson, A.R., Vitkovsky, J.P., Liggett, J., 2006. Experimental
+verification of the frequency response method for pipeline leak detection. J.
+Hydraul. Eng. 44 (5), 693–707.
+Lee, P.J., Vitkovsky, J.P., Lambert, M.F., Simpson, A.R., Liggett, J.A., 2005. Frequency
+domain analysis for detecting pipeline leaks. J. Hydraul. Eng. 131 (7), 596–604.
+Lemoult, F., Kaina, N., Fink, M., Lerosey, G., 2016. Soda cans metamaterial: a
+subwavelength-scaled phononic crystal. Crystals 6 (7), 82.
+Li, J., Wen, X., Sheng, P., 2021. Acoustic metamaterials. J. Appl. Phys. 129 (17),
+171103.
+Liggett, J.A., Chen, L.-C., 1994. Inverse transient analysis in pipe networks. J. Hydraul.
+Eng. 120 (8), 934–955.
+Liu, J., Guo, H., Wang, T., 2020. A review of acoustic metamaterials and phononic
+crystals. Crystals 10 (4), 305.
+Louati, M., Ghidaoui, M.S., 2017a. High-frequency acoustic wave properties in a water-
+filled pipe. Part 1: Dispersion and multi-path behaviour. J. Hydraul. Res. 55 (5),
+613–631.
+Louati, M., Ghidaoui, M.S., 2017b. High-frequency acoustic wave properties in a
+water-filled pipe. Part 2: range of propagation. J. Hydraul. Res. 55 (5), 632–646.
+Louati, M., Ghidaoui, M.S., Meniconi, S., Brunone, B., 2018. Bragg-type resonance in
+blocked pipe system and its effect on the eigenfrequency shift. J. Hydraul. Eng.
+144 (1), 04017056.
+Louati, M., Ghidaoui, M.S., Tekitek, M.M., Lee, P.J., 2020. Wave-leak interaction in a
+simple pipe system. J. Hydraul. Eng. 146 (4), 04020013.
+Louati, M., Meniconi, S., Ghidaoui, M.S., Brunone, B., 2017. Experimental study of the
+eigenfrequency shift mechanism in a blocked pipe system. J. Hydraul. Eng. 143
+(10), 04017044.
+Meniconi, S., Brunone, B., Ferrante, M., Capponi, C., Carrettini, C., Chiesa, C.,
+Segalini, D., Lanfranchi, E., 2015. Anomaly pre-localization in distribution–
+transmission mains by pump trip: preliminary field tests in the Milan pipe system.
+J. Hydroinform. 17 (3), 377–389.
+Meniconi, S., Brunone, B., Ferrante, M., Massari, C., 2011. Transient tests for locating
+and sizing illegal branches in pipe systems. J. Hydroinform. 13 (3), 334–345.
+Mpesha, W., Chaudhry, M.H., Gassman, S.L., 2002. Leak detection in pipes by frequency
+response method using a step excitation. J. Hydraul. Eng. 40 (1), 55–62.
+Nasraoui, S., Louati, M., Ghidaoui, M.S., 2023. Blockage detection in pressurized water-
+filled pipe using high frequency acoustic waves. Mech. Syst. Signal Process. 185,
+109817.
+Park, H.W., Sohn, H., Law, K.H., Farrar, C.R., 2007. Time reversal active sensing for
+health monitoring of a composite plate. J. Sound Vib. 302 (1–2), 50–66.
+Puust, R., Kapelan, Z., Savic, D., Koppel, T., 2010. A review of methods for leakage
+management in pipe networks. Urban Water J. 7 (1), 25–45.
+Roux, P., Fink, M., 2000. Time reversal in a waveguide: Study of the temporal and
+spatial focusing. J. Acoust. Soc. Am. 107 (5), 2418–2429.
+Sattar, A.M., Chaudhry, M.H., 2008. Leak detection in pipelines by frequency response
+method. J. Hydraul. Eng. 46 (sup1), 138–151.
+Schmidt, H., Baggeroer, A., Kuperman, W., Scheer, E., 1990. Environmentally tolerant
+beamforming for high-resolution matched field processing: Deterministic mismatch.
+J. Acoust. Soc. Am. 88 (4), 1851–1862.
+Soares, A.K., Covas, D.I., Reis, L.F.R., 2011. Leak detection by inverse transient analysis
+in an experimental PVC pipe system. J. Hydroinform. 13 (2), 153–166.
+Stephens, M.L., 2008. Transient Response Analysis for Fault Detection and Pipeline Wall
+Condition Assessment in Field Water Transmission and Distribution Pipelines and
+Networks (Ph.D. thesis). The University of Adelaide, South Australia.
+Strazzabosco, A., 2020. Asian Water Development Outlook 2020: Advancing Water
+Security Across Asia and the Pacific. Tech. Rep., Asian Development Bank, Manila,
+Philippines.
+Tolstoy, A., 1993. Matched Field Processing for Underwater Acoustics. World
+Scientific, ISBN: 9789810210595, URL https://books.google.com.sa/books?id=
+ufXFQgAACAAJ.
+Turin, G., 1960. An introduction to matched filters. IRE Trans. Inf. Theory 6 (3),
+311–329.
+UNESCO, 2020. World Water Development Report 2020 – Water and Climate Change.
+World Water Assessment Programme - United Nations Educational, Scientific and
+Cultural Organization.
+Vardy, A.E., Brown, J.M., 1995. Transient, turbulent, smooth pipe friction. J. Hydraul.
+Eng. 33 (4), 435–456.
+Vitkovsky, J.P., Lambert, M.F., Simpson, A.R., Wang, X.-J., 2001. An experimental
+verification of the inverse transient technique for leak detection. In: 6th Conference
+on Hydraulics in Civil Engineering: The State of Hydraulics; Proceedings. Institution
+of Engineers, Australia, p. 373.
+Wang, X., Che, T.-C., Ghidaoui, M.S., 2020a. Comments on ‘‘Bayesian update and
+method of distributions: Application to leak detection in transmission mains’’ by
+Alawadhi and Tartakovsky. Water Resour. Res. 56 (9), e2020WR027945.
+Wang, X., Ghidaoui, M.S., 2018a. Identification of multiple leaks in pipeline: Linearized
+model, maximum likelihood, and super-resolution localization. Mech. Syst. Signal
+Process. 107, 529–548.
+Wang, X., Ghidaoui, M.S., 2018b. Pipeline leak detection using the matched-field
+processing method. J. Hydraul. Eng. 144 (6), 04018030.
+Wang, X.-J., Lambert, M.F., Simpson, A.R., Liggett, J.A., Vitkovsky, J.P., 2002. Leak
+detection in pipelines using the damping of fluid transients. J. Hydraul. Eng. 128
+(7), 697–711.
+Wang, X., Lin, J., Ghidaoui, M.S., 2020b. Usage and effect of multiple transient tests
+for pipeline leak detection. J. Water Resour. Plan. Manag. 146 (11), 06020011.
+Wang, X., Lin, J., Keramat, A., Ghidaoui, M.S., Meniconi, S., Brunone, B.,
+2019. Matched-field processing for leak localization in a viscoelastic pipe: An
+experimental study. Mech. Syst. Signal Process. 124, 459–478.
+Waqar, M., Assili, M., Ahmed, U., Nasraoui, S., Louati, M., Ghidaoui, M.S., 2023.
+Beating the diffraction limit: Water hammer waves and phononic crystals. In:
+Proccedings of the 14th International Conference on Pressure Surges.
+Waqar, M., Louati, M., Ghidaoui, M.S., 2019. Leak localization using time reversal
+technique. In: Proc., 38th IAHR World Congress, Vol. 10. Panama City, Panama,
+DOI.
+Waqar, M., Louati, M., Ghidaoui, M.S., 2020. Time reversal of waves in pressurized
+pipelines. In: Proceedings of the 1st IAHR Young Professionals Congress. p. 158.
+Waqar, M., Louati, M., Ghidaoui, M.S., 2022. Time-reversal of water-hammer waves.
+J. Hydraul. Res. 60 (1), 25–45.
+Waqar, M., Louati, M., Wang, X., Ghidaoui, M.S., 2021. Model-free matched field
+processing for condition assessment of pressurized pipes. J. Water Resour. Plan.
+Manag. 147 (10), 04021066.
+World Bank, 2016. High and Dry: Climate Change, Water, and the Economy. The World
+Bank.
+Wylie, E.B., Streeter, V.L., Suo, L., 1993. Fluid Transients in Systems, Vol. 1. Prentice
+Hall Englewood Cliffs, NJ.
+Zouari, F., Louati, M., Meniconi, S., Blåsten, E., Ghidaoui, M.S., Brunone, B., 2020.
+Experimental verification of the accuracy and robustness of area reconstruction
+method for pressurized water pipe system. J. Hydraul. Eng. 146 (3), 04020004.

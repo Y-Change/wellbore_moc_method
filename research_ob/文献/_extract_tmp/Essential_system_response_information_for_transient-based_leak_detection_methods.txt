@@ -1,0 +1,674 @@
+SOURCE: Essential system response information for transient-based leak detection methods水锤理论与实践综述.pdf
+PAGES: 9
+FULL extract 9 pages
+
+
+
+===== PAGE 1 =====
+Full Terms & Conditions of access and use can be found at
+http://www.tandfonline.com/action/journalInformation?journalCode=tjhr20
+Download by: [University of Canterbury] Date: 04 July 2017, At: 00:36
+Journal of Hydraulic Research
+ISSN: 0022-1686 (Print) 1814-2079 (Online) Journal homepage: http://www.tandfonline.com/loi/tjhr20
+Essential system response information for
+transient-based leak detection methods
+Huan-Feng Duan , Pedro J. Lee , Mohamed S. Ghidaoui & Yeou-Koung Tung
+To cite this article: Huan-Feng Duan , Pedro J. Lee , Mohamed S. Ghidaoui & Yeou-Koung Tung
+(2010) Essential system response information for transient-based leak detection methods, Journal
+of Hydraulic Research, 48:5, 650-657, DOI: 10.1080/00221686.2010.507014
+To link to this article:  http://dx.doi.org/10.1080/00221686.2010.507014
+Published online: 22 Oct 2010.
+Submit your article to this journal 
+Article views: 237
+View related articles 
+Citing articles: 14 View citing articles 
+
+
+===== PAGE 2 =====
+Research paper
+Essential system response information for transient-based leak detection methods
+HUAN-FENG DUAN, Department of Civil and Environmental Engineering, The Hong Kong University of Science
+and Technology, Clear Water Bay, Kowloon, Hong Kong SAR, China .
+Email: ceduan@gmail.com (author for correspondence)
+PEDRO J. LEE (IAHR Member), Senior Lecturer , Department of Civil and Natural Resources Engineering,
+University of Canterbury, Private Bag 4800, Christchurch, New Zealand.
+Email: pedro.lee@canterbury.ac.nz
+MOHAMED S. GHIDAOUI (IAHR Member), Professor , Department of Civil and Environmental Engineering, The
+Hong Kong University of Science and Technology, Clear Water Bay, Kowloon, Hong Kong SAR, Republic of China.
+Email: ghidaoui@ust.hk
+YEOU-KOUNG TUNG, Professor, Department of Civil and Environmental Engineering, The Hong Kong University
+of Science and Technology, Clear Water Bay, Kowloon, Hong Kong SAR, Republic of China.
+Email: cetung@ust.hk
+ABSTRACT
+Many transient-based techniques have been developed for leak detection in piping ﬂuid systems, and they are thought to use leak-induced damping and
+reﬂection effects to detect and locate the problem. This work investigates the relative importance of the damping and reﬂective effects from the leak to
+the leak detection methods with the importance of both effects tested using four representative methods, which vary signiﬁcantly in their modes of
+operation and provide the coverage of the major developments in the transient leak detection ﬁeld. It was found that all transient-based methods are
+unable to detect and locate the leak in the absence of the leak-reﬂected signal, whereas the leak is detected and located even in the absence of leak-
+induced damping. The results indicate that the information previously thought to be contained in the damping of slow transients was found to be
+low frequency reﬂections from the leak.
+Keywords: Inverse transient analysis, leak detection, pipe system, system response function, transient damping, transient reﬂection
+1 Introduction
+Compared with many commercial leak detection techniques, the
+application of transient-based methods has advantages in terms
+of their speed, ability to work online and large operational
+range (Wang 2002). A leak in a pipeline system will result in
+an increased transient damping rate and the creation of new
+leak-reﬂected signals within the time trace. Many transient-
+based leak detection methods have been developed and applied
+to water piping systems using information contained within
+these two effects. The developed leak detection methods vary
+greatly in their modes of operation, but may be divided into
+four main categories, namely the transient reﬂection method
+(TRM), the transient damping method (TDM), the system
+response function method (SRFM) and the inverse transient
+method (ITM). It was found through recent ﬁeld studies that
+all transient-based leak detection methods face difﬁculties in
+systems with a high level of complexities. A better understanding
+of their dependency on the different types of information con-
+tained within the transient trace is essential when designing
+new transient signals for improving their accuracy.
+In general, all current transient-based leak detection methods
+are unable to deal with systems with a high level of complexity
+(practical ﬁeld level), and the understanding of their depen-
+dency on the different types of information contained within
+the transient trace is essential for improving their accuracy. A
+recent literature review of Colombo et al. (2009) indicates
+that the validations of the present transient-based leak detection
+Journal of Hydraulic Research V ol. 48, No. 5 (2010), pp. 650 – 657
+doi:10.1080/00221686.2010.507014
+# 2010 International Association for Hydro-Environment Engineering and Research
+Revision received 10 June 2010 /Open for discussion until 30 April 2011.
+ISSN 0022-1686 print /ISSN 1814-2079 online
+http://www.informaworld.com
+650
+
+
+===== PAGE 3 =====
+methods are mainly focused on simple systems, and many had
+not yet involved ﬁeld situations. One of the reasons is the
+potential difﬁculty of dealing with practical factors affecting
+the transient damping and reﬂections such as external ﬂuxes,
+junction connections, elbow connections and other system
+properties. This study aims to investigate the relative impor-
+tance of the transient information (damping and reﬂections)
+to the application of the transient-based leak detection
+methods and to inspect the impact of these practical factors
+on the accuracy of these methods. This research studies the
+accuracy of the four types of transient leak detection methods
+if the signal contains both leak-induced damping and reﬂection
+information compared to when only one of the two types of
+information exists. The latter scenarios are created through
+modifying the original transient signal, and this process is
+described below.
+2 Investigation methods
+2.1 One-dimensional waterhammer model
+The classical one-dimensional (1D) waterhammer model is
+adopted herein, mathematically expressed as (Chaudhry 1987,
+Ghidaoui et al. 2005)
+gA
+a2
+∂H
+∂t + ∂Q
+∂x = 0 (1)
+∂Q
+∂t + gA ∂H
+∂x + f
+2DA QQ
+⏐⏐ ⏐⏐ = 0 (2)
+where H is the pressure head, Q the pipe discharge, A the pipe
+cross-sectional area, D the pipe diameter, a the wave speed, x
+the spatial coordinate along the pipeline, t the time, g the gravita-
+tional acceleration and f the pipe friction factor.
+Only steady friction is considered in the application tests
+herein. Previous works have shown that unsteady friction
+creates additional pressure head damping in addition to steady
+friction and results in a more rapid decay of information
+content in the transient signal (Chaudhry 1987, Ghidaoui et al.
+2005). As the present aim is to compare the relative importance
+of the two types of leak-induced information in a transient trace,
+it is advantageous to maximize the amount of information
+contained in the trace for analysis. It is important to note that
+the present ﬁndings are still valid in systems with unsteady fric-
+tion. Nixon et al. (2006) and Nixon and Ghidaoui (2007) studied
+the impact of unsteady friction effect on the leak detection
+method and used the TDM as an example. Their results indicate
+that there is more amplitude damping of the frequency modes if
+the unsteady friction effect is included in the TDM and the
+unsteady friction effect has no impact on the accuracy of the tech-
+nique as long as it is correctly represented in the numerical
+outputs.
+2.2 Transient-based leak detection methods
+Four types of transient-based leak detection methods are used
+herein to investigate the essential system response information
+for locating leaks in pipe systems. For clarity, four represen-
+tations of these methods are brieﬂy reviewed in this section.
+Among the developed methods, TRM is the easiest to apply
+and the leak is located through the reﬂection information of the
+pressure signal. Brunone (1999) introduced the method with
+the following equation
+x
+∗
+L = a
+2L t2 − t1() (3)
+where xL∗ is the dimensionless leak location representing the dis-
+tance of the leak from the upstream boundary normalized by the
+pipe length, L the pipe length, t
+1 the instant at which the pressure
+wave generated at the end valve arrives at the measurement
+location and t2 the instant at which the reﬂected wave at the
+leak reaches the measurement location. Brunone and Ferrante
+(2001) conducted an experimental validation of the technique,
+and the TRM was able to accurately predict the leak location
+by measuring the arrival times of the signal reﬂections. Other
+works that improved on the application of this idea include the
+introduction of change detection algorithm such as wavelet (Fer-
+rante et al. 2007, 2009) and cumulative sum (Lee et al. 2007).
+While TRM relies solely on the reﬂection information within
+the transient trace, an alternative method was developed, which
+was designed to work solely on the damping rate of the transient
+signal.
+The TDM as proposed by Wang et al. (2002) is a novel leak
+detection method utilizing the relative damping rates of the ﬁrst
+two harmonic frequency components in the pressure head trace
+to locate the problem. This method was derived analytically
+from the 1D waterhammer model for a single pipe system. The
+equation relating to the harmonic damping ratios and the leak
+location is
+Rn1 L
+Rn2 L
+= sin2 n1px∗
+L
+()
+sin2 n2px∗
+L
+() (4)
+where RnL is the leak-induced damping rate for the nth mode and
+ni is the mode number, with i ¼ 1 or 2. The TDM assumes
+system linearity and only applies to single pipeline systems
+with weak unsteady friction. These assumptions were veriﬁed
+using a two-dimensional transient model by Nixon et al.
+(2006), indicating that the assumptions did not limit the model
+applicability in practice if the system was simple and the friction
+damping effect was represented correctly in pressure head traces.
+The TRM and TDM were designed to use only one of the two
+types of leak information contained within a transient signal.
+There are other methods such as SRFM that uses the entire tran-
+sient signal to detect and locate the leak. Liou and Tian (1995),
+Liou (1998), Ferrante and Brunone (2003), Covas et al.
+(2005), Lee et al. (2006, 2007) and Sattar and Chaudhry
+Journal of Hydraulic Research V ol. 48, No. 5 (2010) Transient-based leak detection methods 651
+
+
+===== PAGE 4 =====
+(2008) located the leak in the system by analysing the harmonic
+and impulse modes of pressure wave traces, and the SRFM pre-
+sented by Lee et al. (2006, 2007) was adopted therein. The main
+principle of the technique is shown in Fig. 1.
+In any system, a transient signal can be considered as the
+result of an initial ﬂow disturbance imposed on the system
+(input x), whereas the measured pressure response is the output
+from system y. The behaviour of a pipeline system can then be
+described as a function that produces the output for a given
+input. The relationship between input and output signals in the
+time domain is given as a convolutional integral (Lee et al. 2007)
+yt()=
+∫
++1
+− 1
+xt ∗() It − t∗() dt∗ (5)
+where I(.) is the impulse response function (IRF) of the system
+containing all information pertaining to the behaviour of the
+system and t
+∗ is the historical time point. By applying the
+Fourier transform (Kreyszig 1993), the expression becomes
+Y v() = X v() · F v() (6)
+where F(.) is the frequency response function (FRF) of the
+system, v the frequency, X(.) the Fourier transform of the input
+signal x and Y(.) the Fourier transform of the output signal y.
+The system response function (either in the time domain as the
+IRF or in the frequency domain as the FRF) describes the funda-
+mental response of the system from an impulse excitation. A
+leak in the pipeline results in a change in this system response,
+for example, the FRF from leaking and non-leaking pipelines
+(Fig. 2). In an intact pipeline, the FRF consists of a series of
+uniformly-spaced and -sized harmonic peaks (thin dashed line in
+Fig. 2), but in a leaking system, the sizes of these peaks vary
+with frequency (bold solid line in Fig. 2) termed as “leak-
+induced pattern” by Lee et al. (2006, 2007). This perturbation
+pattern is the result of leak-induced changes to the transient
+response and can be used to locate the leak. Lee et al. (2006)
+found the analytical expression for the leak-induced pattern as
+ˆh =
+a cos 2 pmx∗
+L − u
+()
++ b (7)
+where hˆis the inverted peak head magnitude from FRF result.a, u,
+b are the ﬁtting coefﬁcients and m is the peak magnitude number.
+The coefﬁcient xL∗ is a measure of the leak location from the
+upstream boundary. Lee et al. (2006) demonstrated that this
+method agrees well with experimental results. As the technique
+uses the entire transient signal, it has been suggested that this tech-
+nique relies on both the reﬂection and damping information from
+the leak.
+Another popular method that uses the entire transient signal is
+ITM, which operates by calibrating and matching the outputs
+from a numerical model to measured data records (Liggett and
+Chen 1994, Brunone 1999, Vı´tkovsky´ et al. 2000, Al-Khomairi
+2008, Shamloo and Haghighi 2009). The predicted response
+with the leaks in the correct locations results in the closest
+match with the measured results. Since ITM uses the entire tran-
+sient trace for calibration, this method is thought to utilize both
+the leak-induced damping and reﬂection information. The objec-
+tive function for optimization can be expressed as
+min : G =
+∑
+N
+i=1
+Hm
+i − Hp
+i
+⏐⏐ ⏐⏐ (8)
+where G is the ﬁtness of the objective function, Hm the measured
+pressure head, Hp the predicted pressure head by using numerical
+models, i ¼ 1,... ,N the time-step point for comparison and N the
+total number of data points. V arious mathematical algorithms
+have been used for the objective optimization function of
+Eq. (8) (Liggett and Chen 1994, Vı ´tkovsky´ et al. 2000,
+Al-Khomairi 2008, Shamloo and Haghighi 2009). Herein, the
+genetic algorithm is adopted as proposed by Vı ´tkovsky´ et al.
+(2000), who applied ITM successfully in a hypothetic simple
+network for leak calibration, while their further study by labora-
+tory experimental validation indicated that the success of this
+method depends on the system complexities such as boundary
+conditions and system properties (Vı´tkovsky´ et al. 2007) being
+well-deﬁned. Meanwhile, the computation load of ITM is the
+other difﬁculty for practical large-scale pipe systems.
+3 Numerical experiments
+The simple pipe system shown in Fig. 3 is used for the present
+numerical tests consisting of a constant head tank, a single pipe-
+line and a boundary valve. The valve at the downstream bound-
+ary is initially fully closed and the transient is caused by a pulse
+Figure 2 Converted FRF results in the frequency domain: – – , intact
+pipe response; 2, leaking pipe response
+Figure 1 Schematic for SRFM
+652 H.-F . Duan et al. Journal of Hydraulic Research V ol. 48, No. 5 (2010)
+
+
+===== PAGE 5 =====
+perturbation of the valve opening, resulting in the discharge vari-
+ation QV shown in Fig. 4. A single leak was placed at various
+locations along the pipeline with the dimensionless leak location
+xL∗ ¼ 0.1, 0.3, 0.6, 0.8 and 0.9 and initial leak discharge QL ¼
+2.25 × 1023 m3/s. The pressure at the upstream valve face is
+collected for leak detection analysis. Note that the study ident-
+iﬁes the relative importance of leak reﬂection and damping
+effects, and the analysis of different leak sizes should only be rel-
+evant to this study if the leak size affects these two effects in
+different ways. Leaks of all sizes in the transient pipeline result
+in reﬂections, as well as damping, and it is logical to use a leak
+creating reﬂection and damping information that are be clearly
+observable for this investigation. This study intentionally uses
+a large leak to highlight its effect as a small leak may induce
+effects that are so small that it can be contaminated by
+machine error.
+The numerical simulation is conducted by using the method
+of characteristics for the 1D waterhammer model with 100 dis-
+crete sections along the pipeline. The leak is modelled by the
+oriﬁce equation (Lee et al. 2006, 2007). The friction factor
+used is f ¼ 0.015. The transient pressure head traces for the situ-
+ations with and without leakage are shown in Fig. 5, and the rela-
+tive pressure head DH
+t/DH0 represents the immediate transient
+pressure head relative to the steady state DHt normalized by
+the initialized transient pressure head DH0. In the leaking pipe-
+line trace, the increased damping of the pressure peak and the
+additional reﬂected pulse signals from the leakage in the pipeline
+can be clearly observed. To investigate the relative importance of
+the two leak-induced changes for leak detection, initially both
+effects are retained in the signal as different leak detection tech-
+niques are applied, followed by the situations in which only one
+of them will be considered in the absence of the other.
+4 Results and discussion
+4.1 Leak detection using leak damping and reﬂection
+The leak detection results considering both damping and reﬂec-
+tion information are listed in Table 1. The errors of prediction are
+calculated and listed in the last column of the result tables. For
+clarity, the calculation of prediction error is mathematically
+expressed as
+1 %() = x
+∗
+Lp − x∗
+Lr
+()
+× 100 (9)
+where 1 is the error of leak location prediction and xL∗p and xL∗r
+are the predicted and real dimensionless leak locations. The
+results indicate that the maximum relative errors of the leak
+location prediction for the four methods all are about 1%,
+which implies that all four methods can accurately predict the
+leak location using the original numerical transient traces from
+the model.
+4.2 Leak detection using leak damping only and leak reﬂection
+only
+To investigate the relative importance of leak-induced damping
+and reﬂection information for the leak detection techniques,
+the original transient signal was modiﬁed in two ways. In one
+case, the leak reﬂections are artiﬁcially removed from the data
+by replacing the reﬂected signal with the steady-state head,
+leaving only the leak-induced damping as shown in Fig. 6.
+Note that the modiﬁed signal in Fig. 6 damps at the same rate
+as the response from the leaking pipe. In the other case, the
+leak-induced damping of the signal can be removed by two
+alternatives: one is by adding the reﬂection information to the
+signal of the intact pipe such that the signal reﬂects at the same
+location as the response from a leaking pipe, and the other is
+Figure 4 V alve discharge pulse with time
+Figure 5 Transient head in the time domain for intact and leaking
+pipes: – – , intact pipe response; —, leaking pipe response
+Figure 3 Schematic for pipe system with leakage
+Journal of Hydraulic Research V ol. 48, No. 5 (2010) Transient-based leak detection methods 653
+
+
+===== PAGE 6 =====
+by scaling up the amplitude of the main signals for the leaking
+pipe response such that the signal damps at the same rate as
+the response from an intact pipe, leaving only the leak reﬂection
+information. It was found that the two alternatives provide
+similar results. For illustration, Fig. 7 shows results pertaining
+to the ﬁrst method and the obtained signal.
+The leak detection results for the two situations are listed in
+Tables 2 and 3, and the errors of prediction for each case are
+also calculated. The numerical results in Table 2 indicate that if
+only leak damping information is present, signiﬁcant errors
+result from all four leak detection methods with errors up to
+40%. While this result is expected for the TRM, it is surprising
+that TDM, which was thought to operate on the leak damping
+information, was also unable to locate the leak. In addition, tech-
+niques that use the entire transient signal for detection, such as
+SRFM and ITM, also failed to locate the leak if the leak reﬂec-
+tions are removed.
+In contrast, under the condition in which only leak reﬂection
+information is present, the predicted results by all four methods
+are signiﬁcantly improved. Even for TDM previously thought to
+be a leak damping-based method, the maximum prediction error
+is 11% in this situation (as compared to 40% previously), indicat-
+ing that TDM is more reliant on the presence of leak reﬂections
+rather than leak damping. This ﬁnding will be explained below.
+For the other three methods (TRM, SRFM and ITM), the leak
+location can be accurately obtained by using only the leak-
+induced reﬂections (Table 3) and the maximum errors for the
+leak location prediction are within 1%, which is similar to the
+accuracy obtained if both the leak damping and reﬂection infor-
+mation are present in the signal (Table 1). The absence of the leak
+damping information appears to have little impact on the oper-
+ation or the accuracy of the leak detection methods.
+The dependence of TDM on the leak reﬂection can be further
+illustrated by comparing the transient information utilized in
+TDM and the “leak-induced pattern” used in SRFM. The FRFs
+for the three situations (full leak-induced information, leak
+damping only and reﬂection only) are shown in Fig. 8. Figure
+8(a) shows that the FRF for the case with the leak reﬂections
+removed has uniformly-spaced and -sized peaks for different har-
+monic frequencies (plotted as thin line), identical to FRF for the
+intact pipe case shown in Fig. 2. In contrast, the case with the
+leak-induced damping removed in Fig. 8(b) has peaks in
+exactly the same pattern as in the leaking response with full
+leak-induced information (despite differences in the absolute
+amplitudes for each peak due to a change in the overall energy
+of the signal). The comparative results demonstrate that leak-
+induced reﬂection alone can represent the leaking pattern in the
+FRF, and the leak damping plays no part in this information.
+This ﬁnding has further importance for TDM. The TDM works
+by taking the ratio between the ﬁrst peak and the ﬁrst trough in
+the above FRF results (refer to Eq. 4), and the removal of the
+leak-induced pattern in FRF removes all information required
+for TDM to operate. The TDM is in essence a leak reﬂection-
+based method, and the information previously thought to be
+Figure 7 Transient head in the time domain for intact pipe and leaking
+pipe with leak reﬂection only: - - -, intact pipe response; —, leaking pipe
+response with leak-damping removed
+Figure 6 Transient head in the time domain for intact pipe and leaking
+pipe with leak damping only: - - -, intact pipe response; —, leaking pipe
+response with leak reﬂections removed
+Table 1 Results if considering both leak damping and reﬂection information
+Case Real leak location, xL∗r
+TRM TDM SRFM ITM
+xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%)
+1 0.10 0.10 0.0 0.10 0.0 0.10 0.0 0.10 0.0
+2 0.30 0.30 0.0 0.29 21.0 0.31 1.0 0.30 0.0
+3 0.60 0.60 0.0 0.60 0.0 0.60 0.0 0.60 0.0
+4 0.80 0.80 0.0 0.80 0.0 0.80 0.0 0.80 0.0
+5 0.90 0.90 0.0 0.90 0.0 0.91 1.0 0.91 1.0
+654 H.-F . Duan et al. Journal of Hydraulic Research V ol. 48, No. 5 (2010)
+
+
+===== PAGE 7 =====
+contained in the damping of transients is the leak-induced reﬂec-
+tion information. Therefore, for all the transient-based leak
+detection methods, the transient reﬂection information behaves
+relatively much more critical than the damping information.
+5 Practical implications
+From the analysis, it is concluded that all transient leak detection
+methods have greater dependence on the presence of leak reﬂec-
+tion information. In practical applications, the design of transient
+signals for fault detections with clear reﬂections is ideal for this
+technology. In the past decades, numerous researchers have
+worked with different types of transients for condition monitor-
+ing, from the usage of pump trips to inline valve closures and to
+recent solenoid valves (Liou and Tian 1995, Brunone 1999,
+Souza et al. 2000, Tang et al. 2000, Lee et al. 2006). Those
+efforts found that the transients generated using the ﬁrst two
+methods are generally slow and will create only dispersed reﬂec-
+tions that are difﬁcult to identify, whereas the latter is fast and can
+give clear reﬂections but is more difﬁcult to set up as additional
+devices need to be installed to existing pipes. From the present
+ﬁndings, the fast method for generating transients is preferable
+for transient-based leak detection.
+In contrast, the complexities in practical pipe systems such as
+energy ﬂuxes, junction connections and variations in pipe
+Figure 8 Converted FRF pattern results in the frequency domain by using SRFM. Comparison of full leak information: (a) leak damping only and (b)
+leak reﬂection only. 2, Leaking pipe response with leak damping and reﬂection; 2, leaking pipe response with leak reﬂection removed; – – , leaking
+pipe response with leak damping removed
+Table 2 Results by considering leak damping only
+Case Real leak location, xL∗r
+TRM TDM SRFM ITM
+xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%)
+6 0.10 N /AN /A 0.50 40.0 0. 50 40.0 0.50 40.0
+7 0.30 N /AN /A 0.50 20.0 0.51 21.0 0.50 20.0
+8 0.60 N /AN /A 0.50 210.0 0.50 210.0 0.50 210.0
+9 0.80 N /AN /A 0.50 230.0 0.49 231.0 0. 50 230.0
+10 0.90 N /AN /A 0.50 240.0 0.50 240.0 0. 50 240.0
+N/A, not applicable.
+Table 3 Results of considering leak reﬂection only
+Case Real leak location, xL∗r
+TRM TDM SRFM ITM
+xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%)
+11 0.10 0.10 0.0 0.13 3.0 0.11 1.0 0.10 0.0
+12 0.30 0.30 0.0 0.28 22.0 0.31 1.0 0.30 0.0
+13 0.60 0.60 0.0 0.71 11.0 0.60 0.0 0.60 0.0
+14 0.80 0.80 0.0 0.85 5.0 0.79 21.0 0.79 21.0
+15 0.90 0.90 0.0 0.84 26.0 0.89 21.0 0.90 0.0
+Journal of Hydraulic Research V ol. 48, No. 5 (2010) Transient-based leak detection methods 655
+
+
+===== PAGE 8 =====
+geometries through corrosion and sedimentation can affect the
+transient damping and reﬂections of the signal traces. The
+energy ﬂuxes along pipeline increase the signal damping,
+whereas junction boundaries and changes in pipe geometries
+generate additional reﬂections. From the results of the above
+analysis, the additional reﬂections (considered as “noise” in the
+data) may have a great inﬂuence on the application of the transi-
+ent-based leak detection methods. To illustrate this effect,
+another scenario is conducted by adding additional reﬂections
+(to represent “noise” perturbations) to the original signal in
+Fig. 5. The new contaminated signal is shown in Fig. 9, with
+the amplitudes of the added reﬂections comparable to the ampli-
+tudes of the real leak reﬂections.
+The results of leak location prediction by the four methods for
+different leak cases are shown in Table 4. Under this condition,
+these results indicate that the leak prediction results become inac-
+curate and the maximum error for each method is over 20% if
+there is comparable reﬂection “noise” in the data. Further work
+is clearly needed to identify fault-induced reﬂections from
+other sources of reﬂection in the system for the practical appli-
+cation of the techniques in reality.
+6 Conclusions
+This research investigates the impacts of two leak-induced infor-
+mation, damping and reﬂection, and their relative importance to
+the application of present transient-based leak detection
+methods. Four representative types of leak detection methods,
+namely, the TRM, the TDM, the system reﬂection function-
+based method and the ITM, were applied and discussed.
+The results indicate that all transient-based methods are
+unable to detect and locate the leak in the absence of the leak-
+reﬂected signal, whereas the leak is detected and located even
+in the absence of leak-induced damping. The analysis of this
+study demonstrates that all techniques hinge on the presence of
+the leak-reﬂected signal. Moreover, the information previously
+thought to be contained in the damping of slow transients are
+in fact low frequency reﬂections from the leak and are essential
+to the leak detection process for all methods. The ﬁndings of this
+study have implications on the design of transient signals for
+fault detection and suggest that high bandwidth signals with
+clear reﬂections are ideal for this technology. Meanwhile, the
+understanding and deﬁnition of system reﬂection properties
+can promote the practical applications of transient-based leak
+detection methods.
+Acknowledgements
+This research work is supported by the Hong Kong Research
+Grant Council (HKRGC) projects no. 612908 and no. 620706.
+Notation
+a ¼ wave speed
+A ¼ pipe cross-sectional area
+D ¼ pipe diameter
+f ¼ pipe friction factor
+F(.) ¼ frequency response function
+g ¼ gravitational acceleration
+G ¼ objective function in Eq. (8)
+hˆ ¼ inverted peak head magnitude
+H ¼ pressure head
+H
+tank ¼ pressure head at reservoir /tank
+Hm, Hp ¼ measured and predicted pressure head
+i ¼ time-step index
+I(.) ¼ impulse response function
+L ¼ pipe length
+Figure 9 Transient head in the time domain for leaking pipe with
+additional reﬂections: 2, original complete signal; – – , added noise
+reﬂections
+Table 4 Results of considering additional uncertain reﬂections
+Case Real leak location, xL∗r
+TRM TDM SRFM ITM
+xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%) xL∗p 1 (%)
+16 0.10 0.23 13.0 0.38 28.0 0.20 10.0 0.29 19.0
+17 0.30 0.33 3.0 0.36 6.0 0.35 5.0 0.71 41.0
+18 0.60 0.43 217.0 0.83 23.0 0.33 227.0 0.51 29.0
+19 0.80 0.53 227.0 0.59 221.0 0.61 219.0 0.35 245.0
+20 0.90 0.63 227.0 0.67 223.0 0.46 244.0 0.57 233.0
+656 H.-F . Duan et al. Journal of Hydraulic Research V ol. 48, No. 5 (2010)
+
+
+===== PAGE 9 =====
+m ¼ peak magnitude number
+n ¼ harmonic mode number
+N ¼ total number of discrete time steps
+Q ¼ discharge
+QL ¼ initial leak discharge
+QV ¼ valve discharge
+RnL ¼ leak-induced damping rate
+t, t∗ ¼ time variables
+x ¼ spatial coordinate
+x() ¼ input signal function
+xL∗ ¼ dimensionless leak location
+xL∗p ¼ predicted dimensionless leak location
+xL∗r ¼ real dimensionless leak location
+X() ¼ Fourier transform of input signal
+y() ¼ output signal function
+Y() ¼ Fourier transform of output signal
+DH0 ¼ initial transient pressure head
+DHt ¼ immediate transient pressure head
+a, b, u ¼ ﬁtting coefﬁcients in Eq. (7)
+1 ¼ prediction error
+v ¼ frequency
+References
+AL-Khomairi, A. (2008). Leak detection in long pipelines using
+the least squares method. J. Hydraulic Res. 46(3), 392–401.
+Brunone, B. (1999). Transient test-based technique for leak
+detection in outfall pipes. J. Water Resources Planning and
+Management 125(5), 302–306.
+Brunone, B., Ferrante, M. (2001). Detecting leaks in pressurized
+pipes by means of transients. J. Hydraulic Res. 39(4), 1–9.
+Chaudhry, M.H. (1987). Applied hydraulic transients , 2nd ed.
+V an Nostrand Reinhold, New York.
+Colombo, A.F., Lee, P .J., Karney, B.W. (2009). A selective
+literature review of transient-based leak detection methods.
+J. Hydro-environment Research, IAHR, 2(4), 212–227.
+Covas, D., Ramos, H., Almeida, A.B. (2005). Standing wave
+difference method for leak detection in pipeline systems.
+J. Hydraulic Eng. 131(12), 1106–1116.
+Ferrante, M., Brunone, B. (2003). Pipe system diagnosis and leak
+detection by unsteady-state tests-1: Harmonic analysis.
+Advances in Water Res. 26(1), 95–105.
+Ferrante, M., Brunone, B., Meniconi, S. (2007). Wavelets for the
+analysis of transient pressure signals for leak detection.
+J. Hydraulic Eng. 133(11), 1274–1282.
+Ferrante, M., Brunone, B., Meniconi, S. (2009). Leak-edge
+detection. J. Hydraulic Res. 47(2), 233–241.
+Ghidaoui, M.S., Zhao, M., McInnis, D.A., Axworthy, D.H.
+(2005). A review of water hammer theory and practice.
+Applied Mechanics Reviews , ASME 58(1), 49–76.
+Kreyszig, E. (1993). Advanced engineering mathematics, 7th ed.
+Wiley, New York.
+Lee, P .J., Lambert, M.F., Simpson, A.R., Vı´tkovsky´, J.P ., Liggett,
+J. (2006). Experimental veriﬁcation of the frequency response
+method for pipeline leak detection. J. Hydraulic Res. 44(5),
+693–707.
+Lee, P .J., Vı´tkovsky´, J.P ., Lambert, M.F., Simpson, A.R., Liggett,
+J. (2007). Leak location in pipelines using the impulse
+response function. J. Hydraulic Res. 45(5), 643–652.
+Liggett, J.A., Chen, L.C. (1994). Inverse transient analysis in
+pipe networks. J. Hydraulic Eng. 120(8), 934–954.
+Liou, J.C., Tian, J. (1995). Leak detection-transient ﬂow simu-
+lation approaches. J. Energy Resources Technology ASME,
+117(3), 243–248.
+Liou, J.C. (1998). Pipeline leak detection by impulse response
+extraction. J. Fluids Eng. ASME, 120(4), 833–838.
+Nixon, W., Ghidaoui, M.S. (2007). Numerical sensitivity study
+of unsteady friction in simple systems with external ﬂows.
+J. Hydraulic Eng. 133(7), 736–749.
+Nixon, W., Ghidaoui, M.S., Kolyshkin, A.A. (2006). Range of
+validity of the transient damping leakage detection method.
+J. Hydraulic Eng. 132(9), 944–957.
+Sattar, A.M., Chaudhry, M.H. (2008). Leak detection in pipelines
+by frequency response method. J. Hydraulic Res. 46(EI1),
+138–151.
+Shamloo, H., Haghighi, A. (2009). Leak detection in pipelines
+by inverse backward transient analysis. J. Hydraulic Res.
+47(3), 313–318.
+Souza, A.L., Cruz, S.L., Pereira, J.F.R. (2000). Leak detection in
+pipelines through spectral analysis of pressure signals. Brazi-
+lian J. Chem. Eng. 17(4 – 7), 557–564.
+Tang, K.W., Brunone, B., Karney, B., Rossetti, A. (2000). Role
+and characterization of leaks under transient
+conditions. Building Partnerships-Proc. ASCE Joint. Conf.
+Water Resource Engineering and Water Resources Planning
+and Management Minneapolis MN, 7–30.
+Vı´tkovsky´, J.P ., Simpson, A.R., Lambert, M.F. (2000). Leak
+detection and calibration using transients and genetic algor-
+ithms. J. Water Res. Planning and Management 126(4),
+262–265.
+Vı´tkovsky´, J.P ., Lambert, M.F., Simpson, A.R., Liggett, J.A.
+(2007). Experimental observation and analysis of inverse tran-
+sients for pipeline leak detection. J. Water Res. Planning and
+Management 133(6), 519–530.
+Wang, X.J. (2002). Leakage and blockage detection in pipelines
+and pipe network systems using ﬂuid transients. PhD Thesis.
+The University of Adelaide, Adelaide AU.
+Wang, X.J., Lambert, M.F., Simpson, A.R., Liggett, J.A.,
+Vı´tkovsky´, J.P . (2002). Leak detection in pipeline systems
+using the damping of ﬂuid transients. J. Hydraulic Eng.
+128(7), 697–711.
+Journal of Hydraulic Research V ol. 48, No. 5 (2010) Transient-based leak detection methods 657

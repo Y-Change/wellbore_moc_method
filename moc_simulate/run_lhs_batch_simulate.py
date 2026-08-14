@@ -56,7 +56,7 @@ from moc_simulate.config import WELL_CONFIG, FRACTURE_CONFIG, FRICTION_PARAMS
 from moc_simulate.lhs_config import SIM_CONFIG, LHS_PARAM_RANGES, LHS_BATCH_CONFIG
 
 
-def generate_lhs_params(n_samples: int, seed: int = 42) -> List[Dict[str, Any]]:
+def generate_lhs_params(n_samples: int, seed: int = 42, domain_randomization: bool = False) -> List[Dict[str, Any]]:
     """生成 n_samples 组独立的多缝物理参数组合"""
     np.random.seed(seed)
     rng = np.random.default_rng(seed)
@@ -69,6 +69,8 @@ def generate_lhs_params(n_samples: int, seed: int = 42) -> List[Dict[str, Any]]:
     # 为保证所有样本最大维数一致以便于 LHS，我们以最大条数 n_max 分配采样空间
     # 每个裂缝需要 3 个参数：位置比例、log(Cf)、log(kleak) -> 共 3 * n_max 维
     dim = 3 * n_max
+    if domain_randomization:
+        dim += 3  # 追加 3 维：波速 a, 摩阻模型, 噪声 snr_db
     
     if HAS_SCIPY_QMC:
         sampler = qmc.LatinHypercube(d=dim, seed=seed)
@@ -115,24 +117,42 @@ def generate_lhs_params(n_samples: int, seed: int = 42) -> List[Dict[str, Any]]:
         cf_vals = [float(10.0 ** (cf_lmin + row[n_max + k] * (cf_lmax - cf_lmin))) for k in range(n_cl)]
         kleak_vals = [float(10.0 ** (kl_lmin + row[2 * n_max + k] * (kl_lmax - kl_lmin))) for k in range(n_cl)]
         
-        samples.append({
+        sample_dict = {
             "case_id": i,
             "n_frac": n_cl,
             "positions": positions,
             "Cf_list": cf_vals,
             "kleak_list": kleak_vals,
-        })
+        }
+        
+        if domain_randomization:
+            a_min, a_max = LHS_PARAM_RANGES["a_min"], LHS_PARAM_RANGES["a_max"]
+            sample_dict["wavespeed"] = float(a_min + row[-3] * (a_max - a_min))
+            
+            snr_min, snr_max = LHS_PARAM_RANGES["snr_db_min"], LHS_PARAM_RANGES["snr_db_max"]
+            sample_dict["snr_db"] = float(snr_min + row[-2] * (snr_max - snr_min))
+            
+            fric_models = LHS_PARAM_RANGES["friction_models"]
+            fric_idx = int(row[-1] * len(fric_models))
+            fric_idx = min(fric_idx, len(fric_models) - 1)
+            sample_dict["friction_model"] = fric_models[fric_idx]
+            
+        samples.append(sample_dict)
     return samples
 
 
-def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dict[str, Any]:
+def _worker_simulate(args: Tuple) -> Dict[str, Any]:
     """多进程单个 Worker 执行函数：调用 simulate_wellbore 跑单条真解并落盘"""
-    sample, friction_model, tf_cut, dt_sim, out_data_dir = args
+    sample, friction_model_arg, tf_cut, dt_sim, out_data_dir, wavespeed_arg, brunone_k_scale, domain_randomization = args
     case_id = sample["case_id"]
     n_cl = sample["n_frac"]
     positions = sample["positions"]
     Cf_list = sample["Cf_list"]
     kleak_list = sample["kleak_list"]
+    
+    friction_model = sample.get("friction_model", friction_model_arg)
+    wavespeed = sample.get("wavespeed", wavespeed_arg)
+    snr_db = sample.get("snr_db", None)
     
     t0 = time_module.time()
     try:
@@ -146,9 +166,10 @@ def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dic
             wellbore_diameter=w['wellbore_diameter'],
             fluid_density=w['fluid_density'],
             fluid_viscosity=w['fluid_viscosity'],
-            wavespeed=w['wavespeed'],
+            wavespeed=float(wavespeed),
             roughness_height=w['roughness_height'],
             friction_model=friction_model,
+            brunone_k_scale=float(brunone_k_scale),
             dt=dt_sim,
             tf=tf_cut,             # 物理截断提速
             wellhead_bc='velocity_step',
@@ -177,6 +198,19 @@ def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dic
         V_wh = res["wellhead_velocity"]
         Q_wh = V_wh * cfg.area
         
+        if snr_db is not None:
+            # 仅根据停泵后的信号功率添加 AWGN 噪声
+            ts = SIM_CONFIG['ts']
+            shut_idx = np.searchsorted(t_arr, ts)
+            if shut_idx < len(H_wh):
+                signal = H_wh[shut_idx:]
+                signal_power = np.mean(np.square(signal - np.mean(signal)))
+                if signal_power > 0:
+                    noise_power = signal_power / (10 ** (snr_db / 10))
+                    rng = np.random.default_rng(20260810 + case_id)
+                    noise = rng.normal(0, np.sqrt(noise_power), size=len(H_wh))
+                    H_wh = H_wh + noise
+        
         # 保存为 .npz
         npz_filename = f"case_{case_id:05d}.npz"
         npz_path = os.path.join(out_data_dir, npz_filename)
@@ -191,6 +225,8 @@ def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dic
             n_frac=n_cl,
             friction=str(friction_model),
             tf=float(tf_cut),
+            wavespeed=float(wavespeed),
+            brunone_k_scale=float(brunone_k_scale),
         )
         
         return {
@@ -203,6 +239,9 @@ def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dic
             "elapsed_s": round(elapsed, 2),
             "npz_file": npz_filename,
             "error": "",
+            "wavespeed": wavespeed,
+            "friction_model": friction_model,
+            "snr_db": snr_db if snr_db is not None else -1.0,
         }
     except Exception as e:
         return {
@@ -215,6 +254,9 @@ def _worker_simulate(args: Tuple[Dict[str, Any], str, float, float, str]) -> Dic
             "elapsed_s": round(time_module.time() - t0, 2),
             "npz_file": "",
             "error": str(e),
+            "wavespeed": wavespeed,
+            "friction_model": friction_model,
+            "snr_db": snr_db if snr_db is not None else -1.0,
         }
 
 
@@ -225,8 +267,13 @@ def main():
     parser.add_argument("--tf", type=float, default=SIM_CONFIG["tf"], help=f"单 case 仿真截断时长 [s] (默认 {SIM_CONFIG['tf']}s)")
     parser.add_argument("--dt", type=float, default=SIM_CONFIG["dt"], help="仿真时间步长 [s] (默认 1ms)")
     parser.add_argument("--friction", type=str, default=LHS_BATCH_CONFIG["default_friction"], choices=["steady", "brunone"], help="摩阻模型")
+    parser.add_argument("--wavespeed", type=float, default=WELL_CONFIG["wavespeed"],
+                        help=f"波速 a [m/s]（默认 {WELL_CONFIG['wavespeed']}；失配实验可设 1435.5）")
+    parser.add_argument("--brunone-k-scale", type=float, default=1.0,
+                        help="Brunone 系数标定倍率（默认 1.0）")
     parser.add_argument("--out-dir", type=str, default=LHS_BATCH_CONFIG["output_dir"], help="数据输出根目录")
     parser.add_argument("--seed", type=int, default=LHS_BATCH_CONFIG["seed"], help="随机数种子")
+    parser.add_argument("--domain-randomization", action="store_true", help="开启域随机化 (波速, 摩阻, 噪声)")
     args = parser.parse_args()
 
     out_root = os.path.abspath(args.out_dir)
@@ -240,16 +287,22 @@ def main():
     print(f"  并发进程 : {args.workers} Workers")
     print(f"  仿真时长 : tf = {args.tf} s (物理截断加速)")
     print(f"  摩阻模型 : {args.friction}")
+    print(f"  波速 a   : {args.wavespeed} m/s")
+    print(f"  k_scale  : {args.brunone_k_scale}")
+    print(f"  域随机化 : {'开启' if args.domain_randomization else '关闭'}")
     print(f"  输出路径 : {out_root}")
     print("=" * 72)
     
     # 1. 生成采样矩阵
     print("\n[Step 1] 正在生成拉丁超立方 (LHS) 物理参数矩阵...")
-    samples = generate_lhs_params(args.n_samples, seed=args.seed)
+    samples = generate_lhs_params(args.n_samples, seed=args.seed, domain_randomization=args.domain_randomization)
     print(f"  成功生成 {len(samples)} 组参数矩阵。开始派发多进程计算任务...\n")
     
     # 2. 并发计算
-    worker_args = [(samp, args.friction, args.tf, args.dt, out_data_dir) for samp in samples]
+    worker_args = [
+        (samp, args.friction, args.tf, args.dt, out_data_dir, args.wavespeed, args.brunone_k_scale, args.domain_randomization)
+        for samp in samples
+    ]
     t_start_all = time_module.time()
     
     results = []
@@ -289,7 +342,8 @@ def main():
     csv_path = os.path.join(out_root, "lhs_summary.csv")
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=[
-            "case_id", "status", "n_frac", "positions_str", "Cf_str", "kleak_str", "elapsed_s", "npz_file", "error"
+            "case_id", "status", "n_frac", "positions_str", "Cf_str", "kleak_str", "elapsed_s", 
+            "npz_file", "error", "wavespeed", "friction_model", "snr_db"
         ])
         writer.writeheader()
         writer.writerows(results)
@@ -303,6 +357,9 @@ def main():
         "tf_cutoff_s": args.tf,
         "dt_s": args.dt,
         "friction_model": args.friction,
+        "wavespeed": args.wavespeed,
+        "brunone_k_scale": args.brunone_k_scale,
+        "seed": args.seed,
         "workers": args.workers,
         "total_elapsed_min": round(total_time / 60, 2),
         "param_ranges": LHS_PARAM_RANGES,

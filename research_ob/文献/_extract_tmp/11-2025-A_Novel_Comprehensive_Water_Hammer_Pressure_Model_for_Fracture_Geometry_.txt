@@ -1,0 +1,1331 @@
+SOURCE: 11-2025-A Novel Comprehensive Water Hammer Pressure Model for Fracture Geometry Evaluation.pdf
+PAGES: 17
+FULL extract 17 pages
+
+
+
+===== PAGE 1 =====
+September 2025 SPE Journal5350
+A Novel Comprehensive Water Hammer 
+Pressure Model for Fracture 
+Geometry Evaluation
+Shuangshuang Sun1, Yongming He1*, Yanchao Li2, Lijun Liu1, Yisheng Liu1, Longqing Zou2, and Huan Ma3
+1College of Energy, Chengdu University of Technology, Chengdu, China
+2Shale Gas Exploration and Development Department, CNPC Chuanqing Drilling Engineering Co., Ltd., 
+Chengdu, China
+3Oil and Gas Technology Research Institute of Petrochina, Changqing Oilfield Company, Xi’ an, China
+Summary
+Hydraulic fracturing is a critical technology in reservoir modification design. Post- fracturing fracture geometry characterization is of 
+essential importance for the design and optimization of hydraulic fracturing treatments. In recent years, fracture geometry evaluation 
+methods based on water hammer pressure analysis have gained significant attention due to their cost- effectiveness and operational sim-
+plicity. However, existing water hammer models based on equivalent circuit theory exhibit limited physical interpretability between mod-
+el parameters and fracture geometry characteristics. In this study, we propose a novel water hammer modeling approach with enhanced 
+physical interpretability of model parameters, and use experimental and field data to validate the model’s effectiveness in simulating 
+water hammer pressure transients. First, accounting for fluid compressibility effects, we derive the governing equations for water hammer 
+phenomena, including both the motion equation and continuity equation. Second, based on the mass balance principle and considering 
+perforation friction and fluid filtration effects, we establish boundary constraints for the bottomhole fracture. Third, we develop a new 
+water hammer pressure calculation model by integrating fluid compressibility, tubing friction, perforation friction, and fluid filtration 
+effects within the hydraulic fracture, thereby enabling fracture geometry evaluation. Finally, using a field case study, we conduct a com-
+parative analysis between the model’s fracture geometry results and those from microseismic monitoring. The average relative error of 
+the fitted field- monitored water hammer pressure is approximately 0.5%. Compared with the microseismic monitoring results, the average 
+relative errors in fracture half- length and height are 15.4 m and 4.2 m, respectively. Moreover, we highlight the influence of fracture and 
+wellbore- related parameters on water hammer pressure. In this study, we propose a novel water hammer modeling approach capable of 
+fracture geometry evaluation and deepen our fundamental understanding of fracture geometry evaluation using water hammer pressure.
+Introduction
+In recent years, the rapid development of hydraulic fracturing technology has significantly enhanced the extraction efficiency of oil and 
+gas resources (Scanlan et al. 2018; Wang et al. 2020). The geometry of fractures formed post- fracturing exerts a profound influence on 
+the ultimate recovery rate of reservoirs, making the assessment of hydraulic fracture geometry crucial for optimizing hydrocarbon 
+resource development (Dong et al. 2019; Sadykov et al. 2019; Guo et al. 2021). However, direct observation of subsurface hydraulic 
+fracture geometries after fracturing remains unattainable, necessitating the advancement of cost- effective post- fracturing evaluation 
+techniques.
+Fracture geometry assessment methods based on water hammer pressure are gaining widespread attention due to their short testing 
+time and low cost. This method, by analyzing the water hammer phenomenon, can rapidly evaluate the geometry of fractures post- 
+fracturing, enabling developers to effectively assess and optimize fracturing operations. Compared with conventional detection methods, 
+the water hammer pressure- based fracture geometry assessment method not only enhances fracture detection efficiency but also reduces 
+economic costs, meeting the requirements for efficient and low- cost technologies (Clark et al. 2018; Qiu et al. 2022; Hu et al. 2022).
+After stopping the pumping of fracturing fluid at each hydraulic fracturing stage, a pressure pulse is formed due to the sudden change 
+in flow rate, propagating back and forth between the wellhead and the bottom of the hole (Clark et al. 2018; Luo et al. 2023). The water 
+hammer pressure analysis method is based on surface oscillatory pressures monitored at the wellhead to analyze the period, amplitude, 
+and decay characteristics of the oscillatory pressures and to quantitatively describe the fracture parameters. Under the condition that the 
+well structure and fluid properties are known, the water hammer signal characteristics are mainly affected by the hydraulic fracture geom-
+etry. Previous scholars have carried out a lot of studies on the interpretation of hydraulic fracturing fracture characteristics using water 
+hammer pressure. Streeter and Wylie (1967) and Wylie and Streeter (1993) used the method of characteristics to solve water hammer 
+equations, enhancing solution efficiency and laying the foundation for fracture diagnosis using water hammer phenomena. Holzhausen 
+and Gooch (1985) applied impedance analysis to diagnose geometric parameters of bottomhole fractures. Yew and Ashour (1996) vali-
+dated the diagnostic effectiveness of impedance analysis for fracture geometric parameters through experimental analysis and field appli-
+cation. Mondal (2010) developed a numerical model of water hammer pressure based on the water hammer equations of motion and 
+continuity equations, which coupled the wellhead boundary and the bottomhole fracture boundary and regarded the hydraulic fracture as 
+a resistive, capacitive, and inertial (RCI) circuit in series and then evaluated the fracture parameters (hereafter referred to as the RCI 
+model). Subsequently, Carey et al. (2015) used the RCI model to match field- acquired water hammer data and evaluate fracture geometric 
+parameters. Hwang et al. (2017) evaluated the influence of varying circuit parameters on water hammer pressure response characteristics. 
+Haustveit et al. (2017) adopted multiple methods to characterize downhole fractures, and the diagnostic results indicate that fracture half- 
+lengths determined by water hammer analysis are similar to those obtained from microseismic analysis. Ma et al. (2019) treated fractures 
+as the well bottom boundary and established a numerical model for water hammer pressure that considers perforation friction and pressure 
+*Corresponding author; email: heyongming09@cdut.edu.cn
+Copyright © 2025 Society of Petroleum Engineers
+Original SPE manuscript received for review 18 December 2024. Revised manuscript received for review 6 June 2025. Paper (SPE 228403) peer approved 9 June 2025.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+September 2025 SPE Journal 5351
+leakoff to evaluate fracture- related parameters. Dung et al. (2021) proposed a hydrodynamics- based water hammer response simulator to 
+qualitatively analyze the relationship between water hammer characteristics and fracture characteristics and well productivity. Qiu et al. 
+(2022) used a transient flow model to describe the fluctuation of water hammer pressure and analyzed the effect of fracture on the response 
+characteristics of water hammer signals from multiple perspectives, such as the time, frequency, and quefrency domain. Hu et al. (2022) 
+proposed a new model for calculating the geometry of multiple fractures by considering the stress interference between fractures, thereby 
+evaluating the geometrical characteristics of multiple fractures based on the water hammer signals. These studies have advanced the 
+development and application of water hammer theory. Investigations as detailed above explicitly confirm that water hammer pressure 
+analysis can effectively identify the geometric parameters of hydraulic fractures.
+However, most of the above models characterize the bottomhole boundary between the wellbore and fractures as a series- connected 
+circuit composed of resistance, capacitance, and inertance. There is a lack of direct physical correspondence between model parameters 
+(e.g., resistance and capacitance) and fracture geometry. Moreover, the aforementioned models neglect variations in fluid density. During 
+water hammer phenomena, abrupt pressure fluctuations can induce changes in fluid density. Establishing physically meaningful correla-
+tion equations to describe the bottomhole fracture boundary and developing a water hammer model that accounts for multiple factors 
+represent highly challenging tasks.
+In this study, we propose a novel water hammer modeling approach. First, accounting for fluid compressibility effects, we derive the 
+governing equations for water hammer phenomena, including both the motion equation and continuity equation. Second, based on the 
+mass balance principle and considering perforation friction and fluid filtration effects, boundary constraints for the bottomhole fracture 
+are established. Finally, a new water hammer pressure calculation model is developed by integrating fluid compressibility, tubing friction, 
+perforation friction, and fluid filtration effects within the hydraulic fracture, thereby enabling fracture geometry evaluation. Meanwhile, 
+based on actual field fracturing parameters, we analyze the influencing factors of water hammer pressure curves to guide subsequent 
+fracture geometry evaluation using water hammer pressure data. In contrast to equivalent- circuit- theory- based water hammer modeling 
+approaches, our model defines the wellbore- fracture boundary conditions by rigorously accounting for both perforation friction losses and 
+fracture fluid mass conservation, thereby providing more physically meaningful representations. Moreover, in practical water hammer 
+analysis, the wave speed is often difficult to determine accurately. The proposed model eliminates the need for prior knowledge of the 
+water hammer wave speed while still enabling reliable simulation of pressure transients.
+Mathematical Modeling
+The following assumptions are adopted for the model in this study: (1) The fluid is compressible; (2) the elastic effects of pipe walls are 
+considered; (3) the frictional resistance along the wellbore is considered; (4) the nonuniformity of flow velocity distribution across the 
+pipe cross section is neglected.
+Water Hammer Continuity Equation. Take a pipe section microelement in the wellbore as a control body as shown in Fig. 1, where 
+ρ is the fluid density in this control body, v is the fluid flow rate, A is the cross- sectional area of the pipe, dt is the time microelement, ds 
+is the distance microelement in the direction of the pipe, and θ is the angle between the pipe and the horizontal; the inflow mass of this 
+control body, m1, can be expressed as (Mondal 2010)
+ m1 = /SUBvAdt.  (1)
+Fig. 1—Microelement analysis of water hammer continuity equation.
+The outflow mass m2 of this control body in time period dt can be expressed as
+ m2 = /SUBvAdt + @
+@s
+/NUL
+/SUBvAdt
+/SOH
+ds.  (2)
+Then, the mass difference between the inflow and outflow of this control body can be obtained as
+ dms = m1 /NULm2 = /NUL@
+@s
+/NUL
+/SUBvAdt
+/SOH
+ds.  (3)
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+September 2025 SPE Journal5352
+The change in mass of this control body during the dt time period can be expressed by the following equation:
+ dmt = @
+@t
+/NUL
+/SUBAds
+/SOH
+dt.  (4)
+According to the theorem of conservation of mass, the mass difference between inflow and outflow should be numerically equal to the 
+value of the change in mass of this control body during the same time period, which leads to the following equation:
+ 
+v
+/SUB
+@/SUB
+@s + @v
+@s + v
+A
+@A
+@s + 1
+/SUB
+@/SUB
+@t + 1
+A
+@A
+@t = 0.
+  
+(5)
+Considering that the elasticity of the pipe and the compressibility of the fluid will affect the water hammer, the fluid density ρ and the 
+cross- sectional area A of the pipe are considered as a function of the length of the pipe section s and the time t. The above equation can 
+be deformed as follows:
+ 
+1
+/SUB
+d/SUB
+dt + 1
+A
+dA
+dt + @v
+@s = 0.
+  
+(6)
+In the process of conducting the water hammer study, considering the compressibility of the fluid in the pipeline, the fluid density in the 
+pipeline will be affected due to the dramatic change in pressure, and the fluid density will be considered as a variable for derivation. From 
+the relationship between the fluid density and the fluid elasticity coefficient K, it is obtained that
+ 
+1
+/SUB
+d/SUB
+dp = 1
+K .
+  
+(7)
+The above equation can be transformed into
+ 
+1
+/SUB
+d/SUB
+dt = 1
+K
+dp
+dt .
+  
+(8)
+In engineering, the water head H is commonly used to represent the magnitude of pressure. The pressure can be rewritten as a water head 
+H using the formula p = ρg(H − Z), where the relationship between density and water head H is derived from the formula involving 
+density:
+ 
+d/SUB
+dt = /SUB
+K
+/SUBg /NUL
+/NUL
+H /NULZ
+/SOH
+d
+/NUL
+H /NULZ
+/SOH
+dt .
+  
+(9)
+The elasticity coefficient of the pipe is expressed by the symbol E, and its value is the ratio of stress to strain, where the change in stress 
+is dσ and the corresponding strain is dD/D. The following equation is obtained:
+ 
+E = d/ESC
+dD
+D
+= D
+dD d/ESC.
+  
+(10)
+The pipe wall thickness is e. The following relationship exists between the pipe wall thickness and the stresses:
+ e = pD
+2/ESC.  (11)
+From this, we can obtain
+ d/ESC= D
+2e dp.  (12)
+Bringing Eq. 12 into Eq. 10,
+ E = D2
+2edD dp.  
+(13)
+Owing to:
+ 
+dA
+A = dD2
+D2 = 2dD
+D .  
+(14)
+Combining Eq. 13 with Eq. 14:
+ 
+1
+A
+dA
+dp = D
+Ee = 2
+p
+Ap/EMEe .
+  (15)
+Combining Eq. 8 with Eq. 15, Eq. 15 can be rewritten as
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+September 2025 SPE Journal 5353
+ 
+1
+A
+dA
+dt = 2
+p
+Ap/EMEe
+dp
+dt == 2K
+p
+Ap/EMEe
+1
+/SUB
+d/SUB
+dt .
+  
+(16)
+Bringing Eq. 16 into Eq. 6:
+ 
+ 
+1+ 2K
+p
+Ap/EMEe
+!
+1
+/SUB
+d/SUB
+dt + @v
+@s = 0.
+  
+(17)
+Bringing Eq. 9 into Eq. 17:
+ 
+d
+/NUL
+H /NULZ
+/SOH
+dt +
+K
+/SUBg /NUL
+/NUL
+H /NULZ
+/SOH
+1+ 2K
+p
+Ap/EMEe
+@v
+@s = 0.
+  
+(18)
+The differential of the water head with respect to time is given by the equation
+ 
+d
+/NUL
+H /NULZ
+/SOH
+dt = @H
+@s v + @H
+@t /NUL@Z
+@s v /NUL@Z
+@t .  
+(19)
+Since  
+@Z
+@t = 0 ,  
+@Z
+@s = /NULsin /DC2 , brought into Eq. 19, Eq. 19 can be rewritten as
+ 
+d
+/NUL
+H /NULZ
+/SOH
+dt = @H
+@s v + @H
+@t + v sin /DC2.  
+(20)
+Bringing Eq. 20 into Eq. 18, the water hammer continuity equation considering fluid compressibility is obtained as
+ 
+@H
+@s v + @H
+@t + v sin /DC2+
+K
+/SUBg /NUL
+/NUL
+H /NULZ
+/SOH
+1+ 2K
+p
+Ap/EMEe
+@v
+@s = 0.
+  
+(21)
+To simplify the form of the equation, let
+ 
+CM =
+1
+K + 2
+p
+Ap/EMEe
+1
+/SUBg /NUL
+/NUL
+H /NULZ
+/SOH
+K
+.
+  
+(22)
+The water hammer continuity equation considering fluid compressibility can be rewritten as
+ 
+@H
+@t + @H
+@s v + v sin /DC2+ 1
+CM
+@v
+@s = 0.
+  (23)
+Water Hammer Equation of Motion. Take a microelement in the pipe section as shown in Fig. 2, the cross- sectional area of the 
+microelement is dA, the length is ds, the density of the fluid is ρ, the angle between the pipe axis and the horizontal line is θ, analyze the 
+force on the microelement section, the gravitational component of the fluid mass in the s direction of the microelement section, dGs, is 
+(Mondal 2010)
+ dGs = /SUBgdAds sin /DC2= /NUL/SUBgdAds @Z
+@s .  (24)
+The pressure difference between the two ends of the microelement segment is given by the equation:
+ 
+pdA /NUL
+/DC2
+p + @p
+@s ds
+/DC3
+dA = /NUL@p
+@s dsdA.
+  
+(25)
+The diameter of the microelement segment is d, and the average stress acting on the cylindrical surface around the microelement segment 
+is τ, then the resistance on the microelement ds segment is −dsτπd. u is the flow velocity in the s direction, and for unsteady flow, u = u (s, 
+t), then the acceleration of the microelement segment can be expressed by the following equation:
+ a = du
+dt = @u
+@t + u @u
+@s .  (26)
+According to Newton’s second law, F = ma, and combining Eqs. 24 through 26, the following equation can be obtained:
+ 
+@Z
+@s + 1
+/SUBg
+@p
+@s + 1
+/SUBg
+1
+d 4/FS+ 1
+g
+/DC2@u
+@t + u @u
+@s
+/DC3
+= 0.
+  (27)
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+September 2025 SPE Journal5354
+The above equation is the differential equation of motion for unsteady flow.
+For the total flow, if it is a slow- varying flow, ignoring the inhomogeneity of the flow velocity distribution on the pipe cross section 
+and expressing it in terms of the average flow velocity of the section, the equation of motion for the total flow of the univariate unsteady 
+flow is obtained as follows:
+ 
+@Z
+@s + 1
+/SUBg
+@p
+@s + 1
+/SUBg
+1
+D 4/FS0 + 1
+g
+/DC2@v
+@t + v @v
+@s
+/DC3
+= 0,
+  
+(28)
+ /FS0 = /SUBfv|v|
+8 .  (29)
+Bringing Eq. 29 into Eq. 28, we get
+ 
+@Z
+@s + 1
+/SUBg
+@p
+@s + fv|v|
+2gD + 1
+g
+/DC2@v
+@t + v @v
+@s
+/DC3
+= 0.
+  
+(30)
+Since
+ 
+H = Z + p
+/SUBg ,
+  (31)
+we can obtain the following equation:
+ 
+@H
+@s = @Z
+@s + 1
+/SUBg
+@p
+@s /NUL
+/NUL
+H /NULZ
+/SOH
+/SUB
+@/SUB
+@s .
+  
+(32)
+Bringing Eq. 32 into Eq. 30 yields the equation of motion for water hammer considering fluid compressibility:
+ 
+g @H
+@s +
+/NUL
+H /NULZ
+/SOH
+g
+/SUB
+@/SUB
+@s + g fv|v|
+2gD + @v
+@t + v @v
+@s = 0.
+  
+(33)
+System of Water Hammer Equations. In this study, we consider the effect of fluid compressibility, which results in a system of 
+equations that includes three variable functions: H (s, t), v (s, t), and ρ (s, t). However, the equation of motion and the continuity equation 
+provide only two equations, meaning that the system is not closed. To address this, we introduce the fluid elasticity equation (Eq. 9) into 
+the water hammer equations, allowing the system to be closed. Consequently, the complete system of water hammer equations, which 
+takes fluid compressibility into account, is as follows:
+Fig. 2—Microelement analysis of the equations of motion.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+September 2025 SPE Journal 5355
+ 
+8
+ˆˆˆˆˆˆˆˆ<
+ˆˆˆˆˆˆˆˆ:
+g @H
+@s +
+/NUL
+H /NULZ
+/SOH
+g
+/SUB
+@/SUB
+@s + g fv|v|
+2gD + @v
+@t + v @v
+@s = 0
+@H
+@t + @H
+@s v + v sin /DC2+ 1
+CM
+@v
+@s = 0
+d/SUB
+dt = /SUB
+K
+/SUBg /NUL
+/NUL
+H /NULZ
+/SOH
+d
+/NUL
+H /NULZ
+/SOH
+dt
+.
+  
+(34)
+Solution of the Equation System
+For this study, we utilize the water hammer equations, which involve numerous unknown parameters. The finite difference method is 
+adopted as it effectively solves these multivariable partial differential equations. To effectively simulate water hammer pressure under 
+hydraulic fracturing conditions, a wellbore- fracture boundary condition is established based on mass balance principles, accounting for 
+perforation friction and fluid leakoff effects in fractures. This enables the evaluation of fracture geometry parameters through history 
+matching of monitored water hammer pressure.
+Difference Equation. The system of water hammer equations derived in this study has more unknowns, and the finite difference method 
+is used to solve the system of equations (Shen and Li 2025). That is, the solution region of the required partial differential equation is first 
+subdivided into a grid consisting of a finite number of gridpoints, and then a finite difference formula is used to replace the derivatives 
+of each gridpoint, and finally, the approximation is carried out to solve the equation, and this process can be regarded as the process of 
+replacing the solution of the partial differential equation with an interpolating polynomial and its differentiation. The finite difference 
+method effectively solves multivariate partial differential equations, although it requires increased computation time.
+Y represents the water head (H), flow velocity (v), and density (ρ), and Yi
+j represents the value as a function of section i of layer j at 
+time j. The partial differentiation of Y with respect to time can be expressed as follows:
+ 
+@Y
+@t /EM
+Y j
+i /NUL
+/DC4
+˛Y j/NUL1
+i + 1 /NUL˛
+2
+/DLE
+Y j/NUL1
+i+1 + Y j/NUL1
+i/NUL1
+/DC1/NAK
+/c129t .  
+(35)
+The partial differentiation of the distance is expressed as an intermediate difference quotient, and the difference format is as follows:
+ 
+@Y
+@s /EMY j/NUL1
+i+1 /NULY j/NUL1
+i/NUL1
+2/c129s.  
+(36)
+The three partial differential equations in the system of equations (Eq. 34) are transformed in difference format to obtain the expressions 
+for the three unknowns of water head H, flow velocity v, and fluid density ρ as
+ 
+H j
+i = CA1 /NULvj/NUL1
+i
+/DC2CA2
+2 + /c129tsin /DC2
+/DC3
+/NULCB2
+2CM
+,
+  
+(37)
+ 
+vj
+i = CB1 /NULvj/NUL1
+i
+2 CB2 /NULg
+2 CA2 /NUL
+/DLE
+Hj/NUL1
+i /NULZi
+/DC1
+g
+2/SUBj/NUL1
+i
+CE2 /NULgRvj/NUL1
+i |vj/NUL1
+i |,
+  
+(38)
+ 
+/SUBj
+i = CE1 /NULvj/NUL1
+i
+2 CE2 + /SUBj/NUL1
+i
+CN
+/DC4
+Hj
+i /NULCA1 + vj/NUL1
+i
+/DC2CA2
+2 + /c129tsin /DC2
+/DC3/NAK
+,
+  
+(39)
+where
+ CA1 = ˛Hj/NUL1
+i + 1 /NUL˛
+2
+/DLE
+Hj/NUL1
+i+1 + Hj/NUL1
+i-1
+/DC1
+,  
+ CA2 =
+/DLE
+Hj/NUL1
+i+1 /NULHj/NUL1
+i-1
+/DC1/c129t
+/c129s,  
+ CB1 = ˛vj/NUL1
+i + 1 /NUL˛
+2
+/DLE
+vj/NUL1
+i+1 + vj/NUL1
+i-1
+/DC1
+,  
+ CB2 =
+/DLE
+vj/NUL1
+i+1 /NULvj/NUL1
+i-1
+/DC1/c129t
+/c129s ,  
+ CE1 = ˛/SUBj/NUL1
+i + 1 /NUL˛
+2
+/DLE
+/SUBj/NUL1
+i+1 + /SUBj/NUL1
+i-1
+/DC1
+,  
+ CE2 =
+/DLE
+/SUBj/NUL1
+i+1 /NUL/SUBj/NUL1
+i-1
+/DC1/c129t
+/c129s,  
+ 
+CN = K
+/SUBj/NUL1
+i g
+/NUL
+/DLE
+Hj/NUL1
+i /NULZi
+/DC1
+,
+  
+ 
+CM =
+ 
+1+ 2K
+p
+Ap/EMEe
+!/RS
+CN,
+  
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+September 2025 SPE Journal5356
+ 
+R = f/c129t
+2gD .
+  
+Initial Conditions. When the pump begins to be stopped, the fluid flow within the wellbore is considered to be under steady- state 
+tubular flow conditions, and the flow rate is uniform throughout the wellbore. Regarding the density distribution within the wellbore, it is 
+assumed that the density at every point within the wellbore at the initial moment is ρ0. Then, the pressure distribution along the wellbore 
+at the initial moment is obtained by using p = ρg(H − Z), and then the pressure distribution is substituted into Eq. 7 to obtain the density 
+distribution along the wellbore. The circulation is repeated multiple times until the density and pressure distributions along the wellbore 
+are stabilized, which is considered to be the density distribution at the initial moment. Additionally, at the initial moment, the water head 
+at the wellhead is known, and the water head distribution at each point within the wellbore can be calculated using the Darcy- Weisbach 
+formula (Brown 2002), which yields the following equation:
+ Q0
+i = Q0,  (40)
+ H0
+1 = H0,  (41)
+ 
+/c129H = f /c129LQ2
+2gDA2 ,
+  
+(42)
+The wellbore friction coefficient can be calculated by the following formula (Chen 1979):
+ 
+1p
+f
+= /NUL2 log
+/DC4"
+3.7065D /NUL5.0452
+Re
+/SOHlog
+/DC21
+2.8257
+/DLE"
+D
+/DC11.1098
++ 5.8506
+R0.8981e
+/DC3/NAK
+.
+  
+(43)
+Boundary Conditions. Boundary conditions include two categories. One category is the flow boundary at the wellhead, and the other is 
+the fracture boundary at the bottom of the well.
+Wellhead Boundary. The flow rate at the wellhead changes with time and can be expressed by the following equation:
+ Q t
+1 = Q
+/NUL
+t
+/SOH
+.  (44)
+Based on the wellhead flow boundary conditions, the numerical solution format for Node Cell 1 at the wellhead can be obtained in the 
+following format:
+ Q t+/c129t
+1 = Q
+/NUL
+t + /c129t
+/SOH
+.  (45)
+Wellbore Bottom Boundary. A schematic of the fracture boundary is shown in Fig. 3. For a multicluster fracturing section, it is usually 
+assumed that a fracturing cluster may open multiple perforations and form one main fracture, or no fracture may open. Within a fracturing 
+section, the number of effectively opened main fracture clusters is denoted as Nf, and the number of effectively opened perforations is 
+denoted as Np, assuming that the opened main fracture is a planar slit with an average fracture half- length of lf and an average fracture 
+height of hf. The planar fracture assumption is primarily applicable to deep shale gas reservoirs with high horizontal principal stresses. 
+However, it is less suitable for describing the complex fracture geometries typically observed in shallow shale gas reservoirs. Combining 
+the perforation friction resistance (Massaras et al. 2007; He et al. 2024) and the relationship of fluid mass conservation within the fracture, 
+the following boundary conditions for the fracture in the bottom of a well can be obtained as follows:
+ 
+pw /NULpf = 8/SUBQ2
+/EM2N2p d4p C2
+D
+,
+  
+(46)
+ 2Nfhflf
+dwf
+dt = Q /NULQleak.  (47)
+The hydraulic fracture opening wf can be related to the fluid pressure in the fracture and the fracture height by the following equation 
+(Paige et al. 1995), with the following representation:
+ 
+wf = 2
+/NUL
+pf /NUL/ESCmin
+/SOH
+hf
+/NUL
+1 /NUL/GS
+/SOH
+/EMG˛s
+.
+  
+(48)
+The fluid filtration loss within the fracture can be calculated by the following equation (Howard and Fast 1957):
+ 
+Qleak = 2NfhflfCLptf
+.
+  
+(49)
+For the well bottom boundary, the water hammer equation set contains three equations, and two more equations (Eqs. 46 and 47) are added 
+to the well bottom fracture constraint equations; however, the unknowns in the five equations are the water head H, the flow velocity v, 
+the fluid density ρ, and the pressure pf inside the fracture, which results in a contradiction of more equations than unknowns. For this 
+reason, the continuity equations and the equations of motion are synthesized into one partial differential equation, which is then trans-
+formed into a difference format associating other equations for solution.
+Multiplying the equation of motion (Eq. 33) by v0/g and adding it to the equation of continuity (Eq. 23) yields
+ 
+@H
+@t +
+/NUL
+v + v0
+/SOH@H
+@s + v0
+g
+@v
+@t +
+/DC21
+CM
++ v0v
+g
+/DC3@v
+@s +
+/NUL
+H /NULZ
+/SOH
+v0
+/SUB
+@/SUB
+@s + v sin /DC2+ v0
+fv|v|
+2gD = 0.
+  (50)
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+September 2025 SPE Journal 5357
+By differencing Eqs. 34 and 50, we obtain
+ 
+H j
+i /NULH j/NUL1
+i
+/c129t+
+/DLE
+vj
+i + v0
+/DC1
+/DLE
+H j
+i /NULH j
+i/NUL1
+/DC1
+/c129s + v0
+g
+/DLE
+vj
+i /NULvj/NUL1
+i
+/DC1
+/c129t+
+/DC21
+CM1
++ v0
+g vj
+i
+/DC3/DLE
+vj
+i /NULvj
+i/NUL1
+/DC1
+/c129s
++
+/DLE
+H j
+i /NULZi
+/DC1
+v0
+/SUBj
+i
+/DLE
+/SUBj
+i /NUL/SUBj
+i/NUL1
+/DC1
+/c129s+ vj
+i sin /DC2+ v0
+fvj
+i|vj
+i|
+2gD = 0
+,
+  
+(51)
+ 
+CM1 =
+1
+K + 2
+p
+Ap/EMEe
+1
+/SUBj
+ig
+/NUL
+/DLE
+H j
+i /NULZi
+/DC1
+K
+,
+  
+(52)
+ 
+/SUBj
+i /NUL/SUBj/NUL1
+i + vj/NUL1
+i
+/DLE
+/SUBj/NUL1
+i /NUL/SUBj/NUL1
+i/NUL1
+/DC1/c129t
+/c129s/NUL/SUBj/NUL1
+i
+CN
+/DC4
+H j
+i /NULH j/NUL1
+i + vj/NUL1
+i
+/DC2/DLE
+H j/NUL1
+i /NULH j/NUL1
+i/NUL1
+/DC1/c129t
+/c129s+ /c129tsin /DC2
+/DC3/NAK
+= 0.
+  
+(53)
+The water head, flow rate, and density of the wellbore nodal cell n can be derived by solving Eqs. 51 and 53, and combining this with the 
+wellbore- fracture boundary conditions (Eqs. 46 and 47) results in the following format:
+ 
+8
+ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ<
+ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ:
+H j
+n /NULH j/NUL1
+n
+/c129t+
+/DLE
+vj
+n + v0
+/DC1
+/DLE
+H j
+n /NULH j
+n/NUL1
+/DC1
+/c129s + v0
+g
+/DLE
+vj
+n /NULvj/NUL1
+n
+/DC1
+/c129t+
+/DC21
+CM1
++ v0
+g vj
+n
+/DC3/DLE
+vj
+n /NULvj
+n/NUL1
+/DC1
+/c129s
++
+/DLE
+H j
+n /NULZn
+/DC1
+v0
+/SUBj
+n
+/DLE
+/SUBj
+n /NUL/SUBj
+n/NUL1
+/DC1
+/c129s + vj
+n sin /DC2+ v0
+fvj
+n|vj
+n|
+2gD = 0
+/SUBj
+n /NUL/SUBj/NUL1
+n + vj/NUL1
+n
+/DLE
+/SUBj/NUL1
+n /NUL/SUBj/NUL1
+n/NUL1
+/DC1/c129t
+/c129s/NUL/SUBj/NUL1
+n
+CN
+/DC4
+H j
+n /NULH j/NUL1
+n + vj/NUL1
+n
+/DC2/DLE
+H j/NUL1
+n /NULH j/NUL1
+n/NUL1
+/DC1/c129t
+/c129s+ /c129tsin /DC2
+/DC3/NAK
+= 0
+pj
+n /NULpj
+f = 8/SUBj
+n
+/EM2N2p d4p C2
+D
+/DLE
+Qj
+n
+/DC12
+2Nfhflf
+/DLE
+wj
+f /NULwj/NUL1
+f
+/DC1
+=
+/DLE
+Qj
+n /NULQleak
+/DC1
+/c129t
+.
+  
+(54)
+The water hammer pressure calculation process is shown in Fig. 4.
+Results and Discussion
+To validate the water hammer pressure model developed in this study, we verify its effectiveness in simulating pressure transients using 
+both experimental data from fracture- equipped systems and field- monitored water hammer data. In addition, using the water hammer 
+model developed in this study, we assess fracture geometry by fitting monitored water hammer pressure data from multistage fracturing 
+operations in a horizontal well in the Sichuan Basin.
+Fig. 3—Schematic of horizontal well segmented multicluster fracturing.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+September 2025 SPE Journal5358
+Model Validation. Based on the experimental water hammer pressure data considering fractures from Hu et al. (2022), this study 
+calculates the water hammer pressure using our proposed model and compares the results with experimental data to validate the model’s 
+effectiveness. The experimental setup simulates fracture effects by connecting a pressure vessel through a branch pipe. The experimental 
+parameters are as follows: The horizontal pipe length is 157 m, the internal diameter of the pipe is 25 mm, the pipe friction coefficient is 
+0.0376, the initial flow rate within the pipe is 0.0324 m³/min, the pump shutdown duration is 5.9 seconds, and the pressure vessel pressure 
+is 0.052 MPa. As shown in Fig. 5, the model predictions agree well with experimental results, demonstrating a maximum pressure 
+deviation of only 2.42%. This close agreement validates the model’s effectiveness in simulating water hammer pressure evolution.
+Fig. 5—Comparison of model- calculated data with experimental data.
+Using fracturing parameters from a shale gas horizontal well (Well A) in the Sichuan Basin (He et al. 2024), we calculate the water 
+hammer pressure curve with our model and compare it with field- measured data from Well A, the basic parameters of which are listed in 
+Table 1.
+Fig. 4—Flow chart for water hammer pressure calculation.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+September 2025 SPE Journal 5359
+Parameters Values Parameters Values
+Length of the vertical well section (m) 3180 Tube Young’s modulus (GPa) 206
+Length of the horizontal well section (m) 2120 Tube Poisson’s ratio 0.3
+Inner diameter of wellbore (mm) 118.6 Rock Young’s modulus (GPa) 42
+Wall thickness (mm) 10.54 Rock Poisson’s ratio 0.22
+Fracture half- length (this study) (m) 160 Fracture half- length (He et 
+al. ) (m)
+180
+Fracture height (this study) (m) 19 Fracture height (He et al. ) 
+(m)
+20
+Table 1—Base parameters of Well A.
+Fig. 6 reveals that the water hammer pressure curve exhibits periodic oscillatory attenuation. The early stage shows significant pressure 
+decay, while the later- stage attenuation amplitude decreases under the combined effects of wellbore- perforation friction, fracture opening/
+closure, and fluid loss, eventually stabilizing. The water hammer pressure curve calculated by the model developed in this study exhibits 
+a mean relative error of only 0.23% compared with the monitored water hammer pressure curve, indicating a high degree of consistency. 
+Based on the actual fracturing parameters, the water hammer model established in this study effectively simulates water hammer pressure 
+variations. Both experimental data and field monitoring data demonstrate that the model developed in this study can accurately simulate 
+water hammer pressure changes.
+Fig. 6—Comparison between calculated and actual results.
+Sensitivity Analysis. Analyzing the influence of fracture and wellbore parameters on water hammer pressure is crucial for guiding the 
+use of water hammer pressure to interpret fracture parameters. By examining the influencing factors in the early stages and assessing 
+the shape of water hammer pressure curves under varying parameters, one can effectively estimate the approximate range of fracture 
+parameters, thereby significantly improving the efficiency of fracture parameter calculations. Therefore, based on the basic data of Well 
+B’s fracturing section, we analyze the impact of different fracture and wellbore parameters on water hammer pressure. The fundamental 
+parameters are presented in Table 2.
+Parameters Values Parameters Values
+Length of the vertical well section (m) 2926 Fracture half- length (m) 157.4
+Length of the horizontal well section (m) 1597 Fracture height (m) 23.7
+Rock Young’s modulus (GPa) 42 Number of open clusters 5
+Rock Poisson’s ratio 0.23 Number of open perforations 26
+Table 2—Base parameters used in the simulations.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+September 2025 SPE Journal5360
+Effects of Fracture Parameters. Effect of Fracture Half-Length. Based on the basic data of Well B, to analyze the influence of fracture 
+half- length on the water hammer pressure curve, fracture half- lengths of 80 m, 140 m, 200 m, and 260 m were designed and substituted 
+into the model of this study to calculate the corresponding water hammer pressure curves, as shown in Fig. 7. From Fig. 7, it is observed 
+that the fracture half- length has a significant impact on the decay rate of the water hammer pressure curve; as the fracture half- length 
+increases, the curve decays more rapidly. The increase in fracture half- length not only enlarges the fluid loss area but also extends the 
+wave propagation path, resulting in greater frictional resistance and ultimately accelerating energy dissipation.
+Fig. 7—Water hammer pressure curves for different fracture half- lengths.
+Effect of Fracture Height. Taking fracture heights of 10 m, 20 m, 30 m, and 40 m, we calculate the water hammer pressure curves under 
+different fracture heights and analyze their influence on the water hammer pressure curves. Fig. 8 presents the calculation results of water 
+hammer pressure under varying fracture heights. As the fracture height increases, the decay rate of water hammer pressure slows down. 
+The increase in fracture height enhances the fracture’s elastic storage capacity, reducing energy loss during fluid injection and release. 
+Moreover, greater fracture height increases the fluid volume within the fracture, strengthening the fluid’s propping effect. This results in 
+more uniform pressure distribution within the fracture and relatively lower resistance to pressure wave propagation.
+Effect of Perforation Clusters and Perforations. In actual fracturing operations, the competitive initiation among different perforation 
+clusters results in only partial clusters and perforations being activated. Fig. 9 simulates the water hammer pressure under varying num-
+bers of activated perforation clusters and perforations. Analysis of Fig. 9 reveals that fewer activated perforation clusters and perforations 
+lead to an overall lower pressure level. This phenomenon can be attributed to the fact that, under a constant flow rate, a reduced number 
+of activated perforation clusters and perforations not only increase the perforation friction loss but also simplify and concentrate the fluid 
+flow path. This reduction mitigates flow interference among different clusters and perforations, thereby decreasing the complexity of fluid 
+dynamics and ultimately resulting in a significant reduction in pressure levels.
+Effect of Leakoff Coefficient. Fluid leakoff effects in fractures significantly influence water hammer pressure during both fracturing 
+injection and pump shutdown processes. Simulations were conducted using leakoff coefficients of 2×10⁻⁷ m/s0.5, 2×10⁻⁶ m/s0.5, and 2×10⁻⁵ 
+m/s0.5, with the computational results presented in Fig. 10, which demonstrates that the leakoff coefficient significantly affects the water 
+hammer pressure decline rate, with larger coefficients resulting in faster pressure decay. On one hand, increased leakoff coefficient 
+enhances fracturing fluid loss to the formation, reducing effective fluid volume in fractures and diminishing the system’s energy storage 
+capacity. On the other hand, higher leakoff coefficients facilitate faster pressure dissipation into the formation. Under the combined effects 
+of mass loss and energy dissipation mechanisms, elevated leakoff coefficients accelerate water hammer pressure decline.
+Effect of Wellbore Parameters. Effect of Horizontal Wellbore Length. As the fracturing operation advances and the fracturing section 
+progresses, the actual horizontal wellbore length corresponding to the fracturing pump shutdown gradually decreases, necessitating an 
+analysis of the impact of horizontal wellbore length on the water hammer pressure signal. Here, simulations are conducted with horizon-
+tal wellbore lengths of 1 km, 2 km, and 3 km, respectively, and the results are displayed in Fig. 11. From Fig. 11, it is observed that the 
+length of the horizontal wellbore affects the water hammer pressure cycle. As the wellbore length increases, the water hammer pressure 
+wave requires more time for its round trip, leading to a larger water hammer pressure oscillation cycle. Additionally, with the increase 
+in wellbore length, wellbore friction increases, and the energy dissipation of the pressure during propagation also increases, resulting in 
+accelerated pressure decay.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+September 2025 SPE Journal 5361
+Fig. 8—Water hammer pressure curves at different fracture heights.
+Fig. 9—Water hammer pressure curves for different numbers of perforation clusters and perforations.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+September 2025 SPE Journal5362
+Fig. 10—Water hammer pressure curves with different leakoff coefficients.
+Fig. 11—Water hammer pressure curves at different horizontal wellbore lengths.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 14 =====
+September 2025 SPE Journal 5363
+Fig. 12—Water hammer pressure curves for different wellbore along- track friction coefficients.
+Effect of Friction Coefficient along the Wellbore. The wellbore friction coefficient is closely related to the resistance of fluid flow along 
+the wellbore and significantly influences the water hammer pressure. To analyze the impact of the wellbore along- travel friction coeffi-
+cient on water hammer pressure, simulations are conducted with wellbore along- travel friction coefficients of 0.02, 0.05, and 0.08, and 
+the results are depicted in Fig. 12. From Fig. 12, it is evident that along- travel friction affects the decay rate of the water hammer pressure 
+oscillation amplitude. The larger the along- travel friction coefficient, the greater the energy loss during pressure propagation, and the 
+faster the decay of the pressure oscillation amplitude.
+Field Case Analysis. Using our model with wellbore and formation parameters from a Sichuan Basin shale gas horizontal well (see 
+Table 3 for complete parameters), we simulated water hammer pressure and matched field- measured data to evaluate fracture geometry.
+Parameters Well B- 1 Well B- 2 Well B- 3 Well B- 4
+Length of the vertical well section (m) 2926 2926 2926 2926
+Length of the horizontal well section (m) 2255 2182 2107 2039
+Inner diameter of wellbore (mm) 114.3 114.3 114.3 114.3
+Rock Young’s modulus (GPa) 42 42 42 42
+Rock Poisson’s ratio 0.23 0.23 0.23 0.23
+Table 3—Base parameters for each fractured section of Well B.
+Using stage- specific water hammer pressure data, we iteratively adjusted fracture half- length, fracture height, number of perforation 
+clusters, and number of perforations until achieving satisfactory agreement between simulated and measured pressure responses, thereby 
+determining optimal fracture geometry parameters for each stage.
+Analysis of Fig. 13 and Table 4 demonstrates strong agreement between simulated and measured water hammer pressure curves for 
+Well B’s four fracturing stages, with mean relative errors of 0.39%, 0.55%, 0.62%, and 0.53%, respectively. A comparative analysis 
+between the fitted fracture parameters and field monitoring results shows mean relative errors of 15.4 m for fracture half- length and 4.2 m 
+for fracture height across all stimulated stages. Additionally, the proposed model enables analysis of activated cluster counts and effective 
+perforation numbers.
+Well Section Name
+Model of This Study
+Microseismic 
+Monitoring
+lf (m) hf (m) Np Nf lf (m) hf (m)
+Well B- 1 152.30 21.40 37 5 166 24
+Well B- 2 162.80 27.61 34 6 174 31
+Well B- 3 150.80 22.46 27 5 168 28
+Well B- 4 178.60 30.40 46 6 159 25
+Table 4—Comparison of calculation results for Well B.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 15 =====
+September 2025 SPE Journal5364
+Discussion. In this study, we propose a novel water hammer modeling approach. First, accounting for fluid compressibility effects, we 
+derive the governing equations for water hammer phenomena, including both the motion equation and continuity equation. Second, based 
+on the mass balance principle and considering perforation friction and fluid filtration effects, boundary constraints for the bottomhole 
+fracture are established. Finally, a new water hammer pressure calculation model is developed by integrating fluid compressibility, tubing 
+friction, perforation friction, and fluid filtration effects within the hydraulic fracture, thereby enabling fracture geometry evaluation. 
+In contrast to equivalent- circuit- based water hammer models, our approach establishes wellbore- fracture boundary conditions through 
+perforation friction and fracture fluid mass conservation, providing clearer physical significance and overcoming the inherent limitation 
+where circuit model parameters lack direct correspondence with fracture geometry. Moreover, in practical water hammer analysis, the 
+wave speed is often difficult to determine accurately. The proposed model eliminates the need for prior knowledge of the water hammer 
+wave speed while still enabling reliable simulation of pressure transients. When evaluating fracture geometry using water hammer 
+pressure, both the RCI model and our proposed model rely on iterative parameter adjustment to achieve satisfactory matching between 
+simulated and measured pressure data. The fracture geometry parameters that produce the best match are considered representative of 
+the actual fracture system. However, the fracture geometry evaluation using water hammer pressure contains inherent uncertainties, 
+as different parameter combinations may produce similar pressure responses during multiparameter estimation. Various hydraulic 
+fracturing monitoring techniques, such as distributed fiber- optic strain monitoring and high- frequency pressure monitoring, can provide 
+prior information on the number of effective perforation clusters and effective perforations, thereby reducing the dimensionality of 
+uncertain parameters. This approach may reduce parameter uncertainty, though further research and data validation are still required. The 
+proposed model in this study provides a theoretical framework for reducing uncertainty in fracture geometry parameters derived from 
+water hammer pressure matching through the aforementioned methodology. Effectively reducing these uncertainties represents a critical 
+research direction for fracture geometry evaluation using water hammer pressure, which will be further investigated in subsequent studies.
+Conclusion
+Based on mass balance principles and considering both perforation friction and fluid leakoff effects, this study establishes wellbore- 
+fracture boundary conditions to develop a novel water hammer modeling approach. Moreover, we highlighted the influence of fracture- 
+and wellbore- related parameters on water hammer pressure. The following conclusions were obtained:
+1. By establishing wellbore- fracture boundary conditions based on perforation friction and fracture fluid mass conservation, while newly 
+incorporating fluid compressibility effects, we develop a comprehensive mathematical model for water hammer pressure evolution 
+that accounts for fluid compressibility, wellbore friction, perforation friction, and fracture fluid leakoff, enabling fracture geometry 
+evaluation.
+2. The model- calculated water hammer pressures show excellent agreement with both experimental measurements and field monitoring 
+data, demonstrating reliable simulation of pressure transient evolution.
+Fig. 13—Comparison of simulated and monitored water hammer curves for Well B (a) for Section 1, (b) for Section 2, (c) for Section 
+3, and (d) for Section 4.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 16 =====
+September 2025 SPE Journal 5365
+3. Analysis of influencing factors indicates that longer fracture half- length and higher leakoff coefficient accelerate the water hammer 
+pressure decline, whereas increased fracture height slows it. Fewer active perforation clusters and perforations reduce the overall 
+water hammer pressure. Longer horizontal wellbores prolong the water hammer oscillation period, while a higher friction coefficient 
+accelerates amplitude attenuation.
+4. The geometry of the fracture was evaluated by fitting the field- monitored water hammer pressure data, with the average relative error 
+of the water hammer pressure fitting being around 0.5%. Compared with the microseismic monitoring results, the average relative 
+errors in fracture half- length and height were 15.4 m and 4.2 m, respectively.
+Nomenclature
+ A =  cross- sectional area, m2
+ CD =  flow rate coefficient
+ CL  =  filtration loss coefficient, m/s0.5
+ dp =  perforation hole diameter, m
+ D =  inner diameter of wellbore, m
+ e =  pipe wall thickness, m
+ E =   Young's modulus, Pa
+ f =  friction coefficient
+ g =  acceleration of gravity, m/s2
+ G =  shear modulus of elasticity, Pa
+ hf  =  fracture height, m
+ H =  water head, m
+ H0 =  initial pressure head, m
+ H1
+0 =  initial wellhead pressure head, m
+ K =  bulk modulus, Pa
+ lf =  fracture half- length, m
+ Nf =  number of open clusters
+ Np =  number of open perforations
+ P =  pressure, Pa
+ Pf  =  effective fluid pressure in the fracture, Pa
+ Pw =  bottomhole pressure, Pa
+ Q =  wellbore flow rate, m3/s
+ Qi
+0 =  initial wellbore node flow rate, m3/s
+ Qleak =  filter loss in the fracture, m3/s
+ Q0 =  initial wellhead flow rate, m3/s
+ Re =  Reynolds number
+ s =  pipe length, m
+ t =  time, seconds
+ tf =  filtration reference time, seconds
+ v =  flow velocity, m/s
+ wf =  fracture width, m
+ Z =  elevation of the reference datum, m
+ α =  weighting factor, 0.1
+ αs =  fracture shape factor
+ ε =  roughness of wellbore, m
+ θ =  inclination of the pipe to the horizontal ground, degrees
+ ρ =  fluid density, kg/m3
+ σmin =  minimum horizontal formation stress, Pa
+ υ =  Poisson's ratio
+Acknowledgments
+This research was supported by the National Natural Science Foundation of China (Grant Nos. 52304022, 52204031) and the Natural 
+Science Foundation of Sichuan Province (Grant No. 2024NSFSC0201, 2023NSFSC0947).
+References
+Brown, G. O. 2002. The History of the Darcy- Weisbach Equation for Pipe Flow Resistance. Environ Water Res History: 34–43. https://doi.org/10.1061/ 
+40650(2003)4.
+Carey, M. A., Mondal, S., and Sharma, M. M. 2015. Analysis of Water Hammer Signatures for Fracture Diagnostics. Paper presented at the SPE Annual 
+Technical Conference and Exhibition, Houston, Texas, USA, 28−30 September. https://doi.org/10.2118/174866-MS.
+Chen, N. H. 1979. An Explicit Equation for Friction Factor in Pipe. Ind Eng Chem Fund 18 (3): 296–297. https://doi.org/10.1021/i160071a019.
+Clark, C. J., Miskimins, J. L., and Gallegos, D. L. 2018. Diagnostic Applications of Borehole Hydraulic Signal Processing. Paper presented at the SPE/
+AAPG/SEG Unconventional Resources Technology Conference, Houston, Texas, USA, 23−25 July. https://doi.org/10.15530/urtec-2018-2902141.
+Dong, J., Chen, M., Jin, Y . et al. 2019. Study on Micro- Scale Properties of Cohesive Zone in Shale. Int J Solids Struct 163: 178–193. https://doi.org/10. 
+1016/j.ijsolstr.2019.01.004.
+Dung, N., David, C., Tom, D. et al. 2021. Practical Applications of Water Hammer Analysis from Hydraulic Fracturing Treatments. Paper presented at the 
+SPE Hydraulic Fracturing Technology Conference and Exhibition, Virtual, 4−6 May. https://doi.org/10.2118/204154-MS.
+Guo, T., Tang, S., Liu, S. et al. 2021. Physical Simulation of Hydraulic Fracturing of Large- Sized Tight Sandstone Outcrops. SPE J. 26 (1): 372–393. 
+https://doi.org/10.2118/204210-PA.
+Haustveit, K., Dahlgren, K., Greenwood, H. et al. 2017. New Age Fracture Mapping Diagnostic Tools- A STACK Case Study. Paper presented at the SPE 
+Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 24−26 January. https://doi.org/10.2118/184862-MS.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 17 =====
+September 2025 SPE Journal5366
+He, H., Zou, L., Li, Y . et al. 2024. Simulation Method and Feature Analysis of Shutdown Pressure Evolution During Multi- Cluster Fracturing Stimulation. 
+Energy 121 (1): 111–123. https://doi.org/10.32604/ee.2023.041010.
+Holzhausen, G. R. and Gooch, R. P. 1985. Impedance of Hydraulic Fractures: Its Measurement and Use for Estimating Fracture Closure Pressure and 
+Dimensions. Paper presented at the SPE/DOE Low Permeability Gas Reservoirs Symposium, Denver, Colorado, USA, 19−22 May. https://doi.org/10. 
+2118/13892-MS.
+Howard, G. and Fast, C. R. 1957. Optimum Fluid Characteristics for Fracture Extension. Drill Prod Practice 24: 261–270.
+Hu, X., Luo, Y ., Zhou, F. et al. 2022. Evaluation of Multi- Fractures Geometry Based on Water Hammer Signals: A New Comprehensive Model and Field 
+Application. J Hydrol 612: 128240. https://doi.org/10.1016/j.jhydrol.2022.128240.
+Hwang, J., Szabian, M. J., and Sharma, M. 2017. Hydraulic Fracture Diagnostics and Stress Interference Analysis by Water Hammer Signatures in Multi- 
+Stage Pumping Data. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology Conference, Austin, Texas, USA, 24−26 July. 
+https://doi.org/10.15530/urtec-2017-2687423.
+Luo, Y ., Hu, X., Zhou, F. et al. 2023. A New Water Hammer Decay Model: Analyzing the Interference of Multiple Fractures and Perforations on Decay 
+Rate. SPE J. 28 (4): 1973–1985. https://doi.org/10.2118/214658-PA.
+Ma, X., Zhou, F., Ortega, A. et al. 2019. Evaluation of Water Hammer Analysis as Diagnostic Tool for Hydraulic Fracturing. Paper presented at the SPE/
+AAPG/SEG Unconventional Resources Technology Conference, Denver, Colorado, USA, 22−24 July. https://doi.org/10.15530/urtec-2019-935.
+Massaras, L. V ., Dragomir, A., and Chiriac, D. 2007. Enhanced Fracture Entry Friction Analysis of the Rate Step- Down Test. Paper presented at the SPE 
+Hydraulic Fracturing Technology Conference, College Station, Texas, USA, 29−31 January. https://doi.org/10.2118/106058-MS.
+Mondal, S. 2010. Pressure Transients in Wellbores: Water Hammer Effects and Implications for Fracture Diagnostics. MSc Thesis, The University of 
+Texas at Austin, Austin, Texas, USA.
+Paige, R. W., Murray, L. R., and Roberts, J. D. M. 1995. Field Application of Hydraulic Impedance Testing for Fracture Measurement. SPE Prod & Fac 
+10 (1): 7–12. https://doi.org/10.2118/26525-PA.
+Qiu, Y ., Hu, X., Zhou, F. et al. 2022. Water Hammer Response Characteristics of Wellbore- Fracture System: Multi- Dimensional Analysis in Time, 
+Frequency and Quefrency Domain. J Pet Sci Eng 213: 110425. https://doi.org/10.1016/j.petrol.2022.110425.
+Sadykov, A., Baki, S., Mechkak, K. et al. 2019. Diversion Techniques Applications in Unconventional Resources Fields. Paper presented at the SPE Middle 
+East Oil and Gas Show and Conference, Manama, Bahrain, 18−21 March. https://doi.org/10.2118/194791-MS.
+Scanlan, W. P., Pierskalla, K., Sobernheim, D. W. et al. 2018. Novel Diversion Case Studies for Improved Near- Wellbore Connection between Wellbore 
+and Hydraulic Fracture. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology Conference, Houston, Texas, USA, 23−25 
+July. https://doi.org/10.15530/urtec-2018-2881395.
+Shen, M. G. and Li, B. Q. 2025. A Simple and Efficient Finite Difference Scheme to the Cahn–Hilliard–Navier–Stokes System Equations. Int J Multiphase 
+Flow 182: 105061. https://doi.org/10.1016/j.ijmultiphaseflow.2024.105061.
+Streeter, V . L. and Wylie, E. B. 1967. Hydraulic Transients. New York, USA: McGraw Hill.
+Wang, B., Zhou, F., Yang, C. et al. 2020. Experimental Study on Injection Pressure Response and Fracture Geometry during Temporary Plugging and 
+Diverting Fracturing. SPE J. 25 (2): 573–586. https://doi.org/10.2118/199893-PA.
+Wylie, E. B. and Streeter, V . L. 1993. Fluid Transients in Systems. Hoboken, New Jersey, USA: Prentice- Hall.
+Yew, C. H. and Ashour, A. A. 1996. A Study of the Fracture Impedance Method. Paper presented at the Annual Technical Meeting, Calgary, Alberta, 
+Canada, 10−12 June. https://doi.org/10.2118/96-91.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​30/​09/​5350/​5058559/​spe-228403-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026

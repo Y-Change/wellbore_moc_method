@@ -1,0 +1,171 @@
+\n===== PAGE 1 =====\nMechanical Systems and Signal Processing 228 (2025) 112455
+Available online 19 February 2025
+0888-3270/© 2025 Published by Elsevier Ltd.
+Full Length Article
+High resolution imaging of pressurised water supply lines
+Saber Nasraoui
+a , b , *
+, Moez Louati
+c
+, Mohamed Salah Ghidaoui
+c
+a
+Department of Physics, Faculty of Sciences of Tunis, University Tunis El Manar 1060 Tunis, Tunisia, Laboratory of Mathematical Modeling and 
+Multi-scale Simulation for Physics and Engineering, Tunisia
+b
+Department of Water Supply, Sanitation and Environmental Engineering, IHE Delft, Netherlands
+c
+Department of Civil and Environmental Engineering, Hong Kong University of Science and Technology, Clear Water Bay Campus, Hong Kong, China
+ARTICLE INFO
+Keywords:
+Acoustic imaging
+Time reversal
+High-frequency acoustic waves
+Pipeline
+Water supply
+ABSTRACT
+This paper proposes a computationally efficient, nondestructive, and medium range guided wave 
+imaging of pressurized water supply lines based on the time reversal (TR) technique. A send- 
+receive transducer is inserted in the water column from a single access point and used to mea -
+sure multi – input – multi – output (MIMO) pressure wave signals that propagate along the wave -
+guide. The resulting high frequency (10 kHz-100 kHz) signals are processed by the TR-MUltiple 
+SIgnal Classification (TR-MUSIC) algorithm to provide high-resolution images the water pipe 
+system. The resulting images reveal the pipe wall inner and outer condition with millimeter 
+resolution. The proposed technique is tested and validated in lab as well as in field scale facilities 
+on pressurized water-filled viscoelastic high-density polyethylene (HDPE) pipes. In particular, we 
+successfully imaged (i) a straight 6.5 m long, water-filled 90 mm HDPE lab pipe containing a 
+small blockage with thickness 7.65 mm and a length 97 mm and (ii) a 36.5 m long section water- 
+filled 160 mm HDPE pipe containing three T-connections and a small blockage with thickness 16 
+mm and length 95 mm.
+1. Introduction
+Urban Urban Water Supplies Systems (UWSS) — a complex network of pipes that lie beneath our streets — are vital for life and 
+economic productivity. Such systems often experience the formation of defects during their lifetime due to physical and/or chemical 
+processes, including corrosion, failure of pipe lining, and deposition of suspended fine particles. Such defects often begin as a cluster of 
+small defects on the inside of a pipe wall which we refer to hereafter as incipient defects. The growth of such incipient defects with time 
+can eventually lead to bursts, leaks, and sizeable blockages, resulting in unacceptably large system water losses and excessive energy 
+use. Recent studies estimate that 126 billion cubic meters are unaccounted for annually by water utilities around the world, for an 
+equivalent monetary loss of USD 39 billion [1] . Until now, efforts to curb these massive water losses and energy wastage in existing 
+UWSS has focused on non-intrusive and non-destructive technology development for detecting existing, fully-fledged, physical defects 
+and operational inefficiencies. However, pinpointing incipient defects at an early stage for remediation prevents their progression into 
+significant failures, offering a proactive approach to UWSS management.
+Traditional internal sensor-based imaging systems are used to monitor and report the condition of a pipeline ’ s internal surface and 
+pipe wall and enable detection of corrosion sites, cracks, wall thickness, and weld condition, as well as existing leaks. Smart Pipeline 
+inspection gauges (Smart PIGs) were originally developed by the energy pipeline industry and have only recently been emulated by 
+* Corresponding author.
+E-mail address: nasraoui1110@gmail.com (S. Nasraoui). 
+Contents lists available at ScienceDirect
+Mechanical Systems and Signal Processing
+journal homepag e: www.else vier.com/loc ate/ymss p
+https://doi.org/10.1016/j.ymssp.2025.112455
+Received 24 March 2024\n===== PAGE 2 =====\nMechanical Systems and Signal Processing 228 (2025) 112455
+2
+water pipe tools like Smart Ball, Sahara, CCTV, and acoustic sonar [2 – 4] . These tools may also have on-board optical, magnetic, or 
+acoustic sensors which, like Smart PIGs, must be launched into a water pipe and be retrieved through a suitably sized port, sometimes 
+using a tether cable. PIG-based sensors are not autonomous or semi-autonomous (even in the energy pipeline sector); rather, they are 
+propelled by the pipe flow or tethered. This technology is suitable for use in conduits that present no obstructions to free passage of in- 
+line sensing tools (eg., oil & gas pipelines). On the other hand, UWSS are often intricate networks of pipes with numerous pipe- 
+diameter changes, partial-bore inline valves and abrupt changes in direction that do not permit the use of inline Smart PIGs. Addi -
+tionally, inline Smart PIGs currently function as a slow, in-pipe survey tool, typically moving at a speed of approximately 0.3 m/s. 
+Moreover, inline Smart PIGs involve significant costs and labor, require traffic diversion [2] .
+Less costly, non-disruptive, and more efficient techniques such as transient (acoustic)-based defect detection methods (TBBDM) 
+have been intensively studied and developed [5 – 13] . Among these methods, the low frequency ( < 100 Hz) wave-based methods are 
+unique for their fast speed (~1000 times faster than roving sensors) and broad coverage (~kilometres), are both economical and 
+applicable to all fully-developed faults. However, low frequency (LF) wave-based methods have poor location resolution (several 
+meters) [6] and are limited to defects which are large enough to produce visible reflections since noise is strong at the LF band. Since 
+the achievable resolution is directly proportional to the probing wavelength, high frequency (HF) wave-based methods have been 
+developed to achieve a resolution in the order of centimeters [14,15] . Yet, these HF wave-based methods remain applicable only for 
+fully fledged defects (i.e., through-wall defects such as leaks and also defects with a radial length scale of the order of 15 % of the pipe 
+diameter or larger). These limitations underscore a significant gap: existing methods cannot reliably detect and image incipient defects 
+or small structural anomalies at the millimeter scale. To address this gap, we propose a novel pipeline imaging technique based on the 
+time reversal (TR) property of high-frequency acoustic waves (10 – 100 kHz) enabling subwavelength resolution.
+This method would permit UWSS management to move from reactive to proactive mode, where anomalies with length scales of the 
+order of millimetre are detected and imaged (not just localized). The proposed imaging technique serves as a decision support tool for 
+timely maintenance and mitigation measures. The produced image can reveal the pipe wall inner and outer condition, incipient as well 
+as existing defects at a scale up to millimeters and small (5 to 10 %) change in wall stiffness or mass. The proposed pipeline imaging 
+technique is based on the wave time reversal property that has been experimentally proven in UWSS [16] . This technique specifically 
+advances the transient-time-reversal by demonstrating its capability to image small-scale defects in pressurized, viscoelastic, water- 
+filled HDPE pipes — an application not previously achieved. The technique operates through a forward step that actively generates 
+HF waves, which are sensed, followed by a Time Reversal step where subspace noise is reversed and re-emitted into a UWSS model. 
+This approach allows for detailed imaging of the pipe wall ’ s inner and outer conditions, enabling proactive UWSS maintenance. The 
+technique operates through a forward step where actively-generated high frequency waves in UWSS are sensed, followed by a Time 
+Reversal step where the chronological order of the subspace noise is reversed and re-emitted into a model of the UWSS. The proposed 
+tech\n===== PAGE 3 =====\nMechanical Systems and Signal Processing 228 (2025) 112455
+3
+denoted as x
+£ 
+= ( x
+£
+, r
+£
+) where x
+£ 
+and r
+£ 
+represent respectively the axial and the radial coordinates of the £
+th 
+location, and £ = 1, 2, … , M . 
+The data is collected as follows: at each of the £
+th 
+transducer location, an acoustic source signal S ( t ) is projected, and the system 
+response is measured at all locations within the array at a sampling rate F
+s 
+(as the rule of thumb, the F
+s 
+is ten times the maximum 
+injected frequency). The digitized time-domain signals P ( n/F
+s
+, x
+i 
+| x
+j
+) from each transmitter – receiver combination are grouped into a ( 
+M × M × N ) 3D matrix K
+3 D 
+( Fig. 2 ) where i = 1, 2, … , M , j = 1, 2, … , M , n = 1, 2, … , N , and N is the signal length in time, x
+j 
+is the source 
+location and x
+i 
+is the receiver location.
+This paper focuses on imaging with high frequency (10kH-100 kHz). The low level of noise in this frequency range [17] allows the 
+use of the single-frequency versions of the TR-MUSIC algorithms and develop real time pipe imaging technique. In this approach, we 
+perform the fast Fourier transforms (FFTs) on the entries in the 3D matrix K
+3 D
+, which contains the time-domain signals collected by the 
+hydrophone array along the pipe. This transformation converts the time-domain signals into the frequency domain, resulting in the 
+frequency-domain 3D matrix 
+̂
+K
+3 D
+.From 
+̂
+K
+3 D
+, we then extract the 2D multistatic response matrix K ( ω ), which represents the pipe 
+system ’ s response at each specific frequency ω . This frequency-domain matrix K( ω ) is subsequently used in the TR-MUSIC algorithm to 
+generate a detailed, real-time image of the pipe system. For example, when using an acoustic source with a Gaussian-modulated sine 
+pulse, the imaging technique is applied to K ( ω
+0
+), which is the 2D multistatic response matrix of the pipe system at the central frequency 
+ω
+0
+. Here, ω
+0 
+represents the central frequency of the injected source, which corresponds to the peak of the frequency response signal.
+2.2. Time-Reversal operation
+In this paper the MUSIC approach for time-reversal imaging is considered. This approach was first proposed in [18] and named 
+‘time-reversal MUSIC ’ because both time-reversal methods [19] and MUSIC can be explained using the eigenvalues of the time reversal 
+operator [20] . The MUSIC algorithm, a high-resolution signal processing technique, works by decomposing the multistatic response 
+matrix K ( ω ) (which can be provided experimentally from measurement the data collected on the hydrophone array) into orthogonal 
+signal and noise subspaces using singular value decomposition (SVD). This mathematical framework is particularly useful for time- 
+reversal imaging as it exploits the inherent properties of the Green ’ s function and the orthogonality of subspaces. The MUSIC algo -
+rithm, a high-resolution signal processing technique, works by decomposing the multistatic response matrix (which can be obtained 
+experimentally from the data collected by the hydrophone array) into orthogonal signal and noise subspaces using singular value 
+decomposition (SVD). This mathematical framework is particularly useful for time-reversal imaging, as it leverages the inherent 
+properties of the Green ’ s function and the orthogonality between the signal and noise subspaces. The signal subspace is constructed 
+analytically using the Green ’ s function, which models the propagation of waves through the medium. The Green ’ s function formalism 
+helps to represent the expected response of the system to signals originating from potential scatterer locations. Once the signal is 
+analytically constructed, it is projected onto the noise subspace. Specifically, the imaging function relies on projecting test locations 
+onto the noise subspace, which enables a precise identification of the spatial distribution of scatterers.
+More details about the imaging algorithm steps are given in the following. 
+i

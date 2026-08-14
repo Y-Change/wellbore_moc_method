@@ -1,0 +1,616 @@
+SOURCE: 04-2023-A New Water Hammer Decay Model Analyzing the Interference of Multiple Fractures and Perforations on Decay Rate.pdf
+PAGES: 13
+FULL extract 13 pages
+
+
+
+===== PAGE 1 =====
+August 2023 SPE Journal 1973
+A New Water Hammer Decay Model: 
+Analyzing the Interference of Multiple 
+Fractures and Perforations on Decay Rate
+Yinghao Luo1 , Xiaodong Hu1* , Fujian Zhou1 , Yang Qiu1 , Xutao Lu1 , Jinyuan Li1 , and  
+Yajing Wang1 
+1China University of Petroleum- Beijing
+Summary
+Hydraulic fracturing technology is an important technique for developing tight oil and gas resources. Multicluster fracture diagnosis is 
+significant for hydraulic fracture design and optimization. Water hammer fracturing diagnostic technology is an emerging diagnostic 
+technology. Fracture network complexity can be assessed by the water hammer decay rate. In this paper, a new characteristic line coupling 
+model for the fracture- wellbore system is proposed. This model calculates the number of fractures and perforations based on the water 
+hammer signal. First, our paper defines a method for calculating the water hammer decay rate. Second, a characteristic line simulation 
+method for water hammer coupled with fractures and perforations is proposed. Third, the effects of different fracture- wellbore systems on 
+the water hammer decay rate are analyzed. The method is validated by laboratory experiments and numerical analysis. Finally, through 
+a field case, the results of the number of fracture openings explained by the optical fiber and our model are compared to provide support 
+for the field water hammer fracturing diagnosis. Our paper provides a new model for water hammer decay rate calculation and evaluation 
+of fracture number.
+Introduction
+At present, the proven tight oil and gas resources are abundant, and the development of tight oil and gas resources has gradually become 
+the focus of oil and gas development ( Wang et al. 2016). Tight oil and gas resources have low reservoir permeability, poor formation 
+connectivity, and low recovery (Scanlon et al. 2014; Song et al. 2017). The rise of hydraulic fracturing technology has greatly contributed 
+to the successful development of tight oil and gas resources (William et al. 2018; Dong et al. 2019; Sadykov et al. 2019; Guo et al. 2021; 
+He et al. 2020). Hydraulic fracturing requires pumping a high- pressure fluid into the formation through perforations to develop hydraulic 
+fractures. The fractures developed by hydraulic fracturing will greatly influence the oil and gas recovery rate (Ciezobka et al. 2016; Iriarte 
+et al. 2017; Dung et al. 2021). Therefore, it is important to evaluate the fracturing effect and fracture network structure of hydraulic frac-
+turing (Cipolla and Wright 2002).
+However, because hydraulic fractures are underground, fracture diagnosis often requires additional equipment. The water hammer 
+fracturing diagnostic technique collects the water hammer pressure signals during the pump shutdown stage. The water hammer propa -
+gates through the wellbore and interacts with the downhole fractures to affect the water hammer curve (Liang et al. 2017). The application 
+of this technique has been verified by field analysis (Bogdan et al. 2016; Korkin et al. 2020). At the same time, the technology has high 
+economic benefits, rapid analysis, and easy operation. These advantages enable the technology to be applied on a large scale (Parkhonyuk 
+et al. 2018).
+The idea of diagnosing bottomhole fractures with water hammer signals was first proposed by Holzhausen and Gooch (1985) through 
+pressure wave excitation experiments at the wellhead. In subsequent field tests, the idea proved to be adaptable. In Holzhausen’s model, 
+the fracture is described as a series circuit of resistance R (representing the flow resistance pressure drop between the wellbore and frac-
+ture) and capacitance C (representing the fluid storage capacity of the fracture). Subsequently, Paige et al. (1995) added an inductance I 
+to Holzhausen’s model to represent fluid mass variation in fractures. Mondal (2010) proposed a model to represent bottomhole boundary 
+conditions between wellbore and fracture (referred to here as the RCI model) by using circuit simulation of fracture conditions. The 
+authors used method of characteristic combined with bottomhole boundary conditions ( R, C, I) to numerically solve the wellbore water 
+hammer. This method can be used to solve the average bottomhole net fracture pressure and fracture geometry by R, C, and I. On this 
+basis, Carey et al. (2015) proposed that in the case of single- segment multicluster fracturing, the wellbore- fracture boundary condition 
+proposed by Mondal is an equivalence of multiple fracture effects into a single fracture. In the following year, Carey found a strong cor-
+relation between the water hammer model and the fracture length interpreted by microseismic ( Carey et al. 2016). In the same year, 
+Ciezobka et al. (2016) presented an idea related to the decay rate of water hammer. The authors considered the energy absorbed by the 
+fracture network when the pressure pulse passes through it. If the size of the fracture network is larger, the water hammer decay should 
+also be higher. Also, the authors point out that additional fractures or a larger fracture network will make the water hammer decay faster. 
+In this paper, Mondal and Carey models and Ciezobka’s idea of water hammer decay rate are introduced to solve for the number of frac-
+ture openings. Thereafter, Hwang et al. (2017) investigated the effect of each parameter in the RCI model on the water hammer signal and 
+applied the RCI model to multicluster fracturing. Haustveit et al. (2017) compared the results of electromagnetic imaging, microseismic, 
+pressure disturbance testing, fracture simulation, and water hammer pressure diagnostics and noted that the fracture lengths estimated by 
+water hammer model inversion were longer than those estimated by other methods. This may be because the water hammer pressure 
+diagnosis results considered only one “effective” fracture (Haustveit et al. 2017). Dung et al. (2021) analyzed the effect of each construc-
+tion parameter on the water hammer signal during hydraulic fracturing by numerical simulation methods. Hu et al. (2022) introduced 
+stress interference between fractures under the wellbore- fracture boundary condition proposed by Mondal and proposed a water hammer 
+diagnostic method capable of calculating multiple fracture dimensions. In the RCI model, the resistance R is introduced as an important 
+*Corresponding author; email: huxiaodong@cup.edu.cn
+Copyright © 2023 Society of Petroleum Engineers
+Original SPE manuscript received for review 8 October 2022. Revised manuscript received for review 6 February 2023. Paper (SPE 214658) peer approved 8 February 2023.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 2 =====
+August 2023 SPE Journal1974
+parameter affecting water hammer decay for matching water hammer. However, the mainstream RCI models are more concerned with the 
+volume of fracture modification. With the in- depth study of multifracture modifications, the disadvantage of resistance R is that it can only 
+represent the effect of an equivalent single fracture. In the more complex multifracture case, the resistance R is no longer able to represent 
+the impact of the number of fractures after the fracturing, but the number of fractures is correlated with the water hammer decay. Ciezobka 
+and Iriarte proposed the assumption that the water hammer decay rate is correlated with the fracture network and that additional fracture 
+expansion will lead to larger water hammer decay ( Ciezobka et al. 2016; Iriarte et al. 2017). Dung summarized the water hammer and 
+production data to conclude that wells with shorter water hammer durations are more productive. However, Dung’s conclusion lacks a 
+quantifiable indicator of water hammer decay rate and cannot be widely used in water hammer fracture diagnosis (Dung et al. 2021). The 
+studies of the abovementioned scholars have sufficiently demonstrated the correlation between water hammer decay and fracture net -
+works. Therefore, the decay rate study is in urgent need of a scientific method for calculating the decay rate and a method that can sys -
+tematically analyze the relationship between fracture and water hammer decay rate.
+The two main factors affecting the water hammer decay rate are the pipe flow resistance and the wellbore- fracture flow resistance. In 
+the calculation of water hammer, pipe flow resistance has been studied by many scholars, and mature calculation methods have been 
+proposed (Chaudhry 2014). However, in the wellbore- fracture model represented by RCI, the flow resistance between the wellbore and 
+the fracture is represented only by the resistance R (Carey et al. 2015). The flow resistance between the wellbore and the fracture has a 
+complex composition and lacks a clear physical meaning expressed only by the resistance R to determine the number of fractures. It is 
+also difficult to properly represent the power relationship between pressure drop and flow rate by resistance R, which may lead to poor 
+water hammer matching. In addition, the relationship between wellbore- fracture flow resistance and water hammer decay rate has not 
+been analyzed, and the water hammer decay rate lacks a scientific calculation method.
+Therefore, this paper proposes a new method to consider the wellbore- fracture flow resistance, which overcomes the problem of 
+unclear physical meaning of the resistance R. The method expresses the pressure drop of the flow resistance between the wellbore and 
+fracture due to the resistance R as the pressure drop brought by the fluid passing through the perforations and fractures (including the 
+perforation friction pressure drop and the fracture tortuous friction pressure drop). Based on this, a water hammer decay rate calculation 
+method is also proposed in this paper. Then, the water hammer curve is simulated based on the water hammer model proposed in this 
+paper considering fractures and bottomhole perforations. An inverse fracture number calculation method is obtained by matching the field 
+water hammer decay rate. Then, the model is validated by experimental and numerical simulation methods in this paper. Finally, the 
+model is used in a multicluster hydraulic fracturing field. A comparative study between the model in this paper and the fiber- optic moni-
+toring interpretation is carried out. The research in this paper can provide a diagnostic method for pump stoppage water hammer diagnosis 
+method regarding water hammer decay rate and fracture number.
+Model Development
+The water hammer decay rate analysis model proposed in this paper will be divided into two parts. In the first part, we define the process 
+and method of calculating the decay rate to provide a method for subsequent decay rate calculations. The method extracts the key points 
+in the water hammer data and fits the data points after normalization to obtain the water hammer decay rate data. In the second part, we 
+propose a method to define the boundary conditions of bottomhole fractures considering fractures and perforation friction. Water hammer 
+is solved by the method of characteristic. Meanwhile, a laboratory experiment on the relationship between the number of fractures and 
+the water hammer decay rate is designed.
+Decay Rate Calculation Method. This part is based on the extraction, normalization, and curve fitting of water hammer data to obtain 
+a water hammer decay rate parameter method. The water hammer signal will generate cycles. Each cycle will produce peaks and 
+valleys. The method first extracts the peak of each cycle in the water hammer data and records the pressure Pi
+/NUL
+i = 1, 2, , , n
+/SOH
+ and time 
+Ti
+/NUL
+i = 1, 2, , , n
+/SOH
+ of the peak of each cycle. The peak is defined as the maximum point in one cycle of the water hammer wave. Second, the 
+recorded pressures and times need to be standardized. The time of the first peak point is used as the zero starting point of the time axis, 
+and the time of each subsequent peak is redefined in this time axis (in seconds). The average pressure after the water hammer stops is 
+defined as the water hammer stop pressure (Pstop), which is the minimum value normalized for other pressures. The calculation formula 
+can be expressed as Eqs. 1 and 2.
+ Ti = Ti /NULT1, (1)
+ Pi =
+/NUL
+Pi /NULPstop
+/SOH
+/
+/NUL
+P1 /NULPstop
+/SOH
+, (2)
+where P1 is the point in the cycle with the maximum peak pressure and T1 is the time corresponding to the maximum pressure point P1. 
+Iriarte et al. (2017) note that the water hammer signal decay can be represented by a curve fit from Eq. 3. Fig. 1 shows the selection of the 
+peak pressure and the expression of the decay rate curve under the decay rate method in this paper. Among them, the analytical value of 
+Eq. 3 has been normalized by Eqs. 1 and 2. The value of A is approximately equal to 1, and the value of B can indicate the decay rate of 
+water hammer. The larger the value of B, the more obvious the water hammer decay is.
+ Pi = A /STXe/NULTiB. (3)
+Water Hammer Model Considering Fractures and Perforations. The model is used to simulate the water hammer process of pump 
+stoppage by the model of characteristic. The model consists of two main parts: One is the modeling of the flow in the wellbore and the 
+other is the establishment of the boundary conditions. The wellbore flow model is mainly controlled by the momentum equation and the 
+continuity equation. Chaudhury proposed that the momentum equation and the continuity equation can be simplified as Eqs. 4 and 5 in 
+the case of low Mach number unsteady flow (Chaudhry 2014).
+ 
+@Q
+@t + gA @H
+@x + fQ|Q|
+2DA = 0, (4)
+ 
+@H
+@t + a2
+gA
+@Q
+@x = 0,
+ (5)
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 3 =====
+August 2023 SPE Journal 1975
+where in Q denotes fluid flow rate (m3/s), H  denotes the pressure head (m), t denotes the time (seconds), x denotes the coordinate axis 
+along the axis of the pipe (m), D denotes the pipe diameter (m), g denotes the acceleration of gravity (m/s2), f  denotes the friction coef-
+ficient, A denotes the cross- sectional area of the wellbore (m2), and a denotes the wave speed (m/s).
+The momentum and continuity equations are transformed into four ordinary differential equations by the method of characteristic. 
+Wylie and Streeter begin the method of characteristic transformation by rewriting the momentum and continuity equations, and the char-
+acteristic lines C+ and C/NUL can be expressed by Eqs. 6 and 7 (Wylie and Streeter 1993).
+ C+W Ht+/c129t
+i = Ht
+i/NUL1 /NULB
+/DLE
+Qt+/c129t
+i /NULQt
+i/NUL1
+/DC1
+/NULrQt
+i/NUL1|Qt
+i/NUL1|, (6)
+ C/NULW Ht+/c129t
+i = Ht
+i+1 + B
+/DLE
+Qt+/c129t
+i /NULQt
+i+1
+/DC1
++ rQt
+i+1|Qt
+i+1|, (7)
+where B = a
+gA and r = f/c129x
+2gDA2 . The description of the method of characteristic has been very well described in previous studies by schol-
+ars, and only the key formulas used for the solution calculation are enumerated in this paper (Wylie and Streeter 1993). However, Eqs. 6 
+and 7 are only valid when both C+ and C/NUL equations are present. At the wellhead and bottom of the hole, only one of the C+ or C/NUL equa-
+tions are present, so boundary conditions are required for the solution.
+The boundary conditions of the water hammer model containing fractures are divided into two main parts: the wellhead boundary 
+conditions and the bottomhole fracture boundary conditions. At the wellhead, the flow at the wellhead is assumed to decrease linearly to 
+zero during pump shutdown. Therefore, the boundary condition of the wellhead can be defined by the change in flow rate. According to 
+the wellhead boundary flow rate, we can calculate the wellhead boundary water head through the C/NUL equation.
+In a bottomhole fracture, the bottomhole fracture boundary condition can consist of a set resistance R, capacitance C, and inductance 
+I equivalent to a circuit (RCI model), according to the description of the bottomhole fracture boundary in Carey et al. (2015). To simplify 
+the bottomhole pressure inversion process, we make the following assumptions: (1) Only plane fractures of constant height and ellipsoidal 
+section are created; (2) the fracture length is constant, and the fracture compliance during the water hammer duration depends only on the 
+change of width; (3) the leakoff of cracks is not considered during the water hammer duration; (4) the flow resistance mainly comes from 
+the wellbore and near- wellbore areas, including wellbore flow, near- wellbore tortuosity, and perforation friction, without considering the 
+flow resistance along the fracture length; (5) the average bottomhole pressure (PBH) can be estimated by a water hammer model, ground 
+pressure, or downhole pressure gauge (Carey et al. 2015).
+According to the RCI model, the bottomhole pressure ( PBH) in the bottomhole boundary condition can be expressed by Eq. 8 ( Carey 
+et al. 2015).
+ PBH = /c129Pnwf + N/c129P0 + SHmin = /c129Pnwf + NPf. (8)
+PBH  denotes the bottomhole pressure, /c129Pnwf  denotes the near- well friction pressure drop, N/c129P0 denotes the average net pressure, SHmin 
+denotes the minimum formation stress, and NPf  denotes the average fracture pressure. /c129Pnwf  can be expressed by the resistance R through 
+Eq. 9 (Carey et al. 2015). The resistance R is defined as a constant of proportionality between the discharge Q into or out of the fracture 
+and the potential difference required to maintain the discharge. N/c129P0 can be calculated by capacitance C and inductance I in the RCI model 
+according to different fracture types (Shlyapobersky et al. 1988; Carey et al. 2015).
+ /c129Pnwf = RQwellbottom, (9)
+Fig. 1— Water hammer signal decay.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 4 =====
+August 2023 SPE Journal1976
+where Qwellbottom denotes the flow rate at the bottom of the hole. It should be noted that the calculation method of bottomhole fracture 
+boundary conditions of RCI model is described in detail in many papers (Carey et al. 2015, Carey et al. 2016; Hwang et al. 2017; Hu et al. 
+2022). This paper is to study the influence of near- well friction pressure drop (/c129Pnwf ) on water hammer decay rate. Therefore, this paper 
+only shows the calculation equation of near- well friction pressure drop ( /c129Pnwf ) in the RCI model, and the calculation method of the 
+average net pressure ( N/c129P0) can be found in Hu et al. (2022).
+According to Ciezobka et al. (2016), additional fractures, more extensive fracture networks, and well- fracture connectivity can have 
+an impact on the water hammer decay rate, and more complex fracture network conditions may lead to increased water hammer decay 
+rates. Therefore, the near- well frictional pressure drop ( /c129Pnwf ) can have an impact on water hammer decay. The near- well frictional 
+pressure drop is mainly caused by near- wellbore tortuosity and perforation friction resistance (Cleary et al. 1991). Therefore, in this paper, 
+to investigate the specific law of near- well frictional pressure drop on water hammer decay, the pressure drop due to near- wellbore tortu-
+osity (/c129Pffrac) and perforation friction resistance ( /c129Pfperf ) are applied to the bottomhole fracture boundary conditions for the first time. 
+The near- wellbore tortuosity and the perforation friction pressure drop can be expressed by Q˛(Willingham et al. 1993; Romero et al. 
+1995):
+ /c129Pffrac = KffracQ0.5, (10)
+ /c129Pfperf = KfperfQ2, (11)
+where Q denotes the total flow rate at the bottom of the well (m 3/s), Kffrac denotes the near- wellbore tortuosity coefficient, and Kfperf  
+denotes the perforation friction coefficient. The perforation friction coefficient can be expressed by Eq. 12 (Willingham et al. 1993):
+ 
+Kfperf = 0.807249 /SUB
+n2p D4p C2
+d
+,
+ 
+(12)
+where np denotes the number of perforations, Dp denotes the perforation diameter (m), Cd  denotes the perforations flow coefficient, and 
+/SUB denotes the fluid density (kg/m3). In this paper, Eq. 10 can be rewritten to represent the near- wellbore tortuosity pressure drop caused 
+by different number of fractures, assuming that the number of fracture openings is i and each cluster of fractures is uniformly fluid:
+ /c129Pffrac = i /STX
+/DLE
+Kffrac
+/NUL
+Q/i
+/SOH0.5/DC1
+. (13)
+Therefore, according to Eqs. 8, 11, and 13, the bottomhole pressure can be expressed as
+ PBH = N/c129P0 + SHmin + /c129Pnwf = NPf + /c129Pnwf, (14)
+ 
+PBH = NPf + 0.807249 /SUB
+n2p D4p C2
+d
+Q2 + i /STX
+/DLE
+Kffrac
+/NUL
+Q/i
+/SOH0.5/DC1
+,
+ 
+(15)
+where N/c129P0 can be calculated by the RCI model described above, NPf = N/c129P0 + SHmin, and /c129Pnwf  is replaced by /c129Pffrac+/c129Pfperf . Because 
+the bottomhole pressure PBH  is a function related to Q, the bottomhole fracture boundary condition should be solved for flow rate by 
+coupling Eq. 15 with Eq. 6, as shown in Eq. 16. Finally, the solved bottomhole fracture boundary flow rateis brought into Eq. 6 to solve 
+for the bottomhole fracture boundary head.
+ 
+ 
+NPf + 0.807249 /SUB
+n2p D4p C2
+d
+/DLE
+Qt+/c129t
+i
+/DC12
++ i /STX
+/DC2
+Kffrac
+/DLE
+Qt+/c129t
+i /i
+/DC10.5/DC3!/RS/NUL
+/SUBg
+/SOH
+= Ht
+i/NUL1 /NULB
+/DLE
+Qt+/c129t
+i /NULQt
+i/NUL1
+/DC1
+/NULrQt
+i/NUL1|Qt
+i/NUL1|
+.
+ 
+(16)
+Based on the boundary conditions described above, a water hammer model that can consider fractures and perforations at the bottom of 
+the hole can be obtained by using the method of characteristic. The different water hammer simulation curves can be obtained for different 
+numbers of fractures and perforations. The water hammer decay rate can be calculated using the decay rate calculation method for differ-
+ent numbers of fractures and perforations.
+Water Hammer Experiments
+In this paper, a laboratory experimental system for simulating fracturing stop pump water hammer was built. The water hammer pressure 
+wave decay rate test in the simulated horizontal pipe section was carried out. The water hammer decay variation law under different sim-
+ulated fracture opening cases was studied. The device is mainly composed of a piping system, a control system, a collection system, and 
+a fracture simulation system, and its working schematic diagram is shown in Fig. 2.
+Fig. 2— Schematic diagram of the experimental device for simulating fractures.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 5 =====
+August 2023 SPE Journal 1977
+Experimental Setup. The piping system is a 190- m- long welded cast iron pipeline with an inner diameter of 16 mm and a wall thickness 
+of 1 mm. The control system is a screw pump, through which the liquid is pumped into the piping system, and the instantaneous stopping 
+of the screw pump simulates the water hammer effect at the end of hydraulic fracturing. The collection system is a pressure monitor 
+connected to the outlet of the screw pump at 2 m and the collection software. The range of the pressure monitor is 0 to 5 MPa, with an 
+accuracy of 0.01% of full scale and a frequency response of 10 kHz. The fracture simulation system consists of three valve- connected 
+stubs. The end of the branch pipe is connected to a 5- m- high constant pressure vessel to simulate the fracture pressure. The branch pipes 
+are 15.9, 33.2, and 53.6 m from the end of the piping system. In this experiment, the water hammer decay of different branch pipes with 
+the same flow rate was recorded to analyze the water hammer decay law.
+Procedures. The laboratory experiment is to test the influence of fractures on water hammer decay rate by opening different numbers of 
+simulated fractures. The first step is to connect the pressure monitor to the pipeline to ensure that the pump stop water hammer can be 
+successfully collected. The fluid storage tank is filled with fluid to ensure that the experiment can continue. The second step is to open the 
+corresponding branch valve according to the experimental scheme. There are seven groups of experimental schemes, which are opening 
+Valves 1, 2, 3, Valves 1 and 2, Valves 1 and 3, Valves 2 and 3, Valve 1 only, Valve 2 only, and Valve 3 only, respectively. The third 
+step is to open the screw pump with a working frequency of 20 Hz, waiting for stable flow in the pipeline. The fourth step is to use the 
+pump operation interface to stop the pump instantaneously and use the high- frequency pressure monitor to collect the pressure data in 
+the pipeline. Finally, repeat the above steps until all experimental measurements are completed. The experiment data interpretation and 
+results will be discussed in the Model Results section.
+Model Validation
+To verify the feasibility of the model proposed in this paper in terms of water hammer simulation calculation and water hammer decay 
+rate calculation, we cite the results of Carey’s RCI model matching water hammer. The water hammer decay rate is also calculated to 
+analyze whether the decay rate calculation method is accurate.
+The RCI parameters for matching Well A in the Carey paper are shown in Table 1 (Carey et al. 2015 ). Table 1 also shows the 
+key parameters used in this paper to replace the resistance R. The values of water hammer decay rate for the field data, RCI model, 
+and the model in this paper can be seen in Table 2, and the corresponding water hammer curve comparison can be seen in  
+Fig. 3.
+Parameters RCI Model Values Our Model Values
+Resistance, R (Pa·s/m3) 1.52×107 –
+Perforation flow coefficient – 0.6
+Perforation diameter (m) – 0.01
+Number of perforations – 30
+Tortuosity coefficient – 550,000
+Number of fractures – 3
+Near- wellbore friction, /c129Pnwf  (MPa) 1.94 4.44
+Capacitance, C (m3/Pa) 1.12×10−5 1.12×10−5
+Inductance, I [Pa/(m3/s2)] 1.75 1.75
+Table 1— Parameters of wellbore- fracture boundary conditions.
+Data Field Data Simulated Data by Carey Simulated Data by Our Model
+Decay rate 0.0523 0.0493 0.0507
+Table 2— Decay rate for model validation.
+Through the above case, it can be verified that the model proposed in this paper can be applied to simulate water hammer. Similar 
+water hammer curves can be obtained when using the wellbore- fracture boundary conditions defined in this paper. The overall aver -
+age pressure of the field data, RCI simulation, and the model in this paper are 29.5, 29.1, and 29.3 MPa, and the overall pressure of 
+the model in this paper is 0.68% compared with the field data; the average pressures of the first five wave peaks of the above model 
+are 31.8, 31.3, and 31.6 MPa, and the average pressure of the wave peaks in this paper is 0.63% compared with the field data. The 
+initial wellhead pressures for the above models were 37.3, 34.5, and 37.0 MPa. The initial wellhead pressure RCI model was com -
+pared to the field data with an error of 7.5%. This may be because the near- wellbore friction resistance calculated by the resistance 
+R is too small during the initial pumping stop stage. The difference between the values of near- wellbore friction pressure drop in the 
+initial stage of this paper model and the RCI model is 2.5 MPa, which may be the reason why the initial pressure of the RCI model 
+is lower than the field data. In addition, the water hammer decay rates of the above models are 0.0523, 0.0493, and 0.0507, and the 
+decay rate error between this model and the field data is 0.0016, which is less than the decay rate error of the RCI model of 0.003. 
+The model in this paper has a small error in calculating the water hammer pressure but is more accurate in calculating the initial 
+wellhead pressure and matching the decay rate, so this case can confirm the feasibility of the method and model used in  
+this paper.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 6 =====
+August 2023 SPE Journal1978
+Model Results
+In this paper, we first analyze the influence of the number of fractures on the water hammer decay rate by the model and then use exper-
+imental comparison to examine the effect law. Second, the water hammer curves are simulated for different bottomhole fractures and 
+perforation parameters. Based on the simulated water hammer decay rate, radar plots are drawn to analyze the influence rule and degree 
+of each parameter on water hammer decay. Finally, this paper combines the fiber- optic interpretation. The model decay rate, the number 
+of fracture bars, and the fiber- optic interpretation are compared in this paper.
+Base Case. Simulation Analysis. First, we created a simulated horizontal well with initial data for hydraulic fracturing. The initial data 
+is given in Table 3. By changing the values of the number of fractures in the initial parameters, the water hammer decay rates taken for 
+the cases of 1, 3, 5, and 7 fractures are obtained as represented in Fig. 4 and Table 4, and the corresponding water hammer curves are 
+shown in Fig. 5.
+Experimental Analysis. Through the water hammer decay rate laboratory experiments described above, the branches are named 1, 2, 
+and 3 as shown in Fig. 2. By adjusting the number of branches open to simulate the number of fractures, Case 1 is open only for Branch 
+Parameters Values
+Pipe length (m) 4000
+Vertical depth (m) 2500
+Wave speed (m/s) 1000
+Density (kg/m3) 1000
+Pipe diameter (m) 0.11
+Initial flow rate (m3/min) 4
+Pump stop time (seconds) 2
+Flow friction 0.005
+Perforation flow coefficient 0.6
+Perforation diameter (m) 0.01
+Number of perforations 25
+Tortuosity coefficient 1,400,000
+Number of fractures 3
+Average fracture pressure (MPa) 60
+Capacitance, C (m3/Pa) 1.5×10–5
+Inductance, I [Pa/(m3/s2)]) 2
+Table 3— Simulated horizontal well water 
+hammer initial parameters.
+Fig. 3— Model validation of water hammer curve.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 7 =====
+August 2023 SPE Journal 1979
+1; Case 2 is open only for Branch 2; Case 3 is open only for Branch 3; Case 4 is open for Branches 1 and 2; Case 5 is open for Branches 
+2 and 3; Case 6 is open for Branches 1 and 3; Case 7 is open for Branches 1, 2, and 3. The experimental opening scheme of each case and 
+the corresponding water hammer decay rate are shown in Table 5 and Fig. 6. The corresponding water hammer curves for each experi -
+mental case are shown in Fig. 7.
+Fig. 4— Effect of the number of fractures on the decay rate and fracture tortuous friction.
+Number of fractures 1 3 5 7
+Decay rate 0.055 0.081 0.100 0.131
+Table 4— Simulated fractures and decay rate results.
+Fig. 5— Water hammer curves for different numbers of fractures.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 8 =====
+August 2023 SPE Journal1980
+Cases Case 1 Case 2 Case 3 Case 4 Case 5 Case 6 Case 7
+Fracture opening 1 2 3 1, 2 2, 3 1, 3 1, 2, 3
+Decay rate 0.350 0.288 0.209 0.528 0.398 0.473 0.643
+Table 5— Experimental case parameters and decay rate results.
+Fig. 6— Experimental case number of branches and decay rate results.
+Fig. 7— Experimental case water hammer signal and decay rate fitting.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 9 =====
+August 2023 SPE Journal 1981
+Based on the above base case analysis, it can be concluded that in the simulated case, when the number of fractures increases from 1 
+to 7, the water hammer decay rate is 0.055, 0.081, 0.100, and 0.131, and the fracture torsional friction pressure drop at the initial flow rate 
+is 0.36, 0.63, 0.81, and 0.96 MPa. The increase of fracture torsional friction pressure drop leads to an increase in the water hammer decay 
+rate. In the experimental case, the average water hammer decay rate is 0.282 when the number of branch pipe openings is 1, 0.466 when 
+the number of branch pipe openings is 2, and 0.643 when the number of branch pipe openings is 3. Therefore, according to the simulation 
+and experiment of this paper, the following conclusions can be made: (1) With the increase in the number of fractures, the water hammer 
+decay rate will also increase; (2) the experimental water hammer decay rate increases with the increase in the number of branches, which 
+is consistent with the law of simulation conclusions; and (3) the larger the experimental water hammer decay rate of a single branch, the 
+larger the overall decay rate of the multibranches combination. For example, the decay rate on Branch 1 > Branch 2 > Branch 3, and the 
+decay rate on Branches 1, 2, 3 > Branches 1, 2 > Branches 1, 3 > Branches 2, 3.
+Numerical Case Analysis. In the initial data of Table 3 , the parameters of the wellbore- fracture boundary conditions, including 
+perforation diameter, number of perforations, perforation flow coefficient, tortuosity coefficient, number of fractures, average fracture 
+pressure, inductance I, and capacitance C, were increased by 20% in this paper to compare the degree of influence of each parameter on 
+water hammer decay rate. The effect law of each parameter on water hammer decay is shown in Fig. 8.
+Fig. 8— Effect of bottomhole fracture parameters on decay rate.
+Among them, the initial parameter decay rate is 0.081, and after increasing the parameters by 20%, the decay rate is 0.071 when the 
+variable is perforation diameter, the number of perforations decay rate is 0.075, the perforation flow coefficient decay rate is 0.075, the 
+tortuosity coefficient decay rate is 0.091, the number of fracture bars decay rate is 0.087, the average fracture pressure decay rate is 0.081, 
+and the inductance decay rate is 0.81. According to the effect of parameters on the water hammer decay rate in Fig. 7, the following con-
+clusions can be made: (1) Tortuosity coefficient and number of fractures are positively related to the decay rate. The decay rate increases 
+with the increase of the tortuosity coefficient and the number of fractures. (2) The perforation diameter, number of perforations, and 
+perforation flow coefficient are negatively correlated with the decay rate. The decay rate decreases with the increase of perforation diam-
+eter, number of perforations, and perforation flow coefficient. (3) Capacitance, inductance, and average fracture pressure are not cor -
+related with the decay rate. Changes in capacitance, inductance, and average fracture pressure only affect the overall pressure. (4) Under 
+the initial conditions of this paper, the tortuosity coefficient has the largest effect among the positively correlated parameters, with +12.8% 
+change in decay rate. The perforation diameter has the largest effect among the negatively correlated parameters, with −12.3% change in 
+decay rate.
+Field Case Study
+In this paper, the model is used to match the decay rate of the field data of a multifracture hydraulic fracturing horizontal well. The well 
+is also equipped with optical fiber monitoring technology, which can monitor the bottomhole fractures in real time. The well is 3843 m 
+deep. The well has different perforation schemes of 4 clusters, 10 holes per cluster and 6 clusters, 8 holes per cluster. In this paper, two 
+fracturing stages of different perforation schemes are selected for analysis. The first stage is 4 clusters, and the second stage is 6 clusters. 
+The value of each simulation parameter is determined by the matching results of the simulation and the field water hammer curve. Water 
+hammer curve matching includes water hammer decay rate, amplitude, pump stop time pressure, pressure peak, waveform, and cycle 
+matching. The water hammer decay rate is the most important determinant in the process of water hammer curve matching. The specific 
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 10 =====
+August 2023 SPE Journal1982
+simulation parameters and decay rate calculation results of each stage can be seen in Table 6. The comparison results of simulated water 
+hammer and field water hammer in the corresponding stage can be seen in Figs. 9 and 10, and the optical fiber interpretation results can 
+be seen in Figs. 11 and 12.
+Parameters Stage 1 Stage 2
+Horizontal length (m) 912 484
+Wave speed (m/s) 1470 1470
+Pipe diameter (m) 0.11552 0.11552
+Initial flow rate (m3/min) 3.7 2.2
+Pump stop time (seconds) 3 2
+Flow friction 0.0017 0.0015
+Perforation flow coefficient 0.6 0.6
+Perforation diameter (m) 0.01 0.01
+Number of perforations 15 21
+Tortuosity coefficient 1,650,000 1,700,000
+Number of fractures 3 5
+Average fracture pressure (MPa) 65.40 68.15
+Simulated water hammer decay rate 0.0998 0.1195
+Field water hammer decay rate 0.0996 0.1196
+Table 6— Water hammer simulation parameters and decay rate 
+results.
+Fig. 9— Water hammer matching results and decay rates of Stage 1.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 11 =====
+August 2023 SPE Journal 1983
+Fig. 10— Water hammer matching results and decay rates of Stage 2.
+Fig. 11— Optical fiber signal diagram of Stage 1.
+Fig. 12— Optical fiber signal diagram of Stage 2.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 12 =====
+August 2023 SPE Journal1984
+In the first stage, the decay rate of water hammer is 0.0996, the decay rate of simulated water hammer is 0.0998, and the decay rate 
+error is 0.2%. In the second stage, the decay rate of water hammer is 0.1196, the decay rate of simulated water hammer is 0.1195, and the 
+decay rate error is 0.08%. By matching the decay rate of water hammer, a set of bottomhole fracture and perforation parameters matching 
+the decay rate of water hammer can be obtained. When the simulated water hammer decay is the same as or similar to the field water 
+hammer decay, it can be considered that the wellbore- fracture boundary conditions under the simulation can approximately express the 
+real bottomhole conditions. Through the analysis of the above two field cases and the matching results of fracture number and decay rate 
+in Table 6, it can be concluded that there are three clusters of fractures in the first stage of fracturing and five clusters of fractures in the 
+second stage of fracturing. According to the optical fiber monitoring liquid position, it can be observed that the first stage has three liquid 
+positions; there are five liquid inlet positions in the second stage, which is related to the number of fractures calculated by the model. 
+According to the field case study of the above water hammer decay rate, it can be concluded that the water hammer decay rate is related 
+to the fracture reconstruction volume and the number of fractures. Therefore, a larger decay rate indicates a larger near- well friction, a 
+larger decay rate may indicate more fractures.
+Discussion
+Through the research in this paper, it is found that there is a strong correlation between the water hammer decay rate and the number of 
+fractures during the pump stopping process. The larger water hammer decay rate in the fracturing pump shutdown may represent the 
+formation of more fractures during fracturing. At the same time, this paper proposes a new model. First, decay rate calculation model can 
+correctly calculate the value of the water hammer decay rate from water hammer data. Second, our model considers the influence of near- 
+wellbore tortuosity and perforation friction pressure drop in the bottomhole boundary condition obtained by the method of characteristic, 
+so that the characteristic line method can simulate the water hammer of hydraulic fracturing with fractures and perforations. Compared 
+with previous studies, we focus on the influence of flow friction near the well on water hammer decay rate. This paper presents a standard 
+calculation method for the water hammer decay rate. At the same time, this paper considers the influence of fracture and perforation on 
+the bottomhole boundary conditions, so that the method of judging the number of fractures by inverting water hammer decay can be 
+realized. At present, this method can realize rapid fracturing diagnosis by analyzing the decay rate of water hammer and determine 
+whether an effective fracture or fracture network structure is formed. However, the model in this paper only considers the flow friction 
+near the well and does not consider the flow friction caused by the fracture geometry. Subsequent studies will consider the influence of 
+fracture geometry on water hammer decay rate.
+Conclusions
+1. The increase in the number or complexity of fractures will result in an increase of the water hammer decay rate. In the same case, more 
+fractures may show faster water hammer decay.
+2. The increase of perforation number or perforation diameter will result in a decrease of water hammer decay rate. In the same case, 
+more perforations may show slower water hammer decay.
+3. The average fracture pressure will not affect the water hammer decay rate. The average fracture pressure needs to be judged with RCI 
+model.
+4. The effect of fracture on water hammer decay is positive, and the effect of perforation on water hammer is negative. Therefore, in the 
+process of inversion of water hammer decay, the requirements of fracturing perforation parameters should be fully considered, and the 
+numerical relationship between fracture and perforation should be reasonably selected for simulation.
+Acknowledgments
+The authors acknowledge the financial support from the National Natural Science Foundation of China (No. 52004300).
+References
+Bogdan, A. V ., Keilers, A., Oussoltsev, D. et al. 2016. Real- Time Interpretation of Leak Isolation with Degradable Diverter Using High Frequency Pressure 
+Monitoring. Paper presented at the SPE Asia Pacific Oil & Gas Conference and Exhibition, Perth, Australia, 25–27 October. SPE- 182451- MS. https:// 
+doi.org/10.2118/182451-MS.
+Carey, M. A., Mondal, S., and Sharma, M. M. 2015. Analysis of Water Hammer Signatures for Fracture Diagnostics. Paper presented at the SPE Annual 
+Technical Conference and Exhibition, Houston, Texas, USA, 28–30 September. SPE- 174866- MS. https://doi.org/10.2118/174866-MS.
+Carey, M. A., Mondal, S., Sharma, M. M. et al. 2016. Correlating Water Hammer Signatures with Production Log and Microseismic Data in Fractured 
+Horizontal Wells. Paper presented at the SPE Hydraulic Fracturing Technology Conference, The Woodlands, Texas, USA, 9–11 February. SPE- 179108- 
+MS. https://doi.org/10.2118/179108-MS.
+Chaudhry, M. H. 2014. Applied Hydraulic Transients. New York, USA: Springer. https://doi.org/10.1007/978-1-4614-8538-4.
+Ciezobka, J., Maity, D., and Salehi, I. 2016. Variable Pump Rate Fracturing Leads to Improved Production in the Marcellus Shale. Paper presented at the 
+SPE Hydraulic Fracturing Technology Conference, The Woodlands, Texas, USA, 9–11 February. SPE- 179107- MS. https://doi.org/10.2118/179107- 
+MS.
+Cipolla, C. L. and Wright, C. A. 2002. Diagnostic Techniques To Understand Hydraulic Fracturing: What? Why? And How? SPE Prod & Fac  17 (1): 
+23–35. SPE- 75359- PA. https://doi.org/10.2118/75359-PA.
+Cleary, M. P., Wright, C. A., and Wright, T. B. 1991. Experimental and Modeling Evidence for Major Changes in Hydraulic Fracturing Design and Field 
+Procedures. Paper presented at the SPE Gas Technology Symposium, Houston, Texas, USA, 22–24 January. SPE- 21494- MS. https://doi.org/10.2118/ 
+21494-MS.
+Dong, J., Chen, M., Jin, Y . et al. 2019. Study on Micro- Scale Properties of Cohesive Zone in Shale. Int J Solids Struct 163: 178–193. https://doi.org/10. 
+1016/j.ijsolstr.2019.01.004.
+Dung, N., David, C., Tom, D. et al. 2021. Practical Applications of Water Hammer Analysis from Hydraulic Fracturing Treatments. Paper presented at the 
+SPE Hydraulic Fracturing Technology Conference and Exhibition, Virtual, 4–6 May. SPE- 204154- MS. https://doi.org/10.2118/204154-MS.
+Guo, T., Tang, S., Liu, S. et al. 2021. Physical Simulation of Hydraulic Fracturing of Large- Sized Tight Sandstone Outcrops. SPE J. 26 (1): 372–393. SPE- 
+204210- PA. https://doi.org/10.2118/204210-PA.
+Haustveit, K., Dahlgren, K., Greenwood, H. et al. 2017. New Age Fracture Mapping Diagnostic Tools- A STACK Case Study. Paper presented at the SPE 
+Hydraulic Fracturing Technology Conference and Exhibition, Texas, USA, 24–26 January. SPE- 184862- MS. https://doi.org/10.2118/184862-MS.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026
+
+===== PAGE 13 =====
+August 2023 SPE Journal 1985
+He, Y ., Cheng, S., Sun, Z. et al. 2020. Improving Oil Recovery Through Fracture Injection and Production of Multiple Fractured Horizontal Wells. J Energy 
+Resour Technol 142 (5): 5. https://doi.org/10.1115/1.4045957.
+Holzhausen, G. R. and Gooch, R. P. 1985. Impedance of Hydraulic Fractures: Its Measurement and Use for Estimating Fracture Closure Pressure and 
+Dimensions. Paper presented at the SPE/DOE Low Permeability Gas Reservoirs Symposium, Denver, Colorado, USA, 19–22 May. SPE- 13892- MS. 
+https://doi.org/10.2118/13892-MS.
+Hu, X., Luo, Y ., Zhou, F. et al. 2022. Evaluation of Multi- Fractures Geometry Based on Water Hammer Signals: A New Comprehensive Model and Field 
+Application. J Hydrol 612: 128240. https://doi.org/10.1016/j.jhydrol.2022.128240.
+Hwang, J., Szabian, M. J., and Sharma, M. 2017. Hydraulic Fracture Diagnostics and Stress Interference Analysis by Water Hammer Signatures in Multi- 
+Stage Pumping Data. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology Conference, Austin, Texas, USA, 24–26 July. 
+URTEC- 2687423- MS. https://doi.org/10.15530/urtec-2017-2687423.
+Iriarte, J., Merritt, J., and Kreyche, B. 2017. Using Water Hammer Characteristics as a Fracture Treatment Diagnostic. Paper presented at the SPE 
+Oklahoma City Oil and Gas Symposium, Oklahoma, USA, 27–31 March. SPE- 185087- MS. https://doi.org/10.2118/185087-MS.
+Korkin, R., Parkhonyuk, S., Fedorov, A. et al. 2020. High Frequency Pressure Monitoring and Data Analytics for Stimulation Efficiency Determination: 
+New Perspectives or Potential Limits. Paper presented at the SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, 
+USA, 4–6 February. SPE- 199762- MS. https://doi.org/10.2118/199762-MS.
+Liang, C., O’Reilly, O., Dunham, E. M. et al. 2017. Hydraulic Fracture Diagnostics from Krauklis- Wave Resonance and Tube- Wave Reflections. 
+Geophysics 82 (3): D171–D186. https://doi.org/10.1190/geo2016-0480.1.
+Mondal, S. 2010. Pressure Transients in Wellbores: Water Hammer Effects and Implications for Fracture Diagnostics. MSc thesis, The University of Texas 
+at Austin, Austin, Texas, USA.
+Paige, R. W., Murray, L. R., and Roberts, J. D. M. 1995. Field Application of Hydraulic Impedance Testing for Fracture Measurement. SPE Prod & Fac 
+10 (1): 7–12. SPE- 26525- PA. https://doi.org/10.2118/26525-PA.
+Parkhonyuk, S., Fedorov, A., Kabannik, A. et al. 2018. Measurements While Fracturing: Nonintrusive Method of Hydraulic Fracturing Monitoring. Paper 
+presented at the SPE Hydraulic Fracturing Technology Conference and Exhibition, The Woodlands, Texas, USA, 23–25 January. SPE- 189886- MS. 
+https://doi.org/10.2118/189886-MS.
+Romero, J., Mack, M. G., and Elbel, J. L. 1995. Theoretical Model and Numerical Investigation of Near- Wellbore Effects in Hydraulic Fracturing. Paper 
+presented at the SPE Annual Technical Conference and Exhibition, Dallas, Texas, USA, 22–25 October. SPE- 30506- MS. https://doi.org/10.2118/ 
+30506-MS.
+Sadykov, A., Baki, S., Mechkak, K. et al. 2019. Diversion Techniques Applications in Unconventional Resources Fields. Paper presented at the SPE Middle 
+East Oil and Gas Show and Conference, Manama, Bahrain, 18–21 March. SPE- 194791- MS. https://doi.org/10.2118/194791-MS.
+Scanlon, B. R., Reedy, R. C., and Nicot, J. P. 2014. Comparison of Water Use for Hydraulic Fracturing for Unconventional Oil and Gas versus Conventional 
+Oil. Environ Sci Technol 48 (20): 12386–12393. https://doi.org/10.1021/es502506v.
+Shlyapobersky, J., Wong, G. K., and Walhaug, W. W. 1988. Overpressure Calibrated Design of Hydraulic Fracture Stimulations. Paper presented at the SPE 
+Annual Technical Conference and Exhibition, Houston, Texas, USA, 2–5 October. SPE- 18194- MS. https://doi.org/10.2118/18194-MS.
+Song, Y ., Li, Z., Jiang, Z. et al. 2017. Progress and Development Trend of Unconventional Oil and Gas Geological Research. Pet Explor Dev  44 (4): 
+675–685. https://doi.org/10.1016/S1876-3804(17)30077-0.
+Wang, H., Ma, F., Tong, X. et al. 2016. Assessment of Global Unconventional Oil and Gas Resources. Pet Explor Dev 43 (6): 925–940. https://doi.org/10. 
+1016/S1876-3804(16)30111-2.
+William, S. P., Kyle, J. P., David, W. S. et al. 2018. Novel Diversion Case Studies for Improved Near- Wellbore Connection between Wellbore and 
+Hydraulic Fracture. Paper presented at the SPE/AAPG/SEG Unconventional Resources Technology Conference, Houston, Texas, USA, 23–25 July. 
+URTEC- 2881395- MS. https://doi.org/10.15530/urtec-2018-2881395.
+Willingham, J. D., Tan, H. C., and Norman, L. R. 1993. Perforation Friction Pressure of Fracturing Fluid Slurries. Paper presented at the Low Permeability 
+Reservoirs Symposium, Denver, Colorado, USA, 26–28 April. SPE- 25891- MS. https://doi.org/10.2118/25891-MS.
+Wylie, E. B. and Streeter, V . L. 1993. Fluid Transients in Systems. Hoboken, New Jersey, USA: Prentice- Hall.
+Downloaded from onepetro.​org/​SJ/​article-pdf/​28/​04/​1973/​3186298/​spe-214658-pa.​pdf by China University of Petroleum Beijing user on 13 August 2026

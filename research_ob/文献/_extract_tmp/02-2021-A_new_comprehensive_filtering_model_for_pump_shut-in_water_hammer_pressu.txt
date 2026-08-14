@@ -1,0 +1,1167 @@
+SOURCE: 02-2021-A new comprehensive filtering model for pump shut-in water hammer pressure wave signals during hydraulic fracturing.pdf
+PAGES: 13
+FULL extract 13 pages
+
+
+
+===== PAGE 1 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+Available online 3 November 2021
+0920-4105/© 2021 Elsevier B.V. All rights reserved.
+A new comprehensive filtering model for pump shut-in water hammer 
+pressure wave signals during hydraulic fracturing 
+Yujiao Li, Xiaodong Hu
+*
+, Fujian Zhou, Yang Qiu, Zhuolong Li, Yinghao Luo 
+China University of Petroleum-Beijing, Beijing 102249, China   
+ARTICLE INFO  
+Keywords: 
+Comprehensive filtering 
+Water hammer pressure wave signals 
+Spectrum analysis 
+Hampel filter 
+Adaptive noise cancellation 
+ABSTRACT  
+In the process of fracturing, the position of the fractures can be identified by analyzing the spectrum of the water 
+hammer pressure wave signals after pump shut-in. However, the collected water hammer pressure data contain a 
+lot of noises, which brings difficulty to the spectrum analysis and affect the accuracy of the final results. 
+Removing multiple kinds of noises while protecting useful fracture response is the challenge. However, the 
+filtering model for the water hammer pressure wave signals is absent. This paper proposes a new comprehensive 
+filtering model for pump shut-in water hammer pressure wave signals. The filtering model contains three parts. 
+First, we designed a two-step filtering method, including Hampel filter and FIR low-pass filter, to filter signals in 
+the main channel. Second, multi-frequency-adaptive notch and median filter were combined to construct the 
+signals in the reference channel, which can be used to protect the useful frequency of the water hammer wave 
+signals and pressure response of the fractures from being eliminated. Third, the filtered signal is obtained by 
+adaptive cancellation between the signals in the main channel and the reference channel. After that, the filtering 
+effects of signals with and without fractures were studied by constructing simulated signals and collecting the 
+signals in the laboratory experiment. The signal-to-noise ratio (SNR) gain and the mean square error (MSE) 
+reduction were selected as indicators for the model validation, and the cepstrum was also used as the indicator to 
+verify the preservation of fracture response characteristics. Besides, the noise adaptive range of the model was 
+evaluated by increasing the noise intensity to the constructing signal. This research can provide a new and useful 
+filtering method for water hammer pressure wave signals in the field.   
+1. Introduction 
+Hydraulic fracturing, as an efficient stimulation technology, has been 
+widely used in various oil and gas reservoir reconstruction and achieved 
+remarkable results ( Li et al., 2020 ). A large number of production 
+practices have proven that hydraulic fracturing is the key technology for 
+unconventional reservoir reconstruction and efficient development 
+( Cong et al., 2021 ). It is an effective way for the development of the 
+unconventional oil and gas reservoir ( Wang et al., 2018a , b ; Cong et al., 
+2022 ). High viscosity fracturing fluid were pumped through the well -
+bore into the reservoir by the high-pressure pumps on the surface. Then 
+fractures were generated, creating new fluid channels between the 
+reservoir and the wellbore ( Adachi et al., 2007 ). Whether fractures are 
+open in all the designed perforation position is an essential issue in 
+hydraulic fracturing. The fracture locations (or the flow entrance) are a 
+critical parameter in hydraulic fracturing evaluation. Therefore, analysis 
+and evaluation of the fracture location is a necessary requirement of 
+hydraulic fracturing diagnostics. Water hammer fracture diagnostics has 
+been developed and validated in the field application since 2016 ( Bog -
+dan et al., 2016 ; Korkin et al., 2020 ). Fracture diagnostics based on 
+water hammer pressure wave signals can identify the fracture locations 
+by analyzing the spectrum characteristics of water hammer signals, 
+which has advantages of low cost, easy operation, and great real-time 
+performance ( Bogdan et al., 2016 ; Klem et al., 2017 ; Kabannik et al., 
+2018 ). 
+The principle of water hammer fracturing diagnostics is as follows. 
+When the pumps shut down during the hydraulic fracturing, the sudden 
+change of the fluid flow rate at the wellhead causes rapid pressure 
+change inside the wellbore, known as “ water hammers ” ( Connor et al., 
+2018 ). Water hammer signatures are caused by tube waves traveling 
+down to the wellbore from the surface, meeting completion components 
+(such as tube end, fractures, tube expansion, or a combination of all 
+these factors) and then traveling back ( Parkhonyuk et al., 2018 ). Simply 
+put, a water hammer is a pressure wave that transmits throughout the 
+* Corresponding author. 
+E-mail address: huxiaodong@cup.edu.cn (X. Hu).  
+Contents lists available at ScienceDirect 
+Journal of Petroleum Science and Engineering 
+journal homepag e: www.else vier.com/loc ate/petro l 
+https://doi.org/10.1016/j.petrol.2021.109796 
+Received 27 August 2021; Received in revised form 18 October 2021; Accepted 1 November 2021   
+
+===== PAGE 2 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+2
+well hydraulic system. In the process of transmission, the pressure wave 
+is attenuated due to the energy loss. Water hammer characteristics are 
+determined by the shut-in process, wellbore geometry, fluid properties 
+in the well, hydraulic fracture geometry, and rock physical properties 
+around the fractures (Ma et al., 2019). In previous studies, the inter -
+pretation of water hammer signatures can be used as a simple diagnostic 
+tool to characterize hydraulic fractures. The collected water hammer 
+pressure wave signals contain the pressure response characteristics of 
+fractures (the water hammer wave propagates along the pipeline and is 
+reflected by the hydraulically connected fractures, resulting in sudden 
+changes of ground pressure and carrying fracture information). 
+However, various fluctuation events, such as pipeline vibration and 
+fracture opening, are unavoidable during fracturing and pump shut -
+down. The water hammer pressure wave signals collected in field con -
+tains a lot of spike noises, random noises, and fixed-frequency noises. 
+The existence of these noises will substantially interfere the time- 
+frequency analysis and the pressure response analysis of the water 
+hammer pressure wave signals, thus affecting the accuracy of fracture 
+localisation. Therefore, how to use reasonable filtering methods to filter 
+out various of noises is a crucial problem in water hammer fracturing 
+diagnostics. At the same time, it is necessary to protect the fracture in -
+formation in the signals. This process requires a more accurate filtering 
+model. 
+At present, the research on filtering methods in the oil industry 
+mainly focuses on seismic exploration, wireless measurement while 
+drilling, and oil and gas production prediction. In seismic exploration, 
+an adaptive method is a very effective filtering method. Liang and Mike, 
+(2009) proposed an adaptive FK filtering algorithm, which can remove 
+noises surface micro-seismic data. The algorithm mainly combined the 
+geometric features of surface seismic sequence with the distribution 
+features of micro-seismic events. Then it improved the SNR of 
+micro-seismic signals by superposition processing method. Liu et al. 
+(2012) suppressed random noises in seismic signals by combining EMD 
+with adaptive thresholds for translation and scale invariance. Song et al. 
+(2013) proposed an improved method of adaptive estimation filtering, 
+considering the addition of constraints to make the iterative method 
+move towards the direction of expected convergence. Peng et al. (2019) 
+adopted an adaptive bilateral filtering method based on multiple win -
+dows to suppress the noises in the complex fault block area, which could 
+better maintain the edge information. In the wireless MWD system, the 
+adaptive filtering method and its improved algorithm combined with 
+other methods are commonly used. Li and Reckmann (2009) proposed a 
+filtering method based on the adaptive algorithm. The fundamental 
+frequency of pump noise was taken as the frequency of the reference 
+signal to realize effective filtering. Qiao et al. (2016) proposed a new 
+filtering algorithm by analyzing the noises of mud pulse signals. An 
+adaptive notch was used to reduce the correlation between the signals in 
+the main channel and the reference channel, thus protecting the helpful 
+signal from being canceled. Peng (2018) proposed a signal processing 
+method combining adaptive notch filter and adaptive filter. The adap -
+tive notch filter filtered the valuable components, and then the output of 
+the notch filter was used as the reference signal of the adaptive filter. Li 
+(2019) studied noise reduction methods from the perspectives of adap -
+tive denoising method based on pump-impact interference model and 
+zero-space tracking. In oil and gas production prediction, Kalman filter 
+is often used in many prediction methods. Kalman filter is also a special 
+adaptive method. Wang and Li (2010) proposed an improved ensemble 
+Kalman filtering method, which can avoid the inconsistency caused by 
+the dynamic field update. Li (2012) used a semi-iterative ensemble 
+Kalman filter to solve the problem that dynamic reservoir field is not 
+consistent with reservoir model in nonlinear problems, which can 
+accurately invert nonlinear parameters. Liu et al. (2020) preprocessed 
+injection-production data using Kalman filtering algorithm and 
+nonlinear diffusion filter respectively. This process reduces interference 
+with the machine learning model. 
+In these research fields, some filtering ideas are effective 
+combinations of several filtering methods. The adaptive approach is one 
+that is often considered. The limitations of previous combined filtering 
+methods for water hammer pressure wave signals are discussed as fol -
+lows. Firstly, spike noises significantly influence the pressure response 
+information in cepstrum analysis. Many of these combined filtering 
+methods do not consider eliminating spike noises interference. Sec -
+ondly, how to protect the pressure response of the fracture (which is 
+shown as small fluctuations at certain moments on the pressure wave 
+curve) should be taken into account in the filtering of the water hammer 
+pressure wave signals. Otherwise, it will easily lead to misjudgment and 
+affect fracture location identification. It is a large challenge to remove a 
+variety of noises while protecting useful pressure response of fractures. 
+Hence, it is essential to develop a comprehensive filtering method for 
+water hammer pressure wave signals. 
+This paper proposes a new comprehensive filtering model for water 
+hammer pressure wave signals, Fixed Parameter Filter-Adaptive Filter 
+(FPF-AF). The comprehensive filtering model is based on the adaptive 
+noise cancellation. Firstly, we proposed a two-step filtering method for 
+the spike noises and high-frequency noises in the main channel of the 
+adaptive noise canceller, that is, the filtering method combining Hampel 
+filtering and FIR low-pass filtering. The model ensures that the noises 
+obviously different from the useful signal can be filtered out efficiently. 
+At the same time, the input quality of the signal in the main channel is 
+guaranteed. Secondly, aiming at the difficulty of obtaining the noises in 
+the reference input, we innovatively proposed a construction method in 
+the reference channel based on the Multiple Frequency Adaptive Notch- 
+Median Filter (MFAN-MF). The multi-frequency adaptive notch is 
+adopted to remove the oscillation frequency of irregular sine wave or 
+irregular square wave. The median filtering to remove baseline drift is 
+introduced to filter excessive trend fluctuation caused by pressure 
+response of the fractures. At the same time, the noise trend can be 
+removed to make the amplitude fall to zero fluctuation. Finally, the 
+noise constructed by the MFAN-MF method is input into the adaptive 
+noise canceller, which is cancelled with the signal obtained by the two- 
+step filtering method. Simulation signals and laboratory signals verify 
+the effectiveness and feasibility of the comprehensive filtering method. 
+This research can provide a new and useful filtering model for water 
+hammer pressure wave signals in the field. 
+2. Signal characteristics and method analysis 
+There are many kind of noises in the water hammer pressure wave 
+signals, including spike noises, random noises, fixed frequency noises 
+close to the frequency of the useful signal, and fixed frequency noises 
+which are much different from the useful signal frequency. Spike noises 
+refer to the abnormal burr, jump, and other interference in the signal 
+due to the working environment influence and the device manufacturing 
+process. Random noises mainly refer to the noises whose frequency and 
+propagation direction have no fixed rules. The fixed frequency noises 
+refer to the noises whose frequency is fixed and will not change. The 
+fixed frequency noises generated in the fracturing process may be the 
+noises that are significantly different from or close to the frequency of 
+the water hammer pressure wave signals. This paper proposes a new 
+comprehensive filter model of Fixed Parameter Filter - Adaptive Filter. 
+2.1. Filtering model development 
+First of all, considering that the noise amplitude is large and the types 
+of noise are many, and the pressure response of the fractures need to be 
+protected, it is best to use a simple and effective adaptive filter for 
+denoising. Our model is based on adaptive noise canceller. Generally, 
+according to the basic structure of adaptive noise canceller and 
+considering the characteristics of water hammer pressure wave signals, 
+our model can be divided into three parts: (1) Main input channel:A two- 
+step filtering method for the main input signal; (2) Reference input 
+channel: A Multiple Frequency Adaptive Notch - Median Filter (MFAN- 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 3 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+3
+MF) method for the reference input signal. (3) Adaptive noise cancel -
+lation between the main input signal and the reference input signal. We 
+will present the derivations as follows. 
+Main input channel: A two-step filtering method for water 
+hammer signal with noise . There are many types of noise in the 
+collected signal. We can initially filter the noises which can be easily 
+separated from the useful signals. Generally, smooth filtering is carried 
+out first. We need to design a suitable filtering scheme to filter out the 
+spike noises. At the same time, high-frequency noises are removed 
+within the desired accuracy and acceptable time limits. In addition, the 
+signal processing in the previous step should not be distorted to affect 
+the signal processing in the later step. Considering the characteristics of 
+water hammer pressure wave signals, we design a two-step filtering 
+method for initial filtering. Firstly, the Hampel filter is selected to filter 
+the spike noises, and then the FIR (Finite Impulse Response) filter is used 
+to filter the high-frequency noises. 
+The acquired signal r(t) generally contains noises caused by system 
+or environment instability, which will produce a lot of spike noises. The 
+commonly used method to remove the spike noises is the median filter. 
+Although this method can filter out the abnormal spike noises, it may 
+also delete many original signal data points. The filter closely related to 
+the median filter is the Hampel filter. The Hampel filter works like a 
+median filter, but it only replaces values a few standard deviations away 
+from the local median value ( Jiang et al., 2011 ). This filter can help 
+remove outliers from the signal without over-smoothing the data. For a 
+given sample of data x
+s
+, the algorithm: 1. Centers the window of odd 
+length at the current sample. 2. Computes the local median m
+i
+, and 
+standard deviation σ
+i
+, over the current data window. 3. Compares the 
+current sample with n
+σ
+× σ
+i
+, where n
+σ 
+is the threshold value. If | x
+s
+ 
+m
+i
+| > n
+σ
+× σ
+i
+, the filter identifies the current sample x
+s 
+as an outlier and 
+replaces it with the median value, m
+i
+. Consider a frame of data that is 
+passed into the Hampel filter. After smoothing by the Hampel function, 
+the signal p ( t ) is obtained. And the spike noises are filtered out. 
+After removing the spike noises, the signal p(t) contains many fixed 
+frequency noises, which is wildly different from the useful signal fre -
+quency. In order not to cause too much influence on the subsequent 
+analysis, we use FIR low-pass filter to filter the high-frequency noises. 
+The FIR low-pass filtering method can effectively filter out part of the 
+high-frequency noises. The full name of the FIR filter is a finite impulse 
+response filter. Because the filter has good linear phase characteristics, it 
+has been widely used in digital signal processing ( Huang, 2019 ). Fre -
+quency response of the FIR low-pass filter has three ranges: passband, 
+stopband, and transition band. The frequency response is close to 0 in 
+the stopband and close to 1 in the passband ( Shao et al., 2017 ). If the 
+response of its unit sample is a finite sequence of points M + 1, and the 
+input signal is the convolution of p ( n ) and h ( n ) , that is: 
+d ( n ) =
+∑
+M
+k = 0
+p ( k ) h ( n   k ) = p ( n ) ∗ h ( n ) (1) 
+Where ‘* ’ represents the convolution operation, h ( n ) is the response 
+of unit sampling, and p ( n ) is the input signal of the FIR low-pass filter. 
+The transfer function of this filter can be expressed as: 
+H ( z ) =
+∑
+M
+n = 0
+h ( n ) z
+  n
+= h ( 0 ) + h ( n ) z
+  1
++ ... + h ( M ) z
+  M
+(2)  
+where H ( z ) is the transfer function. After processing such a filter, the 
+signal d ( t ) is obtained, which filters out part of the high-frequency 
+noises. 
+Reference input channel: A Multiple Frequency Adaptive Notch 
+- Median Filter ( MFAN-MF) method for the noise input signal . When 
+we use adaptive noise cancellation method to filter, the signal in the 
+reference channel is the noise signal. It is difficult to select the input 
+signal of the noise channel. The noise can be extracted from the signal in 
+the main channel as the reference signal, but there are the following 
+problems: because the signal in the main channel contains useful signals, 
+when some useful signal components are input to the reference channel, 
+the useful signals in the final output will be partially eliminate. There -
+fore, we need to separate the useful information in the noise channel in 
+order to protect the useful signals from being eliminate. Finally, we 
+propose a MFAN-MF method for reference channel. 
+For the water hammer pressure wave signals, the oscillation fre -
+quency is one of the useful information needs to be protected. Therefore, 
+filtering the useful oscillation frequency in the reference channel is 
+necessary during the noise signal construction. A multi-frequency 
+adaptive notch is adopted. The signal d ( t ) is input into the multi- 
+frequency adaptive notch filter and cancels with the input reference 
+signal x ( t ) several times. Until you get a noise v ( t ) that does not contain 
+the useful signal frequency. The frequency value of this reference signal 
+x ( t ) is set to the useful frequency value. The adaptive notch filter has two 
+outputs: filter output and notch output. Compared with the ordinary 
+digital filter, the adaptive notch filter has a narrower stopband and 
+passband ( Wang et al., 2018a , b ). The out-of-band attenuation is faster. 
+Therefore, it can realize narrow-band filtering and narrow-band notch. 
+Recursive process of adaptive notch filter: 
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+y ( k ) = ω
+c
+( k ) x
+c
+( k ) + ω
+s
+( k ) x
+s
+( k )
+v
+1
+( k ) = d ( k )   y ( k )
+ω
+c
+( k + 1 ) = ω
+c
+( k ) + 2 μ v
+1
+( k ) x
+c
+( k )
+ω
+s
+( k + 1 ) = ω
+s
+( k ) + 2 μ v
+1
+( k ) x
+s
+( k )
+(3) 
+where x
+c
+( k ) and x
+s
+( k ) are the two reference signals, ω
+c
+( k ) and ω
+s
+( k )
+are the weight coefficients of the two reference signals, μ is the step 
+factor, d ( k ) is the input signal, y ( k ) is the filtering output, and v
+1
+( k ) is the 
+output after the first notch. The multi-frequency adaptive notch filter 
+adopts a cascade structure. The output of the first stage notch filter is the 
+input of the second stage notch filter. The zeros and poles of the 
+cascaded system correspond to the zeros and poles of each notch filter 
+respectively. we can directly change adjustment parameters of one stage 
+without affecting the other stage of the notch filter ( Liu, 2008 ). It has the 
+advantages of the single-frequency notch filter and makes the perfor -
+mance adjustment simple and effective ( Chen, 2016 ). The useful fre -
+quency in the water hammer pressure wave signal is not necessarily a 
+single certain frequency, at this time, it is necessary to go through 
+several notch filters for processing until these frequency components are 
+removed. The number of the multi-frequency adaptive notch filter is 
+determined according to the frequency component of the useful signal. 
+The output of the upper notch filter is the input of the next notch filter. 
+After a multi-frequency adaptive notch operation, the output can be 
+obtained as v ( t ) . 
+The pressure response of the fracture showing small fluctuations in 
+the pressure curve is another useful information that needs to be pro -
+tected. Median filter is adopted. In addition, considering that the 
+amplitude of the constructed noise should be near zero, we introduce the 
+idea of removing baseline drift to de-trend the signal. Combined with the 
+previous step, the median filtering to remove baseline drift can be 
+directly adopted, which makes the filtering operation simpler and im -
+proves the efficiency of filtering. The median filter is a nonlinear digital 
+filtering technology that can suppress noises and protect the edge. The 
+basic idea of using the median filtering method to remove the baseline 
+drift is as follows: first, removing the more enormous value in the signal 
+to obtain the trend signal containing only the baseline. Then superim -
+pose it with the original signal to eliminate the baseline drift interfer -
+ence in the original signal. The median filtering principle: the value of a 
+point in the signal is replaced by the median value of each point in a 
+neighborhood of the point ( Xu et al., 2012 ). The application of median 
+filtering to baseline drift has two functions: one is to remove excessive 
+trend fluctuation at the pressure response of the fracture. And the other 
+is to make the amplitude of the resulting noise fluctuate around zero. 
+Here, the input signal is the output signal of the adaptive notch filter, 
+and the size of the sliding window of the median filter is L = 2 R + 1, L <
+N ( Zhao et al., 2012 ). Then the signal processed by the median filter is: 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 4 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+4
+n ( t ) =
+⎧
+⎨
+⎩
+v ( t )   Med [ v ( 1 ) , v ( 2 ) ... v ( t + R )] ( 1 ≤ t ≤ R )
+v ( t )   Med [ v ( t   R ) ... v ( t ) ... v ( t + R )] ( R ≤ t ≤ N   R )
+v ( t )   Med [ v ( t   R ) , v ( t   R + 1 ) ... v ( N )] ( N   R ≤ t ≤ N )
+(4)  
+where n ( t ) is the signal processed by the median filter, v ( t ) is the 
+adaptive notch filter ’ s output signal, R is the neighborhood size around a 
+certain point. N is the signal length. 
+Adaptive noise cancellation between the main input signal and 
+the reference input signal. After the above two parts of processing, we 
+get the signal in the main channel and the reference channel. Finally, we 
+can filter the residual noises by adaptive noise canceller. The noise n ( t )
+without the signal frequency is input into the adaptive noise canceller, 
+which cancels with the signal d ( t ) after filtering out the high-frequency 
+noises. And finally, the filtered signal e ( t ) is obtained. The core of the 
+adaptive noise canceller is the adaptive filter, which is controlled by the 
+adaptive algorithm to achieve the best filtering. Here, one input of the 
+adaptive noise cancellation system is the signal d ( t ) after filtering part of 
+the high-frequency noises through the FIR low-pass filter. The other 
+input is the noise n ( t ) obtained after the median filter to remove the 
+baseline drift, which is related to the noises contained in the original 
+signal. The principle of adaptive noise cancellation is as follows ( Ma and 
+Cheng, 2016 ). It is assumed that the original input end of the adaptive 
+noise cancellation system be d
+j
+, d
+j
+= s
+j
++ n
+0
+, where s is the useful signal, 
+n
+0 
+is the noise to be canceled and is not related to s .The reference input 
+end is n
+1
+, where n
+1 
+is the noise related to n
+0 
+but unrelated to s . And the 
+output of the system is e
+j
+, e
+j
+= d
+j
+  y
+j
+. Here, the filter ’ s transmission 
+function can be adjusted automatically according to the system ’ s output 
+signal. Assuming that s , n
+1
+, and n
+0 
+are all stationary random processes 
+with zero mean: 
+e
+j
+= d
+j
+  y
+j
+= s
+j
++ n
+0
+  y
+j
+(5) 
+where e
+j 
+is the output of the adaptive noise canceller, d
+j 
+is the original 
+input signal, and y
+j 
+is the filter output. The mean square value of the 
+output signal is expressed as: 
+E
+[
+e
+2
+j
+]
+= E
+[ 
+d
+j
+  y
+j
+)
+2
+]
+= E
+[ 
+s
+j
++ n
+0
+  y
+j
+)
+2
+]
+= E
+[
+s
+2
+j
+]
+= E
+[ 
+n
+0
+  y
+j
+)
+2
+]
++ 2 E
+[
+s
+j
+ 
+n
+0
+  y
+j
+)]
+(6) 
+Since s is not correlated with n
+0 
+and n
+1
+, so s is not correlated with y
+j
+, 
+then: 
+E
+[
+e
+2
+j
+]
+= E
+[
+s
+2
+j
+]
++ E
+[(
+n
+0
+  y
+j
+)
+2
+]
+(7)  
+where E [ s
+2
+j
+] represents the power of the signal. As can be seen from the 
+above expression, if you want the output signal to contain only useful 
+signals or the mean square value of the output signal to be minimum, 
+E [( n
+0
+  y
+j
+)
+2
+] it must obtain a minimum value. According to Eq. (6) , the 
+equivalence condition is that E [( e
+j
+  s
+j
+)
+2
+] is required to obtain the min -
+imum value. The mean square value of the error between the output 
+signal and the useful signal is required to be minimum. The error output 
+e of the system is the best approximation of the useful signal s . 
+2.2. Filtering process 
+The process of the comprehensive filtering method shows in Fig. 1 . 
+As discussed above, we can divide all the process into three parts: (1) 
+Main input channel:A two-step filtering method for the main input 
+signal; (2) Reference input channel: A MFAN-MF method for the noise 
+input signal. (3) Adaptive noise cancellation between the main input 
+signal and the reference input signal. The collected signal r(t) contains 
+spike noises, random noises, low-frequency noises and high-frequency 
+noises, and we hope to obtain accurate physical parameters from the 
+signal. 
+In part 1, we can perform a two-step filter for the easily separated 
+spike noises and the high-frequency noises. Firstly, Hampel filter is used 
+to filter out the spike noises, and the filtered signal is denoted as p(t). 
+The filter not only helps to remove the spike noises, but also does not 
+over-smooth the data. Then the FIR filtering algorithm is used to filter 
+out the high-frequency noises and get the signal in the main channel d 
+(t). In part 2, we need to separate the noise from the signal d(t) by using 
+the noise channel construction method. The main channel input of the 
+adaptive notch is d(n), the input of the reference channel is the sinu -
+soidal signal x(t) whose frequency is equal to the oscillation frequency, 
+and the output is the signal v(t) without the oscillation frequency. The 
+signal v
+1
+(t) is obtained after median filtering of the signal v(t). The slight 
+fluctuation of the pressure response in v
+1
+(t) is smoothed out. Then v(t) 
+minus the smoothed signal v
+1
+(t) to de-trend, which is used as the 
+reference signal of the adaptive noise canceller, denoted as n(n). n(n) 
+almost does not contain useful signal. In this way, the useful signal can 
+be well protected in the output signal e(n), and the accuracy of the 
+Fig. 1. New comprehensive filtering method flow.  
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 5 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+5
+filtering result can be improved. In part 3, the filtered signal e(t) can be 
+obtained through adaptive noise canceller. Then we can analyze the 
+signal-to-noise ratio (SNR) and mean square error (MSE) of the water 
+hammer pressure wave signal e(t). 
+2.3. Model evaluation indicators 
+Signal to noise ratio (SNR) and mean square error (MSE). After 
+the water hammer wave signal is filtered by the comprehensive method, 
+the evaluation indicators are the signal to noise ratio (SNR) and mean 
+square error (MSE). The smaller the MSE, the larger the SNR and the 
+better the filtering effect. The SNR can be calculated by Eq. (8) . 
+SNR =
+P
+signal
+P
+noise
+=
+(
+A
+signal
+A
+noise
+)
+2
+(8)  
+where P
+signal 
+is the signal power, P
+noise 
+is the noise power, A
+signal 
+is the 
+signal amplitude, A
+noise 
+is the noise amplitude. The SNR is generally 
+measured in decibel (dB), which can be expressed as Eq. (9) . 
+SNR ( dB ) = 10 log
+10
+(
+P
+signal
+P
+noise
+)
+= 20 log
+10
+(
+A
+signal
+A
+noise
+)
+(9) 
+The mean square error (MSE) refers to the mean square of the vari -
+ance between the original signal and the filtered signal. The MSE can be 
+calculated according to Eq. (10) . 
+MSE =
+1
+n
+∑
+n
+i = 1
+ 
+x
+obs , i
+  x
+mldel , i
+)
+(10)  
+where x
+obs , i 
+is the original signal, x
+mldel , i 
+is estimated signal after filtering, 
+n is sequence number, i is serial number. 
+Cepstrum . Cepstrum analysis of voice and image processing are 
+widely used in nonlinear signal processing technology. Here cepstrum is 
+used as the indicator to verify the preservation of pressure response 
+characteristics. Cepstrum is the inverse Fourier transform of the Fourier 
+transform spectrum of a signal after logarithmic operation. The calcu -
+lation principle of cepstrum is shown in Fig. 2 . The reflection informa -
+tion generated by water hammer wave signals and multi-fracture 
+reaction in fracturing process can be analyzed directly by cepstrum, and 
+the peak value can be found by nonlinear processing method. 
+3. Results and analysis 
+3.1. Simulated pressure wave signal without fractures 
+The water hammer pressure wave signals containing various noises 
+are simulated and verified to prove validity and feasibility of the 
+method. The simulated water hammer pressure wave signals without 
+fractures is constructed, and different noises are added to the simulated 
+signal. The effect of comprehensive filtering method is studied, and the 
+change of SNR and MSE is analyzed. 
+The details of constructing a pure signal are as follows: The sinu -
+soidal signal with amplitude attenuation represents the normal ampli -
+tude attenuation of the water hammer pressure wave signals after the 
+pump is stopped. Besides, the signal front part represents the pressure 
+before stopping the pump by a supplemental 10 s signal. After a certain 
+amplitude processing, the simulated signal can show that the water 
+hammer pressure wave signals without fractures. On the whole, the 
+simulated water hammer pressure wave signal is a sinusoidal signal with 
+amplitude attenuation ( Fig. 3 a). The thick arrow position indicates that 
+the pressure begins to drop suddenly after the pump is stopped at 10 s. 
+The simulated signal frequency is within 1 Hz, the main frequency is 
+0.1286 Hz, and the spectrum has a long tail ( Fig. 3 b). 
+The details of constructing the simulated signal with noise are as 
+follows: Spike noises, random noises, low-frequency noises of fixed 
+frequency which is close to useful signal frequency, and high-frequency 
+noises of fixed frequency which is different from useful signal frequency 
+are added into the pure signal. The specific process is simplified as fol -
+lows: 
+r ( t ) = s ( t ) + g ( t ) + n ( t ) + q ( t ) + m ( t ) (11)  
+where r ( t ) is the signal collected by the signal acquisition system. s ( t ) is 
+the water hammer pressure wave signal. g ( t ) is the spike noise. n ( t ) is the 
+random noise. q ( t ) is the high-frequency noise with a significant fre -
+quency difference, and m ( t ) is the low-frequency noise with a close 
+frequency. 
+The simulated signal with noise is shown in Fig. 4 a. We adopt the 
+comprehensive filtering model to filter the simulated signal. In Fig. 4 b, 
+the red part is the first step to remove the spike noises by Hampel 
+function. In Hampel filtering, the filtering series should be set to odd 
+number. The filter level doesn ’ t need to be too high, so just set it to 9. We 
+can see that the spike noises are removed without over-smoothing the 
+overall signal. Fig. 4 c shows the signal after adopting FIR low-pass 
+filtering in the second step, and the high-frequency noises and random 
+noises are partially suppressed. The noises are significantly reduced. 
+Fig. 4 d is the signal processed by the adaptive noise canceller, the signal 
+output by the comprehensive filtering model. It can be seen that the 
+noise has been further reduced. 
+After the water hammer pressure wave signal is filtered by the 
+comprehensive method, the evaluation indicators are the signal to noise 
+ratio (SNR) and mean square error (MSE). In general, the smaller the 
+MSE, the better the filtering effect; The larger the SNR, the better the 
+filtering result. Comparison of SNR and MSE of signals before and after 
+comprehensive filtering is shown in Fig. 5 . Fig. 5 a shows the SNR before 
+and after the comprehensive filtering. Before the filtering, the SNR is 
+about 27.42971 dB. After Hampel filtering, the SNR is about 29.78231 
+dB. After FIR low-pass filtering, the SNR is about 32.63344 dB. After the 
+comprehensive filtering, the SNR is about 34.274 dB. And the SNR gain 
+is about 6.84429 dB. Fig. 5 b reflects the MSE before and after the 
+comprehensive filtering. Before the filtering, the MSE is about 0.1017. 
+After Hampel filtering, the MSE is about 0.0794. After FIR low-pass 
+filtering, the MSE is about 0.0572. After the comprehensive filtering, 
+the MSE is about 0.0473. The MSE decreases about 0.0544. The SNR and 
+MSE of the signals are significantly changed after filtering. After 
+comprehensive filtering, the SNR is higher than that of single Hampel 
+filtering and FIR low-pass filtering, and the MSE is lower than that of 
+single Hampel filtering and FIR low-pass filtering. The noise is reduced 
+substantially after filtering. 
+3.2. Experimental pressure wave signal without fractures 
+To further verify the comprehensive filtering model, the signals 
+collected in the laboratory are used for verification. We set up a test 
+device for water hammer pressure wave signals, which disturbed the 
+fluid in the main line through the rapid closing of the valve to generate 
+pressure wave. In the test, the pressure in the main line (that is, the 
+system pressure) was in the range of   0.15 MPa to 0.5 MPa, the liquid 
+Fig. 2. The calculation principle of cepstrum.  
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 6 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+6
+density was 1 g/cm
+3
+, and the liquid temperature was 293 K. The sam -
+pling frequency is f
+s 
+= 500 Hz. The signal collected in the laboratory is 
+shown in Fig. 6 a, which contains a lot of noise. The new comprehensive 
+filtering model is adopted to de-noise. The red part shown in Fig. 6 b is 
+the signal filtered by the Hampel function, and a large number of 
+abnormal spike noises are filtered out. The yellow part is the signal after 
+FIR low-pass filtering, which further filters out part of high frequency 
+noises and random noises. Fig. 6 c shows the final output signal by 
+comprehensive filtering, and it can be seen that the water hammer 
+characteristics are well preserved. 
+The validity of the filtering results is further verified by spectrum 
+analysis. The spectrum of the signal collected in the laboratory is shown 
+in Fig. 7 a. The main frequency of the signal is about 0.21 Hz. After 
+comprehensive filtering, the signal is shown in Fig. 7 b. The main fre -
+quency of water hammer pressure wave signals is clearly displayed at 
+the peak value, while the high frequency can be attenuated. The noise 
+outside the useful signal band can be effectively suppressed. 
+3.3. Simulated pressure wave signal with fractures 
+The details of constructing the pure simulated signal with fractures 
+are as follows: Firstly, a sinusoidal signal with amplitude attenuation is 
+constructed to represent the normal amplitude attenuation of the water 
+hammer pressure wave signals. Then, different sinusoidal signals with 
+Fig. 3. Simulated signal without fractures and the signal spectrum: (a) simulated signal without fractures; (b) spectrum of the simulated signal without fractures.  
+Fig. 4. Simulated signal with noise and the signals after filtering: (a) simulated signal with noise; (b) the signal after Hampel filtering; (c) the signal after FIR low- 
+pass filtering; (d) the signal after adaptive noise cancellation. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 7 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+7
+amplitude attenuation were added at 13.33 s and 13.36 s, respectively. 
+In this way, various pressure disturbances were added at a specified time 
+to characterize the dynamic response time at two fractures. Finally, after 
+the superposition structure and a certain amplitude treatment, the 
+simulated signal representing the water hammer pressure wave signals 
+characteristics is obtained. As a whole, the simulated signal of the water 
+hammer pressure wave signal is attenuated ( Fig. 8 a). The thick arrow 
+position indicates that the pressure begins to drop after the pump is 
+stopped at 10 s. The enlarged part indicated by the dashed arrow rep -
+resents the pressure drop caused by the water hammer pressure wave 
+signals passing through multiple fractures. The corresponding abscissa is 
+13.33 s and 13.36 s, respectively, which is the pressure response time of 
+multi-fracture fluctuation. The spectrum of the simulated signal is 
+shown in Fig. 8 b. The frequency is within 1 Hz, the main frequency is 
+0.1286 Hz, and the spectrum has a long tail. The one-dimensional 
+cepstrum of the signal is shown in Fig. 8 c. The pressure response ob -
+tained by cepstrum analysis are 13.33 s and 13.36 s, respectively, which 
+are consistent with the pressure response of multi-fracture fluctuation 
+constructed by the simulated signal above. Therefore, the cepstrum 
+analysis can reasonably identify the pressure responses of multi- 
+fracture. 
+The method of constructing the simulated signal with noise is as 
+Fig. 5. Comparison of SNR and MSE before and after comprehensive filtering: (a) comparison of SNR before and after filtering; (b) comparison of MSE before and 
+after filtering. 
+Fig. 6. Signal acquired in the laboratory and the signals after filtering: (a) signal acquired in the laboratory; (b) comparison of signal in the filtering process; (c) 
+signal after comprehensive filtering. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 8 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+8
+follows: the spike noises, random noises, low-frequency noises of fixed 
+frequency which is close to the useful signal frequency, and high- 
+frequency noises of fixed frequency which is much different from the 
+useful frequency are added into the pure simulated signal with two 
+fractures. The simulated signal containing noise is shown in Fig. 9 a. We 
+adopted the new comprehensive filtering model to filter the simulated 
+signal. The red part in Fig. 9 b is the first step to remove the spike noise 
+by Hampel function. You can see that a lot of the spike noises have been 
+filtered out without over-smoothing the overall curve. Fig. 9 c shows the 
+signal after adopting FIR low-pass filtering in the second step, and the 
+high-frequency noises and random noises are partially suppressed. 
+Fig. 9 d is the signal after adaptive noise cancellation, that is, the signal 
+after the comprehensive filtering. The noises are further filtered out, and 
+it can be seen that the pressure response of fracture is also preserved. 
+And the pressure response of two fractures can be identified as 13.33 s 
+and 13.36 s, respectively. 
+The comparison of SNR and MSE of signal with fractures before and 
+after comprehensive filtering is shown in Fig. 10 . Fig. 10 a shows the SNR 
+before and after the comprehensive filtering. The SNR before filtering is 
+about 27.41844 dB. After Hampel filtering, the SNR is about 29.78164 
+dB. After FIR low-pass filtering, the SNR is about 32.63201 dB. After the 
+comprehensive filtering, the SNR is about 34.21982 dB, and the SNR 
+gain is about 6.80138 dB. Fig. 10 b shows the MSE before and after the 
+comprehensive filtering. The MSE before filtering is about 0.1047. After 
+Hampel filtering, the MSE is about 0.0797. After FIR low-pass filtering, 
+the MSE is about 0.0574. After the comprehensive filtering, the MSE is 
+Fig. 7. Spectrum of the signal before and after filtering: (a) spectrum of the signal collected in the laboratory; (b) spectrum of the signal after comprehensive filtering.  
+Fig. 8. Simulated signal with fractures, the signal spectrum and the signal cepstrum: (a) simulated signal with fractures; (b) spectrum of simulated signal with 
+fractures; (c) cepstrum of simulated signal with fractures. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 9 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+9
+about 0.0478, and the MSE decreases about 0.0569. After the compre -
+hensive filtering, the SNR of the water hammer pressure wave signal 
+with fractures is improved, and the MSE is reduced. Moreover, the 
+filtering effect is better than that of single Hampel filtering and FIR low- 
+pass filtering. 
+The spectrum of the signal with fractures after comprehensive 
+filtering is shown in Fig. 11 a. The high frequency component is filtered 
+out. And the main frequency of the water hammer pressure wave signal 
+is retained, which is 0.1286 Hz. The one-dimensional cepstrum of the 
+signal is shown in Fig. 11 b. The response times obtained by cepstrum 
+analysis are 13.33 s and 13.36 s, which are consistent with the two 
+pressure-response-times above. 
+4. Evaluation of noises effect 
+This model has a good effect on the water hammer pressure wave 
+signals without fractures. Identifying response time should be taken into 
+account when the comprehensive filtering model is used to filter the 
+Fig. 9. Simulated signal with noise and the signals after filtering: (a) simulated signal with noise; (b) the signal after Hampel filtering; (c) the signal after FIR low- 
+pass filtering; (d) the signal after adaptive noise cancellation. 
+Fig. 10. Comparison of SNR and MSE before and after comprehensive filtering: (a) comparison of SNR before and after filtering; (b) comparison of MSE before and 
+after filtering. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 10 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+10
+signal with fractures. The added noises will have different degrees of 
+influence on the filtering effect, so it has certain limitations. If the added 
+noises are too large, the pressure response of fracture will be completely 
+submerged, then the pressure response after filtering will be challenging 
+to identify. The influence of noise intensity on the model is discussed 
+below, and the boundary of adding noise intensity is explained. 
+Effect of low-frequency noises. Because the useful frequency of the 
+water hammer pressure wave signals is low frequency, low-frequency 
+noises affect the overall shape of the signal but have little influence on 
+the information at the pressure response. Adding too much low- 
+frequency noises cause great distortion to the whole signal oscillation 
+and reduce the SNR. When excessive low-frequency noises are added to 
+the water hammer pressure wave signals with fractures ( Fig. 12 a), the 
+overall shape of the signal produces excellent distortion, but the pres -
+sure response time is not submerged at this time. After filtering, the 
+pressure response of fracture ( Fig. 12 b) is basically preserved, but the 
+overall distortion of the signal still exists. After analyzing the filtered 
+signal cepstrum ( Fig. 12 c), the response time is 13.33 s and 13.36 s, 
+respectively, which is consistent with the two pressure response times. 
+Under this verification condition, the more extensive low-frequency 
+noises only affect the signal overall shape and does not have much 
+interference to the recognition of pressure response times. 
+Effect of high-frequency noises. High-frequency noises have a 
+great influence on the pressure response times. The excessive high- 
+Fig. 11. Spectrum and cepstrum of the filtered signal with fractures: (a) spectrum of filtered signal with fractures; (b) cepstrum of filtered signal with fractures.  
+Fig. 12. The case after adding excessive low-frequency noises: (a) signal after adding excessive low-frequency noises; (b) signal after filtering out excessive low- 
+frequency noises; (c) cepstrum of the signal after filtering out excessive low-frequency noises. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 11 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+11
+frequency noises will drown the information at the pressure response 
+times. After filtering, useful information will be lost, and the pressure 
+response location cannot be accurately identified. When excessive high- 
+frequency noises are added to the water hammer pressure wave signal 
+with fractures ( Fig. 13 a), the high-frequency noises in a certain period 
+will produce more intensive oscillations, the pressure response of the 
+fractures is completely submerged. After filtering, the pressure response 
+of the fractures ( Fig. 13 b) has greatly interfered. It can ’ t be recognized. 
+By analyzing the signal cepstrum ( Fig. 13 c), the specific position of the 
+pressure response time cannot be read out. Under this verification 
+condition, the high-frequency noises produce too much interference to 
+identify response time and even wholly drown the pressure response 
+information. 
+Effect of random noises. Random noises will also have a great 
+impact on the identification of pressure response time. Too much 
+random noises can also drown out pressure response time. After 
+filtering, the pressure response time will be lost, and the pressure 
+response location cannot be accurately identified, thus affecting the 
+judgment of the fracture location. When excessive random noises are 
+added to the water hammer pressure wave signal with fractures 
+( Fig. 14 a), the pressure response time are entirely submerged by the 
+random noises. After filtering, we cannot identify the pressure response 
+of the fractures ( Fig. 14 b), and the pressure response time cannot be 
+accurately read from the cepstrum of the signal ( Fig. 14 c). Under this 
+verification condition, excessive random noises will also cause signifi -
+cant interference in identifying pressure response time or even 
+completely drown the pressure response information. 
+Selection of noises amplitude. Under the condition of this model, 
+we can obtain the limit of noise intensity through multiple tests. In the 
+test, we set the amplitude of low-frequency noises and high-frequency 
+noises to change from 0.01 and increase 0.01 each time. Similarly, the 
+standard deviation of random noises to change from 0.01 and increase 
+0.01 each time. After changing the range each time, we observed the 
+effect before and after filtering until the signal failed to recognize the 
+pressure response of the fractures after filtering. The limit of noise in -
+tensity is as follows: First, the maximum amplitude of low-frequency 
+noises should be about 0.15. Otherwise, although the pressure 
+response time will not be submerged and can be identified after filtering, 
+the overall distortion of the signal will be too large, resulting in low SNR 
+of the filtered signal. Second, the maximum amplitude of high-frequency 
+noises should be about 0.2. Otherwise, the pressure response of the 
+fractures will be drowned, resulting in unidentifiable information of the 
+pressure response time after filtering. Third, random noises variance 
+should be less than 0.15
+2
+. Otherwise, the pressure response time will be 
+submerged, resulting in the pressure response of the fractures cannot be 
+identified after filtering. Finally, since both the random noises and the 
+high-frequency noises have a significant influence on the pressure 
+response time, the random noises and the high-frequency noises cannot 
+be greater than the two limits at the same time. Excessive random noises 
+and high-frequency noises will drown the pressure response time, 
+resulting in the loss of useful information after filtering. 
+5. Conclusions and limitation 
+A new comprehensive filtering model of Fixed Parameter Filter - 
+Adaptive Filter is studied in this paper to eliminate the noises in the 
+water hammer pressure wave signals, which is contains three parts: (1) 
+Main input channel:A two-step filtering method for the main input 
+signal; (2) Reference input channel: A MFAN-MF method for the noise 
+reference input signal. (3) Adaptive noise cancellation between the main 
+Fig. 13. The case after adding excessive high-frequency noises: (a) signal after adding excessive high-frequency noises; (b) signal after filtering out excessive high- 
+frequency noises; (c) cepstrum of the signal after filtering out excessive high-frequency noises. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 12 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+12
+input signal and the reference input signal. 
+In the simulation test, this model is effective. For the water hammer 
+pressure wave signals without fractures, the SNR gain is about 6.84429 
+dB, and the MSE can be reduced by about 0.0544. However, for the 
+water hammer pressure wave signal with fractures, the SNR gain is 
+about 6.80138 dB, the MSE can be reduced to about 0.0569, and the 
+pressure response time can be well retained and identified. Signals 
+collected in the laboratory are also used for verification. The results 
+show that this model can retain the useful signals well and filter the 
+noises. 
+This method has certain requirements for the noise intensity of the 
+water hammer pressure wave signals with fractures. Within a certain 
+range, the amplitude of low-frequency noise is about 0.15, the amplitude 
+of high-frequency noise is about 0.2, and the variance of random noise is 
+less than 0.15
+2
+. Besides, the random noises and the high-frequency 
+noises should not be greater than the two limits simultaneously. 
+Credit author statement 
+Yujiao Li: Conceptualization, Methodology, Data analysis, Visuali -
+zation and Writing. Xiaodong Hu: Funding acquisition, Supervision, 
+Conceptualization, Writing-Review and Editing. Fujian Zhou: Supervi -
+sion. Yang Qiu: Validation. Zhuolong Li: Software. Yinghao Luo: Data 
+Curation. 
+Declaration of competing interest 
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper. 
+Acknowledgments 
+The authors would like to acknowledge the financial support from 
+National Natural Science Foundation of China (No. 52004300). 
+References 
+Adachi, J., Siebrits, E., Peirce, A., Desroches, J., 2007. Computer simulation of hydraulic 
+fractures. Int. J. Rock Mech. Min. Sci. 44 (5), 739 – 757 . 
+Bogdan, A.V., Keilers, A., Oussoltsev, D., 2016. Real-time interpretation of leakIsolation 
+with degradable diverter using High frequency pressure monitoring. In: SPE Asia 
+Pacific Oil & Gas Conference and Exhibition. Perth, Australia .  
+Chen, J., 2016. The design and implementation of adaptive notch filter based on LMS 
+algorithm. Journal of Ankang University 28 (5), 113 – 116 . 
+Cong, Z Y, Li, Y W, Liu, Y, et al., 2021. A new method for calculating the direction of 
+fracture propagation by stress numerical search based on the displacement 
+discontinuity method. Comput. Geotech. 140, 104482 . 
+Cong, Z.Y., Li, Y., Pan, Y., et al., 2022. Study on CO
+2 
+foam fracturing model and fracture 
+propagation simulation. Energy 238, Part B, 121778 . 
+Connor, J. Clark, Miskimins, Jennifer L., Gallegos, Dana L., 2018. Diagnostic applications 
+of borehole hydraulic signal processing. In: Unconventional Resources Technology 
+Conference. Houston, Texas, USA .  
+Huang, S.Q., 2019. Design and simulation experiment of FIR low-pass filter based on 
+FPGA. China Water Transport 19 (3), 97-98, 123 .  
+Jiang, X.H., Xie, C.X., Zou, Y.B., 2011. A monitoring information denoising method 
+under strong noise. J. S. China Univ. Technol. 39 (4), 66 – 69 . 
+Kabannik, A., Parkhonyuk, S., Korkin, R., Litvinets, F., Dunaeva, A., Nikolaev, M., 
+Usoltsev, D., 2018. Can we trust the diversion pressure as a decision-making tool: 
+novel technique reveals the truth. In: Abu Dhabi International Petroleum Exhibition 
+& Conference. United Arab Emirates, Abu Dhabi .  
+Klem, R.A., Rutzinger, G., Shulman, M., Pedam, S., Keilers, A., Bogdan, A., 
+Oussoltsev, D., 2017. Sequenced fracturing technique improves production from an 
+underperforming lateral: an interpretation based on high frequency pressure 
+monitoring. In: SPE Hydraulic Fracturing Technology Conference and Exhibition. 
+The Woodlands, Texas, United States .  
+Korkin, R., Parkhonyuk, S., Fedorov, A., Badazhkov, D., Kabannik, A., 2020. High 
+frequency pressure monitoring and data analytics for stimulation efficiency 
+Fig. 14. The case after adding excessive random noises: (a) signal after adding excessive random noises; (b) signal after filtering out excessive random noises; (c) 
+cepstrum of the signal after filtering out excessive random noises. 
+Y. Li et al.                                                                                                                                                                                                                                        
+
+===== PAGE 13 =====
+Journal of Petroleum Science and Engineering 208 (2022) 109796
+13
+determination: new perspectives or potential limits. In: The SPE Hydraulic 
+Fracturing Technology Conference and Exhibition. The Woodlands, Texas, USA.  
+Li, M.H., 2012. Study on Inversion Problem of Non-linear and Non-gaussian Reservoir 
+Based on Ensemble Kalman Filter. China University of Petroleum, East China.  
+Li, Y.Q., 2019. Research on Noise Elimination Method of High-Speed Mud Pulse Signal. 
+University of Electronic Science and Technology of China. 
+Li J, Reckmann H, 2009. System and Method for Pump Noise Cancellation in Mud Pulse 
+Telemetry: US, US7577528. 
+Li, Y.W., Long, M., Tang, J.Z., et al., 2020. A hydraulic fracture height mathematical 
+model considering the influence of plastic region at fracture tip. Petrol. Explor. Dev. 
+47 (1), 175–185. 
+Liang, C.T., Mike, P., 2009. Improving signal-to-noise ratio of passive seismic data with 
+an adaptive FK filter. In: SEG Houston 2009 International Exposition and Annual 
+Meeting, pp. 1703–1707. 
+Liu, F.F., 2008. A study of interference rejection based on adaptive notch filter. Applied 
+Science and Technology (9), 33–38. 
+Liu, Y.P., Li, Y., Ma, H.T., 2012. Seismic random noise reduction by empirical mode 
+decomposition combined with translation invariant scale-adaptive threshold. 
+International Conference on Wavelet Analysis and Pattern Recognition. IEEE 53–57. 
+Liu, W., Liu, W., Gu, J.W., et al., 2020. Research on interwell connectivity of oil 
+reservoirs based on Kalman filter and artificial neural network. Petroleum Geology 
+and Recovery Efficiency 27 (2), 118–124. 
+Ma, L.K., Cheng, L.B., 2016. Adaptive Noise Canceller Design Based on MATLAB, vol. 6. 
+Electronics World, pp. 44–45. 
+Ma, X., Fuping Zhou, F.P., Alberto Ortega Andrade, J., Gosavi, Shekhar V., 
+Burch, Damian, 2019. Evaluation of water hammer analysis as diagnostic tool for 
+hydraulic fracturing. In: Unconventional Resources Technology Conference. Denver, 
+Colorado, USA.  
+Parkhonyuk, S., Fedorov, A., Kabannik, A., 2018. Measurements while fracturing: 
+nonintrusive method of hydraulic fracturing monitoring. In: SPE Hydraulic 
+Fracturing Technology Conference and Exhibition. The Woodlands, Texas, USA.  
+Peng, Y.X., 2018. Research on the Filtering and Decoding Technology of Continuous 
+Wave Mud Pulser Signal. China University of Petroleum (East China).  
+Peng, H.L., Deng, Y., He, J.W., et al., 2019. Post-stack seismic data denoising based on 
+multi- window adaptive bilateral filtering and its application. Geophys. Prospect. 
+Pet. 58 (1), 63–70. 
+Qiao, Z.C., Tang, L.X., Liu, H., 2016. Adaptive filtering algorithm for cancelling the pump 
+noise in the mud pulse signal. Chin. J. Sci. Instrum. 37 (7), 1477–1484. 
+Shao, P., Wu, Z.J., Peng, H., et al., 2017. FIR low-pass digital filter design using improved 
+PSO algorithms. Computer Science 44 (z1), 136-138, 156.  
+Song, W.Q., He, K., Guo, Q.S., Jiang, Y.D., 2013. Research on adaptive filtering method 
+of micro seismic data. Geophys. Prospect. Pet. 52 (3), 229–233. 
+Wang, Y.D., Li, M.H., 2010. Application of ensemble Kalman filter in nonlinear reservoir 
+problem. Journal of China University of Petroleum (Edition of Natural Science) 34 
+(5), 188–192. 
+Wang, Y., Ying, Q.R., Lei, Y., Wang, D., Jin, B.Q., 2018a. Adaptive notch filter with real 
+time disturbance frequency control. J. Electron. Dev. 41 (2), 405–410. 
+Wang, W., Yu, W., Hu, X., Liu, H., Chen, Y., Wu, K., Wu, B., 2018b. A semi analytical 
+model for simulating real gas transport in nano pores and complex fractures of shale 
+gas reservoirs. AIChE J. 64 (1), 326–337. 
+Xu, H., Wang, D.D., Jiang, T.B., 2012. Research on the ECG signal denoising algorithm 
+based on wavelet transform and the median filter. Automation & Instrumentation. 
+27 (12), 46–49. 
+Zhao, J., Hao, J.F., Zhang, D.M., 2012. Application of Fast Median Filter in Filtering 
+Baseline Drift of ECG Signal, vol. 4. Electronics World, pp. 50–51. 
+Y. Li et al.                                                                                                                                                                                                                                        

@@ -1,0 +1,202 @@
+\n===== PAGE 1 =====\nContents lists available at ScienceDirect
+Mechanical Systems and Signal Processing
+journal homepage: www.elsevier.com/locate/ymssp
+Pipeline leak detection using hydraulic transients and
+domain-guided machine learning
+Muhammad Waqar a,∗, Azhar M. Memona, Moez Louatib, Mohamed S. Ghidaouib,
+Luai M. Alhemsa, Silvia Meniconic, Bruno Brunonec, Caterina Capponic
+a Applied Research Center for Metrology, Standards, and Testing, Research and Innovation, King Fahd University of Petroleum and
+Minerals, Dhahran, 31261, Eastern Province, Saudi Arabia
+b Department of Civil and Environmental Engineering, The Hong Kong University of Science and Technology, Clear Water Bay, East
+Kowloon, 999077, New Territories, Hong Kong, SAR China
+c Department of Civil and Environmental Engineering, The University of Perugia, Perugia, 06123, Province of Perugia, Italy
+A R T I C L E I N F O
+Communicated by S. De Rosa
+Keywords:
+Defect detection
+Infrastructure
+Machine learning
+Sustainable development
+Water efficiency
+A B S T R A C T
+In this paper, we present a novel domain-guided framework for training machine learning (ML)
+models, particularly neural networks (NN), to detect multiple leaks in pipelines using hydraulic
+transient datasets. Central to our approach is the utilization of a ‘leak function’ as the target
+variable in the ML model, where leak properties exhibit a pulse-like signature. This framework
+allows ML models to be trained without the typical constraints on the number of leaks and
+avoids the necessity of retraining separate models for different scenarios. To enhance model ro-
+bustness against operational uncertainties, we employ iterative refinement techniques. Starting
+with a baseline NN model, each subsequent refinement incorporates factors such as valve closure
+time, pre-transient flow properties, and the capacity to handle an increased number of leaks. We
+validate the accuracy of our framework through numerical simulations and experimental data
+from a laboratory-scale Viscoelastic pipe system. Furthermore, we demonstrate the framework’s
+applicability to pipeline networks in two configurations: a series connection of two pipes
+and a tree-type network comprising three pipes. Our results indicate satisfactory detection
+accuracy and system adaptability, showcasing the potential of our framework for practical ML
+applications in leak detection.
+1. Introduction
+Pressurized pipelines are vital for water distribution to cities and industries, yet they are vulnerable to leaks and other faults
+(e.g., partial blockages, and wall deterioration). A leaking pipeline does not merely represent a physical fault in the system; it signifies
+a contributor to non-revenue water (NRW) losses, waste of energy, and a burden on financial resources. Globally, NRW accounts
+for approximately 346 million cubic meters per day [ 1]. A significant portion of this volume is attributed to leaks, reinforcing
+the urgency for effective solutions. Thus, the development of robust leak (fault) detection methods has emerged as an active and
+pressing area of research. The impetus for such advancements is twofold: on one hand, it addresses the immediate challenges faced
+by water agencies tasked with the management and maintenance of these pipelines; on the other, it presents an opportunity for
+broader economic benefits.
+∗ Corresponding author.
+E-mail address: muhammad.waqar@kfupm.edu.sa (M. Waqar).
+https://doi.org/10.1016/j.ymssp.2024.111967
+Received 29 May 2024; Received in revised form 15 September 2024; Accepted 17 September 2024
+Mechanical Systems and Signal Processing 224 (2025) 111967 
+Available online 25 September 2024 
+0888-3270/© 2024 Elsevier Ltd. All rights are reserved, including those for text and data mining, AI training, and similar technologies. \n===== PAGE 2 =====\nM. Waqar et al.
+Current commercial methodologies for pipeline leak (fault) detection, including noise loggers [2], listening rods [3], ground
+penetrating radar [4], the SAHARA system [5], and smart-ball [6], often face challenges with large-scale pipelines. These methods
+tend to be disruptive and intrusive, necessitating significant operational and financial expenditure for water supply agencies. From
+a management viewpoint, these methods are usually carried out by the supplier’s technicians, which can lead to waiting times and
+delays. Moreover, the majority of these techniques are passive; they depend on the manifestations of existing leaks, such as noise
+or flow disturbances, to signal their presence [7]. This approach inherently limits their effectiveness, as they react to symptoms of
+leaks rather than actively detecting them. Consequently, despite the availability of these technologies, the persistent issue of NRW
+losses indicates a gap in the ability of current methods to detect and mitigate leaks efficiently.
+Transient-based leak (fault) detection methods [8] are receiving immense attention as a viable strategy for identifying leaks
+and other faults. Leveraging mechanically induced hydraulic transient waves, which travel at the speed of sound – approximately
+1000 m/s in metallic pipes and 400 m/s in non-metallic pipes [9] – this approach provides a non-disruptive and non-intrusive
+alternative suitable for large-scale pipelines. As these waves travel along the pipeline, they reflect off physical discontinuities,
+including leaks, sending back signals that carry distinctive information about these features. Precisely, leaks or junctions for side-
+branches generate a negative pressure wave, while a partially closed valve introduces a positive pressure wave. The characteristic
+pattern of an extended partial blockage is a positive wave followed by a negative one, forming a ‘positive bell’ profile. Conversely,
+partial wall deterioration is indicated by a negative wave succeeded by a positive one, creating a ‘negative bell’ pattern. The time-
+of-arrival and magnitude of these reflected pressure waves are associated respectively with the location and size of discontinuity.
+Therefore, by analyzing the measured transient responses, it becomes possible to decode these signals, pinpointing the presence,
+location, and size of leaks and other faults with precision. In addition, the short duration and simplicity of the transient tests give
+the water system technicians complete autonomy and guarantee minimum costs. However, the task is not straightforward as the
+measured signals are inevitably contaminated by environmental noise [10–14].
+To deal with noise, the literature has traditionally focused on three primary approaches: model-based, data-driven (ML), and
+hybrid approaches. Model-based methods rely on physics-driven and inversion-based techniques [15], including inverse transient
+analysis [10,16–19], time-domain reflectometry [20], spectral-based techniques [21–28], and time-reversal methods [13,29,30].
+Most of these methods have undergone rigorous testing predominantly in controlled laboratory environments with few attempts in
+the real pipe systems [31–35].
+While the research community continues to extend and enhance this modeling and inversion-based approaches, there is a parallel
+and growing interest in utilizing data-driven machine learning (ML) for the same task. For instance, in 2019, Zhou et al. [36]
+utilized resonant frequency responses to train a Convolutional Neural Network (CNN) using a novel fusion-enhanced stochastic
+optimization algorithm combined with a pooling network strategy. Their study successfully detected single leaks in a simple single
+pipeline system, even in the presence of noise with a signal-to-noise ratio (SNR) as low as 0 dB. The approach was validated through
+numerical experiments. In the following year, Bohorquez et al. [37] used time-domain pressure head signals to train both an Artificial
+Neural Netw\n===== PAGE 3 =====\nM. Waqar et al.
+3. The proposed method is validated using both comprehensive numerical datasets and experimental data from a Viscoelastic
+pipe system, demonstrating robustness and reliability in real-world applications.
+4. The method shows computational efficiency, with baseline model training completed in approximately 2.5 h, and it adapts
+well to complex pipeline configurations, including series and tree-type networks.
+These contributions offer a robust solution for multiple leak detection and pave the way for further exploration of complex systems
+and data-driven ML models to tackle increasingly challenging leak detection scenarios.
+The remainder of this paper is organized as follows: Section 2 outlines the problem statement. Section 3 details the proposed
+framework and the flowchart for its implementation. Section 4 describes the numerical tests conducted to assess the proposed
+framework, including the integration of modeling uncertainties through model refinement techniques. Section 5 experimentally
+validates the method using distinct laboratory datasets. Section 6 presents the potential application of the proposed framework to
+pipeline networks. Finally, Section 7 presents the conclusions.
+2. Problem statement
+In practical applications, water pipeline systems are often subjected to significant levels of noise, originating from a variety
+of sources, including flow turbulence, mechanical vibrations induced by pumps and flow regulation devices, and fluctuations in
+consumer usage and demand [29,44]. Additionally, the environmental context of the pipelines – whether they are above ground
+or buried, and their proximity to highways, railway tracks, or other infrastructure – further contributes to noise characteristics. As
+such, the measured transient signals are inevitably tainted with noise. Let ℎ𝑚(𝑡, 𝑠𝐿, 𝑥𝐿, 𝑛𝐿) be the measured transient response of the
+system, which can be approximated as:
+ℎ𝑚(𝑡, 𝑠𝐿, 𝑥𝐿, 𝑛𝐿) = ℎ𝑐 (𝑡, 𝑠𝐿, 𝑥𝐿, 𝑛𝐿) + 𝜖(𝑡), (1)
+where 𝑠𝐿 denotes the leak size, 𝑥𝐿 is the leak location, 𝑛𝐿 is the number of leaks, 𝑡 denotes the time vector, 𝜖(𝑡) is the noise, and ℎ𝑐
+is the predicted transient response and is denoted as
+ℎ𝑐
+(𝑥𝐿, 𝑠𝐿, 𝑛𝐿)= 𝖥𝗈𝗋𝗐𝖺𝗋𝖽𝖬𝗈𝖽𝖾𝗅 (𝑥𝐿, 𝑠𝐿, 𝑛𝐿) (2)
+Within this framework, the 𝖥𝗈𝗋𝗐𝖺𝗋𝖽𝖬𝗈𝖽𝖾𝗅 can be an explicit/implicit time-domain model, leveraging techniques like the Method of
+Characteristics or finite volume methods [9]. Alternatively, it could be a frequency domain-based model, utilizing either frequency
+response functions or impedance-based models. The challenge lies in extracting the leak information, namely 𝑠𝐿, 𝑥𝐿, and 𝑛𝐿, from
+the noisy signal ℎ𝑚(𝑡). This task is significantly influenced by the signal-to-noise ratio (SNR). For leakage detection problem, the
+SNR is defined as [13,29]
+SNR = 20 log10
+(𝛥ℎ𝐿∕𝜎𝑛𝑜𝑖𝑠𝑒
+) (3)
+where 𝛥ℎ𝐿 is average pressure head difference caused by the leak, and 𝜎𝑛𝑜𝑖𝑠𝑒 is the standard deviation of noise.
+Traditionally, retrieving defect information from noisy measurements is approached as an inverse problem. This process involves
+estimating the defect characteristics from observed data, typically governed by the equation:
+{ ̂ 𝑥𝐿, ̂ 𝑠𝐿, ̂ 𝑛𝐿} = 𝖨𝗇𝗏𝖾𝗋𝗌𝖾𝖬𝗈𝖽𝖾𝗅 (ℎ𝑚(𝑡)) (4)
+In this equation, { ̂ 𝑥𝐿, ̂ 𝑠𝐿, ̂ 𝑛𝐿} represent the estimated leak characteristics. The 𝖨𝗇𝗏𝖾𝗋𝗌𝖾𝖬𝗈𝖽𝖾𝗅 function encapsulates the optimization
+approach to infer defect information from the observed data. However, this approach is inherently ill-posed due to the intrinsic
+noise in the measured signals. As such, the accuracy and reliability of the solutions derived from this model are heavily dependent
+on the algorithm employed [10,45–47]. In many cases, the presence of noise can lead to ambiguous or multiple solutions, resulting
+in false alarms [10,12].
+In the literature, the use of a machine learning algorithm (e.g., ANN, CNN or NCA, as described in the previous section)
+as a surrogate inverse model is proposed to map noisy measurements to specific defect information. The underlying concept is
+mathematically repres\n===== PAGE 9 =====\nM. Waqar et al.
+Fig. 6. Training performance metrics for the ANN model. (a) Mean Squared Error (MSE) loss function over epochs for training, validation, and test sets. The
+‘Best’ line indicates the epoch with the lowest validation MSE, and the ‘Goal’ line represents the targeted MSE threshold. (b) Gradient of the loss function over
+epochs, demonstrating the optimization process. (c) Validation fails over epochs, with a threshold set to 1000.
+To summarize, the NN model was trained using a dataset consisting of 6000 samples, each with 1200 features, and the output
+layer corresponding to 6000 samples with 101 features each. The network architecture comprised of an input layer, multiple hidden
+layers, and an output layer, amounting to a total of 972,101 trainable parameters. This level of complexity in the model structure
+allows for intricate pattern recognition and was managed within a reasonable training duration of 2 h and 36 min on a 12th
+Generation Intel Core i9-12900 CPU with 2.4 GHz and 32 GB of RAM. The training of the ANN model was conducted using MATLAB
+2022 and was completed on a CPU without the aid of GPU acceleration, highlighting the model’s efficiency on standard hardware
+configurations. Moreover, the convergence of training was based on the model achieving a specified level of accuracy as described
+earlier, ensuring the robustness of the predictions against the diverse range of data presented.
+Fig. 7 offers a comprehensive view of the ANN model’s predictive performance across different datasets. Subfigure (a) illustrates
+the model’s performance on the training set, with an exceptional degree of fit as evidenced by the high 𝑅2 value, suggesting that
+the model has learned the training data effectively. The proximity of the data points to the 1:1 line indicates accurate predictions
+relative to the observed data. Subfigure (b) represents the validation set, which is used to tune the model’s hyperparameters. The plot
+shows a slightly wider dispersion of points compared to the training set, yet maintains a high 𝑅2 value, indicating the model’s good
+generalizability to unseen data. Subfigure (c) displays the testing set, which assesses the model’s performance on entirely new data.
+While there is a further increase in the spread of data points around the regression line, the𝑅2, RMSE, MSE, and MAE values confirm
+that the model’s predictive accuracy remains high. The PCC across all datasets remains robust, highlighting the model’s consistent
+ability to p\n===== PAGE 13 =====\nM. Waqar et al.
+Fig. 12. Comparative evaluation of model performance metrics: This figure illustrates the progression of performance metrics across different models, from the
+𝙱𝚊𝚜𝚎𝙼𝚘𝚍𝚎𝚕 to 𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟹. Subfigures (a) through (e) respectively depict MSE, RMSE, MAE, R-squared, and PCC, showcasing each model’s performance
+during training (green), validation (blue), and testing (red) phases. The systematic reduction in error metrics (MSE, RMSE, and MAE) and concurrent increase
+in R-squared and PCC from BaseModel to AdaptedModel-3 highlight the efficacy of the refinement process in enhancing model accuracy and consistency across
+various stages of evaluation. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+Table 2
+Performance metrics of various models during training, validation and testing stages.
+Model Stage R-squared RMSE MSE MAE PCC
+𝙱𝚊𝚜𝚎𝙼𝚘𝚍𝚎𝚕
+Training 0.99672 0.008486 7.2 ×10−5 0.00496 0.99836
+Validation 0.96216 0.028785 0.00082855 0.013993 0.98093
+Testing 0.96133 0.029342 0.00086095 0.014503 0.98075
+𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟷
+Training 0.99514 0.015099 0.00022797 0.0087127 0.99757
+Validation 0.97558 0.034736 0.0012066 0.015862 0.98773
+Testing 0.97634 0.032789 0.0010747 0.01525 0.9881
+𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟸
+Training 0.99451 0.015836 0.00025078 0.0091151 0.99725
+Validation 0.97806 0.031309 0.00098026 0.014559 0.98901
+Testing 0.97767 0.032868 0.0010803 0.015245 0.98883
+𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟹
+Training 0.98614 0.022106 0.00048867 0.011841 0.99304
+Validation 0.96784 0.034039 0.0011587 0.015799 0.98381
+Testing 0.96231 0.037285 0.0013901 0.016879 0.98102
+5. Experimental validation
+5.1. System description
+The test rig is located at the Water Engineering Laboratory of the University of Perugia, Italy. The schematic of the experimental
+arrangement is delineated in Fig. 13. The configuration comprises an air vessel situated upstream, a horizontal pipeline made of High-
+Density Polyethylene (HDPE), and a pneumatic valve positioned at the downstream terminus. A submerged pump, placed within the
+recycling tank, ensures the stabilization of the pressure head within the air vessel. The pipeline’s specifications include a length ( 𝐿)
+of 188.89 m, an internal diameter (𝐷) of 0.0933 m, a Darcy-Weisbach friction factor (𝑓) calibrated at 0.0196, and an elastic modulus
+(𝐸) of the pipe material registered at 1.47 GPa. The Viscoelastic (VE) characteristics of the pipe walls are incorporated via five Kelvin-
+Voigt model \n===== PAGE 21 =====\nM. Waqar et al.
+Fig. A.21. Training performance metrics for the 𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟹. (a) Mean Squared Error (MSE) loss function over epochs for training, validation, and test
+sets. The ’Best‘ line indicates the epoch with the lowest validation MSE, and the ’Goal‘ line represents the targeted MSE threshold. (b) Gradient of the loss
+function over epochs, demonstrating the optimization process. (c) Validation fails over epochs, with a threshold set to 1000.
+Fig. A.22. Performance metrics for the pipe-in-series system along with regression plots for (a) training, (b) validation, and (c) testing stages. (For interpretation
+of the references to color in this figure legend, the reader is referred to the web version of this article.)
+The training performance of 𝙰𝚍𝚊𝚙𝚝𝚎𝚍𝙼𝚘𝚍𝚎𝚕 − 𝟹 is depicted through metrics including the loss function, its gradient, and validation
+failures, as illustrated in Fig. A.21. This version of the model has been calibrated to accommodate the combined variability of valve
+closure time and pre-transient flowrate, as well as scenarios involving four leaks. Notably, this extensive fine-tuning was achieved
+within a span of approximately 52 min across 5000 epochs, demonstrating the model’s efficiency in adapting to complex hydraulic
+conditions.
+For pipe-in-series- system, Fig. A.22 illustrates the regression analysis of the model across different datasets: (a) training, (b)
+validation, and (c) testing. Each subfigure plots the predicted properties against the observed properties, with the data points marked
+in red. The blue line represents the model’s goodness of fit, while the solid black line indicates the ideal 1:1 correspondence between
+the predicted and observed values. Performance metrics such as 𝑅2, RMSE, MSE, MAE, and PCC are displayed for each dataset,
+demonstrating the model’s accuracy and predictive capability.
+For tree-type pipe network, Fig. A.23 presents the regression analysis of the model across different datasets: (a) training, (b)
+validation, and (c) testing. Each subfigure plots the predicted properties against the observed properties, with the data points marked
+in red. The blue line represents the model’s goodness of fit, while the solid black line indicates the ideal 1:1 correspondence between
+the predicted and observed values. Performance metrics such as 𝑅2, RMSE, MSE, MAE, and PCC are displayed for each dataset,
+demonstrating the model’s accuracy and predictive capability.
+Mechanical Systems and Signal Processing 224 (2025) 11

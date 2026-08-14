@@ -1,5 +1,7 @@
 # 小论文拟定：水击波多裂缝级联衰减的拓扑标度律与首缝干涉机理
 
+> **SUPERSEDED.** Canonical draft: [PaperA_Topology-Organized_Cepstral_Response_倒谱拓扑组织与首缝非局部性.md](./PaperA_Topology-Organized_Cepstral_Response_倒谱拓扑组织与首缝非局部性.md). Do not cite a universal topological exponent, anomalous diffusion, or proven interference paths from this file.
+
 > **论文编号**：Paper 3（与 Paper 1 稳态论文互补）  
 > **状态**：数据齐全，签名图已生成  
 > **目标期刊**：Geophysics / Geophysical Journal International  
