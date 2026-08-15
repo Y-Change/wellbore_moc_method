@@ -1,0 +1,39 @@
+PaperA 井口多裂缝水击响应 — 目录说明
+归档日期：2026-08-14
+本目录是 output 中相关正演的副本，已按论文块重排。原始结果仍在 output/analysis/ 与 output/leakoff/。
+
+统一波形格式
+  每个工况目录下的 moc_timeseries.csv，列与 leakoff 一致：
+  t, H_wh, Q_wh, H_f1, Q_f1, ..., H_fn, Q_fn
+  井口水头为 H_wh [m]，井口流量 Q_wh [m3/s]，缝口为 H_fk / Q_fk。
+
+根目录
+  目录说明.txt      本文件
+  案例总表.xlsx    全部工况索引（说明 / 总览 / 全部案例 / 单缝补全）
+
+01_几何网格
+  波形/            {steady|brunone}_x1_{x1}_sp_{D}_n_{n}/moc_timeseries.csv
+  波形_npz/        旧压缩井口时程（仅 t_sim,H_wh），新分析请用 波形/ 下 csv
+  峰值表/          decay_table.csv
+  过程图/          历史分析图
+
+02_裂缝属性_CfKleak
+  波形/            {friction}_cf_*_kleak_*/moc_timeseries.csv
+  波形_npz/        旧 npz
+  cf_kleak_table.csv
+  图/
+
+03_leakoff验证
+  {steady|brunone}[_D{5,10,20,50,100}]/{single..oct}/moc_timeseries.csv
+  初缝 x1=4100 m。无后缀目录 = D50。
+
+04_能量回归
+  工况/{steady|brunone}/*/moc_timeseries.csv
+  energy_table.csv  拟合/  图/
+
+05_Brunone常数k
+  工况/D{5,10,20,50,100}_k{0..0.2}/moc_timeseries.csv
+  k 为钉死常数，不是 Vardy k(Re)
+  audit_v2/  图/  metrics_summary.csv
+
+未纳入：LHS 随机集、分层基准、反演与神经算子。

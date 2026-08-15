@@ -14,3 +14,11 @@ ARIS/
 .aris/
 .claude/skills/
 skills/
+
+# Per-case MOC time series and compressed waveforms (keep local)
+**/moc_timeseries.csv
+**/波形_npz/
+**/*.npz
+
+# Local caches / temp
+.pytest_cache/

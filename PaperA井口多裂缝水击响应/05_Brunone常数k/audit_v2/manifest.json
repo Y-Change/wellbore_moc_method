@@ -1,0 +1,60 @@
+{
+  "experiment_id": "EXP-20260730-024",
+  "generated_utc": "2026-08-14T08:11:55Z",
+  "reuse_timeseries": true,
+  "n_cases_expected": 30,
+  "n_cases_found": 30,
+  "well": {
+    "L_m": 5000.0,
+    "a_mps": 1450.0,
+    "D_m": 0.1397,
+    "ts_s": 1.0,
+    "frac_first_m": 4100.0,
+    "n_frac": 4
+  },
+  "formulas": {
+    "signal": "dH/dt = np.gradient(H_wh, dt)",
+    "analysis_window_s": [
+      6.5,
+      7.5
+    ],
+    "peak_height_frac": 0.1,
+    "peak_min_separation_s": 0.002,
+    "EST": "t(E=0.90)-t(E=0.10) of positive-part energy",
+    "C_v": "(P_min-V)/P_min clipped to [0,1]; 0 if <2 peaks",
+    "not_used": "Rayleigh 0.81 score; FWHM as primary width; c_p(omega)"
+  },
+  "stft": {
+    "signal": "dH/dt",
+    "time_window_s": [
+      6.4,
+      7.2
+    ],
+    "window": "hann",
+    "nperseg": 128,
+    "noverlap": 120,
+    "scaling": "spectrum",
+    "fs_hz": 999.9999999996661,
+    "df_hz": 7.812499999997391,
+    "dB_reference": "10*log10(E(k)/E(k=0, same D))",
+    "bands_hz": [
+      [
+        0.0,
+        20.0
+      ],
+      [
+        20.0,
+        60.0
+      ],
+      [
+        60.0,
+        150.0
+      ]
+    ]
+  },
+  "unit_test": {
+    "file": "unit_test_cv.csv",
+    "passed": true,
+    "description": "equal-amplitude Gaussians, sigma=20 ms"
+  }
+}

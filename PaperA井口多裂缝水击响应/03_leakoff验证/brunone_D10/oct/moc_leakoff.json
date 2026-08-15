@@ -1,0 +1,316 @@
+{
+  "verdicts": {
+    "joukowsky": "PASS",
+    "fracture_reflection": "PASS",
+    "leakoff_damping": "PASS",
+    "leakoff_steady_Q": "PASS",
+    "oscillation_decay": "PASS",
+    "stability": "PASS",
+    "degeneracy": "PASS"
+  },
+  "metrics": {
+    "dH_err_pct": 6.344982011796675e-13,
+    "frac_steps": [
+      136.48441678653117,
+      139.06216530012685,
+      140.15491438437772,
+      134.56609925646558,
+      122.11954252780352,
+      108.39382809684884,
+      94.01863222263066,
+      79.77135590999721
+    ],
+    "toe_step": 222.7783880465048,
+    "rms_leak": 12.418617801404315,
+    "rms_pure": 15.952291406480063,
+    "damping_ratio": 1.2845464496601349,
+    "Q_steady_per_frac": [
+      0.0013981116262688491,
+      0.0013977314790330254,
+      0.001396559415248251,
+      0.001395396975873502,
+      0.0013942660299991797,
+      0.0013931676693824113,
+      0.0013921062428872543,
+      0.00139108676516841
+    ],
+    "Q_steady_ana": 0.0014142135623730952,
+    "jitter_ratio": null,
+    "decay_ratio": 0.05368783794748055,
+    "decay_ratio_pure": 0.6004706321842065,
+    "long_term_range": 8.244438917856257,
+    "t_arrive_frac": [
+      6.654,
+      6.668000000000001,
+      6.682,
+      6.696000000000001,
+      6.710000000000001,
+      6.724,
+      6.738,
+      6.752
+    ],
+    "t_arrive_toe": 7.896000000000001,
+    "x_f_aligned": [
+      4099.477958236658,
+      4109.628770301624,
+      4119.779582366589,
+      4129.930394431554,
+      4140.081206496519,
+      4150.232018561484,
+      4160.3828306264495,
+      4170.533642691415
+    ]
+  },
+  "cepstrum": {
+    "1d_real": {
+      "n_matched": 4,
+      "n_fracs": 8,
+      "mean_error_m": 8.404872389790398,
+      "max_error_m": 10.353828306263495,
+      "snr": 527.6041383905166,
+      "match_tol_m": 80.0,
+      "detected_peaks": [
+        {
+          "depth_m": 4110.3538283062635,
+          "response": 0.08911339437728891,
+          "rank": 1
+        },
+        {
+          "depth_m": 4117.604408352668,
+          "response": 0.014157716348821703,
+          "rank": 2
+        },
+        {
+          "depth_m": 4127.755220417633,
+          "response": 0.005840658043915668,
+          "rank": 3
+        },
+        {
+          "depth_m": 4137.906032482598,
+          "response": 0.003064729367070885,
+          "rank": 4
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4100.0,
+          "peak_depth_m": 4110.3538283062635,
+          "peak_val": 0.08911339437728891,
+          "error_m": 10.353828306263495,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4110.0,
+          "peak_depth_m": 4117.604408352668,
+          "peak_val": 0.014157716348821703,
+          "error_m": 7.604408352667633,
+          "matched": true
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4120.0,
+          "peak_depth_m": 4127.755220417633,
+          "peak_val": 0.005840658043915668,
+          "error_m": 7.7552204176326995,
+          "matched": true
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4130.0,
+          "peak_depth_m": 4137.906032482598,
+          "peak_val": 0.003064729367070885,
+          "error_m": 7.906032482597766,
+          "matched": true
+        },
+        {
+          "frac_id": 5,
+          "true_depth_m": 4140.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 6,
+          "true_depth_m": 4150.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 7,
+          "true_depth_m": 4160.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 8,
+          "true_depth_m": 4170.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        }
+      ]
+    },
+    "2d_time_avg": {
+      "n_matched": 8,
+      "n_fracs": 8,
+      "mean_error_m": 16.792343387471306,
+      "max_error_m": 55.295823665894204,
+      "snr": 252.28526532281967,
+      "match_tol_m": 80.0,
+      "detected_peaks": [
+        {
+          "depth_m": 4110.3538283062635,
+          "response": 0.2089316429570954,
+          "rank": 1
+        },
+        {
+          "depth_m": 4104.553364269141,
+          "response": 0.12915573868325173,
+          "rank": 2
+        },
+        {
+          "depth_m": 4114.704176334106,
+          "response": 0.11681113724892993,
+          "rank": 3
+        },
+        {
+          "depth_m": 4119.054524361948,
+          "response": 0.07898791175806151,
+          "rank": 4
+        },
+        {
+          "depth_m": 4100.203016241298,
+          "response": 0.0755891110028009,
+          "rank": 5
+        },
+        {
+          "depth_m": 4121.954756380509,
+          "response": 0.0737752549432424,
+          "rank": 6
+        },
+        {
+          "depth_m": 485.0638051044083,
+          "response": 0.06893329442048318,
+          "rank": 7
+        },
+        {
+          "depth_m": 4127.755220417633,
+          "response": 0.05994004585084899,
+          "rank": 8
+        },
+        {
+          "depth_m": 4124.854988399071,
+          "response": 0.05732263942425795,
+          "rank": 9
+        },
+        {
+          "depth_m": 4132.105568445475,
+          "response": 0.05203045214802357,
+          "rank": 10
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4100.0,
+          "peak_depth_m": 4100.203016241298,
+          "peak_val": 0.0755891110028009,
+          "error_m": 0.2030162412984282,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4110.0,
+          "peak_depth_m": 4110.3538283062635,
+          "peak_val": 0.2089316429570954,
+          "error_m": 0.3538283062634946,
+          "matched": true
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4120.0,
+          "peak_depth_m": 4119.054524361948,
+          "peak_val": 0.07898791175806151,
+          "error_m": 0.9454756380519029,
+          "matched": true
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4130.0,
+          "peak_depth_m": 4132.105568445475,
+          "peak_val": 0.05203045214802357,
+          "error_m": 2.1055684454750008,
+          "matched": true
+        },
+        {
+          "frac_id": 5,
+          "true_depth_m": 4140.0,
+          "peak_depth_m": 4127.755220417633,
+          "peak_val": 0.05994004585084899,
+          "error_m": 12.2447795823673,
+          "matched": true
+        },
+        {
+          "frac_id": 6,
+          "true_depth_m": 4150.0,
+          "peak_depth_m": 4124.854988399071,
+          "peak_val": 0.05732263942425795,
+          "error_m": 25.145011600929138,
+          "matched": true
+        },
+        {
+          "frac_id": 7,
+          "true_depth_m": 4160.0,
+          "peak_depth_m": 4121.954756380509,
+          "peak_val": 0.0737752549432424,
+          "error_m": 38.045243619490975,
+          "matched": true
+        },
+        {
+          "frac_id": 8,
+          "true_depth_m": 4170.0,
+          "peak_depth_m": 4114.704176334106,
+          "peak_val": 0.11681113724892993,
+          "error_m": 55.295823665894204,
+          "matched": true
+        }
+      ],
+      "wlen_sec": 30.0,
+      "hop_sec": 5.0,
+      "win_type": "kaiser",
+      "n_frames": 14
+    }
+  },
+  "config": {
+    "L": 5000.0,
+    "a": 1450.0,
+    "V0": 1.0,
+    "H0": 300.0,
+    "ts": 1.0,
+    "dt": 0.001,
+    "tf": 100.0,
+    "x_f": [
+      4100.0,
+      4110.0,
+      4120.0,
+      4130.0,
+      4140.0,
+      4150.0,
+      4160.0,
+      4170.0
+    ],
+    "Cf": 1e-05,
+    "kleak": 0.0001,
+    "H_ext": 100.0,
+    "friction": "brunone_D10"
+  },
+  "replay": true
+}

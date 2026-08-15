@@ -1,0 +1,217 @@
+{
+  "verdicts": {
+    "joukowsky": "PASS",
+    "fracture_reflection": "PASS",
+    "leakoff_damping": "PASS",
+    "leakoff_steady_Q": "PASS",
+    "oscillation_decay": "PASS",
+    "stability": "PASS",
+    "degeneracy": "PASS"
+  },
+  "metrics": {
+    "dH_err_pct": 6.344982011796675e-13,
+    "frac_steps": [
+      138.6890092147319,
+      137.21649349292477,
+      135.29475832137555,
+      132.24933256884958
+    ],
+    "toe_step": 222.7783880465048,
+    "rms_leak": 6.00348643001942,
+    "rms_pure": 8.184680326410591,
+    "damping_ratio": 1.3633212004085626,
+    "Q_steady_per_frac": [
+      0.0014064140714321151,
+      0.0014063650322976616,
+      0.001405508227166968,
+      0.0014043073676355017
+    ],
+    "Q_steady_ana": 0.0014142135623730952,
+    "jitter_ratio": null,
+    "decay_ratio": 0.3016811371493739,
+    "decay_ratio_pure": 0.8054695409221894,
+    "long_term_range": 25.92151652003497,
+    "t_arrive_frac": [
+      6.654,
+      6.662000000000001,
+      6.668000000000001,
+      6.676000000000001
+    ],
+    "t_arrive_toe": 7.896000000000001,
+    "x_f_aligned": [
+      4099.477958236658,
+      4105.278422273782,
+      4109.628770301624,
+      4115.429234338747
+    ]
+  },
+  "cepstrum": {
+    "1d_real": {
+      "n_matched": 1,
+      "n_fracs": 4,
+      "mean_error_m": 11.078886310903727,
+      "max_error_m": 11.078886310903727,
+      "snr": 525.8033127319526,
+      "match_tol_m": 80.0,
+      "detected_peaks": [
+        {
+          "depth_m": 4111.078886310904,
+          "response": 0.10533820031550943,
+          "rank": 1
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4100.0,
+          "peak_depth_m": 4111.078886310904,
+          "peak_val": 0.10533820031550943,
+          "error_m": 11.078886310903727,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4105.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4110.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4115.0,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        }
+      ]
+    },
+    "2d_time_avg": {
+      "n_matched": 4,
+      "n_fracs": 4,
+      "mean_error_m": 0.6873549883989654,
+      "max_error_m": 1.8967517401397345,
+      "snr": 319.04611189311555,
+      "match_tol_m": 80.0,
+      "detected_peaks": [
+        {
+          "depth_m": 4110.3538283062635,
+          "response": 0.29957008795415907,
+          "rank": 1
+        },
+        {
+          "depth_m": 4114.704176334106,
+          "response": 0.20702353587138922,
+          "rank": 2
+        },
+        {
+          "depth_m": 4107.453596287703,
+          "response": 0.1770784086067901,
+          "rank": 3
+        },
+        {
+          "depth_m": 4119.054524361948,
+          "response": 0.17186182474062964,
+          "rank": 4
+        },
+        {
+          "depth_m": 4121.954756380509,
+          "response": 0.15387183257626427,
+          "rank": 5
+        },
+        {
+          "depth_m": 4124.854988399071,
+          "response": 0.13499509850387742,
+          "rank": 6
+        },
+        {
+          "depth_m": 4127.755220417633,
+          "response": 0.11457483888211223,
+          "rank": 7
+        },
+        {
+          "depth_m": 4103.10324825986,
+          "response": 0.11182935645927046,
+          "rank": 8
+        },
+        {
+          "depth_m": 4130.6554524361945,
+          "response": 0.09217733456362251,
+          "rank": 9
+        },
+        {
+          "depth_m": 4100.203016241298,
+          "response": 0.07329206426883468,
+          "rank": 10
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4100.0,
+          "peak_depth_m": 4100.203016241298,
+          "peak_val": 0.07329206426883468,
+          "error_m": 0.2030162412984282,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4105.0,
+          "peak_depth_m": 4103.10324825986,
+          "peak_val": 0.11182935645927046,
+          "error_m": 1.8967517401397345,
+          "matched": true
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4110.0,
+          "peak_depth_m": 4110.3538283062635,
+          "peak_val": 0.29957008795415907,
+          "error_m": 0.3538283062634946,
+          "matched": true
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4115.0,
+          "peak_depth_m": 4114.704176334106,
+          "peak_val": 0.20702353587138922,
+          "error_m": 0.29582366589420417,
+          "matched": true
+        }
+      ],
+      "wlen_sec": 30.0,
+      "hop_sec": 5.0,
+      "win_type": "kaiser",
+      "n_frames": 14
+    }
+  },
+  "config": {
+    "L": 5000.0,
+    "a": 1450.0,
+    "V0": 1.0,
+    "H0": 300.0,
+    "ts": 1.0,
+    "dt": 0.001,
+    "tf": 100.0,
+    "x_f": [
+      4100.0,
+      4105.0,
+      4110.0,
+      4115.0
+    ],
+    "Cf": 1e-05,
+    "kleak": 0.0001,
+    "H_ext": 100.0,
+    "friction": "brunone_D5"
+  },
+  "replay": true
+}
