@@ -1,0 +1,7069 @@
+[
+  {
+    "case_id": "pilot_00018",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.029953031465720495,
+        "abs": 153210192.84392005,
+        "silent": false,
+        "den": 5115014586.061522
+      },
+      "pert_l2": {
+        "rel": 0.09001414427588125,
+        "abs": 153210192.84392005,
+        "silent": false,
+        "den": 1702067981.3869185
+      },
+      "peak_trough": {
+        "peak_rel": 20461.488636363636,
+        "trough_rel": 0.007728862094515365
+      },
+      "phase_frac_hat": 0.47567123744420453,
+      "phase_frac_true": 0.48934554760160826,
+      "phase_err_over_4La": 0.013674310157403724,
+      "psd": 0.4546386294750014,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 48.16499391378241,
+    "nyquist_node_hz": 1.505143096652322,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.689975020925992,
+        "abs": 56269.23037721057,
+        "silent": false,
+        "den": 81552.56157200235
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00054",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.16513776052510717,
+        "abs": 664607024.1432928,
+        "silent": false,
+        "den": 4024561202.9009404
+      },
+      "pert_l2": {
+        "rel": 0.3648313326456932,
+        "abs": 664607024.1432928,
+        "silent": false,
+        "den": 1821682965.9987772
+      },
+      "peak_trough": {
+        "peak_rel": 1.8898535999999998e+37,
+        "trough_rel": 0.273680460560415
+      },
+      "phase_frac_hat": 0.525349236011082,
+      "phase_frac_true": 0.48238384045102456,
+      "phase_err_over_4La": 0.04296539556005741,
+      "psd": 1.0284231066729967,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 35.99890140071409,
+    "nyquist_node_hz": 1.1249717034066415,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6449651675598973,
+        "abs": 64722.306453294,
+        "silent": false,
+        "den": 100350.08045187696
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00066",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.17580505922092368,
+        "abs": 214060415.7008859,
+        "silent": false,
+        "den": 1217600998.7965648
+      },
+      "pert_l2": {
+        "rel": 0.18899113141758733,
+        "abs": 214060415.90511188,
+        "silent": false,
+        "den": 1132647941.1995924
+      },
+      "peak_trough": {
+        "peak_rel": 2793.9734239802224,
+        "trough_rel": 0.12981645577658463
+      },
+      "phase_frac_hat": 0.42006425994538427,
+      "phase_frac_true": 0.47281652816347663,
+      "phase_err_over_4La": 0.05275226821809237,
+      "psd": 0.448417652556709,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 55.46847228099873,
+    "nyquist_node_hz": 1.7333496434368916,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.21450529189181383,
+        "abs": 10430.8214126701,
+        "silent": false,
+        "den": 48627.33837788443
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00067",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0634537930448941,
+        "abs": 306639846.2088806,
+        "silent": false,
+        "den": 4832490407.499049
+      },
+      "pert_l2": {
+        "rel": 0.4122433448825939,
+        "abs": 306639846.2088806,
+        "silent": false,
+        "den": 743832132.1990317
+      },
+      "peak_trough": {
+        "peak_rel": 12024.108108108108,
+        "trough_rel": 0.3173642446714412
+      },
+      "phase_frac_hat": 0.40246673557901697,
+      "phase_frac_true": 0.4952685262911981,
+      "phase_err_over_4La": 0.09280179071218114,
+      "psd": 0.543736622511223,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 46.384340613768316,
+    "nyquist_node_hz": 1.4495106441802599,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.09519730956274249,
+        "abs": 2412.309526832146,
+        "silent": false,
+        "den": 25340.10192002585
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00078",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4549958578188154,
+        "abs": 198274215.76537004,
+        "silent": false,
+        "den": 435771474.30719054
+      },
+      "pert_l2": {
+        "rel": 0.08041460966567264,
+        "abs": 198274214.93213746,
+        "silent": false,
+        "den": 2465649161.9678493
+      },
+      "peak_trough": {
+        "peak_rel": 2372.330280172414,
+        "trough_rel": 0.13149935251904707
+      },
+      "phase_frac_hat": 0.5183333748645573,
+      "phase_frac_true": 0.4568362137537278,
+      "phase_err_over_4La": 0.061497161110829535,
+      "psd": 0.3728221521010265,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.58741798533385,
+    "nyquist_node_hz": 1.5809330824528394,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6489272815924104,
+        "abs": 79590.9628778952,
+        "silent": false,
+        "den": 122650.04898944299
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00089",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07735538478451447,
+        "abs": 178062099.5345654,
+        "silent": false,
+        "den": 2301870775.1320124
+      },
+      "pert_l2": {
+        "rel": 0.19504875973101854,
+        "abs": 178062099.5345654,
+        "silent": false,
+        "den": 912910698.7407736
+      },
+      "peak_trough": {
+        "peak_rel": 82797.95652173914,
+        "trough_rel": 0.196480244333511
+      },
+      "phase_frac_hat": 0.41199564469766914,
+      "phase_frac_true": 0.4813124638759148,
+      "phase_err_over_4La": 0.06931681917824567,
+      "psd": 0.24008803618989458,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.10641288198209,
+    "nyquist_node_hz": 1.3158650322762,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.27079626630093445,
+        "abs": 9384.318808492575,
+        "silent": false,
+        "den": 34654.5354434977
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00100",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.09606856396862726,
+        "abs": 80252495.53055806,
+        "silent": false,
+        "den": 835366869.4034587
+      },
+      "pert_l2": {
+        "rel": 0.2684263076111783,
+        "abs": 80252495.53055806,
+        "silent": false,
+        "den": 298974032.18318546
+      },
+      "peak_trough": {
+        "peak_rel": 1692.347129506008,
+        "trough_rel": 0.23896974819619998
+      },
+      "phase_frac_hat": 0.399397895831278,
+      "phase_frac_true": 0.4843554298531966,
+      "phase_err_over_4La": 0.08495753402191858,
+      "psd": 0.7584848466374083,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.39292579777009,
+    "nyquist_node_hz": 1.574741091380926,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.090636963160191,
+        "abs": 21031.787372907685,
+        "silent": false,
+        "den": 10059.990205624315
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00106",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.025773283590568036,
+        "abs": 57733987.37121204,
+        "silent": false,
+        "den": 2240071086.337649
+      },
+      "pert_l2": {
+        "rel": 0.052800767613232574,
+        "abs": 57733987.37121204,
+        "silent": false,
+        "den": 1093430834.0764186
+      },
+      "peak_trough": {
+        "peak_rel": 32828.45569620253,
+        "trough_rel": 0.07266414078725933
+      },
+      "phase_frac_hat": 0.42695306598262567,
+      "phase_frac_true": 0.4650564140951243,
+      "phase_err_over_4La": 0.03810334811249866,
+      "psd": 0.2572959156594529,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.49129553603908,
+    "nyquist_node_hz": 1.7028751088072132,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.22863429063655294,
+        "abs": 14340.295911868856,
+        "silent": false,
+        "den": 62721.54483889216
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00123",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11514604606364497,
+        "abs": 82518060.33746098,
+        "silent": false,
+        "den": 716638244.7196716
+      },
+      "pert_l2": {
+        "rel": 0.11207746384538567,
+        "abs": 82518060.3227611,
+        "silent": false,
+        "den": 736259168.3605307
+      },
+      "peak_trough": {
+        "peak_rel": 1072.8704676826064,
+        "trough_rel": 0.03515654728382472
+      },
+      "phase_frac_hat": 0.4140123359129387,
+      "phase_frac_true": 0.47748122856514885,
+      "phase_err_over_4La": 0.06346889265221017,
+      "psd": 0.31717368715956323,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.131986531986534,
+    "nyquist_node_hz": 1.3790375186751678,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.24586770452352674,
+        "abs": 9102.701806992374,
+        "silent": false,
+        "den": 37022.76321582263
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00139",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.14921739406435203,
+        "abs": 571625584.1542958,
+        "silent": false,
+        "den": 3830824065.3752103
+      },
+      "pert_l2": {
+        "rel": 0.28322842704174667,
+        "abs": 571625584.1542958,
+        "silent": false,
+        "den": 2018249333.6731367
+      },
+      "peak_trough": {
+        "peak_rel": 52138.425531914894,
+        "trough_rel": 0.17475201288159362
+      },
+      "phase_frac_hat": 0.5283451795311663,
+      "phase_frac_true": 0.4785381347494087,
+      "phase_err_over_4La": 0.049807044781757626,
+      "psd": 0.647768917141027,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.928024980484,
+    "nyquist_node_hz": 1.278958660368084,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.665050341492102,
+        "abs": 80532.88795868578,
+        "silent": false,
+        "den": 121092.92024119978
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00150",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 1.259346523916198,
+        "abs": 789600934.8772125,
+        "silent": false,
+        "den": 626992586.9345201
+      },
+      "pert_l2": {
+        "rel": 0.27985209608102796,
+        "abs": 789600936.4490248,
+        "silent": false,
+        "den": 2821493737.250426
+      },
+      "peak_trough": {
+        "peak_rel": 52281.61842105263,
+        "trough_rel": 0.2760643887976139
+      },
+      "phase_frac_hat": 0.49436576705893165,
+      "phase_frac_true": 0.6340778514467166,
+      "phase_err_over_4La": 0.13971208438778493,
+      "psd": 0.6763580903304219,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.56397653400983,
+    "nyquist_node_hz": 1.2988525466379375,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5681889123643094,
+        "abs": 78610.39783077339,
+        "silent": false,
+        "den": 138352.57274497862
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00154",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.347664729156547,
+        "abs": 1186828431.01193,
+        "silent": false,
+        "den": 3413715374.2665772
+      },
+      "pert_l2": {
+        "rel": 0.4797521510299928,
+        "abs": 1186828431.01193,
+        "silent": false,
+        "den": 2473836601.803444
+      },
+      "peak_trough": {
+        "peak_rel": 65832.98387096774,
+        "trough_rel": 0.26624089752632346
+      },
+      "phase_frac_hat": 3.8706552581051925,
+      "phase_frac_true": 0.4776054831162762,
+      "phase_err_over_4La": 3.393049774988916,
+      "psd": 1.0073609067724354,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 60.36359449657475,
+    "nyquist_node_hz": 1.8863826893531894,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8025989769773996,
+        "abs": 70844.7571807934,
+        "silent": false,
+        "den": 88269.18450307011
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00156",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04571412252850469,
+        "abs": 116017613.37108575,
+        "silent": false,
+        "den": 2537894351.9859505
+      },
+      "pert_l2": {
+        "rel": 0.0545105638233845,
+        "abs": 116017613.48149796,
+        "silent": false,
+        "den": 2128351008.391653
+      },
+      "peak_trough": {
+        "peak_rel": 102112.85,
+        "trough_rel": 0.07982173718481703
+      },
+      "phase_frac_hat": 0.5012078667675627,
+      "phase_frac_true": 0.49241475057452494,
+      "phase_err_over_4La": 0.008793116193037742,
+      "psd": 0.40736808154955556,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.832525425339796,
+    "nyquist_node_hz": 1.5572571686557322,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6731620426063194,
+        "abs": 66798.9083976318,
+        "silent": false,
+        "den": 99231.54332796708
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00169",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.06536733698382226,
+        "abs": 191867006.55260947,
+        "silent": false,
+        "den": 2935212223.80674
+      },
+      "pert_l2": {
+        "rel": 0.0651503584978866,
+        "abs": 191867006.55260947,
+        "silent": false,
+        "den": 2944987732.628262
+      },
+      "peak_trough": {
+        "peak_rel": 225.84372052528477,
+        "trough_rel": 0.02276089351675395
+      },
+      "phase_frac_hat": 3.8672783916402134,
+      "phase_frac_true": 0.6422688305282541,
+      "phase_err_over_4La": 3.225009561111959,
+      "psd": 0.27000353850773895,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.78259483583041,
+    "nyquist_node_hz": 1.3057483631074682,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7487530051401745,
+        "abs": 102489.18510368507,
+        "silent": false,
+        "den": 136879.83139980587
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00182",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.032146080292979,
+        "abs": 68199049.56660625,
+        "silent": false,
+        "den": 2121535470.1114695
+      },
+      "pert_l2": {
+        "rel": 0.2639189954978817,
+        "abs": 68199049.56660625,
+        "silent": false,
+        "den": 258409022.19997132
+      },
+      "peak_trough": {
+        "peak_rel": 12776.361111111111,
+        "trough_rel": 0.22923729913622418
+      },
+      "phase_frac_hat": 0.3973288227247901,
+      "phase_frac_true": 0.48616650113017423,
+      "phase_err_over_4La": 0.08883767840538415,
+      "psd": 0.545731834816875,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.22242374278648,
+    "nyquist_node_hz": 1.3506798637696242,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.408573211280434,
+        "abs": 33819.14301924443,
+        "silent": false,
+        "den": 9921.788655535503
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00203",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.24252461714273507,
+        "abs": 88543241.96333823,
+        "silent": false,
+        "den": 365089709.26950115
+      },
+      "pert_l2": {
+        "rel": 0.07692119725391865,
+        "abs": 88543241.72388755,
+        "silent": false,
+        "den": 1151090270.1059666
+      },
+      "peak_trough": {
+        "peak_rel": 171.83213650663384,
+        "trough_rel": 0.04841502135159988
+      },
+      "phase_frac_hat": 0.4266948638610423,
+      "phase_frac_true": 0.4833271684956903,
+      "phase_err_over_4La": 0.05663230463464802,
+      "psd": 0.26406825898361386,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.63471424251588,
+    "nyquist_node_hz": 1.238596524385058,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.28172169552270754,
+        "abs": 13001.770390827252,
+        "silent": false,
+        "den": 46151.11508080241
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00215",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07944182565473527,
+        "abs": 49963239.13641788,
+        "silent": false,
+        "den": 628928637.082999
+      },
+      "pert_l2": {
+        "rel": 0.10045710063749216,
+        "abs": 49963238.61252177,
+        "silent": false,
+        "den": 497358955.1705089
+      },
+      "peak_trough": {
+        "peak_rel": 29286.610294117647,
+        "trough_rel": 0.11655714921089663
+      },
+      "phase_frac_hat": 0.4033479940801759,
+      "phase_frac_true": 0.47366531200704187,
+      "phase_err_over_4La": 0.07031731792686596,
+      "psd": 0.5030718425310211,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 57.55556165436232,
+    "nyquist_node_hz": 1.7985989612278643,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.9708172117844626,
+        "abs": 24348.39310162077,
+        "silent": false,
+        "den": 25080.306370821243
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00217",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.031026304145934134,
+        "abs": 159277649.12349746,
+        "silent": false,
+        "den": 5133632687.100765
+      },
+      "pert_l2": {
+        "rel": 0.25514987695494157,
+        "abs": 159277649.12349746,
+        "silent": false,
+        "den": 624251326.4140247
+      },
+      "peak_trough": {
+        "peak_rel": 1404.94395280236,
+        "trough_rel": 0.2517861533854503
+      },
+      "phase_frac_hat": 0.40324698301200995,
+      "phase_frac_true": 0.47159395718546776,
+      "phase_err_over_4La": 0.06834697417345781,
+      "psd": 0.33894717959730764,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.79939209726444,
+    "nyquist_node_hz": 1.5561819242943056,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.019274509426324124,
+        "abs": 456.4678811528512,
+        "silent": false,
+        "den": 23682.464287751525
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00219",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.13897763113835043,
+        "abs": 426211884.8221115,
+        "silent": false,
+        "den": 3066766078.332585
+      },
+      "pert_l2": {
+        "rel": 0.16400821185266778,
+        "abs": 426211884.8221115,
+        "silent": false,
+        "den": 2598722832.2749295
+      },
+      "peak_trough": {
+        "peak_rel": 20918.91089108911,
+        "trough_rel": 0.15126878578747968
+      },
+      "phase_frac_hat": 0.5096119480208923,
+      "phase_frac_true": 0.6726487324096833,
+      "phase_err_over_4La": 0.163036784388791,
+      "psd": 0.588056621261658,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.37574164476155,
+    "nyquist_node_hz": 1.2304919263987983,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6909086173706878,
+        "abs": 114129.02776658913,
+        "silent": false,
+        "den": 165186.8639313213
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00235",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.35514509405878864,
+        "abs": 837287164.7243034,
+        "silent": false,
+        "den": 2357591808.9007974
+      },
+      "pert_l2": {
+        "rel": 0.5795327902021649,
+        "abs": 837287164.7243034,
+        "silent": false,
+        "den": 1444762365.2705193
+      },
+      "peak_trough": {
+        "peak_rel": 336.9755753875059,
+        "trough_rel": 0.19763740092486906
+      },
+      "phase_frac_hat": 0.5125385133475958,
+      "phase_frac_true": 0.4695829333441006,
+      "phase_err_over_4La": 0.0429555800034952,
+      "psd": 1.2681334125139794,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 51.76619273301738,
+    "nyquist_node_hz": 1.617693522906793,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5876071393066037,
+        "abs": 36643.93045197905,
+        "silent": false,
+        "den": 62361.27507780135
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00237",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.016936145007563762,
+        "abs": 35974745.19476779,
+        "silent": false,
+        "den": 2124140126.262576
+      },
+      "pert_l2": {
+        "rel": 0.045478389318101844,
+        "abs": 35974745.19476779,
+        "silent": false,
+        "den": 791029447.9239329
+      },
+      "peak_trough": {
+        "peak_rel": 322240.8333333333,
+        "trough_rel": 0.06709489052318904
+      },
+      "phase_frac_hat": 0.4131391138116803,
+      "phase_frac_true": 0.4678336326298249,
+      "phase_err_over_4La": 0.05469451881814463,
+      "psd": 0.1936634621889646,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.24778761061947,
+    "nyquist_node_hz": 1.1327433628318584,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.05885231260651649,
+        "abs": 2742.441750754035,
+        "silent": false,
+        "den": 46598.70834796006
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00252",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.7735584955998448,
+        "abs": 672114570.2013592,
+        "silent": false,
+        "den": 868860692.5326023
+      },
+      "pert_l2": {
+        "rel": 0.206591121035101,
+        "abs": 672114571.0698575,
+        "silent": false,
+        "den": 3253356522.3050485
+      },
+      "peak_trough": {
+        "peak_rel": 248977.45,
+        "trough_rel": 0.21224703194957764
+      },
+      "phase_frac_hat": 0.5349569462302675,
+      "phase_frac_true": 0.7077441571273667,
+      "phase_err_over_4La": 0.17278721089709925,
+      "psd": 0.6217435094637968,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.72146158541903,
+    "nyquist_node_hz": 1.4288229314568985,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6974658026660093,
+        "abs": 118059.25127955856,
+        "silent": false,
+        "den": 169268.8742993365
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00261",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03215847314335891,
+        "abs": 209624688.83202383,
+        "silent": false,
+        "den": 6518490100.495139
+      },
+      "pert_l2": {
+        "rel": 0.3360079046960141,
+        "abs": 209624688.83202383,
+        "silent": false,
+        "den": 623868325.4242814
+      },
+      "peak_trough": {
+        "peak_rel": 398347.0,
+        "trough_rel": 0.2482077888641275
+      },
+      "phase_frac_hat": 0.40214610619371227,
+      "phase_frac_true": 0.4831609831403465,
+      "phase_err_over_4La": 0.08101487694663423,
+      "psd": 0.30862163296000805,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.49531412703922,
+    "nyquist_node_hz": 1.4216553186527725,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3151170369704084,
+        "abs": 7702.3921375444925,
+        "silent": false,
+        "den": 24442.956850561524
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00270",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.14061119069853245,
+        "abs": 110390863.60393946,
+        "silent": false,
+        "den": 785078791.065892
+      },
+      "pert_l2": {
+        "rel": 0.41356914656192234,
+        "abs": 110390863.60393946,
+        "silent": false,
+        "den": 266922386.5504459
+      },
+      "peak_trough": {
+        "peak_rel": 11.735142001633246,
+        "trough_rel": 0.23437303626412007
+      },
+      "phase_frac_hat": 0.38569355483779605,
+      "phase_frac_true": 0.48431394322798854,
+      "phase_err_over_4La": 0.09862038839019249,
+      "psd": 0.3677788945112087,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.18166149603585,
+    "nyquist_node_hz": 1.4118865227122548,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.7196810325605507,
+        "abs": 16521.622517929267,
+        "silent": false,
+        "den": 9607.376138427888
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00278",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.20284231809097578,
+        "abs": 162750736.55193713,
+        "silent": false,
+        "den": 802350998.9613836
+      },
+      "pert_l2": {
+        "rel": 0.24773194199968404,
+        "abs": 162750736.54546636,
+        "silent": false,
+        "den": 656963067.546913
+      },
+      "peak_trough": {
+        "peak_rel": 698.9054677206851,
+        "trough_rel": 0.21214253964229143
+      },
+      "phase_frac_hat": 0.40408867967839807,
+      "phase_frac_true": 0.45679592919159423,
+      "phase_err_over_4La": 0.052707249513196164,
+      "psd": 0.19381186922981175,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.76428884374876,
+    "nyquist_node_hz": 1.3051340263671487,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.07834104289972971,
+        "abs": 2944.029207517641,
+        "silent": false,
+        "den": 37579.65299601339
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00288",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2799567510690159,
+        "abs": 81792918.64458331,
+        "silent": false,
+        "den": 292162694.1742135
+      },
+      "pert_l2": {
+        "rel": 0.6282647022530216,
+        "abs": 81792918.61598772,
+        "silent": false,
+        "den": 130188626.42238206
+      },
+      "peak_trough": {
+        "peak_rel": 1.732440547229306,
+        "trough_rel": 0.5379812573100263
+      },
+      "phase_frac_hat": 0.3897695459840927,
+      "phase_frac_true": 0.4757337505099597,
+      "phase_err_over_4La": 0.085964204525867,
+      "psd": 0.32650791111095856,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.94978291144425,
+    "nyquist_node_hz": 1.342187588000676,
+    "node": {
+      "H_pert_l2": {
+        "rel": 6.408425749659302,
+        "abs": 28719.905035141717,
+        "silent": false,
+        "den": 4481.585050223697
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00292",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.8145468601038315,
+        "abs": 624212353.4938745,
+        "silent": false,
+        "den": 766330808.044985
+      },
+      "pert_l2": {
+        "rel": 0.6475050591900946,
+        "abs": 624212353.2959751,
+        "silent": false,
+        "den": 964026990.1161016
+      },
+      "peak_trough": {
+        "peak_rel": 968.0841149322614,
+        "trough_rel": 0.2451344902793473
+      },
+      "phase_frac_hat": 0.45140868697106246,
+      "phase_frac_true": 0.4435920816046367,
+      "phase_err_over_4La": 0.007816605366425755,
+      "psd": 0.35070146152265647,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.259650548557495,
+    "nyquist_node_hz": 1.6642795469551526,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5141996620718204,
+        "abs": 27723.114120076498,
+        "silent": false,
+        "den": 53915.07650622356
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00296",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03470076411756076,
+        "abs": 102480251.19961399,
+        "silent": false,
+        "den": 2953256327.5098763
+      },
+      "pert_l2": {
+        "rel": 0.061479566639695206,
+        "abs": 102480251.19961399,
+        "silent": false,
+        "den": 1666899374.8802073
+      },
+      "peak_trough": {
+        "peak_rel": 16923.9587628866,
+        "trough_rel": 0.1313105504641348
+      },
+      "phase_frac_hat": 0.45609722822394977,
+      "phase_frac_true": 0.4609804494123945,
+      "phase_err_over_4La": 0.004883221188444753,
+      "psd": 0.3320389260845409,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 57.34937650404726,
+    "nyquist_node_hz": 1.7920945049836612,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.588447409402283,
+        "abs": 50840.61325446559,
+        "silent": false,
+        "den": 86397.88780123457
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00302",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.14877101358620368,
+        "abs": 135241861.47308055,
+        "silent": false,
+        "den": 909060563.7012494
+      },
+      "pert_l2": {
+        "rel": 1.2255312815885808,
+        "abs": 135241861.47308055,
+        "silent": false,
+        "den": 110353659.26994115
+      },
+      "peak_trough": {
+        "peak_rel": 2.172416638288105,
+        "trough_rel": 0.9405183855760177
+      },
+      "phase_frac_hat": 0.3924234143600278,
+      "phase_frac_true": 0.48320794614830925,
+      "phase_err_over_4La": 0.09078453178828144,
+      "psd": 0.6545908173790724,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.31380923327232,
+    "nyquist_node_hz": 1.6659797745489788,
+    "node": {
+      "H_pert_l2": {
+        "rel": 11.613494952366267,
+        "abs": 39074.84522053222,
+        "silent": false,
+        "den": 3364.606897475825
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00299",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.127588743237209,
+        "abs": 64760076.44822944,
+        "silent": false,
+        "den": 507568887.38867444
+      },
+      "pert_l2": {
+        "rel": 0.4335721725055701,
+        "abs": 64760076.45337719,
+        "silent": false,
+        "den": 149364005.7182065
+      },
+      "peak_trough": {
+        "peak_rel": 0.9712462348212131,
+        "trough_rel": 0.048225016497231696
+      },
+      "phase_frac_hat": 0.382677878067592,
+      "phase_frac_true": 0.4344175266201127,
+      "phase_err_over_4La": 0.05173964855252067,
+      "psd": 0.5488026681950333,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 61.778150913938106,
+    "nyquist_node_hz": 1.9305529984460956,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.8564059494566365,
+        "abs": 21134.31479213972,
+        "silent": false,
+        "den": 5480.313812688087
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00304",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07255026339806495,
+        "abs": 114188842.50621162,
+        "silent": false,
+        "den": 1573927332.0027294
+      },
+      "pert_l2": {
+        "rel": 0.2177375518150176,
+        "abs": 114188842.50621162,
+        "silent": false,
+        "den": 524433390.3562146
+      },
+      "peak_trough": {
+        "peak_rel": 24583.9375,
+        "trough_rel": 0.14849043310606966
+      },
+      "phase_frac_hat": 0.40138220093108257,
+      "phase_frac_true": 0.4765803302858297,
+      "phase_err_over_4La": 0.07519812935474712,
+      "psd": 0.23335464515644552,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.0691257624165,
+    "nyquist_node_hz": 1.1897195710285422,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.19999120927788971,
+        "abs": 4881.37017898184,
+        "silent": false,
+        "den": 24407.923711282372
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00332",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07081814276895282,
+        "abs": 62703688.003101386,
+        "silent": false,
+        "den": 885418418.9449137
+      },
+      "pert_l2": {
+        "rel": 0.17182640242344943,
+        "abs": 62703688.003101386,
+        "silent": false,
+        "den": 364924639.7452602
+      },
+      "peak_trough": {
+        "peak_rel": 183.77499421430224,
+        "trough_rel": 0.16024585099853547
+      },
+      "phase_frac_hat": 0.4013665515073346,
+      "phase_frac_true": 0.46386644200750393,
+      "phase_err_over_4La": 0.06249989050016935,
+      "psd": 0.5855682987304692,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.15686274509804,
+    "nyquist_node_hz": 1.254907968117954,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.0374930024608475,
+        "abs": 37959.29252741132,
+        "silent": false,
+        "den": 18630.39160456736
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00334",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.6867311665875204,
+        "abs": 58553304.732136615,
+        "silent": false,
+        "den": 85263794.01578288
+      },
+      "pert_l2": {
+        "rel": 0.14446455601240685,
+        "abs": 58553304.82043318,
+        "silent": false,
+        "den": 405312600.1052087
+      },
+      "peak_trough": {
+        "peak_rel": 3498.8487394957983,
+        "trough_rel": 0.08762395242574265
+      },
+      "phase_frac_hat": 0.4012447063547775,
+      "phase_frac_true": 0.48032213161821874,
+      "phase_err_over_4La": 0.07907742526344125,
+      "psd": 1.5198115138660921,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 32.56851782830165,
+    "nyquist_node_hz": 1.017748400935659,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.406272170006956,
+        "abs": 26910.010975482004,
+        "silent": false,
+        "den": 19135.706123906937
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00335",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0656169961928346,
+        "abs": 280114260.01124626,
+        "silent": false,
+        "den": 4268928421.9602056
+      },
+      "pert_l2": {
+        "rel": 0.12375517447054601,
+        "abs": 280114260.01124626,
+        "silent": false,
+        "den": 2263454931.9625745
+      },
+      "peak_trough": {
+        "peak_rel": 1.5698127999999998e+37,
+        "trough_rel": 0.11071801886321252
+      },
+      "phase_frac_hat": 0.492978766754781,
+      "phase_frac_true": 0.5095740922348724,
+      "phase_err_over_4La": 0.016595325480091405,
+      "psd": 0.5597839368107305,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.62442905554737,
+    "nyquist_node_hz": 1.2070158394238515,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6295231689374736,
+        "abs": 80358.3148568194,
+        "silent": false,
+        "den": 127649.49539895468
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00346",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.06710080219541711,
+        "abs": 127342900.32047845,
+        "silent": false,
+        "den": 1897785065.9611905
+      },
+      "pert_l2": {
+        "rel": 0.5664633810512298,
+        "abs": 127342900.32047845,
+        "silent": false,
+        "den": 224803411.09456784
+      },
+      "peak_trough": {
+        "peak_rel": 9.85250737463127,
+        "trough_rel": 0.3924443017065316
+      },
+      "phase_frac_hat": 0.3817783394682536,
+      "phase_frac_true": 0.43059911640590015,
+      "phase_err_over_4La": 0.048820776937646526,
+      "psd": 0.5539205607463346,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.181315615965914,
+    "nyquist_node_hz": 1.6619161129989348,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.942398865256486,
+        "abs": 10621.217441909565,
+        "silent": false,
+        "den": 11270.40559309127
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00356",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.038006246874289044,
+        "abs": 31500970.701246288,
+        "silent": false,
+        "den": 828836659.5481037
+      },
+      "pert_l2": {
+        "rel": 0.07717072765339578,
+        "abs": 31500970.701246288,
+        "silent": false,
+        "den": 408198440.7705677
+      },
+      "peak_trough": {
+        "peak_rel": 203.5840575580567,
+        "trough_rel": 0.031454888865047846
+      },
+      "phase_frac_hat": 0.40219844202147265,
+      "phase_frac_true": 0.47346174775764,
+      "phase_err_over_4La": 0.07126330573616735,
+      "psd": 0.5899293071810915,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.784177907400654,
+    "nyquist_node_hz": 1.4933257378858547,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.892836222879773,
+        "abs": 12541.524169327604,
+        "silent": false,
+        "den": 14046.836192281608
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00358",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.24331140690001754,
+        "abs": 592206741.6380855,
+        "silent": false,
+        "den": 2433945655.0076065
+      },
+      "pert_l2": {
+        "rel": 0.3626775248918668,
+        "abs": 592206741.6365031,
+        "silent": false,
+        "den": 1632874112.6516485
+      },
+      "peak_trough": {
+        "peak_rel": 63688.666666666664,
+        "trough_rel": 0.11661532042143329
+      },
+      "phase_frac_hat": 0.5107329467783969,
+      "phase_frac_true": 0.4902255368704828,
+      "phase_err_over_4La": 0.020507409907914054,
+      "psd": 0.940138886691115,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.58741798533385,
+    "nyquist_node_hz": 1.5807996140625942,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6062791886001831,
+        "abs": 39618.07846103109,
+        "silent": false,
+        "den": 65346.26160021077
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00364",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.02400574013110025,
+        "abs": 29039401.12284234,
+        "silent": false,
+        "den": 1209685723.674931
+      },
+      "pert_l2": {
+        "rel": 0.16026043092180423,
+        "abs": 29039401.12284234,
+        "silent": false,
+        "den": 181201316.8553847
+      },
+      "peak_trough": {
+        "peak_rel": 1.3305191522751108,
+        "trough_rel": 0.030300751501942325
+      },
+      "phase_frac_hat": 0.3867493115919452,
+      "phase_frac_true": 0.46781039895725013,
+      "phase_err_over_4La": 0.08106108736530493,
+      "psd": 0.33694473862408925,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 46.3315659243549,
+    "nyquist_node_hz": 1.447821452438681,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.748385665421696,
+        "abs": 22737.76857616795,
+        "silent": false,
+        "den": 6066.01630827919
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00375",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.014032444868537448,
+        "abs": 25010753.82545388,
+        "silent": false,
+        "den": 1782351832.468711
+      },
+      "pert_l2": {
+        "rel": 0.18973482145978834,
+        "abs": 25010753.82545388,
+        "silent": false,
+        "den": 131819523.86507273
+      },
+      "peak_trough": {
+        "peak_rel": 12.937056318031235,
+        "trough_rel": 0.18270538485680918
+      },
+      "phase_frac_hat": 0.3836114268484994,
+      "phase_frac_true": 0.4763419169832151,
+      "phase_err_over_4La": 0.09273049013471568,
+      "psd": 0.6728053082107803,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.94721984919957,
+    "nyquist_node_hz": 1.2171105093386294,
+    "node": {
+      "H_pert_l2": {
+        "rel": 4.511517423275934,
+        "abs": 19948.226898768553,
+        "silent": false,
+        "den": 4421.622489110019
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00380",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04183191395105765,
+        "abs": 30292142.52897634,
+        "silent": false,
+        "den": 724139530.512934
+      },
+      "pert_l2": {
+        "rel": 0.11162019878368695,
+        "abs": 30292142.52897634,
+        "silent": false,
+        "den": 271385850.0438674
+      },
+      "peak_trough": {
+        "peak_rel": 77.37390315242119,
+        "trough_rel": 0.0467743896656772
+      },
+      "phase_frac_hat": 0.3956017597952164,
+      "phase_frac_true": 0.48253648915346004,
+      "phase_err_over_4La": 0.08693472935824365,
+      "psd": 0.282050046124596,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.25165562913907,
+    "nyquist_node_hz": 1.695364238410596,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.166526739749056,
+        "abs": 33629.53647673651,
+        "silent": false,
+        "den": 10620.322909195334
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00394",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.06755891278618906,
+        "abs": 245154253.204917,
+        "silent": false,
+        "den": 3628747756.5067244
+      },
+      "pert_l2": {
+        "rel": 0.44224389122556423,
+        "abs": 245154253.204917,
+        "silent": false,
+        "den": 554341751.3931862
+      },
+      "peak_trough": {
+        "peak_rel": 8555.148148148148,
+        "trough_rel": 0.325119781767147
+      },
+      "phase_frac_hat": 0.3983749133306958,
+      "phase_frac_true": 0.4823460914673215,
+      "phase_err_over_4La": 0.08397117813662569,
+      "psd": 0.2968762895632034,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 35.79735081250853,
+    "nyquist_node_hz": 1.1186755670585926,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.1488922997009205,
+        "abs": 3827.9094231576682,
+        "silent": false,
+        "den": 25709.250450471773
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00398",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.28912496291994055,
+        "abs": 218655034.84549442,
+        "silent": false,
+        "den": 756264808.9505872
+      },
+      "pert_l2": {
+        "rel": 0.36782661438593345,
+        "abs": 218655034.8818028,
+        "silent": false,
+        "den": 594451370.1022844
+      },
+      "peak_trough": {
+        "peak_rel": 70735.15789473684,
+        "trough_rel": 0.2621029440884902
+      },
+      "phase_frac_hat": 0.4003770153050534,
+      "phase_frac_true": 0.46189834819324727,
+      "phase_err_over_4La": 0.06152133288819389,
+      "psd": 0.4965382829338851,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.83393193090474,
+    "nyquist_node_hz": 1.4010397807668618,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.42338149817254267,
+        "abs": 12919.5311569648,
+        "silent": false,
+        "den": 30515.105673558843
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00411",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11501697333224069,
+        "abs": 58587239.24985162,
+        "silent": false,
+        "den": 509379072.9531299
+      },
+      "pert_l2": {
+        "rel": 0.07417250617920924,
+        "abs": 58587239.21935269,
+        "silent": false,
+        "den": 789878113.0274773
+      },
+      "peak_trough": {
+        "peak_rel": 773039.2,
+        "trough_rel": 0.06686801842127751
+      },
+      "phase_frac_hat": 0.41320898885543833,
+      "phase_frac_true": 0.4786581557372573,
+      "phase_err_over_4La": 0.06544916688181895,
+      "psd": 0.2968378093275379,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.36068160302935,
+    "nyquist_node_hz": 1.292514927249688,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.26607629542460337,
+        "abs": 11224.511756113114,
+        "silent": false,
+        "den": 42185.31281864507
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00413",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04744689832971614,
+        "abs": 84690602.61473833,
+        "silent": false,
+        "den": 1784955510.183399
+      },
+      "pert_l2": {
+        "rel": 0.05082967277495798,
+        "abs": 84690602.61473833,
+        "silent": false,
+        "den": 1666164623.756194
+      },
+      "peak_trough": {
+        "peak_rel": 378.5745168686538,
+        "trough_rel": 0.04300912312328515
+      },
+      "phase_frac_hat": 0.465721304527749,
+      "phase_frac_true": 0.45595779030676475,
+      "phase_err_over_4La": 0.00976351422098426,
+      "psd": 0.3672937874936716,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.063554757630165,
+    "nyquist_node_hz": 1.4707309290460577,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.530466360494462,
+        "abs": 42558.75093,
+        "silent": false,
+        "den": 80228.93457434291
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00425",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.47209115315066713,
+        "abs": 1247901638.6405208,
+        "silent": false,
+        "den": 2643348917.4965644
+      },
+      "pert_l2": {
+        "rel": 0.608627279202313,
+        "abs": 1247901638.6405208,
+        "silent": false,
+        "den": 2050354430.8366559
+      },
+      "peak_trough": {
+        "peak_rel": 260.72784617723056,
+        "trough_rel": 0.4664037055413394
+      },
+      "phase_frac_hat": 3.868522097282582,
+      "phase_frac_true": 0.46586341354122357,
+      "phase_err_over_4La": 3.4026586837413584,
+      "psd": 1.5089474061263182,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.53906485671192,
+    "nyquist_node_hz": 1.235633633194833,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7424554269649952,
+        "abs": 72492.48943984632,
+        "silent": false,
+        "den": 97638.84377029969
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00427",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.20037893916461885,
+        "abs": 112054662.878081,
+        "silent": false,
+        "den": 559213774.3878555
+      },
+      "pert_l2": {
+        "rel": 0.440915832030707,
+        "abs": 112054662.88416733,
+        "silent": false,
+        "den": 254140710.6387675
+      },
+      "peak_trough": {
+        "peak_rel": 5.578021978021978,
+        "trough_rel": 0.3201864238626259
+      },
+      "phase_frac_hat": 0.3849671937167426,
+      "phase_frac_true": 0.4328438580067235,
+      "phase_err_over_4La": 0.047876664289980886,
+      "psd": 0.42239446135276887,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 52.814344716429936,
+    "nyquist_node_hz": 1.6504274903358223,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.2585219907372172,
+        "abs": 16609.386495588657,
+        "silent": false,
+        "den": 13197.533787915147
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00456",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2274998686060672,
+        "abs": 362239595.28742343,
+        "silent": false,
+        "den": 1592262876.9279337
+      },
+      "pert_l2": {
+        "rel": 0.22209165024514022,
+        "abs": 362239595.28776795,
+        "silent": false,
+        "den": 1631036533.2867548
+      },
+      "peak_trough": {
+        "peak_rel": 390.0433939146416,
+        "trough_rel": 0.049133398047011986
+      },
+      "phase_frac_hat": 0.49320892839313496,
+      "phase_frac_true": 0.4785591417809208,
+      "phase_err_over_4La": 0.014649786612214166,
+      "psd": 0.7755853229864866,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.016737774860516,
+    "nyquist_node_hz": 1.3442011091899964,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5286299259978992,
+        "abs": 40726.55563215546,
+        "silent": false,
+        "den": 77041.71411649766
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00458",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1674965984829767,
+        "abs": 104680144.29618636,
+        "silent": false,
+        "den": 624968776.944001
+      },
+      "pert_l2": {
+        "rel": 0.11156328229207976,
+        "abs": 104680144.27109887,
+        "silent": false,
+        "den": 938302836.9229904
+      },
+      "peak_trough": {
+        "peak_rel": 2081.771739130435,
+        "trough_rel": 0.060097007633015724
+      },
+      "phase_frac_hat": 0.4161257321811861,
+      "phase_frac_true": 0.45910585527143427,
+      "phase_err_over_4La": 0.04298012309024818,
+      "psd": 0.7794817145152719,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.335500180570605,
+    "nyquist_node_hz": 1.479182213294324,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.13260993001551424,
+        "abs": 5656.367452299578,
+        "silent": false,
+        "den": 42654.17719199332
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00459",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.3364145985947105,
+        "abs": 482871669.5215766,
+        "silent": false,
+        "den": 1435346954.438525
+      },
+      "pert_l2": {
+        "rel": 0.22453139433617933,
+        "abs": 482871669.7606334,
+        "silent": false,
+        "den": 2150575295.665133
+      },
+      "peak_trough": {
+        "peak_rel": 24274.840579710144,
+        "trough_rel": 0.18651138534572564
+      },
+      "phase_frac_hat": 0.5331568788508786,
+      "phase_frac_true": 0.6034632259660482,
+      "phase_err_over_4La": 0.07030634711516959,
+      "psd": 0.5448327152688534,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 34.354760500622504,
+    "nyquist_node_hz": 1.0735598856590576,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6117565590584311,
+        "abs": 53032.15607123813,
+        "silent": false,
+        "den": 86688.33261528274
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00490",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.3192113148026657,
+        "abs": 674178655.2333771,
+        "silent": false,
+        "den": 2112013653.5578315
+      },
+      "pert_l2": {
+        "rel": 0.3337592586734864,
+        "abs": 674178655.2502542,
+        "silent": false,
+        "den": 2019954915.7969484
+      },
+      "peak_trough": {
+        "peak_rel": 637326.625,
+        "trough_rel": 0.07840775347670054
+      },
+      "phase_frac_hat": 0.5330753834659748,
+      "phase_frac_true": 0.4657086911091522,
+      "phase_err_over_4La": 0.06736669235682263,
+      "psd": 1.0301785754463804,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 59.98718535469108,
+    "nyquist_node_hz": 1.8746766260769447,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6956192738569916,
+        "abs": 55653.800757907506,
+        "silent": false,
+        "den": 80006.12238548907
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00525",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2579234618732109,
+        "abs": 148093861.4402731,
+        "silent": false,
+        "den": 574177550.055809
+      },
+      "pert_l2": {
+        "rel": 0.33543795011197997,
+        "abs": 148093861.4427477,
+        "silent": false,
+        "den": 441494056.9285891
+      },
+      "peak_trough": {
+        "peak_rel": 542016.6666666666,
+        "trough_rel": 0.24647458000878691
+      },
+      "phase_frac_hat": 0.3966175099075856,
+      "phase_frac_true": 0.4874683345939578,
+      "phase_err_over_4La": 0.09085082468637218,
+      "psd": 0.2635280667225376,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.11894721535553,
+    "nyquist_node_hz": 1.1912279266752097,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.9291930644717941,
+        "abs": 15075.868123768103,
+        "silent": false,
+        "den": 16224.688603695164
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00526",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04333079447677994,
+        "abs": 143626834.07163256,
+        "silent": false,
+        "den": 3314659604.235947
+      },
+      "pert_l2": {
+        "rel": 0.08195363508616195,
+        "abs": 143626834.07163256,
+        "silent": false,
+        "den": 1752537686.9571497
+      },
+      "peak_trough": {
+        "peak_rel": 836558.75,
+        "trough_rel": 0.08032180978912717
+      },
+      "phase_frac_hat": 0.4587780977933515,
+      "phase_frac_true": 0.4578019813714578,
+      "phase_err_over_4La": 0.0009761164218937135,
+      "psd": 0.3457685871889995,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.49161126938905,
+    "nyquist_node_hz": 1.2965519287980591,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4787940906124938,
+        "abs": 50956.4849172555,
+        "silent": false,
+        "den": 106426.72062236564
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00539",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.056578802196470115,
+        "abs": 71636033.22620091,
+        "silent": false,
+        "den": 1266128487.0868156
+      },
+      "pert_l2": {
+        "rel": 0.36407041224642694,
+        "abs": 71636033.22620091,
+        "silent": false,
+        "den": 196764226.96418655
+      },
+      "peak_trough": {
+        "peak_rel": 74.45317060228177,
+        "trough_rel": 0.3809905771835684
+      },
+      "phase_frac_hat": 0.3934773018604306,
+      "phase_frac_true": 0.48818522779916673,
+      "phase_err_over_4La": 0.09470792593873611,
+      "psd": 1.2311373720191239,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.16773004395293,
+    "nyquist_node_hz": 1.1615224422880943,
+    "node": {
+      "H_pert_l2": {
+        "rel": 5.5353426272166235,
+        "abs": 34372.71312027563,
+        "silent": false,
+        "den": 6209.681213095839
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00547",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.05036346224380984,
+        "abs": 64316977.5043709,
+        "silent": false,
+        "den": 1277056315.0128958
+      },
+      "pert_l2": {
+        "rel": 0.17998049983776923,
+        "abs": 64316977.5043709,
+        "silent": false,
+        "den": 357355255.4990397
+      },
+      "peak_trough": {
+        "peak_rel": 107.42657099066463,
+        "trough_rel": 0.1270044728368181
+      },
+      "phase_frac_hat": 0.4012322061767307,
+      "phase_frac_true": 0.47737844821940945,
+      "phase_err_over_4La": 0.07614624204267872,
+      "psd": 0.341473102349975,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.75111098792465,
+    "nyquist_node_hz": 1.2109778124754589,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.7621451624460642,
+        "abs": 23214.97772005906,
+        "silent": false,
+        "den": 13174.270891413933
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00570",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.13232976933808768,
+        "abs": 453542466.1149999,
+        "silent": false,
+        "den": 3427365349.3360963
+      },
+      "pert_l2": {
+        "rel": 0.3702665808844757,
+        "abs": 453542466.1149999,
+        "silent": false,
+        "den": 1224907916.4303691
+      },
+      "peak_trough": {
+        "peak_rel": 1342.6612466124661,
+        "trough_rel": 0.30050593337718856
+      },
+      "phase_frac_hat": 0.41317871785597027,
+      "phase_frac_true": 0.48057668178727697,
+      "phase_err_over_4La": 0.0673979639313067,
+      "psd": 0.4055519892443433,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.63460569657043,
+    "nyquist_node_hz": 1.269831428017826,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.40008008649854243,
+        "abs": 20800.468485151578,
+        "silent": false,
+        "den": 51990.76181770261
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00569",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0907640815216242,
+        "abs": 246978639.6630109,
+        "silent": false,
+        "den": 2721105480.5217104
+      },
+      "pert_l2": {
+        "rel": 0.3106195157417719,
+        "abs": 246978639.6630109,
+        "silent": false,
+        "den": 795116298.7078129
+      },
+      "peak_trough": {
+        "peak_rel": 29133.6511627907,
+        "trough_rel": 0.2680316920521465
+      },
+      "phase_frac_hat": 0.40530291816008973,
+      "phase_frac_true": 0.43850846937226623,
+      "phase_err_over_4La": 0.0332055512121765,
+      "psd": 0.5519736212042231,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.072629455279085,
+    "nyquist_node_hz": 1.3771828440540483,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4056620919573347,
+        "abs": 18377.008330203123,
+        "silent": false,
+        "den": 45301.27092115848
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00574",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.19400047782454322,
+        "abs": 171429856.39971426,
+        "silent": false,
+        "den": 883656877.148302
+      },
+      "pert_l2": {
+        "rel": 0.19873771709755778,
+        "abs": 171429856.49348563,
+        "silent": false,
+        "den": 862593467.3956878
+      },
+      "peak_trough": {
+        "peak_rel": 143708.48,
+        "trough_rel": 0.1678140701984029
+      },
+      "phase_frac_hat": 0.4111704957043212,
+      "phase_frac_true": 0.48051279423727566,
+      "phase_err_over_4La": 0.06934229853295448,
+      "psd": 0.25975255873132447,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.85768587501901,
+    "nyquist_node_hz": 1.2455881933687483,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.2059324275280386,
+        "abs": 7592.560559057788,
+        "silent": false,
+        "den": 36869.183985237236
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00573",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03012972331055237,
+        "abs": 154303902.06170243,
+        "silent": false,
+        "den": 5121318256.768073
+      },
+      "pert_l2": {
+        "rel": 0.10861957022253493,
+        "abs": 154303902.06170243,
+        "silent": false,
+        "den": 1420590246.7259948
+      },
+      "peak_trough": {
+        "peak_rel": 23612.235294117647,
+        "trough_rel": 0.004573445941928693
+      },
+      "phase_frac_hat": 0.4502743811551827,
+      "phase_frac_true": 0.4688323564293416,
+      "phase_err_over_4La": 0.018557975274158922,
+      "psd": 0.34306720894927156,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.813000163318634,
+    "nyquist_node_hz": 1.3378789425334285,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4799123026146343,
+        "abs": 41178.25807731089,
+        "silent": false,
+        "den": 85803.71424730218
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00591",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.39307050499160606,
+        "abs": 145976868.85502204,
+        "silent": false,
+        "den": 371375788.8248047
+      },
+      "pert_l2": {
+        "rel": 0.09191367746547527,
+        "abs": 145976868.12577468,
+        "silent": false,
+        "den": 1588195273.5555239
+      },
+      "peak_trough": {
+        "peak_rel": 5492.25952170062,
+        "trough_rel": 0.18461902099528826
+      },
+      "phase_frac_hat": 0.4463636963712777,
+      "phase_frac_true": 0.4678516714041637,
+      "phase_err_over_4La": 0.02148797503288602,
+      "psd": 0.46352615573308736,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 52.006249225046496,
+    "nyquist_node_hz": 1.6251852127389166,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.2776030215608945,
+        "abs": 24842.979706527356,
+        "silent": false,
+        "den": 89491.02775193621
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00611",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.5398807743356371,
+        "abs": 412938746.8449623,
+        "silent": false,
+        "den": 764870257.4251024
+      },
+      "pert_l2": {
+        "rel": 0.4599032845686789,
+        "abs": 412938746.8939928,
+        "silent": false,
+        "den": 897881708.5015345
+      },
+      "peak_trough": {
+        "peak_rel": 728.3781779661017,
+        "trough_rel": 0.3952629394130082
+      },
+      "phase_frac_hat": 0.4041267415938339,
+      "phase_frac_true": 0.45683895053097673,
+      "phase_err_over_4La": 0.052712208937142846,
+      "psd": 0.37092933362997527,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.08257375061739,
+    "nyquist_node_hz": 1.4713737860467466,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4342917375859215,
+        "abs": 19188.770046707876,
+        "silent": false,
+        "den": 44184.05506255232
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00614",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.06122692967982106,
+        "abs": 32033804.997517128,
+        "silent": false,
+        "den": 523197964.76867443
+      },
+      "pert_l2": {
+        "rel": 0.11211594004636735,
+        "abs": 32033804.921982385,
+        "silent": false,
+        "den": 285720343.67935807
+      },
+      "peak_trough": {
+        "peak_rel": 1599.0583214793742,
+        "trough_rel": 0.06459533281386486
+      },
+      "phase_frac_hat": 0.39434198020635375,
+      "phase_frac_true": 0.4743816676619505,
+      "phase_err_over_4La": 0.08003968745559675,
+      "psd": 0.21315059476880957,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 46.786364447617345,
+    "nyquist_node_hz": 1.4620249634694538,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.1768848253098882,
+        "abs": 14695.480221826836,
+        "silent": false,
+        "den": 12486.761580902647
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00634",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04083294853356179,
+        "abs": 244268017.0491923,
+        "silent": false,
+        "den": 5982130260.527752
+      },
+      "pert_l2": {
+        "rel": 0.4318457360694719,
+        "abs": 244268017.0491923,
+        "silent": false,
+        "den": 565637209.4175231
+      },
+      "peak_trough": {
+        "peak_rel": 7441.151515151515,
+        "trough_rel": 0.34403603521905185
+      },
+      "phase_frac_hat": 0.3982556703462215,
+      "phase_frac_true": 0.4841539602184971,
+      "phase_err_over_4La": 0.0858982898722756,
+      "psd": 0.385812760567758,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 48.89833986196605,
+    "nyquist_node_hz": 1.5280864818231366,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3782810001211905,
+        "abs": 7180.849091768401,
+        "silent": false,
+        "den": 18982.843678291698
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00639",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1965021827681985,
+        "abs": 363848103.64539087,
+        "silent": false,
+        "den": 1851623725.0891001
+      },
+      "pert_l2": {
+        "rel": 0.3015856256792623,
+        "abs": 363848103.64539087,
+        "silent": false,
+        "den": 1206450416.2819252
+      },
+      "peak_trough": {
+        "peak_rel": 364.48162014976174,
+        "trough_rel": 0.1292680395626408
+      },
+      "phase_frac_hat": 0.4522158391028697,
+      "phase_frac_true": 0.479563637306584,
+      "phase_err_over_4La": 0.027347798203714302,
+      "psd": 0.6174857287086724,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.17322515212982,
+    "nyquist_node_hz": 1.6616027242921863,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.519375912465349,
+        "abs": 26332.532485035863,
+        "silent": false,
+        "den": 50700.33448421173
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00642",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0416178445973798,
+        "abs": 57241124.95940071,
+        "silent": false,
+        "den": 1375398594.3569152
+      },
+      "pert_l2": {
+        "rel": 0.04213384170482091,
+        "abs": 57241124.942769706,
+        "silent": false,
+        "den": 1358554611.3688521
+      },
+      "peak_trough": {
+        "peak_rel": 3321.586786114222,
+        "trough_rel": 0.009195075023391206
+      },
+      "phase_frac_hat": 0.43926182330194913,
+      "phase_frac_true": 0.47635506990808024,
+      "phase_err_over_4La": 0.037093246606131114,
+      "psd": 0.3094642246616954,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.04426384152094,
+    "nyquist_node_hz": 1.1888832450475293,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3652553964854918,
+        "abs": 23218.693316287183,
+        "silent": false,
+        "den": 63568.37856387276
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00640",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.9075099697666891,
+        "abs": 140878320.12383714,
+        "silent": false,
+        "den": 155236112.89918438
+      },
+      "pert_l2": {
+        "rel": 0.4664928291378297,
+        "abs": 140878320.14403272,
+        "silent": false,
+        "den": 301994610.301735
+      },
+      "peak_trough": {
+        "peak_rel": 5.400128597904611,
+        "trough_rel": 0.4062354427328788
+      },
+      "phase_frac_hat": 0.38565243022871365,
+      "phase_frac_true": 0.45594858001649985,
+      "phase_err_over_4La": 0.0702961497877862,
+      "psd": 0.6365414212329706,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.87628218547206,
+    "nyquist_node_hz": 1.7148277283164017,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.967738919745385,
+        "abs": 15442.5451099342,
+        "silent": false,
+        "den": 15957.346340888285
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00667",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.26223344214247746,
+        "abs": 150853851.56110403,
+        "silent": false,
+        "den": 575265497.5224009
+      },
+      "pert_l2": {
+        "rel": 0.4148094591339882,
+        "abs": 150853851.5311096,
+        "silent": false,
+        "den": 363670230.2933311
+      },
+      "peak_trough": {
+        "peak_rel": 98636.86666666667,
+        "trough_rel": 0.3114230532396555
+      },
+      "phase_frac_hat": 0.4041811116081738,
+      "phase_frac_true": 0.4588529451209952,
+      "phase_err_over_4La": 0.0546718335128214,
+      "psd": 0.5628177868393955,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.729841316179076,
+    "nyquist_node_hz": 1.36655041729874,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.2765291217990267,
+        "abs": 21158.935048735657,
+        "silent": false,
+        "den": 16575.364155355997
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00678",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 1.2879416544317068,
+        "abs": 2011588092.793739,
+        "silent": false,
+        "den": 1561862748.884642
+      },
+      "pert_l2": {
+        "rel": 1.0189119187844928,
+        "abs": 2011588093.063104,
+        "silent": false,
+        "den": 1974251214.4355133
+      },
+      "peak_trough": {
+        "peak_rel": 3.817768e+37,
+        "trough_rel": 0.6948989785882498
+      },
+      "phase_frac_hat": 3.872046817789846,
+      "phase_frac_true": 0.4460613451660618,
+      "phase_err_over_4La": 3.4259854726237844,
+      "psd": 1.9086316544103479,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.37263395799981,
+    "nyquist_node_hz": 1.5429311359623308,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8345059544774126,
+        "abs": 95702.8733137132,
+        "silent": false,
+        "den": 114682.0736271973
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00720",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4969285968489897,
+        "abs": 268589049.0349288,
+        "silent": false,
+        "den": 540498274.2753072
+      },
+      "pert_l2": {
+        "rel": 0.24181824651142864,
+        "abs": 268589049.66621536,
+        "silent": false,
+        "den": 1110706299.218498
+      },
+      "peak_trough": {
+        "peak_rel": 245.15724485018725,
+        "trough_rel": 0.1513825769538268
+      },
+      "phase_frac_hat": 0.4169836596447332,
+      "phase_frac_true": 0.49022434403825565,
+      "phase_err_over_4La": 0.07324068439352244,
+      "psd": 0.34108716103303754,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.905313149302465,
+    "nyquist_node_hz": 1.2157684815879788,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.03586467950162012,
+        "abs": 1413.7958689388065,
+        "silent": false,
+        "den": 39420.28448560208
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00722",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07081043801140467,
+        "abs": 146491760.26503906,
+        "silent": false,
+        "den": 2068787658.69864
+      },
+      "pert_l2": {
+        "rel": 0.0941933351039404,
+        "abs": 146491760.26503906,
+        "silent": false,
+        "den": 1555224264.0457356
+      },
+      "peak_trough": {
+        "peak_rel": 85334.58333333333,
+        "trough_rel": 0.11658583039207589
+      },
+      "phase_frac_hat": 0.44229802539737784,
+      "phase_frac_true": 0.49795140868332594,
+      "phase_err_over_4La": 0.0556533832859481,
+      "psd": 0.5305747998165442,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.923948811700186,
+    "nyquist_node_hz": 1.4975335688844076,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5476408473033262,
+        "abs": 46630.47228254791,
+        "silent": false,
+        "den": 85147.90763355956
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00731",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1491035549782235,
+        "abs": 202579180.6778258,
+        "silent": false,
+        "den": 1358647556.7763116
+      },
+      "pert_l2": {
+        "rel": 0.1441089932675407,
+        "abs": 202579180.7803276,
+        "silent": false,
+        "den": 1405735868.2968247
+      },
+      "peak_trough": {
+        "peak_rel": 5761.37447257384,
+        "trough_rel": 0.18552535933164765
+      },
+      "phase_frac_hat": 0.43253722183449117,
+      "phase_frac_true": 0.4686633326371341,
+      "phase_err_over_4La": 0.03612611080264294,
+      "psd": 0.40679515999673294,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.286716129687974,
+    "nyquist_node_hz": 1.6652521915893788,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4544134224125823,
+        "abs": 34633.36220187945,
+        "silent": false,
+        "den": 76215.53522341659
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00742",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03938511425825372,
+        "abs": 73987211.03323317,
+        "silent": false,
+        "den": 1878557734.9881134
+      },
+      "pert_l2": {
+        "rel": 0.06897514166277187,
+        "abs": 73987211.03323317,
+        "silent": false,
+        "den": 1072664865.1910847
+      },
+      "peak_trough": {
+        "peak_rel": 2421.4009708737863,
+        "trough_rel": 0.13201778778858708
+      },
+      "phase_frac_hat": 0.42494186319090077,
+      "phase_frac_true": 0.4640169641952273,
+      "phase_err_over_4La": 0.03907510100432654,
+      "psd": 0.43828773416097233,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.556503642039544,
+    "nyquist_node_hz": 1.7048547035783908,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.39935799621478707,
+        "abs": 21338.491056930266,
+        "silent": false,
+        "den": 53431.98648626474
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00758",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1565126904714548,
+        "abs": 90174186.05313252,
+        "silent": false,
+        "den": 576146162.8543068
+      },
+      "pert_l2": {
+        "rel": 0.21659988194871868,
+        "abs": 90174186.10714412,
+        "silent": false,
+        "den": 416316875.5950356
+      },
+      "peak_trough": {
+        "peak_rel": 30.874509740101225,
+        "trough_rel": 0.18937374301489696
+      },
+      "phase_frac_hat": 0.39738241647771355,
+      "phase_frac_true": 0.4667046480771828,
+      "phase_err_over_4La": 0.06932223159946926,
+      "psd": 0.13790628002829017,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.41782076646882,
+    "nyquist_node_hz": 1.2005568989521507,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.9122017914130062,
+        "abs": 18462.340417263,
+        "silent": false,
+        "den": 20239.316115203765
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00759",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.056389033912472505,
+        "abs": 83640273.30832548,
+        "silent": false,
+        "den": 1483271968.0594735
+      },
+      "pert_l2": {
+        "rel": 0.2160852577698916,
+        "abs": 83640273.30832548,
+        "silent": false,
+        "den": 387070706.12560576
+      },
+      "peak_trough": {
+        "peak_rel": 835.5573159366263,
+        "trough_rel": 0.23022880177582483
+      },
+      "phase_frac_hat": 0.39749344344384263,
+      "phase_frac_true": 0.4560919929883413,
+      "phase_err_over_4La": 0.05859854954449867,
+      "psd": 0.5227544528355356,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.72020874103066,
+    "nyquist_node_hz": 1.7100065231572081,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6751422342670327,
+        "abs": 12966.184258986666,
+        "silent": false,
+        "den": 19205.115012636394
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00761",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.41613419171851473,
+        "abs": 596763058.3416005,
+        "silent": false,
+        "den": 1434063987.573673
+      },
+      "pert_l2": {
+        "rel": 0.356469172125007,
+        "abs": 596763058.3150635,
+        "silent": false,
+        "den": 1674094437.8376427
+      },
+      "peak_trough": {
+        "peak_rel": 558.7695753798208,
+        "trough_rel": 0.1046884228023082
+      },
+      "phase_frac_hat": 0.5148747842452512,
+      "phase_frac_true": 0.471887143005226,
+      "phase_err_over_4La": 0.04298764124002524,
+      "psd": 1.1300398515524521,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 51.82759984183472,
+    "nyquist_node_hz": 1.6195574611627843,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6420055370266171,
+        "abs": 57049.30280139315,
+        "silent": false,
+        "den": 88861.07597391005
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00770",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.5411311652747888,
+        "abs": 2156982317.390025,
+        "silent": false,
+        "den": 3986061893.69023
+      },
+      "pert_l2": {
+        "rel": 0.9249592471094124,
+        "abs": 2156982317.390025,
+        "silent": false,
+        "den": 2331975515.81954
+      },
+      "peak_trough": {
+        "peak_rel": 4.6224963999999995e+37,
+        "trough_rel": 0.5880531195652183
+      },
+      "phase_frac_hat": 3.8711164930811646,
+      "phase_frac_true": 0.4510607379611634,
+      "phase_err_over_4La": 3.4200557551200013,
+      "psd": 0.9521266086955777,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 60.24913812916571,
+    "nyquist_node_hz": 1.882697673416476,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8317271130607446,
+        "abs": 103825.307142881,
+        "silent": false,
+        "den": 124830.97582427638
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00781",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 1.3031915321569718,
+        "abs": 166567815.78995797,
+        "silent": false,
+        "den": 127815299.34764384
+      },
+      "pert_l2": {
+        "rel": 0.4146410469329707,
+        "abs": 166567815.88213578,
+        "silent": false,
+        "den": 401715693.88561404
+      },
+      "peak_trough": {
+        "peak_rel": 10058.865628042844,
+        "trough_rel": 0.25364414575442495
+      },
+      "phase_frac_hat": 0.40637945691757416,
+      "phase_frac_true": 0.4483850451023667,
+      "phase_err_over_4La": 0.04200558818479255,
+      "psd": 0.2566348473149527,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.5523902280659,
+    "nyquist_node_hz": 1.329741958719482,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.6898795345539384,
+        "abs": 37863.45827810657,
+        "silent": false,
+        "den": 22406.010312504928
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00809",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11594689130296561,
+        "abs": 113075050.73594375,
+        "silent": false,
+        "den": 975231413.8417232
+      },
+      "pert_l2": {
+        "rel": 0.23173296780178076,
+        "abs": 113075050.73594375,
+        "silent": false,
+        "den": 487954095.64972055
+      },
+      "peak_trough": {
+        "peak_rel": 39317.708333333336,
+        "trough_rel": 0.16356826653409104
+      },
+      "phase_frac_hat": 0.4070702914289344,
+      "phase_frac_true": 0.4656415726590542,
+      "phase_err_over_4La": 0.05857128123011979,
+      "psd": 0.2602782561786753,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.63543953809872,
+    "nyquist_node_hz": 1.3323303990729636,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.9536006946758339,
+        "abs": 21575.60007531602,
+        "silent": false,
+        "den": 22625.403059978275
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00828",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.23942383181462967,
+        "abs": 99875135.88536532,
+        "silent": false,
+        "den": 417147846.6800755
+      },
+      "pert_l2": {
+        "rel": 0.11608549007710181,
+        "abs": 99875136.15244362,
+        "silent": false,
+        "den": 860358483.0981755
+      },
+      "peak_trough": {
+        "peak_rel": 115.48482837820595,
+        "trough_rel": 0.08825140564763484
+      },
+      "phase_frac_hat": 0.42095278211823567,
+      "phase_frac_true": 0.47174060612018026,
+      "phase_err_over_4La": 0.05078782400194459,
+      "psd": 0.4604293889425473,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.147821290678436,
+    "nyquist_node_hz": 1.1296242830610652,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.02528073895671143,
+        "abs": 1197.920527164179,
+        "silent": false,
+        "den": 47384.711705436916
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00850",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04226374910116846,
+        "abs": 158159464.58468667,
+        "silent": false,
+        "den": 3742201483.500527
+      },
+      "pert_l2": {
+        "rel": 0.062410216370667085,
+        "abs": 158159464.58468667,
+        "silent": false,
+        "den": 2534191896.4892726
+      },
+      "peak_trough": {
+        "peak_rel": 86.39446814995428,
+        "trough_rel": 0.060436928302150035
+      },
+      "phase_frac_hat": 0.5227251321520819,
+      "phase_frac_true": 0.6370407227551736,
+      "phase_err_over_4La": 0.11431559060309171,
+      "psd": 0.2498228611195203,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.75547398523198,
+    "nyquist_node_hz": 1.3986085620384994,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7132464604051357,
+        "abs": 70418.92260214293,
+        "silent": false,
+        "den": 98730.13959598738
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00855",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.016618008428909863,
+        "abs": 38691606.43401026,
+        "silent": false,
+        "den": 2328293826.5153127
+      },
+      "pert_l2": {
+        "rel": 0.21257479847970773,
+        "abs": 38691606.43401026,
+        "silent": false,
+        "den": 182014080.27068523
+      },
+      "peak_trough": {
+        "peak_rel": 10.287822878228782,
+        "trough_rel": 0.14729621125343317
+      },
+      "phase_frac_hat": 0.3888183565047913,
+      "phase_frac_true": 0.48455756603483646,
+      "phase_err_over_4La": 0.09573920953004517,
+      "psd": 0.3183578521263816,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.936624009750155,
+    "nyquist_node_hz": 1.248003903820805,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.7461065724442797,
+        "abs": 25071.21333380277,
+        "silent": false,
+        "den": 6692.605468894648
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00858",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04550774704607331,
+        "abs": 171847375.2705159,
+        "silent": false,
+        "den": 3776222432.99658
+      },
+      "pert_l2": {
+        "rel": 0.28703153541500376,
+        "abs": 171847375.2705159,
+        "silent": false,
+        "den": 598705556.941856
+      },
+      "peak_trough": {
+        "peak_rel": 13782.8,
+        "trough_rel": 0.24547924322909634
+      },
+      "phase_frac_hat": 0.40127152732487403,
+      "phase_frac_true": 0.4578986704399724,
+      "phase_err_over_4La": 0.056627143115098366,
+      "psd": 0.18056476337917443,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.09737693136903,
+    "nyquist_node_hz": 1.4717558451912092,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6734439226635768,
+        "abs": 20414.535288309,
+        "silent": false,
+        "den": 30313.638005026907
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00871",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.126959229143853,
+        "abs": 417944959.12663627,
+        "silent": false,
+        "den": 3291962009.7336736
+      },
+      "pert_l2": {
+        "rel": 0.2937010522116675,
+        "abs": 417944959.12663627,
+        "silent": false,
+        "den": 1423028470.5463955
+      },
+      "peak_trough": {
+        "peak_rel": 1.4504968e+37,
+        "trough_rel": 0.0983843155096912
+      },
+      "phase_frac_hat": 0.47454245719285815,
+      "phase_frac_true": 0.49211811582292997,
+      "phase_err_over_4La": 0.017575658630071822,
+      "psd": 0.48748262078769683,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.7344010677344,
+    "nyquist_node_hz": 1.3667775259926342,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5004674216334033,
+        "abs": 34356.864137796656,
+        "silent": false,
+        "den": 68649.55170441316
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00894",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.09714322219765972,
+        "abs": 96273607.63635825,
+        "silent": false,
+        "den": 991048119.0387936
+      },
+      "pert_l2": {
+        "rel": 0.15724074851289066,
+        "abs": 96273607.63635825,
+        "silent": false,
+        "den": 612268820.5625381
+      },
+      "peak_trough": {
+        "peak_rel": 1784318.5,
+        "trough_rel": 0.12391510795682731
+      },
+      "phase_frac_hat": 0.4111753543081941,
+      "phase_frac_true": 0.47856513286191277,
+      "phase_err_over_4La": 0.0673897785537187,
+      "psd": 0.35545248140945396,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.36096096096096,
+    "nyquist_node_hz": 1.2299636609323352,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.17893987764878444,
+        "abs": 6443.731645318382,
+        "silent": false,
+        "den": 36010.59601686922
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00897",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.20047191014790355,
+        "abs": 557535091.9831772,
+        "silent": false,
+        "den": 2781113282.0146255
+      },
+      "pert_l2": {
+        "rel": 0.13597901206273172,
+        "abs": 557535091.2646245,
+        "silent": false,
+        "den": 4100155478.460269
+      },
+      "peak_trough": {
+        "peak_rel": 342554.79411764705,
+        "trough_rel": 0.08025284088079176
+      },
+      "phase_frac_hat": 3.8715105480417336,
+      "phase_frac_true": 0.8475337352372656,
+      "phase_err_over_4La": 3.023976812804468,
+      "psd": 0.7357195313049127,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.2277501381979,
+    "nyquist_node_hz": 1.1321709761985999,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.842821795972957,
+        "abs": 140609.08962707373,
+        "silent": false,
+        "den": 166831.34002811828
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00903",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.024418545514337118,
+        "abs": 46967045.60039548,
+        "silent": false,
+        "den": 1923417001.7546387
+      },
+      "pert_l2": {
+        "rel": 0.12875185703720474,
+        "abs": 46967045.60039548,
+        "silent": false,
+        "den": 364787325.64473736
+      },
+      "peak_trough": {
+        "peak_rel": 20.61863711001642,
+        "trough_rel": 0.0777868944389023
+      },
+      "phase_frac_hat": 0.3964624073791004,
+      "phase_frac_true": 0.4638415088387197,
+      "phase_err_over_4La": 0.06737910145961934,
+      "psd": 0.23089000422142017,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.64115117714675,
+    "nyquist_node_hz": 1.3949970000093126,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.4030051768397567,
+        "abs": 26597.46989142105,
+        "silent": false,
+        "den": 18957.49946648904
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00912",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.10165855842484654,
+        "abs": 70175518.46483329,
+        "silent": false,
+        "den": 690306055.4091191
+      },
+      "pert_l2": {
+        "rel": 0.062334187784952345,
+        "abs": 70175519.11746688,
+        "silent": false,
+        "den": 1125795034.9744904
+      },
+      "peak_trough": {
+        "peak_rel": 803.7995988892317,
+        "trough_rel": 0.10953128103005876
+      },
+      "phase_frac_hat": 0.4289008516461528,
+      "phase_frac_true": 0.46407269821279223,
+      "phase_err_over_4La": 0.03517184656663941,
+      "psd": 0.37700976248928064,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.377283857600304,
+    "nyquist_node_hz": 1.5430492032939542,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5288458528981402,
+        "abs": 28466.987999991677,
+        "silent": false,
+        "den": 53828.51703192733
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00919",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08431180593747767,
+        "abs": 99546419.01794691,
+        "silent": false,
+        "den": 1180693710.8163314
+      },
+      "pert_l2": {
+        "rel": 0.12870255345553958,
+        "abs": 99546419.21673782,
+        "silent": false,
+        "den": 773461105.0364765
+      },
+      "peak_trough": {
+        "peak_rel": 92705.05263157895,
+        "trough_rel": 0.1104241805948372
+      },
+      "phase_frac_hat": 0.41028119979424205,
+      "phase_frac_true": 0.47377708972688465,
+      "phase_err_over_4La": 0.0634958899326426,
+      "psd": 0.24518326204673793,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.21847192390304,
+    "nyquist_node_hz": 1.2567669929909007,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.07758378227543795,
+        "abs": 2533.4009775708437,
+        "silent": false,
+        "den": 32653.74416236583
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00925",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.3666908049496173,
+        "abs": 62851152.23540507,
+        "silent": false,
+        "den": 171400949.75667775
+      },
+      "pert_l2": {
+        "rel": 0.04988970825252829,
+        "abs": 62851152.54553727,
+        "silent": false,
+        "den": 1259801966.1169722
+      },
+      "peak_trough": {
+        "peak_rel": 19213.909722222223,
+        "trough_rel": 0.06977409321129027
+      },
+      "phase_frac_hat": 0.4324046099770634,
+      "phase_frac_true": 0.48120877031520826,
+      "phase_err_over_4La": 0.04880416033814483,
+      "psd": 0.38070545320448523,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.165829145728644,
+    "nyquist_node_hz": 1.2864700397506994,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.28848346636905237,
+        "abs": 20432.592668939014,
+        "silent": false,
+        "den": 70827.60383501466
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00929",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11148949199891547,
+        "abs": 161541593.90824777,
+        "silent": false,
+        "den": 1448940084.0558066
+      },
+      "pert_l2": {
+        "rel": 0.5253041987378873,
+        "abs": 161541593.90824777,
+        "silent": false,
+        "den": 307520088.9244228
+      },
+      "peak_trough": {
+        "peak_rel": 1986.3030303030303,
+        "trough_rel": 0.2188344090092605
+      },
+      "phase_frac_hat": 0.3847777811368342,
+      "phase_frac_true": 0.48536692189604663,
+      "phase_err_over_4La": 0.10058914075921244,
+      "psd": 1.4309560551268152,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.945773287772994,
+    "nyquist_node_hz": 1.2170518837402162,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.1204308398630616,
+        "abs": 11376.628054133389,
+        "silent": false,
+        "den": 10153.797672620145
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00934",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4872827161831223,
+        "abs": 222824090.97770315,
+        "silent": false,
+        "den": 457278872.3619846
+      },
+      "pert_l2": {
+        "rel": 0.2554094103492041,
+        "abs": 222824091.26633918,
+        "silent": false,
+        "den": 872419269.7586467
+      },
+      "peak_trough": {
+        "peak_rel": 291.883425852498,
+        "trough_rel": 0.20638948128663112
+      },
+      "phase_frac_hat": 0.4090107496634965,
+      "phase_frac_true": 0.4861273370821935,
+      "phase_err_over_4La": 0.07711658741869704,
+      "psd": 0.2906557885336595,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.27839376685646,
+    "nyquist_node_hz": 1.2274727950403626,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.07918296435516094,
+        "abs": 3485.8877175842745,
+        "silent": false,
+        "den": 44023.20304590963
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00959",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04934931434467325,
+        "abs": 60430648.72396838,
+        "silent": false,
+        "den": 1224548902.5824986
+      },
+      "pert_l2": {
+        "rel": 0.2321341542315907,
+        "abs": 60430648.72396838,
+        "silent": false,
+        "den": 260326400.15427977
+      },
+      "peak_trough": {
+        "peak_rel": 7573.333333333333,
+        "trough_rel": 0.1365772872050314
+      },
+      "phase_frac_hat": 0.3897883789679718,
+      "phase_frac_true": 0.4757567035571436,
+      "phase_err_over_4La": 0.08596832458917181,
+      "psd": 0.1503261992080545,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.44504846895822,
+    "nyquist_node_hz": 1.576403024790655,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.7099387884323916,
+        "abs": 15697.805567126243,
+        "silent": false,
+        "den": 9180.331876977543
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00966",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08437881695097499,
+        "abs": 67298840.42182912,
+        "silent": false,
+        "den": 797579805.6155549
+      },
+      "pert_l2": {
+        "rel": 0.11547700738022876,
+        "abs": 67298840.57025217,
+        "silent": false,
+        "den": 582789960.5040739
+      },
+      "peak_trough": {
+        "peak_rel": 2991.4306282722514,
+        "trough_rel": 0.10803148245465077
+      },
+      "phase_frac_hat": 0.40526026104241986,
+      "phase_frac_true": 0.4687347721068462,
+      "phase_err_over_4La": 0.06347451106442636,
+      "psd": 0.18607795705228936,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 55.71604675876727,
+    "nyquist_node_hz": 1.741142362318997,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.12021227243266146,
+        "abs": 3105.919708254422,
+        "silent": false,
+        "den": 25836.960282023163
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00967",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.45504150149008976,
+        "abs": 911535542.1969554,
+        "silent": false,
+        "den": 2003192102.724739
+      },
+      "pert_l2": {
+        "rel": 0.21550445481635472,
+        "abs": 911535541.8270352,
+        "silent": false,
+        "den": 4229775865.208047
+      },
+      "peak_trough": {
+        "peak_rel": 51781.42857142857,
+        "trough_rel": 0.15487445019765048
+      },
+      "phase_frac_hat": 3.8709184990014083,
+      "phase_frac_true": 0.8285055238260017,
+      "phase_err_over_4La": 3.0424129751754068,
+      "psd": 0.7509265425154699,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.064802078557236,
+    "nyquist_node_hz": 1.252057954678429,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8709358390258258,
+        "abs": 185468.13626499692,
+        "silent": false,
+        "den": 212952.69749428378
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00970",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.14393297960967935,
+        "abs": 57302886.92972713,
+        "silent": false,
+        "den": 398122008.487022
+      },
+      "pert_l2": {
+        "rel": 0.6048441257201362,
+        "abs": 57302886.92972713,
+        "silent": false,
+        "den": 94739924.70622323
+      },
+      "peak_trough": {
+        "peak_rel": 0.987380203204189,
+        "trough_rel": 0.6020467226474261
+      },
+      "phase_frac_hat": 0.38461116061603257,
+      "phase_frac_true": 0.4666094794437187,
+      "phase_err_over_4La": 0.08199831882768616,
+      "psd": 0.5523796517720563,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.24404556437694,
+    "nyquist_node_hz": 1.413899301529085,
+    "node": {
+      "H_pert_l2": {
+        "rel": 9.827292841578215,
+        "abs": 31271.140579116076,
+        "silent": false,
+        "den": 3182.0706967041074
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00979",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11565384947008564,
+        "abs": 173085907.81230423,
+        "silent": false,
+        "den": 1496585791.1808949
+      },
+      "pert_l2": {
+        "rel": 0.057355740607635576,
+        "abs": 173085907.27745086,
+        "silent": false,
+        "den": 3017760828.1882863
+      },
+      "peak_trough": {
+        "peak_rel": 105749.21666666666,
+        "trough_rel": 0.004434254668298414
+      },
+      "phase_frac_hat": 3.870376181469607,
+      "phase_frac_true": 0.5975454782113103,
+      "phase_err_over_4La": 3.272830703258297,
+      "psd": 0.3068032034878714,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.36183938466628,
+    "nyquist_node_hz": 1.3550627341465273,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.721268293241485,
+        "abs": 131346.514399679,
+        "silent": false,
+        "den": 182104.93325498697
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00983",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.042104169772625245,
+        "abs": 129354433.1273309,
+        "silent": false,
+        "den": 3072247566.5921555
+      },
+      "pert_l2": {
+        "rel": 0.17776247535296513,
+        "abs": 129354433.1273309,
+        "silent": false,
+        "den": 727681322.3403014
+      },
+      "peak_trough": {
+        "peak_rel": 172.83207298043453,
+        "trough_rel": 0.1865394489394942
+      },
+      "phase_frac_hat": 0.4081446660488038,
+      "phase_frac_true": 0.44817800315017187,
+      "phase_err_over_4La": 0.04003333710136808,
+      "psd": 0.19771919155493803,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.8894281092397,
+    "nyquist_node_hz": 1.5590423103971738,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.423437444119297,
+        "abs": 15143.533177084819,
+        "silent": false,
+        "den": 35763.330303917006
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00990",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2817776389501013,
+        "abs": 199742320.0788286,
+        "silent": false,
+        "den": 708865049.8423691
+      },
+      "pert_l2": {
+        "rel": 0.1582684222840979,
+        "abs": 199742319.6421284,
+        "silent": false,
+        "den": 1262047834.6816604
+      },
+      "peak_trough": {
+        "peak_rel": 9.907928e+36,
+        "trough_rel": 0.20971012397957628
+      },
+      "phase_frac_hat": 0.42677486694726097,
+      "phase_frac_true": 0.4726751164360865,
+      "phase_err_over_4La": 0.04590024948882554,
+      "psd": 0.5279804080293546,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 56.873460975212886,
+    "nyquist_node_hz": 1.7772903837084202,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.40520550740324046,
+        "abs": 29457.842320870277,
+        "silent": false,
+        "den": 72698.52403944572
+      }
+    }
+  },
+  {
+    "case_id": "pilot_00997",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11408629641763565,
+        "abs": 418527134.1618932,
+        "silent": false,
+        "den": 3668513636.6403823
+      },
+      "pert_l2": {
+        "rel": 0.15297660146675304,
+        "abs": 418527134.1618932,
+        "silent": false,
+        "den": 2735889869.097747
+      },
+      "peak_trough": {
+        "peak_rel": 112.04524518140589,
+        "trough_rel": 0.07372479852210312
+      },
+      "phase_frac_hat": 3.8697901235873937,
+      "phase_frac_true": 0.4630851962790023,
+      "phase_err_over_4La": 3.4067049273083914,
+      "psd": 0.4854364144093468,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.660030232643884,
+    "nyquist_node_hz": 1.2081259447701214,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7233298835093157,
+        "abs": 118373.63111785389,
+        "silent": false,
+        "den": 163650.9617763212
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01001",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.041761117178632255,
+        "abs": 89509034.23302495,
+        "silent": false,
+        "den": 2143358230.8191621
+      },
+      "pert_l2": {
+        "rel": 0.48666348302888235,
+        "abs": 89509034.23302495,
+        "silent": false,
+        "den": 183923876.26032916
+      },
+      "peak_trough": {
+        "peak_rel": 1273.75,
+        "trough_rel": 0.1545232798523335
+      },
+      "phase_frac_hat": 0.38285718655331646,
+      "phase_frac_true": 0.47271143701804225,
+      "phase_err_over_4La": 0.08985425046472578,
+      "psd": 0.4419386109903767,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.21538697553118,
+    "nyquist_node_hz": 1.2567067441369921,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.3355888356834924,
+        "abs": 8859.319223243901,
+        "silent": false,
+        "den": 6633.268403078641
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01009",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.05322258315190796,
+        "abs": 79455916.01369506,
+        "silent": false,
+        "den": 1492898527.4335876
+      },
+      "pert_l2": {
+        "rel": 0.2766919061264623,
+        "abs": 79455916.01369506,
+        "silent": false,
+        "den": 287163860.79388845
+      },
+      "peak_trough": {
+        "peak_rel": 40985.75,
+        "trough_rel": 0.11032228653483207
+      },
+      "phase_frac_hat": 0.3905492350753772,
+      "phase_frac_true": 0.4706118157887129,
+      "phase_err_over_4La": 0.08006258071333572,
+      "psd": 0.5114075827207296,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.712275050766756,
+    "nyquist_node_hz": 1.1472435327944543,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.120226942212634,
+        "abs": 14113.199699999808,
+        "silent": false,
+        "den": 12598.518361042
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01012",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04914098117864804,
+        "abs": 66062239.746863715,
+        "silent": false,
+        "den": 1344341080.7509077
+      },
+      "pert_l2": {
+        "rel": 0.08195236040066285,
+        "abs": 66062239.89746124,
+        "silent": false,
+        "den": 806105395.5552318
+      },
+      "peak_trough": {
+        "peak_rel": 61529.73529411765,
+        "trough_rel": 0.04213686434115981
+      },
+      "phase_frac_hat": 0.41587447125729365,
+      "phase_frac_true": 0.45687616160838856,
+      "phase_err_over_4La": 0.04100169035109491,
+      "psd": 0.43880690403700023,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.14820143884892,
+    "nyquist_node_hz": 1.4733067684301042,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.06780531736734255,
+        "abs": 3153.840641363068,
+        "silent": false,
+        "den": 46513.175718606246
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01019",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.7018286398636778,
+        "abs": 717630408.856801,
+        "silent": false,
+        "den": 1022515138.4477448
+      },
+      "pert_l2": {
+        "rel": 0.515579229541091,
+        "abs": 717630410.235234,
+        "silent": false,
+        "den": 1391891622.3098934
+      },
+      "peak_trough": {
+        "peak_rel": 1748.4915327833262,
+        "trough_rel": 0.2931051985630842
+      },
+      "phase_frac_hat": 0.504958650809997,
+      "phase_frac_true": 0.45416979000688784,
+      "phase_err_over_4La": 0.05078886080310918,
+      "psd": 1.6744381086365203,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.17259552042161,
+    "nyquist_node_hz": 1.3491627048204786,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6756835751543147,
+        "abs": 51591.64010990011,
+        "silent": false,
+        "den": 76354.73468201066
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01020",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.06040680227941226,
+        "abs": 39569675.07698533,
+        "silent": false,
+        "den": 655053298.3678793
+      },
+      "pert_l2": {
+        "rel": 0.08296456706526197,
+        "abs": 39569674.96459934,
+        "silent": false,
+        "den": 476946681.7499676
+      },
+      "peak_trough": {
+        "peak_rel": 10697.414772727272,
+        "trough_rel": 0.012812653508947225
+      },
+      "phase_frac_hat": 0.40334583672158997,
+      "phase_frac_true": 0.4746393797439952,
+      "phase_err_over_4La": 0.07129354302240526,
+      "psd": 0.45815282513987876,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.16567476274731,
+    "nyquist_node_hz": 1.317659122353092,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.034788239024649,
+        "abs": 45005.077904421385,
+        "silent": false,
+        "den": 22117.818965768165
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01028",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.6301100750946502,
+        "abs": 170004816.1458095,
+        "silent": false,
+        "den": 269801774.11109114
+      },
+      "pert_l2": {
+        "rel": 0.4192898351290339,
+        "abs": 170004816.12842673,
+        "silent": false,
+        "den": 405458949.5977378
+      },
+      "peak_trough": {
+        "peak_rel": 1292.7688821752265,
+        "trough_rel": 0.34703005239192586
+      },
+      "phase_frac_hat": 0.39256232496247123,
+      "phase_frac_true": 0.45798938072172846,
+      "phase_err_over_4La": 0.06542705575925722,
+      "psd": 0.2921128345572204,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.2046526249607,
+    "nyquist_node_hz": 1.2876121897398807,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6682271245222501,
+        "abs": 14301.808863009283,
+        "silent": false,
+        "den": 21402.616473005914
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01034",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03208681119855801,
+        "abs": 44107463.777032115,
+        "silent": false,
+        "den": 1374629080.5929108
+      },
+      "pert_l2": {
+        "rel": 0.2386784102927598,
+        "abs": 44107463.777032115,
+        "silent": false,
+        "den": 184798716.07545266
+      },
+      "peak_trough": {
+        "peak_rel": 0.08752760664884343,
+        "trough_rel": 0.05837397485603228
+      },
+      "phase_frac_hat": 0.38481174007192553,
+      "phase_frac_true": 0.46880617696762245,
+      "phase_err_over_4La": 0.08399443689569691,
+      "psd": 0.27747283860706057,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.249591474245115,
+    "nyquist_node_hz": 1.1640704097763725,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.204369233882157,
+        "abs": 30003.87861001884,
+        "silent": false,
+        "den": 9363.427376834643
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01049",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11091955256891373,
+        "abs": 172262275.63717338,
+        "silent": false,
+        "den": 1553037959.9227805
+      },
+      "pert_l2": {
+        "rel": 0.10586476752793518,
+        "abs": 172262275.6307965,
+        "silent": false,
+        "den": 1627191743.3280208
+      },
+      "peak_trough": {
+        "peak_rel": 314.74083584204004,
+        "trough_rel": 0.01927434794201523
+      },
+      "phase_frac_hat": 0.47150417985676163,
+      "phase_frac_true": 0.47931375570712115,
+      "phase_err_over_4La": 0.007809575850359518,
+      "psd": 0.5382710699690327,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.275187969924815,
+    "nyquist_node_hz": 1.5398360564257247,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5049539583269174,
+        "abs": 33125.08333721209,
+        "silent": false,
+        "den": 65600.20530776045
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01064",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2540973546292877,
+        "abs": 181462495.23923486,
+        "silent": false,
+        "den": 714145550.6452534
+      },
+      "pert_l2": {
+        "rel": 0.16420263304832636,
+        "abs": 181462495.09863955,
+        "silent": false,
+        "den": 1105113186.8587847
+      },
+      "peak_trough": {
+        "peak_rel": 18003.675889328064,
+        "trough_rel": 0.11337343973949233
+      },
+      "phase_frac_hat": 0.41913388826585046,
+      "phase_frac_true": 0.4836160219601411,
+      "phase_err_over_4La": 0.06448213369429062,
+      "psd": 0.22690901014849876,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.32807819643702,
+    "nyquist_node_hz": 1.2914642677675854,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.08368910582568774,
+        "abs": 3911.2532613439853,
+        "silent": false,
+        "den": 46735.51261845906
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01069",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.17317483700234404,
+        "abs": 102632959.24452674,
+        "silent": false,
+        "den": 592655151.41289
+      },
+      "pert_l2": {
+        "rel": 0.1943470521715994,
+        "abs": 102632959.09811115,
+        "silent": false,
+        "den": 528091154.207428
+      },
+      "peak_trough": {
+        "peak_rel": 8806.505263157895,
+        "trough_rel": 0.1420367792937491
+      },
+      "phase_frac_hat": 0.4013937257751686,
+      "phase_frac_true": 0.478547274648339,
+      "phase_err_over_4La": 0.07715354887317044,
+      "psd": 0.23127415387059913,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.147821290678436,
+    "nyquist_node_hz": 1.1296486223271769,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.2098766127241434,
+        "abs": 33191.88520126316,
+        "silent": false,
+        "den": 27434.10762071739
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01070",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07305214461185641,
+        "abs": 164263784.56037468,
+        "silent": false,
+        "den": 2248582645.083832
+      },
+      "pert_l2": {
+        "rel": 0.44293746679430374,
+        "abs": 164263784.56037468,
+        "silent": false,
+        "den": 370850959.5027267
+      },
+      "peak_trough": {
+        "peak_rel": 5.809855191117024,
+        "trough_rel": 0.3686720416094133
+      },
+      "phase_frac_hat": 0.38982732830336136,
+      "phase_frac_true": 0.46212614061610147,
+      "phase_err_over_4La": 0.0722988123127401,
+      "psd": 0.3879962151227634,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.75474079007326,
+    "nyquist_node_hz": 1.1485491649661486,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7951068389881829,
+        "abs": 14102.559417756287,
+        "silent": false,
+        "den": 17736.68484062163
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01086",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1031544282940112,
+        "abs": 79399390.2871795,
+        "silent": false,
+        "den": 769713831.9731172
+      },
+      "pert_l2": {
+        "rel": 0.3548760136568137,
+        "abs": 79399390.2871795,
+        "silent": false,
+        "den": 223738396.59944853
+      },
+      "peak_trough": {
+        "peak_rel": 49547.375,
+        "trough_rel": 0.2905813580815643
+      },
+      "phase_frac_hat": 0.39659215156900746,
+      "phase_frac_true": 0.46203963484597693,
+      "phase_err_over_4La": 0.06544748327696948,
+      "psd": 0.48473016846348965,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.2196289646918,
+    "nyquist_node_hz": 1.2255596872098127,
+    "node": {
+      "H_pert_l2": {
+        "rel": 4.290435574245071,
+        "abs": 46759.55455229015,
+        "silent": false,
+        "den": 10898.556508570297
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01090",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.14323030768257303,
+        "abs": 234444550.2421764,
+        "silent": false,
+        "den": 1636836183.8735442
+      },
+      "pert_l2": {
+        "rel": 0.08411081838684276,
+        "abs": 234444547.22855744,
+        "silent": false,
+        "den": 2787329284.4482775
+      },
+      "peak_trough": {
+        "peak_rel": 6649.231981981982,
+        "trough_rel": 0.041031139850821616
+      },
+      "phase_frac_hat": 0.7389974751375501,
+      "phase_frac_true": 0.6394231812436495,
+      "phase_err_over_4La": 0.0995742938939006,
+      "psd": 0.2583921942731369,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.762028233938345,
+    "nyquist_node_hz": 1.1800740067164246,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7591710391762942,
+        "abs": 129585.43912072518,
+        "silent": false,
+        "den": 170693.3384357315
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01092",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.035616395489934616,
+        "abs": 84032035.78785399,
+        "silent": false,
+        "den": 2359363844.4295096
+      },
+      "pert_l2": {
+        "rel": 0.28539053544043325,
+        "abs": 84032035.78785399,
+        "silent": false,
+        "den": 294445769.4021642
+      },
+      "peak_trough": {
+        "peak_rel": 14677.285714285714,
+        "trough_rel": 0.18591293895708083
+      },
+      "phase_frac_hat": 0.40026444869366057,
+      "phase_frac_true": 0.44614844738800186,
+      "phase_err_over_4La": 0.04588399869434129,
+      "psd": 0.4213395052677926,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.96314658560872,
+    "nyquist_node_hz": 1.3738591310135555,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.4677120495485338,
+        "abs": 21804.318301916628,
+        "silent": false,
+        "den": 14855.991887934426
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01098",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.01635245092188496,
+        "abs": 29650985.207099408,
+        "silent": false,
+        "den": 1813244103.2075894
+      },
+      "pert_l2": {
+        "rel": 0.11364870211756445,
+        "abs": 29650985.207099408,
+        "silent": false,
+        "den": 260900341.61962363
+      },
+      "peak_trough": {
+        "peak_rel": 746.8759036144578,
+        "trough_rel": 0.005513963804103535
+      },
+      "phase_frac_hat": 0.39471092005026714,
+      "phase_frac_true": 0.4640784238739874,
+      "phase_err_over_4La": 0.06936750382372026,
+      "psd": 0.2139014443927618,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.596953348143444,
+    "nyquist_node_hz": 1.2998693406786848,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.3716695403564927,
+        "abs": 43904.42077427632,
+        "silent": false,
+        "den": 13021.566985960973
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01104",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.023600405556167874,
+        "abs": 115246533.59955798,
+        "silent": false,
+        "den": 4883243778.386628
+      },
+      "pert_l2": {
+        "rel": 0.05245702250982209,
+        "abs": 115246533.59955798,
+        "silent": false,
+        "den": 2196970550.0913463
+      },
+      "peak_trough": {
+        "peak_rel": 49087.813953488374,
+        "trough_rel": 0.04055646729193667
+      },
+      "phase_frac_hat": 0.5108511460923219,
+      "phase_frac_true": 0.4922924748373822,
+      "phase_err_over_4La": 0.01855867125493965,
+      "psd": 0.36397198901316613,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.693568066933935,
+    "nyquist_node_hz": 1.427902612797492,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.624590045739683,
+        "abs": 53481.34138068929,
+        "silent": false,
+        "den": 85626.31080255684
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01117",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04011735990567981,
+        "abs": 42181430.2005982,
+        "silent": false,
+        "den": 1051450800.8446031
+      },
+      "pert_l2": {
+        "rel": 0.09009769132900369,
+        "abs": 42181430.2005982,
+        "silent": false,
+        "den": 468174373.59817696
+      },
+      "peak_trough": {
+        "peak_rel": 31069.125,
+        "trough_rel": 0.05419175789186036
+      },
+      "phase_frac_hat": 0.4044212767655893,
+      "phase_frac_true": 0.44935696906169825,
+      "phase_err_over_4La": 0.04493569229610894,
+      "psd": 0.24059259047145298,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.48447380840019,
+    "nyquist_node_hz": 1.5464034898845849,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.5805474200723786,
+        "abs": 42428.396442735924,
+        "silent": false,
+        "den": 26844.11483256414
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01120",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.05257318988797733,
+        "abs": 166086561.30743748,
+        "silent": false,
+        "den": 3159149400.318562
+      },
+      "pert_l2": {
+        "rel": 0.37697578817719046,
+        "abs": 166086561.30743748,
+        "silent": false,
+        "den": 440576202.81271636
+      },
+      "peak_trough": {
+        "peak_rel": 1243.2774193548387,
+        "trough_rel": 0.3762770047419637
+      },
+      "phase_frac_hat": 0.39654393793539805,
+      "phase_frac_true": 0.43658901438299924,
+      "phase_err_over_4La": 0.04004507644760119,
+      "psd": 0.7069733475804855,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 61.841000235904694,
+    "nyquist_node_hz": 1.9325597511168777,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6667569948695099,
+        "abs": 14297.288724025111,
+        "silent": false,
+        "den": 21443.02772080136
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01119",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.21837064317778876,
+        "abs": 149971775.71962035,
+        "silent": false,
+        "den": 686776269.6358377
+      },
+      "pert_l2": {
+        "rel": 0.30039277734892744,
+        "abs": 149971775.7056331,
+        "silent": false,
+        "den": 499252269.0764641
+      },
+      "peak_trough": {
+        "peak_rel": 823.683724235963,
+        "trough_rel": 0.2099097188308456
+      },
+      "phase_frac_hat": 0.399517610909857,
+      "phase_frac_true": 0.4620338093371679,
+      "phase_err_over_4La": 0.06251619842731093,
+      "psd": 0.4291033538421805,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 34.73486153438452,
+    "nyquist_node_hz": 1.0854621756530416,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5229452832958625,
+        "abs": 14281.911582676421,
+        "silent": false,
+        "den": 27310.527580753143
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01135",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.018418290431485605,
+        "abs": 48163327.72200509,
+        "silent": false,
+        "den": 2614972757.714315
+      },
+      "pert_l2": {
+        "rel": 0.18983273227662192,
+        "abs": 48163327.72200509,
+        "silent": false,
+        "den": 253714557.7814372
+      },
+      "peak_trough": {
+        "peak_rel": 4.486083639446171,
+        "trough_rel": 0.16863357809571217
+      },
+      "phase_frac_hat": 0.39141407367112346,
+      "phase_frac_true": 0.4636451510219365,
+      "phase_err_over_4La": 0.07223107735081302,
+      "psd": 0.45879028184011816,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 58.99410664303698,
+    "nyquist_node_hz": 1.8435528675410529,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.7889535474341667,
+        "abs": 20428.428720534663,
+        "silent": false,
+        "den": 11419.205797620873
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01148",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.09770490140695053,
+        "abs": 181435908.65996233,
+        "silent": false,
+        "den": 1856978575.7652414
+      },
+      "pert_l2": {
+        "rel": 0.5036966320488226,
+        "abs": 181435908.65996233,
+        "silent": false,
+        "den": 360208699.2759086
+      },
+      "peak_trough": {
+        "peak_rel": 59.79925994449584,
+        "trough_rel": 0.4244648549683758
+      },
+      "phase_frac_hat": 0.3886813190121173,
+      "phase_frac_true": 0.4589955238614473,
+      "phase_err_over_4La": 0.07031420484933004,
+      "psd": 0.4832569039739212,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.44011093777085,
+    "nyquist_node_hz": 1.4199496248950518,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5021945712932943,
+        "abs": 9052.871112958535,
+        "silent": false,
+        "den": 18026.620816797782
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01154",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.29813063672159285,
+        "abs": 227038031.36398298,
+        "silent": false,
+        "den": 761538746.4388667
+      },
+      "pert_l2": {
+        "rel": 0.2712290286124915,
+        "abs": 227038031.3992789,
+        "silent": false,
+        "den": 837071284.5919275
+      },
+      "peak_trough": {
+        "peak_rel": 37929.16455696202,
+        "trough_rel": 0.24156746216401423
+      },
+      "phase_frac_hat": 0.407397104889035,
+      "phase_frac_true": 0.47676205820014317,
+      "phase_err_over_4La": 0.06936495331110815,
+      "psd": 0.4032424208961132,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.083180428134554,
+    "nyquist_node_hz": 1.2526038773552561,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.20497825159123986,
+        "abs": 8402.933925194055,
+        "silent": false,
+        "den": 40994.270660239985
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01162",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.3041535166186285,
+        "abs": 294799177.84172255,
+        "silent": false,
+        "den": 969244679.8547617
+      },
+      "pert_l2": {
+        "rel": 0.3089178781850871,
+        "abs": 294799178.09463084,
+        "silent": false,
+        "den": 954296267.4306694
+      },
+      "peak_trough": {
+        "peak_rel": 4826.737430167598,
+        "trough_rel": 0.19480812015068116
+      },
+      "phase_frac_hat": 0.41010792238098964,
+      "phase_frac_true": 0.48431793790205385,
+      "phase_err_over_4La": 0.07421001552106421,
+      "psd": 0.5292875006203601,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.53608325164015,
+    "nyquist_node_hz": 1.2354793100197945,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.13129271834739958,
+        "abs": 4375.963194919686,
+        "silent": false,
+        "den": 33329.82399938525
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01165",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.16996440250583575,
+        "abs": 149722160.69684595,
+        "silent": false,
+        "den": 880903050.8120971
+      },
+      "pert_l2": {
+        "rel": 0.05536792241307875,
+        "abs": 149722159.5995997,
+        "silent": false,
+        "den": 2704131798.238343
+      },
+      "peak_trough": {
+        "peak_rel": 412.22633384146343,
+        "trough_rel": 0.008409378632565445
+      },
+      "phase_frac_hat": 0.5361184650267694,
+      "phase_frac_true": 0.47459669323096604,
+      "phase_err_over_4La": 0.06152177179580337,
+      "psd": 0.40694860282632783,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.68871462666212,
+    "nyquist_node_hz": 1.3964284120956427,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6826760619628733,
+        "abs": 80202.39659933641,
+        "silent": false,
+        "den": 117482.36252598841
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01195",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4461805279996196,
+        "abs": 281788470.1579212,
+        "silent": false,
+        "den": 631557077.1796689
+      },
+      "pert_l2": {
+        "rel": 0.15222551790216554,
+        "abs": 281788470.36242527,
+        "silent": false,
+        "den": 1851125056.073247
+      },
+      "peak_trough": {
+        "peak_rel": 24279.403703703705,
+        "trough_rel": 0.14276721956757324
+      },
+      "phase_frac_hat": 0.45433337415814207,
+      "phase_frac_true": 0.48071401661318724,
+      "phase_err_over_4La": 0.026380642455045178,
+      "psd": 0.42894872193100975,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.2130735748116,
+    "nyquist_node_hz": 1.2566766218762135,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4531327187699453,
+        "abs": 38781.822331848045,
+        "silent": false,
+        "den": 85586.0120565196
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01204",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07901890951889756,
+        "abs": 286212975.7061833,
+        "silent": false,
+        "den": 3622082074.38923
+      },
+      "pert_l2": {
+        "rel": 0.2224437264567761,
+        "abs": 286212975.7061833,
+        "silent": false,
+        "den": 1286675871.9841824
+      },
+      "peak_trough": {
+        "peak_rel": 909.2854435178165,
+        "trough_rel": 0.1947600253743875
+      },
+      "phase_frac_hat": 0.4226843502828725,
+      "phase_frac_true": 0.48320726235308203,
+      "phase_err_over_4La": 0.060522912070209545,
+      "psd": 0.33947713079744174,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.02113724322715,
+    "nyquist_node_hz": 1.2194144385765227,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.30730772169930987,
+        "abs": 19213.823631484127,
+        "silent": false,
+        "den": 62523.074673288545
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01225",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.009745447440559185,
+        "abs": 42761725.62058739,
+        "silent": false,
+        "den": 4387866835.402455
+      },
+      "pert_l2": {
+        "rel": 0.04916482383103651,
+        "abs": 42761725.62058739,
+        "silent": false,
+        "den": 869762612.5448048
+      },
+      "peak_trough": {
+        "peak_rel": 2299.194029850746,
+        "trough_rel": 0.018516665965529408
+      },
+      "phase_frac_hat": 0.4169073204186501,
+      "phase_frac_true": 0.4891582166596356,
+      "phase_err_over_4La": 0.07225089624098552,
+      "psd": 0.32490254162373444,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.56275369378146,
+    "nyquist_node_hz": 1.33007255568522,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3426109780492933,
+        "abs": 10310.932400299722,
+        "silent": false,
+        "den": 30095.160578352024
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01239",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08873392249476818,
+        "abs": 57828708.70794162,
+        "silent": false,
+        "den": 651709144.3957213
+      },
+      "pert_l2": {
+        "rel": 0.09115735479729288,
+        "abs": 57828708.80573917,
+        "silent": false,
+        "den": 634383357.5944935
+      },
+      "peak_trough": {
+        "peak_rel": 2127.1560975609755,
+        "trough_rel": 0.06733383516673506
+      },
+      "phase_frac_hat": 0.40917425213679665,
+      "phase_frac_true": 0.4628844555403776,
+      "phase_err_over_4La": 0.05371020340358096,
+      "psd": 0.5332797338593602,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.34225915666359,
+    "nyquist_node_hz": 1.2607046930644026,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.07158301079145525,
+        "abs": 2642.522469367898,
+        "silent": false,
+        "den": 36915.49768794206
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01245",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08525975916309539,
+        "abs": 110524709.24938452,
+        "silent": false,
+        "den": 1296329127.999989
+      },
+      "pert_l2": {
+        "rel": 0.17773235984333471,
+        "abs": 110524709.24938452,
+        "silent": false,
+        "den": 621860359.8512305
+      },
+      "peak_trough": {
+        "peak_rel": 62280.61111111111,
+        "trough_rel": 0.17918571654838916
+      },
+      "phase_frac_hat": 0.40531670112721474,
+      "phase_frac_true": 0.45805670768218765,
+      "phase_err_over_4La": 0.05274000655497291,
+      "psd": 0.39556646762230796,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.448811968319156,
+    "nyquist_node_hz": 1.201459291986727,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.05316165715385027,
+        "abs": 1830.7378693783703,
+        "silent": false,
+        "den": 34437.18588531204
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01251",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.09000621427254493,
+        "abs": 335199292.08378786,
+        "silent": false,
+        "den": 3724179433.5309076
+      },
+      "pert_l2": {
+        "rel": 0.24646502158178146,
+        "abs": 335199292.08378786,
+        "silent": false,
+        "den": 1360027844.6512249
+      },
+      "peak_trough": {
+        "peak_rel": 1213358.0,
+        "trough_rel": 0.15935748217556872
+      },
+      "phase_frac_hat": 0.42485524493698307,
+      "phase_frac_true": 0.4932227317231503,
+      "phase_err_over_4La": 0.06836748678616722,
+      "psd": 0.4535440167775834,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.99414134016843,
+    "nyquist_node_hz": 1.499827643174169,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.32992474571941877,
+        "abs": 18703.576290087967,
+        "silent": false,
+        "den": 56690.431781053
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01286",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.026969470680800335,
+        "abs": 104510885.94460227,
+        "silent": false,
+        "den": 3875155251.712224
+      },
+      "pert_l2": {
+        "rel": 0.09732331136101603,
+        "abs": 104510885.94460227,
+        "silent": false,
+        "den": 1073852548.6142192
+      },
+      "peak_trough": {
+        "peak_rel": 1196.486995515695,
+        "trough_rel": 0.015170384878376892
+      },
+      "phase_frac_hat": 0.43061549769562163,
+      "phase_frac_true": 0.4774852330056752,
+      "phase_err_over_4La": 0.04686973531005356,
+      "psd": 0.24531459613716386,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.88445673800165,
+    "nyquist_node_hz": 1.5901778565015894,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.42872331285437804,
+        "abs": 19861.04634637087,
+        "silent": false,
+        "den": 46326.023686789704
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01341",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.18669888186056618,
+        "abs": 354523409.8139658,
+        "silent": false,
+        "den": 1898904836.927397
+      },
+      "pert_l2": {
+        "rel": 0.20904518419309073,
+        "abs": 354523409.8139658,
+        "silent": false,
+        "den": 1695917613.1342964
+      },
+      "peak_trough": {
+        "peak_rel": 18964.966507177032,
+        "trough_rel": 0.09939892516015954
+      },
+      "phase_frac_hat": 0.49426822587391717,
+      "phase_frac_true": 0.48645370528463394,
+      "phase_err_over_4La": 0.007814520589283225,
+      "psd": 0.5829516086560375,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.17876217404964,
+    "nyquist_node_hz": 1.2868679034102903,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6209157042940756,
+        "abs": 45927.5603232658,
+        "silent": false,
+        "den": 73967.46451353045
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01365",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4070879013576037,
+        "abs": 451073449.6310723,
+        "silent": false,
+        "den": 1108049264.3647244
+      },
+      "pert_l2": {
+        "rel": 0.13755445667929564,
+        "abs": 451073449.89351416,
+        "silent": false,
+        "den": 3279235444.51329
+      },
+      "peak_trough": {
+        "peak_rel": 1016.7470976414518,
+        "trough_rel": 0.109931799389649
+      },
+      "phase_frac_hat": 3.870306224547646,
+      "phase_frac_true": 0.7178084969693693,
+      "phase_err_over_4La": 3.1524977275782766,
+      "psd": 0.4347898269221243,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.697736049064886,
+    "nyquist_node_hz": 1.2405821380951199,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.820134813566779,
+        "abs": 153097.626192662,
+        "silent": false,
+        "den": 186673.73175739005
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01370",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.10995201111179627,
+        "abs": 92766373.31781194,
+        "silent": false,
+        "den": 843698740.7487214
+      },
+      "pert_l2": {
+        "rel": 0.07673913916641047,
+        "abs": 92766374.06269665,
+        "silent": false,
+        "den": 1208853462.136587
+      },
+      "peak_trough": {
+        "peak_rel": 373.4707074669805,
+        "trough_rel": 0.028046602246677446
+      },
+      "phase_frac_hat": 0.435353263898192,
+      "phase_frac_true": 0.4675655352317802,
+      "phase_err_over_4La": 0.03221227133358817,
+      "psd": 0.3295261916128933,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 33.81630546955624,
+    "nyquist_node_hz": 1.056691389874234,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.37288879157157506,
+        "abs": 23306.001772042415,
+        "silent": false,
+        "den": 62501.212959008684
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01373",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.16771354594189256,
+        "abs": 109138700.01169394,
+        "silent": false,
+        "den": 650744693.2730589
+      },
+      "pert_l2": {
+        "rel": 0.05349760177721899,
+        "abs": 109138699.88422477,
+        "silent": false,
+        "den": 2040067148.0324109
+      },
+      "peak_trough": {
+        "peak_rel": 92302.72727272728,
+        "trough_rel": 0.048059396066451376
+      },
+      "phase_frac_hat": 0.5049934501503407,
+      "phase_frac_true": 0.5782516955873113,
+      "phase_err_over_4La": 0.07325824543697057,
+      "psd": 0.2289685732492063,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 34.36601992658626,
+    "nyquist_node_hz": 1.0739326231655622,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5689496605432708,
+        "abs": 69979.42661847545,
+        "silent": false,
+        "den": 122997.5716158341
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01379",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04388058172256229,
+        "abs": 50042986.76536029,
+        "silent": false,
+        "den": 1140435810.12121
+      },
+      "pert_l2": {
+        "rel": 0.05940450481885279,
+        "abs": 50042986.8540121,
+        "silent": false,
+        "den": 842410638.8330723
+      },
+      "peak_trough": {
+        "peak_rel": 6428.804347826087,
+        "trough_rel": 0.08637707862124748
+      },
+      "phase_frac_hat": 0.41510912952991924,
+      "phase_frac_true": 0.4444109730135486,
+      "phase_err_over_4La": 0.029301843483629353,
+      "psd": 0.24264632560258306,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.21238755040844,
+    "nyquist_node_hz": 1.6941480595857434,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.1347214065930752,
+        "abs": 6900.697571334121,
+        "silent": false,
+        "den": 51221.98280023617
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01380",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.45144598969077293,
+        "abs": 73050228.4480933,
+        "silent": false,
+        "den": 161813882.75955343
+      },
+      "pert_l2": {
+        "rel": 0.37467916559535186,
+        "abs": 73050228.41285981,
+        "silent": false,
+        "den": 194967415.11310244
+      },
+      "peak_trough": {
+        "peak_rel": 3037.1393659180976,
+        "trough_rel": 0.4083852356690134
+      },
+      "phase_frac_hat": 0.3934260182196242,
+      "phase_frac_true": 0.4754304243857407,
+      "phase_err_over_4La": 0.08200440616611648,
+      "psd": 0.8414440801132647,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.882308168022455,
+    "nyquist_node_hz": 1.5588128608720988,
+    "node": {
+      "H_pert_l2": {
+        "rel": 4.032129619677254,
+        "abs": 25144.34715975792,
+        "silent": false,
+        "den": 6235.996739055865
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01403",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0262562604231069,
+        "abs": 165621053.63956407,
+        "silent": false,
+        "den": 6307869093.719407
+      },
+      "pert_l2": {
+        "rel": 0.12054282077429515,
+        "abs": 165621053.63956407,
+        "silent": false,
+        "den": 1373960328.5845914
+      },
+      "peak_trough": {
+        "peak_rel": 59982.391304347824,
+        "trough_rel": 0.1256684032594279
+      },
+      "phase_frac_hat": 0.4334135533112755,
+      "phase_frac_true": 0.5007683849360006,
+      "phase_err_over_4La": 0.06735483162472511,
+      "psd": 0.4717546355772989,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.676107964012,
+    "nyquist_node_hz": 1.3648286310791322,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3552106209753115,
+        "abs": 16710.905817632145,
+        "silent": false,
+        "den": 47045.06236820441
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01404",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08454408073336944,
+        "abs": 59177337.098630995,
+        "silent": false,
+        "den": 699958371.8375422
+      },
+      "pert_l2": {
+        "rel": 0.07149280506196344,
+        "abs": 59177337.25282048,
+        "silent": false,
+        "den": 827738360.5459453
+      },
+      "peak_trough": {
+        "peak_rel": 233961.76470588235,
+        "trough_rel": 0.10588973221132318
+      },
+      "phase_frac_hat": 0.4151141298558265,
+      "phase_frac_true": 0.46981156410525265,
+      "phase_err_over_4La": 0.054697434249426136,
+      "psd": 0.44519389611451143,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 52.34504792332268,
+    "nyquist_node_hz": 1.6357368159964558,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.12312180874986824,
+        "abs": 4723.328178113345,
+        "silent": false,
+        "den": 38363.05059251657
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01405",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.021757684028434837,
+        "abs": 70582215.01362541,
+        "silent": false,
+        "den": 3244013237.8695464
+      },
+      "pert_l2": {
+        "rel": 0.0665941469421348,
+        "abs": 70582215.01362541,
+        "silent": false,
+        "den": 1059886164.9951901
+      },
+      "peak_trough": {
+        "peak_rel": 25882.666666666668,
+        "trough_rel": 0.09633246647378084
+      },
+      "phase_frac_hat": 0.4226837825349919,
+      "phase_frac_true": 0.48027811588311997,
+      "phase_err_over_4La": 0.05759433334812808,
+      "psd": 0.38443453235867275,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.9111874975019,
+    "nyquist_node_hz": 1.3097311529795004,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.22387083628887092,
+        "abs": 10101.93195310716,
+        "silent": false,
+        "den": 45123.93003290598
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01408",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0318935163263948,
+        "abs": 185244364.88871148,
+        "silent": false,
+        "den": 5808213901.312752
+      },
+      "pert_l2": {
+        "rel": 0.160667616428379,
+        "abs": 185244364.88871148,
+        "silent": false,
+        "den": 1152966409.825891
+      },
+      "peak_trough": {
+        "peak_rel": 5702.7734375,
+        "trough_rel": 0.09695766073967328
+      },
+      "phase_frac_hat": 0.43739165228505,
+      "phase_frac_true": 0.48034975093433374,
+      "phase_err_over_4La": 0.04295809864928374,
+      "psd": 0.5157215149317609,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.44559585492228,
+    "nyquist_node_hz": 1.326512126870392,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.33550223099821935,
+        "abs": 13721.891926567021,
+        "silent": false,
+        "den": 40899.55493213948
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01413",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.0958292014191709,
+        "abs": 102625293.47601733,
+        "silent": false,
+        "den": 1070918800.9103752
+      },
+      "pert_l2": {
+        "rel": 0.2891463362465806,
+        "abs": 102625293.47601733,
+        "silent": false,
+        "den": 354925104.0431641
+      },
+      "peak_trough": {
+        "peak_rel": 81.87778412335808,
+        "trough_rel": 0.13571243739632746
+      },
+      "phase_frac_hat": 0.3945357007976437,
+      "phase_frac_true": 0.48047414014247014,
+      "phase_err_over_4La": 0.08593843934482642,
+      "psd": 0.8175275751256365,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.56721123531098,
+    "nyquist_node_hz": 1.173899122522228,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.3073662813913545,
+        "abs": 14995.769305666476,
+        "silent": false,
+        "den": 11470.212685696119
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01416",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1731990255864012,
+        "abs": 120061686.92019783,
+        "silent": false,
+        "den": 693200706.6073501
+      },
+      "pert_l2": {
+        "rel": 0.1887151368024359,
+        "abs": 120061686.84442627,
+        "silent": false,
+        "den": 636205917.9710513
+      },
+      "peak_trough": {
+        "peak_rel": 48175.385416666664,
+        "trough_rel": 0.13234111757222397
+      },
+      "phase_frac_hat": 0.405325308267963,
+      "phase_frac_true": 0.4805302214196211,
+      "phase_err_over_4La": 0.07520491315165811,
+      "psd": 0.28061487950445757,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.847658565500886,
+    "nyquist_node_hz": 1.2139745726360904,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6712432611026072,
+        "abs": 21841.49214119236,
+        "silent": false,
+        "den": 32538.862446551455
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01421",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.050392231962191884,
+        "abs": 175305043.69183394,
+        "silent": false,
+        "den": 3478810857.6607842
+      },
+      "pert_l2": {
+        "rel": 0.09663692413781409,
+        "abs": 175305043.69183394,
+        "silent": false,
+        "den": 1814058603.953817
+      },
+      "peak_trough": {
+        "peak_rel": 3657.3229166666665,
+        "trough_rel": 0.05237958532310613
+      },
+      "phase_frac_hat": 0.48999523435444153,
+      "phase_frac_true": 0.46949743925766885,
+      "phase_err_over_4La": 0.020497795096772686,
+      "psd": 0.32821223209567646,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.810274631727,
+    "nyquist_node_hz": 1.2128154710957921,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6136513855456749,
+        "abs": 60917.78866607271,
+        "silent": false,
+        "den": 99271.003212847
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01451",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.7897253505722657,
+        "abs": 252205835.19450232,
+        "silent": false,
+        "den": 319358920.1761653
+      },
+      "pert_l2": {
+        "rel": 0.22865847497893724,
+        "abs": 252205835.0422728,
+        "silent": false,
+        "den": 1102980482.4225502
+      },
+      "peak_trough": {
+        "peak_rel": 109.24126609219269,
+        "trough_rel": 0.23737866522252937
+      },
+      "phase_frac_hat": 0.4168164613126989,
+      "phase_frac_true": 0.4773378481398945,
+      "phase_err_over_4La": 0.0605213868271956,
+      "psd": 0.30102955946823173,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 56.12911168803362,
+    "nyquist_node_hz": 1.754025937963671,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.10134708464415547,
+        "abs": 5002.407976791193,
+        "silent": false,
+        "den": 49359.1699687799
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01452",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.21787270244870593,
+        "abs": 151962989.07752457,
+        "silent": false,
+        "den": 697485216.6865715
+      },
+      "pert_l2": {
+        "rel": 0.25945544736874354,
+        "abs": 151962989.00828844,
+        "silent": false,
+        "den": 585699743.6338866
+      },
+      "peak_trough": {
+        "peak_rel": 1364.547206923682,
+        "trough_rel": 0.23101217732469503
+      },
+      "phase_frac_hat": 0.40315352140494903,
+      "phase_frac_true": 0.4382952270705201,
+      "phase_err_over_4La": 0.035141705665571066,
+      "psd": 0.3584586475090254,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 49.09063670411985,
+    "nyquist_node_hz": 1.534068930808777,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.12770528879519083,
+        "abs": 4468.912960993208,
+        "silent": false,
+        "den": 34993.95368159177
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01462",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.21411125593025632,
+        "abs": 207470192.76332158,
+        "silent": false,
+        "den": 968983119.836082
+      },
+      "pert_l2": {
+        "rel": 0.6567610298408557,
+        "abs": 207470192.76332158,
+        "silent": false,
+        "den": 315899061.2058622
+      },
+      "peak_trough": {
+        "peak_rel": 18.37907949790795,
+        "trough_rel": 0.5050728197135105
+      },
+      "phase_frac_hat": 0.3828620457543724,
+      "phase_frac_true": 0.4483001977987181,
+      "phase_err_over_4La": 0.06543815204434572,
+      "psd": 0.5289487338497741,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.04644057439658,
+    "nyquist_node_hz": 1.2515349139206906,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8505612444885431,
+        "abs": 14863.381362579117,
+        "silent": false,
+        "den": 17474.79262532908
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01465",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.24087535306807806,
+        "abs": 143558390.7392334,
+        "silent": false,
+        "den": 595986218.2273992
+      },
+      "pert_l2": {
+        "rel": 0.10857255145999091,
+        "abs": 143558391.4329136,
+        "silent": false,
+        "den": 1322234667.072506
+      },
+      "peak_trough": {
+        "peak_rel": 154265.94285714286,
+        "trough_rel": 0.15799640607224621
+      },
+      "phase_frac_hat": 0.4318318918291999,
+      "phase_frac_true": 0.4699347195546416,
+      "phase_err_over_4La": 0.03810282772544171,
+      "psd": 0.4030769077685428,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.60345974717232,
+    "nyquist_node_hz": 1.3625160475475189,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.3096540914267491,
+        "abs": 24391.839205073175,
+        "silent": false,
+        "den": 78771.24791952972
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01489",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.8038459981398369,
+        "abs": 561256390.781859,
+        "silent": false,
+        "den": 698213827.1269007
+      },
+      "pert_l2": {
+        "rel": 0.20189217766259304,
+        "abs": 561256392.2965941,
+        "silent": false,
+        "den": 2779980872.9319816
+      },
+      "peak_trough": {
+        "peak_rel": 9964.923255813954,
+        "trough_rel": 0.19945596760549414
+      },
+      "phase_frac_hat": 0.5125947972004844,
+      "phase_frac_true": 0.6649087295360395,
+      "phase_err_over_4La": 0.15231393233555512,
+      "psd": 0.5524865666469694,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.298346107301334,
+    "nyquist_node_hz": 1.321833313583957,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6806050770593706,
+        "abs": 90151.44755442436,
+        "silent": false,
+        "den": 132457.79467871977
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01493",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.5222856664395009,
+        "abs": 72233404.56956339,
+        "silent": false,
+        "den": 138302483.125737
+      },
+      "pert_l2": {
+        "rel": 0.15297816215796642,
+        "abs": 72233404.4734522,
+        "silent": false,
+        "den": 472181149.6131286
+      },
+      "peak_trough": {
+        "peak_rel": 67655.63571428572,
+        "trough_rel": 0.1519131119840777
+      },
+      "phase_frac_hat": 0.40542854712181553,
+      "phase_frac_true": 0.4786987372399205,
+      "phase_err_over_4La": 0.07327019011810498,
+      "psd": 0.6764413057125784,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.07705243846507,
+    "nyquist_node_hz": 1.2524048969841743,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8952813788845682,
+        "abs": 25217.165253352843,
+        "silent": false,
+        "den": 28166.7482962406
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01508",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.5959943490312353,
+        "abs": 821719539.9457803,
+        "silent": false,
+        "den": 1378737132.7957256
+      },
+      "pert_l2": {
+        "rel": 0.22235157165071806,
+        "abs": 821719540.3167019,
+        "silent": false,
+        "den": 3695586832.223986
+      },
+      "peak_trough": {
+        "peak_rel": 1424031.0,
+        "trough_rel": 0.23181201193316117
+      },
+      "phase_frac_hat": 0.5400510634481381,
+      "phase_frac_true": 0.6923981806090841,
+      "phase_err_over_4La": 0.15234711716094596,
+      "psd": 0.6935765140844445,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 50.480261891007125,
+    "nyquist_node_hz": 1.5774773324587756,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7386003490793162,
+        "abs": 109294.07364473259,
+        "silent": false,
+        "den": 147974.57621157423
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01509",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.17122246316220482,
+        "abs": 75676937.94465435,
+        "silent": false,
+        "den": 441980196.6811038
+      },
+      "pert_l2": {
+        "rel": 0.3126524824460913,
+        "abs": 75676937.95985277,
+        "silent": false,
+        "den": 242048095.59732592
+      },
+      "peak_trough": {
+        "peak_rel": 9.65200893692974,
+        "trough_rel": 0.070598424970909
+      },
+      "phase_frac_hat": 0.39647596323711115,
+      "phase_frac_true": 0.4355376744946116,
+      "phase_err_over_4La": 0.039061711257500464,
+      "psd": 0.28873628484552766,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 60.13511498537593,
+    "nyquist_node_hz": 1.8792088718753808,
+    "node": {
+      "H_pert_l2": {
+        "rel": 3.3774703831325206,
+        "abs": 41203.44209920138,
+        "silent": false,
+        "den": 12199.497678788288
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01531",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.029665300680703506,
+        "abs": 35547894.25925091,
+        "silent": false,
+        "den": 1198298801.750352
+      },
+      "pert_l2": {
+        "rel": 0.08664156709282769,
+        "abs": 35547894.25925091,
+        "silent": false,
+        "den": 410286834.0454291
+      },
+      "peak_trough": {
+        "peak_rel": 33030.083333333336,
+        "trough_rel": 0.017130736995745507
+      },
+      "phase_frac_hat": 0.40222281360255513,
+      "phase_frac_true": 0.47934807879799585,
+      "phase_err_over_4La": 0.07712526519544072,
+      "psd": 0.24513333930161943,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 54.56786011656953,
+    "nyquist_node_hz": 1.705301093525367,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.1663711751186803,
+        "abs": 20104.3001819205,
+        "silent": false,
+        "den": 17236.62296427623
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01530",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04808745032938176,
+        "abs": 28746997.293806408,
+        "silent": false,
+        "den": 597806643.8727735
+      },
+      "pert_l2": {
+        "rel": 0.12167479673498457,
+        "abs": 28746997.293806408,
+        "silent": false,
+        "den": 236260902.54680425
+      },
+      "peak_trough": {
+        "peak_rel": 9620.20634920635,
+        "trough_rel": 0.03911726217110682
+      },
+      "phase_frac_hat": 0.39053950721664293,
+      "phase_frac_true": 0.4540021921897548,
+      "phase_err_over_4La": 0.06346268497311186,
+      "psd": 0.20598644870885396,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.206408094435076,
+    "nyquist_node_hz": 1.3815212364674092,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.7811542805545875,
+        "abs": 31951.360182165256,
+        "silent": false,
+        "den": 11488.524892547084
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01536",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04233764584149064,
+        "abs": 30948048.412111197,
+        "silent": false,
+        "den": 730981796.3894037
+      },
+      "pert_l2": {
+        "rel": 0.1130721079557153,
+        "abs": 30948048.412111197,
+        "silent": false,
+        "den": 273701879.01893544
+      },
+      "peak_trough": {
+        "peak_rel": 275.4536823197331,
+        "trough_rel": 0.0036969693824689775
+      },
+      "phase_frac_hat": 0.3944718699097485,
+      "phase_frac_true": 0.4823492435719818,
+      "phase_err_over_4La": 0.0878773736622333,
+      "psd": 0.3591131896571847,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.08931029209359,
+    "nyquist_node_hz": 1.2527550249935484,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.7417199352389363,
+        "abs": 27311.25809728731,
+        "silent": false,
+        "den": 9961.359563484073
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01546",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.34503800735511864,
+        "abs": 295416357.8525121,
+        "silent": false,
+        "den": 856184975.4379809
+      },
+      "pert_l2": {
+        "rel": 0.4094766434664939,
+        "abs": 295416357.7874998,
+        "silent": false,
+        "den": 721448616.1813836
+      },
+      "peak_trough": {
+        "peak_rel": 2642.803100775194,
+        "trough_rel": 0.28527712359274343
+      },
+      "phase_frac_hat": 0.40245516195567377,
+      "phase_frac_true": 0.48255544185339,
+      "phase_err_over_4La": 0.08010027989771623,
+      "psd": 0.3918827342609976,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 35.76316507503411,
+    "nyquist_node_hz": 1.1175893793538596,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.1734180832669675,
+        "abs": 5922.594870661324,
+        "silent": false,
+        "den": 34152.118159118494
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01562",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.16657119317452004,
+        "abs": 48517238.63488604,
+        "silent": false,
+        "den": 291270283.35597944
+      },
+      "pert_l2": {
+        "rel": 0.2802264344205005,
+        "abs": 48517238.62257222,
+        "silent": false,
+        "den": 173135838.24775258
+      },
+      "peak_trough": {
+        "peak_rel": 6548.983425414364,
+        "trough_rel": 0.26727655881898277
+      },
+      "phase_frac_hat": 0.39142213684007476,
+      "phase_frac_true": 0.47536802978521986,
+      "phase_err_over_4La": 0.0839458929451451,
+      "psd": 0.538374971699982,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.799020408163265,
+    "nyquist_node_hz": 1.3375035077425446,
+    "node": {
+      "H_pert_l2": {
+        "rel": 5.108493365803694,
+        "abs": 43067.14823550776,
+        "silent": false,
+        "den": 8430.499004618403
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01568",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.12672026088967378,
+        "abs": 146391390.46267954,
+        "silent": false,
+        "den": 1155232710.4986944
+      },
+      "pert_l2": {
+        "rel": 0.23153364613486188,
+        "abs": 146391390.46267954,
+        "silent": false,
+        "den": 632268324.3082979
+      },
+      "peak_trough": {
+        "peak_rel": 578.4769828064337,
+        "trough_rel": 0.18572040365534975
+      },
+      "phase_frac_hat": 0.4041926394858311,
+      "phase_frac_true": 0.4871790512505584,
+      "phase_err_over_4La": 0.08298641176472726,
+      "psd": 0.2527618710538356,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.643051771117165,
+    "nyquist_node_hz": 1.3950211266856114,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.663108898358369,
+        "abs": 14292.804918037844,
+        "silent": false,
+        "den": 21554.234837478347
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01572",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.01968253193373274,
+        "abs": 53063691.02966555,
+        "silent": false,
+        "den": 2695978912.0790296
+      },
+      "pert_l2": {
+        "rel": 0.22828196044266313,
+        "abs": 53063691.02966555,
+        "silent": false,
+        "den": 232448025.79568434
+      },
+      "peak_trough": {
+        "peak_rel": 8086.090909090909,
+        "trough_rel": 0.09519516376107395
+      },
+      "phase_frac_hat": 0.38880460475733797,
+      "phase_frac_true": 0.4835634909073709,
+      "phase_err_over_4La": 0.09475888615003292,
+      "psd": 0.2866652877717588,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.55131874081522,
+    "nyquist_node_hz": 1.2672317736091674,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.0988308197582684,
+        "abs": 16600.379775464524,
+        "silent": false,
+        "den": 7909.3462985151245
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01581",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.18353131130327555,
+        "abs": 119999821.26904117,
+        "silent": false,
+        "den": 653838412.731373
+      },
+      "pert_l2": {
+        "rel": 0.1841869022298761,
+        "abs": 119999821.26017554,
+        "silent": false,
+        "den": 651511154.1992747
+      },
+      "peak_trough": {
+        "peak_rel": 597825.5,
+        "trough_rel": 0.18457180055299247
+      },
+      "phase_frac_hat": 0.4042686278800017,
+      "phase_frac_true": 0.46871722398518767,
+      "phase_err_over_4La": 0.064448596105186,
+      "psd": 0.3176742331898145,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 59.114669072048706,
+    "nyquist_node_hz": 1.8473594452509479,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.16205973545778465,
+        "abs": 5196.486121194848,
+        "silent": false,
+        "den": 32065.251165046448
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01586",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.01667186707181219,
+        "abs": 29940419.37715068,
+        "silent": false,
+        "den": 1795864809.1533897
+      },
+      "pert_l2": {
+        "rel": 0.20277609240771044,
+        "abs": 29940419.37715068,
+        "silent": false,
+        "den": 147652610.4317622
+      },
+      "peak_trough": {
+        "peak_rel": 0.48921972217522885,
+        "trough_rel": 0.033851429789657946
+      },
+      "phase_frac_hat": 0.3836168598074926,
+      "phase_frac_true": 0.47146806060887386,
+      "phase_err_over_4La": 0.08785120080138126,
+      "psd": 0.4081699438480868,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.30790578524159,
+    "nyquist_node_hz": 1.1658694632163435,
+    "node": {
+      "H_pert_l2": {
+        "rel": 4.400797822387782,
+        "abs": 27410.38897250726,
+        "silent": false,
+        "den": 6228.5044845879665
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01591",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2161828898923599,
+        "abs": 209856611.63747004,
+        "silent": false,
+        "den": 970736452.5562601
+      },
+      "pert_l2": {
+        "rel": 0.14687496005990197,
+        "abs": 209856611.85410073,
+        "silent": false,
+        "den": 1428811362.8661559
+      },
+      "peak_trough": {
+        "peak_rel": 7210.258485639687,
+        "trough_rel": 0.12697519015457837
+      },
+      "phase_frac_hat": 0.4324216960046411,
+      "phase_frac_true": 0.4607292024237178,
+      "phase_err_over_4La": 0.0283075064190767,
+      "psd": 0.3979287008173468,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 46.87839771101574,
+    "nyquist_node_hz": 1.465039987034253,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5246106499499764,
+        "abs": 43153.06437659454,
+        "silent": false,
+        "den": 82257.31669898304
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01623",
+    "N": 5,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.30365288734611184,
+        "abs": 409731042.544222,
+        "silent": false,
+        "den": 1349340182.8819082
+      },
+      "pert_l2": {
+        "rel": 0.0927876969865642,
+        "abs": 409731043.30734473,
+        "silent": false,
+        "den": 4415790634.039278
+      },
+      "peak_trough": {
+        "peak_rel": 2195.931730769231,
+        "trough_rel": 0.009509264158428779
+      },
+      "phase_frac_hat": 3.870703562600767,
+      "phase_frac_true": 0.8873819910812477,
+      "phase_err_over_4La": 2.9833215715195194,
+      "psd": 0.772472314400376,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 33.29658325924044,
+    "nyquist_node_hz": 1.0405368125859609,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.8348591274141934,
+        "abs": 148028.75299323193,
+        "silent": false,
+        "den": 177309.85759444343
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01624",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.27416797225985623,
+        "abs": 380240324.92468786,
+        "silent": false,
+        "den": 1386888197.7370293
+      },
+      "pert_l2": {
+        "rel": 0.24693375537820345,
+        "abs": 380240324.89983916,
+        "silent": false,
+        "den": 1539847496.011485
+      },
+      "peak_trough": {
+        "peak_rel": 2103.7106883044207,
+        "trough_rel": 0.10761705183352362
+      },
+      "phase_frac_hat": 0.4822420335911422,
+      "phase_frac_true": 0.47540864898815843,
+      "phase_err_over_4La": 0.006833384602983772,
+      "psd": 0.7741038252157715,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.913584264381534,
+    "nyquist_node_hz": 1.1847620252821303,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5045785262458292,
+        "abs": 38899.8039833219,
+        "silent": false,
+        "den": 77093.65729997402
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01626",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.43321302888457064,
+        "abs": 425299490.69773334,
+        "silent": false,
+        "den": 981732917.3889046
+      },
+      "pert_l2": {
+        "rel": 0.14471359883834806,
+        "abs": 425299491.7823828,
+        "silent": false,
+        "den": 2938904810.58012
+      },
+      "peak_trough": {
+        "peak_rel": 55347.88976377953,
+        "trough_rel": 0.10464980172450912
+      },
+      "phase_frac_hat": 3.8718620484824466,
+      "phase_frac_true": 0.6575228904696738,
+      "phase_err_over_4La": 3.214339158012773,
+      "psd": 0.32232467638297796,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.19523645150155,
+    "nyquist_node_hz": 1.1310880229588294,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7910339146092831,
+        "abs": 145626.0925386523,
+        "silent": false,
+        "den": 184095.89001071046
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01632",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.08530249754791598,
+        "abs": 113617393.2436896,
+        "silent": false,
+        "den": 1331935130.971618
+      },
+      "pert_l2": {
+        "rel": 0.26269247138659,
+        "abs": 113617393.2436896,
+        "silent": false,
+        "den": 432511037.12251097
+      },
+      "peak_trough": {
+        "peak_rel": 37938.46153846154,
+        "trough_rel": 0.18022442080881884
+      },
+      "phase_frac_hat": 0.3973905932136625,
+      "phase_frac_true": 0.484289266395313,
+      "phase_err_over_4La": 0.08689867318165051,
+      "psd": 0.2779292075504218,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.07930828861061,
+    "nyquist_node_hz": 1.2212426072717193,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.9474101244549948,
+        "abs": 21372.945171055337,
+        "silent": false,
+        "den": 22559.337946013922
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01674",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.030701320630469993,
+        "abs": 122635509.22730274,
+        "silent": false,
+        "den": 3994470163.1366067
+      },
+      "pert_l2": {
+        "rel": 0.05664543668355489,
+        "abs": 122635509.22730274,
+        "silent": false,
+        "den": 2164967143.1150937
+      },
+      "peak_trough": {
+        "peak_rel": 426.0915227317848,
+        "trough_rel": 0.029753653312018513
+      },
+      "phase_frac_hat": 0.5165928502364396,
+      "phase_frac_true": 0.4921792008314602,
+      "phase_err_over_4La": 0.02441364940497942,
+      "psd": 0.28670605651512293,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.41647565465028,
+    "nyquist_node_hz": 1.1379901630946747,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6220511260364705,
+        "abs": 47133.93736726183,
+        "silent": false,
+        "den": 75771.80619796578
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01688",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.18171886571781423,
+        "abs": 124022840.36998914,
+        "silent": false,
+        "den": 682498428.988548
+      },
+      "pert_l2": {
+        "rel": 0.38309926365618113,
+        "abs": 124022840.46970133,
+        "silent": false,
+        "den": 323735522.9714242
+      },
+      "peak_trough": {
+        "peak_rel": 59187.25,
+        "trough_rel": 0.2785154634920536
+      },
+      "phase_frac_hat": 0.3896227132158182,
+      "phase_frac_true": 0.4755545383630703,
+      "phase_err_over_4La": 0.08593182514725212,
+      "psd": 0.3924036618458332,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.35901720789486,
+    "nyquist_node_hz": 1.479952577203184,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.1392663158691996,
+        "abs": 11726.145988768643,
+        "silent": false,
+        "den": 10292.717185991949
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01691",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.022424368570081774,
+        "abs": 80550688.25512363,
+        "silent": false,
+        "den": 3592105079.9438357
+      },
+      "pert_l2": {
+        "rel": 0.1492138332524701,
+        "abs": 80550688.25512363,
+        "silent": false,
+        "den": 539833918.2053698
+      },
+      "peak_trough": {
+        "peak_rel": 70058.36842105263,
+        "trough_rel": 0.08065165732579463
+      },
+      "phase_frac_hat": 0.4063617421819129,
+      "phase_frac_true": 0.4679020964919027,
+      "phase_err_over_4La": 0.061540354309989775,
+      "psd": 0.597156691329118,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 57.03742384682332,
+    "nyquist_node_hz": 1.7824194952132288,
+    "node": {
+      "H_pert_l2": {
+        "rel": 1.3081866197816134,
+        "abs": 33366.4772136784,
+        "silent": false,
+        "den": 25505.900082702687
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01694",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.03749383612745848,
+        "abs": 23807251.14671909,
+        "silent": false,
+        "den": 634964399.635916
+      },
+      "pert_l2": {
+        "rel": 0.04671222353382012,
+        "abs": 23807251.2172599,
+        "silent": false,
+        "den": 509657845.767569
+      },
+      "peak_trough": {
+        "peak_rel": 448.5831285831286,
+        "trough_rel": 0.022667595644229297
+      },
+      "phase_frac_hat": 0.40416263511934836,
+      "phase_frac_true": 0.47347553290621713,
+      "phase_err_over_4La": 0.06931289778686878,
+      "psd": 0.180650807960766,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 40.81332710571384,
+    "nyquist_node_hz": 1.2754412938131288,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6148593740352378,
+        "abs": 13722.617960093212,
+        "silent": false,
+        "den": 22318.303240680143
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01716",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.05814648823360711,
+        "abs": 203759812.26939237,
+        "silent": false,
+        "den": 3504249671.1198573
+      },
+      "pert_l2": {
+        "rel": 0.29978230709257886,
+        "abs": 203759812.26939237,
+        "silent": false,
+        "den": 679692588.4170582
+      },
+      "peak_trough": {
+        "peak_rel": 667.7548045062956,
+        "trough_rel": 0.23006238305316618
+      },
+      "phase_frac_hat": 0.40449205823482065,
+      "phase_frac_true": 0.47483847595510126,
+      "phase_err_over_4La": 0.07034641772028061,
+      "psd": 0.2467635790653076,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.28933143669986,
+    "nyquist_node_hz": 1.1652190919839627,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.01435194802414682,
+        "abs": 419.91849859390175,
+        "silent": false,
+        "den": 29258.64125813434
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01720",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.030213209823898447,
+        "abs": 59002635.81363348,
+        "silent": false,
+        "den": 1952875452.7419589
+      },
+      "pert_l2": {
+        "rel": 0.04243777895137453,
+        "abs": 59002635.81363348,
+        "silent": false,
+        "den": 1390332794.7779517
+      },
+      "peak_trough": {
+        "peak_rel": 1702.669698692439,
+        "trough_rel": 0.06911302097868414
+      },
+      "phase_frac_hat": 0.440464743285796,
+      "phase_frac_true": 0.45999756076434795,
+      "phase_err_over_4La": 0.019532817478551956,
+      "psd": 0.22437323977040052,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.550588235294114,
+    "nyquist_node_hz": 1.2047795892843858,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.40454081138284903,
+        "abs": 31612.035541156045,
+        "silent": false,
+        "den": 78143.00721130228
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01737",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.13204372948944815,
+        "abs": 230604820.59106588,
+        "silent": false,
+        "den": 1746427653.0412142
+      },
+      "pert_l2": {
+        "rel": 0.2479263405769772,
+        "abs": 230604820.59106588,
+        "silent": false,
+        "den": 930134410.3026711
+      },
+      "peak_trough": {
+        "peak_rel": 70661.03846153847,
+        "trough_rel": 0.23762440304997912
+      },
+      "phase_frac_hat": 0.41123192599900965,
+      "phase_frac_true": 0.479607755641384,
+      "phase_err_over_4La": 0.06837582964237437,
+      "psd": 0.4007598183570218,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.08065348237317,
+    "nyquist_node_hz": 1.4087439240985902,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.24209621906259746,
+        "abs": 10795.987588748438,
+        "silent": false,
+        "den": 44593.788496783505
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01742",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1716853491383533,
+        "abs": 157808624.24053618,
+        "silent": false,
+        "den": 919173505.6749979
+      },
+      "pert_l2": {
+        "rel": 0.20112499141680695,
+        "abs": 157808624.20377433,
+        "silent": false,
+        "den": 784629613.1182189
+      },
+      "peak_trough": {
+        "peak_rel": 6.242561999999999e+36,
+        "trough_rel": 0.1629698709649307
+      },
+      "phase_frac_hat": 0.4092190562409752,
+      "phase_frac_true": 0.4707483988641162,
+      "phase_err_over_4La": 0.06152934262314097,
+      "psd": 0.3982420376009164,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.11740255666222,
+    "nyquist_node_hz": 1.284948746699018,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.0882891470207022,
+        "abs": 3664.009945200196,
+        "silent": false,
+        "den": 41500.11715869281
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01747",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.20135174479369705,
+        "abs": 83523123.23756243,
+        "silent": false,
+        "den": 414812016.2710255
+      },
+      "pert_l2": {
+        "rel": 0.2243007543978882,
+        "abs": 83523123.26422764,
+        "silent": false,
+        "den": 372371120.5895704
+      },
+      "peak_trough": {
+        "peak_rel": 1337.3766493402638,
+        "trough_rel": 0.048267311901877635
+      },
+      "phase_frac_hat": 0.4024770430163333,
+      "phase_frac_true": 0.43862181404546324,
+      "phase_err_over_4La": 0.03614477102912994,
+      "psd": 0.17603121727042875,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 53.97241095326333,
+    "nyquist_node_hz": 1.6866161388699445,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.2505120602340285,
+        "abs": 45992.07873366983,
+        "silent": false,
+        "den": 20436.272947094163
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01763",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.5247743002478531,
+        "abs": 194182219.57277095,
+        "silent": false,
+        "den": 370029971.8965999
+      },
+      "pert_l2": {
+        "rel": 0.07676857072679213,
+        "abs": 194182219.6057076,
+        "silent": false,
+        "den": 2529449457.8617735
+      },
+      "peak_trough": {
+        "peak_rel": 31089.311643835616,
+        "trough_rel": 0.12873391889726518
+      },
+      "phase_frac_hat": 0.5224547033529814,
+      "phase_frac_true": 0.4687444214425349,
+      "phase_err_over_4La": 0.05371028191044647,
+      "psd": 0.3878386476229079,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.726838423477226,
+    "nyquist_node_hz": 1.3977137007336633,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5522697250628787,
+        "abs": 80809.93391092913,
+        "silent": false,
+        "den": 146323.30950556544
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01777",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.10242525129473128,
+        "abs": 85140552.23898761,
+        "silent": false,
+        "den": 831245724.6894469
+      },
+      "pert_l2": {
+        "rel": 0.05182691910050281,
+        "abs": 85140552.19680558,
+        "silent": false,
+        "den": 1642786290.8790884
+      },
+      "peak_trough": {
+        "peak_rel": 187267.22222222222,
+        "trough_rel": 0.00966463279141087
+      },
+      "phase_frac_hat": 0.4599984817421841,
+      "phase_frac_true": 0.4775780586017171,
+      "phase_err_over_4La": 0.017579576859532986,
+      "psd": 0.3492023392858545,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 32.8418942620897,
+    "nyquist_node_hz": 1.02629513266974,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4959440639781115,
+        "abs": 47056.539443141184,
+        "silent": false,
+        "den": 94882.75565935198
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01791",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.1665862217558465,
+        "abs": 117057086.56850366,
+        "silent": false,
+        "den": 702681682.402677
+      },
+      "pert_l2": {
+        "rel": 0.19816632583919777,
+        "abs": 117057086.6351849,
+        "silent": false,
+        "den": 590701200.8194115
+      },
+      "peak_trough": {
+        "peak_rel": 14673.95172413793,
+        "trough_rel": 0.06374032960892637
+      },
+      "phase_frac_hat": 0.40441847880117715,
+      "phase_frac_true": 0.49526609904414304,
+      "phase_err_over_4La": 0.09084762024296589,
+      "psd": 0.7970737847047649,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 41.26302534235794,
+    "nyquist_node_hz": 1.2894505137752768,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.2599747505867887,
+        "abs": 6402.30419482848,
+        "silent": false,
+        "den": 24626.6384730742
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01805",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.15111118270691828,
+        "abs": 133315984.968339,
+        "silent": false,
+        "den": 882237717.8193803
+      },
+      "pert_l2": {
+        "rel": 0.2546984609213552,
+        "abs": 133315984.968339,
+        "silent": false,
+        "den": 523426739.5494934
+      },
+      "peak_trough": {
+        "peak_rel": 338.78671694950765,
+        "trough_rel": 0.26062560934176465
+      },
+      "phase_frac_hat": 0.40924171509994095,
+      "phase_frac_true": 0.4610073669567464,
+      "phase_err_over_4La": 0.05176565185680543,
+      "psd": 1.1763081326418474,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.29797839933536,
+    "nyquist_node_hz": 1.134252929264958,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.5825620726090804,
+        "abs": 15827.337961157236,
+        "silent": false,
+        "den": 27168.500500337126
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01809",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07232516084212252,
+        "abs": 74475700.07905039,
+        "silent": false,
+        "den": 1029734316.6871381
+      },
+      "pert_l2": {
+        "rel": 0.18949241072777648,
+        "abs": 74475700.07905039,
+        "silent": false,
+        "den": 393027350.24064726
+      },
+      "peak_trough": {
+        "peak_rel": 20158.83695652174,
+        "trough_rel": 0.12020875390936238
+      },
+      "phase_frac_hat": 0.40325017916356004,
+      "phase_frac_true": 0.4706212719395346,
+      "phase_err_over_4La": 0.06737109277597458,
+      "psd": 0.23409786770317056,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 47.28853612338775,
+    "nyquist_node_hz": 1.4777917458241492,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7935882618233209,
+        "abs": 13179.389899857313,
+        "silent": false,
+        "den": 16607.339767824695
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01811",
+    "N": 8,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11713919977215845,
+        "abs": 216379677.79548386,
+        "silent": false,
+        "den": 1847201263.2522082
+      },
+      "pert_l2": {
+        "rel": 0.08936083535603724,
+        "abs": 216379678.67471287,
+        "silent": false,
+        "den": 2421415129.03946
+      },
+      "peak_trough": {
+        "peak_rel": 131.33119686415765,
+        "trough_rel": 0.03309318511923915
+      },
+      "phase_frac_hat": 0.5321611346579302,
+      "phase_frac_true": 0.45795150563806714,
+      "phase_err_over_4La": 0.07420962901986311,
+      "psd": 0.40001598207969646,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 45.90963222416813,
+    "nyquist_node_hz": 1.4346917107236288,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6526895986232152,
+        "abs": 76991.88160064937,
+        "silent": false,
+        "den": 117960.9446252188
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01810",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.2528704641120008,
+        "abs": 888601915.7503793,
+        "silent": false,
+        "den": 3514059733.59072
+      },
+      "pert_l2": {
+        "rel": 0.48990342582321345,
+        "abs": 888601915.7503793,
+        "silent": false,
+        "den": 1813830785.6435366
+      },
+      "peak_trough": {
+        "peak_rel": 667.8906934777004,
+        "trough_rel": 0.4166529516674373
+      },
+      "phase_frac_hat": 0.5330665933383155,
+      "phase_frac_true": 0.47546418033171256,
+      "phase_err_over_4La": 0.05760241300660296,
+      "psd": 1.4648043705504383,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 34.018167661562416,
+    "nyquist_node_hz": 1.0630548064640402,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.6756729670813469,
+        "abs": 70043.95955677601,
+        "silent": false,
+        "den": 103665.47570985349
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01834",
+    "N": 12,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.04496645301027333,
+        "abs": 53814157.229454435,
+        "silent": false,
+        "den": 1196762333.4035199
+      },
+      "pert_l2": {
+        "rel": 0.046115033661492895,
+        "abs": 53814157.02366012,
+        "silent": false,
+        "den": 1166954737.9859374
+      },
+      "peak_trough": {
+        "peak_rel": 163.97567006532756,
+        "trough_rel": 0.0026908556396198053
+      },
+      "phase_frac_hat": 0.43069030980041617,
+      "phase_frac_true": 0.46487205776584256,
+      "phase_err_over_4La": 0.03418174796542639,
+      "psd": 0.2531154339355928,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.040023828139546,
+    "nyquist_node_hz": 1.220006422458126,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.421413491156971,
+        "abs": 30400.550845342426,
+        "silent": false,
+        "den": 72139.48172821695
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01842",
+    "N": 6,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.15618805900512558,
+        "abs": 125515451.54810959,
+        "silent": false,
+        "den": 803617461.8444461
+      },
+      "pert_l2": {
+        "rel": 0.16008605903641537,
+        "abs": 125515451.49873377,
+        "silent": false,
+        "den": 784049855.7727772
+      },
+      "peak_trough": {
+        "peak_rel": 13716.247678018575,
+        "trough_rel": 0.09929300401494262
+      },
+      "phase_frac_hat": 0.41789883946661693,
+      "phase_frac_true": 0.48331757896424943,
+      "phase_err_over_4La": 0.0654187394976325,
+      "psd": 0.3340623467391731,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 42.45246963562753,
+    "nyquist_node_hz": 1.3265960380857917,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.1877606280137933,
+        "abs": 6206.6600094089035,
+        "silent": false,
+        "den": 33056.23801467552
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01854",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.11315491423235852,
+        "abs": 389484123.4420722,
+        "silent": false,
+        "den": 3442043379.94799
+      },
+      "pert_l2": {
+        "rel": 0.4310297875260978,
+        "abs": 389484123.4420722,
+        "silent": false,
+        "den": 903613009.3874079
+      },
+      "peak_trough": {
+        "peak_rel": 3754.8514588859416,
+        "trough_rel": 0.16226729738335735
+      },
+      "phase_frac_hat": 0.43338044716743784,
+      "phase_frac_true": 0.4450934312322315,
+      "phase_err_over_4La": 0.011712984064793652,
+      "psd": 0.33408326367388363,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 52.668441408408256,
+    "nyquist_node_hz": 1.6458745851276146,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.49146686997454725,
+        "abs": 23477.881988558805,
+        "silent": false,
+        "den": 47771.03691602795
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01859",
+    "N": 9,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4183688288199819,
+        "abs": 206739029.51458248,
+        "silent": false,
+        "den": 494154954.36812127
+      },
+      "pert_l2": {
+        "rel": 0.22551276423131317,
+        "abs": 206739029.43644536,
+        "silent": false,
+        "den": 916750899.4053605
+      },
+      "peak_trough": {
+        "peak_rel": 35115.96728971963,
+        "trough_rel": 0.15371002453144134
+      },
+      "phase_frac_hat": 0.4119147936490704,
+      "phase_frac_true": 0.49488341702764593,
+      "phase_err_over_4La": 0.08296862337857552,
+      "psd": 0.2918337447050101,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 37.29297850963376,
+    "nyquist_node_hz": 1.165405578426055,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.14480904097068803,
+        "abs": 6707.037254265738,
+        "silent": false,
+        "den": 46316.42616584529
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01909",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.07901790633588876,
+        "abs": 224233862.34880543,
+        "silent": false,
+        "den": 2837760107.12855
+      },
+      "pert_l2": {
+        "rel": 0.16075297976964742,
+        "abs": 224233862.34880543,
+        "silent": false,
+        "den": 1394897081.6598458
+      },
+      "peak_trough": {
+        "peak_rel": 731.231724137931,
+        "trough_rel": 0.15186157737526668
+      },
+      "phase_frac_hat": 0.43071701661042355,
+      "phase_frac_true": 0.49127135669961547,
+      "phase_err_over_4La": 0.060554340089191916,
+      "psd": 0.27541672180178334,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 52.64992970475999,
+    "nyquist_node_hz": 1.645248346241229,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.37483849796529867,
+        "abs": 18175.380376540088,
+        "silent": false,
+        "den": 48488.56367528905
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01913",
+    "N": 7,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.12216135571376638,
+        "abs": 44814881.035370216,
+        "silent": false,
+        "den": 366849899.2461658
+      },
+      "pert_l2": {
+        "rel": 0.216581814455449,
+        "abs": 44814881.13818674,
+        "silent": false,
+        "den": 206918947.70050135
+      },
+      "peak_trough": {
+        "peak_rel": 1069.3488372093022,
+        "trough_rel": 0.11179704317407771
+      },
+      "phase_frac_hat": 0.3866526218735541,
+      "phase_frac_true": 0.47257541292927047,
+      "phase_err_over_4La": 0.08592279105571637,
+      "psd": 0.24977566742275398,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 44.476416694944014,
+    "nyquist_node_hz": 1.3899027602515297,
+    "node": {
+      "H_pert_l2": {
+        "rel": 2.870435801136106,
+        "abs": 23269.24679214556,
+        "silent": false,
+        "den": 8106.520544000912
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01926",
+    "N": 10,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.4058598247920592,
+        "abs": 529347517.9342777,
+        "silent": false,
+        "den": 1304261928.8703606
+      },
+      "pert_l2": {
+        "rel": 0.3252756247159634,
+        "abs": 529347518.1334337,
+        "silent": false,
+        "den": 1627381451.0253255
+      },
+      "peak_trough": {
+        "peak_rel": 32661.92125984252,
+        "trough_rel": 0.24209186266520552
+      },
+      "phase_frac_hat": 0.5050794604523124,
+      "phase_frac_true": 0.4572092737475585,
+      "phase_err_over_4La": 0.04787018670475396,
+      "psd": 1.0162458719855632,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 38.48020624042422,
+    "nyquist_node_hz": 1.2024995498837725,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.7210638538572385,
+        "abs": 65184.80864760825,
+        "silent": false,
+        "den": 90400.88238914001
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01937",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.22118500365503901,
+        "abs": 221147619.80766255,
+        "silent": false,
+        "den": 999830983.8065027
+      },
+      "pert_l2": {
+        "rel": 0.26389235512292464,
+        "abs": 221147619.8273431,
+        "silent": false,
+        "den": 838022078.0716802
+      },
+      "peak_trough": {
+        "peak_rel": 68557.57777777778,
+        "trough_rel": 0.16606621624157308
+      },
+      "phase_frac_hat": 0.4081726657590162,
+      "phase_frac_true": 0.4452792892298802,
+      "phase_err_over_4La": 0.03710662347086402,
+      "psd": 0.7090489997234938,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 39.358006155694014,
+    "nyquist_node_hz": 1.229914610115417,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.08150570656498073,
+        "abs": 4091.5510565108375,
+        "silent": false,
+        "den": 50199.56551445675
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01952",
+    "N": 11,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.13251820254846744,
+        "abs": 44109657.60018472,
+        "silent": false,
+        "den": 332857349.04268694
+      },
+      "pert_l2": {
+        "rel": 0.03716888813707118,
+        "abs": 44109658.29344174,
+        "silent": false,
+        "den": 1186736017.7892447
+      },
+      "peak_trough": {
+        "peak_rel": 230.254155996354,
+        "trough_rel": 0.09062701131968061
+      },
+      "phase_frac_hat": 0.4307932078737935,
+      "phase_frac_true": 0.477682270080171,
+      "phase_err_over_4La": 0.04688906220637751,
+      "psd": 0.3226501195408142,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 43.924932975871315,
+    "nyquist_node_hz": 1.3725634183711202,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.4197436244857339,
+        "abs": 29484.97553467266,
+        "silent": false,
+        "den": 70245.2016294408
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01971",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.42862819739111974,
+        "abs": 252774998.16032588,
+        "silent": false,
+        "den": 589730213.0351232
+      },
+      "pert_l2": {
+        "rel": 0.128859490027966,
+        "abs": 252774998.44320077,
+        "silent": false,
+        "den": 1961632770.6119413
+      },
+      "peak_trough": {
+        "peak_rel": 282.7724053724054,
+        "trough_rel": 0.07040360706371486
+      },
+      "phase_frac_hat": 0.4660269436506559,
+      "phase_frac_true": 0.4894748559349726,
+      "phase_err_over_4La": 0.023447912284316696,
+      "psd": 0.3515034727327331,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 36.815392177515626,
+    "nyquist_node_hz": 1.1504507113954938,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.48231051052435353,
+        "abs": 32850.86590277935,
+        "silent": false,
+        "den": 68111.44519132472
+      }
+    }
+  },
+  {
+    "case_id": "pilot_01997",
+    "N": 4,
+    "wellhead": {
+      "abs_state_l2": {
+        "rel": 0.021820037305541606,
+        "abs": 151522435.26204854,
+        "silent": false,
+        "den": 6944187727.101941
+      },
+      "pert_l2": {
+        "rel": 0.2098135618930474,
+        "abs": 151522435.26204854,
+        "silent": false,
+        "den": 722176554.722841
+      },
+      "peak_trough": {
+        "peak_rel": 51419.92307692308,
+        "trough_rel": 0.16909982287274408
+      },
+      "phase_frac_hat": 0.4072791738259574,
+      "phase_frac_true": 0.47857745166643495,
+      "phase_err_over_4La": 0.07129827784047754,
+      "psd": 0.38343365335215224,
+      "finite": true
+    },
+    "nyquist_wh_train_grid_hz": 58.61568561685952,
+    "nyquist_node_hz": 1.8316953789072463,
+    "node": {
+      "H_pert_l2": {
+        "rel": 0.06516979495228847,
+        "abs": 1578.1071339516363,
+        "silent": false,
+        "den": 24215.31531757904
+      }
+    }
+  }
+]

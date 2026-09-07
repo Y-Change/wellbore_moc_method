@@ -1,0 +1,2034 @@
+{
+  "causality": {
+    "causality_table": {
+      "nx32_kept_fail": [
+        {
+          "nx": 32,
+          "grid": {
+            "Nx_ref": 32,
+            "n_nodes": 42,
+            "nseg": 6,
+            "seg_N": [
+              31,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "seg_dx": [
+              108.35749544320261,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "seg_Cr": [
+              0.1530994808524115,
+              0.9607673632756071,
+              0.9551434459929004,
+              1.0,
+              0.9517053978676656,
+              0.1841183570828145
+            ],
+            "seg_len": [
+              3359.082358739281,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "dt": 0.011658315198889192,
+            "dt_reduced": true,
+            "Cr0": 0.1530994808524115,
+            "Cr0_is_one": false,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.011658315198889192,
+          "dt_reduced": true,
+          "Cr0": 0.1530994808524115,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 226.16785425026126,
+          "node_to_wh": {
+            "t_first_diff_s": 1.8420138014244924,
+            "expect_x_over_a": 2.360607424358045,
+            "abs_err_s": 0.5185936229335526,
+            "gate_s": 0.01748747279833379,
+            "pass": false,
+            "precursor": {
+              "max_abs_before": 221.17202988173813,
+              "rel_to_scale": 9.779109883449878e-05
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 2.121813366197833,
+            "expect_ts_plus_x_over_a": 3.360607424358045,
+            "abs_err_s": 1.2387940581602122,
+            "gate_s": 0.01748747279833379,
+            "pass": false,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 4.196993471600109,
+            "expect_ts_plus_2x_over_a": 5.72121484871609,
+            "abs_err_s": 1.524221377115981,
+            "gate_s": 0.01748747279833379,
+            "pass": false,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 4.482420790555878
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_01342"
+        },
+        {
+          "nx": 32,
+          "grid": {
+            "Nx_ref": 32,
+            "n_nodes": 42,
+            "nseg": 6,
+            "seg_N": [
+              31,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "seg_dx": [
+              155.591266350766,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "seg_Cr": [
+              0.20175249308665044,
+              0.9804782552401403,
+              1.0,
+              0.947167629541557,
+              0.9903261380823808,
+              0.6919636883836615
+            ],
+            "seg_len": [
+              4823.329256873746,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "dt": 0.021981823985850787,
+            "dt_reduced": true,
+            "Cr0": 0.20175249308665044,
+            "Cr0_is_one": false,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.021981823985850787,
+          "dt_reduced": true,
+          "Cr0": 0.20175249308665044,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 7428.521587611563,
+          "node_to_wh": {
+            "t_first_diff_s": 3.187364477948364,
+            "expect_x_over_a": 3.3775867308301613,
+            "abs_err_s": 0.19022225288179717,
+            "gate_s": 0.03297273597877618,
+            "pass": false,
+            "precursor": {
+              "max_abs_before": 7400.357851408422,
+              "rel_to_scale": 9.962087023816275e-05
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 2.681782526273796,
+            "expect_ts_plus_x_over_a": 4.377586730830162,
+            "abs_err_s": 1.6958042045563655,
+            "gate_s": 0.03297273597877618,
+            "pass": false,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 6.066983420094817,
+            "expect_ts_plus_2x_over_a": 7.7551734616603225,
+            "abs_err_s": 1.6881900415655053,
+            "gate_s": 0.03297273597877618,
+            "pass": false,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 6.059369257103958
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_00163"
+        },
+        {
+          "nx": 32,
+          "grid": {
+            "Nx_ref": 32,
+            "n_nodes": 40,
+            "nseg": 5,
+            "seg_N": [
+              31,
+              1,
+              1,
+              1,
+              1
+            ],
+            "seg_dx": [
+              127.61193365909354,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "seg_Cr": [
+              0.11707223172868088,
+              0.9032603582767975,
+              1.0,
+              0.9123499769775676,
+              0.15089649626422227
+            ],
+            "seg_len": [
+              3955.9699434318995,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "dt": 0.01156390489379677,
+            "dt_reduced": true,
+            "Cr0": 0.11707223172868088,
+            "Cr0_is_one": false,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.01156390489379677,
+          "dt_reduced": true,
+          "Cr0": 0.11707223172868088,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 9860.481315585892,
+          "node_to_wh": {
+            "t_first_diff_s": 2.486239552166306,
+            "expect_x_over_a": 3.062050209638889,
+            "abs_err_s": 0.5758106574725832,
+            "gate_s": 0.017345857340695155,
+            "pass": false,
+            "precursor": {
+              "max_abs_before": 9559.096965968609,
+              "rel_to_scale": 9.694351279647067e-05
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 2.486239552166306,
+            "expect_ts_plus_x_over_a": 4.062050209638889,
+            "abs_err_s": 1.5758106574725828,
+            "gate_s": 0.017345857340695155,
+            "pass": false,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 5.793516351792182,
+            "expect_ts_plus_2x_over_a": 7.124100419277778,
+            "abs_err_s": 1.3305840674855958,
+            "gate_s": 0.017345857340695155,
+            "pass": false,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 5.548289761805195
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_00543"
+        },
+        {
+          "nx": 32,
+          "grid": {
+            "Nx_ref": 32,
+            "n_nodes": 40,
+            "nseg": 5,
+            "seg_N": [
+              31,
+              1,
+              1,
+              1,
+              1
+            ],
+            "seg_dx": [
+              148.87379735596582,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "seg_Cr": [
+              0.1530683904971165,
+              0.9375648713276896,
+              1.0,
+              0.9529135188483283,
+              0.6647139958558265
+            ],
+            "seg_len": [
+              4615.087718034941,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "dt": 0.015418980924993027,
+            "dt_reduced": true,
+            "Cr0": 0.1530683904971165,
+            "Cr0_is_one": false,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.015418980924993027,
+          "dt_reduced": true,
+          "Cr0": 0.1530683904971165,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 8392.23693252166,
+          "node_to_wh": {
+            "t_first_diff_s": 2.5595508335488426,
+            "expect_x_over_a": 3.122711404506394,
+            "abs_err_s": 0.5631605709575513,
+            "gate_s": 0.02312847138748954,
+            "pass": false,
+            "precursor": {
+              "max_abs_before": 7998.743977472186,
+              "rel_to_scale": 9.531122681338265e-05
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 2.4978749098488704,
+            "expect_ts_plus_x_over_a": 4.1227114045063935,
+            "abs_err_s": 1.6248364946575231,
+            "gate_s": 0.02312847138748954,
+            "pass": false,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 5.674184980397434,
+            "expect_ts_plus_2x_over_a": 7.245422809012788,
+            "abs_err_s": 1.571237828615354,
+            "gate_s": 0.02312847138748954,
+            "pass": false,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 5.620586314355265
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_01320"
+        }
+      ],
+      "nx_cr1": [
+        {
+          "nx": 512,
+          "grid": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 6,
+            "seg_N": [
+              489,
+              2,
+              2,
+              2,
+              2,
+              13
+            ],
+            "seg_dx": [
+              6.869289077176444,
+              8.633451204182393,
+              8.684285260198067,
+              8.294738149410932,
+              8.715657353626057,
+              6.930941496908172
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7956596863428941,
+              0.7910022381070164,
+              0.8281502023863503,
+              0.7881550178562894,
+              0.9911047554276384
+            ],
+            "seg_len": [
+              3359.082358739281,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "dt": 0.004827418045721974,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.004827418045721974,
+          "dt_reduced": false,
+          "Cr0": 1.0,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 226.16785425026126,
+          "node_to_wh": {
+            "t_first_diff_s": 2.3654348424037672,
+            "expect_x_over_a": 2.360607424358045,
+            "abs_err_s": 0.004827418045722176,
+            "gate_s": 0.0072411270685829605,
+            "pass": true,
+            "precursor": {
+              "max_abs_before": 0.0,
+              "rel_to_scale": 0.0
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 3.364710377868216,
+            "expect_ts_plus_x_over_a": 3.360607424358045,
+            "abs_err_s": 0.00410295351017087,
+            "gate_s": 0.0072411270685829605,
+            "pass": true,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 5.725317802226261,
+            "expect_ts_plus_2x_over_a": 5.72121484871609,
+            "abs_err_s": 0.00410295351017087,
+            "gate_s": 0.0072411270685829605,
+            "pass": true,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 5.725317802226261
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_01342",
+          "verified_Cr0_one": true,
+          "status": "RAN"
+        },
+        {
+          "nx": 512,
+          "grid": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 6,
+            "seg_N": [
+              494,
+              3,
+              3,
+              3,
+              3,
+              4
+            ],
+            "seg_dx": [
+              9.763824406627016,
+              10.6719775854311,
+              10.46364196292537,
+              11.047296842260039,
+              10.5658545811854,
+              11.341247530669307
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9149030091626268,
+              0.9331191225026679,
+              0.8838202273407499,
+              0.9240922569588874,
+              0.8609127329443625
+            ],
+            "seg_len": [
+              4823.329256873746,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "dt": 0.006837220102895063,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.006837220102895063,
+          "dt_reduced": false,
+          "Cr0": 1.0,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 7428.521587611563,
+          "node_to_wh": {
+            "t_first_diff_s": 3.3844239509330563,
+            "expect_x_over_a": 3.3775867308301613,
+            "abs_err_s": 0.006837220102895003,
+            "gate_s": 0.010255830154342595,
+            "pass": true,
+            "precursor": {
+              "max_abs_before": 0.0,
+              "rel_to_scale": 0.0
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 4.382658085955735,
+            "expect_ts_plus_x_over_a": 4.377586730830162,
+            "abs_err_s": 0.00507135512557344,
+            "gate_s": 0.010255830154342595,
+            "pass": true,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 7.760244816785896,
+            "expect_ts_plus_2x_over_a": 7.7551734616603225,
+            "abs_err_s": 0.00507135512557344,
+            "gate_s": 0.010255830154342595,
+            "pass": true,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 7.760244816785896
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_00163",
+          "verified_Cr0_one": true,
+          "status": "RAN"
+        },
+        {
+          "nx": 512,
+          "grid": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 5,
+            "seg_N": [
+              494,
+              2,
+              1,
+              2,
+              12
+            ],
+            "seg_dx": [
+              8.008036322736638,
+              8.269937749279734,
+              14.93981386868245,
+              8.187545484560133,
+              8.250585798075008
+            ],
+            "seg_Cr": [
+              1.0,
+              0.968330907138218,
+              0.5360198187959668,
+              0.9780753386760406,
+              0.9706021510139364
+            ],
+            "seg_len": [
+              3955.9699434318995,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "dt": 0.006198482205746739,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.006198482205746739,
+          "dt_reduced": false,
+          "Cr0": 1.0,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 9860.481315585892,
+          "node_to_wh": {
+            "t_first_diff_s": 3.068248691844636,
+            "expect_x_over_a": 3.062050209638889,
+            "abs_err_s": 0.006198482205746814,
+            "gate_s": 0.00929772330862011,
+            "pass": true,
+            "precursor": {
+              "max_abs_before": 0.0,
+              "rel_to_scale": 0.0
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 4.066204326969861,
+            "expect_ts_plus_x_over_a": 4.062050209638889,
+            "abs_err_s": 0.004154117330972262,
+            "gate_s": 0.00929772330862011,
+            "pass": true,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 7.134453018814496,
+            "expect_ts_plus_2x_over_a": 7.124100419277778,
+            "abs_err_s": 0.010352599536718188,
+            "gate_s": 0.00929772330862011,
+            "pass": false,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 7.12825453660875
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_00543",
+          "verified_Cr0_one": true,
+          "status": "RAN"
+        },
+        {
+          "nx": 512,
+          "grid": {
+            "Nx_ref": 512,
+            "n_nodes": 515,
+            "nseg": 5,
+            "seg_N": [
+              501,
+              2,
+              2,
+              2,
+              3
+            ],
+            "seg_dx": [
+              9.21175193220547,
+              12.152691107230567,
+              11.393936274235784,
+              11.956946825569503,
+              11.427407221021895
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7580009934363174,
+              0.8084784494569522,
+              0.7704100441850646,
+              0.8061104110527804
+            ],
+            "seg_len": [
+              4615.087718034941,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "dt": 0.006232956895222343,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "dt": 0.006232956895222343,
+          "dt_reduced": false,
+          "Cr0": 1.0,
+          "K_scale": 1.15,
+          "ic_frozen": true,
+          "atol_wh": 8392.23693252166,
+          "node_to_wh": {
+            "t_first_diff_s": 3.128944361401616,
+            "expect_x_over_a": 3.122711404506394,
+            "abs_err_s": 0.006232956895221964,
+            "gate_s": 0.009349435342833515,
+            "pass": true,
+            "precursor": {
+              "max_abs_before": 0.0,
+              "rel_to_scale": 0.0
+            },
+            "not_valve_direct": true
+          },
+          "valve_to_node": {
+            "t_first_node_s": 4.126217464637191,
+            "expect_ts_plus_x_over_a": 4.1227114045063935,
+            "abs_err_s": 0.0035060601307979056,
+            "gate_s": 0.009349435342833515,
+            "pass": true,
+            "not_wellhead_valve_response": true
+          },
+          "reflection_to_wh": {
+            "t_obs_s": 7.248928869143585,
+            "expect_ts_plus_2x_over_a": 7.245422809012788,
+            "abs_err_s": 0.0035060601307970174,
+            "gate_s": 0.009349435342833515,
+            "pass": true,
+            "not_direct_valve_wh": true,
+            "from_node_plus_x_over_a": 7.248928869143585
+          },
+          "coarse_nx32_fail_kept": true,
+          "case_id": "pilot_01320",
+          "verified_Cr0_one": true,
+          "status": "RAN"
+        }
+      ]
+    },
+    "accuracy_table": {
+      "refine": [
+        {
+          "levels": [
+            256,
+            512,
+            1024
+          ],
+          "inventories": {
+            "256": {
+              "Nx_ref": 256,
+              "n_nodes": 260,
+              "nseg": 6,
+              "seg_N": [
+                244,
+                1,
+                1,
+                1,
+                1,
+                6
+              ],
+              "seg_dx": [
+                13.766730978439677,
+                17.266902408364786,
+                17.368570520396133,
+                16.589476298821864,
+                17.431314707252113,
+                15.017039909967707
+              ],
+              "seg_Cr": [
+                1.0,
+                0.7972901365198263,
+                0.7926231443326456,
+                0.8298472314896009,
+                0.7897700896141916,
+                0.9167406533495243
+              ],
+              "seg_len": [
+                3359.082358739281,
+                17.266902408364786,
+                17.368570520396133,
+                16.589476298821864,
+                17.431314707252113,
+                90.10223945980624
+              ],
+              "dt": 0.009674620591631333,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "512": {
+              "Nx_ref": 512,
+              "n_nodes": 516,
+              "nseg": 6,
+              "seg_N": [
+                489,
+                2,
+                2,
+                2,
+                2,
+                13
+              ],
+              "seg_dx": [
+                6.869289077176444,
+                8.633451204182393,
+                8.684285260198067,
+                8.294738149410932,
+                8.715657353626057,
+                6.930941496908172
+              ],
+              "seg_Cr": [
+                1.0,
+                0.7956596863428941,
+                0.7910022381070164,
+                0.8281502023863503,
+                0.7881550178562894,
+                0.9911047554276384
+              ],
+              "seg_len": [
+                3359.082358739281,
+                17.266902408364786,
+                17.368570520396133,
+                16.589476298821864,
+                17.431314707252113,
+                90.10223945980624
+              ],
+              "dt": 0.004827418045721974,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "1024": {
+              "Nx_ref": 1024,
+              "n_nodes": 1029,
+              "nseg": 6,
+              "seg_N": [
+                978,
+                5,
+                5,
+                4,
+                5,
+                26
+              ],
+              "seg_dx": [
+                3.434644538588222,
+                3.453380481672957,
+                3.4737141040792268,
+                4.147369074705466,
+                3.4862629414504225,
+                3.465470748454086
+              ],
+              "seg_Cr": [
+                1.0,
+                0.9945746079286176,
+                0.9887527976337704,
+                0.8281502023863503,
+                0.9851937723203618,
+                0.9911047554276384
+              ],
+              "seg_len": [
+                3359.082358739281,
+                17.266902408364786,
+                17.368570520396133,
+                16.589476298821864,
+                17.431314707252113,
+                90.10223945980624
+              ],
+              "dt": 0.002413709022860987,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            }
+          },
+          "valid_refine": [
+            {
+              "nx": 256,
+              "n_nodes": 260,
+              "dt": 0.009674620591631333,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": false
+            },
+            {
+              "nx": 512,
+              "n_nodes": 516,
+              "dt": 0.004827418045721974,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            },
+            {
+              "nx": 1024,
+              "n_nodes": 1029,
+              "dt": 0.002413709022860987,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            }
+          ],
+          "pairs": [
+            {
+              "coarse": 256,
+              "fine": 512,
+              "wh_pert_l2": 5.831081684957794e-05,
+              "dt_coarse": 0.009674620591631333,
+              "dt_fine": 0.004827418045721974,
+              "same_dt": false,
+              "n_nodes_coarse": 260,
+              "n_nodes_fine": 516,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            },
+            {
+              "coarse": 512,
+              "fine": 1024,
+              "wh_pert_l2": 2.545643120478234e-05,
+              "dt_coarse": 0.004827418045721974,
+              "dt_fine": 0.002413709022860987,
+              "same_dt": false,
+              "n_nodes_coarse": 516,
+              "n_nodes_fine": 1029,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            }
+          ],
+          "refine_precondition_last_pair_lt_0p2pct": true,
+          "refine_precondition_all_adjacent_lt_0p2pct": true,
+          "not_a_continuum_bound": true,
+          "two_grid_diff_is_not_strict_error_bound": true,
+          "case_id": "pilot_01342",
+          "T": 6.094909997235074,
+          "status": "RAN"
+        },
+        {
+          "levels": [
+            256,
+            512,
+            1024
+          ],
+          "inventories": {
+            "256": {
+              "Nx_ref": 256,
+              "n_nodes": 259,
+              "nseg": 6,
+              "seg_N": [
+                247,
+                1,
+                1,
+                1,
+                1,
+                2
+              ],
+              "seg_dx": [
+                19.527648813254032,
+                32.015932756293296,
+                31.39092588877611,
+                33.14189052678012,
+                31.697563743556202,
+                22.682495061338614
+              ],
+              "seg_Cr": [
+                1.0,
+                0.6099353394417512,
+                0.6220794150017787,
+                0.5892134848938333,
+                0.6160615046392582,
+                0.8609127329443625
+              ],
+              "seg_len": [
+                4823.329256873746,
+                32.015932756293296,
+                31.39092588877611,
+                33.14189052678012,
+                31.697563743556202,
+                45.36499012267723
+              ],
+              "dt": 0.013674440205790126,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "512": {
+              "Nx_ref": 512,
+              "n_nodes": 516,
+              "nseg": 6,
+              "seg_N": [
+                494,
+                3,
+                3,
+                3,
+                3,
+                4
+              ],
+              "seg_dx": [
+                9.763824406627016,
+                10.6719775854311,
+                10.46364196292537,
+                11.047296842260039,
+                10.5658545811854,
+                11.341247530669307
+              ],
+              "seg_Cr": [
+                1.0,
+                0.9149030091626268,
+                0.9331191225026679,
+                0.8838202273407499,
+                0.9240922569588874,
+                0.8609127329443625
+              ],
+              "seg_len": [
+                4823.329256873746,
+                32.015932756293296,
+                31.39092588877611,
+                33.14189052678012,
+                31.697563743556202,
+                45.36499012267723
+              ],
+              "dt": 0.006837220102895063,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "1024": {
+              "Nx_ref": 1024,
+              "n_nodes": 1027,
+              "nseg": 6,
+              "seg_N": [
+                988,
+                6,
+                6,
+                6,
+                6,
+                9
+              ],
+              "seg_dx": [
+                4.881912203313508,
+                5.33598879271555,
+                5.231820981462685,
+                5.523648421130019,
+                5.2829272905927,
+                5.040554458075247
+              ],
+              "seg_Cr": [
+                1.0,
+                0.9149030091626268,
+                0.9331191225026679,
+                0.8838202273407499,
+                0.9240922569588874,
+                0.9685268245624079
+              ],
+              "seg_len": [
+                4823.329256873746,
+                32.015932756293296,
+                31.39092588877611,
+                33.14189052678012,
+                31.697563743556202,
+                45.36499012267723
+              ],
+              "dt": 0.0034186100514475314,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            }
+          },
+          "valid_refine": [
+            {
+              "nx": 256,
+              "n_nodes": 259,
+              "dt": 0.013674440205790126,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": false
+            },
+            {
+              "nx": 512,
+              "n_nodes": 516,
+              "dt": 0.006837220102895063,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            },
+            {
+              "nx": 1024,
+              "n_nodes": 1027,
+              "dt": 0.0034186100514475314,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            }
+          ],
+          "pairs": [
+            {
+              "coarse": 256,
+              "fine": 512,
+              "wh_pert_l2": 0.0007236841159598096,
+              "dt_coarse": 0.013674440205790126,
+              "dt_fine": 0.006837220102895063,
+              "same_dt": false,
+              "n_nodes_coarse": 259,
+              "n_nodes_fine": 516,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            },
+            {
+              "coarse": 512,
+              "fine": 1024,
+              "wh_pert_l2": 0.00022575705479417458,
+              "dt_coarse": 0.006837220102895063,
+              "dt_fine": 0.0034186100514475314,
+              "same_dt": false,
+              "n_nodes_coarse": 516,
+              "n_nodes_fine": 1027,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            }
+          ],
+          "refine_precondition_last_pair_lt_0p2pct": true,
+          "refine_precondition_all_adjacent_lt_0p2pct": true,
+          "not_a_continuum_bound": true,
+          "two_grid_diff_is_not_strict_error_bound": true,
+          "case_id": "pilot_00163",
+          "T": 7.8134116657393085,
+          "status": "RAN"
+        },
+        {
+          "levels": [
+            256,
+            512,
+            1024
+          ],
+          "inventories": {
+            "256": {
+              "Nx_ref": 256,
+              "n_nodes": 261,
+              "nseg": 5,
+              "seg_N": [
+                247,
+                1,
+                1,
+                1,
+                6
+              ],
+              "seg_dx": [
+                16.016072645473276,
+                16.539875498559468,
+                14.93981386868245,
+                16.375090969120265,
+                16.501171596150016
+              ],
+              "seg_Cr": [
+                0.9328013302252961,
+                0.9032603582767975,
+                1.0,
+                0.9123499769775676,
+                0.9053789775853337
+              ],
+              "seg_len": [
+                3955.9699434318995,
+                16.539875498559468,
+                14.93981386868245,
+                16.375090969120265,
+                99.0070295769001
+              ],
+              "dt": 0.01156390489379677,
+              "dt_reduced": true,
+              "Cr0": 0.9328013302252961,
+              "Cr0_is_one": false,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "512": {
+              "Nx_ref": 512,
+              "n_nodes": 516,
+              "nseg": 5,
+              "seg_N": [
+                494,
+                2,
+                1,
+                2,
+                12
+              ],
+              "seg_dx": [
+                8.008036322736638,
+                8.269937749279734,
+                14.93981386868245,
+                8.187545484560133,
+                8.250585798075008
+              ],
+              "seg_Cr": [
+                1.0,
+                0.968330907138218,
+                0.5360198187959668,
+                0.9780753386760406,
+                0.9706021510139364
+              ],
+              "seg_len": [
+                3955.9699434318995,
+                16.539875498559468,
+                14.93981386868245,
+                16.375090969120265,
+                99.0070295769001
+              ],
+              "dt": 0.006198482205746739,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "1024": {
+              "Nx_ref": 1024,
+              "n_nodes": 1027,
+              "nseg": 5,
+              "seg_N": [
+                987,
+                4,
+                3,
+                4,
+                24
+              ],
+              "seg_dx": [
+                4.008074917357548,
+                4.134968874639867,
+                4.9799379562274835,
+                4.093772742280066,
+                4.125292899037504
+              ],
+              "seg_Cr": [
+                1.0,
+                0.9693119921505162,
+                0.8048443479793544,
+                0.979066296465986,
+                0.9715855371851766
+              ],
+              "seg_len": [
+                3955.9699434318995,
+                16.539875498559468,
+                14.93981386868245,
+                16.375090969120265,
+                99.0070295769001
+              ],
+              "dt": 0.003102381164781043,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            }
+          },
+          "valid_refine": [
+            {
+              "nx": 256,
+              "n_nodes": 261,
+              "dt": 0.01156390489379677,
+              "dt_reduced": true,
+              "spatial_increase": true,
+              "dt_changed": false
+            },
+            {
+              "nx": 512,
+              "n_nodes": 516,
+              "dt": 0.006198482205746739,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            },
+            {
+              "nx": 1024,
+              "n_nodes": 1027,
+              "dt": 0.003102381164781043,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            }
+          ],
+          "pairs": [
+            {
+              "coarse": 256,
+              "fine": 512,
+              "wh_pert_l2": 0.0033840608748776308,
+              "dt_coarse": 0.01156390489379677,
+              "dt_fine": 0.006198482205746739,
+              "same_dt": false,
+              "n_nodes_coarse": 261,
+              "n_nodes_fine": 516,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            },
+            {
+              "coarse": 512,
+              "fine": 1024,
+              "wh_pert_l2": 3.9891950676672545e-05,
+              "dt_coarse": 0.006198482205746739,
+              "dt_fine": 0.003102381164781043,
+              "same_dt": false,
+              "n_nodes_coarse": 516,
+              "n_nodes_fine": 1027,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            }
+          ],
+          "refine_precondition_last_pair_lt_0p2pct": true,
+          "refine_precondition_all_adjacent_lt_0p2pct": false,
+          "not_a_continuum_bound": true,
+          "two_grid_diff_is_not_strict_error_bound": true,
+          "case_id": "pilot_00543",
+          "T": 7.320872339633591,
+          "status": "RAN"
+        },
+        {
+          "levels": [
+            256,
+            512,
+            1024
+          ],
+          "inventories": {
+            "256": {
+              "Nx_ref": 256,
+              "n_nodes": 259,
+              "nseg": 5,
+              "seg_N": [
+                250,
+                1,
+                1,
+                1,
+                1
+              ],
+              "seg_dx": [
+                18.460350872139763,
+                24.305382214461133,
+                22.78787254847157,
+                23.913893651139006,
+                34.282221663065684
+              ],
+              "seg_Cr": [
+                1.0,
+                0.7595169954231902,
+                0.8100954063558662,
+                0.7719508642734348,
+                0.5384817545832573
+              ],
+              "seg_len": [
+                4615.087718034941,
+                24.305382214461133,
+                22.78787254847157,
+                23.913893651139006,
+                34.282221663065684
+              ],
+              "dt": 0.012490845618025576,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "512": {
+              "Nx_ref": 512,
+              "n_nodes": 515,
+              "nseg": 5,
+              "seg_N": [
+                501,
+                2,
+                2,
+                2,
+                3
+              ],
+              "seg_dx": [
+                9.21175193220547,
+                12.152691107230567,
+                11.393936274235784,
+                11.956946825569503,
+                11.427407221021895
+              ],
+              "seg_Cr": [
+                1.0,
+                0.7580009934363174,
+                0.8084784494569522,
+                0.7704100441850646,
+                0.8061104110527804
+              ],
+              "seg_len": [
+                4615.087718034941,
+                24.305382214461133,
+                22.78787254847157,
+                23.913893651139006,
+                34.282221663065684
+              ],
+              "dt": 0.006232956895222343,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            },
+            "1024": {
+              "Nx_ref": 1024,
+              "n_nodes": 1027,
+              "nseg": 5,
+              "seg_N": [
+                1001,
+                5,
+                4,
+                5,
+                7
+              ],
+              "seg_dx": [
+                4.610477240794147,
+                4.861076442892227,
+                5.696968137117892,
+                4.782778730227801,
+                4.897460237580812
+              ],
+              "seg_Cr": [
+                1.0,
+                0.9484477964825052,
+                0.8092861202356305,
+                0.9639746057360575,
+                0.9414016688518485
+              ],
+              "seg_len": [
+                4615.087718034941,
+                24.305382214461133,
+                22.78787254847157,
+                23.913893651139006,
+                34.282221663065684
+              ],
+              "dt": 0.0031195918126937,
+              "dt_reduced": false,
+              "Cr0": 1.0,
+              "Cr0_is_one": true,
+              "note": "Nx_ref is not the total cell count"
+            }
+          },
+          "valid_refine": [
+            {
+              "nx": 256,
+              "n_nodes": 259,
+              "dt": 0.012490845618025576,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": false
+            },
+            {
+              "nx": 512,
+              "n_nodes": 515,
+              "dt": 0.006232956895222343,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            },
+            {
+              "nx": 1024,
+              "n_nodes": 1027,
+              "dt": 0.0031195918126937,
+              "dt_reduced": false,
+              "spatial_increase": true,
+              "dt_changed": true
+            }
+          ],
+          "pairs": [
+            {
+              "coarse": 256,
+              "fine": 512,
+              "wh_pert_l2": 0.0006331116906033652,
+              "dt_coarse": 0.012490845618025576,
+              "dt_fine": 0.006232956895222343,
+              "same_dt": false,
+              "n_nodes_coarse": 259,
+              "n_nodes_fine": 515,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            },
+            {
+              "coarse": 512,
+              "fine": 1024,
+              "wh_pert_l2": 0.00020911126281730646,
+              "dt_coarse": 0.006232956895222343,
+              "dt_fine": 0.0031195918126937,
+              "same_dt": false,
+              "n_nodes_coarse": 515,
+              "n_nodes_fine": 1027,
+              "aligned_on_physical_time": true,
+              "not_index_compare": true
+            }
+          ],
+          "refine_precondition_last_pair_lt_0p2pct": true,
+          "refine_precondition_all_adjacent_lt_0p2pct": true,
+          "not_a_continuum_bound": true,
+          "two_grid_diff_is_not_strict_error_bound": true,
+          "case_id": "pilot_01320",
+          "T": 7.299895573595573,
+          "status": "RAN"
+        }
+      ],
+      "alignment_0p5pct": [
+        {
+          "case_id": "pilot_01342",
+          "gate_applicable": true,
+          "precondition_0p2pct": true,
+          "note": "0.5% alignment vs sufficiently refined reference is not applied if precondition fails",
+          "status": "APPLICABLE"
+        },
+        {
+          "case_id": "pilot_00163",
+          "gate_applicable": true,
+          "precondition_0p2pct": true,
+          "note": "0.5% alignment vs sufficiently refined reference is not applied if precondition fails",
+          "status": "APPLICABLE"
+        },
+        {
+          "case_id": "pilot_00543",
+          "gate_applicable": true,
+          "precondition_0p2pct": true,
+          "note": "0.5% alignment vs sufficiently refined reference is not applied if precondition fails",
+          "status": "APPLICABLE"
+        },
+        {
+          "case_id": "pilot_01320",
+          "gate_applicable": true,
+          "precondition_0p2pct": true,
+          "note": "0.5% alignment vs sufficiently refined reference is not applied if precondition fails",
+          "status": "APPLICABLE"
+        }
+      ]
+    },
+    "tables_are_independent": true,
+    "thresholds_unchanged": true,
+    "elapsed_s": 188.78755529999998
+  },
+  "alignment": {
+    "rows": [
+      {
+        "case_id": "pilot_01342",
+        "T": 6.094909997235074,
+        "inventories": {
+          "256": {
+            "Nx_ref": 256,
+            "n_nodes": 260,
+            "nseg": 6,
+            "seg_N": [
+              244,
+              1,
+              1,
+              1,
+              1,
+              6
+            ],
+            "seg_dx": [
+              13.766730978439677,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              15.017039909967707
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7972901365198263,
+              0.7926231443326456,
+              0.8298472314896009,
+              0.7897700896141916,
+              0.9167406533495243
+            ],
+            "seg_len": [
+              3359.082358739281,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "dt": 0.009674620591631333,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "512": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 6,
+            "seg_N": [
+              489,
+              2,
+              2,
+              2,
+              2,
+              13
+            ],
+            "seg_dx": [
+              6.869289077176444,
+              8.633451204182393,
+              8.684285260198067,
+              8.294738149410932,
+              8.715657353626057,
+              6.930941496908172
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7956596863428941,
+              0.7910022381070164,
+              0.8281502023863503,
+              0.7881550178562894,
+              0.9911047554276384
+            ],
+            "seg_len": [
+              3359.082358739281,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "dt": 0.004827418045721974,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "1024": {
+            "Nx_ref": 1024,
+            "n_nodes": 1029,
+            "nseg": 6,
+            "seg_N": [
+              978,
+              5,
+              5,
+              4,
+              5,
+              26
+            ],
+            "seg_dx": [
+              3.434644538588222,
+              3.453380481672957,
+              3.4737141040792268,
+              4.147369074705466,
+              3.4862629414504225,
+              3.465470748454086
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9945746079286176,
+              0.9887527976337704,
+              0.8281502023863503,
+              0.9851937723203618,
+              0.9911047554276384
+            ],
+            "seg_len": [
+              3359.082358739281,
+              17.266902408364786,
+              17.368570520396133,
+              16.589476298821864,
+              17.431314707252113,
+              90.10223945980624
+            ],
+            "dt": 0.002413709022860987,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          }
+        },
+        "same_discrete_prod_vs_twin_512": 5.980331850335137e-16,
+        "reference_refine": {
+          "256_vs_512": 5.831081684957794e-05,
+          "512_vs_1024": 2.545643120478234e-05,
+          "precondition_finest_lt_0p2pct": true,
+          "three_levels": true,
+          "not_continuum_bound": true
+        },
+        "production_vs_refined_ref": {
+          "operating_nx": 512,
+          "ref_nx": 1024,
+          "aligned_physical_time": true,
+          "prod_vs_ref1024": 2.5456431204799408e-05,
+          "twin_vs_ref1024": 2.545643120478234e-05,
+          "gate": 0.005,
+          "gate_applicable": true,
+          "pass": true,
+          "status": "PASS"
+        }
+      },
+      {
+        "case_id": "pilot_00163",
+        "T": 7.8134116657393085,
+        "inventories": {
+          "256": {
+            "Nx_ref": 256,
+            "n_nodes": 259,
+            "nseg": 6,
+            "seg_N": [
+              247,
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "seg_dx": [
+              19.527648813254032,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              22.682495061338614
+            ],
+            "seg_Cr": [
+              1.0,
+              0.6099353394417512,
+              0.6220794150017787,
+              0.5892134848938333,
+              0.6160615046392582,
+              0.8609127329443625
+            ],
+            "seg_len": [
+              4823.329256873746,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "dt": 0.013674440205790126,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "512": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 6,
+            "seg_N": [
+              494,
+              3,
+              3,
+              3,
+              3,
+              4
+            ],
+            "seg_dx": [
+              9.763824406627016,
+              10.6719775854311,
+              10.46364196292537,
+              11.047296842260039,
+              10.5658545811854,
+              11.341247530669307
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9149030091626268,
+              0.9331191225026679,
+              0.8838202273407499,
+              0.9240922569588874,
+              0.8609127329443625
+            ],
+            "seg_len": [
+              4823.329256873746,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "dt": 0.006837220102895063,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "1024": {
+            "Nx_ref": 1024,
+            "n_nodes": 1027,
+            "nseg": 6,
+            "seg_N": [
+              988,
+              6,
+              6,
+              6,
+              6,
+              9
+            ],
+            "seg_dx": [
+              4.881912203313508,
+              5.33598879271555,
+              5.231820981462685,
+              5.523648421130019,
+              5.2829272905927,
+              5.040554458075247
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9149030091626268,
+              0.9331191225026679,
+              0.8838202273407499,
+              0.9240922569588874,
+              0.9685268245624079
+            ],
+            "seg_len": [
+              4823.329256873746,
+              32.015932756293296,
+              31.39092588877611,
+              33.14189052678012,
+              31.697563743556202,
+              45.36499012267723
+            ],
+            "dt": 0.0034186100514475314,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          }
+        },
+        "same_discrete_prod_vs_twin_512": 4.80987559044093e-15,
+        "reference_refine": {
+          "256_vs_512": 0.0007236841159598096,
+          "512_vs_1024": 0.00022575705479417458,
+          "precondition_finest_lt_0p2pct": true,
+          "three_levels": true,
+          "not_continuum_bound": true
+        },
+        "production_vs_refined_ref": {
+          "operating_nx": 512,
+          "ref_nx": 1024,
+          "aligned_physical_time": true,
+          "prod_vs_ref1024": 0.00022575705479413558,
+          "twin_vs_ref1024": 0.00022575705479417458,
+          "gate": 0.005,
+          "gate_applicable": true,
+          "pass": true,
+          "status": "PASS"
+        }
+      },
+      {
+        "case_id": "pilot_00543",
+        "T": 7.320872339633591,
+        "inventories": {
+          "256": {
+            "Nx_ref": 256,
+            "n_nodes": 261,
+            "nseg": 5,
+            "seg_N": [
+              247,
+              1,
+              1,
+              1,
+              6
+            ],
+            "seg_dx": [
+              16.016072645473276,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              16.501171596150016
+            ],
+            "seg_Cr": [
+              0.9328013302252961,
+              0.9032603582767975,
+              1.0,
+              0.9123499769775676,
+              0.9053789775853337
+            ],
+            "seg_len": [
+              3955.9699434318995,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "dt": 0.01156390489379677,
+            "dt_reduced": true,
+            "Cr0": 0.9328013302252961,
+            "Cr0_is_one": false,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "512": {
+            "Nx_ref": 512,
+            "n_nodes": 516,
+            "nseg": 5,
+            "seg_N": [
+              494,
+              2,
+              1,
+              2,
+              12
+            ],
+            "seg_dx": [
+              8.008036322736638,
+              8.269937749279734,
+              14.93981386868245,
+              8.187545484560133,
+              8.250585798075008
+            ],
+            "seg_Cr": [
+              1.0,
+              0.968330907138218,
+              0.5360198187959668,
+              0.9780753386760406,
+              0.9706021510139364
+            ],
+            "seg_len": [
+              3955.9699434318995,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "dt": 0.006198482205746739,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "1024": {
+            "Nx_ref": 1024,
+            "n_nodes": 1027,
+            "nseg": 5,
+            "seg_N": [
+              987,
+              4,
+              3,
+              4,
+              24
+            ],
+            "seg_dx": [
+              4.008074917357548,
+              4.134968874639867,
+              4.9799379562274835,
+              4.093772742280066,
+              4.125292899037504
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9693119921505162,
+              0.8048443479793544,
+              0.979066296465986,
+              0.9715855371851766
+            ],
+            "seg_len": [
+              3955.9699434318995,
+              16.539875498559468,
+              14.93981386868245,
+              16.375090969120265,
+              99.0070295769001
+            ],
+            "dt": 0.003102381164781043,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          }
+        },
+        "same_discrete_prod_vs_twin_512": 7.035064504036846e-15,
+        "reference_refine": {
+          "256_vs_512": 0.0033840608748776308,
+          "512_vs_1024": 3.9891950676672545e-05,
+          "precondition_finest_lt_0p2pct": true,
+          "three_levels": true,
+          "not_continuum_bound": true
+        },
+        "production_vs_refined_ref": {
+          "operating_nx": 512,
+          "ref_nx": 1024,
+          "aligned_physical_time": true,
+          "prod_vs_ref1024": 3.989195067679204e-05,
+          "twin_vs_ref1024": 3.9891950676672545e-05,
+          "gate": 0.005,
+          "gate_applicable": true,
+          "pass": true,
+          "status": "PASS"
+        }
+      },
+      {
+        "case_id": "pilot_01320",
+        "T": 7.299895573595573,
+        "inventories": {
+          "256": {
+            "Nx_ref": 256,
+            "n_nodes": 259,
+            "nseg": 5,
+            "seg_N": [
+              250,
+              1,
+              1,
+              1,
+              1
+            ],
+            "seg_dx": [
+              18.460350872139763,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7595169954231902,
+              0.8100954063558662,
+              0.7719508642734348,
+              0.5384817545832573
+            ],
+            "seg_len": [
+              4615.087718034941,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "dt": 0.012490845618025576,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "512": {
+            "Nx_ref": 512,
+            "n_nodes": 515,
+            "nseg": 5,
+            "seg_N": [
+              501,
+              2,
+              2,
+              2,
+              3
+            ],
+            "seg_dx": [
+              9.21175193220547,
+              12.152691107230567,
+              11.393936274235784,
+              11.956946825569503,
+              11.427407221021895
+            ],
+            "seg_Cr": [
+              1.0,
+              0.7580009934363174,
+              0.8084784494569522,
+              0.7704100441850646,
+              0.8061104110527804
+            ],
+            "seg_len": [
+              4615.087718034941,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "dt": 0.006232956895222343,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          },
+          "1024": {
+            "Nx_ref": 1024,
+            "n_nodes": 1027,
+            "nseg": 5,
+            "seg_N": [
+              1001,
+              5,
+              4,
+              5,
+              7
+            ],
+            "seg_dx": [
+              4.610477240794147,
+              4.861076442892227,
+              5.696968137117892,
+              4.782778730227801,
+              4.897460237580812
+            ],
+            "seg_Cr": [
+              1.0,
+              0.9484477964825052,
+              0.8092861202356305,
+              0.9639746057360575,
+              0.9414016688518485
+            ],
+            "seg_len": [
+              4615.087718034941,
+              24.305382214461133,
+              22.78787254847157,
+              23.913893651139006,
+              34.282221663065684
+            ],
+            "dt": 0.0031195918126937,
+            "dt_reduced": false,
+            "Cr0": 1.0,
+            "Cr0_is_one": true,
+            "note": "Nx_ref is not the total cell count"
+          }
+        },
+        "same_discrete_prod_vs_twin_512": 4.471619917362919e-15,
+        "reference_refine": {
+          "256_vs_512": 0.0006331116906033652,
+          "512_vs_1024": 0.00020911126281730646,
+          "precondition_finest_lt_0p2pct": true,
+          "three_levels": true,
+          "not_continuum_bound": true
+        },
+        "production_vs_refined_ref": {
+          "operating_nx": 512,
+          "ref_nx": 1024,
+          "aligned_physical_time": true,
+          "prod_vs_ref1024": 0.00020911126281731495,
+          "twin_vs_ref1024": 0.00020911126281730646,
+          "gate": 0.005,
+          "gate_applicable": true,
+          "pass": true,
+          "status": "PASS"
+        }
+      }
+    ],
+    "predecessor_run_id": "r4_P2_causality_20260906_232440_43c7df5c",
+    "tables_independent": true,
+    "all_applicable_pass": true
+  }
+}

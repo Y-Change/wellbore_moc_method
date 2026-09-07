@@ -1,0 +1,12 @@
+[21:12:07] run_id=s1_validate_20260905_211205_24ae4565  smoke=False  only=convergence
+[21:12:17] numba warmup done
+[21:12:17] Richardson / three-grid Cr=1.0 (darcy)
+[21:12:17]   Nx=512 peak=-409.812477 m  t_arr=1.061878 s  wall=0.39s
+[21:12:19]   Nx=1024 peak=-410.027015 m  t_arr=1.061771 s  wall=1.55s
+[21:12:25]   Nx=2048 peak=-410.065127 m  t_arr=1.061762 s  wall=6.13s
+[21:12:25] Richardson / three-grid Cr=0.8 (darcy)
+[21:12:26]   Nx=512 peak=-406.467976 m  t_arr=1.061450 s  wall=0.50s
+[21:12:28]   Nx=1024 peak=-407.596690 m  t_arr=1.061557 s  wall=2.00s
+[21:12:36]   Nx=2048 peak=-408.391520 m  t_arr=1.061627 s  wall=8.04s
+[21:12:36] wrote E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\tables\table_moc_gate.tex
+[21:12:36] DONE  fail=1  pending=1

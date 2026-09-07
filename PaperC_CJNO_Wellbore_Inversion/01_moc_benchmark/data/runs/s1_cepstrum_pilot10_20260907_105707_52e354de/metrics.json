@@ -1,0 +1,29 @@
+{
+  "stage": 1,
+  "task": "cepstrum_replay_pilot10",
+  "n_cases": 10,
+  "seed": 20260907,
+  "case_ids": [
+    "pilot_01266",
+    "pilot_00404",
+    "pilot_00273",
+    "pilot_01413",
+    "pilot_01011",
+    "pilot_00944",
+    "pilot_01191",
+    "pilot_01890",
+    "pilot_00772",
+    "pilot_00984"
+  ],
+  "mean_1d_recall": 0.13273809523809524,
+  "mean_2d_recall": 0.6084920634920635,
+  "n_1d_separation_success": 0,
+  "n_2d_separation_success": 0,
+  "output_dir": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\01_moc_benchmark\\data\\cepstrum_pilot10\\s1_cepstrum_pilot10_20260907_105707_52e354de",
+  "not_stage1_formal_acceptance": true,
+  "run_id": "s1_cepstrum_pilot10_20260907_105707_52e354de",
+  "code_digest": "0e2086ba605d78c836fe7ce7a97e7104e9e20880efb0186245c739ab5146b163",
+  "config_digest": "093d6b1ef8b22931fc3bfb4fd5714d615b7d36868b3bc371961cd4d3ada42a5c",
+  "manifest_digest": "2a0c1ab7d6a7137deb874ac024a393f2bde640f31533689b323320b9d2e02bc0",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3"
+}

@@ -1,0 +1,37 @@
+mode: replay_cepstrum_pilot
+n: 10
+seed: 20260907
+case_ids:
+- pilot_01266
+- pilot_00404
+- pilot_00273
+- pilot_01413
+- pilot_01011
+- pilot_00944
+- pilot_01191
+- pilot_01890
+- pilot_00772
+- pilot_00984
+pilot_manifest: E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\data\manifests\manifest_v1.json
+pilot_generator_run_id: s1_pilot_20260905_211730_8601721a
+cepstrum_config:
+  wlen_sec: 30.0
+  hop_sec: 5.0
+  win_type: kaiser
+  peak_height_pct: 85.0
+  peak_height_rel: 0.03
+  peak_height_abs: 0.0
+  peak_min_separation_m: 5.0
+  peak_prominence_rel: 0.0
+  peak_top_n: 10
+  match_tolerance_m: 10.0
+  match_tolerance_sweep_m:
+  - 2.0
+  - 5.0
+  - 10.0
+  - 20.0
+  - 40.0
+  fracture_zoom_margin_m: 100.0
+analysis_start_s: 1.0
+operator: leakoff_multi.run_cepstrum_analysis_and_match
+no_moc_rerun: true

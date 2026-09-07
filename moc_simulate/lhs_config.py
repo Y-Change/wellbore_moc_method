@@ -9,6 +9,25 @@ from typing import Dict, Any
 # 从基础配置中导入井筒物理常数与默认裂缝背景配置
 from moc_simulate.config import WELL_CONFIG, FRACTURE_CONFIG, CEPSTRUM_CONFIG
 
+# ── 单位换算与物理辅助函数 ──────────────────────────────────
+def pressure_to_head_compliance(Cp_Pa: float, rho: float = 1000.0, g: float = 9.80665) -> float:
+    """
+    压力柔度 [m³/Pa] 转换为水头柔度 [m²]：
+        C_H = ρ · g · C_p
+    """
+    return float(Cp_Pa * rho * g)
+
+
+def bbl_psi_to_head_compliance(Cp_bbl_psi: float, rho: float = 1000.0, g: float = 9.80665) -> float:
+    """
+    现场常用柔度单位 [bbl/psi] 转换为水头柔度 [m²]：
+        1 bbl ≈ 0.1589873 m³, 1 psi ≈ 6894.757 Pa
+        1 bbl/psi ≈ 2.3059e-5 m³/Pa
+    """
+    Cp_m3_pa = Cp_bbl_psi * 0.1589873 / 6894.757
+    return pressure_to_head_compliance(Cp_m3_pa, rho, g)
+
+
 # ── 1. 仿真时间与步长配置 (独立设置 tf 为 50.0s) ────────────────
 SIM_CONFIG: Dict[str, float] = {
     'ts': 1.0,       # 停泵时刻 [s]
@@ -22,16 +41,22 @@ LHS_PARAM_RANGES: Dict[str, Any] = {
     "n_frac_max": 6,               # 最多压裂簇数 (多簇穿孔压裂对标)
     "frac_zone_start": 3500.0,     # 缝网分布起始井深 [m] (中深层水平段)
     "frac_zone_end": 4800.0,       # 缝网分布结束井深 [m] (最大井深 L=5000m)
-    "min_spacing": 5,            # 最小簇间距 [m] (硬约束，防止物理空间重叠)
-    "max_spacing": 20,           # 最大簇间距 [m] (硬约束，相邻簇间距落在 [min_spacing, max_spacing])
+    "min_spacing": 5.0,            # 最小簇间距 [m] (硬约束，防止物理空间重叠)
+    "max_spacing": 20.0,           # 最大簇间距 [m] (硬约束，相邻簇间距落在 [min_spacing, max_spacing])
     
-    # 集总柔度 Cf [m³/Pa]：对数均匀采样
-    # 对应现场 0.01 ~ 1.0 bbl/psi (约 2e-9 ~ 2.5e-7 m³/Pa) 及整段叠加效应
-    "cf_log_min": -8.7,            # 10^(-8.7) ≈ 2.0e-9 m³/Pa
-    "cf_log_max": -5.5,            # 10^(-5.5) ≈ 3.2e-6 m³/Pa
+    # 水头柔度 compliance_head_m2 [m²]：对数均匀采样
+    # 锚定基准值 10^-5 m² (约占井筒储液 2.8%)，覆盖 [10^-6, 10^-4] m² (0.28% ~ 28%)
+    # 具有明确且可穿透的水击反射响应特征
+    "cf_head_m2_log_min": -6.0,    # 10^(-6.0) = 1.0e-6 m²
+    "cf_head_m2_log_max": -4.0,    # 10^(-4.0) = 1.0e-4 m²
+    "cf_log_min": -6.0,            # 向后兼容键
+    "cf_log_max": -4.0,            # 向后兼容键
     
-    # 分布滤失系数 kleak [m²/s/√m]：对数均匀采样
-    # 覆盖超低渗页岩到中高渗天然裂隙交汇网络
+    # 封闭趾端分流模式：各簇稳态进液比例 w_i 采用 Dirichlet 分布采样 (∑w_i = 1)
+    "alpha_dirichlet": 1.0,        # 对称狄利克雷分布浓度参数 (1.0 = 单纯形均匀分布)
+    "alpha_dirichlet_choices": [0.3, 1.0, 3.0, 10.0], # 典型工况 (0.3:强偏流, 1.0:均匀, 3.0:弱集中, 10.0:均等)
+    
+    # 等效滤失参考背景区间 (主要用于非封闭或显示参考)
     "kleak_log_min": -6.0,         # 10^-6
     "kleak_log_max": -3.0,         # 10^-3
     
@@ -41,6 +66,7 @@ LHS_PARAM_RANGES: Dict[str, Any] = {
     "snr_db_min": 20.0,            # 最小信噪比 [dB]
     "snr_db_max": 60.0,            # 最大信噪比 [dB]
     "friction_models": ["steady", "brunone"], # 混合摩阻模型采样池
+    "toe_bc": "dead_end",          # 默认封闭趾端
 }
 
 # ── 3. 批量多进程运行并发与生成默认设定 ───────────────────────
@@ -48,14 +74,14 @@ LHS_BATCH_CONFIG: Dict[str, Any] = {
     "default_workers": 14,         # 针对 i5-12600KF(16线程) 优化，默认保留 2 线程给系统与I/O
     "default_n_samples": 1500,     # 推荐黄金训练集总样本数
     "default_friction": "brunone", # 默认采用 Brunone 非定常摩阻（真实体现频散与衰减物理特征）
-    "output_dir": "output/lhs_dataset", # 默认数据集输出根目录
+    "output_dir": "output/lhs_dataset_v2", # 数据集升级至 v2 版本，避免与旧微柔度数据混淆
     "seed": 42,                    # 随机数种子，确保生成真解的数据集可复现
 }
 
 # ── 4. 神经算子与扩散去噪器 AI 反演配置 ───────────────────────
 INVERSION_CONFIG: Dict[str, Any] = {
     "input_feature": "H_wh",       # 默认观测特征：井口水头时序信号 [m]
-    "target_labels": ["x_f", "Cf", "kleak"], # 待反演与重构的目标物理参数列表
+    "target_labels": ["x_f", "compliance_head_m2", "inflow_weight", "kleak"], # 物理严密的重构目标列表
     "max_n_frac": 6,               # 深度网络 (DiT / FNO) 统一对齐的定长维度上限 (不足部分以 0 填充)
     "normalize_method": "min_max", # 特征归一化建议配置
 }

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "paperc/case.schema.json",
+  "title": "PaperC forward case (SI units)",
+  "type": "object",
+  "required": ["case_id", "group_id", "split", "well", "clusters", "excitation", "numerics", "seed"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "group_id": {"type": "string", "description": "well x cluster-layout x excitation group used for leakage-free splitting"},
+    "split": {"type": "string", "enum": ["pilot", "train", "val", "id_test", "ood", "golden"]},
+    "ood_type": {"type": ["string", "null"]},
+    "seed": {"type": "integer"},
+    "well": {
+      "type": "object",
+      "required": ["L", "D", "a", "rho", "nu", "roughness", "TVD"],
+      "properties": {
+        "L": {"type": "number", "exclusiveMinimum": 0},
+        "D": {"type": "number", "exclusiveMinimum": 0},
+        "a": {"type": "number", "exclusiveMinimum": 0},
+        "rho": {"type": "number", "exclusiveMinimum": 0},
+        "nu": {"type": "number", "exclusiveMinimum": 0},
+        "roughness": {"type": "number", "minimum": 0},
+        "TVD": {"type": "number", "minimum": 0},
+        "toe_bc": {"type": "string", "enum": ["dead_end", "reservoir"]}
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["x", "p_res", "perfs"],
+        "properties": {
+          "x": {"type": "number"},
+          "p_res": {"type": "number"},
+          "perfs": {
+            "type": "object",
+            "required": ["Cd", "A_perf", "kappa", "I_f", "R_f", "C_f", "G_l"],
+            "properties": {
+              "Cd": {"type": "array", "items": {"type": "number"}},
+              "A_perf": {"type": "array", "items": {"type": "number"}},
+              "kappa": {"type": "array", "items": {"type": "number"}},
+              "I_f": {"type": "array", "items": {"type": "number"}},
+              "R_f": {"type": "array", "items": {"type": "number"}},
+              "C_f": {"type": "array", "items": {"type": "number"}},
+              "G_l": {"type": "array", "items": {"type": "number"}}
+            }
+          },
+          "cluster_equivalents": {
+            "type": "object",
+            "description": "pre-registered inversion targets (§2.3): sum Cd*A, C_f, G_l (parallel sums), R_f, I_f (parallel equivalents), x",
+            "properties": {
+              "sum_CdA": {"type": "number"}, "C_f": {"type": "number"}, "G_l": {"type": "number"},
+              "R_f": {"type": "number"}, "I_f": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    "excitation": {
+      "type": "object",
+      "required": ["Q0", "t_s", "t_c", "ramp"],
+      "properties": {
+        "Q0": {"type": "number"}, "t_s": {"type": "number"}, "t_c": {"type": "number", "minimum": 0},
+        "ramp": {"type": "string", "enum": ["step", "cosine", "linear", "gauss_pulse"]}
+      }
+    },
+    "numerics": {
+      "type": "object",
+      "required": ["Nx_ref", "Cr_target", "friction_model"],
+      "properties": {
+        "Nx_ref": {"type": "integer"},
+        "Cr_target": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "friction_model": {"type": "string", "enum": ["none", "darcy", "zvb_rec", "zvb_direct", "brunone"]},
+        "kernel_M": {"type": "integer"},
+        "friction_time_scheme": {"type": "string"},
+        "window_periods": {"type": "number"}
+      }
+    }
+  }
+}

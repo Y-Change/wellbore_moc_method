@@ -1,0 +1,2 @@
+case,nu_m2s,D_m,n_snapshots_post_shut,n_nodes,Re_median,Re_P95,Re_max,k_median,k_P95,k_max,k_mean,frac_Re_lt_2000,update_rule,Re_lt_1_k,k_laminar_1_to_2000,discontinuous_at_Re_2000
+n1_X1=4100_dynamic_k(Re),1e-06,0.1397,99,3449,24265.589498163445,119546.23896212075,146059.29086501617,0.012046826511354879,0.034496376621320685,0.034496376621320685,0.015829032753630564,0.11700946841567311,"every interior node, every MOC step n>=2 (probe stats from 0.5 s snapshots)",0.0,0.034496376621320685,True

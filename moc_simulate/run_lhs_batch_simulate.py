@@ -27,9 +27,13 @@ import time as time_module
 from typing import Dict, List, Tuple, Any
 
 if sys.platform.startswith('win'):
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    try:
+        if hasattr(sys.stdout, 'reconfigure'):
+            sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        if hasattr(sys.stderr, 'reconfigure'):
+            sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 # 确保能导入项目根目录模块
 _d = os.path.dirname(os.path.abspath(__file__))
@@ -50,6 +54,8 @@ try:
     HAS_SCIPY_QMC = True
 except ImportError:
     HAS_SCIPY_QMC = False
+
+from scipy.special import gammaincinv
 
 from moc_simulate.wellbore_moc import MocConfig, simulate_wellbore, G
 from moc_simulate.config import WELL_CONFIG, FRACTURE_CONFIG, FRICTION_PARAMS
@@ -113,54 +119,83 @@ def generate_lhs_params(n_samples: int, seed: int = 42, domain_randomization: bo
             for gap in spacings:
                 positions.append(float(positions[-1] + gap))
         
-        # 2. 生成对数均匀分布的 Cf 和 kleak
+        # 2. 生成对数均匀分布的水头柔度 compliance_head_m2 [m²]
         cf_vals = [float(10.0 ** (cf_lmin + row[n_max + k] * (cf_lmax - cf_lmin))) for k in range(n_cl)]
-        kleak_vals = [float(10.0 ** (kl_lmin + row[2 * n_max + k] * (kl_lmax - kl_lmin))) for k in range(n_cl)]
         
+        # 3. 封闭趾端进液分配：基于真 Dirichlet-LHS 映射采样各簇进液比例 w_i (∑w_i = 1)
+        alpha_choices = LHS_PARAM_RANGES.get("alpha_dirichlet_choices", [0.3, 1.0, 3.0, 10.0])
+        alpha_val = float(alpha_choices[i % len(alpha_choices)])
+
+        if n_cl == 1:
+            w_vals = [1.0]
+        else:
+            raw_u = np.clip(row[2 * n_max: 2 * n_max + n_cl], 1e-12, 1.0 - 1e-12)
+            gamma_v = gammaincinv(alpha_val, raw_u)
+            gamma_v = np.maximum(gamma_v, 1e-30)
+            sum_gamma = float(np.sum(gamma_v))
+            w_arr = np.array(gamma_v, dtype=np.float64) / sum_gamma
+            # 微调消除浮点舍入误差
+            diff = 1.0 - np.sum(w_arr)
+            w_arr[np.argmax(w_arr)] += diff
+            assert abs(np.sum(w_arr) - 1.0) <= 1e-12, f"Dirichlet 权重和偏离 1.0: {abs(np.sum(w_arr) - 1.0)}"
+            assert np.all(w_arr > 0.0), f"Dirichlet 权重包含非正值: {w_arr}"
+            w_vals = [float(v) for v in w_arr]
+
         sample_dict = {
             "case_id": i,
+            "seed": int(seed),
             "n_frac": n_cl,
             "positions": positions,
             "Cf_list": cf_vals,
-            "kleak_list": kleak_vals,
+            "compliance_m2_list": cf_vals,
+            "inflow_weights": w_vals,
+            "alpha_dirichlet": alpha_val,
+            "Rp_list": [0.0] * n_cl,
         }
-        
+
         if domain_randomization:
             a_min, a_max = LHS_PARAM_RANGES["a_min"], LHS_PARAM_RANGES["a_max"]
             sample_dict["wavespeed"] = float(a_min + row[-3] * (a_max - a_min))
-            
+
             snr_min, snr_max = LHS_PARAM_RANGES["snr_db_min"], LHS_PARAM_RANGES["snr_db_max"]
             sample_dict["snr_db"] = float(snr_min + row[-2] * (snr_max - snr_min))
-            
+
             fric_models = LHS_PARAM_RANGES["friction_models"]
             fric_idx = int(row[-1] * len(fric_models))
             fric_idx = min(fric_idx, len(fric_models) - 1)
             sample_dict["friction_model"] = fric_models[fric_idx]
-            
+
         samples.append(sample_dict)
     return samples
 
 
 def _worker_simulate(args: Tuple) -> Dict[str, Any]:
     """多进程单个 Worker 执行函数：调用 simulate_wellbore 跑单条真解并落盘"""
-    sample, friction_model_arg, tf_cut, dt_sim, out_data_dir, wavespeed_arg, brunone_k_scale, domain_randomization = args
+    if len(args) >= 9:
+        sample, friction_model_arg, tf_cut, dt_sim, out_data_dir, wavespeed_arg, brunone_k_scale, domain_randomization, seed_arg = args[:9]
+    else:
+        sample, friction_model_arg, tf_cut, dt_sim, out_data_dir, wavespeed_arg, brunone_k_scale, domain_randomization = args[:8]
+        seed_arg = None
+    seed = int(sample.get("seed", seed_arg if seed_arg is not None else 42))
     case_id = sample["case_id"]
     n_cl = sample["n_frac"]
     positions = sample["positions"]
     Cf_list = sample["Cf_list"]
-    kleak_list = sample["kleak_list"]
-    
+    inflow_weights = sample.get("inflow_weights", None)
+    Rp_list = sample.get("Rp_list", [0.0] * n_cl)
+    alpha_dirichlet = sample.get("alpha_dirichlet", 1.0)
+
     friction_model = sample.get("friction_model", friction_model_arg)
     wavespeed = sample.get("wavespeed", wavespeed_arg)
     snr_db = sample.get("snr_db", None)
-    
+
     t0 = time_module.time()
     try:
         # 构造配置
         w = WELL_CONFIG
         s = SIM_CONFIG
         fc = FRACTURE_CONFIG
-        
+
         cfg = MocConfig(
             wellbore_length=w['L'],
             wellbore_diameter=w['wellbore_diameter'],
@@ -177,27 +212,55 @@ def _worker_simulate(args: Tuple) -> Dict[str, Any]:
             initial_velocity=w['V0'],
             initial_head=w['H0'],
             theta=w['theta'],
-            toe_bc='reservoir',
+            toe_bc='dead_end',     # 全面切换为压裂封闭趾端物理条件
             toe_head=w['H0'],
         )
-        
+
         res = simulate_wellbore(
             cfg,
             fracture_positions=positions,
-            fracture_Cf=Cf_list,
-            fracture_kleak=kleak_list,
+            fracture_compliance_m2=Cf_list,
+            fracture_inflow_weights=inflow_weights,
+            fracture_Rp=Rp_list,
             H_ext=fc['H_ext'],
             store_full_field=False,
         )
-        
+
         elapsed = time_module.time() - t0
-        
+
         # 提取关键时序 (AI 反演特征)
         t_arr = res["timestamps"]
         H_wh = res["wellhead_head"]
         V_wh = res["wellhead_velocity"]
         Q_wh = V_wh * cfg.area
-        
+
+        # 稳态反算出的物理等效滤失与进液权重
+        ss_info = res.get("steady_state", {})
+        kleak_equiv = np.asarray(ss_info.get("equivalent_kleak", np.zeros(n_cl)), dtype=np.float64)
+        wi_actual = np.asarray(ss_info.get("inflow_weights", np.array(inflow_weights if inflow_weights is not None else [])), dtype=np.float64)
+        Hw_ss = np.asarray(ss_info.get("Hw_ss", np.zeros(n_cl)), dtype=np.float64)
+        Hf_ss = np.asarray(ss_info.get("Hf_ss", np.zeros(n_cl)), dtype=np.float64)
+        Qf_ss = np.asarray(ss_info.get("Qf_ss", np.zeros(n_cl)), dtype=np.float64)
+        Qin_ss = float(ss_info.get("Qin_ss", cfg.initial_velocity * cfg.area))
+
+        frac_indices = res.get("fracture_indices", [])
+        x_f_aligned = np.array([idx * cfg.dx for idx in frac_indices], dtype=np.float64)
+        x_f_raw = np.array(positions, dtype=np.float64)
+
+        # 严格双射关系校验断言
+        H_ext_val = float(fc['H_ext'])
+        for k in range(n_cl):
+            diff_q = abs(Qf_ss[k] - kleak_equiv[k] * np.sqrt(Hf_ss[k] - H_ext_val))
+            if diff_q > 1.0e-10:
+                raise RuntimeError(
+                    f"Case {case_id} 裂缝 #{k} 稳态流量与滤失水头双射关系偏离超标: |ΔQ|={diff_q:.4e} > 1e-10 m³/s"
+                )
+        diff_total_q = abs(np.sum(Qf_ss) - Qin_ss)
+        if diff_total_q > 1.0e-10:
+            raise RuntimeError(
+                f"Case {case_id} 稳态总泄流量与注入量质量守恒偏离超标: |∑Qf - Qin|={diff_total_q:.4e} > 1e-10 m³/s"
+            )
+
         if snr_db is not None:
             # 仅根据停泵后的信号功率添加 AWGN 噪声
             ts = SIM_CONFIG['ts']
@@ -210,23 +273,57 @@ def _worker_simulate(args: Tuple) -> Dict[str, Any]:
                     rng = np.random.default_rng(20260810 + case_id)
                     noise = rng.normal(0, np.sqrt(noise_power), size=len(H_wh))
                     H_wh = H_wh + noise
-        
-        # 保存为 .npz
+
+        # 保存为 .npz（双射保存兼容旧接口与新物理标签，共 23+ 项完整元数据）
         npz_filename = f"case_{case_id:05d}.npz"
         npz_path = os.path.join(out_data_dir, npz_filename)
+        frac_indices_arr = np.asarray(frac_indices, dtype=np.int32)
+        x_f_aligned_arr = np.asarray(x_f_aligned, dtype=np.float64)
+        x_f_requested_arr = np.asarray(x_f_raw, dtype=np.float64)
+
         np.savez_compressed(
             npz_path,
-            t=t_arr,
-            H_wh=H_wh,
-            Q_wh=Q_wh,
-            x_f=np.array(positions, dtype=np.float32),
-            Cf=np.array(Cf_list, dtype=np.float32),
-            kleak=np.array(kleak_list, dtype=np.float32),
-            n_frac=n_cl,
+            schema_version="moc_lhs_v2.1",
+            seed=int(seed),
+            N=int(cfg.N),
+            wellbore_length=float(cfg.wellbore_length),
+            dt_requested=float(dt_sim),
+            dt_adj=float(cfg.dt_adj),
+            wavespeed_requested=float(wavespeed),
+            wavespeed_adj=float(cfg.a_adj),
+            x_f_requested=x_f_requested_arr,
+            x_f_aligned=x_f_aligned_arr,
+            fracture_indices=frac_indices_arr,
+            t=t_arr.astype(np.float64),
+            H_wh=H_wh.astype(np.float64),
+            Q_wh=Q_wh.astype(np.float64),
+            x_f=x_f_aligned_arr,
+            x_f_raw=x_f_requested_arr,
+            grid_index=frac_indices_arr,
+            dx=float(cfg.dx),
+            dt=float(cfg.dt_adj),
+            wavespeed=float(cfg.a_adj),
+            wavespeed_nominal=float(wavespeed),
             friction=str(friction_model),
-            tf=float(tf_cut),
-            wavespeed=float(wavespeed),
             brunone_k_scale=float(brunone_k_scale),
+            toe_bc=str(cfg.toe_bc),
+            initial_head=float(cfg.initial_head),
+            initial_velocity=float(cfg.initial_velocity),
+            H_ext=float(H_ext_val),
+            Rp=np.array(Rp_list, dtype=np.float64),
+            compliance_head_m2=np.array(Cf_list, dtype=np.float64),
+            Cf=np.array(Cf_list, dtype=np.float64),
+            inflow_weight=wi_actual.astype(np.float64),
+            kleak_equiv=kleak_equiv.astype(np.float64),
+            kleak=kleak_equiv.astype(np.float64),
+            Hw_ss=Hw_ss.astype(np.float64),
+            Hf_ss=Hf_ss.astype(np.float64),
+            Qf_ss=Qf_ss.astype(np.float64),
+            Qin_ss=float(Qin_ss),
+            alpha_dirichlet=float(alpha_dirichlet),
+            n_frac=int(n_cl),
+            tf=float(tf_cut),
+            case_id=int(case_id),
         )
         
         return {
@@ -235,7 +332,8 @@ def _worker_simulate(args: Tuple) -> Dict[str, Any]:
             "n_frac": n_cl,
             "positions_str": ";".join([f"{x:.1f}" for x in positions]),
             "Cf_str": ";".join([f"{c:.2e}" for c in Cf_list]),
-            "kleak_str": ";".join([f"{k:.2e}" for k in kleak_list]),
+            "wi_str": ";".join([f"{w:.3f}" for w in wi_actual]),
+            "kleak_str": ";".join([f"{k:.2e}" for k in kleak_equiv]),
             "elapsed_s": round(elapsed, 2),
             "npz_file": npz_filename,
             "error": "",
@@ -250,6 +348,7 @@ def _worker_simulate(args: Tuple) -> Dict[str, Any]:
             "n_frac": n_cl,
             "positions_str": "",
             "Cf_str": "",
+            "wi_str": "",
             "kleak_str": "",
             "elapsed_s": round(time_module.time() - t0, 2),
             "npz_file": "",
@@ -300,7 +399,7 @@ def main():
     
     # 2. 并发计算
     worker_args = [
-        (samp, args.friction, args.tf, args.dt, out_data_dir, args.wavespeed, args.brunone_k_scale, args.domain_randomization)
+        (samp, args.friction, args.tf, args.dt, out_data_dir, args.wavespeed, args.brunone_k_scale, args.domain_randomization, args.seed)
         for samp in samples
     ]
     t_start_all = time_module.time()
@@ -342,7 +441,7 @@ def main():
     csv_path = os.path.join(out_root, "lhs_summary.csv")
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=[
-            "case_id", "status", "n_frac", "positions_str", "Cf_str", "kleak_str", "elapsed_s", 
+            "case_id", "status", "n_frac", "positions_str", "Cf_str", "wi_str", "kleak_str", "elapsed_s", 
             "npz_file", "error", "wavespeed", "friction_model", "snr_db"
         ])
         writer.writeheader()
@@ -350,19 +449,47 @@ def main():
         
     json_path = os.path.join(out_root, "lhs_metadata.json")
     meta_info = {
-        "created_time": time_module.strftime("%Y-%m-%d %H:%M:%S"),
-        "n_samples_total": args.n_samples,
-        "n_pass": pass_count,
-        "n_fail": fail_count,
-        "tf_cutoff_s": args.tf,
-        "dt_s": args.dt,
-        "friction_model": args.friction,
-        "wavespeed": args.wavespeed,
-        "brunone_k_scale": args.brunone_k_scale,
-        "seed": args.seed,
-        "workers": args.workers,
-        "total_elapsed_min": round(total_time / 60, 2),
+        "schema_version": "moc_lhs_v2.1",
+        "seed": int(args.seed),
         "param_ranges": LHS_PARAM_RANGES,
+        "parameter_ranges": LHS_PARAM_RANGES,
+        "moc_config": {
+            "wellbore_length": float(WELL_CONFIG["L"]),
+            "wellbore_diameter": float(WELL_CONFIG["wellbore_diameter"]),
+            "fluid_density": float(WELL_CONFIG["fluid_density"]),
+            "fluid_viscosity": float(WELL_CONFIG["fluid_viscosity"]),
+            "roughness_height": float(WELL_CONFIG["roughness_height"]),
+            "wavespeed": float(args.wavespeed),
+            "brunone_k_scale": float(args.brunone_k_scale),
+            "friction_model": str(args.friction),
+            "dt": float(args.dt),
+            "tf": float(args.tf),
+            "wellhead_bc": "velocity_step",
+            "pump_shut_time": float(SIM_CONFIG["ts"]),
+            "initial_velocity": float(WELL_CONFIG["V0"]),
+            "initial_head": float(WELL_CONFIG["H0"]),
+            "theta": float(WELL_CONFIG["theta"]),
+            "toe_bc": "dead_end",
+            "H_ext": float(FRACTURE_CONFIG["H_ext"]),
+        },
+        "sample_count": {
+            "total": int(args.n_samples),
+            "pass": int(pass_count),
+            "fail": int(fail_count),
+        },
+        "n_samples_total": int(args.n_samples),
+        "n_pass": int(pass_count),
+        "n_fail": int(fail_count),
+        "tf_cutoff_s": float(args.tf),
+        "dt_s": float(args.dt),
+        "friction_model": str(args.friction),
+        "wavespeed": float(args.wavespeed),
+        "brunone_k_scale": float(args.brunone_k_scale),
+        "seed": int(args.seed),
+        "workers": int(args.workers),
+        "total_elapsed_min": round(total_time / 60, 2),
+        "created_time": time_module.strftime("%Y-%m-%d %H:%M:%S"),
+        "generation_time": time_module.strftime("%Y-%m-%d %H:%M:%S"),
         "samples_index": results,
     }
     with open(json_path, "w", encoding="utf-8") as f:

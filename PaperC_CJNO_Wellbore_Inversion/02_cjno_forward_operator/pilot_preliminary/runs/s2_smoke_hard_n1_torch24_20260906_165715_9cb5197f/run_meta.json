@@ -1,0 +1,120 @@
+{
+  "run_id": "s2_smoke_hard_n1_torch24_20260906_165715_9cb5197f",
+  "created": "2026-09-06T16:57:15",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "train_code_digest": "184d5e899a5a815d5a0c459b9766a9c8a15676a4d9a1c27f609afd894aa463b3",
+  "stage1_code_digest": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "config_root": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/configs",
+  "resolved_config": {
+    "mode": "hard",
+    "n_train": 1,
+    "seed": 42,
+    "cfg": {
+      "schema_version": 1,
+      "study": "stage2_pilot_preliminary",
+      "split_seed": 20260906,
+      "device_policy": "torch24 env only (D:\\Anaconda\\envs\\torch24); CUDA if available",
+      "python_exe": "D:/Anaconda/envs/torch24/python.exe",
+      "torch_required": "2.4.x",
+      "data": {
+        "window_periods": 4.0,
+        "wellhead_decim": 4,
+        "node_max_len": 128,
+        "after_shut_in": true,
+        "note": "Training grid Nyquist is wellhead_fs/2 after decim=4 (≈ 40–50 Hz typical). 70 Hz cluster-band is NOT certifiable on this grid or on node labels (Nyquist ≈ 11 Hz).\n"
+      },
+      "model": {
+        "d": 64,
+        "fno_d": 64,
+        "fno_modes": 16,
+        "name": "PilotPrototype",
+        "gaps_vs_full_cjno": [
+          "no characteristic-coordinate segment propagator",
+          "no full-field trunk",
+          "memory vs MOC z_l(x,t) pointwise left pending (no interior snapshots)"
+        ]
+      },
+      "train": {
+        "optimizer": "adam",
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 4,
+        "max_epochs_smoke": 3,
+        "max_epochs_overfit256": 60,
+        "max_epochs_full_train": 40,
+        "early_stopping_patience": 12,
+        "early_stopping_on": "val_pert_l2",
+        "time_limit_s_overfit256": 3600,
+        "time_limit_s_full": 5400,
+        "grad_clip": 1.0,
+        "apply_hard_times": 4,
+        "seed_primary": 42,
+        "seeds_extra_if_budget": [
+          43,
+          44
+        ],
+        "stages": [
+          1,
+          8,
+          256,
+          "all_train"
+        ],
+        "nest_sizes": [
+          64,
+          128,
+          256,
+          512,
+          "all"
+        ],
+        "test_sealed_until_tuning_complete": true
+      },
+      "loss": {
+        "w_head": 1.0,
+        "w_node_soft": 0.25,
+        "w_hard": 0.25,
+        "report_absolute_and_perturbation": true,
+        "zero_signal_rule": "silent if ||pert||_2 / ||state||_2 < 1e-6; do not enlarge epsilon"
+      },
+      "eval": {
+        "metrics_frozen": [
+          "wellhead_abs_state_l2",
+          "wellhead_pert_l2",
+          "peak_trough",
+          "phase_err_over_4La",
+          "psd",
+          "node_H_Qm_Qp_sq",
+          "node_resid_dimless",
+          "finite_rollout"
+        ],
+        "cannot_certify": [
+          "band_decay_0.05_1_1_10_10_100",
+          "high_freq_peak_timing_70Hz",
+          "full_field_L2",
+          "memory_pointwise_vs_MOC_zl"
+        ],
+        "model_selection": "val_only",
+        "test_is_not_formal_ood": true
+      },
+      "fairness": {
+        "shared_split": true,
+        "shared_norm_from_train": true,
+        "shared_eval_code": true,
+        "param_target_rel_tol": 0.2,
+        "not_a_5seed_32trial_official_hpo": true
+      }
+    },
+    "smoke": true,
+    "device": "cuda"
+  },
+  "env": {
+    "python": "3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.4.0",
+    "cuda": true,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Ti"
+  },
+  "n_params": 256839,
+  "wall_clock_s": 4.580885887145996
+}

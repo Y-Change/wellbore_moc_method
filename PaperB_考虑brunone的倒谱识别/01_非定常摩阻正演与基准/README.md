@@ -1,26 +1,27 @@
-# 01 非定常摩阻正演与基准数据模块
+# 01 非定常摩阻正演与基准模块
 
 ## 模块定位
-本模块提供 Paper B 所需的所有正演基准时程数据，包含一维特征线法（MOC）在稳态 Darcy 摩阻与 Brunone 非定常摩阻下的对比仿真结果。
+负责井筒水击与裂缝耦合系统在稳态 Darcy、Brunone 瞬时加速度 (IAB) 与 Vardy–Brown 卷积加权 (WFB) 非稳态摩阻条件下的 MOC 正演数值模拟计算，为后续各分析模块提供基准时间序列。
 
-## 物理与数值设定
-1. **井筒参数**：
-   - 井长 $L = 5000\text{ m}$，内径 $D_p = 0.1397\text{ m}$，粗糙度 $K_D = 10^{-4}$
-   - 水击波速 $a = 1450\text{ m/s}$，CFL 条件数精确为 1（$\Delta x = a \cdot \Delta t = 1.45\text{ m}$，$\Delta t = 1\text{ ms}$）
-   - 初始稳态排量 $Q_0 = 0.0153\text{ m}^3/\text{s}$（对应流速 $V_0 = 1.0\text{ m/s}$）
-   - 井口停泵水击激励：流速在 $\Delta t$ 内阶跃至 0
+## 目录结构
+- `./code/`:
+  * `run_simulations.py`: 四缝多间距矩阵 A 仿真脚本（`velocity_step` 阶跃关井）；
+  * `run_n1_simulations.py`: 单缝机制核 $n=1$ 仿真脚本（`velocity_step` 阶跃关井，常数 $k \in \{0, 0.01, 0.02, 0.05\}$）；
+  * `run_tc_sweep.py`: 有限关井时间 $T_c$ 扫描仿真脚本（`ramp` 线性斜坡关井，$T_c \in \{1, 50, 200, 1000\}\,\mathrm{ms}$）；
+  * `run_p5_iab_wfb_comparison.py`: Darcy vs IAB vs WFB 模型三角对照仿真与时钟提取脚本。
+- `./data/`:
+  * `cases_manifest.csv`: 正演工况定义与参数配置清单；
+  * `p5_model_comparison_clocks.csv`: 模型等级三角对照四时钟与阻尼比全表；
+  * `README_Gantt_p5_IAB_WFB.md`: Gantt p5 模型等级三角对照审定定论笔记（审定定稿版）。
+- `./figures/`:
+  * `fig1_waveform_evolution.png`: 基础正演水击波形时程与衰减基准对比图；
+  * `fig_p5_iab_wfb_comparison.png`: 符合 SPEJ 规范的模型等级三角对照波形与时钟误差对比图件；
+  * `fig_p5_iab_wfb_comparison.svg`: 矢量格式图件。
 
-2. **裂缝节点参数**：
-   - 首缝深度 $X_1 = 4100\text{ m}$（往返几何到时 $2 X_1 / a \approx 5.655\text{ s}$，停泵起始时间 $t_s = 1.0\text{ s}$ 时几何首波到达井口时间为 $6.655\text{ s}$）
-   - 裂缝顺应系数 $C_f = 10^{-5}\text{ m}^2$，滤失系数 $k_{\text{leak}} = 10^{-4}\text{ m}^{2.5}/\text{s}$
-   - 裂缝簇间距 $D \in \{5, 10, 20, 50, 100\}\text{ m}$，裂缝数 $n = 4$（主矩阵）与 $n = 1, 2$（对照组）
-
-3. **摩阻模型**：
-   - **稳态摩阻**：$J_s = \frac{f \Delta t V |V|}{2 D_p}$，采用 Zigrand-Swami 显式摩阻系数。
-   - **Brunone 非定常摩阻**：$J_u = \frac{k}{2} \Delta t \left( \frac{\partial V}{\partial t} + a \text{ sign}(V) \left| \frac{\partial V}{\partial x} \right| \right)$。
-   - **Matrix A（机制隔离）**：固定 $k \in \{0.0, 0.01, 0.02, 0.05, 0.1, 0.2\}$。
-   - **Matrix B（实际流动）**：动态 $k(Re) = \frac{\sqrt{C(Re)}}{2}$，由局部瞬时雷诺数计算 Vardy 剪切衰减系数。
-
-## 数据文件说明
-- `波形/`：保存各工况的 `moc_timeseries.csv` 文件。
-- `工况/`：按 `D{间距}_k{常数}` 归档的完整原始结果副本。
+## 模型等级三角对照定论 (Gantt p5 审定定稿)
+1. **时钟分叉与偏深在 IAB 上显著，在 1D WFB 上不出现**：
+   - 阶跃关井下 Brunone IAB ($k=0.01$) 的相对偏深 $\delta x_{\text{cep}} = \mathbf{+9.43\,\mathrm{m}}$ 来源于全截面瞬时加速度对流耗散假说，是理论上限；纯 1D WFB 粘性壁面扩散下 $\delta x_{\text{cep}} = \mathbf{0.00\,\mathrm{m}}$。
+2. **$+9.43\,\mathrm{m}$ 严格限定为“IAB、$k=0.01$、阶跃关井”理论上界**：
+   - 主文倒谱相对偏移量统一使用 $+9.43\,\mathrm{m}$，不作为各类流态的恒定绝对值。
+3. **$[0, 9.4]\,\mathrm{m}$ 为水动力学模型等级间的理论差异范围，不得称为现场测量误差带**：
+   - 纯 1D WFB 平滑管壁给出理论下界（$\approx 0\,\mathrm{m}$），IAB 给出理论上界（$\approx 9.4\,\mathrm{m}$）；现场复杂井筒由于存在接箍突变与 2D/3D 紊流畸变，其实际偏深位于该理论区间内。

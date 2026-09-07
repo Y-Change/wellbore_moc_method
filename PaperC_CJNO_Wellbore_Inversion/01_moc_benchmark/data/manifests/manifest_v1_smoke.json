@@ -1,0 +1,112 @@
+{
+  "manifest_version": "v1",
+  "created": "2026-09-05T21:17:21",
+  "generator": {
+    "code_digest": "22bd35634a9162c400979967aece17e46bd22055ea8a8c8acb867c3ad177fcfd",
+    "config_digest": "cd72e48ec139ed87ed1d17161067a3316444db85cbfec6ab5e613a037db87634",
+    "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+    "run_id": "s1_pilot_20260905_211716_3f39359f",
+    "frozen": false
+  },
+  "design": {
+    "type": "maximin_lhs",
+    "seed": 20260905,
+    "n": 8,
+    "n_requested": 8,
+    "n_candidates": 2
+  },
+  "splits": {
+    "pilot": 8
+  },
+  "numerics": {
+    "Nx_ref": 256,
+    "Cr_target": 1.0,
+    "friction_model": "zvb_rec",
+    "window_periods": 3.0,
+    "smoke": true
+  },
+  "cases": [
+    {
+      "case_id": "pilot_00001",
+      "group_id": "4959_7_29.9_0.462",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00001.npz",
+      "sha256": "b2a61da831dff10210b3484e172569d0f2e7edc117612182873fe2cc62867d38",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.5137241999909747
+    },
+    {
+      "case_id": "pilot_00000",
+      "group_id": "3639_6_28.6_0.714",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00000.npz",
+      "sha256": "5f64fdc5217d6e166d4b43d72ca72e2915a06c011547f0dde103f7d202e13af0",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.5622176000033505
+    },
+    {
+      "case_id": "pilot_00003",
+      "group_id": "4290_5_15.6_0.384",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00003.npz",
+      "sha256": "3182b55a357deeec6577fc7f3951de6ecaab4fa7ccb84c869ebfa9f542241bdc",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.2491926000220701
+    },
+    {
+      "case_id": "pilot_00002",
+      "group_id": "4740_12_36.3_0.104",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00002.npz",
+      "sha256": "c55d1cfe173f5a895572da0efdc0622d1de3e7b1c18d6e898092293f91526b59",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.47069799999007955
+    },
+    {
+      "case_id": "pilot_00004",
+      "group_id": "pilot_00004",
+      "split": "pilot",
+      "file": "",
+      "sha256": "",
+      "status": "rejected",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.29980560002150014
+    },
+    {
+      "case_id": "pilot_00006",
+      "group_id": "4236_4_19.6_0.047",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00006.npz",
+      "sha256": "caf8b6b5b7e3c12acb1adcb102c386d3e0436f1cc8497b58bd61ee97ee5b2791",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.18347820002236404
+    },
+    {
+      "case_id": "pilot_00005",
+      "group_id": "3124_11_22.9_0.188",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00005.npz",
+      "sha256": "fb5320fa91823fea222d667d656ee24fddf329a23cc130b2b6c8867bd2182296",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.37215400001150556
+    },
+    {
+      "case_id": "pilot_00007",
+      "group_id": "3394_10_13.4_0.128",
+      "split": "pilot",
+      "file": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/pilot_2000/smoke/pilot_00007.npz",
+      "sha256": "7cfd6b67ec5fdb5a2d6673b5e3a8cc20241e2295a185feb7861a930f8242535b",
+      "status": "ok",
+      "newton_fail_count": 0,
+      "wall_clock_s": 0.20376999999280088
+    }
+  ],
+  "failures": [],
+  "digest": "d6711dd5c50563f2032de120ebb4da414bdc185d1956ef23507218492f5bae64"
+}

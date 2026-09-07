@@ -1,0 +1,133 @@
+{
+  "created": "2026-09-06T16:45:41",
+  "scope": "stage2_pilot_preliminary",
+  "does_not_claim": [
+    "stage1_formal_acceptance",
+    "H1",
+    "formal_OOD",
+    "full_field_accuracy"
+  ],
+  "source_manifest": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/manifests/manifest_v1.json",
+  "source_generator": {
+    "code_digest": "22bd35634a9162c400979967aece17e46bd22055ea8a8c8acb867c3ad177fcfd",
+    "config_digest": "cd72e48ec139ed87ed1d17161067a3316444db85cbfec6ab5e613a037db87634",
+    "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+    "run_id": "s1_pilot_20260905_211730_8601721a",
+    "frozen": true
+  },
+  "stage1_code_digest_now": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "train_code_digest": "3885cdd2beaf7a8f63efb48b76be0b35181be39d50f9366693ee2e31cc37e2f5",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "env": {
+    "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.2.0+cpu",
+    "cuda": false,
+    "device": "cpu"
+  },
+  "status_hist": {
+    "ok": 1896,
+    "rejected": 104
+  },
+  "n_ok_manifest": 1896,
+  "n_rejected": 104,
+  "n_file_missing": 0,
+  "n_sha256_mismatch": 0,
+  "n_deep_fail": 0,
+  "n_usable": 1896,
+  "deep_failures": [],
+  "rejected_domain_truncation": {
+    "n": 104,
+    "rule": "steady wellhead pressure outside [5e6, 1.2e8] Pa",
+    "params_retained_in_manifest": false,
+    "implication": "usable 1896 cases are a truncated prior, not the original LHS domain"
+  },
+  "formal_smoke_excluded": true,
+  "fields_actually_saved": {
+    "wellhead_full_rate": true,
+    "node_H_Qm_Qp_sq_pc": true,
+    "node_z_memory": true,
+    "grid_in_meta_json": true,
+    "observation_waveform": false,
+    "full_field_snapshots": false,
+    "first_class_grid_json": false
+  },
+  "sampling": {
+    "wellhead_dt_s_median": 0.0028429031372070312,
+    "node_dt_s_median": 0.045490264892578125,
+    "node_decim_median": 16.0,
+    "nyquist_wellhead_hz_median": 175.87657128453043,
+    "nyquist_node_hz_median": 10.991363379066549,
+    "cannot_certify_70Hz_on_node_labels": true,
+    "upsample_does_not_add_bandwidth": true
+  },
+  "grid_cr": {
+    "Cr_target": 1.0,
+    "frac_all_segments_Cr_eq_1": 0.0,
+    "seg_Cr_min_median": 0.879206494021161,
+    "note": "Cr_target=1 does not imply every short cluster-gap segment has Cr=1"
+  },
+  "supervision_scope": {
+    "round1_targets": [
+      "wellhead p_head,Q_head at native dt",
+      "saved node traces at node_decim≈16",
+      "saved node_z at node times"
+    ],
+    "not_available": [
+      "full-field H(x,t),Q(x,t)",
+      "observation-chain p_obs",
+      "per-perforation q_m(t) (only sum)",
+      "interior memory z(x,t)"
+    ],
+    "do_not_interpolate_nodes_as_full_field": true
+  },
+  "split": {
+    "seed": 20260906,
+    "counts": {
+      "train": 1514,
+      "val": 191,
+      "test": 191
+    },
+    "target": {
+      "train": 1516,
+      "val": 190,
+      "test": 190
+    },
+    "leakage_groups": [],
+    "rule": "whole case/group in one split; no time-window leakage"
+  },
+  "train_only_stats": {
+    "N_hist": {
+      "4": 157,
+      "5": 165,
+      "6": 162,
+      "7": 167,
+      "8": 167,
+      "9": 174,
+      "10": 174,
+      "11": 174,
+      "12": 174
+    },
+    "p_head0_min": 5170312.0,
+    "p_head0_max": 119525544.0,
+    "normalization_must_use_train_only": true
+  },
+  "current_goldens_newton_gate": {
+    "value": null,
+    "threshold": 0.999,
+    "comparison": ">",
+    "status": "PENDING",
+    "Cr": 1.0,
+    "notes": "filled by generate_dataset.py --pilot; formal Sobol is blocked until PASS"
+  },
+  "historical_notes_verified": {
+    "pilot_2000_ok_1896_rej_104": true,
+    "formal_30k_waveforms_absent": true,
+    "unit_locks_40_pass": true,
+    "generator_tests_now": "27 pass / 2 fail because goldens Newton gate is PENDING (smoke overwrite)",
+    "production_kernel_M": 12,
+    "brunone_locked": "vitkovsky2000",
+    "bergant_is_rec_vs_direct_not_experiment": true
+  }
+}

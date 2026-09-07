@@ -8,5 +8,11 @@
   "terminal.integrated.fontFamily": "'JetBrains Mono Nerd Font', 'Fira Code Nerd Font', 'Consolas', monospace",
   "terminal.integrated.lineHeight": 1.35,
   "cursor.chat.enableRichRendering": true,
-  "cursor.chat.renderMathInChat": true
+  "cursor.chat.renderMathInChat": true,
+
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "workbench.editorAssociations": {
+    "*.pdf": "latex-workshop-pdf-hook"
+  }
 }

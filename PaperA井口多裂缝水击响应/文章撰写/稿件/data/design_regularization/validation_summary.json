@@ -1,0 +1,81 @@
+{
+  "calibration": {
+    "gamma_by_spacing": {
+      "10.0": 0.4970479160002745,
+      "20.0": 0.6827225382177525,
+      "30.0": 0.7386326362069129,
+      "40.0": 0.7296689719912283,
+      "50.0": 0.6953857213972761,
+      "60.0": 0.665613730600812,
+      "70.0": 0.4887470655418926,
+      "80.0": 0.40543486066445406,
+      "90.0": 0.3967417607710481,
+      "100.0": 0.39305672975763434
+    },
+    "gain_low": 0.3337301893541639,
+    "gain_high": 1.2370962459098875,
+    "focus_fwhm_m": 5.0
+  },
+  "n_geometry_transfer_cases": 300,
+  "n_negative_control_cases": 36,
+  "method_summary": {
+    "amplitude_only": {
+      "n_rows": 336,
+      "mean_f1_10m": 0.8755248539781102,
+      "separation_rate": 0.3869047619047619,
+      "count_mae": 1.1130952380952381,
+      "median_localization_error_m": 4.547473508864641e-13,
+      "median_outside_energy_ratio": 0.8911201318325556
+    },
+    "design_only": {
+      "n_rows": 336,
+      "mean_f1_10m": 0.9912676609105182,
+      "separation_rate": 0.9136904761904762,
+      "count_mae": 0.08928571428571429,
+      "median_localization_error_m": 4.547473508864641e-13,
+      "median_outside_energy_ratio": 5.079182055539056e-14
+    },
+    "focus_only": {
+      "n_rows": 336,
+      "mean_f1_10m": 0.991891243676958,
+      "separation_rate": 0.9196428571428571,
+      "count_mae": 0.08035714285714286,
+      "median_localization_error_m": 4.547473508864641e-13,
+      "median_outside_energy_ratio": 1.0997563259607057e-12
+    },
+    "full": {
+      "n_rows": 336,
+      "mean_f1_10m": 0.9704872508443937,
+      "separation_rate": 0.7619047619047619,
+      "count_mae": 0.3392857142857143,
+      "median_localization_error_m": 4.547473508864641e-13,
+      "median_outside_energy_ratio": 6.629269836365057e-13
+    },
+    "raw": {
+      "n_rows": 336,
+      "mean_f1_10m": 0.9098103052409774,
+      "separation_rate": 0.45535714285714285,
+      "count_mae": 1.0922619047619047,
+      "median_localization_error_m": 4.547473508864641e-13,
+      "median_outside_energy_ratio": 0.8933587572795687
+    }
+  },
+  "best_baseline": "design_only",
+  "paired_f1_delta_vs_best_baseline": {
+    "mean": -0.01971239871239872,
+    "ci_low": -0.025309806859806865,
+    "ci_high": -0.014261788211788211
+  },
+  "inactive_false_activation_rate": 0.9166666666666666,
+  "median_localization_delta_full_minus_raw_m": 0.0,
+  "improved_spacing_bands": 1,
+  "gate_checks": {
+    "f1_gain_at_least_0.05": false,
+    "paired_bootstrap_ci_low_above_zero": false,
+    "inactive_false_activation_at_most_0.05": false,
+    "median_localization_degradation_at_most_1m": true,
+    "improves_at_least_two_spacing_bands": false,
+    "full_better_than_key_ablations": false
+  },
+  "promote_to_main_method": false
+}

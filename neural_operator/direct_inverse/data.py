@@ -189,7 +189,7 @@ def audit_cases(data_dir: str, config: DataConfig) -> Tuple[List[Dict], Dict]:
                     raise ValueError(f"missing fields {missing}")
                 t = np.asarray(npz["t"], dtype=float)
                 pressure = np.asarray(npz["H_wh"], dtype=float)
-                x_f = np.asarray(npz["x_f"], dtype=float)
+                x_f = np.asarray(npz["x_f_aligned"] if "x_f_aligned" in npz else npz["x_f"], dtype=float)
                 cf = np.asarray(npz["Cf"], dtype=float)
                 kleak = np.asarray(npz["kleak"], dtype=float)
                 n_frac = int(npz["n_frac"])

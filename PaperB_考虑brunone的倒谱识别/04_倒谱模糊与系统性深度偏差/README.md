@@ -1,26 +1,34 @@
 # 04 倒谱分析特性基础响应模块
 
 ## 模块定位
-本模块深入分析非稳态（非定常）摩阻对**倒谱分析（Cepstral Analysis）作为信号处理变换工具**所带来的本征影响。聚焦于谱峰形态、倒时轴（Quefrency）峰位演变、品质因子 Q、对数非线性响应以及分析窗敏感性，剥离具体的下游判别器与检测算法。
+本模块深入解剖倒谱变换（Cepstral Analysis）作为一个已有估计器，在非稳态耗散子波输入下产生特征峰形态畸变与系统性测距偏差的物理与信号机理，并评估窗型、窗长与输入通道对倒谱测距的影响。
 
-## 核心分析维度与物理/数学机理
-1. **倒谱特征峰形态演变与钝化（Morphology & Smearing）**：
-   - 倒谱变换依赖于对数功率谱 $\ln|Y(f)|^2$ 中由周期性回声构成的尖锐梳状谐波；
-   - 非稳态阻尼对高频的强烈耗散抹平了高频梳状谐波，逆傅里叶变换（IFFT）无法有效积聚 Delta 锐脉冲能量，使倒谱峰由尖峰退化为宽缓包络（半高宽展宽，Q-factor 骤降）。
+## 目录结构
+- `./code/`:
+  * `compute_cepstrum_clocks.py`: 统一倒谱变换与 $|C(\tau)|$ 极值拾取脚本；
+  * `evaluate_p2_onset_verdict.py`: 倒谱与 Onset 对照判决分析脚本。
+- `./data/`:
+  * `four_clocks_n1_vs_n4.csv`: 四时钟与倒谱时延对照表（自 02 模块同步）；
+  * `onset_correction_verdict.csv`: Onset 对照判决全表；
+  * `Tc_sweep_n1_k0.01.csv`: 有限关井时间下的倒谱时延响应表；
+  * `p5_model_comparison_clocks.csv`: 模型等级三角对照四时钟全表；
+  * `p6_window_sensitivity.csv`: 窗型 (Hann, Hamming, Rect) $\times$ 窗长 (10, 30, 50s) 倒谱敏感性表；
+  * `p6_input_channel_sensitivity.csv`: 输入通道 ($H$, $\mathrm{d}H/\mathrm{d}t$, 带通 $H$) 倒谱响应表；
+  * `blind_protocol_summary.csv`: 盲协议复算统计总表。
+- `./figures/`:
+  * `cepstrum_profiles_proof.png`: 倒谱剖面验证图（证伪正旁瓣误抓，确认负谷翻转）；
+  * `cepstrum_profiles_proof.svg`: 矢量图。
 
-2. **倒时轴（Quefrency $\tau$）峰位偏移机理**：
-   - 倒谱主峰横坐标 $\tau_{\text{peak}}$ 随非稳态阻尼增加呈现系统性右移；
-   - 探讨该倒时偏移在物理映射到几何距离时代表的视距离偏差。
+## 核心审定数据与三笔账分列核算
+严禁将不同工况下的倒谱偏差混为一谈，必须严格分为三笔账核算：
 
-3. **对数非线性运算与假峰/噪底响应**：
-   - 对数运算 $\ln(\cdot)$ 具有非线性幅值压缩特性，在频域幅值极小点（如多次波局部相消干涉处）具有极高敏感性；
-   - 探讨波包展宽重叠后，非稳态阻尼如何通过对数下凹点在倒频域激发虚假交调峰及抬升背景噪底，降低峰旁比（PVR）。
+1. **第 1 笔账（阶跃关井 + 弱常数 $k=0.01$ 单缝）**：
+   - 倒谱时钟绝对误差 $\Delta x_{\text{cep}} = \mathbf{+8.58\,\mathrm{m}}$，相对稳态基准后移量 $\delta x_{\text{cep}} = \mathbf{+9.43\,\mathrm{m}}$（与峰时钟 $+9.43\,\mathrm{m}$ 完全一致）；
+2. **第 2 笔账（现场斜坡关井 $T_c = 0.2 \sim 1.0\,\mathrm{s}$ + 弱常数 $k=0.01$）**：
+   - 倒谱时钟相对稳态漂移量随关井时间延长单调收敛：$T_c=200\,\mathrm{ms}$ 时为 $\delta x_{\text{cep}} = \mathbf{+5.80\,\mathrm{m}}$，$T_c=1000\,\mathrm{ms}$ 时为 $\delta x_{\text{cep}} = \mathbf{+5.08\,\mathrm{m}}$；偏深幅度缩小但**未完全消失**，稳定在 $\mathbf{5 \sim 7\,\mathrm{m}}$；
+3. **第 3 笔账（阶跃关井 + 动态 $k(Re)$ 单缝）**：
+   - 历史 1D 实倒谱估计器偏差为 $\Delta x_{\text{cep}} = \mathbf{+11.80\,\mathrm{m}}$，冻结全谱 $|C(\tau)|$ 倒谱估计器偏差为 $\Delta x_{\text{cep}} = \mathbf{+18.73\,\mathrm{m}}$；**10–20 m 系统性偏深仅特指动态 $k(Re)$ 下的盲倒谱估计器**。
 
-4. **同态加窗敏感性**：
-   - 考察不同时域窗长与窗函数形式在非稳态强衰减波形下的截断效应与谱泄露。
-
-## 辩证分析预案
-- **主假说**：阻尼越大，对数谱谐波越平滑，倒谱峰越宽越矮，$\tau_{\text{peak}}$ 向大倒时方向单调右移，PVR 单调下降。
-- **备选解释预案**：
-  1. *若某些工况出现反常假性尖峰*：依据同态滤波数学性质，解释为波包干涉相消导致对数谱出现深凹陷点，经 IFFT 激发出的非真实物理回声的伪谐波响应；
-  2. *若倒时漂移量与时域单点峰漂移量不完全一致*：解释为倒谱反映的是全频带谐波调制周期的综合加权平均，而非单一时域极大值的孤立时延。
+## 窗长与输入通道有效工作区间 (p6)
+1. **窗长有效区间**：有效窗长要求 $T_{\text{win}} \ge \mathbf{30\,\mathrm{s}}$（Hann/Hamming/Rect 窗下 $\delta x_{\text{cep}}$ 稳定聚集于 $+9.43 \sim +10.15\,\mathrm{m}$）；$T_{\text{win}}=10\,\mathrm{s} < 4L/a \approx 13.8\,\mathrm{s}$ 短于一个井筒基周期时，Hann 窗两端平滑压平了关井阶跃与尾部振荡，导致同态周期信息不足而出现漂移（$\delta x_{\text{cep}} = +2.18\,\mathrm{m}$）。
+2. **输入通道完全不变性**：$H(t)$、$\mathrm{d}H/\mathrm{d}t$ 及带通滤波水头 $H_{\text{bp}}(t)$ 三种通道提取的 $\delta x_{\text{cep}}$ 严格恒为 $\mathbf{+9.43\,\mathrm{m}}$。

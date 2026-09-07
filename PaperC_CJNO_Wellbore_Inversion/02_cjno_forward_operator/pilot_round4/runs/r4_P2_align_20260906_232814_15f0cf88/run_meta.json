@@ -1,0 +1,39 @@
+{
+  "run_id": "r4_P2_align_20260906_232814_15f0cf88",
+  "created": "2026-09-06T23:28:14",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "code_sha256": "3109fb3333b89e51e2dd39310920f85c081b582d52e26a5533bdc701c902e6d9",
+  "stage1_code_sha256": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "resolved_config": {
+    "stage": "P2b",
+    "predecessor_run_id": "r4_P2_causality_20260906_232440_43c7df5c",
+    "case_ids": [
+      "pilot_01342",
+      "pilot_00163",
+      "pilot_00543",
+      "pilot_01320"
+    ],
+    "kernel_sha": "ab0ed3bbc84e891e1e6e59fdfd124da25315db30af8bc7223d7c867426fe211b",
+    "source_sha256": [
+      "5418aff14897027956b7cd69342b77032f7e07b30c54d8111adcb73fbe7304d9",
+      "f829e19fadb926daf57bffc49c3ef79104e4820b5489c30c19e5ecdd6b94e771",
+      "01130f2ae7a6b0d503df451711df0a406365145d722b6af2529770756180bfcb",
+      "ef015e33e86f4cba9163dde8a35a4ede33233c7bcb672d76970ee98663e58472"
+    ],
+    "gate": 0.005,
+    "precondition": 0.002
+  },
+  "env": {
+    "python": "3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.4.0",
+    "cuda": true,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Ti"
+  },
+  "protocol": "r4_run_dir_only_no_latest",
+  "status": "completed",
+  "wall_clock_s": 113.35306000709534,
+  "ended": "2026-09-06T23:30:08"
+}

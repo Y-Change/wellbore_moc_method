@@ -1,0 +1,27 @@
+\begin{tabular}{lllccl}
+\hline
+Gate & $C_r$ & Value & Threshold & Status & Notes \\
+\hline
+Unit locks (C+/C−, dimensions, eigenstructure) & -- & 0 & < 0.5 & PASS & 40 passed \\
+Joukowsky peak $C_r=1$ & 1.0 & 0 & < 1e-06 & PASS & Cr=1 exact-to-roundoff \\
+Joukowsky period $C_r=1$ & 1.0 & 1.554e-16 & < 1e-06 & PASS & Cr=1 exact-to-roundoff \\
+Shunt $\Gamma$ $C_r=1$ & 1.0 & 6.702e-10 & < 0.01 & PASS & Γ_an=-0.36367, Γ_est(area)=-0.36367, Γ_peak=-0.36367 \\
+RCI $Z_b(s)$ $C_r=1$ & 1.0 & 0.0006835 & < 0.01 & PASS & peak-band f≈0.25 Hz \\
+Bergant 2001 Zielke envelope $C_r=1$ & 1.0 & 0.0008408 & < 0.05 & PASS & rec vs direct Zielke envelope on Bergant 2001 Case 1 apparatus; Brunone not mixe \\
+Bergant first peak vs Joukowsky $C_r=1$ & 1.0 & 0.02311 & < 0.05 & PASS & first peak vs aV0/g (finite 9 ms closure) \\
+TMM resonance $C_r=1$ & 1.0 & 0.0002708 & < 0.005 & PASS & n_matched=6 \\
+Richardson order (Darcy, $C_r=1$) & 1.0 & 2.493 & >= 1.8 & PASS & single-pipe Darcy cosine shut-in; peak-Richardson; L2-order=1.796 (diagnostic) \\
+Three-grid peak diff $C_r=1$ & 1.0 & 9.294e-05 & < 0.005 & PASS &  \\
+First-arrival diff $C_r=1$ & 1.0 & 0.0001526 & < 0.002 & PASS &  \\
+Mass residual $C_r=1$ & 1.0 & 9.994e-11 & < 1e-06 & PASS & node |Q--Q+-Σq|/Q_scale; global volume audit=1.685e-03 \\
+Port energy imbalance $C_r=1$ & 1.0 & 1.104e-06 & < 0.0001 & PASS &  \\
+Kernel fit error & -- & 0.01141 & < 0.02 & PASS & M=12 \\
+Kernel $L_2$ (direct vs recursive) & -- & 0.008156 & < 0.01 & PASS & 1D J_u history \\
+Kernel phase lag & -- & 0.3819 & < 1 & PASS & 1D J_u history \\
+Newton convergence (pilot 2000) & 1.0 & --- & > 0.999 & PENDING & filled by generate_dataset.py --pilot; formal Sobol is blocked until PASS \\
+Brunone envelope (separate) & 1.0 & 0.998 & report & REPORT & LOCKED vitkovsky2000, k=0.03450; W_unsteady=3.4861e-02 J; reported separately, N \\
+Brunone $W_u$ sign (locked convention) & 1.0 & 0 & < 0.5 & PASS & W_u=3.4861e-02 J \\
+\hline
+\end{tabular}
+
+% run_id=s1_validate_20260906_161609_e4f95858 | digest=c4295735

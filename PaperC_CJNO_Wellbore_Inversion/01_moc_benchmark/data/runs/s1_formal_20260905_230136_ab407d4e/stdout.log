@@ -1,0 +1,28 @@
+[23:01:38] building formal design smoke=True design_only=False
+[23:01:38] design n_id=16 n_ood=8 splits={'train': 8, 'val': 4, 'id_test': 4, 'ood': 8}
+[23:01:38] wrote E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\data\sobol_30000\smoke\design_smoke.json
+[23:01:38] simulating 24 cases workers=4
+[23:01:40]   smoke_00003 ok nfail=0
+[23:01:40]   smoke_00000 ok nfail=0
+[23:01:40]   smoke_00001 ok nfail=0
+[23:01:41]   smoke_00002 ok nfail=0
+[23:01:41]   smoke_00004 ok nfail=0
+[23:01:41]   smoke_00005 ok nfail=0
+[23:01:41]   smoke_00006 ok nfail=0
+[23:01:41]   smoke_00008 ok nfail=0
+[23:01:41]   smoke_00010 ok nfail=0
+[23:01:41]   smoke_00009 ok nfail=0
+[23:01:41]   smoke_00007 ok nfail=0
+[23:01:41]   smoke_00011 ok nfail=0
+[23:01:41]   smoke_00013 ok nfail=0
+[23:01:41]   smoke_00014 ok nfail=0
+[23:01:41]   smoke_00015 ok nfail=0
+[23:01:41]   smoke_00012 ok nfail=0
+[23:01:42]   smoke_ood_dense_spacing_0000 ok nfail=0
+[23:01:42]   smoke_ood_sparse_spacing_0000 ok nfail=0
+[23:01:42]   smoke_ood_many_clusters_0000 ok nfail=0
+[23:01:42]   smoke_ood_tail_viscosity_0000 ok nfail=0
+[23:01:42]   smoke_ood_tail_compliance_0000 ok nfail=0
+[23:01:42]   smoke_ood_deleted_cluster_0000 ok nfail=0
+[23:01:42]   smoke_ood_impedance_jump_0000 rejected nfail=0
+[23:01:42]   smoke_ood_uncooccurring_0000 ok nfail=0

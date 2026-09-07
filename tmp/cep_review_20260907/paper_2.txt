@@ -1,0 +1,1264 @@
+Neural operator-enabled forward and inverse modeling of laser-induced 
+surface acoustic waves and applications in nondestructive evaluation
+Zaiwei Liu , Zhongqing Su
+*
+Department of Mechanical Engineering, The Hong Kong Polytechnic University, Kowloon, Hong Kong Special Administrative Region
+ARTICLE INFO
+Keywords:
+Laser-induced surface acoustic wave
+Subsurface structure
+Neural operator
+Elastic wave propagation
+Nondestructive evaluation
+ABSTRACT
+Laser-induced surface acoustic wave (SAW)-driven nondestructive evaluation offers high-resolution, non-contact 
+characterization of subsurface microstructures. However, its practical application is often limited by the high 
+computational costs associated with traditional numerical simulation methods. Recently, machine learning has 
+emerged as an attractive alternative to accelerate these simulations. In this paper, we develop a neural operator- 
+enabled framework for both forward and inverse modeling of laser-induced SAW propagation. A general dataset 
+with randomly generated subsurface structures is used to evaluate and quantify the model ’ s performance in both 
+wave propagation and subsurface inversion problems. Three potential applications are then investigated: sub -
+surface crack localization, multilayer structure characterization and polycrystalline grain imaging. The results 
+demonstrate that the neural operator-enabled model achieves satisfactory accuracy even in the presence of noise 
+and source waveform variations, underscoring its potential as an efficient and accurate surrogate model for 
+practical nondestructive evaluation using laser-induced SAWs.
+1. Introduction
+Ultrasonic guided waves have attracted significant interest across a 
+broad spectrum of fields, ranging from nondestructive evaluation and 
+structural health monitoring of industrial systems ( Tian et al., 2019 ; 
+Capineri and Bulletti, 2021 ; Yang et al., 2023 ) to fundamental research 
+on various waveguide configurations ( Feng et al., 2024 ; Hess et al., 
+2014 ; M. Liu et al., 2024 ; Wu et al., 2023 ) and advanced theoretical 
+modeling methods ( Nicoli et al., 2022 ; X. Liu et al., 2024 ; Hua et al., 
+2024 ; Liu et al., 2025 ). Acoustic waves can be guided by different types 
+of boundaries, which ultimately determines their application scenarios. 
+Surface acoustic waves (SAWs) ( Rayleigh, 1885 ) are guided waves that 
+use the surface as a waveguide, confining elastic energy to the surface 
+with a penetration depth that depends on the wavelength. This unique 
+characteristic makes broadband SAWs particularly effective for char -
+acterizing subsurface features of materials or structures. While SAWs are 
+typically excited by piezoelectric transducers, advances in laser tech -
+nology have enabled the rapid development of laser-induced SAWs, 
+which offer significantly higher spatial resolution and enable 
+non-contact measurement, leading to widespread applications ( Hess 
+et al., 2014 ; Liu et al., 2022 ; L. Ding et al., 2023 ; Huang et al., 2023 ; 
+Baher et al., 2024 ; Cheng et al., 2024 ; Jia et al., 2024 ; Zarei and Pilla, 
+2024 ).
+Research on laser-induced SAW-driven nondestructive evaluation is 
+mainly based on analytical modal analysis ( Liu et al., 2022 ; Huang et al., 
+2023 ; Jia et al., 2024 ; Baher et al., 2024 ) or numerical dynamic analysis 
+( Cheng et al., 2024 ; L. Ding et al., 2023 ; Zarei and Pilla, 2024 ) of waves. 
+Modal analysis, or more specifically dispersion analysis, is valued for its 
+tractability of analysis and ease of implementation, but is often limited 
+in the types of features that can be detected compared to numerical 
+dynamics methods. Traditional numerical methods, such as the finite 
+difference ( Liu et al., 2021a ), finite element ( Cheng et al., 2024 ; L. Ding 
+et al., 2023 ; Zarei and Pilla, 2024 ) and spectral element ( Fiborek et al., 
+2022 ) methods, simulate wave propagation in complex media by dis -
+cretizing the elastic wave equation in time and space, approximating its 
+derivatives using finite-difference formulas or basis-function expansions 
+and associated parameters, and performing repeated forward model 
+runs. Although these methods can achieve high solution accuracy, they 
+usually incur significant computational cost, especially in inverse 
+problems, which greatly limits their application in real-world nonde -
+structive evaluation.
+Thanks to significant advances in artificial intelligence, particularly 
+in machine learning (ML), many researchers have begun exploring ML- 
+enabled approaches to address wave propagation problems. A 
+* Corresponding author.
+E-mail address: zhongqing.su@polyu.edu.hk (Z. Su). 
+Contents lists available at ScienceDirect
+Engineering Applications of Artificial Intelligence
+journal homepag e: www.else vier.com/loc ate/engap pai
+https://doi.org/10.1016/j.engappai.2025.112170
+Received 20 February 2025; Received in revised form 16 July 2025; Accepted 30 August 2025  
+Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+Available online 5 September 2025 
+0952-1976/© 2025 Elsevier Ltd. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+prominent example is the physics-informed neural network (PINN), 
+which uses a deep neural network to approximate the solution of the 
+equation and leverages auto-differentiation to compute exact de -
+rivatives for optimizing a physics-informed loss function. PINNs have 
+achieved remarkable success in solving various wave propagation 
+problems, such as the acoustic and elastic wave equations in isotropic 
+and anisotropic media ( Song et al., 2021 ; Rasht-Behesht et al., 2022 ; Y. 
+Ding et al., 2023 ; Ren et al., 2024 ; Thakur et al., 2024 ; Guo et al., 2025 ), 
+the Helmholtz equation ( Zhang et al., 2025 ) and the shallow water 
+equation ( Hou et al., 2024 ). However, PINNs are typically limited to 
+solving a specific problem instance and struggle to generalize across 
+different scenarios, such as changes in source characteristics or velocity 
+structures, without re-optimization. This constraint hinders their effec -
+tiveness as surrogate models for practical applications.
+Neural operators have emerged as a paradigm for learning solution 
+operators rather than solving individual physical systems. These neural 
+networks treat both inputs and outputs as functions and operate directly 
+on them. For wavefield prediction problems, neural operators learn the 
+solution operators of a family of partial differential equations governing 
+wave propagation. Specifically, the input can encompass various ma -
+terial properties, source parameters, and initial and boundary condi -
+tions, while the output represents the corresponding wavefield 
+solutions, capturing both spatial and temporal information. Currently, 
+the Fourier Neural Operator ( Li et al., 2021 ) and its variants, such as the 
+U-shaped Neural Operator ( Rahman et al., 2023 ), the Group-equivariant 
+Fourier Neural Operator ( Helwig et al., 2023 ) and the Factorized Fourier 
+Neural Operator ( Tran et al., 2023 ), have been increasingly applied to 
+such problems in geophysics ( Lehmann et al., 2023 , 2024 ; Yang et al., 
+2021 ), gradually demonstrating superior performance.
+In this paper, we aim to investigate the potential applications of 
+neural operators in ultrasonic nondestructive evaluation. Specifically, 
+we develop a framework for both forward and inverse modeling of laser- 
+induced SAW propagation using neural operators. The remainder of this 
+paper is organized as follows: Section 2 presents the methodology, 
+including dataset generation, operator-enabled modeling and training 
+strategies; Section 3 evaluates the performance of neural operators on a 
+general example, where subsurface features are characterized by a 
+random velocity distribution; in Section 4 , we apply the neural operator- 
+enabled approach to tackle challenges encountered in practical laser- 
+induced SAW-driven nondestructive evaluation; conclusions are finally 
+presented in Section 5 .
+2. Methods
+This section aims to design neural operators for forward and inverse 
+modeling of laser-induced SAWs, with a focus on uncovering the 
+intrinsic relationships between SAW waveform evolution and subsurface 
+material properties in a supervised learning setting. The designed op -
+erators are intended to serve as highly accurate and efficient surrogates 
+to traditional numerical solvers in applications of ultrasonic testing.
+2.1. Laser-induced surface acoustic wave propagation
+The generation and propagation of SAWs induced by pulsed laser 
+radiation in an inhomogeneous isotropic medium can be described by 
+solving the governing equation (1) subject to the traction-free boundary 
+condition (2) , which are given as follows: 
+∇ ⋅
+[
+λ (∇ ⋅ u ) I + μ
+ 
+∇ u + (∇ u )
+T
+)]
++ f = ρ
+∂
+2
+u
+∂ t
+2
+,
+(1) 
+[
+λ (∇ ⋅ u ) I + μ
+ 
+∇ u + (∇ u )
+T
+)]
+⋅ n = 0 , (2) 
+where u ( x , y , z , t ) is the displacement of the material particle at position 
+( x , y , z ) and time t , ρ ( x , y , z ) is the density, λ ( x , y , z ) and μ ( x , y , z ) are the 
+Lam ´e parameters, f ( x , y , z , t ) represents the equivalent mechanical load 
+at the surface area of laser illumination, and n ( x , y , z ) is the outward 
+normal vector on the boundary surface. The nabla symbol ∇ represents 
+the vector differential operator, and the superscript T indicates the 
+transpose for vectors.
+When a laser pulse irradiates a solid surface, the surface region ab -
+sorbs the electromagnetic energy from the laser, resulting in a localized 
+temperature rise. This rapid increase in surface temperature induces 
+thermal expansion, generating ultrasonic waves. To enhance the signal- 
+to-noise ratio (SNR) while maintaining a low energy density to avoid 
+ablation, the laser is often focused into a line source in detection ex -
+periments ( Jia et al., 2024 ; Liu et al., 2022 ). According to Achenbach 
+et al. ( Achenbach, 2003 ; Arias and Achenbach, 2003 ), a thermoelastic 
+thin line source on the surface of an isotropic material can be modeled as 
+a single dipole parallel to the surface, with its direction perpendicular to 
+the line source. The strength of the dipole is determined by the heat 
+input and material properties. The spatial variation of the dipole can be 
+neglected, and its temporal distribution is often approximated as 
+ 
+8 t
+3
+/ τ
+4
+)
+e
+  2 t
+2
+/ τ
+2
+, where τ represents the rise-time parameter of the laser 
+pulse. In this case, if the material along the propagation path of the 
+acoustic field generated by the line source exhibits negligible lateral 
+variation, Eq. (1) can be reduced to a two-dimensional (2D) form by 
+disregarding the y -direction.
+To generate the datasets for neural operator training, the propaga -
+tion of laser-induced SAWs governed by the 2D form of Eq. (1) is solved 
+numerically using the finite difference (FD) method-based software, 
+Deepwave ( Richardson, 2023 ) (see Fig. 1 (a)). The half-space propaga -
+tion domain is modeled as a 1.28 mm × 2.56 mm rectangle, with a total 
+simulation time of 1.28 μ s. The W formulation with the adjusted FD 
+approximations (W-AFDA) scheme ( Kristek et al., 2002 ) is applied on 
+the top side for modeling a free surface, and absorbing boundary con -
+ditions employing the convolutional perfectly matched layer (C-PML) 
+method ( Martin et al., 2008 ) are used on the other three sides, to 
+effectively simulate SAW propagation and minimize reflections. The 
+grid spacings Δ x and Δ z are set to 20 μ m, while the time step Δ t is set to 
+5 ns. A single equivalent laser source is placed at the upper-left corner of 
+the model, with τ = 150 ns, corresponding to a dominant frequency of 
+approximately 4 MHz for the generated SAWs, and 128 receivers, 
+matching the number of horizontal grid points, are uniformly distrib -
+uted along the entire top surface of the model to record the SAW 
+wavefield. To reduce the degrees of freedom while reflecting the prop -
+erties of real-world samples as accurately as possible, the values of 
+density ρ and Poisson ’ s ratio ν are fixed at 8000 kg/m
+3 
+and 0.3, 
+respectively, which are typical for metals. The only variable reflecting 
+inhomogeneity is chosen to be the shear wave velocity V
+S
+( x , z ) of the 
+material. The wavefield described by the vertical velocity component 
+V
+Z
+( x , z , t ) is recorded as the corresponding counterpart for training. In 
+this work, a total of four different types of datasets are generated, 
+including a general example for validation (Section 3 ) and three specific 
+examples for application (Section 4 ).
+2.2. Factorized Fourier Neural Operator
+An operator G : A → U denotes a mapping between two infinite- 
+dimensional function spaces A and U . The neural operator G
+θ
+, as a 
+generalization of standard deep neural networks to the operator setting, 
+is designed to learn such mappings using a finite collection of input- 
+output observations. It is usually formulated as the following iterative 
+architecture ( Li et al., 2020 , 2021 ): 
+u = G
+θ
+( a ) =
+ 
+Q ∘ L
+( L )
+∘⋯∘ L
+( 1 )
+∘ P
+)
+( a ) , (3) 
+where a ∈ A and u ∈ U represent the input and the solution, respec -
+tively, θ denotes the parameters of the neural operator, the symbol ∘ 
+represents the function composition, P is the uplift sub-network map -
+ping the input a to the initial latent representation z
+( 0 )
+, L
+( l )
+is the l -th 
+nonlinear operator layer, Q is the projection sub-network mapping the 
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+2 
+final latent representation z
+( L )
+to the output u , and L is the total number 
+of operator layers.
+The type of the operator layer L
+( l )
+is not unique, and one specific 
+form that has shown excellent performance in modeling elastic wave 
+propagation ( Lehmann et al., 2024 ) is the factorized Fourier layer ( Tran 
+et al., 2023 ): 
+L
+( l )
+ 
+z
+( l   1 )
+)
+= z
+( l   1 )
++ σ
+[
+W
+( l )
+2
+σ
+(
+W
+( l )
+1
+K
+( l )
+ 
+z
+( l   1 )
+)
++ b
+( l )
+1
+)
++ b
+( l )
+2
+]
+, (4) 
+where σ is a non-linear activation function, W
+( l )
+1 
+and W
+( l )
+2 
+are pointwise 
+linear operators parameterized as matrices, b
+( l )
+1 
+and b
+( l )
+2 
+are bias vectors, 
+and K
+( l )
+is the kernel integral operator that factorizes the computation 
+by performing one-dimensional Fast Fourier Transform (FFT) and in -
+verse FFT (IFFT) along each dimension d ∈ D , followed by summation: 
+K
+( l )
+ 
+z
+( l   1 )
+)
+=
+∑
+d ∈ D
+[
+IFFT
+ 
+R
+( l )
+d
+⋅ FFT
+d
+ 
+z
+( l   1 )
+))]
+,
+(5) 
+where R
+( l )
+d 
+is the Fourier-domain weight matrix.
+To serve as an accurate and efficient surrogate model for both for -
+ward and inverse modeling of laser-induced SAWs, the neural operator 
+in this work is designed as the Factorized Fourier Neural Operator (F- 
+FNO) ( Tran et al., 2023 ), as described above. The default configuration 
+includes 6 factorized Fourier layers, each with 24 channels, 16 low-order 
+Fourier modes preserved in the spatial dimensions, and 32 low-order 
+Fourier modes preserved in the temporal dimension. The activation 
+function employed is the Rectified Linear Unit (ReLU). The sub-network 
+P is used to expand the number of input channels to 24 through two 
+dense layers. Conversely, the sub-network Q projects the resulting 
+24-channel variable z
+( L )
+onto a single-channel physical variable of 
+interest.
+2.3. Neural operators for the forward and inverse problems
+According to the simulation strategy detailed in Section 2.1 , the 
+subsurface structure model, described by the shear wave velocity V
+S
+, has 
+a size of 64 × 128, concatenated with two coordinate grids for x and z . 
+The wavefield, represented by the vertical velocity V
+Z
+, has a size of 64 ×
+128 × 256, concatenated with the same coordinate grids and time t . To 
+reduce computational cost and better align with practical scenarios of 
+forward and inverse problems, only the surface wavefield is retained in 
+this study. In this case, the forward problem is to predict the propagation 
+of SAWs on a given subsurface structure excited by an equivalent laser 
+source. The input a for the forward problem is a variable of size 64 ×
+128 × 3, comprising three channels: the shear wave velocity V
+S
+, and the 
+x and z coordinates. The output u is a variable of size 64 × 256 × 1, 
+containing only the vertical velocity component V
+Z 
+as its single channel. 
+In contrast, the inverse problem aims to estimate the subsurface struc -
+ture from the observed SAW evolution. There are typically two ap -
+proaches to solve this problem: one is the optimization-based inversion, 
+which iteratively applies the forward operator by updating the struc -
+tural parameters to minimize the constructed misfit function, similar to 
+the full waveform inversion using traditional numerical solvers ( Rao 
+et al., 2020 ; Aktharuzzaman et al., 2024 ; Wu et al., 2025 ); the other is to 
+directly train a new inverse operator, which is simpler and more effi -
+cient. Here we adopt the latter approach, where the input a has a format 
+similar to that in the forward problem (64 × 256 × 3), consisting of V
+Z
+, x 
+and t channels, and the output is V
+S 
+with a size of 64 × 128 × 1. The 
+overall architecture of forward and inverse modeling is shown in Fig. 1
+(b).
+It is worth noting that the second dimension of input and output in 
+neural operators undergoes a transformation between space and time. 
+The resulting differences in size are handled by adding or removing zero 
+Fourier coefficients in the high-frequency part of R
+( l )
+d
+⋅ FFT
+d
+ 
+z
+( l   1 )
+)
+( Lehmann et al., 2024 ). Accordingly, the number of Fourier modes 
+preserved in the factorized Fourier layers is adjusted: 32 low-order 
+Fourier modes are preserved in the five layers adjacent to the 
+time-dependent variable, while 16 low-order Fourier modes are pre -
+served in the remaining layer adjacent to the space-dependent variable. 
+This results in the trained neural operator being capable of efficiently 
+Fig. 1. Schematic of (a) laser-induced SAW dataset generation and (b) neural operator architecture for forward and inverse modeling.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+3 
+mapping data between the depth and time dimensions.
+2.4. Training approach
+After applying appropriate feature scaling to the simulated dataset, 
+the neural operator-enabled model is trained in a supervised learning 
+setting. The dataset is divided into three subsets: 80 % for training, 
+which updates the neural operator parameters; 10 % for validation, 
+which monitors performance and mitigates overfitting; and the 
+remaining 10 % for testing, which evaluates the generalization capa -
+bility of the model. The training process employs the Adam optimizer 
+( Kingma and Ba, 2017 ) with hyperparameters β
+1
+= 0 . 9 and β
+2
+= 0 . 999 
+and the initial learning rate of 0.001, augmented with dynamic learning 
+rate scheduling, where the learning rate is halved after 10 epochs if the 
+validation loss plateaus. Additionally, convergence-driven early termi -
+nation is applied, with an early stopping patience of 60 epochs and a 
+tolerance threshold of 0.0001. The relative L
+1
+-norm error serves as the 
+default loss function. The batch size is set to 25, and the maximum 
+number of training epochs is set to 500.
+3. Validations
+To validate the effectiveness and evaluate the performance of the 
+forward and inverse neural operators for SAW field prediction and 
+subsurface structure imaging, we generate a dataset comprising 2000 
+samples, where the heterogeneous V
+S 
+models, characterized by a mean 
+velocity of 3000 m/s and a standard deviation of 600 m/s, are con -
+structed using the Gaussian random field method with the Matern kernel 
+( Rosofsky et al., 2023 ), with a smoothness parameter of ν = 1 and a 
+correlation length of l = 0 . 256 mm.
+Fig. 2 (b) and (a) present a representative subsurface structure and its 
+corresponding SAW field from the test subset, respectively. The trained 
+forward and inverse neural operators are applied to the example, 
+yielding the results shown in Fig. 2 (c) and (d). The SAW waveforms and 
+V
+S 
+profiles collected at three typical locations are directly compared 
+with true values in Fig. 2 (g) and (h). Additionally, Fig. 2 (e) and (f) show 
+the errors between the true and predicted values for the forward and 
+inverse problems. The results demonstrate that the forward operator 
+accurately predicts the generation and evolution of SAWs under pulsed 
+laser excitation, as well as the separation of surface skimming longitu -
+dinal waves from SAWs, with precise propagation velocity. The inverse 
+operator successfully reconstructs the large-scale subsurface structure 
+variations but does not accurately capture some high frequency details. 
+The subsurface structures closer to the surface are better predicted 
+compared to the deeper ones, which is consistent with the penetration 
+depth of the generated SAWs. For reference, Fig. 2 (i) presents complete 
+wavefield snapshots at some representative time points to illustrate the 
+interaction between SAWs and the subsurface structure.
+To quantify the accuracy of the forward operator, three quantitative 
+metrics are employed: the time-of-flight (ToF) error for quantifying 
+Fig. 2. Results for a test subset of the random V
+S 
+dataset. (a) and (b) Ground truth. (c) and (d) Predictions from the forward and inverse operators. (e) and (f) Errors. 
+(g) and (h) Comparison of true and predicted values at three typical positions. (i) Complete wavefield snapshots at some representative time points.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+4 
+wave velocity accuracy (Eq. (6) ), the cross-correlation coefficient for 
+assessing waveform evolution fidelity (Eq. (7) ), and relative FFT 
+amplitude of the waveform error for measuring spectral consistency (Eq. 
+(8) ): 
+ϵ
+ToF
+( x ) =
+1
+N
+∑
+N
+i = 1
+⃒
+⃒
+̂
+t
+( i )
+max
+( x )   t
+( i )
+max
+( x )
+⃒
+⃒
+, (6) 
+C
+V
+Z
+( x ) =
+1
+N
+∑
+N
+i = 1
+∑
+t
+(
+̂
+V
+( i )
+Z
+( x , t )   μ
+ˆ
+V
+( i )
+Z
+( x )
+)(
+V
+( i )
+Z
+( x , t )   μ
+V
+( i )
+Z
+( x )
+)
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅ ̅
+∑
+t
+(
+̂
+V
+( i )
+Z
+( x , t )   μ
+ˆ
+V
+( i )
+Z
+( x )
+)
+2
+∑
+t
+(
+V
+( i )
+Z
+( x , t )   μ
+V
+( i )
+Z
+( x )
+)
+2
+√ ,
+(7) 
+ϵ
+FFT
+( f ) =
+∑
+N
+i = 1
+∑
+x
+⃒
+⃒
+FFT
+ 
+̂
+V
+( i )
+Z
+( x , t )   V
+( i )
+Z
+( x , t )
+) ⃒
+⃒
+∑
+N
+i = 1
+∑
+x
+⃒
+⃒
+FFT
+ 
+V
+( i )
+Z
+( x , t )
+) ⃒
+⃒
+,
+(8) 
+where t
+( i )
+max
+( x ) = arg max
+t
+V
+( i )
+Z
+( x , t ) represents the time at which the SAW 
+signal reaches its maximum value at position x for sample i , μ
+V
+( i )
+Z
+( x ) =
+1
+N t
+∑
+t
+V
+( i )
+Z
+( x , t ) ( N
+t
+= 256) represents the mean amplitude of the SAW 
+signal at position x for sample i , f is the frequency, and N is the total 
+number of test samples. The quantities for the exact and predicted values 
+share the same symbols, but the predicted values are distinguished by a 
+hat.
+The inverse operator is evaluated using the following two metrics: 
+the cross-correlation coefficient to assess the similarity of the V
+S 
+profile 
+shape (Eq. (9) ), and the absolute error to quantify the accuracy of the V
+S 
+values (Eq. (10) ). Furthermore, to analyze depth-dependent recon -
+struction performance, the subsurface structure is divided into upper 
+and lower layers using 0.8 mm as the interface, and the metrics are 
+separately quantified for each layer. 
+C
+V
+S
+( x ) =
+1
+N
+∑
+N
+i = 1
+∑
+z
+(
+̂
+V
+( i )
+S
+( x , z )   μ
+ˆ
+V
+( i )
+S
+( x )
+)(
+V
+( i )
+S
+( x , z )   μ
+V
+( i )
+S
+( x )
+)
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅ ̅
+∑
+z
+(
+̂
+V
+( i )
+S
+( x , z )   μ
+ˆ
+V
+( i )
+S
+( x )
+)
+2
+∑
+z
+(
+V
+( i )
+S
+( x , z )   μ
+V
+( i )
+S
+( x )
+)
+2
+√ ,
+(9) 
+ϵ
+V
+S
+( x ) =
+1
+NN
+z
+∑
+N
+i = 1
+∑
+z
+⃒
+⃒ ̂
+V
+( i )
+S
+( x , z )   V
+( i )
+S
+( x , z )
+⃒
+⃒
+, (10) 
+where μ
+V
+( i )
+S
+( x ) =
+1
+N
+z
+∑
+z
+V
+( i )
+S
+( x , z ) represents the meanvalue of V
+S 
+profile at 
+position x for sample i , and N
+z
+= 40 for upper layer and N
+z
+= 24 for 
+lower layer.
+Fig. 3 presents the average results across all 200 test samples for the 
+6-layer, 24-channel configuration. It is observed in Fig. 3 (a) and (b) that 
+both the ToF error and cross-correlation coefficient degrade as the 
+propagation distance increases, with average values of 1 . 575 Δ t and 
+0.977, respectively. This deterioration is attributed to the increasing 
+distortion, spreading and attenuation of the acquired SAW waveform 
+due to scattering caused by the heterogeneous subsurface structure. The 
+relative waveform error in the frequency domain, shown in Fig. 3 (c), 
+demonstrates that the errors become more pronounced as the frequency 
+increases, despite the fundamental frequency being 4 MHz. The x -axis 
+range in Fig. 3 (c) corresponds to the effective bandwidth, defined by the 
+1/e threshold of the peak amplitude. The results in Fig. 2 (d) and Fig. 3 (c) 
+reflect the well-known spectral bias phenomenon, where neural net -
+works tend to first learn low-frequency components corresponding to 
+large-scale features ( Rahaman et al., 2019 ). Layer-wise evaluation re -
+sults of the inverse operator in Fig. 3 (d) and (e) show better accuracy in 
+the upper layer, with a mean correlation coefficient of 0.617 and ve -
+locity error of 265.8 m/s, compared to the lower layer (0.214 and 417.8 
+m/s, respectively). The upper-layer correlation degrades with propa -
+gation distance due to the increasing complexity in explaining the 
+far-field SAW waveform. In contrast, the other three quantitative results 
+in the inversion do not exhibit clear correlations with propagation dis -
+tance. Overall, despite a decline in the performance of both the forward 
+and inverse operators with increasing propagation distance, the results 
+remain within an acceptable range.
+As with conventional neural network training, hyperparameters in -
+fluence the performance of neural operators, with the number of chan -
+nels and layers being particularly impactful on the prediction of elastic 
+wave propagation ( Lehmann et al., 2024 ). We systematically evaluate 
+10 pairs of forward and inverse operators with different numbers of 
+channels and layers using the metrics defined in Eqs. (6) – (10) (e.g., 
+ToF), and quantitatively compare them with the default configuration 
+from Fig. 3 , as summarized in Fig. 4 . The results indicate that waveform 
+prediction accuracy consistently improves with larger architectures, 
+reaching an optimal balance at 24 layers and 6 channels. In contrast, the 
+inverse operators primarily depend on channel capacity, while varia -
+tions in layer depth result in only marginal fluctuations. To effectively 
+resolve SAW evolution details and capture more features in the V
+S 
+profile, a high-channel configuration ( ≥ 24 channels) is necessary. 
+Finally, the performance of the default forward and inverse configura -
+tions (24 layers and 6 channels) is evaluated across the training, vali -
+dation and test datasets using the ToF error and the cross-correlation 
+coefficient as metrics. As shown in Fig. 5 , the results for the three 
+datasets are comparable, indicating that the model in this study is not 
+subject to overfitting.
+4. Applications
+This section explores the practical potential of neural operators in 
+laser-induced SAW-driven nondestructive evaluation through three 
+representative case studies: subsurface crack localization with position 
+and orientation estimation (Section 4.1 ), gradient characterization of 
+multilayer structures (Section 4.2 ), and grain structure imaging in 
+polycrystalline materials (Section 4.3 ). Each case systematically ad -
+dresses both the forward and inverse problems of wave propagation 
+while examining key practical factors that may affect the neural oper -
+ator performance, including measurement noise, pulse source waveform 
+Fig. 3. Quantification of the accuracy of the neural operators on the test subset. 
+(a) ToF error, (b) cross-correlation coefficient, and (c) relative FFT amplitude of 
+the waveform error for the forward operator. (d) Cross-correlation coefficient 
+and (e) velocity error for the inverse operator.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+5 
+variations caused by material heterogeneity or laser ablation.
+4.1. Subsurface cracks
+The first case study examines a homogeneous medium containing a 
+rectangular subsurface crack, which is a representative application of 
+laser-induced SAWs ( Hess et al., 2014 ; Qin et al., 2023 ; Mao et al., 2024 ; 
+Cheng et al., 2025 ). Since the surface typically experiences the highest 
+stress levels, material degradation often initiates there, eventually 
+leading to fatigue or stress corrosion cracking. Real cracks are typically 
+not fully open but have partially contacting surfaces, so they can be 
+simply modeled as the regions of reduced stiffness or velocity ( Hess 
+et al., 2014 ; Shukla et al., 2020 ). Here, a dataset of 500 samples is 
+generated, where each crack is characterized by a 0.64 mm × 0.08 mm 
+rectangular region with an associated velocity V
+S 
+of 1500 m/s. The crack 
+center positions and orientations are randomly assigned but constrained 
+within the SAW sensitivity region ( z < 0.48 mm).
+Fig. 6 presents the results for a representative test subset. In Fig. 6 (a), 
+the scattered acoustic field clearly depicts the incident, transmitted and 
+reflected SAWs near the crack. However, due to generally weak reflec -
+tion signals across the dataset, the trained forward operator fails to 
+capture these crack-related features, indicating that direct inversion of 
+cracks using traditional forward models would likely be unsuccessful. In 
+contrast, the inverse operator automatically and effectively learns the 
+relationship between the weak scattered field and the crack ’ s position 
+and orientation, as demonstrated in Fig. 6 (d). Notably, due to abrupt 
+velocity changes at the crack in the V
+S 
+data, the loss function used during 
+the inverse operator training is adjusted to a relative L
+2
+-norm error to 
+Fig. 4. Accuracy of the (a) forward and (b) inverse operators versus the number of layers and channels. The shaded areas correspond to the default configuration.
+Fig. 5. Evaluation of the default (a) forward and (b) inverse models on training, validation and test datasets.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+6 
+improve training efficiency. This adjustment is also applied in subse -
+quent cases with similar conditions.
+In practice, the quality of the SAW field used for inversion can be 
+affected by instrument limitations or noise from various sources. To test 
+the robustness of the inverse operator, Gaussian white noise with SNR 
+levels of 24, 12 and 6 dB is added to the signal. Fig. 7 compares the 
+inverse operator ’ s subsurface crack imaging predictions under these 
+noise conditions. The results clearly indicate that the quality of crack 
+imaging is directly linked to the quality of the scattered field signal, with 
+cracks becoming indistinguishable only when they are completely 
+overwhelmed by noise. These findings confirm that the trained inverse 
+operator is highly robust to input noise.
+All training and testing are conducted under the assumption of a 
+fixed equivalent force source. However, the source signal may be 
+influenced by factors such as material properties, laser intensity, and the 
+extent of thermoelastic and ablation effects, resulting in an unknown 
+source waveform. We have tested that the inverse operator trained 
+above cannot correctly invert the SAW field obtained from other source 
+types, where the change in the source pulse shape is obtained by 
+changing the source directivity. Nevertheless, since the laser duration 
+remains constant while the irradiation width is adjustable, the band -
+width of the resulting pulsed SAW signal can be controlled. Conse -
+quently, the inverse operator can be trained by extracting the envelope 
+of the SAW field via the Hilbert transform, thereby establishing its 
+relationship with crack information. Fig. 8 presents the final results, 
+demonstrating that satisfactory crack imaging is achieved for all three 
+pulse shapes due to their similar wave envelopes, despite some minor 
+artifacts in Fig. 8 (f) caused by increased envelope discrepancies.
+4.2. Multilayer structures
+Next, we focus on another critical application of laser-induced SAWs 
+( Choi et al., 2022 ; Hess et al., 2014 ; Huang et al., 2023 ; Jia et al., 2024 ; 
+Liu et al., 2022 ): the gradient characterization of multilayered media, 
+such as coatings or thin films, which is of paramount importance in 
+microelectronics and materials science. To investigate the performance 
+of the neural operator in this context, a dataset of 1000 samples is 
+generated, where the top 0.8 mm of each sample is divided into five 
+layers, each with a uniform thickness of 0.16 mm. The shear wave ve -
+locity V
+S 
+in each layer is randomly assigned within the range of 
+1500 – 4500 m/s to simulate varying material properties.
+Fig. 9 presents the results for a representative test subset. The for -
+ward operator accurately captures the complex dispersion characteris -
+tics of SAW propagation, despite slight increases in waveform 
+complexity leading to minor errors over time. Meanwhile, the inverse 
+operator successfully reconstructs the velocity gradient of the multilayer 
+structure with well-defined interfacial boundaries, regardless of whether 
+the layers are shallow or deep. Since the material properties of the 
+layered medium are independent of the lateral x direction, SAW 
+dispersion accumulates in a stable manner. As a result, even in the 
+Fig. 6. Results for a test subset of the crack dataset. (a) and (b) Ground truth. (c) and (d) Predictions from the forward and inverse operators. (e) and (f) Errors. (g) 
+and (h) Comparison of true and predicted values at three typical positions. (i) Complete wavefield snapshots at some representative time points.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+7 
+presence of noise in the input of the inverse operator, the velocity 
+gradient of the multilayer structure can still be reliably characterized, as 
+demonstrated in Fig. 10 .
+The gradient characterization here is achieved through full wave -
+form inversion. However, a more conventional approach involves first 
+extracting the SAW dispersion curve from the time-domain signal and 
+then performing inversion based on the extracted curve ( Liu et al., 
+2021b ; Olafsdottir et al., 2018 ). This method mitigates challenges 
+associated with variations in the source signal and offers high robust -
+ness. To explore this alternative, a simpler one-dimensional (1D) inverse 
+operator is trained, where the input is the SAW dispersion curve, and the 
+output is the V
+S 
+profile. These dispersion curves are theoretically 
+Fig. 7. Impact of noise on crack imaging. (a), (c) and (e) show SAW signals at a representative location with SNR levels of 24, 12 and 6 dB, respectively. (b), (d) and 
+(f) present the corresponding inversion results.
+Fig. 8. Inverse operator trained on the SAW envelope field dataset for crack imaging. (a), (c) and (e) show the SAW signals at a representative location for three 
+different source conditions, respectively. (b), (d) and (f) present the corresponding inversion results.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+8 
+calculated using the stiffness matrix method ( Rokhlin and Wang, 2002 ) 
+from the given V
+S 
+distribution. Fig. 11 presents the results for three 
+representative test subsets, demonstrating the accuracy of the 1D 
+dispersion curve inversion operator. The prediction errors of this 1D 
+operator are comparable to those of the 2D full waveform inversion 
+operator, but the training process is significantly easier. Therefore, the 
+1D operator may serve as a more practical alternative for real-world 
+nondestructive testing of multilayer structures.
+4.3. Polycrystalline materials
+In this final case study, we address a particularly challenging appli -
+cation: grain imaging in polycrystalline materials, capturing both crys -
+tallographic orientation and grain morphology ( Patel et al., 2017 ; 
+Dryburgh et al., 2020 ; Z. Sun et al., 2024 ; Y.-C. Sun et al., 2024 ). Since 
+material properties are largely governed by microstructure, accurate 
+microstructural characterization is critical for optimizing materials for 
+specific functions. To explore this, a dataset of 2000 samples is gener -
+ated by randomly placing seed points followed by Voronoi tessellation, 
+creating approximately 10 grains per sample. Each grain ’ s shear wave 
+velocity V
+S 
+is randomly assigned within the range of 1500 – 4500 m/s, 
+which typically depends on crystallographic orientation. It is important 
+to note that although polycrystalline grain imaging in real materials 
+typically involves micrometer-scale features, the model trained on SAW 
+datasets at different spatial scales remains applicable, owing to the 
+wavelength-dependent penetration characteristics of SAWs, as long as 
+the SAW wavelength is comparable to the grain size.
+Fig. 12 presents representative results in the test subset. The forward 
+operator successfully captures uniform SAW propagation across indi -
+vidual grain regions following the passage of the wave through grain 
+boundaries, although it still exhibits significant prediction errors for 
+weak reflected waves. The inverse operator accurately identifies the 
+primary morphological features of the grains, delineating three distinct 
+regions near the surface: grains A, B, and a combined region comprising 
+C, D and E. Notably, while the grain boundaries in region A and region B 
+are clearly resolved, the boundaries in the third region (containing 
+grains C, D and E) are nearly indiscernible due to minimal impedance 
+contrast between the grains, leading to only weak variations in the SAW 
+evolution. Fig. 12 (f) displays the inversion error distribution, showing 
+that discrepancies are primarily concentrated near grain boundaries 
+where velocity discontinuities occur. This is still attributed to the 
+spectral bias of the neural operator, as discussed earlier.
+Fig. 13 further illustrates the impact of noise on grain imaging. As 
+noise levels increase, the SAW features and velocity information asso -
+ciated with grain boundaries become increasingly ambiguous, leading to 
+a degradation in image clarity. Nevertheless, the three primary regions 
+can still be vaguely distinguished. Notably, the vertical striping artifacts 
+observed in Fig. 13 (d) and (f) originate from the local nature of the 
+inversion process, where the subsurface structure at each lateral position 
+is inferred from the SAW waveform differences recorded by neighboring 
+Fig. 9. Results for a test subset of the multilayer structure dataset. (a) and (b) Ground truth. (c) and (d) Predictions from the forward and inverse operators. (e) and 
+(f) Errors. (g) and (h) Comparison of true and predicted values at three typical positions. (i) Complete wavefield snapshots at some representative time points.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+9 
+receivers. In the presence of noise, these waveform distortions vary 
+across receivers, leading to inconsistencies between adjacent profiles 
+and producing vertically aligned artifacts in the reconstructed images.
+Finally, we examine the influence of source waveform variations. 
+Unlike the previous cases, where operator training is modified by pre -
+processing the SAW fields, here we adopt a more general approach by 
+generating a new dataset for polycrystalline materials under random- 
+shaped pulse sources by changing the equivalent force source direc -
+tion. In this setup, the input remains the SAW field, and the output is the 
+V
+S 
+profile, without incorporating any source function information. 
+Fig. 10. Impact of noise on the characterization of multilayer structure. (a), (c) and (e) show SAW signals at a representative location with SNR levels of 24, 12 and 6 
+dB, respectively. (b), (d) and (f) present the corresponding inversion results.
+Fig. 11. 1D inverse operator trained on the dispersion curve dataset for multilayer structure characterization. (a) Theoretical dispersion curves. (b), (c) and (d) 
+Predictions from the 1D inverse operator.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+10 
+Fig. 14 shows the results of applying the trained inverse operator to the 
+same microstructure under different source conditions. Although im -
+aging of deeper grains exhibits some distortion, near-surface imaging 
+and grain boundary delineation remain clear, indicating that the oper -
+ator can naturally learn to strip away the source effects and explore the 
+intrinsic grain-related SAW evolution information.
+5. Conclusions
+This study presents a novel modeling approach enabled by neural 
+operators for the forward and inverse simulation of laser-induced sur -
+face acoustic wave (SAW) propagation in nondestructive testing. In our 
+method, both the forward and inverse neural operators are constructed 
+using uplift and projection layers in combination with factorized Fourier 
+layers and trained in a supervised manner. The ground truth wavefield 
+data, represented as a three-dimensional variable with two spatial and 
+one temporal dimension, is obtained from numerical simulations of 
+elastic wave propagation from a fixed equivalent laser source. To 
+maintain computational efficiency and practical relevance, only the 
+essential SAW field information is retained. The performance of the 
+operators is evaluated using a random velocity dataset and some metrics 
+such as the time-of-flight error, demonstrating their good generalization 
+capabilities in this context.
+Building on the promising validation results, the neural operator- 
+enabled method is subsequently applied to representative laser- 
+induced SAW-driven nondestructive evaluation scenarios, aiming to 
+address key challenges in the field. Comprehensive assessments on 
+subsurface crack localization, multilayer structure characterization and 
+polycrystalline grain imaging demonstrate that the forward operator 
+effectively captures the complex scattering and dispersion of SAW 
+propagation, while the inverse operator reliably reconstructs velocity 
+profiles reflecting microstructural features even in the presence of noise 
+and source waveform variations. Although inherent spectral bias issues 
+may exist within the neural operators, their overall performance re -
+mains highly satisfactory. Moreover, the dispersion curve-based one- 
+dimensional inverse operator achieves prediction errors comparable to 
+full waveform inversion while significantly reducing training 
+complexity, making it particularly well-suited for multilayer structures. 
+These findings underscore the versatility, robustness and efficiency of 
+neural operators in capturing complex wave dynamics and microstruc -
+tural characteristics, thereby paving the way for their broader applica -
+tion in practical nondestructive evaluation.
+CRediT authorship contribution statement
+Zaiwei Liu: Writing – original draft, Visualization, Software, Meth -
+odology, Formal analysis, Data curation, Conceptualization. Zhongqing 
+Su: Writing – review & editing, Supervision, Project administration, 
+Funding acquisition, Conceptualization.
+Fig. 12. Results for a test subset of the polycrystalline material dataset. (a) and (b) Ground truth. (c) and (d) Predictions from the forward and inverse operators. (e) 
+and (f) Errors. (g) and (h) Comparison of true and predicted values at three typical positions. (i) Complete wavefield snapshots at some representative time points.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+11 
+Fig. 13. Impact of noise on the imaging of polycrystalline structure. (a), (c) and (e) show SAW signals at a representative location with SNR levels of 24, 12 and 6 dB, 
+respectively. (b), (d) and (f) present the corresponding inversion results.
+Fig. 14. Inverse operator trained on the dataset of polycrystalline materials under arbitrary pulse sources for grain imaging. (a), (c) and (e) show the SAW fields 
+obtained under three different source waveforms, respectively. (b), (d) and (f) present the corresponding inversion results.
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+12 
+Declaration of competing interest
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper.
+Acknowledgement
+This work is supported by Research Grants Council of Hong Kong 
+SAR (No.: N_PolyU597/24, 15214323, and 15200922), and Innovation 
+and Technology Commission Hong Kong SAR (No.: KBBY1). The authors 
+also gratefully acknowledge the financial support of the Postdoc 
+Matching Fund Scheme of The Hong Kong Polytechnic University (1- 
+W365) for this research work.
+Data availability
+Data will be made available on request.
+References
+Achenbach, J.D., 2003. Laser excitation of surface wave motion. J. Mech. Phys. Solid. 51, 
+1885 – 1902. https://doi.org/10.1016/j.jmps.2003.09.021 .
+Aktharuzzaman, M., Anwar, S., Borisov, D., He, J., 2024. Experimental full waveform 
+inversion for elastic material characterization with accurate transducer modeling. 
+Mech. Syst. Signal Process. 213, 111320. https://doi.org/10.1016/j.ymssp.20 
+24.111320 .
+Arias, I., Achenbach, J.D., 2003. Thermoelastic generation of ultrasound by line-focused 
+laser irradiation. Int. J. Solid Struct. 40, 6917 – 6935. https://doi. 
+org/10.1016/S0020-7683(03)00345-7 .
+Baher, M., Chrifi Alaoui, M., Jenot, F., Ouaftouh, M., Duquennoy, M., 2024. 
+Characterization of electro-adhesion using surface waves generated and detected by 
+laser-ultrasonics. NDT E Int. 147, 103191. https://doi.org/10.1016/j.ndteint.2024. 
+103191 .
+Capineri, L., Bulletti, A., 2021. Ultrasonic guided-waves sensors and integrated structural 
+health monitoring systems for impact detection and localization: a review. Sensors 
+21, 2929. https://doi.org/10.3390/s21092929 .
+Cheng, Q., He, J., Yang, S., Guo, Z., Xiong, X., 2025. Integrated detection for open and 
+closed surface fatigue cracks utilizing scanning laser source-induced Rayleigh wave 
+fields with self-reference peak-to-peak features. Int. J. Fatig. 190, 108649. https:// 
+doi.org/10.1016/j.ijfatigue.2024.108649 .
+Cheng, Q., He, J., Yang, S., Xiong, X., Luo, Y., 2024. A novel 3D evaluation method for 
+surface defects using broadband laser-generated Rayleigh waves with wavenumber 
+analysis. Ultrasonics 138, 107258. https://doi.org/10.1016/j.ultras.2024.107258 .
+Choi, Y.M., Kang, D., Kim, J.N., Park, I.K., 2022. Evaluation of adhesion properties of 
+thin film structure through surface acoustic wave dispersion simulation. Materials 
+15, 5637. https://doi.org/10.3390/ma15165637 .
+Ding, L., Wan, H., Lu, Q., Chen, Z., Jia, K., Ge, J., Yan, X., Xu, X., Ma, G., Chen, X., 
+Zhang, H., Li, G., Lu, M., Chen, Y., 2023. Using deep learning to identify the depth of 
+metal surface defects with narrowband SAW signals. Opt Laser. Technol. 157, 
+108758. https://doi.org/10.1016/j.optlastec.2022.108758 .
+Ding, Y., Chen, S., Li, X., Wang, S., Luan, S., Sun, H., 2023. Self-adaptive physics-driven 
+deep learning for seismic wave modeling in complex topography. Eng. Appl. Artif. 
+Intell. 123, 106425. https://doi.org/10.1016/j.engappai.2023.106425 .
+Dryburgh, P., Smith, R.J., Marrow, P., Lain ´e, S.J., Sharples, S.D., Clark, M., Li, W., 2020. 
+Determining the crystallographic orientation of hexagonal crystal structure materials 
+with surface acoustic wave velocity measurements. Ultrasonics 108, 106171. https 
+://doi.org/10.1016/j.ultras.2020.106171 .
+Feng, X., Li, K., Xu, J., Wang, P., Qian, Y., 2024. Dispersion characteristics of arc-axis 
+waveguides. Ultrasonics 142, 107361. https://doi.org/10.1016/j.ultras.2024.10 
+7361 .
+Fiborek, P., Soman, R., Kudela, P., Ostachowicz, W., 2022. Spectral element modeling of 
+ultrasonic guided wave propagation in optical fibers. Ultrasonics 124, 106746. https 
+://doi.org/10.1016/j.ultras.2022.106746 .
+Guo, L., Zhao, S., Yang, J., Kitipornchai, S., 2025. Input-optimized physics-informed 
+neural networks for wave propagation problems in laminated structures. Eng. Appl. 
+Artif. Intell. 141, 109755. https://doi.org/10.1016/j.engappai.2024.109755 .
+Helwig, J., Zhang, X., Fu, C., Kurtin, J., Wojtowytsch, S., Ji, S., 2023. Group equivariant 
+fourier neural operators for partial differential equations. https://doi.org/10.4855 
+0/arXiv.2306.05697 .
+Hess, P., Lomonosov, A.M., Mayer, A.P., 2014. Laser-based linear and nonlinear guided 
+elastic waves at surfaces (2D) and wedges (1D). Ultrasonics 54, 39 – 55. https://doi. 
+org/10.1016/j.ultras.2013.05.013 .
+Hou, Q., Li, Y., Singh, V.P., Sun, Z., 2024. Physics-informed neural network for diffusive 
+wave model. J. Hydrol. 637, 131261. https://doi.org/10.1016/j.jhydrol.2024. 
+131261 .
+Hua, F., Huang, Q., You, Q., He, W., Zhou, H., Zhou, X., 2024. A semi-analytical spectral 
+element model for guided wave propagation in composite laminated conical shells. 
+Structures 65, 106797. https://doi.org/10.1016/j.istruc.2024.106797 .
+Huang, Y., Li, B., Chen, L., Zhang, Z., Qin, F., 2023. Influence of top-coat thickness of 
+thermal barrier coating on time – frequency domain and dispersion characteristics of 
+laser-induced surface acoustic wave. Appl. Acoust. 203, 109230. https://doi.org/10 
+.1016/j.apacoust.2023.109230 .
+Jia, H., Lin, B., Liu, Z., Ma, X., Wan, Y., Chen, W., Li, Y., 2024. Laser-excited surface 
+acoustic wave method for detecting subsurface damage of processed silicon nitride 
+ceramics. Ceram. Int. 50, 42081 – 42091. https://doi.org/10.1016/j.ceramint.2024.0 
+8.051 .
+Kingma, D.P., Ba, J., 2017. Adam: a method for stochastic optimization. https://doi. 
+org/10.48550/arXiv.1412.6980 .
+Kristek, J., Moczo, P., Archuleta, R.J., 2002. Efficient methods to simulate planar free 
+surface in the 3D 4th-Order staggered-grid finite-difference schemes. Studia 
+Geophys. Geod. 46, 355 – 381. https://doi.org/10.1023/A:1019866422821 .
+Lehmann, F., Gatti, F., Bertin, M., Clouteau, D., 2024. 3D elastic wave propagation with a 
+factorized Fourier Neural Operator (F-FNO). Comput. Methods Appl. Mech. Eng. 
+420, 116718. https://doi.org/10.1016/j.cma.2023.116718 .
+Lehmann, F., Gatti, F., Bertin, M., Clouteau, D.. Fourier neural operator surrogate model 
+to predict 3D seismic waves propagation. https://doi.org/10.7712/120223.10 
+339.20362 .
+Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhattacharya, K., Stuart, A., 
+Anandkumar, A., 2021. Fourier neural operator for parametric partial differential 
+equations. https://doi.org/10.48550/arXiv.2010.08895 .
+Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhattacharya, K., Stuart, A., 
+Anandkumar, A., 2020. Neural operator: graph kernel network for partial 
+differential equations. https://doi.org/10.48550/arXiv.2003.03485 .
+Liu, M., Zhang, W., Chen, X., Li, L., Wang, K., Wang, H., Cui, F., Su, Z., 2024. Modelling 
+guided waves in acoustoelastic and complex waveguides: from SAFE theory to an 
+open-source tool. Ultrasonics 136, 107144. https://doi.org/10.1016/j.ultras.20 
+23.107144 .
+Liu, X., Zhou, W., Filippi, M., Wang, Y., 2024. A wavenumber dynamic stiffness method 
+for exact and efficient dispersion analysis of plate built-up waveguides. J. Sound Vib. 
+591, 118605. https://doi.org/10.1016/j.jsv.2024.118605 .
+Liu, Z., Lin, B., He, Y., Su, Z., 2025. Semi-analytical peridynamic method for modal 
+analysis of acoustoelastic Lamb waves. Int. J. Mech. Sci. 285, 109854. https://doi. 
+org/10.1016/j.ijmecsci.2024.109854 .
+Liu, Z., Lin, B., Liang, X., Du, A., 2022. Quantifying the subsurface damage and residual 
+stress in ground silicon wafer using laser ultrasonic technology: a Bayesian approach. 
+Mech. Syst. Signal Process. 173, 109008. https://doi.org/10.1016/j.ymssp.2022.10 
+9008 .
+Liu, Z., Lin, B., Liang, X., Du, A., 2021a. Numerical simulation of laser-generated 
+Rayleigh wave pulses propagation in the machined surface with residual stress using 
+finite-difference method. Optik 248, 168072. https://doi.org/10.1016/j.ijleo.20 
+21.168072 .
+Liu, Z., Lin, B., Liang, X., Du, A., 2021b. Synchrosqueezed wavelet transform-based 
+method for characterizing the dispersive nature of laser-excited surface acoustic 
+waves propagating through the coated or damaged medium. Measurement 185, 
+109965. https://doi.org/10.1016/j.measurement.2021.109965 .
+Mao, F., Pei, C., Kou, X., Qian, C., Wu, J., Chen, Z., 2024. Micro-surface crack inspection 
+with arc-shaped bi-grating laser ultrasound spectroscopy. Int. J. Fatig. 188, 108512. 
+https://doi.org/10.1016/j.ijfatigue.2024.108512 .
+Martin, R., Komatitsch, D., Gedney, S., 2008. A variational formulation of a stabilized 
+unsplit convolutional perfectly matched layer for the isotropic or anisotropic seismic 
+wave equation. Comput. Model. Eng. Sci. 37, 274 – 304. https://doi.org/10.3970 
+/cmes.2008.037.274 .
+Nicoli, S., Agathos, K., Chatzi, E., 2022. Moment fitted cut spectral elements for explicit 
+analysis of guided wave propagation. Comput. Methods Appl. Mech. Eng. 398, 
+115140. https://doi.org/10.1016/j.cma.2022.115140 .
+Olafsdottir, E.A., Bessason, B., Erlingsson, S., 2018. Combination of dispersion curves 
+from MASW measurements. Soil Dynam. Earthq. Eng. 113, 473 – 487. https://doi. 
+org/10.1016/j.soildyn.2018.05.025 .
+Patel, R., Li, W., Smith, R.J., Sharples, S.D., Clark, M., 2017. Orientation imaging of 
+macro-sized polysilicon grains on wafers using spatially resolved acoustic 
+spectroscopy. Scr. Mater. 140, 67 – 70. https://doi.org/10.1016/j.scriptamat.2017.0 
+7.003 .
+Qin, F., Li, B., Chen, L., Shang, Z., Zhang, Z., Huang, Y., Wang, W., Zheng, Y., 2023. 
+Interaction analysis of different defects with laser ultrasonic sound waves and defect 
+characterization. Opt Laser. Technol. 157, 108630. https://doi.org/10.1016/j.op 
+tlastec.2022.108630 .
+Rahaman, N., Baratin, A., Arpit, D., Draxler, F., Lin, M., Hamprecht, F., Bengio, Y., 
+Courville, A., 2019. On the spectral bias of neural networks. In: Proceedings of the 
+36th International Conference on Machine Learning. PMLR, pp. 5301 – 5310 .
+Rahman, M.A., Ross, Z.E., Azizzadenesheli, K., 2023. U-NO: U-shaped neural operators. 
+https://doi.org/10.48550/arXiv.2204.11127 .
+Rao, J., Yang, J., Ratassepp, M., Fan, Z., 2020. Multi-parameter reconstruction of velocity 
+and density using ultrasonic tomography based on full waveform inversion. 
+Ultrasonics 101, 106004. https://doi.org/10.1016/j.ultras.2019.106004 .
+Rasht-Behesht, M., Huber, C., Shukla, K., Karniadakis, G.E., 2022. Physics-Informed 
+neural networks (PINNs) for wave propagation and full waveform inversions. JGR 
+Solid Earth 127, e2021JB023120. https://doi.org/10.1029/2021JB023120 .
+Rayleigh, Lord, 1885. On waves propagated along the plane surface of an elastic solid. 
+Proc. Lond. Math. Soc. s1 – 17, 4 – 11. https://doi.org/10.1112/plms/s1-17.1.4 .
+Ren, P., Rao, C., Chen, S., Wang, J.-X., Sun, H., Liu, Y., 2024. SeismicNet: Physics- 
+informed neural networks for seismic wave modeling in semi-infinite domain. 
+Comput. Phys. Commun. 295, 109010. https://doi.org/10.1016/j.cpc.2023.109010 .
+Richardson, A., 2023. Deepwave. https://doi.org/10.5281/zenodo.8381177 .
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+13 
+Rokhlin, S.I., Wang, L., 2002. Stable recursive algorithm for elastic wave propagation in 
+layered anisotropic media: stiffness matrix method. J. Acoust. Soc. Am. 112, 
+822–834. https://doi.org/10.1121/1.1497365 .
+Rosofsky, S.G., Al Majed, H., Huerta, E.A., 2023. Applications of physics informed neural 
+operators. Mach. Learn.: Sci. Technol. 4, 025022. https://doi.org/10.1088/2632-21 
+53/acd168 .
+Shukla, K., Di Leoni, P.C., Blackshire, J., Sparkman, D., Karniadakis, G.E., 2020. Physics- 
+Informed neural network for ultrasound nondestructive quantification of surface 
+breaking cracks. J. Nondestruct. Eval. 39, 61. https://doi.org/10.1007/s10921-02 
+0-00705-1 .
+Song, C., Alkhalifah, T., Waheed, U.B., 2021. Solving the frequency-domain acoustic VTI 
+wave equation using physics-informed neural networks. Geophys. J. Int. 225, 
+846–859. https://doi.org/10.1093/gji/ggab010 .
+Sun, Y.-C., Ni, C.-Y., Ying, K.-N., Xiong, A.-H., Shuai, T., Shen, Z.-H., 2024. Laser 
+ultrasonic spatially resolved acoustic spectroscopy for grain size study based on 
+Improved Variational Mode Decomposition (IVMD). NDT E Int. 144, 103090. 
+https://doi.org/10.1016/j.ndteint.2024.103090 .
+Sun, Z., Wu, S., Saini, A., Fan, Z., 2024. Characterizing polycrystalline microstructures by 
+reconstructing grain boundaries and velocity map from ultrasonic surface wave field. 
+Ultrasonics 137, 107175. https://doi.org/10.1016/j.ultras.2023.107175 .
+Thakur, A., Kalimullah, N.M.M., Shelke, A., Hazra, B., Kundu, T., 2024. NG-DPSM: a 
+neural green-distributed point source method for modelling ultrasonic field emission 
+near fluid-solid interface using physics informed neural network. Eng. Appl. Artif. 
+Intell. 131, 107828. https://doi.org/10.1016/j.engappai.2023.107828 .
+Tian, Z., Howden, S., Ma, Z., Xiao, W., Yu, L., 2019. Pulsed laser-scanning laser Doppler 
+vibrometer (PL-SLDV) phased arrays for damage detection in aluminum plates. 
+Mech. Syst. Signal Process. 121, 158–170. https://doi.org/10.1016/j.ymssp.20 
+18.11.016 .
+Tran, A., Mathews, A., Xie, L., Ong, C.S., 2023. Factorized fourier neural operators. htt 
+ps://doi.org/10.48550/arXiv.2111.13802 .
+Wu, J., Jiang, C., Fang, H., Ng, C.-T., 2023. Damage detection in the T-welded joint using 
+Rayleigh-like feature guided wave. NDT E Int. 135, 102806. https://doi.org/10.10 
+16/j.ndteint.2023.102806 .
+Wu, X., Li, Y., Su, C., Li, P., Lin, W., 2025. Optimal transport assisted full waveform 
+inversion for multiparameter imaging of soft tissues in ultrasound computed 
+tomography. Ultrasonics 147, 107505. https://doi.org/10.1016/j.ultras.2024.10750 
+5 .
+Yang, Y., Gao, A.F., Castellanos, J.C., Ross, Z.E., Azizzadenesheli, K., Clayton, R.W., 
+2021. Seismic wave propagation and inversion with neural operators. The Seismic 
+Record 1, 126–134. https://doi.org/10.1785/0320210026 .
+Yang, Z., Yang, H., Tian, T., Deng, D., Hu, M., Ma, J., Gao, D., Zhang, J., Ma, S., Yang, L., 
+Xu, H., Wu, Z., 2023. A review on guided-ultrasonic-wave-based structural health 
+monitoring: from fundamental theory to machine learning techniques. Ultrasonics 
+133, 107014. https://doi.org/10.1016/j.ultras.2023.107014 .
+Zarei, A., Pilla, S., 2024. Guidelines for element size and type selection for the finite 
+element simulation of laser-induced elastic waves in thermoelastic laser ultrasonic 
+testing. J. Sound Vib. 589, 118609. https://doi.org/10.1016/j.jsv.2024.118609 .
+Zhang, H., Li, C., Xia, R., Chen, X., Xiao, T., Guo, X.-W., Liu, J., 2025. FE-PIRBN: Feature- 
+enhanced physics-informed radial basis neural networks for solving high-frequency 
+electromagnetic scattering problems. J. Comput. Phys. 527, 113798. https://doi. 
+org/10.1016/j.jcp.2025.113798 .
+Z. Liu and Z. Su                                                                                                                                                                                                                                 Engineering Applications of Artiϧcial Intelligence 161 (2025) 112170 
+14 

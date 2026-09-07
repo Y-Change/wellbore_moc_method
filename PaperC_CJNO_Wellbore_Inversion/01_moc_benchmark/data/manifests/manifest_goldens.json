@@ -1,0 +1,159 @@
+{
+  "manifest_version": "v1_goldens",
+  "created": "2026-09-06T16:16:53",
+  "generator": {
+    "code_digest": "c4295735e64c9a9617b7edf53d15c3089f3f4010e8fe89d81e5a5046ae532b81",
+    "config_digest": "093d6b1ef8b22931fc3bfb4fd5714d615b7d36868b3bc371961cd4d3ada42a5c",
+    "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+    "run_id": "s1_validate_20260906_161609_e4f95858",
+    "frozen": false
+  },
+  "design": {
+    "type": "maximin_lhs",
+    "seed": 20260905,
+    "n": 0
+  },
+  "numerics": {
+    "Nx_ref_levels": [
+      512,
+      1024,
+      2048
+    ],
+    "Cr_levels": [
+      1.0,
+      0.8
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "bergant_brunone_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\bergant_brunone_Cr0.8.npz",
+      "sha256": "02ff71c8781d5f36884e3ac4678abf9918e8a3321c5a97999db6aa5d51d20f46",
+      "status": "ok"
+    },
+    {
+      "case_id": "bergant_brunone_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\bergant_brunone_Cr1.npz",
+      "sha256": "1aee5e853cf37461172d359df64e5f12a5595c2ce919903a48b34ccc54caa4ac",
+      "status": "ok"
+    },
+    {
+      "case_id": "bergant_zielke_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\bergant_zielke_Cr0.8.npz",
+      "sha256": "c2d2b5e5e3bc52d31531b6d6918b17c96b0271b17454871594067c729b893d2f",
+      "status": "ok"
+    },
+    {
+      "case_id": "bergant_zielke_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\bergant_zielke_Cr1.npz",
+      "sha256": "3fe6b0e865400c369ce7bbc5ea9fa221f1cc1d15c17d90f467789cd3aa126167",
+      "status": "ok"
+    },
+    {
+      "case_id": "conservation_Cr0.8.json",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\conservation_Cr0.8.json",
+      "sha256": "fc2d395007dedf254cad90abe6b4b1ba55abb0bb8a60db3f27a544c5f1d8a76e",
+      "status": "ok"
+    },
+    {
+      "case_id": "conservation_Cr1.json",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\conservation_Cr1.json",
+      "sha256": "d2beb7eddb761ab09752297874a9dcb10421d05692dd9b8aecf25a1b333dfcb4",
+      "status": "ok"
+    },
+    {
+      "case_id": "joukowsky_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\joukowsky_Cr0.8.npz",
+      "sha256": "33cc9ead5c6b3446d5122aa0947e0a592d451e136cfd7743539e64d08dd089b5",
+      "status": "ok"
+    },
+    {
+      "case_id": "joukowsky_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\joukowsky_Cr1.npz",
+      "sha256": "103fd01867ab86660096f579ae0ff4cf158aaaf741d494d664482b1d07fc8d85",
+      "status": "ok"
+    },
+    {
+      "case_id": "kernel_direct_vs_recursive.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\kernel_direct_vs_recursive.npz",
+      "sha256": "b197048913d91cb10672b3e50766ea3c749cf6b70bc35e6d905df3d348707f3d",
+      "status": "ok"
+    },
+    {
+      "case_id": "metrics.json",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\metrics.json",
+      "sha256": "9eedd05224da6ce2521e7624051cd53b273e33b084516d943cfca7f11dd7acbe",
+      "status": "ok"
+    },
+    {
+      "case_id": "rci_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\rci_Cr0.8.npz",
+      "sha256": "9013b20522ed70418550eed70702edec639a59f57891e542c189be57d0890195",
+      "status": "ok"
+    },
+    {
+      "case_id": "rci_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\rci_Cr1.npz",
+      "sha256": "46a43dc79ec67824beda4a2a16e3860422065065559fa10d4d60c904d9b1921e",
+      "status": "ok"
+    },
+    {
+      "case_id": "shunt_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\shunt_Cr0.8.npz",
+      "sha256": "625c5d420c2be31484ff4c1d254ce4f0ee6b4acafb64ebb54f14830b871744d2",
+      "status": "ok"
+    },
+    {
+      "case_id": "shunt_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\shunt_Cr1.npz",
+      "sha256": "576b534557144c3dac297294c10bd7143561c2e8b3e5dfcab2342548890ec716",
+      "status": "ok"
+    },
+    {
+      "case_id": "tmm_Cr0.8.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\tmm_Cr0.8.npz",
+      "sha256": "48c3ae48875d4ea031b61d9b48aacada509b95e300319cb37b55be4b871e9f51",
+      "status": "ok"
+    },
+    {
+      "case_id": "tmm_Cr1.npz",
+      "group_id": "golden",
+      "split": "golden",
+      "file": "goldens\\tmm_Cr1.npz",
+      "sha256": "d923b2dc4061e86e4c3d0336e7c2379fabadad320f0d8ad51338e0fc8dfdd316",
+      "status": "ok"
+    }
+  ],
+  "failures": [],
+  "digest": "b22284c24c4dbeb7e97404ed3f0b60e9c27e213c4b0088bbf25c974535c8416d"
+}

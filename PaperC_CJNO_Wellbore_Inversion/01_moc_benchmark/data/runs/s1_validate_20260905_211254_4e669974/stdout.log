@@ -1,0 +1,33 @@
+[21:12:55] run_id=s1_validate_20260905_211254_4e669974  smoke=False  only=None
+[21:12:56] numba warmup done
+[21:12:56] unit locks
+[21:12:56] memory-kernel fit / convolution / waveform
+[21:13:26] Joukowsky Cr=1.0
+[21:13:26] shunt reflection Cr=1.0
+[21:13:26] RCI Z_b(s) Cr=1.0
+[21:13:26] Bergant 2001 Zielke envelope Cr=1.0
+[21:14:27] Brunone (separate) Cr=1.0
+[21:14:27] TMM resonance Cr=1.0
+[21:14:28] mass / energy conservation Cr=1.0
+[21:14:35] Richardson / three-grid Cr=1.0 (darcy)
+[21:14:36]   Nx=512 peak=-409.812477 m  t_arr=1.061878 s  wall=0.38s
+[21:14:37]   Nx=1024 peak=-410.027015 m  t_arr=1.061771 s  wall=1.57s
+[21:14:44]   Nx=2048 peak=-410.065127 m  t_arr=1.061762 s  wall=6.02s
+[21:14:44] Joukowsky Cr=0.8
+[21:14:44] shunt reflection Cr=0.8
+[21:14:44] RCI Z_b(s) Cr=0.8
+[21:14:44] Bergant 2001 Zielke envelope Cr=0.8
+[21:16:27] Brunone (separate) Cr=0.8
+[21:16:27] TMM resonance Cr=0.8
+[21:16:29] mass / energy conservation Cr=0.8
+[21:16:39] Richardson / three-grid Cr=0.8 (darcy)
+[21:16:39]   Nx=512 peak=-406.467976 m  t_arr=1.061450 s  wall=0.53s
+[21:16:41]   Nx=1024 peak=-407.596690 m  t_arr=1.061557 s  wall=2.10s
+[21:16:50]   Nx=2048 peak=-408.391520 m  t_arr=1.061627 s  wall=8.25s
+[21:16:50] s_min=10 m spatial-resolution check
+[21:16:50]   Nx=1024 Cr=1.0 min_ppw=4.00  t_arr=6.651112
+[21:16:51]   Nx=2048 Cr=1.0 min_ppw=10.00  t_arr=6.651199
+[21:16:53]   Nx=2048 Cr=0.8 min_ppw=10.00  t_arr=6.638192
+[21:16:53] wrote E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\tables\table_moc_gate.tex
+[21:16:55] wrote E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\figures\Fig_2_moc_convergence.pdf
+[21:16:55] DONE  fail=0  pending=1

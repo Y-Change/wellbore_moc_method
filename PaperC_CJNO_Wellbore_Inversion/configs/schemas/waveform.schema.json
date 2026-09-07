@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "paperc/waveform.schema.json",
+  "title": "PaperC per-case waveform archive (NPZ side-car description)",
+  "type": "object",
+  "required": ["case_id", "dt", "n_steps", "fields", "units", "observation"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "dt": {"type": "number"},
+    "n_steps": {"type": "integer"},
+    "fields": {
+      "type": "object",
+      "description": "array name -> shape; p_head (Nt+1,), Q_head (Nt+1,), node_t, node_H/node_Qm/node_Qp/node_sq/node_pc (Nrec, Ncl), node_z (Nrec, Ncl*2*M), snap_H/snap_Q (Nsnap, Nnodes)",
+      "additionalProperties": {"type": "array", "items": {"type": "integer"}}
+    },
+    "units": {"type": "object", "additionalProperties": {"type": "string"}},
+    "observation": {
+      "type": "object",
+      "required": ["sampling_rate_hz", "sensor_transfer_function", "antialias_filter", "noise_model"],
+      "properties": {
+        "sampling_rate_hz": {"type": "number"},
+        "sensor_transfer_function": {"type": "object"},
+        "antialias_filter": {"type": "object"},
+        "noise_model": {"type": "object"}
+      }
+    },
+    "grid": {"type": "object"},
+    "friction": {"type": "object"},
+    "newton": {"type": "object"},
+    "energy": {"type": "object"},
+    "sha256": {"type": "string"}
+  }
+}

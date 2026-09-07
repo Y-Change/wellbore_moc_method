@@ -1,0 +1,110 @@
+{
+  "case_id": "pilot_00543",
+  "friction": "darcy",
+  "nx": 64,
+  "kind": "short",
+  "T": 7.320872339633591,
+  "grid": {
+    "Nx_ref": 64,
+    "n_nodes": 71,
+    "nseg": 5,
+    "seg_N": [
+      62,
+      1,
+      1,
+      1,
+      1
+    ],
+    "seg_dx": [
+      63.80596682954677,
+      16.539875498559468,
+      14.93981386868245,
+      16.375090969120265,
+      99.0070295769001
+    ],
+    "seg_Cr": [
+      0.23414446345736176,
+      0.9032603582767975,
+      1.0,
+      0.9123499769775676,
+      0.15089649626422227
+    ],
+    "seg_len": [
+      3955.9699434318995,
+      16.539875498559468,
+      14.93981386868245,
+      16.375090969120265,
+      99.0070295769001
+    ],
+    "dt": 0.01156390489379677,
+    "dt_reduced": true,
+    "Cr0": 0.23414446345736176,
+    "Cr0_is_one": false,
+    "note": "Nx_ref is not the total cell count"
+  },
+  "event": {
+    "silent": false,
+    "window_kind": "short",
+    "t_need": 7.320872339633591,
+    "t_end": 7.3315157026671525,
+    "complete": true,
+    "after_valve": true,
+    "after_first_reflection": true,
+    "event_occurred": true,
+    "physical_scale": 10648910.29058139,
+    "pert_l2_norm": 437130079.26666445
+  },
+  "shared_primitives": [
+    "grid.build_grid",
+    "moc_solver.solve_steady_state",
+    "moc_solver._steady_head_drop",
+    "moc_solver._f_lookup / FrictionTable",
+    "moc_solver._wellhead_Q",
+    "node_newton.branch_coefficients",
+    "node_newton.flow_from_characteristic",
+    "node_newton.solve_cluster_node",
+    "memory_kernel.kernel_fits_from_config / RecursiveKernel / kernel_for_reynolds"
+  ],
+  "consistency_not_independent_physics": true,
+  "wh_pert_l2": {
+    "twin_vs_ref": 0.0,
+    "prod_vs_twin": 2.25989811954181e-15,
+    "prod_vs_ref": 2.25989811954181e-15
+  },
+  "cluster": {
+    "q": 1.1949528356679043e-14,
+    "pc": 0.0,
+    "F": 3.588488096000556e-14,
+    "H_left": 9.820527562950457e-17,
+    "H_right": 9.820527562950457e-17,
+    "Q_left": 4.324871473189584e-15,
+    "Q_right": 5.163515816890018e-15,
+    "n_perf": 28,
+    "n_clusters": 4
+  },
+  "newton_calls": {
+    "twin": 2536,
+    "prod": 2536
+  },
+  "n_fail": {
+    "ref": 0,
+    "twin": 0,
+    "prod": 0
+  },
+  "resid_max_twin": 9.855754393151676e-11,
+  "full_state_exported": true,
+  "not_only_cluster0": true,
+  "timings_s": {
+    "ref": 0.020826999999997042,
+    "twin_and_ref": 3.341142999999999,
+    "prod": 3.0847323000000024
+  },
+  "kernel_audit": {
+    "used": false,
+    "used_online_refit": false
+  },
+  "used_online_refit": false,
+  "same_discrete_pass": true,
+  "status": "PASS",
+  "archive": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round4\\runs\\r4_P1_transient_20260906_231503_6d5cfa65\\pilot_00543_darcy_short_nx64_state.npz"
+}

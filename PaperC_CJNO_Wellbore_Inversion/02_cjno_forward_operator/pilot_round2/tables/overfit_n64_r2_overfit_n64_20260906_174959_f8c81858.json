@@ -1,0 +1,3115 @@
+{
+  "status": "FAIL",
+  "target_mean": 0.02,
+  "n": "64",
+  "model_seed": 42,
+  "subset_seed": 20260907,
+  "case_ids": [
+    "pilot_01342",
+    "pilot_00163",
+    "pilot_00543",
+    "pilot_01320",
+    "pilot_00049",
+    "pilot_00888",
+    "pilot_01900",
+    "pilot_00880",
+    "pilot_00873",
+    "pilot_01315",
+    "pilot_01189",
+    "pilot_00112",
+    "pilot_00652",
+    "pilot_01644",
+    "pilot_00305",
+    "pilot_01736",
+    "pilot_01487",
+    "pilot_01636",
+    "pilot_00232",
+    "pilot_00747",
+    "pilot_01198",
+    "pilot_01005",
+    "pilot_00921",
+    "pilot_01071",
+    "pilot_00032",
+    "pilot_01277",
+    "pilot_01354",
+    "pilot_00193",
+    "pilot_00853",
+    "pilot_00533",
+    "pilot_01848",
+    "pilot_00053",
+    "pilot_01751",
+    "pilot_01882",
+    "pilot_00149",
+    "pilot_00705",
+    "pilot_00211",
+    "pilot_00347",
+    "pilot_00376",
+    "pilot_00313",
+    "pilot_00336",
+    "pilot_01861",
+    "pilot_01399",
+    "pilot_01454",
+    "pilot_01418",
+    "pilot_00389",
+    "pilot_00607",
+    "pilot_00255",
+    "pilot_00534",
+    "pilot_00823",
+    "pilot_00712",
+    "pilot_01983",
+    "pilot_00244",
+    "pilot_00478",
+    "pilot_01528",
+    "pilot_00243",
+    "pilot_01684",
+    "pilot_00494",
+    "pilot_01109",
+    "pilot_01853",
+    "pilot_01392",
+    "pilot_01203",
+    "pilot_00676",
+    "pilot_01080"
+  ],
+  "n_active_params": 47233,
+  "best": {
+    "n": 64,
+    "n_silent": 0,
+    "pert_l2_mean": 0.19596604240912543,
+    "pert_l2_p50": 0.14334668442080478,
+    "pert_l2_p90": 0.41382800448773055,
+    "pert_l2_max": 0.6329686511990799,
+    "first_arrival": {
+      "n_ok": 0,
+      "n_fail": 64,
+      "dphi_mean": NaN,
+      "dphi_p50": NaN,
+      "dphi_p90": NaN,
+      "dphi_max": NaN
+    },
+    "n_hard_calls": 0.0,
+    "rows": [
+      {
+        "rel": 0.3252405488642732,
+        "abs": 54898574.905106,
+        "silent": false,
+        "den": 168793759.25544828,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01342",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12247629226992711,
+        "abs": 37522204.67746108,
+        "silent": false,
+        "den": 306363002.84764826,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00163",
+        "silent_p": false
+      },
+      {
+        "rel": 0.05296113244200147,
+        "abs": 20383510.86370047,
+        "silent": false,
+        "den": 384876794.0531249,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00543",
+        "silent_p": false
+      },
+      {
+        "rel": 0.051694785613604695,
+        "abs": 22205694.897209153,
+        "silent": false,
+        "den": 429553863.772388,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01320",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2915109605687504,
+        "abs": 60217048.8907991,
+        "silent": false,
+        "den": 206568729.9486546,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00049",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09011296951553072,
+        "abs": 46218490.53283355,
+        "silent": false,
+        "den": 512894989.27086097,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00888",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06139673722030154,
+        "abs": 29590130.084147777,
+        "silent": false,
+        "den": 481949553.409875,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01900",
+        "silent_p": false
+      },
+      {
+        "rel": 0.6329686511990799,
+        "abs": 48101234.89853321,
+        "silent": false,
+        "den": 75993076.13009182,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00880",
+        "silent_p": false
+      },
+      {
+        "rel": 0.11239989409324816,
+        "abs": 20970518.554798182,
+        "silent": false,
+        "den": 186570625.5683908,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00873",
+        "silent_p": false
+      },
+      {
+        "rel": 0.10549875843633355,
+        "abs": 29702726.480035342,
+        "silent": false,
+        "den": 281545744.42655987,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01315",
+        "silent_p": false
+      },
+      {
+        "rel": 0.058071154386752775,
+        "abs": 30046072.494167395,
+        "silent": false,
+        "den": 517400985.2475315,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01189",
+        "silent_p": false
+      },
+      {
+        "rel": 0.07046369305323706,
+        "abs": 36020978.92006844,
+        "silent": false,
+        "den": 511199134.74949014,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00112",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1665687540266601,
+        "abs": 43064635.14443635,
+        "silent": false,
+        "den": 258539696.69211584,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00652",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14856172504104387,
+        "abs": 40142870.2794253,
+        "silent": false,
+        "den": 270210044.13037634,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01644",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5981720810420063,
+        "abs": 35295664.61204125,
+        "silent": false,
+        "den": 59005870.936933,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00305",
+        "silent_p": false
+      },
+      {
+        "rel": 0.38760267100487417,
+        "abs": 49677121.80258961,
+        "silent": false,
+        "den": 128165065.72000612,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01736",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12335064711598151,
+        "abs": 61083411.13312035,
+        "silent": false,
+        "den": 495201383.7080737,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01487",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09644060381671593,
+        "abs": 49497848.457139276,
+        "silent": false,
+        "den": 513246977.91408765,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01636",
+        "silent_p": false
+      },
+      {
+        "rel": 0.055455181083570976,
+        "abs": 27862805.269705106,
+        "silent": false,
+        "den": 502438270.4244685,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00232",
+        "silent_p": false
+      },
+      {
+        "rel": 0.32330575898413844,
+        "abs": 31475178.016395804,
+        "silent": false,
+        "den": 97354213.90356363,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00747",
+        "silent_p": false
+      },
+      {
+        "rel": 0.28048821989684014,
+        "abs": 43272477.37115703,
+        "silent": false,
+        "den": 154275560.61738375,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01198",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09379703992797482,
+        "abs": 30984005.043253485,
+        "silent": false,
+        "den": 330330307.51338834,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01005",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1588713114432453,
+        "abs": 136499190.75164774,
+        "silent": false,
+        "den": 859180864.7617937,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00921",
+        "silent_p": false
+      },
+      {
+        "rel": 0.15131770706628356,
+        "abs": 43385119.97077503,
+        "silent": false,
+        "den": 286715420.2367771,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01071",
+        "silent_p": false
+      },
+      {
+        "rel": 0.17462080240718106,
+        "abs": 36711158.322802894,
+        "silent": false,
+        "den": 210233590.82499093,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00032",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14147747484105092,
+        "abs": 89436158.13834397,
+        "silent": false,
+        "den": 632158286.9557501,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01277",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2676237411846869,
+        "abs": 45742439.890380934,
+        "silent": false,
+        "den": 170920710.12793338,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01354",
+        "silent_p": false
+      },
+      {
+        "rel": 0.043698377231310696,
+        "abs": 15790851.946243737,
+        "silent": false,
+        "den": 361360145.3128859,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00193",
+        "silent_p": false
+      },
+      {
+        "rel": 0.3420924425061564,
+        "abs": 50926176.14689115,
+        "silent": false,
+        "den": 148866709.16728792,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00853",
+        "silent_p": false
+      },
+      {
+        "rel": 0.03743563922986595,
+        "abs": 18479999.981485855,
+        "silent": false,
+        "den": 493647239.94729096,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00533",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14521589400055862,
+        "abs": 30792000.374304116,
+        "silent": false,
+        "den": 212042907.4670412,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01848",
+        "silent_p": false
+      },
+      {
+        "rel": 0.18224266580557982,
+        "abs": 42038725.15003319,
+        "silent": false,
+        "den": 230674441.48825696,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00053",
+        "silent_p": false
+      },
+      {
+        "rel": 0.0872320817707434,
+        "abs": 27719064.648809068,
+        "silent": false,
+        "den": 317762273.7659542,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01751",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08958314749566368,
+        "abs": 56454931.8325711,
+        "silent": false,
+        "den": 630195895.2190626,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01882",
+        "silent_p": false
+      },
+      {
+        "rel": 0.0619722700109102,
+        "abs": 33253648.18079067,
+        "silent": false,
+        "den": 536589157.94009763,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00149",
+        "silent_p": false
+      },
+      {
+        "rel": 0.4250674331232403,
+        "abs": 47508630.892740175,
+        "silent": false,
+        "den": 111767280.17873329,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00705",
+        "silent_p": false
+      },
+      {
+        "rel": 0.35186727790401867,
+        "abs": 67291280.18408267,
+        "silent": false,
+        "den": 191240517.12031657,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00211",
+        "silent_p": false
+      },
+      {
+        "rel": 0.23246323135737434,
+        "abs": 56990849.833472416,
+        "silent": false,
+        "den": 245160705.6337364,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00347",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08260514394150566,
+        "abs": 49533504.907748364,
+        "silent": false,
+        "den": 599641893.2799636,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00376",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12766802969811977,
+        "abs": 56498589.398819156,
+        "silent": false,
+        "den": 442542972.83677155,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00313",
+        "silent_p": false
+      },
+      {
+        "rel": 0.049973869618042135,
+        "abs": 25381627.604466416,
+        "silent": false,
+        "den": 507897983.4553947,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00336",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09720897271184022,
+        "abs": 31939283.82606043,
+        "silent": false,
+        "den": 328563124.7306677,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01861",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08697990702092384,
+        "abs": 30245206.362817932,
+        "silent": false,
+        "den": 347726358.86518204,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01399",
+        "silent_p": false
+      },
+      {
+        "rel": 0.44552442419425425,
+        "abs": 71840056.59346671,
+        "silent": false,
+        "den": 161248301.3100614,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01454",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06463601119788775,
+        "abs": 26921639.83170295,
+        "silent": false,
+        "den": 416511466.79333955,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01418",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1252849841605568,
+        "abs": 32126394.151287317,
+        "silent": false,
+        "den": 256426533.2078128,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00389",
+        "silent_p": false
+      },
+      {
+        "rel": 0.53972477192902,
+        "abs": 53471397.559839614,
+        "silent": false,
+        "den": 99071601.56597687,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00607",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2988848806898671,
+        "abs": 40050150.46029754,
+        "silent": false,
+        "den": 133998582.89203629,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00255",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08066652049306007,
+        "abs": 34918687.75737619,
+        "silent": false,
+        "den": 432877078.9162813,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00534",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1906144090657066,
+        "abs": 35310264.26695075,
+        "silent": false,
+        "den": 185244465.20083886,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00823",
+        "silent_p": false
+      },
+      {
+        "rel": 0.3091486966326962,
+        "abs": 39435139.2400254,
+        "silent": false,
+        "den": 127560425.35375406,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00712",
+        "silent_p": false
+      },
+      {
+        "rel": 0.32594674383908245,
+        "abs": 57092921.97939548,
+        "silent": false,
+        "den": 175160277.12668866,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01983",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09751873244955589,
+        "abs": 32743663.992216952,
+        "silent": false,
+        "den": 335767940.8841216,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00244",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06137703012360575,
+        "abs": 23518134.1892565,
+        "silent": false,
+        "den": 383174848.01551795,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00478",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1528010778655072,
+        "abs": 37360559.26164684,
+        "silent": false,
+        "den": 244504553.1323473,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01528",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14547371060750142,
+        "abs": 117286090.60058022,
+        "silent": false,
+        "den": 806235642.9267592,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00243",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12335522746507592,
+        "abs": 92030978.73656677,
+        "silent": false,
+        "den": 746064683.49809,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01684",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2739296493189661,
+        "abs": 61701795.557066634,
+        "silent": false,
+        "den": 225246867.98405138,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00494",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08238663651482016,
+        "abs": 37792172.13993223,
+        "silent": false,
+        "den": 458717259.72371703,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01109",
+        "silent_p": false
+      },
+      {
+        "rel": 0.29015830571490286,
+        "abs": 46121917.81046604,
+        "silent": false,
+        "den": 158954325.6286569,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01853",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5968707359612585,
+        "abs": 49047082.18744386,
+        "silent": false,
+        "den": 82173709.03342025,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01392",
+        "silent_p": false
+      },
+      {
+        "rel": 0.032197071881938974,
+        "abs": 17279249.778285228,
+        "silent": false,
+        "den": 536671466.32604396,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01203",
+        "silent_p": false
+      },
+      {
+        "rel": 0.45265496099749264,
+        "abs": 40433353.64590385,
+        "silent": false,
+        "den": 89324887.89430901,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00676",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2669164531101232,
+        "abs": 263208351.16253737,
+        "silent": false,
+        "den": 986107630.6672788,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01080",
+        "silent_p": false
+      }
+    ]
+  },
+  "last": {
+    "n": 64,
+    "n_silent": 0,
+    "pert_l2_mean": 0.19596604240912543,
+    "pert_l2_p50": 0.14334668442080478,
+    "pert_l2_p90": 0.41382800448773055,
+    "pert_l2_max": 0.6329686511990799,
+    "first_arrival": {
+      "n_ok": 0,
+      "n_fail": 64,
+      "dphi_mean": NaN,
+      "dphi_p50": NaN,
+      "dphi_p90": NaN,
+      "dphi_max": NaN
+    },
+    "n_hard_calls": 0.0,
+    "rows": [
+      {
+        "rel": 0.3252405488642732,
+        "abs": 54898574.905106,
+        "silent": false,
+        "den": 168793759.25544828,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01342",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12247629226992711,
+        "abs": 37522204.67746108,
+        "silent": false,
+        "den": 306363002.84764826,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00163",
+        "silent_p": false
+      },
+      {
+        "rel": 0.05296113244200147,
+        "abs": 20383510.86370047,
+        "silent": false,
+        "den": 384876794.0531249,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00543",
+        "silent_p": false
+      },
+      {
+        "rel": 0.051694785613604695,
+        "abs": 22205694.897209153,
+        "silent": false,
+        "den": 429553863.772388,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01320",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2915109605687504,
+        "abs": 60217048.8907991,
+        "silent": false,
+        "den": 206568729.9486546,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00049",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09011296951553072,
+        "abs": 46218490.53283355,
+        "silent": false,
+        "den": 512894989.27086097,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00888",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06139673722030154,
+        "abs": 29590130.084147777,
+        "silent": false,
+        "den": 481949553.409875,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01900",
+        "silent_p": false
+      },
+      {
+        "rel": 0.6329686511990799,
+        "abs": 48101234.89853321,
+        "silent": false,
+        "den": 75993076.13009182,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00880",
+        "silent_p": false
+      },
+      {
+        "rel": 0.11239989409324816,
+        "abs": 20970518.554798182,
+        "silent": false,
+        "den": 186570625.5683908,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00873",
+        "silent_p": false
+      },
+      {
+        "rel": 0.10549875843633355,
+        "abs": 29702726.480035342,
+        "silent": false,
+        "den": 281545744.42655987,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01315",
+        "silent_p": false
+      },
+      {
+        "rel": 0.058071154386752775,
+        "abs": 30046072.494167395,
+        "silent": false,
+        "den": 517400985.2475315,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01189",
+        "silent_p": false
+      },
+      {
+        "rel": 0.07046369305323706,
+        "abs": 36020978.92006844,
+        "silent": false,
+        "den": 511199134.74949014,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00112",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1665687540266601,
+        "abs": 43064635.14443635,
+        "silent": false,
+        "den": 258539696.69211584,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00652",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14856172504104387,
+        "abs": 40142870.2794253,
+        "silent": false,
+        "den": 270210044.13037634,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01644",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5981720810420063,
+        "abs": 35295664.61204125,
+        "silent": false,
+        "den": 59005870.936933,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00305",
+        "silent_p": false
+      },
+      {
+        "rel": 0.38760267100487417,
+        "abs": 49677121.80258961,
+        "silent": false,
+        "den": 128165065.72000612,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01736",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12335064711598151,
+        "abs": 61083411.13312035,
+        "silent": false,
+        "den": 495201383.7080737,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01487",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09644060381671593,
+        "abs": 49497848.457139276,
+        "silent": false,
+        "den": 513246977.91408765,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01636",
+        "silent_p": false
+      },
+      {
+        "rel": 0.055455181083570976,
+        "abs": 27862805.269705106,
+        "silent": false,
+        "den": 502438270.4244685,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00232",
+        "silent_p": false
+      },
+      {
+        "rel": 0.32330575898413844,
+        "abs": 31475178.016395804,
+        "silent": false,
+        "den": 97354213.90356363,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00747",
+        "silent_p": false
+      },
+      {
+        "rel": 0.28048821989684014,
+        "abs": 43272477.37115703,
+        "silent": false,
+        "den": 154275560.61738375,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01198",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09379703992797482,
+        "abs": 30984005.043253485,
+        "silent": false,
+        "den": 330330307.51338834,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01005",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1588713114432453,
+        "abs": 136499190.75164774,
+        "silent": false,
+        "den": 859180864.7617937,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00921",
+        "silent_p": false
+      },
+      {
+        "rel": 0.15131770706628356,
+        "abs": 43385119.97077503,
+        "silent": false,
+        "den": 286715420.2367771,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01071",
+        "silent_p": false
+      },
+      {
+        "rel": 0.17462080240718106,
+        "abs": 36711158.322802894,
+        "silent": false,
+        "den": 210233590.82499093,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00032",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14147747484105092,
+        "abs": 89436158.13834397,
+        "silent": false,
+        "den": 632158286.9557501,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01277",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2676237411846869,
+        "abs": 45742439.890380934,
+        "silent": false,
+        "den": 170920710.12793338,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01354",
+        "silent_p": false
+      },
+      {
+        "rel": 0.043698377231310696,
+        "abs": 15790851.946243737,
+        "silent": false,
+        "den": 361360145.3128859,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00193",
+        "silent_p": false
+      },
+      {
+        "rel": 0.3420924425061564,
+        "abs": 50926176.14689115,
+        "silent": false,
+        "den": 148866709.16728792,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00853",
+        "silent_p": false
+      },
+      {
+        "rel": 0.03743563922986595,
+        "abs": 18479999.981485855,
+        "silent": false,
+        "den": 493647239.94729096,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00533",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14521589400055862,
+        "abs": 30792000.374304116,
+        "silent": false,
+        "den": 212042907.4670412,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01848",
+        "silent_p": false
+      },
+      {
+        "rel": 0.18224266580557982,
+        "abs": 42038725.15003319,
+        "silent": false,
+        "den": 230674441.48825696,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00053",
+        "silent_p": false
+      },
+      {
+        "rel": 0.0872320817707434,
+        "abs": 27719064.648809068,
+        "silent": false,
+        "den": 317762273.7659542,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01751",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08958314749566368,
+        "abs": 56454931.8325711,
+        "silent": false,
+        "den": 630195895.2190626,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01882",
+        "silent_p": false
+      },
+      {
+        "rel": 0.0619722700109102,
+        "abs": 33253648.18079067,
+        "silent": false,
+        "den": 536589157.94009763,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00149",
+        "silent_p": false
+      },
+      {
+        "rel": 0.4250674331232403,
+        "abs": 47508630.892740175,
+        "silent": false,
+        "den": 111767280.17873329,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00705",
+        "silent_p": false
+      },
+      {
+        "rel": 0.35186727790401867,
+        "abs": 67291280.18408267,
+        "silent": false,
+        "den": 191240517.12031657,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00211",
+        "silent_p": false
+      },
+      {
+        "rel": 0.23246323135737434,
+        "abs": 56990849.833472416,
+        "silent": false,
+        "den": 245160705.6337364,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00347",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08260514394150566,
+        "abs": 49533504.907748364,
+        "silent": false,
+        "den": 599641893.2799636,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00376",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12766802969811977,
+        "abs": 56498589.398819156,
+        "silent": false,
+        "den": 442542972.83677155,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00313",
+        "silent_p": false
+      },
+      {
+        "rel": 0.049973869618042135,
+        "abs": 25381627.604466416,
+        "silent": false,
+        "den": 507897983.4553947,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00336",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09720897271184022,
+        "abs": 31939283.82606043,
+        "silent": false,
+        "den": 328563124.7306677,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01861",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08697990702092384,
+        "abs": 30245206.362817932,
+        "silent": false,
+        "den": 347726358.86518204,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01399",
+        "silent_p": false
+      },
+      {
+        "rel": 0.44552442419425425,
+        "abs": 71840056.59346671,
+        "silent": false,
+        "den": 161248301.3100614,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01454",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06463601119788775,
+        "abs": 26921639.83170295,
+        "silent": false,
+        "den": 416511466.79333955,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01418",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1252849841605568,
+        "abs": 32126394.151287317,
+        "silent": false,
+        "den": 256426533.2078128,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00389",
+        "silent_p": false
+      },
+      {
+        "rel": 0.53972477192902,
+        "abs": 53471397.559839614,
+        "silent": false,
+        "den": 99071601.56597687,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00607",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2988848806898671,
+        "abs": 40050150.46029754,
+        "silent": false,
+        "den": 133998582.89203629,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00255",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08066652049306007,
+        "abs": 34918687.75737619,
+        "silent": false,
+        "den": 432877078.9162813,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00534",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1906144090657066,
+        "abs": 35310264.26695075,
+        "silent": false,
+        "den": 185244465.20083886,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00823",
+        "silent_p": false
+      },
+      {
+        "rel": 0.3091486966326962,
+        "abs": 39435139.2400254,
+        "silent": false,
+        "den": 127560425.35375406,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00712",
+        "silent_p": false
+      },
+      {
+        "rel": 0.32594674383908245,
+        "abs": 57092921.97939548,
+        "silent": false,
+        "den": 175160277.12668866,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01983",
+        "silent_p": false
+      },
+      {
+        "rel": 0.09751873244955589,
+        "abs": 32743663.992216952,
+        "silent": false,
+        "den": 335767940.8841216,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00244",
+        "silent_p": false
+      },
+      {
+        "rel": 0.06137703012360575,
+        "abs": 23518134.1892565,
+        "silent": false,
+        "den": 383174848.01551795,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00478",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1528010778655072,
+        "abs": 37360559.26164684,
+        "silent": false,
+        "den": 244504553.1323473,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01528",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14547371060750142,
+        "abs": 117286090.60058022,
+        "silent": false,
+        "den": 806235642.9267592,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00243",
+        "silent_p": false
+      },
+      {
+        "rel": 0.12335522746507592,
+        "abs": 92030978.73656677,
+        "silent": false,
+        "den": 746064683.49809,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01684",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2739296493189661,
+        "abs": 61701795.557066634,
+        "silent": false,
+        "den": 225246867.98405138,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00494",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08238663651482016,
+        "abs": 37792172.13993223,
+        "silent": false,
+        "den": 458717259.72371703,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01109",
+        "silent_p": false
+      },
+      {
+        "rel": 0.29015830571490286,
+        "abs": 46121917.81046604,
+        "silent": false,
+        "den": 158954325.6286569,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01853",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5968707359612585,
+        "abs": 49047082.18744386,
+        "silent": false,
+        "den": 82173709.03342025,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01392",
+        "silent_p": false
+      },
+      {
+        "rel": 0.032197071881938974,
+        "abs": 17279249.778285228,
+        "silent": false,
+        "den": 536671466.32604396,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01203",
+        "silent_p": false
+      },
+      {
+        "rel": 0.45265496099749264,
+        "abs": 40433353.64590385,
+        "silent": false,
+        "den": 89324887.89430901,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00676",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2669164531101232,
+        "abs": 263208351.16253737,
+        "silent": false,
+        "den": 986107630.6672788,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_01080",
+        "silent_p": false
+      }
+    ]
+  },
+  "best_epoch": 80,
+  "last_epoch": 80,
+  "val16_from_best": {
+    "n": 16,
+    "n_silent": 0,
+    "pert_l2_mean": 0.2248648017586961,
+    "pert_l2_p50": 0.1664818223823494,
+    "pert_l2_p90": 0.42872256365431843,
+    "pert_l2_max": 0.5689100678709937,
+    "first_arrival": {
+      "n_ok": 0,
+      "n_fail": 16,
+      "dphi_mean": NaN,
+      "dphi_p50": NaN,
+      "dphi_p90": NaN,
+      "dphi_max": NaN
+    },
+    "n_hard_calls": 0.0,
+    "rows": [
+      {
+        "rel": 0.09457701601082502,
+        "abs": 49961350.910822645,
+        "silent": false,
+        "den": 528261019.62345916,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00018",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1191089169701924,
+        "abs": 61163139.974289365,
+        "silent": false,
+        "den": 513505970.2507055,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00054",
+        "silent_p": false
+      },
+      {
+        "rel": 0.13684748961623788,
+        "abs": 49290580.69279383,
+        "silent": false,
+        "den": 360186225.0525725,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00066",
+        "silent_p": false
+      },
+      {
+        "rel": 0.28118502171598486,
+        "abs": 72005042.15932894,
+        "silent": false,
+        "den": 256077090.16612807,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00067",
+        "silent_p": false
+      },
+      {
+        "rel": 0.134490183279926,
+        "abs": 101457451.05160064,
+        "silent": false,
+        "den": 754385551.251934,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00078",
+        "silent_p": false
+      },
+      {
+        "rel": 0.2512754495537601,
+        "abs": 81244625.46340993,
+        "silent": false,
+        "den": 323328942.83023757,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00089",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5351950750265828,
+        "abs": 61967032.25054117,
+        "silent": false,
+        "den": 115784010.61979748,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00100",
+        "silent_p": false
+      },
+      {
+        "rel": 0.07753408525496167,
+        "abs": 28014356.988927264,
+        "silent": false,
+        "den": 361316663.46233875,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00106",
+        "silent_p": false
+      },
+      {
+        "rel": 0.32225005228205406,
+        "abs": 84669138.87211496,
+        "silent": false,
+        "den": 262743600.10966596,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00123",
+        "silent_p": false
+      },
+      {
+        "rel": 0.27175024693471284,
+        "abs": 161806004.38941664,
+        "silent": false,
+        "den": 595421738.2120357,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00139",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1753420626699969,
+        "abs": 136036376.5262579,
+        "silent": false,
+        "den": 775834243.3913624,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00150",
+        "silent_p": false
+      },
+      {
+        "rel": 0.14307109274528504,
+        "abs": 109054747.24464491,
+        "silent": false,
+        "den": 762241660.0871238,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00154",
+        "silent_p": false
+      },
+      {
+        "rel": 0.1576215820947019,
+        "abs": 102012475.35347229,
+        "silent": false,
+        "den": 647198651.338123,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00156",
+        "silent_p": false
+      },
+      {
+        "rel": 0.24187474488890834,
+        "abs": 195819275.30521592,
+        "silent": false,
+        "den": 809589589.0046502,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00169",
+        "silent_p": false
+      },
+      {
+        "rel": 0.5689100678709937,
+        "abs": 61976367.44005134,
+        "silent": false,
+        "den": 108938777.74387555,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00182",
+        "silent_p": false
+      },
+      {
+        "rel": 0.08680374122401403,
+        "abs": 32101806.600448344,
+        "silent": false,
+        "den": 369820541.6930516,
+        "phase": {
+          "tag": "ref_no_peak",
+          "dphi_over_4La": NaN,
+          "dt_s": NaN,
+          "amp_rel": NaN,
+          "matched": false
+        },
+        "case_id": "pilot_00203",
+        "silent_p": false
+      }
+    ],
+    "note": "same best ckpt; not used for selection; val16 only"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 32.48780584335327,
+      "train_pert_mean": 0.9966727093756989,
+      "train_pert_p90": 0.9986637686741834,
+      "train_pert_max": 0.999176196379388,
+      "grad_norm_mean": 9.951423525810242,
+      "lr": 0.0002998882102549048,
+      "wall_s": 0.32966089248657227
+    },
+    {
+      "epoch": 2,
+      "train_loss": 32.35146927833557,
+      "train_pert_mean": 0.9912826288444031,
+      "train_pert_p90": 0.9964846615774214,
+      "train_pert_max": 0.9977439711759711,
+      "grad_norm_mean": 10.290838181972504,
+      "lr": 0.0002995530133913035,
+      "wall_s": 0.4923274517059326
+    },
+    {
+      "epoch": 3,
+      "train_loss": 32.1097047328949,
+      "train_pert_mean": 0.9815636357705352,
+      "train_pert_p90": 0.9925551750415037,
+      "train_pert_max": 0.9952277477819395,
+      "grad_norm_mean": 11.040771245956421,
+      "lr": 0.00029899492625846426,
+      "wall_s": 0.6559462547302246
+    },
+    {
+      "epoch": 4,
+      "train_loss": 31.69450879096985,
+      "train_pert_mean": 0.9633796638908364,
+      "train_pert_p90": 0.9852072933049859,
+      "train_pert_max": 0.9902692976405173,
+      "grad_norm_mean": 12.601409256458282,
+      "lr": 0.0002982148093862949,
+      "wall_s": 0.8210477828979492
+    },
+    {
+      "epoch": 5,
+      "train_loss": 30.812920093536377,
+      "train_pert_mean": 0.9297026468546714,
+      "train_pert_p90": 0.971309349801052,
+      "train_pert_max": 0.9810643763919421,
+      "grad_norm_mean": 16.151671051979065,
+      "lr": 0.00029721386565846836,
+      "wall_s": 0.9849045276641846
+    },
+    {
+      "epoch": 6,
+      "train_loss": 29.36154317855835,
+      "train_pert_mean": 0.8701082010248298,
+      "train_pert_p90": 0.9462991525994096,
+      "train_pert_max": 0.9640743550941713,
+      "grad_norm_mean": 22.045706629753113,
+      "lr": 0.000295993638457663,
+      "wall_s": 1.1551387310028076
+    },
+    {
+      "epoch": 7,
+      "train_loss": 26.896677017211914,
+      "train_pert_mean": 0.7749554285774596,
+      "train_pert_p90": 0.9043142236140921,
+      "train_pert_max": 0.9366803125242187,
+      "grad_norm_mean": 31.52925968170166,
+      "lr": 0.00029455600928577876,
+      "wall_s": 1.3142380714416504
+    },
+    {
+      "epoch": 8,
+      "train_loss": 22.86160397529602,
+      "train_pert_mean": 0.6538058380088545,
+      "train_pert_p90": 0.8372090787928659,
+      "train_pert_max": 0.8902695342106618,
+      "grad_norm_mean": 44.79429841041565,
+      "lr": 0.0002929031948627972,
+      "wall_s": 1.4714417457580566
+    },
+    {
+      "epoch": 9,
+      "train_loss": 18.07193887233734,
+      "train_pert_mean": 0.566238461232226,
+      "train_pert_p90": 0.7997425170663574,
+      "train_pert_max": 1.4841708987285627,
+      "grad_norm_mean": 53.43239736557007,
+      "lr": 0.0002910377437087601,
+      "wall_s": 1.630523920059204
+    },
+    {
+      "epoch": 10,
+      "train_loss": 12.334937751293182,
+      "train_pert_mean": 0.5800715510494413,
+      "train_pert_p90": 1.0425248168849965,
+      "train_pert_max": 2.5983337254006402,
+      "grad_norm_mean": 52.25901484489441,
+      "lr": 0.00028896253221413645,
+      "wall_s": 1.7873351573944092
+    },
+    {
+      "epoch": 11,
+      "train_loss": 9.231345117092133,
+      "train_pert_mean": 0.7040531579058465,
+      "train_pert_p90": 1.5252578665457008,
+      "train_pert_max": 3.4473163927884034,
+      "grad_norm_mean": 38.863695561885834,
+      "lr": 0.00028668076020463664,
+      "wall_s": 1.952343225479126
+    },
+    {
+      "epoch": 12,
+      "train_loss": 7.203242123126984,
+      "train_pert_mean": 0.7342843984516731,
+      "train_pert_p90": 1.6110950780548885,
+      "train_pert_max": 4.10884202548895,
+      "grad_norm_mean": 38.258073925971985,
+      "lr": 0.0002841959460073132,
+      "wall_s": 2.1171064376831055
+    },
+    {
+      "epoch": 13,
+      "train_loss": 6.502278238534927,
+      "train_pert_mean": 0.6756172573429351,
+      "train_pert_p90": 1.4576710772521257,
+      "train_pert_max": 4.00694252858638,
+      "grad_norm_mean": 40.69713771343231,
+      "lr": 0.00028151192102555543,
+      "wall_s": 2.294342279434204
+    },
+    {
+      "epoch": 14,
+      "train_loss": 5.5047770738601685,
+      "train_pert_mean": 0.5661840589046405,
+      "train_pert_p90": 1.1750496934180215,
+      "train_pert_max": 3.3940024004484664,
+      "grad_norm_mean": 27.615277886390686,
+      "lr": 0.0002786328238313432,
+      "wall_s": 2.4495632648468018
+    },
+    {
+      "epoch": 15,
+      "train_loss": 5.091506600379944,
+      "train_pert_mean": 0.5171855471255268,
+      "train_pert_p90": 1.0972550422980831,
+      "train_pert_max": 3.139060711855215,
+      "grad_norm_mean": 27.58819043636322,
+      "lr": 0.00027556309378386895,
+      "wall_s": 2.609872341156006
+    },
+    {
+      "epoch": 16,
+      "train_loss": 4.5173372477293015,
+      "train_pert_mean": 0.5140881935255252,
+      "train_pert_p90": 1.1716231810926836,
+      "train_pert_max": 3.2394098137278595,
+      "grad_norm_mean": 35.30730640888214,
+      "lr": 0.0002723074641843673,
+      "wall_s": 2.7772176265716553
+    },
+    {
+      "epoch": 17,
+      "train_loss": 4.020584687590599,
+      "train_pert_mean": 0.5368895596539691,
+      "train_pert_p90": 1.269356947450604,
+      "train_pert_max": 3.5627225345479663,
+      "grad_norm_mean": 27.82305896282196,
+      "lr": 0.0002688709549777079,
+      "wall_s": 2.948883295059204
+    },
+    {
+      "epoch": 18,
+      "train_loss": 3.682830721139908,
+      "train_pert_mean": 0.49288470000916024,
+      "train_pert_p90": 1.1606717851377448,
+      "train_pert_max": 3.38738600520549,
+      "grad_norm_mean": 20.075783729553223,
+      "lr": 0.0002652588650120044,
+      "wall_s": 3.121267795562744
+    },
+    {
+      "epoch": 19,
+      "train_loss": 3.3448978662490845,
+      "train_pert_mean": 0.4705131997191238,
+      "train_pert_p90": 1.0774153884380444,
+      "train_pert_max": 3.0943949112026345,
+      "grad_norm_mean": 25.915685296058655,
+      "lr": 0.0002614767638681743,
+      "wall_s": 3.2854886054992676
+    },
+    {
+      "epoch": 20,
+      "train_loss": 3.058687999844551,
+      "train_pert_mean": 0.42307066830541284,
+      "train_pert_p90": 0.9322264605675074,
+      "train_pert_max": 2.7082426082672444,
+      "grad_norm_mean": 24.507789373397827,
+      "lr": 0.0002575304832720493,
+      "wall_s": 3.442284345626831
+    },
+    {
+      "epoch": 21,
+      "train_loss": 2.784376233816147,
+      "train_pert_mean": 0.4070562414392761,
+      "train_pert_p90": 0.9871404273012984,
+      "train_pert_max": 2.3199125437823374,
+      "grad_norm_mean": 26.79967200756073,
+      "lr": 0.00025342610810227643,
+      "wall_s": 3.610313892364502
+    },
+    {
+      "epoch": 22,
+      "train_loss": 2.628968968987465,
+      "train_pert_mean": 0.3968816174487482,
+      "train_pert_p90": 1.0039554085891544,
+      "train_pert_max": 2.1454889047370918,
+      "grad_norm_mean": 24.26933228969574,
+      "lr": 0.00024916996700787654,
+      "wall_s": 3.7662086486816406
+    },
+    {
+      "epoch": 23,
+      "train_loss": 2.3699013963341713,
+      "train_pert_mean": 0.3608244907354719,
+      "train_pert_p90": 0.8037496981787049,
+      "train_pert_max": 1.9272754968407835,
+      "grad_norm_mean": 15.666032075881958,
+      "lr": 0.00024476862264992584,
+      "wall_s": 3.9182443618774414
+    },
+    {
+      "epoch": 24,
+      "train_loss": 2.1739744022488594,
+      "train_pert_mean": 0.3305611094901057,
+      "train_pert_p90": 0.7265372787090836,
+      "train_pert_max": 1.5754485687598854,
+      "grad_norm_mean": 17.707926034927368,
+      "lr": 0.00024022886158240852,
+      "wall_s": 4.077118635177612
+    },
+    {
+      "epoch": 25,
+      "train_loss": 1.98028814047575,
+      "train_pert_mean": 0.30439281187506634,
+      "train_pert_p90": 0.6419888969548273,
+      "train_pert_max": 1.386367049488702,
+      "grad_norm_mean": 20.296024799346924,
+      "lr": 0.00023555768378784225,
+      "wall_s": 4.244505167007446
+    },
+    {
+      "epoch": 26,
+      "train_loss": 1.8043078556656837,
+      "train_pert_mean": 0.2954059488168829,
+      "train_pert_p90": 0.615474927933954,
+      "train_pert_max": 1.3320422650713346,
+      "grad_norm_mean": 17.5119069814682,
+      "lr": 0.0002307622918838125,
+      "wall_s": 4.404302358627319
+    },
+    {
+      "epoch": 27,
+      "train_loss": 1.6573661342263222,
+      "train_pert_mean": 0.28054244155633035,
+      "train_pert_p90": 0.5781638039022927,
+      "train_pert_max": 1.2070240055387886,
+      "grad_norm_mean": 17.772420704364777,
+      "lr": 0.00022585008001705842,
+      "wall_s": 4.561328172683716
+    },
+    {
+      "epoch": 28,
+      "train_loss": 1.5725355297327042,
+      "train_pert_mean": 0.28168256677807213,
+      "train_pert_p90": 0.6139989028835062,
+      "train_pert_max": 1.111645895986275,
+      "grad_norm_mean": 15.969401597976685,
+      "lr": 0.00022082862246223422,
+      "wall_s": 4.727303504943848
+    },
+    {
+      "epoch": 29,
+      "train_loss": 1.4925175234675407,
+      "train_pert_mean": 0.2607480356158691,
+      "train_pert_p90": 0.5861137843531443,
+      "train_pert_max": 0.9058936075124413,
+      "grad_norm_mean": 14.151580929756165,
+      "lr": 0.00021570566194292702,
+      "wall_s": 4.882955551147461
+    },
+    {
+      "epoch": 30,
+      "train_loss": 1.4239739552140236,
+      "train_pert_mean": 0.25581888935642655,
+      "train_pert_p90": 0.5650805986275788,
+      "train_pert_max": 0.8408127780179889,
+      "grad_norm_mean": 14.917690336704254,
+      "lr": 0.00021048909769293798,
+      "wall_s": 5.0337347984313965
+    },
+    {
+      "epoch": 31,
+      "train_loss": 1.2986215837299824,
+      "train_pert_mean": 0.2484210656432872,
+      "train_pert_p90": 0.5270679224091651,
+      "train_pert_max": 0.7980552680709864,
+      "grad_norm_mean": 13.501776218414307,
+      "lr": 0.00020518697327623643,
+      "wall_s": 5.184139013290405
+    },
+    {
+      "epoch": 32,
+      "train_loss": 1.2464298084378242,
+      "train_pert_mean": 0.25022732229958844,
+      "train_pert_p90": 0.5180164241435827,
+      "train_pert_max": 0.7834487651324687,
+      "grad_norm_mean": 10.58791407942772,
+      "lr": 0.00019980746418436733,
+      "wall_s": 5.348883628845215
+    },
+    {
+      "epoch": 33,
+      "train_loss": 1.1618619784712791,
+      "train_pert_mean": 0.24152507213265673,
+      "train_pert_p90": 0.4836903854685491,
+      "train_pert_max": 0.731683985794425,
+      "grad_norm_mean": 10.342789500951767,
+      "lr": 0.00019435886523043572,
+      "wall_s": 5.5053160190582275
+    },
+    {
+      "epoch": 34,
+      "train_loss": 1.1377556920051575,
+      "train_pert_mean": 0.24162358428130626,
+      "train_pert_p90": 0.5005155517863623,
+      "train_pert_max": 0.7477101639302401,
+      "grad_norm_mean": 10.546968311071396,
+      "lr": 0.00018884957775910626,
+      "wall_s": 5.673946142196655
+    },
+    {
+      "epoch": 35,
+      "train_loss": 1.0798286907374859,
+      "train_pert_mean": 0.2387268044124549,
+      "train_pert_p90": 0.49273496584515347,
+      "train_pert_max": 0.7127368710544022,
+      "grad_norm_mean": 10.511465907096863,
+      "lr": 0.00018328809669233858,
+      "wall_s": 5.83661675453186
+    },
+    {
+      "epoch": 36,
+      "train_loss": 1.044049046933651,
+      "train_pert_mean": 0.23229370573060654,
+      "train_pert_p90": 0.47469541908612617,
+      "train_pert_max": 0.6822823249464297,
+      "grad_norm_mean": 11.061510235071182,
+      "lr": 0.00017768299743083345,
+      "wall_s": 6.000844955444336
+    },
+    {
+      "epoch": 37,
+      "train_loss": 1.0216766074299812,
+      "train_pert_mean": 0.2284175803724816,
+      "train_pert_p90": 0.4658190743913856,
+      "train_pert_max": 0.672271047613636,
+      "grad_norm_mean": 10.683094322681427,
+      "lr": 0.00017204292263138643,
+      "wall_s": 6.191632032394409
+    },
+    {
+      "epoch": 38,
+      "train_loss": 1.001420184969902,
+      "train_pert_mean": 0.22449919977740218,
+      "train_pert_p90": 0.4559051652218071,
+      "train_pert_max": 0.6570819339234286,
+      "grad_norm_mean": 9.931980609893799,
+      "lr": 0.0001663765688805375,
+      "wall_s": 6.365399360656738
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.9749235399067402,
+      "train_pert_mean": 0.22397465193437077,
+      "train_pert_p90": 0.45344106973887643,
+      "train_pert_max": 0.6494693004243854,
+      "grad_norm_mean": 10.085801541805267,
+      "lr": 0.00016069267328506492,
+      "wall_s": 6.550344228744507
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.93822817876935,
+      "train_pert_mean": 0.21921368836326438,
+      "train_pert_p90": 0.4399791605318911,
+      "train_pert_max": 0.6575104491641014,
+      "grad_norm_mean": 9.287583768367767,
+      "lr": 0.00015499999999999997,
+      "wall_s": 6.720510244369507
+    },
+    {
+      "epoch": 41,
+      "train_loss": 0.9407795928418636,
+      "train_pert_mean": 0.2175602605372619,
+      "train_pert_p90": 0.4460713042900148,
+      "train_pert_max": 0.6483258143789956,
+      "grad_norm_mean": 9.212597221136093,
+      "lr": 0.00014930732671493505,
+      "wall_s": 6.888099908828735
+    },
+    {
+      "epoch": 42,
+      "train_loss": 0.937939140945673,
+      "train_pert_mean": 0.21744981353122905,
+      "train_pert_p90": 0.4411691804248043,
+      "train_pert_max": 0.6469888704555301,
+      "grad_norm_mean": 9.12333482503891,
+      "lr": 0.00014362343111946248,
+      "wall_s": 7.083425045013428
+    },
+    {
+      "epoch": 43,
+      "train_loss": 0.8935579136013985,
+      "train_pert_mean": 0.21837893403108122,
+      "train_pert_p90": 0.4466379633041595,
+      "train_pert_max": 0.6589102104726623,
+      "grad_norm_mean": 8.035655617713928,
+      "lr": 0.00013795707736861354,
+      "wall_s": 7.2513933181762695
+    },
+    {
+      "epoch": 44,
+      "train_loss": 0.8692080490291119,
+      "train_pert_mean": 0.21788888239467208,
+      "train_pert_p90": 0.45313322162074865,
+      "train_pert_max": 0.6424411547493005,
+      "grad_norm_mean": 8.739870935678482,
+      "lr": 0.00013231700256916655,
+      "wall_s": 7.412043809890747
+    },
+    {
+      "epoch": 45,
+      "train_loss": 0.8700052574276924,
+      "train_pert_mean": 0.21478236179777796,
+      "train_pert_p90": 0.4429723684639976,
+      "train_pert_max": 0.6553319478069858,
+      "grad_norm_mean": 9.043715089559555,
+      "lr": 0.00012671190330766142,
+      "wall_s": 7.568860292434692
+    },
+    {
+      "epoch": 46,
+      "train_loss": 0.8583501055836678,
+      "train_pert_mean": 0.2151399429954211,
+      "train_pert_p90": 0.44907421493023786,
+      "train_pert_max": 0.6566741230960272,
+      "grad_norm_mean": 8.076746463775635,
+      "lr": 0.00012115042224089373,
+      "wall_s": 7.742095947265625
+    },
+    {
+      "epoch": 47,
+      "train_loss": 0.8336679339408875,
+      "train_pert_mean": 0.21406473048894697,
+      "train_pert_p90": 0.4470764850369015,
+      "train_pert_max": 0.6471284846555723,
+      "grad_norm_mean": 8.05338853597641,
+      "lr": 0.0001156411347695642,
+      "wall_s": 7.908041715621948
+    },
+    {
+      "epoch": 48,
+      "train_loss": 0.82589365914464,
+      "train_pert_mean": 0.2119958572298053,
+      "train_pert_p90": 0.43856529926476123,
+      "train_pert_max": 0.6520830428567312,
+      "grad_norm_mean": 8.136330425739288,
+      "lr": 0.00011019253581563263,
+      "wall_s": 8.076965093612671
+    },
+    {
+      "epoch": 49,
+      "train_loss": 0.8134040646255016,
+      "train_pert_mean": 0.2110543787971109,
+      "train_pert_p90": 0.432966192175382,
+      "train_pert_max": 0.6635380607163085,
+      "grad_norm_mean": 8.969675868749619,
+      "lr": 0.00010481302672376354,
+      "wall_s": 8.25532841682434
+    },
+    {
+      "epoch": 50,
+      "train_loss": 0.8094199188053608,
+      "train_pert_mean": 0.21193711521578795,
+      "train_pert_p90": 0.43506819150177284,
+      "train_pert_max": 0.6514977208452071,
+      "grad_norm_mean": 7.942427277565002,
+      "lr": 9.951090230706198e-05,
+      "wall_s": 8.434128522872925
+    },
+    {
+      "epoch": 51,
+      "train_loss": 0.7887502238154411,
+      "train_pert_mean": 0.20797565375723953,
+      "train_pert_p90": 0.4327696233921793,
+      "train_pert_max": 0.6369112391037277,
+      "grad_norm_mean": 8.885639131069183,
+      "lr": 9.429433805707296e-05,
+      "wall_s": 8.598605871200562
+    },
+    {
+      "epoch": 52,
+      "train_loss": 0.8163867890834808,
+      "train_pert_mean": 0.20465553719208082,
+      "train_pert_p90": 0.4227796808169297,
+      "train_pert_max": 0.6413278712699585,
+      "grad_norm_mean": 8.88995161652565,
+      "lr": 8.917137753776572e-05,
+      "wall_s": 8.773360013961792
+    },
+    {
+      "epoch": 53,
+      "train_loss": 0.7942595481872559,
+      "train_pert_mean": 0.20315472204637935,
+      "train_pert_p90": 0.4219314628973471,
+      "train_pert_max": 0.6453292252876005,
+      "grad_norm_mean": 6.365086257457733,
+      "lr": 8.414991998294151e-05,
+      "wall_s": 8.940943479537964
+    },
+    {
+      "epoch": 54,
+      "train_loss": 0.7834376767277718,
+      "train_pert_mean": 0.20435816763084114,
+      "train_pert_p90": 0.4246452027497448,
+      "train_pert_max": 0.6443503339284772,
+      "grad_norm_mean": 8.564416468143463,
+      "lr": 7.923770811618742e-05,
+      "wall_s": 9.125053644180298
+    },
+    {
+      "epoch": 55,
+      "train_loss": 0.766713198274374,
+      "train_pert_mean": 0.20248653557523746,
+      "train_pert_p90": 0.42112374918923534,
+      "train_pert_max": 0.6467003495155942,
+      "grad_norm_mean": 7.009088039398193,
+      "lr": 7.444231621215766e-05,
+      "wall_s": 9.301517724990845
+    },
+    {
+      "epoch": 56,
+      "train_loss": 0.7730587311089039,
+      "train_pert_mean": 0.2015161101375999,
+      "train_pert_p90": 0.41888767781379704,
+      "train_pert_max": 0.6456123452224574,
+      "grad_norm_mean": 8.29325807094574,
+      "lr": 6.97711384175914e-05,
+      "wall_s": 9.47572946548462
+    },
+    {
+      "epoch": 57,
+      "train_loss": 0.7678729556500912,
+      "train_pert_mean": 0.2015231675963587,
+      "train_pert_p90": 0.4205374434954481,
+      "train_pert_max": 0.6413153248826186,
+      "grad_norm_mean": 8.072597235441208,
+      "lr": 6.52313773500741e-05,
+      "wall_s": 9.666712999343872
+    },
+    {
+      "epoch": 58,
+      "train_loss": 0.7593217380344868,
+      "train_pert_mean": 0.20192231569530383,
+      "train_pert_p90": 0.4237166055147353,
+      "train_pert_max": 0.6376546328327923,
+      "grad_norm_mean": 6.901140049099922,
+      "lr": 6.083003299212339e-05,
+      "wall_s": 9.845456600189209
+    },
+    {
+      "epoch": 59,
+      "train_loss": 0.7551731821149588,
+      "train_pert_mean": 0.20162070417427236,
+      "train_pert_p90": 0.4237181971946495,
+      "train_pert_max": 0.6364283599084128,
+      "grad_norm_mean": 7.820762455463409,
+      "lr": 5.657389189772349e-05,
+      "wall_s": 10.031623601913452
+    },
+    {
+      "epoch": 60,
+      "train_loss": 0.7580510675907135,
+      "train_pert_mean": 0.20051428111805208,
+      "train_pert_p90": 0.41979533289321835,
+      "train_pert_max": 0.6436098854801651,
+      "grad_norm_mean": 9.004488229751587,
+      "lr": 5.246951672795062e-05,
+      "wall_s": 10.226402521133423
+    },
+    {
+      "epoch": 61,
+      "train_loss": 0.7498885989189148,
+      "train_pert_mean": 0.20010636436158757,
+      "train_pert_p90": 0.42127045863437135,
+      "train_pert_max": 0.6429592723879193,
+      "grad_norm_mean": 8.020775139331818,
+      "lr": 4.8523236131825596e-05,
+      "wall_s": 10.40062427520752
+    },
+    {
+      "epoch": 62,
+      "train_loss": 0.7463498525321484,
+      "train_pert_mean": 0.19937997923726364,
+      "train_pert_p90": 0.41999379557470373,
+      "train_pert_max": 0.6430385174490517,
+      "grad_norm_mean": 8.488935023546219,
+      "lr": 4.474113498799552e-05,
+      "wall_s": 10.585037469863892
+    },
+    {
+      "epoch": 63,
+      "train_loss": 0.740522027015686,
+      "train_pert_mean": 0.1988420329213931,
+      "train_pert_p90": 0.420155435098348,
+      "train_pert_max": 0.6444487765010046,
+      "grad_norm_mean": 7.3711521327495575,
+      "lr": 4.1129045022291985e-05,
+      "wall_s": 10.77982497215271
+    },
+    {
+      "epoch": 64,
+      "train_loss": 0.7375259101390839,
+      "train_pert_mean": 0.19833159101151765,
+      "train_pert_p90": 0.4192657676675461,
+      "train_pert_max": 0.6448950756667639,
+      "grad_norm_mean": 7.58777192234993,
+      "lr": 3.769253581563264e-05,
+      "wall_s": 10.964360475540161
+    },
+    {
+      "epoch": 65,
+      "train_loss": 0.7343525476753712,
+      "train_pert_mean": 0.198165852868253,
+      "train_pert_p90": 0.41988253638563044,
+      "train_pert_max": 0.6421694230700276,
+      "grad_norm_mean": 7.725883185863495,
+      "lr": 3.443690621613098e-05,
+      "wall_s": 11.1354341506958
+    },
+    {
+      "epoch": 66,
+      "train_loss": 0.7328875474631786,
+      "train_pert_mean": 0.19750523088998584,
+      "train_pert_p90": 0.41745749548746025,
+      "train_pert_max": 0.6421411778959549,
+      "grad_norm_mean": 7.7742176949977875,
+      "lr": 3.136717616865664e-05,
+      "wall_s": 11.31649899482727
+    },
+    {
+      "epoch": 67,
+      "train_loss": 0.7348989900201559,
+      "train_pert_mean": 0.19705899345059044,
+      "train_pert_p90": 0.4159317249013852,
+      "train_pert_max": 0.6385666891816961,
+      "grad_norm_mean": 7.84461410343647,
+      "lr": 2.8488078974444452e-05,
+      "wall_s": 11.496922969818115
+    },
+    {
+      "epoch": 68,
+      "train_loss": 0.7341807670891285,
+      "train_pert_mean": 0.19682684741892045,
+      "train_pert_p90": 0.4161525390240128,
+      "train_pert_max": 0.6346125218052163,
+      "grad_norm_mean": 8.491312891244888,
+      "lr": 2.5804053992686677e-05,
+      "wall_s": 11.68017053604126
+    },
+    {
+      "epoch": 69,
+      "train_loss": 0.7316999770700932,
+      "train_pert_mean": 0.1966810868406737,
+      "train_pert_p90": 0.41574306954351553,
+      "train_pert_max": 0.6340397910482086,
+      "grad_norm_mean": 7.417020678520203,
+      "lr": 2.331923979536321e-05,
+      "wall_s": 11.862606287002563
+    },
+    {
+      "epoch": 70,
+      "train_loss": 0.7275314554572105,
+      "train_pert_mean": 0.19699026513535756,
+      "train_pert_p90": 0.41709890385491194,
+      "train_pert_max": 0.633619986631169,
+      "grad_norm_mean": 7.684867233037949,
+      "lr": 2.103746778586343e-05,
+      "wall_s": 12.0475172996521
+    },
+    {
+      "epoch": 71,
+      "train_loss": 0.7236170433461666,
+      "train_pert_mean": 0.19688911977747126,
+      "train_pert_p90": 0.41646954231247263,
+      "train_pert_max": 0.6338778173464553,
+      "grad_norm_mean": 6.887291759252548,
+      "lr": 1.8962256291239803e-05,
+      "wall_s": 12.236722946166992
+    },
+    {
+      "epoch": 72,
+      "train_loss": 0.7226447053253651,
+      "train_pert_mean": 0.19680870002890355,
+      "train_pert_p90": 0.41570434675212103,
+      "train_pert_max": 0.6328920037447452,
+      "grad_norm_mean": 7.3393842577934265,
+      "lr": 1.709680513720274e-05,
+      "wall_s": 12.419816017150879
+    },
+    {
+      "epoch": 73,
+      "train_loss": 0.720458498224616,
+      "train_pert_mean": 0.1967951811346133,
+      "train_pert_p90": 0.41537547591189017,
+      "train_pert_max": 0.6343135082739718,
+      "grad_norm_mean": 7.373530060052872,
+      "lr": 1.5443990714221165e-05,
+      "wall_s": 12.592061758041382
+    },
+    {
+      "epoch": 74,
+      "train_loss": 0.7194239124655724,
+      "train_pert_mean": 0.19662351833953878,
+      "train_pert_p90": 0.4150251986650053,
+      "train_pert_max": 0.6343080767243161,
+      "grad_norm_mean": 6.910809934139252,
+      "lr": 1.4006361542336902e-05,
+      "wall_s": 12.774381875991821
+    },
+    {
+      "epoch": 75,
+      "train_loss": 0.7188226953148842,
+      "train_pert_mean": 0.19659290233817706,
+      "train_pert_p90": 0.41471966531869897,
+      "train_pert_max": 0.6349214882527388,
+      "grad_norm_mean": 7.197609633207321,
+      "lr": 1.278613434153159e-05,
+      "wall_s": 12.944183826446533
+    },
+    {
+      "epoch": 76,
+      "train_loss": 0.7177964765578508,
+      "train_pert_mean": 0.19664261146798728,
+      "train_pert_p90": 0.4150170260878066,
+      "train_pert_max": 0.6335111458661508,
+      "grad_norm_mean": 7.0796264708042145,
+      "lr": 1.1785190613705041e-05,
+      "wall_s": 13.121516942977905
+    },
+    {
+      "epoch": 77,
+      "train_loss": 0.7167682275176048,
+      "train_pert_mean": 0.19657309005978518,
+      "train_pert_p90": 0.41480565864500063,
+      "train_pert_max": 0.6325723356126234,
+      "grad_norm_mean": 6.210844963788986,
+      "lr": 1.1005073741535688e-05,
+      "wall_s": 13.297329425811768
+    },
+    {
+      "epoch": 78,
+      "train_loss": 0.7173205073922873,
+      "train_pert_mean": 0.19630993492039236,
+      "train_pert_p90": 0.4144018074725811,
+      "train_pert_max": 0.6322083584105128,
+      "grad_norm_mean": 6.740264981985092,
+      "lr": 1.0446986608696446e-05,
+      "wall_s": 13.468430280685425
+    },
+    {
+      "epoch": 79,
+      "train_loss": 0.716588344424963,
+      "train_pert_mean": 0.19613414878827368,
+      "train_pert_p90": 0.4140378677695815,
+      "train_pert_max": 0.633105579394126,
+      "grad_norm_mean": 7.285794585943222,
+      "lr": 1.011178974509518e-05,
+      "wall_s": 13.64751386642456
+    },
+    {
+      "epoch": 80,
+      "train_loss": 0.7166697829961777,
+      "train_pert_mean": 0.19596604240912543,
+      "train_pert_p90": 0.41382800448773055,
+      "train_pert_max": 0.6329686511990799,
+      "grad_norm_mean": 7.391544669866562,
+      "lr": 1e-05,
+      "wall_s": 13.822035074234009
+    }
+  ],
+  "ckpt_best": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round2\\checkpoints\\r2_overfit_n64_20260906_174959_f8c81858_best.pt",
+  "ckpt_last": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round2\\checkpoints\\r2_overfit_n64_20260906_174959_f8c81858_last.pt",
+  "data_version": {
+    "manifest_sha256": "046e888bad87d7dd29751941b9901d335ebecce1bfd591ce0e4b19afe1838b66",
+    "case_ids_sha256": "1b8a53d087699da1c1a5c7aeee01ed01c70358cdeb5a7ffde108775b18f3b37c",
+    "n_cases": 64,
+    "query_protocol": {
+      "dt_s": 0.02,
+      "n_samples": 400,
+      "t_origin": "valve_start",
+      "antialias": true,
+      "antialias_frac_nyquist": 0.4,
+      "window_note": "t = t_s + i*dt, i=0..T-1; covers valve ramp + early free response"
+    }
+  },
+  "code_sha256": "1642fc233099eaa75326b89f3ed42a17e93dc78878d44921ccbdd0c4534e8785",
+  "selection": "train_pert_l2",
+  "node_loss_used": false,
+  "note": "node-vs-wellhead gradient angle not applicable (w_node=0)"
+}

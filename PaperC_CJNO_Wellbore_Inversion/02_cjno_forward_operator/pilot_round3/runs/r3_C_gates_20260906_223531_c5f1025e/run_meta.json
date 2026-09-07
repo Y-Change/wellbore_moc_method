@@ -1,0 +1,42 @@
+{
+  "run_id": "r3_C_gates_20260906_223531_c5f1025e",
+  "created": "2026-09-06T22:35:31",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "code_sha256": "82890a82e699660674db4524c453355dfa76c00ac4826fcfd3b39df985c2cbba",
+  "stage1_code_sha256": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "resolved_config": {
+    "max_cases": 4,
+    "case_ids": [
+      "pilot_01342",
+      "pilot_00163",
+      "pilot_00543",
+      "pilot_01320"
+    ],
+    "F": {
+      "symbol": "F",
+      "discrete_def": "F^{n+1} = p_in^{n+1} - p_c^{n+1} = c1^{n->n+1} q^{n+1} + c0^{n->n+1}",
+      "units": "Pa",
+      "update_time": "after each successful cluster Newton at the new time level",
+      "not": "F=0 or copied mean pc"
+    },
+    "long_window": "t_s+t_c+2*(4L/a)+2*x1/a",
+    "alignment_gate": 0.005,
+    "not_learning_2pct_gate": true
+  },
+  "env": {
+    "python": "3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.4.0",
+    "cuda": true,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Ti"
+  },
+  "case_ids": [
+    "pilot_01342",
+    "pilot_00163",
+    "pilot_00543",
+    "pilot_01320"
+  ],
+  "wall_clock_s": 1010.164000749588
+}

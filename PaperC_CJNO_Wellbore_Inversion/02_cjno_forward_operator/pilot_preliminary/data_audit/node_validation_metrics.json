@@ -1,0 +1,206 @@
+{
+  "n_scenarios": 5,
+  "n_fail": 0,
+  "status": "PASS",
+  "thresholds": {
+    "resid_inf": 1e-08,
+    "grad_rel_smooth": 0.0001
+  },
+  "rows": [
+    {
+      "name": "nominal",
+      "forward_match_H_rel": 0.0,
+      "resid_inf_dimless": 3.608224830031759e-14,
+      "newton_ok": true,
+      "n_iter": 3,
+      "cond": 165.54979446604233,
+      "tikhonov": false,
+      "stiff_guard": 0,
+      "n_perf": 4,
+      "q_mean": 0.03006198162872486,
+      "grads": {
+        "CP": {
+          "autograd": 0.49992540119268275,
+          "fd": 0.49992540107268724,
+          "rel": 2.400268385405524e-10,
+          "abs": 1.199955135255948e-10,
+          "near_zero_ref": "False"
+        },
+        "CM": {
+          "autograd": 0.49900675360093766,
+          "fd": 0.499006753670983,
+          "rel": 1.403695599049264e-10,
+          "abs": 7.004535840238191e-11,
+          "near_zero_ref": "False"
+        },
+        "K": {
+          "autograd": 2.460157126066058e-11,
+          "fd": 2.4601571567473003e-11,
+          "rel": 1.247125302466844e-08,
+          "abs": 3.0681242382244475e-19,
+          "near_zero_ref": "True"
+        }
+      },
+      "smooth": true,
+      "pass_resid": true,
+      "pass_grad": true
+    },
+    {
+      "name": "stiff_storage",
+      "forward_match_H_rel": 0.0,
+      "resid_inf_dimless": 3.1002977962657496e-13,
+      "newton_ok": true,
+      "n_iter": 3,
+      "cond": 165.5487311436748,
+      "tikhonov": false,
+      "stiff_guard": 0,
+      "n_perf": 4,
+      "q_mean": 0.03004852189160768,
+      "grads": {
+        "CP": {
+          "autograd": 0.49992552294825404,
+          "fd": 0.4999255233997246,
+          "rel": 9.030756822940857e-10,
+          "abs": 4.514705831404342e-10,
+          "near_zero_ref": "False"
+        },
+        "CM": {
+          "autograd": 0.4990067453322924,
+          "fd": 0.49900674503078335,
+          "rel": 6.042183657028162e-10,
+          "abs": 3.015090399571818e-10,
+          "near_zero_ref": "False"
+        },
+        "K": {
+          "autograd": 2.4576934098638107e-11,
+          "fd": 2.4576934265496676e-11,
+          "rel": 6.789234476167629e-09,
+          "abs": 1.6685856943381557e-19,
+          "near_zero_ref": "True"
+        }
+      },
+      "smooth": true,
+      "pass_resid": true,
+      "pass_grad": true
+    },
+    {
+      "name": "reverse_flow",
+      "forward_match_H_rel": 0.0,
+      "resid_inf_dimless": 3.5110803153770576e-13,
+      "newton_ok": true,
+      "n_iter": 3,
+      "cond": 165.8301329719622,
+      "tikhonov": false,
+      "stiff_guard": 0,
+      "n_perf": 4,
+      "q_mean": 0.02918837934512247,
+      "grads": {
+        "CP": {
+          "autograd": 0.4999169599477517,
+          "fd": 0.49991696050710743,
+          "rel": 1.118897282130347e-09,
+          "abs": 5.593557284022665e-10,
+          "near_zero_ref": "False"
+        },
+        "CM": {
+          "autograd": 0.49898986386018807,
+          "fd": 0.4989898643543711,
+          "rel": 9.903668654113275e-10,
+          "abs": 4.94183027832662e-10,
+          "near_zero_ref": "False"
+        },
+        "K": {
+          "autograd": 2.3742664826994875e-11,
+          "fd": 2.3742664325254735e-11,
+          "rel": 2.1132427794269562e-08,
+          "abs": 5.017401394970256e-19,
+          "near_zero_ref": "True"
+        }
+      },
+      "smooth": true,
+      "pass_resid": true,
+      "pass_grad": true
+    },
+    {
+      "name": "near_zero",
+      "forward_match_H_rel": 0.0,
+      "resid_inf_dimless": 3.59989815734707e-13,
+      "newton_ok": true,
+      "n_iter": 3,
+      "cond": 165.64947270351166,
+      "tikhonov": false,
+      "stiff_guard": 0,
+      "n_perf": 4,
+      "q_mean": 0.029714992548090343,
+      "grads": {
+        "CP": {
+          "autograd": 0.4999221192310613,
+          "fd": 0.4999221191610559,
+          "rel": 1.400325924585512e-10,
+          "abs": 7.00053903734954e-11,
+          "near_zero_ref": "False"
+        },
+        "CM": {
+          "autograd": 0.49900011594182486,
+          "fd": 0.4990001157239021,
+          "rel": 4.3671880736242925e-10,
+          "abs": 2.1792273541265672e-10,
+          "near_zero_ref": "False"
+        },
+        "K": {
+          "autograd": 2.4260211948023875e-11,
+          "fd": 2.426021183055127e-11,
+          "rel": 4.8421920143091505e-09,
+          "abs": 1.1747260399134375e-19,
+          "near_zero_ref": "True"
+        }
+      },
+      "smooth": false,
+      "pass_resid": true,
+      "pass_grad": true
+    },
+    {
+      "name": "many_perf",
+      "forward_match_H_rel": 0.0,
+      "resid_inf_dimless": 5.0081050417816186e-11,
+      "newton_ok": true,
+      "n_iter": 3,
+      "cond": 341.7043374437601,
+      "tikhonov": false,
+      "stiff_guard": 0,
+      "n_perf": 12,
+      "q_mean": 0.029824297110050687,
+      "grads": {
+        "CP": {
+          "autograd": 0.49856477582257996,
+          "fd": 0.49856477562570944,
+          "rel": 3.9487450680643074e-10,
+          "abs": 1.968705198862608e-10,
+          "near_zero_ref": "False"
+        },
+        "CM": {
+          "autograd": 0.4982183372504663,
+          "fd": 0.498218337270373,
+          "rel": 3.995575016096752e-11,
+          "abs": 1.9906687409587676e-11,
+          "near_zero_ref": "False"
+        },
+        "K": {
+          "autograd": 2.4315001934217063e-11,
+          "fd": 2.4315001610375475e-11,
+          "rel": 1.3318592079537964e-08,
+          "abs": 3.2384158786189967e-19,
+          "near_zero_ref": "True"
+        }
+      },
+      "smooth": true,
+      "pass_resid": true,
+      "pass_grad": true
+    }
+  ],
+  "notes": {
+    "near_zero": "orifice K q|q| is C0 at q=0; FD is not a smooth derivative and is reported separately",
+    "ift": "VJP on reduced (H,q) Jacobian; Tikhonov if cond>1e8",
+    "dtype": "float64 forward and backward"
+  }
+}

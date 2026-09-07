@@ -1,0 +1,36 @@
+{
+  "suite": "round3_A_metrics_regression",
+  "all_pass": true,
+  "rows": [
+    {
+      "name": "test_metrics.py",
+      "status": "PASS",
+      "seconds": 0.005873441696166992,
+      "error": null
+    },
+    {
+      "name": "test_dataset.py",
+      "status": "PASS",
+      "seconds": 0.785128116607666,
+      "error": null
+    },
+    {
+      "name": "test_checkpoint.py",
+      "status": "PASS",
+      "seconds": 2.336305856704712,
+      "error": null
+    },
+    {
+      "name": "test_batch_consistency.py",
+      "status": "PASS",
+      "seconds": 0.16277360916137695,
+      "error": null
+    },
+    {
+      "name": "test_node_branches.py",
+      "status": "PASS",
+      "seconds": 0.37680935859680176,
+      "error": null
+    }
+  ]
+}

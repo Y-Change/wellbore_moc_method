@@ -1,0 +1,12 @@
+[23:24:45] pilot_01342 nx32 node->WH pass=False err=0.5185936229335526
+[23:24:52] pilot_00163 nx32 node->WH pass=False err=0.19022225288179717
+[23:25:05] pilot_00543 nx32 node->WH pass=False err=0.5758106574725832
+[23:25:16] pilot_01320 nx32 node->WH pass=False err=0.5631605709575513
+[23:26:00] pilot_01342 nx512 Cr0=1.0 node->WH pass=True valve->node pass=True rt pass=True
+[23:26:39] pilot_00163 nx512 Cr0=1.0 node->WH pass=True valve->node pass=True rt pass=True
+[23:27:11] pilot_00543 nx512 Cr0=1.0 node->WH pass=True valve->node pass=True rt pass=False
+[23:27:46] pilot_01320 nx512 Cr0=1.0 node->WH pass=True valve->node pass=True rt pass=True
+[23:27:47] pilot_01342 refine pairs [5.831081684957794e-05, 2.545643120478234e-05]
+[23:27:48] pilot_00163 refine pairs [0.0007236841159598096, 0.00022575705479417458]
+[23:27:48] pilot_00543 refine pairs [0.0033840608748776308, 3.9891950676672545e-05]
+[23:27:49] pilot_01320 refine pairs [0.0006331116906033652, 0.00020911126281730646]

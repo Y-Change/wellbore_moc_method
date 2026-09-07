@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "paperc/manifest.schema.json",
+  "title": "PaperC dataset manifest",
+  "type": "object",
+  "required": ["manifest_version", "created", "generator", "design", "cases"],
+  "properties": {
+    "manifest_version": {"type": "string"},
+    "created": {"type": "string"},
+    "generator": {
+      "type": "object",
+      "required": ["code_digest", "config_digest", "git_commit", "run_id"],
+      "properties": {
+        "code_digest": {"type": "string"}, "config_digest": {"type": "string"},
+        "git_commit": {"type": "string"}, "run_id": {"type": "string"}, "frozen": {"type": "boolean"}
+      }
+    },
+    "design": {
+      "type": "object",
+      "required": ["type", "seed", "n"],
+      "properties": {
+        "type": {"type": "string", "enum": ["maximin_lhs", "sobol_owen_scrambled"]},
+        "seed": {"type": "integer"}, "seeds": {"type": "array", "items": {"type": "integer"}},
+        "n": {"type": "integer"}, "n_requested": {"type": "integer"}
+      }
+    },
+    "splits": {"type": "object", "additionalProperties": {"type": "integer"}},
+    "numerics": {"type": "object"},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["case_id", "group_id", "split", "file", "sha256", "status"],
+        "properties": {
+          "case_id": {"type": "string"}, "group_id": {"type": "string"}, "split": {"type": "string"},
+          "ood_type": {"type": ["string", "null"]},
+          "file": {"type": "string"}, "sha256": {"type": "string"},
+          "status": {"type": "string", "enum": ["ok", "newton_failed", "rejected", "error"]},
+          "newton_fail_count": {"type": "integer"}, "wall_clock_s": {"type": "number"}
+        }
+      }
+    },
+    "failures": {"type": "array", "items": {"type": "object"}},
+    "digest": {"type": "string"}
+  }
+}

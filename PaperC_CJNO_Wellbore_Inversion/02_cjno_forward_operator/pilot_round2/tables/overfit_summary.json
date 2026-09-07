@@ -1,0 +1,60 @@
+{
+  "selection": "train_pert_l2",
+  "no_val_early_stop": true,
+  "model_seed": 42,
+  "subset_seed": 20260907,
+  "query": {"dt_s": 0.02, "n_samples": 400},
+  "n256": {
+    "status": "NOT_RUN",
+    "reason": "C1 n=8 and n=64 failed registered 2% gate; D matrix not started"
+  },
+  "rows": [
+    {
+      "n": 1,
+      "status": "PASS",
+      "run_id": "r2_overfit_n1_20260906_174918_934f991e",
+      "ckpt_best": "checkpoints/r2_overfit_n1_20260906_174918_934f991e_best.pt",
+      "best_mean": 0.009993840427449847,
+      "best_p90": 0.009993840427449847,
+      "best_max": 0.009993840427449847,
+      "best_epoch": 296,
+      "last_mean": 0.009993840427449847,
+      "target": 0.01,
+      "note": "official after cosine LR; prior fail run 708825a3 best=0.01197 kept"
+    },
+    {
+      "n": 1,
+      "status": "FAIL",
+      "run_id": "r2_overfit_n1_20260906_174839_708825a3",
+      "ckpt_best": "checkpoints/r2_overfit_n1_20260906_174839_708825a3_best.pt",
+      "best_mean": 0.011974974191063397,
+      "last_mean": 0.06337533928456865,
+      "target": 0.01,
+      "note": "lr=1e-3 oscillation; retained"
+    },
+    {
+      "n": 8,
+      "status": "FAIL",
+      "run_id": "r2_overfit_n8_20260906_174935_f6f7a808",
+      "ckpt_best": "checkpoints/r2_overfit_n8_20260906_174935_f6f7a808_best.pt",
+      "best_mean": 0.13524315211758278,
+      "best_p90": 0.2744546303805306,
+      "best_max": 0.4303221968672897,
+      "best_epoch": 200,
+      "val16_from_best": 0.5706440012227161,
+      "target": 0.02
+    },
+    {
+      "n": 64,
+      "status": "FAIL",
+      "run_id": "r2_overfit_n64_20260906_174959_f8c81858",
+      "ckpt_best": "checkpoints/r2_overfit_n64_20260906_174959_f8c81858_best.pt",
+      "best_mean": 0.19596604240912543,
+      "best_p90": 0.41382800448773055,
+      "best_max": 0.6329686511990799,
+      "best_epoch": 80,
+      "val16_from_best": 0.2248648017586961,
+      "target": 0.02
+    }
+  ]
+}

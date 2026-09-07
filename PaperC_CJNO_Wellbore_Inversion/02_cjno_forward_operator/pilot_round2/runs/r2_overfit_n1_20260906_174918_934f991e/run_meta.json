@@ -1,0 +1,102 @@
+{
+  "run_id": "r2_overfit_n1_20260906_174918_934f991e",
+  "created": "2026-09-06T17:49:18",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "code_sha256": "1642fc233099eaa75326b89f3ed42a17e93dc78878d44921ccbdd0c4534e8785",
+  "stage1_code_sha256": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "resolved_config": {
+    "schema_version": 2,
+    "study": "stage2_pilot_round2",
+    "python_exe": "D:/Anaconda/envs/torch24/python.exe",
+    "torch_required": "2.4.x",
+    "test_policy": "old test is a viewed holdout; do not open this round",
+    "subset_seed": 20260907,
+    "model_seed_primary": 42,
+    "nests": [
+      1,
+      8,
+      64,
+      128,
+      256,
+      512,
+      "all"
+    ],
+    "query": {
+      "dt_s": 0.02,
+      "n_samples": 400,
+      "t_origin": "valve_start",
+      "antialias": true,
+      "antialias_frac_nyquist": 0.4,
+      "window_note": "t = t_s + i*dt, i=0..T-1; covers valve ramp + early free response"
+    },
+    "norm": {
+      "overfit_uses_subset_only": true,
+      "learning_curve_scope": "first_256_of_nested_train",
+      "silent_rel": 1e-06
+    },
+    "loss": {
+      "w_head": 1.0,
+      "w_node": 0.0,
+      "note": "C1 wellhead-only until loop gates pass"
+    },
+    "overfit": {
+      "select": "train_pert_l2",
+      "max_epochs": {
+        "1": 400,
+        "8": 200,
+        "64": 80
+      },
+      "time_limit_s": {
+        "1": 180,
+        "8": 300,
+        "64": 600
+      },
+      "target_mean": {
+        "1": 0.01,
+        "8": 0.02,
+        "64": 0.02
+      },
+      "fail_if_nonfinite": true,
+      "no_val_early_stop": true
+    },
+    "model": {
+      "name": "QueryFourierMLP",
+      "d": 128,
+      "n_harmonics": 32,
+      "n_layers": 4
+    },
+    "loop": {
+      "name": "CharacteristicLoop",
+      "kind": "integration_reference",
+      "not_full_cjno": true,
+      "friction": "darcy_foot",
+      "memory": "node_time_recursive_only"
+    },
+    "replay": {
+      "max_train_cases": 16,
+      "n_periods": 1.0,
+      "node_decim": 1,
+      "do_not_touch_val_test": true
+    }
+  },
+  "env": {
+    "python": "3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.4.0",
+    "cuda": true,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Ti"
+  },
+  "n": "1",
+  "case_ids": [
+    "pilot_01342"
+  ],
+  "subset_seed": 20260907,
+  "model_seed": 42,
+  "device": "cuda",
+  "n_active_params": 47233,
+  "n_registered_params": 47233,
+  "manifest_sha256": "046e888bad87d7dd29751941b9901d335ebecce1bfd591ce0e4b19afe1838b66",
+  "wall_clock_s": 4.131052732467651
+}

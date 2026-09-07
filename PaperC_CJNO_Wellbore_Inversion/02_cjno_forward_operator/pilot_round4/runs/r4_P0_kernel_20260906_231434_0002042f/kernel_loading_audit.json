@@ -1,0 +1,314 @@
+{
+  "status": "PASS",
+  "kernel": {
+    "yaml_path": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\configs\\friction_zielke.yaml",
+    "yaml_sha256": "ab0ed3bbc84e891e1e6e59fdfd124da25315db30af8bc7223d7c867426fe211b",
+    "M": 12,
+    "domain_tau": [
+      1e-08,
+      100.0
+    ],
+    "powerlaw_domain_tau": [
+      1e-08,
+      1.0
+    ],
+    "zielke_max_rel_err": 0.008156875246464135,
+    "powerlaw_max_rel_err": 0.011414525645327744,
+    "zielke_m_sha256": "ed3ae29df97dcbd6f79ad0bf691b6ba605e5e9074051d8d457b139c8bc8c2b56",
+    "zielke_n_sha256": "b4cebdb95a064edcf155b1d7b1786702d23d85e129c22310ff2077043e07e5ea",
+    "powerlaw_m_sha256": "f863de015f94a7376cf0e54e80f6ce3bfd4af21f9315eb44afbf77e1df4719d9",
+    "powerlaw_n_sha256": "0d6025da25bf1c1b106af4e51c9561eb684e2cc5fe5a2b1a69bbd01a2f4c19b9",
+    "used_online_refit": false,
+    "stage1_CONFIG_DIR": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\configs",
+    "load_method": "yaml.safe_load + memory_kernel.kernel_fits_from_config",
+    "not_used": "moc_solver.get_kernel_fits"
+  },
+  "timings": {
+    "kernel_load_s": 0.010964900000000277,
+    "warmup_none_s": 0.19615820000000017,
+    "steady_zvb_setup_s": 0.0022898000000002305,
+    "short_zvb_simulate_s": 0.0030414999999996972,
+    "short_zvb_n_steps": 35,
+    "short_zvb_dt": 0.011658315198889192,
+    "short_zvb_per_step_s": 8.689999999999135e-05,
+    "est_long_zvb_nx64_s": 0.1928310999999808,
+    "do_not_multiply_timeout_by_10": true
+  },
+  "stage1_CONFIG_DIR": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\configs",
+  "used_online_refit": false,
+  "fit_kernel_branch": false,
+  "case_ids": [
+    "pilot_01342",
+    "pilot_00163",
+    "pilot_00543",
+    "pilot_01320"
+  ],
+  "source_sha256": [
+    "5418aff14897027956b7cd69342b77032f7e07b30c54d8111adcb73fbe7304d9",
+    "f829e19fadb926daf57bffc49c3ef79104e4820b5489c30c19e5ecdd6b94e771",
+    "01130f2ae7a6b0d503df451711df0a406365145d722b6af2529770756180bfcb",
+    "ef015e33e86f4cba9163dde8a35a4ede33233c7bcb672d76970ee98663e58472"
+  ],
+  "round3_c_audit": {
+    "c_runs": [
+      {
+        "run_id": "r3_C_gates_20260906_223058_4eb48517",
+        "code_sha256_prefix": "358e4a6a",
+        "created_local": "2026-09-06T22:30:58",
+        "terminal_id": "538392",
+        "terminal_status": "failed",
+        "terminal_exit": 4294967295,
+        "terminal_elapsed_ms": 259492,
+        "terminal_ended_utc": "2026-09-06T14:35:13.564Z",
+        "run_meta_wall_s": 1291.396,
+        "stdout_last_stamp": "22:52:03",
+        "stdout_content": "twin+ref none/darcy for 4 cases; no refine/C-done line",
+        "metrics_present": true,
+        "metrics_fields": [
+          "n",
+          "alignment_all_pass",
+          "grad_status",
+          "newton_blocked",
+          "run_id",
+          "wall_clock_s"
+        ],
+        "stop_classification": "CONFLICTING_EVIDENCE",
+        "stop_note": "观察时终端记为 killed（259 s）。run 目录 stdout 时间戳延续到 22:52，metrics.wall=1291 s。不能唯一判定‘当时已死’还是‘kill 未生效后继续写完 twin’。不得把该 metrics 的 alignment_all_pass 当作完整 C 门完成。"
+      },
+      {
+        "run_id": "r3_C_gates_20260906_223531_c5f1025e",
+        "code_sha256_prefix": "82890a82",
+        "created_local": "2026-09-06T22:35:31",
+        "terminal_status": "observed_killed_then_files_continued",
+        "run_meta_wall_s": 1010.163,
+        "stdout_content": "refine + twin + zvb_rec nx=64 started; 16 min gap on first ZVB then remaining cases",
+        "metrics_present": true,
+        "metrics_fields": [
+          "n",
+          "alignment_all_pass",
+          "grad_status",
+          "newton_blocked"
+        ],
+        "stop_classification": "TIMEOUT_OR_KILLED_THEN_PARTIAL_CONTINUE",
+        "stop_note": "观察时仍在首案长窗 ZVB nx=64。终端曾记 killed。stdout 显示 22:35:35 启动 zvb_rec，22:51:43 才打出 twin 汇总。metrics 无 cases 明细。不得引用为完整 PASS。"
+      },
+      {
+        "run_id": "r3_C_gates_20260906_223918_f538d6f9",
+        "code_sha256_prefix": "542f26d4",
+        "created_local": "2026-09-06T22:39:18",
+        "terminal_status": "succeeded",
+        "terminal_elapsed_ms": 225961,
+        "run_meta_wall_s": 224.575,
+        "stdout_content": "C done; skipped full long-window Tensor ZVB",
+        "metrics_present": true,
+        "stop_classification": "COMPLETED",
+        "stop_note": "唯一正常结束的 C-gates 进程。"
+      }
+    ],
+    "shared_manifest": {
+      "path": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round3\\manifests\\production_rollout_gates.json",
+      "exists": true,
+      "source": "UNCERTAIN",
+      "note": "该 JSON 被多个 C 进程与事后手工补丁写过。same_grid_discrete_pass / continuum_0p5pct_gate 等字段来源不确定，Round4 不猜测补全，不以 latest 或该共享文件作为过门依据。",
+      "sha256": "01575c320725dd3d027683c4e20ae8c6dff2875f212cb72960fad13f42858369",
+      "keys": [
+        "F_definition",
+        "alignment_gate",
+        "case_ids",
+        "mini_loop_used",
+        "newton_block_error",
+        "newton_blocks_train_step",
+        "production_grad",
+        "production_grad_status",
+        "real_newton_failure",
+        "rows",
+        "wall_s",
+        "zvb_tensor"
+      ],
+      "case_ids": [
+        "pilot_01342",
+        "pilot_00163",
+        "pilot_00543",
+        "pilot_01320"
+      ]
+    },
+    "fixups_manifest": {
+      "path": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round3\\manifests\\production_rollout_fixups.json",
+      "exists": true,
+      "sha256": "df991e6ec70c7c2bf5d3d73f01d19a9dc2a1efbea181a90e633da926a0d17a86",
+      "note": "frozen-IC causality FAIL on nx=32 kept; 15-step torch compare is pre-event and not a transient PASS"
+    },
+    "protocol": "do_not_cite_incomplete_or_shared_JSON_as_PASS"
+  },
+  "grid_probe_case0": {
+    "64": {
+      "Nx_ref": 64,
+      "n_nodes": 72,
+      "nseg": 6,
+      "seg_N": [
+        61,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "seg_dx": [
+        55.06692391375871,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        90.10223945980624
+      ],
+      "seg_Cr": [
+        0.3012602687741,
+        0.9607673632756071,
+        0.9551434459929004,
+        1.0,
+        0.9517053978676656,
+        0.1841183570828145
+      ],
+      "seg_len": [
+        3359.082358739281,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        90.10223945980624
+      ],
+      "dt": 0.011658315198889192,
+      "dt_reduced": true,
+      "Cr0": 0.3012602687741,
+      "Cr0_is_one": false,
+      "note": "Nx_ref is not the total cell count"
+    },
+    "128": {
+      "Nx_ref": 128,
+      "n_nodes": 135,
+      "nseg": 6,
+      "seg_N": [
+        122,
+        1,
+        1,
+        1,
+        1,
+        3
+      ],
+      "seg_dx": [
+        27.533461956879353,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        30.034079819935414
+      ],
+      "seg_Cr": [
+        0.6025205375482,
+        0.9607673632756071,
+        0.9551434459929004,
+        1.0,
+        0.9517053978676656,
+        0.5523550712484435
+      ],
+      "seg_len": [
+        3359.082358739281,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        90.10223945980624
+      ],
+      "dt": 0.011658315198889192,
+      "dt_reduced": true,
+      "Cr0": 0.6025205375482,
+      "Cr0_is_one": false,
+      "note": "Nx_ref is not the total cell count"
+    },
+    "256": {
+      "Nx_ref": 256,
+      "n_nodes": 260,
+      "nseg": 6,
+      "seg_N": [
+        244,
+        1,
+        1,
+        1,
+        1,
+        6
+      ],
+      "seg_dx": [
+        13.766730978439677,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        15.017039909967707
+      ],
+      "seg_Cr": [
+        1.0,
+        0.7972901365198263,
+        0.7926231443326456,
+        0.8298472314896009,
+        0.7897700896141916,
+        0.9167406533495243
+      ],
+      "seg_len": [
+        3359.082358739281,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        90.10223945980624
+      ],
+      "dt": 0.009674620591631333,
+      "dt_reduced": false,
+      "Cr0": 1.0,
+      "Cr0_is_one": true,
+      "note": "Nx_ref is not the total cell count"
+    },
+    "512": {
+      "Nx_ref": 512,
+      "n_nodes": 516,
+      "nseg": 6,
+      "seg_N": [
+        489,
+        2,
+        2,
+        2,
+        2,
+        13
+      ],
+      "seg_dx": [
+        6.869289077176444,
+        8.633451204182393,
+        8.684285260198067,
+        8.294738149410932,
+        8.715657353626057,
+        6.930941496908172
+      ],
+      "seg_Cr": [
+        1.0,
+        0.7956596863428941,
+        0.7910022381070164,
+        0.8281502023863503,
+        0.7881550178562894,
+        0.9911047554276384
+      ],
+      "seg_len": [
+        3359.082358739281,
+        17.266902408364786,
+        17.368570520396133,
+        16.589476298821864,
+        17.431314707252113,
+        90.10223945980624
+      ],
+      "dt": 0.004827418045721974,
+      "dt_reduced": false,
+      "Cr0": 1.0,
+      "Cr0_is_one": true,
+      "note": "Nx_ref is not the total cell count"
+    }
+  },
+  "wall_s": 0.23765379999999992
+}

@@ -1,0 +1,19 @@
+{
+  "stage": "P0",
+  "budgets_s": {
+    "p0_kernel_warmup": 180,
+    "p1_transient": 600,
+    "p2_causality": 600,
+    "p2_refine": 900,
+    "p3_zvb": 900,
+    "p4_train": 400,
+    "regressions": 180
+  },
+  "case_ids": [
+    "pilot_01342",
+    "pilot_00163",
+    "pilot_00543",
+    "pilot_01320"
+  ],
+  "frozen_yaml": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\configs\\friction_zielke.yaml"
+}

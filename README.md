@@ -41,6 +41,20 @@ wellbore_moc_method/
 
 在本目录下执行，例如：
 
+### 交互式波场可视化
+
+```bash
+streamlit run moc_simulate/visualize_app.py
+```
+
+浏览器界面以四缝（4100–4250 m）为默认工况，并列运行稳态达西与 Brunone
+摩阻模型。点击“开始仿真”后，页面会从 t=0 起实时延伸两幅全井筒压力云图：
+横轴为井深、纵轴为模拟时间；下方同步显示两种模型的井口压力波动曲线。
+可编辑停泵、波速、初始流速和裂缝/滤失参数；显示层仅保留有限数量的空间帧，
+不改变 MOC 原始求解时间步。
+
+### 批处理与验证
+
 ```bash
 # 统一 leakoff 验证（推荐）
 python moc_simulate/leakoff_multi.py --friction steady --case all
@@ -202,5 +216,3 @@ FRICTION_PARAMS     # steady / brunone / steady_D* / brunone_D*
 | `validate_moc_test_b_Kaiser-Bessel.py`       | `analysis/cepstrum/kaiser_bessel_multi.py --case single` | `output/cepstrum/kaiser_bessel/steady/single/`     |
 | `validate_moc_test_b_multi_Kaiser-Bessel.py` | `analysis/cepstrum/kaiser_bessel_multi.py`               | `output/cepstrum/kaiser_bessel/{friction}/{case}/` |
 | `plot_window_comparison.py`                  | `analysis/cepstrum/window_comparison.py`                            | `output/analysis/window_comparison/`               |
-
-

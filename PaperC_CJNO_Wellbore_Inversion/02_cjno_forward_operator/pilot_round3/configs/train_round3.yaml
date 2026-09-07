@@ -1,0 +1,67 @@
+schema_version: 3
+study: stage2_pilot_round3
+python_exe: "D:/Anaconda/envs/torch24/python.exe"
+torch_required: "2.4.x"
+test_policy: "old test is a viewed holdout; block by case_id, not only split string"
+subset_seed: 20260907
+model_seed_primary: 42
+extra_seed: 43
+nests_frozen: [1, 8]
+all_usable_blocked: true
+
+query:
+  dt_s: 0.02
+  n_samples: 400
+  t_origin: valve_start
+  antialias: true
+  antialias_frac_nyquist: 0.4
+  window_note: "B-arm 8 s query; C long-window is registered separately"
+
+norm:
+  protocol: "r3_float64_raw_zero_constant"
+  silent_rel: 1.0e-6
+  silent_from: "target_only_frozen_physical_scale"
+  do_not_reuse_round2_checkpoints: true
+
+model:
+  name: QueryFourierMLP
+  d: 128
+  n_harmonics: 32
+  n_layers: 4
+  d_feat: 44
+
+optim:
+  name: Adam
+  lr: 3.0e-4
+  eta_min: 1.0e-5
+  clip: 5.0
+  batch_size: 4
+  max_steps: 5000
+  time_limit_s: 120
+  scheduler: CosineAnnealingLR
+  select: train_pert_l2
+  no_val_early_stop: true
+  fail_if_nonfinite: true
+
+loss_arms:
+  B1: shared_scale_mse
+  B2: per_case_energy_equal_weight
+  silent_policy: "absolute_error_separate; denominator from target only"
+
+thresholds:
+  n1_train_mean: 0.01
+  n8_train_mean: 0.02
+  n64_train_mean: 0.02
+  parity_wh_pert_l2: 0.005
+  resid_inf: 1.0e-8
+  grad_rel_smooth: 1.0e-4
+
+c_long_window:
+  min_periods_after_valve: 2.0
+  include_predefined_first_arrival: true
+  note: "length = t_s + t_c + 2*(4L/a) + first_cluster_roundtrip; not batch-max"
+
+replay:
+  max_train_cases: 16
+  start_from_round2_four: true
+  do_not_touch_val_test: true

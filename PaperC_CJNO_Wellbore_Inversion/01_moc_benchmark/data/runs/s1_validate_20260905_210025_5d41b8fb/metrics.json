@@ -1,0 +1,788 @@
+{
+  "stage": 1,
+  "smoke": false,
+  "gates": {
+    "unit_locks": {
+      "value": 0.0,
+      "threshold": 0.5,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": null,
+      "notes": "40 passed"
+    },
+    "kernel_fit_rel_err": {
+      "value": 0.011414525645327744,
+      "threshold": 0.02,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": null,
+      "notes": "M=12"
+    },
+    "kernel_direct_vs_recursive_l2": {
+      "value": 0.008156306330653375,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": null,
+      "notes": "1D J_u history"
+    },
+    "kernel_phase_lag_deg": {
+      "value": 0.3819380912606568,
+      "threshold": 1.0,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": null,
+      "notes": "1D J_u history"
+    },
+    "kernel_waveform_l2": {
+      "value": 0.0004934941429289228,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "Bergant H_valve"
+    },
+    "kernel_waveform_phase_deg": {
+      "value": 0.10655214977140223,
+      "threshold": 1.0,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "joukowsky_peak_Cr1": {
+      "value": 0.0,
+      "threshold": 1e-06,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "Cr=1 exact-to-roundoff"
+    },
+    "joukowsky_period_Cr1": {
+      "value": 1.554312234475219e-16,
+      "threshold": 1e-06,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "Cr=1 exact-to-roundoff"
+    },
+    "shunt_reflection_Cr1": {
+      "value": 1.0406381080680444e-10,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "Γ_an=-0.36367, Γ_est=-0.36367"
+    },
+    "rci_freq_peak_Cr1": {
+      "value": 0.022289454752566697,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": "peak-band f≈0.75 Hz"
+    },
+    "bergant_envelope_zielke_Cr1": {
+      "value": 0.2600329268371635,
+      "threshold": 0.05,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": "Zielke vs Bergant 2001 Fig.3 laminar envelope; Brunone not mixed"
+    },
+    "brunone_envelope_Cr1": {
+      "value": 0.3671899206320825,
+      "threshold": 0.05,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": "LOCKED vitkovsky2000, k=0.03450; W_unsteady=4.9347e-02 J; NOT mixed into the Zielke envelope gate"
+    },
+    "brunone_unsteady_work_nonneg_Cr1": {
+      "value": 0.0,
+      "threshold": 0.5,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "W_u=4.9347e-02 J"
+    },
+    "tmm_resonance_Cr1": {
+      "value": 0.0004800676532713474,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "n_matched=5"
+    },
+    "mass_residual_Cr1": {
+      "value": 0.00017302475478750412,
+      "threshold": 1e-06,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "port_energy_imbalance_Cr1": {
+      "value": 8.915592085818547e-08,
+      "threshold": 0.0001,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "newton_resid_dimless_Cr1": {
+      "value": 9.999724789530595e-11,
+      "threshold": 1e-08,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "richardson_order_darcy_Cr1": {
+      "value": -0.7102804576393055,
+      "threshold": 1.8,
+      "comparison": ">=",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": "friction=darcy; uniform-grid ±dx/2 arrival would be 2.79 ms"
+    },
+    "three_grid_peak_diff_darcy_Cr1": {
+      "value": 0.00032001869582963635,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "first_arrival_diff_darcy_Cr1": {
+      "value": 0.00280616766113281,
+      "threshold": 0.002,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "joukowsky_peak_Cr0.8": {
+      "value": 2.7872175678567146e-15,
+      "threshold": 0.001,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": "Cr=0.8 interpolation dissipation (Ghidaoui & Karney 1994)"
+    },
+    "joukowsky_period_Cr0.8": {
+      "value": 1.554312234475219e-16,
+      "threshold": 0.001,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": "Cr=0.8 interpolation dissipation (Ghidaoui & Karney 1994)"
+    },
+    "shunt_reflection_Cr0.8": {
+      "value": 0.6660385384178574,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": "Γ_an=-0.36367, Γ_est=-0.12145"
+    },
+    "rci_freq_peak_Cr0.8": {
+      "value": 0.0012409763053761829,
+      "threshold": 0.01,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": "peak-band f≈0.50 Hz"
+    },
+    "bergant_envelope_zielke_Cr0.8": {
+      "value": 0.24654569637443818,
+      "threshold": 0.05,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": "Zielke vs Bergant 2001 Fig.3 laminar envelope; Brunone not mixed"
+    },
+    "brunone_envelope_Cr0.8": {
+      "value": 0.22913056495049558,
+      "threshold": 0.05,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": "LOCKED vitkovsky2000, k=0.03450; W_unsteady=3.6564e-02 J; NOT mixed into the Zielke envelope gate"
+    },
+    "brunone_unsteady_work_nonneg_Cr0.8": {
+      "value": 0.0,
+      "threshold": 0.5,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": "W_u=3.6564e-02 J"
+    },
+    "tmm_resonance_Cr0.8": {
+      "value": 0.0004429752671626029,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": "n_matched=5"
+    },
+    "mass_residual_Cr0.8": {
+      "value": 0.0043775682206283195,
+      "threshold": 1e-06,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": ""
+    },
+    "port_energy_imbalance_Cr0.8": {
+      "value": 8.193617072738002e-05,
+      "threshold": 0.0001,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": ""
+    },
+    "newton_resid_dimless_Cr0.8": {
+      "value": 9.999542860406052e-11,
+      "threshold": 1e-08,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 0.8,
+      "notes": ""
+    },
+    "richardson_order_darcy_Cr0.8": {
+      "value": 0.5975776958229143,
+      "threshold": 1.8,
+      "comparison": ">=",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": "friction=darcy; uniform-grid ±dx/2 arrival would be 2.79 ms"
+    },
+    "three_grid_peak_diff_darcy_Cr0.8": {
+      "value": 0.006001296180305177,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": ""
+    },
+    "first_arrival_diff_darcy_Cr0.8": {
+      "value": 0.006830642020432025,
+      "threshold": 0.002,
+      "comparison": "<",
+      "status": "FAIL",
+      "Cr": 0.8,
+      "notes": ""
+    },
+    "smin_ppw_70Hz_Nx2048": {
+      "value": 10.0,
+      "threshold": 10.0,
+      "comparison": ">=",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "local-refinement target: ≥10 points / 70 Hz wavelength"
+    },
+    "smin_arrival_vs_3p5ms": {
+      "value": 0.0,
+      "threshold": 3.5,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": "exact cluster landing; residual is interpolation/dispersion, not quantisation"
+    },
+    "newton_convergence_pilot2000": {
+      "value": null,
+      "threshold": 0.999,
+      "comparison": ">",
+      "status": "PENDING",
+      "Cr": 1.0,
+      "notes": "filled by generate_dataset.py --pilot; formal Sobol is blocked until PASS"
+    }
+  },
+  "details": {
+    "units": {
+      "n_ok": 40,
+      "n_fail": 0,
+      "failures": [],
+      "status": "PASS"
+    },
+    "kernel": {
+      "M": 12,
+      "zielke_fit": 0.008156875246464135,
+      "powerlaw_fit": 0.011414525645327744,
+      "l2_Ju": 0.008156306330653375,
+      "phase_Ju_deg": 0.3819380912606568,
+      "l2_waveform": 0.0004934941429289228,
+      "phase_waveform_deg": 0.10655214977140223,
+      "wall_clock_1d_direct_s": 0.009663699980592355,
+      "wall_clock_1d_recursive_s": 0.0113372000050731,
+      "wall_clock_bergant_direct_s": 28.406665100017563,
+      "wall_clock_bergant_recursive_s": 0.11931179999373853,
+      "repair_record": "M=10 (design value of §2.4(b)) does not meet the <2% fit gate on tau in [1e-08, 100] (Zielke 2.44%, power law 3.19%); M=12 adopted (Zielke 0.82%, power law 1.14%). Repair order per §3.4: 量纲 -> CFL/插值 -> 节点闭合 -> 记忆核 (this item)."
+    },
+    "joukowsky_1.0": {
+      "err_peak": 0.0,
+      "err_period": 1.554312234475219e-16,
+      "dH_J": 285.5205396338199,
+      "H_plat": 714.4794603661801,
+      "period": 11.428571428571429,
+      "dt": 0.005580357142857143,
+      "wall_s": 0.07773410002118908
+    },
+    "shunt_1.0": {
+      "Gamma": -0.3636658075727448,
+      "T": 0.6363341924272552,
+      "Gamma_est": -0.36366580761058925,
+      "err": 1.0406381080680444e-10,
+      "H_out": 13.97557462748091,
+      "Zc": 137160307.98932192,
+      "Zb": 120000000.0,
+      "wall_s": 0.030770899989875033
+    },
+    "rci_1.0": {
+      "err": 0.022289454752566697,
+      "f_peak": 0.7492682926829268,
+      "wall_s": 0.016000800009351224
+    },
+    "bergant_1.0": {
+      "err": 0.2600329268371635,
+      "env": [
+        1.023149305978472,
+        0.9864825026483808,
+        0.9828238025454958,
+        0.9536757188507453,
+        0.9459027549317339,
+        0.9198240365911293,
+        0.91007903652634,
+        0.8857093928995322
+      ],
+      "env_exp": [
+        0.985,
+        0.925,
+        0.87,
+        0.82,
+        0.775,
+        0.73
+      ],
+      "first_peak_err": 0.02314930597847198,
+      "dH_J": 13.450056849178877,
+      "Re": 1938.5964912280701,
+      "wall_s": 0.20872580001014285
+    },
+    "brunone_1.0": {
+      "err": 0.3671899206320825,
+      "env": [
+        0.998094872918124,
+        0.9980319553912188,
+        0.9981079808012636,
+        0.9980403312370454,
+        0.9981158697763339,
+        0.9980486420614202,
+        0.9981237547808152,
+        0.9980569557684004
+      ],
+      "k": 0.034496376621320685,
+      "energy": {
+        "E_ref": 0.07133515373465049,
+        "energy_imbalance_rel_final": 0.008899105252603345,
+        "energy_imbalance_rel_max": 0.008899105252603345,
+        "W_unsteady_min_over_time": -9.334368487007824e-05,
+        "W_unsteady_final": 0.04934661399812592,
+        "E_mem_initial": 0.0,
+        "W_unsteady_plus_Emem0_min": -9.334368487007824e-05,
+        "passive_window_start_s": 0.20904828468536768,
+        "passive_max_dE_rel": 7.147791034861852e-05,
+        "passive_violations_1e-8": 1250,
+        "passive_max_dE_with_Emem_rel": 7.147791034861852e-05,
+        "passive_violations_with_Emem_1e-8": 1250,
+        "passive_energy_drop_total_rel": 0.8122653359147641
+      },
+      "convention": "vitkovsky2000",
+      "wall_s": 0.14932860000408255
+    },
+    "tmm_1.0": {
+      "f_moc": [
+        0.004208288658969166,
+        0.012374012297548464,
+        0.017191416402273712,
+        0.02182710161131375,
+        0.02638237521543854,
+        0.09033857320013271,
+        0.27037828395990104,
+        0.4505659519240896,
+        0.6307803134118208,
+        0.811013397658766
+      ],
+      "f_tmm": [
+        0.0902952253831814,
+        0.2703806409216275,
+        0.45057280761374235,
+        0.6307887351287894,
+        0.8110220841359843,
+        0.99127323669196,
+        1.1715438226024346,
+        1.3518356020635072,
+        1.5321501364153163,
+        1.7124886911483463,
+        1.892852234996685,
+        2.0732415053313122
+      ],
+      "rel": [
+        0.0004800676532713474,
+        -8.717198533235868e-06,
+        -1.5215497999223982e-05,
+        -1.33510896748288e-05,
+        -1.071053105484109e-05,
+        NaN
+      ],
+      "err": 0.0004800676532713474,
+      "wall_s": 1.2636210000200663
+    },
+    "conservation_1.0": {
+      "mass": 0.00017302475478750412,
+      "energy": {
+        "E_ref": 2348069326.452706,
+        "energy_imbalance_rel_final": 8.729789637426324e-08,
+        "energy_imbalance_rel_max": 8.915592085818547e-08,
+        "W_unsteady_min_over_time": -5338.507303287871,
+        "W_unsteady_final": -1910.0771564160007,
+        "E_mem_initial": 11499.141585349067,
+        "W_unsteady_plus_Emem0_min": 0.0,
+        "passive_window_start_s": 1.1018939950080753,
+        "passive_max_dE_rel": -8.872047958583655e-07,
+        "passive_violations_1e-8": 0,
+        "passive_max_dE_with_Emem_rel": -8.872051169305251e-07,
+        "passive_violations_with_Emem_1e-8": 0,
+        "passive_energy_drop_total_rel": 0.04485990988424393
+      },
+      "n_fail": 0,
+      "max_newton": 9.999724789530595e-11,
+      "wall_s": 5.631992599985097,
+      "grid": {
+        "L": 4000.0,
+        "a": 1400.0,
+        "Nx_ref": 1024,
+        "Cr_target": 1.0,
+        "dt": 0.002789605050653355,
+        "n_nodes": 1032,
+        "nseg": 9,
+        "seg_len": [
+          3800.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          60.0
+        ],
+        "seg_N": [
+          973,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          15
+        ],
+        "seg_dx": [
+          3.905447070914697,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0
+        ],
+        "seg_Cr": [
+          1.0,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742,
+          0.9763617677286742
+        ],
+        "dt_reduced": false,
+        "notes": []
+      }
+    },
+    "convergence_1.0": {
+      "peaks": {
+        "512": -628.9480406584062,
+        "1024": -628.8250057257278,
+        "2048": -629.0263059037857
+      },
+      "arrivals": {
+        "512": 1.5972957084068196,
+        "1024": 1.5984436940243723,
+        "2048": 1.5970488914990457
+      },
+      "order": -0.7102804576393055,
+      "peak_diff": 0.00032001869582963635,
+      "arr_diff": 0.00280616766113281,
+      "t_s": 1.1
+    },
+    "joukowsky_0.8": {
+      "err_peak": 2.7872175678567146e-15,
+      "err_period": 1.554312234475219e-16,
+      "dH_J": 285.5205396338199,
+      "H_plat": 714.4794603661793,
+      "period": 11.428571428571429,
+      "dt": 0.004464285714285714,
+      "wall_s": 0.11984319999464788
+    },
+    "shunt_0.8": {
+      "Gamma": -0.3636658075727448,
+      "T": 0.6363341924272552,
+      "Gamma_est": -0.12145036462444407,
+      "err": 0.6660385384178574,
+      "H_out": 13.986458983375542,
+      "Zc": 137160307.98932192,
+      "Zb": 120000000.0,
+      "wall_s": 0.034360799996647984
+    },
+    "rci_0.8": {
+      "err": 0.0012409763053761829,
+      "f_peak": 0.49972113775794763,
+      "wall_s": 0.02269680000608787
+    },
+    "bergant_0.8": {
+      "err": 0.24654569637443818,
+      "env": [
+        1.022315323535863,
+        0.9838108956852264,
+        0.978776217519447,
+        0.9476881158384485,
+        0.9381435486545615,
+        0.9099783583533398,
+        0.8983165436271118,
+        0.871894570516817
+      ],
+      "env_exp": [
+        0.985,
+        0.925,
+        0.87,
+        0.82,
+        0.775,
+        0.73
+      ],
+      "first_peak_err": 0.022315323535863074,
+      "dH_J": 13.450056849178877,
+      "Re": 1938.5964912280701,
+      "wall_s": 0.26620610000099987
+    },
+    "brunone_0.8": {
+      "err": 0.22913056495049558,
+      "env": [
+        0.9980673780140012,
+        0.9980650953617639,
+        0.9996702947827852,
+        0.964289104037042,
+        0.930170764836642,
+        0.8972653124138618,
+        0.8655272649623386,
+        0.8349139856777565
+      ],
+      "k": 0.034496376621320685,
+      "energy": {
+        "E_ref": 0.07133515373464745,
+        "energy_imbalance_rel_final": 0.21101330414303993,
+        "energy_imbalance_rel_max": 0.21101330414303993,
+        "W_unsteady_min_over_time": -8.996675571100331e-05,
+        "W_unsteady_final": 0.0365637871949471,
+        "E_mem_initial": 0.0,
+        "W_unsteady_plus_Emem0_min": -8.996675571100331e-05,
+        "passive_window_start_s": 0.20904828468536768,
+        "passive_max_dE_rel": 4.014095245953817e-05,
+        "passive_violations_1e-8": 2294,
+        "passive_max_dE_with_Emem_rel": 4.014095245953817e-05,
+        "passive_violations_with_Emem_1e-8": 2294,
+        "passive_energy_drop_total_rel": 0.8388337596393621
+      },
+      "convention": "vitkovsky2000",
+      "wall_s": 0.20058139998582192
+    },
+    "tmm_0.8": {
+      "f_moc": [
+        0.0042086190523267526,
+        0.012376865680659387,
+        0.01719110280637755,
+        0.0218279177168834,
+        0.026382443922884316,
+        0.09033522393476902,
+        0.270368342323045,
+        0.450549047786937,
+        0.6307564791045926,
+        0.8109833093665041
+      ],
+      "f_tmm": [
+        0.0902952253831814,
+        0.2703806409216275,
+        0.45057280761374235,
+        0.6307887351287894,
+        0.8110220841359843,
+        0.99127323669196,
+        1.1715438226024346,
+        1.3518356020635072,
+        1.5321501364153163,
+        1.7124886911483463,
+        1.892852234996685,
+        2.0732415053313122
+      ],
+      "rel": [
+        0.0004429752671626029,
+        -4.5486239475436136e-05,
+        -5.273249162813841e-05,
+        -5.1136018131614557e-05,
+        -4.780975788289334e-05,
+        NaN
+      ],
+      "err": 0.0004429752671626029,
+      "wall_s": 1.710805899987463
+    },
+    "conservation_0.8": {
+      "mass": 0.0043775682206283195,
+      "energy": {
+        "E_ref": 2348069326.4521766,
+        "energy_imbalance_rel_final": 8.193494383530407e-05,
+        "energy_imbalance_rel_max": 8.193617072738002e-05,
+        "W_unsteady_min_over_time": -4513.24978902118,
+        "W_unsteady_final": -1960.3305996012782,
+        "E_mem_initial": 11499.141585349067,
+        "W_unsteady_plus_Emem0_min": -1.6370904631912708e-11,
+        "passive_window_start_s": 1.1002202319776833,
+        "passive_max_dE_rel": -7.097618997800364e-07,
+        "passive_violations_1e-8": 0,
+        "passive_max_dE_with_Emem_rel": -7.097621566782223e-07,
+        "passive_violations_with_Emem_1e-8": 0,
+        "passive_energy_drop_total_rel": 0.044860388067648575
+      },
+      "n_fail": 0,
+      "max_newton": 9.999542860406052e-11,
+      "wall_s": 6.883616500010248,
+      "grid": {
+        "L": 4000.0,
+        "a": 1400.0,
+        "Nx_ref": 1024,
+        "Cr_target": 0.8,
+        "dt": 0.002231684040522684,
+        "n_nodes": 1032,
+        "nseg": 9,
+        "seg_len": [
+          3800.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          20.0,
+          60.0
+        ],
+        "seg_N": [
+          973,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          15
+        ],
+        "seg_dx": [
+          3.905447070914697,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0
+        ],
+        "seg_Cr": [
+          0.8,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394,
+          0.7810894141829394
+        ],
+        "dt_reduced": false,
+        "notes": []
+      }
+    },
+    "convergence_0.8": {
+      "peaks": {
+        "512": -611.8077938581473,
+        "1024": -617.4487007992598,
+        "2048": -621.1765653481789
+      },
+      "arrivals": {
+        "512": 1.586125808348031,
+        "1024": 1.5867273528116284,
+        "2048": 1.5900748788724124
+      },
+      "order": 0.5975776958229143,
+      "peak_diff": 0.006001296180305177,
+      "arr_diff": 0.006830642020432025,
+      "t_s": 1.1
+    },
+    "smin": {
+      "rows": [
+        {
+          "Nx": 1024,
+          "Cr": 1.0,
+          "min_ppw_70Hz": 4.0,
+          "dt_ms": 2.7904004544163588,
+          "max_quantisation_ms": 0.0,
+          "uniform_grid_half_dx_ms": 2.7901785714285716,
+          "arrival_s": 6.6523146833285995,
+          "hf_gate_ms": 3.5
+        },
+        {
+          "Nx": 2048,
+          "Cr": 1.0,
+          "min_ppw_70Hz": 10.0,
+          "dt_ms": 1.3952002272081794,
+          "max_quantisation_ms": 0.0,
+          "uniform_grid_half_dx_ms": 1.3950892857142858,
+          "arrival_s": 6.6523146833285995,
+          "hf_gate_ms": 3.5
+        },
+        {
+          "Nx": 2048,
+          "Cr": 0.8,
+          "min_ppw_70Hz": 10.0,
+          "dt_ms": 1.1161601817665439,
+          "max_quantisation_ms": 0.0,
+          "uniform_grid_half_dx_ms": 1.3950892857142858,
+          "arrival_s": 6.638920761147403,
+          "hf_gate_ms": 3.5
+        }
+      ],
+      "arrival_diff_ms": 0.0,
+      "f70": 70.0
+    }
+  },
+  "n_fail": 13,
+  "n_pending": 1,
+  "all_required_pass": false,
+  "run_id": "s1_validate_20260905_210025_5d41b8fb",
+  "code_digest": "b6e1c77f4372246748834f5b8188bc87beac33c3ede05612d6fe310ac6640081",
+  "config_digest": "cd72e48ec139ed87ed1d17161067a3316444db85cbfec6ab5e613a037db87634",
+  "manifest_digest": "ad56ccbfdb97ec46998c07a8e77429bd1759b061be327608bc52411b26373bb3",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3"
+}

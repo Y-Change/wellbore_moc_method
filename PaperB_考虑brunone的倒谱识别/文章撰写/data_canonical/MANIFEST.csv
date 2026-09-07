@@ -1,0 +1,24 @@
+﻿relative_path,exists,bytes,sha256,used_by,generator_script,canonical_primary
+01_非定常摩阻正演与基准/data/p5_model_comparison_clocks.csv,yes,1365,7a9385891f85387120cdadde4f8360242b229bfbba18f77546767d1d423779a3,Fig7(c); Table4 WFB/IAB,01_非定常摩阻正演与基准/code/run_p5_iab_wfb_comparison.py,yes
+01_非定常摩阻正演与基准/data/cases_manifest.csv,yes,5686,3bc274e2c2099a50e44cc87b1231fcbd8d246b6178f6152eed07ca545a651739,Table2 case roles (source list),01_非定常摩阻正演与基准/code/run_simulations.py,yes
+02_时域波形退化_峰漂移与展宽/data/metrics_v2.csv,yes,14514,3eaf1966cac2b0657fef84ba75b3a1286dc67e5c6317abaceb54f5ec065ef0be,"Fig2(b) EST; Fig3(c) a_onset/a_peak/a_f0; Fig4(b) STFT bands; Fig6(b,c) Cv/FWHM",02_时域波形退化_峰漂移与展宽/code/audit_waveform_degradation.py,yes
+02_时域波形退化_峰漂移与展宽/data/four_clocks_n1_vs_n4.csv,yes,1545,b8210bd459902e7cd6283f6c7d14e72b95458c6edf0d643746bbdb5c9d91dc54,"Fig3(a,b); Table3",02_时域波形退化_峰漂移与展宽/code/compute_four_clocks.py,yes
+02_时域波形退化_峰漂移与展宽/data/Tc_sweep_n1_k0.01.csv,yes,2676,d7177de712f53aafeac7aa02510fa902c11827e65364052d821bac1f542ca8e5,Fig6(a) numbers; Fig7(b),02_时域波形退化_峰漂移与展宽/code/run_tc_sweep.py,yes
+02_时域波形退化_峰漂移与展宽/data/p6_grid_sensitivity.csv,yes,1325,8c506fe17a665902507fcc707092b25f7e3ad4d2f7200e7719652fc065d039f2,Table1 three dt,02_时域波形退化_峰漂移与展宽/code/run_p6_dt_convergence_3dt.py,yes
+02_时域波形退化_峰漂移与展宽/data/onset_correction_verdict.csv,yes,5502,f79857f2b95b8702b599f5770400f6f51f0de34e2c4b57c543559b0d6f6411dd,k(Re) +11.80 / +18.73,02_时域波形退化_峰漂移与展宽/code/evaluate_p2_onset_verdict.py,yes
+02_时域波形退化_峰漂移与展宽/data/p5_model_comparison_clocks.csv,yes,1365,7a9385891f85387120cdadde4f8360242b229bfbba18f77546767d1d423779a3,duplicate of 01 p5 table,01_非定常摩阻正演与基准/code/run_p5_iab_wfb_comparison.py,no (copy)
+03_频域高频耗散_STFT与表观波速/data/band_energy.csv,yes,7949,99963ff7af877a5d6028d6acb94d10554c4199ddbce59be453209abb97740551,STFT band archive (Fig4(b) plotted from metrics_v2),03_频域高频耗散_STFT与表观波速/code/plot_tf_dispersion.py,yes
+04_倒谱模糊与系统性深度偏差/data/four_clocks_n1_vs_n4.csv,yes,1545,b8210bd459902e7cd6283f6c7d14e72b95458c6edf0d643746bbdb5c9d91dc54,duplicate of 02 clocks,02_时域波形退化_峰漂移与展宽/code/compute_four_clocks.py,no (copy)
+04_倒谱模糊与系统性深度偏差/data/Tc_sweep_n1_k0.01.csv,yes,2676,d7177de712f53aafeac7aa02510fa902c11827e65364052d821bac1f542ca8e5,duplicate of 02 Tc,02_时域波形退化_峰漂移与展宽/code/run_tc_sweep.py,no (copy)
+04_倒谱模糊与系统性深度偏差/data/onset_correction_verdict.csv,yes,5502,f79857f2b95b8702b599f5770400f6f51f0de34e2c4b57c543559b0d6f6411dd,duplicate of 02 verdict,02_时域波形退化_峰漂移与展宽/code/evaluate_p2_onset_verdict.py,no (copy)
+04_倒谱模糊与系统性深度偏差/data/p6_window_sensitivity.csv,yes,1040,9fdbb650028e98a8706eb9c7b8ba79173e8f378afef8c30b70110c3a2e54fca5,SI window; not a main-text figure,04_倒谱模糊与系统性深度偏差/code/compute_cepstrum_clocks.py,SI only
+04_倒谱模糊与系统性深度偏差/data/p6_input_channel_sensitivity.csv,yes,425,d9ee23dc61625749dbf16e3e9b0038a9a4ea6f637563aad388dab3e39948dd94,SI channel; not a main-text figure,04_倒谱模糊与系统性深度偏差/code/compute_cepstrum_clocks.py,SI only
+05_雷诺数动态k与物性敏感性/data/k_kleak_damping_surface.csv,yes,3056,c1ae3a07bdc24d0b522d305d21a6b257590f7a19b0b642e08a081cb3bea431c3,Fig9 zeta surface; H_ext=100 m,05_雷诺数动态k与物性敏感性/code/run_k_kleak_surface.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n1_k0.csv.gz,yes,435400,450c30a5971048129a85aef891d366fb3b54c222a087dc38309974e7cf0cbf8f,"Fig2(a,c); Fig6(a); Fig7(a)",01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n1_k0.01.csv.gz,yes,560390,2922d940ed24a99b293325e992a5d619e7736805bde27f466d5cf65698a2109c,"Fig2(a,c); Fig7(b)",01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n1_k0.02.csv.gz,yes,560545,73a190d85399c5850378551032584125e2361c28fe6df7a13fc10aa4e3837040,Fig2(a); Fig6(a),01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n1_k0.05.csv.gz,yes,560041,9f983eba7769f99a75c5feb0c111eb50d87fec7dd708b42fa22eb92ab5bb4963,Fig2(a),01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n4_D20_k0.01.csv.gz,yes,561619,b3b92350c035bdc30fe195b2fb3558c1595e5082c77c54758ec0213ef6d52a4e,Fig7(c),01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+01_非定常摩阻正演与基准/data/timeseries/n4_D5_k0.01.csv.gz,yes,560876,0ba3e83728581b2a6d8a35ece58b3136b1116e48db604c697136326776dc0018,Fig7(d),01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+05_雷诺数动态k与物性敏感性/data/realised_k_n1_snapshots.csv,yes,498,4d05309531ac154736da04ba7720545c1a32e83cecfad46f9af376be93cec486,Table7 realised k(Re),01_非定常摩阻正演与基准/code/archive_wellhead_timeseries.py,yes
+

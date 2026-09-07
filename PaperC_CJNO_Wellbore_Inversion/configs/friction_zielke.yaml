@@ -1,0 +1,277 @@
+schema_version: 1
+model: zielke_vardy_brown_memory_convolution
+nondimensional_time: tau = 4 nu t / D^2
+reference_path:
+  type: direct_history_convolution_piecewise_complete_W
+  zielke_small_tau_series:
+    tau_split: 0.02
+    m:
+    - 0.282095
+    - -1.25
+    - 1.057855
+    - 0.9375
+    - 0.396696
+    - -0.351563
+    powers:
+    - -0.5
+    - 0.0
+    - 0.5
+    - 1.0
+    - 1.5
+    - 2.0
+  zielke_large_tau_exponents:
+  - 26.3744
+  - 70.8493
+  - 135.0198
+  - 218.9216
+  - 322.5544
+  vardy_brown:
+    A_star: 0.28209479177387814
+    C_star: 12.86 / Re^kappa, kappa = log10(15.29 / Re^0.0567)
+    valid_Re:
+    - 2300.0
+    - 100000000.0
+  laminar_turbulent_switch_Re: 2300.0
+  step_weights: Wbar_k = (1/dt) int_{k dt}^{(k+1) dt} W(4 nu u / D^2) du (analytic
+    antiderivatives)
+  complexity: O(N_x N_t^2) time, O(N_x N_t) memory — goldens and kernel-fit reference
+    only
+  prehistory: z_l(0) = 0 <=> fully developed steady flow before the disturbance; non-steady
+    prehistory must be supplied via z_l(0)
+production_path:
+  type: exponential_recursive_kernel
+  M: 12
+  recursion: dz_l/dt = -beta_l z_l + alpha_l dV/dt,  J_uV = w sum_l z_l,  w = 16 nu/D^2,
+    alpha_l = m_l, beta_l = 4 nu n_l / D^2
+  exact_step_update: z^{n+1} = exp(-beta dt) z^n + alpha phi1(beta dt) (V^{n+1} -
+    V^n)
+  positivity_constraint: m_l, n_l > 0 enforced structurally (log-parametrised fit)
+    + assertion after fit
+  fit:
+    objective: log least squares + minimax (IRLS) refinement
+    domain_tau:
+    - 1.0e-08
+    - 100.0
+    powerlaw_domain_tau:
+    - 1.0e-08
+    - 1.0
+    negligible_weight_rule: points with W < 1e-16 W(tau_min) carry zero weight (below
+      double-precision relevance)
+    gate_max_rel_err: 0.02
+  reynolds_dependence: 'VB scaling law: {m_l, n_l + 1/C*(Re)} exact for every turbulent
+    Re (no binning error); laminar uses the Zielke fit'
+  complexity: O(N_x M N_t)
+fits_by_M:
+  10:
+    zielke_laminar:
+      name: zielke_laminar
+      M: 10
+      m:
+      - 1.0068451828719327
+      - 1.7745588383958226
+      - 4.729563454125077
+      - 11.733347665118236
+      - 28.656041411541093
+      - 69.83802251718318
+      - 170.15008306371695
+      - 414.52547310543804
+      - 1010.0650743809515
+      - 2491.095267124623
+      n:
+      - 26.38497824934725
+      - 84.89135844734922
+      - 355.50509792253604
+      - 1865.584394401902
+      - 10563.001159284433
+      - 61516.243886206656
+      - 362296.4378991497
+      - 2143478.7069528825
+      - 12706083.854079537
+      - 75704323.75467248
+      tau_min: 1.0e-08
+      tau_max: 100.0
+      tau_eff_max: 1.0716428815305334
+      max_rel_err: 0.02437949868724698
+      rms_log_err: 0.0075766548890138586
+      n_points: 482
+      positivity_ok: true
+    powerlaw_for_vardy_brown:
+      name: powerlaw_for_vardy_brown
+      M: 10
+      m:
+      - 0.5478272332406303
+      - 1.1559622822714035
+      - 3.2979897202103974
+      - 9.113036435786832
+      - 24.268619363300562
+      - 63.93817432854606
+      - 168.3058844991086
+      - 442.7211606714747
+      - 1156.0198585263795
+      - 2875.8838137941193
+      n:
+      - 0.6657919741292806
+      - 10.421231361317695
+      - 93.12093246208777
+      - 767.5455749707868
+      - 5837.355736900057
+      - 42066.20479184977
+      - 295843.3613446153
+      - 2060905.761531332
+      - 14241549.888524508
+      - 95080258.4254154
+      tau_min: 1.0e-08
+      tau_max: 1.0
+      tau_eff_max: 1.0
+      max_rel_err: 0.03194257223931407
+      rms_log_err: 0.015259940849422865
+      n_points: 600
+      positivity_ok: true
+    passes_gate: false
+  11:
+    zielke_laminar:
+      name: zielke_laminar
+      M: 11
+      m:
+      - 1.0037422952778687
+      - 1.54998737433907
+      - 3.780572949245215
+      - 8.686384925499931
+      - 19.552870552214454
+      - 43.870557500117314
+      - 98.37843209630445
+      - 220.58870577715504
+      - 494.60900227498973
+      - 1109.5120486799758
+      - 2531.981040153277
+      n:
+      - 26.380132585118474
+      - 80.28519733745493
+      - 286.804853749302
+      - 1266.1224092162422
+      - 6038.587497480007
+      - 29675.06858510448
+      - 147697.9756583957
+      - 739235.3865101307
+      - 3709087.758852881
+      - 18633612.356732182
+      - 94246154.84468152
+      tau_min: 1.0e-08
+      tau_max: 100.0
+      tau_eff_max: 1.0716428815305334
+      max_rel_err: 0.014169532548446107
+      rms_log_err: 0.004282017739704255
+      n_points: 482
+      positivity_ok: true
+    powerlaw_for_vardy_brown:
+      name: powerlaw_for_vardy_brown
+      M: 11
+      m:
+      - 0.5202173687644156
+      - 0.9594601946610576
+      - 2.451932136499479
+      - 6.2312052906826505
+      - 15.319383136757137
+      - 37.11350260297189
+      - 89.65285895538672
+      - 216.54452375076332
+      - 522.3014837165186
+      - 1248.8496390776945
+      - 2869.0203105370297
+      n:
+      - 0.6136452858355859
+      - 8.538980997583272
+      - 62.383456325939115
+      - 427.2994126002713
+      - 2753.458254769969
+      - 16872.67567764219
+      - 100524.68452484507
+      - 591572.1496078906
+      - 3461324.1963286484
+      - 20095398.21233944
+      - 113096273.09530222
+      tau_min: 1.0e-08
+      tau_max: 1.0
+      tau_eff_max: 1.0
+      max_rel_err: 0.019019780093293193
+      rms_log_err: 0.009253425805503493
+      n_points: 600
+      positivity_ok: true
+    passes_gate: true
+  12:
+    zielke_laminar:
+      name: zielke_laminar
+      M: 12
+      m:
+      - 1.0020419482382035
+      - 1.3909678883482794
+      - 3.122953248897751
+      - 6.741939458137508
+      - 14.190319528928503
+      - 29.729575748299837
+      - 62.23185340777218
+      - 130.24481978300443
+      - 272.5786413493654
+      - 570.4684599744459
+      - 1194.9214084880005
+      - 2560.4107373236757
+      n:
+      - 26.377502642998298
+      - 77.20588355846954
+      - 242.76820990429385
+      - 928.5347628495019
+      - 3840.1557289088555
+      - 16384.202617935243
+      - 70880.98555962235
+      - 308633.9157050582
+      - 1347990.339764822
+      - 5896120.679959643
+      - 25815485.839568615
+      - 114018729.56564395
+      tau_min: 1.0e-08
+      tau_max: 100.0
+      tau_eff_max: 1.0716428815305334
+      max_rel_err: 0.008156875246464135
+      rms_log_err: 0.0024169426393139703
+      n_points: 482
+      positivity_ok: true
+    powerlaw_for_vardy_brown:
+      name: powerlaw_for_vardy_brown
+      M: 12
+      m:
+      - 0.4969409651546752
+      - 0.822912691501678
+      - 1.9073439193695194
+      - 4.507928122784834
+      - 10.367923832854174
+      - 23.446620743626042
+      - 52.7375486390156
+      - 118.53861738890599
+      - 266.3781134115913
+      - 597.3840995662707
+      - 1326.8445450748798
+      - 2858.808116166789
+      n:
+      - 0.5687808685106475
+      - 7.249410899984447
+      - 45.05924020764065
+      - 263.5082878237197
+      - 1473.020480246637
+      - 7880.633037414046
+      - 40930.15368770439
+      - 209353.9397912348
+      - 1063405.5721060806
+      - 5378738.880459846
+      - 26991632.625124298
+      - 131830064.31354131
+      tau_min: 1.0e-08
+      tau_max: 1.0
+      tau_eff_max: 1.0
+      max_rel_err: 0.011414525645327744
+      rms_log_err: 0.005613247800473829
+      n_points: 600
+      positivity_ok: true
+    passes_gate: true
+repair_record: 'M=10 (design value of §2.4(b)) does not meet the <2% fit gate on tau
+  in [1e-08, 100] (Zielke 2.44%, power law 3.19%); M=12 adopted (Zielke 0.82%, power
+  law 1.14%). Repair order per §3.4: 量纲 -> CFL/插值 -> 节点闭合 -> 记忆核 (this item).'

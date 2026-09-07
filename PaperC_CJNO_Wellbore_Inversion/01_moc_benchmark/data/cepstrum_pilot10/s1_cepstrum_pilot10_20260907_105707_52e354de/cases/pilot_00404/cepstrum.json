@@ -1,0 +1,375 @@
+{
+  "replay": true,
+  "no_moc_rerun": true,
+  "operator": "moc_simulate.leakoff_multi.run_cepstrum_analysis_and_match",
+  "cepstrum_config": {
+    "wlen_sec": 30.0,
+    "hop_sec": 5.0,
+    "win_type": "kaiser",
+    "peak_height_pct": 85.0,
+    "peak_height_rel": 0.03,
+    "peak_height_abs": 0.0,
+    "peak_min_separation_m": 5.0,
+    "peak_prominence_rel": 0.0,
+    "peak_top_n": 10,
+    "match_tolerance_m": 10.0,
+    "match_tolerance_sweep_m": [
+      2.0,
+      5.0,
+      10.0,
+      20.0,
+      40.0
+    ],
+    "fracture_zoom_margin_m": 100.0
+  },
+  "case_id": "pilot_00404",
+  "source_npz": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\01_moc_benchmark\\data\\pilot_2000\\cases\\pilot_00404.npz",
+  "source_sha256": "2add6c281ee7c01858060c0acca69d2ca07361fbfb3c83c8b53ab92fba5059a2",
+  "run_id": "s1_cepstrum_pilot10_20260907_105707_52e354de",
+  "config": {
+    "L": 4791.122095307723,
+    "a": 1336.3011594141615,
+    "V0": 4.3575844103161145,
+    "Q0": 0.032047326249099055,
+    "D": 0.09676717351017744,
+    "t_s": 1.0,
+    "t_c": 0.08455474650407639,
+    "dt": 0.00350189208984375,
+    "T_total": 287.8288820408217,
+    "period_4L_a": 14.341444102041086,
+    "x_f": [
+      4600.834737411975,
+      4622.787458533469,
+      4644.571219990966,
+      4666.1991706417375,
+      4688.162133945883,
+      4710.08483738957,
+      4731.756907684394,
+      4753.863374158115
+    ],
+    "N": 8,
+    "spacing": 21.84433652145891,
+    "mean_Gl": 9.473612412545688e-10,
+    "friction": "zvb_rec",
+    "Nx_ref": 1024,
+    "rho_g": 9808.169545540057,
+    "kleak_plot_field_is_mean_Gl": true
+  },
+  "cepstrum": {
+    "1d_real": {
+      "n_matched": 1,
+      "n_fracs": 8,
+      "mean_error_m": 0.8051794271168546,
+      "max_error_m": 0.8051794271168546,
+      "snr": 5.386087944602403,
+      "match_tol_m": 10.0,
+      "n_detected": 1,
+      "precision": 1.0,
+      "recall": 0.125,
+      "f1": 0.2222222222222222,
+      "exact_count": false,
+      "separation_success": false,
+      "n_likely_merged": 0,
+      "median_error_m": 0.8051794271168546,
+      "tolerance_sweep": [
+        {
+          "tolerance_m": 2.0,
+          "f1": 0.2222222222222222,
+          "precision": 1.0,
+          "recall": 0.125,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 5.0,
+          "f1": 0.2222222222222222,
+          "precision": 1.0,
+          "recall": 0.125,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 10.0,
+          "f1": 0.2222222222222222,
+          "precision": 1.0,
+          "recall": 0.125,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 20.0,
+          "f1": 0.2222222222222222,
+          "precision": 1.0,
+          "recall": 0.125,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 40.0,
+          "f1": 0.2222222222222222,
+          "precision": 1.0,
+          "recall": 0.125,
+          "separation_success": false,
+          "n_likely_merged": 1
+        }
+      ],
+      "detected_peaks": [
+        {
+          "depth_m": 4600.029557984858,
+          "response": 0.0022625273994168692,
+          "rank": 1
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4600.834737411975,
+          "peak_depth_m": 4600.029557984858,
+          "peak_val": 0.0022625273994168692,
+          "error_m": 0.8051794271168546,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4622.787458533469,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4644.571219990966,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4666.1991706417375,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 5,
+          "true_depth_m": 4688.162133945883,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 6,
+          "true_depth_m": 4710.08483738957,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 7,
+          "true_depth_m": 4731.756907684394,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 8,
+          "true_depth_m": 4753.863374158115,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        }
+      ]
+    },
+    "2d_time_avg": {
+      "n_matched": 4,
+      "n_fracs": 8,
+      "mean_error_m": 3.3336607648857353,
+      "max_error_m": 6.379361939306364,
+      "snr": 251.59722085914476,
+      "match_tol_m": 10.0,
+      "n_detected": 10,
+      "precision": 0.4,
+      "recall": 0.5,
+      "f1": 0.4444444444444445,
+      "exact_count": false,
+      "separation_success": false,
+      "n_likely_merged": 0,
+      "median_error_m": 3.4348262411217547,
+      "tolerance_sweep": [
+        {
+          "tolerance_m": 2.0,
+          "f1": 0.22222222222222224,
+          "precision": 0.2,
+          "recall": 0.25,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 5.0,
+          "f1": 0.22222222222222224,
+          "precision": 0.2,
+          "recall": 0.25,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 10.0,
+          "f1": 0.4444444444444445,
+          "precision": 0.4,
+          "recall": 0.5,
+          "separation_success": false,
+          "n_likely_merged": 0
+        },
+        {
+          "tolerance_m": 20.0,
+          "f1": 0.5555555555555556,
+          "precision": 0.5,
+          "recall": 0.625,
+          "separation_success": false,
+          "n_likely_merged": 1
+        },
+        {
+          "tolerance_m": 40.0,
+          "f1": 0.5555555555555556,
+          "precision": 0.5,
+          "recall": 0.625,
+          "separation_success": false,
+          "n_likely_merged": 1
+        }
+      ],
+      "detected_peaks": [
+        {
+          "depth_m": 4616.408096594163,
+          "response": 0.1401943525684231,
+          "rank": 1
+        },
+        {
+          "depth_m": 4607.048931674561,
+          "response": 0.1382673733331894,
+          "rank": 2
+        },
+        {
+          "depth_m": 4625.767261513766,
+          "response": 0.13406910937441166,
+          "rank": 3
+        },
+        {
+          "depth_m": 4602.369349214759,
+          "response": 0.12988661221075495,
+          "rank": 4
+        },
+        {
+          "depth_m": 4630.446843973568,
+          "response": 0.1192461937357461,
+          "rank": 5
+        },
+        {
+          "depth_m": 4635.1264264333695,
+          "response": 0.11083664215333003,
+          "rank": 6
+        },
+        {
+          "depth_m": 4660.864129962278,
+          "response": 0.10702805098592304,
+          "rank": 7
+        },
+        {
+          "depth_m": 4590.670393065256,
+          "response": 0.10541937408293355,
+          "rank": 8
+        },
+        {
+          "depth_m": 4644.485591352973,
+          "response": 0.10039111242197614,
+          "rank": 9
+        },
+        {
+          "depth_m": 4691.281415950987,
+          "response": 0.0937347552496751,
+          "rank": 10
+        }
+      ],
+      "matches": [
+        {
+          "frac_id": 1,
+          "true_depth_m": 4600.834737411975,
+          "peak_depth_m": 4602.369349214759,
+          "peak_val": 0.12988661221075495,
+          "error_m": 1.5346118027837292,
+          "matched": true
+        },
+        {
+          "frac_id": 2,
+          "true_depth_m": 4622.787458533469,
+          "peak_depth_m": 4616.408096594163,
+          "peak_val": 0.1401943525684231,
+          "error_m": 6.379361939306364,
+          "matched": true
+        },
+        {
+          "frac_id": 3,
+          "true_depth_m": 4644.571219990966,
+          "peak_depth_m": 4644.485591352973,
+          "peak_val": 0.10039111242197614,
+          "error_m": 0.08562863799306797,
+          "matched": true
+        },
+        {
+          "frac_id": 4,
+          "true_depth_m": 4666.1991706417375,
+          "peak_depth_m": 4660.864129962278,
+          "peak_val": 0.10702805098592304,
+          "error_m": 5.33504067945978,
+          "matched": true
+        },
+        {
+          "frac_id": 5,
+          "true_depth_m": 4688.162133945883,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 6,
+          "true_depth_m": 4710.08483738957,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 7,
+          "true_depth_m": 4731.756907684394,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        },
+        {
+          "frac_id": 8,
+          "true_depth_m": 4753.863374158115,
+          "peak_depth_m": null,
+          "peak_val": null,
+          "error_m": null,
+          "matched": false
+        }
+      ],
+      "wlen_sec": 30.0,
+      "hop_sec": 5.0,
+      "win_type": "kaiser",
+      "n_frames": 52
+    }
+  },
+  "files": {
+    "cepstrum_standard_png": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\01_moc_benchmark\\data\\cepstrum_pilot10\\s1_cepstrum_pilot10_20260907_105707_52e354de\\cases\\pilot_00404\\cepstrum_standard.png",
+    "cepstrum_fracture_zoom_png": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\01_moc_benchmark\\data\\cepstrum_pilot10\\s1_cepstrum_pilot10_20260907_105707_52e354de\\cases\\pilot_00404\\cepstrum_fracture_zoom.png"
+  }
+}

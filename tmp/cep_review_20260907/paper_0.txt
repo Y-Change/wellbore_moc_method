@@ -1,0 +1,1100 @@
+Full Length Article
+Neural operators for ultrasonic full waveform inversion: A 
+next-generation ultrasonic NDT with improved fidelity, efficiency, 
+and robustness
+Jiang Lu
+a
+, Lishuai Liu
+a , *
+, Xuan Li
+a
+, Shijun Wang
+b
+, Yanxun Xiang
+a , *
+a
+Shanghai Key Laboratory of Intelligent Sensing and Detection Technology, School of Mechanical and Power Engineering, East China University of 
+Science and Technology, Shanghai 200237, China
+b
+Gansu Electric Power Corporation, State Grid, 730050, China
+ARTICLE INFO
+Keywords:
+Fourier neural operator
+Fullwaveforminversion
+Ultrasonic quantitative detection
+Computational wave imaging
+Deep learning
+ABSTRACT
+Full waveform inversion (FWI), a computational wave imaging technique that fully incorporates 
+the physics of wave propagation, enables high-resolution quantitative reconstruction of inho -
+mogeneous media and promotes effective application in non-destructive testing (NDT). However, 
+its widespread adoption is hindered by the intrinsic challenges of solving a nonlinear, ill-posed 
+inverse problem, resulting in a high computational cost considering the iterative implementa -
+tion, sensitivity to the initial model, and the possible convergence to a local minimum solution. 
+Recent advances in data-driven FWI frameworks using neural networks have improved both 
+accuracy and efficiency, yet challenges in robustness and generalization persist. Neural operators, 
+an emerging paradigm in scientific machine learning, aim to learn mappings between infinite- 
+dimensional function spaces, offering superior generalization and scalability for complex phys -
+ical systems. Motivated by this, we propose a neural-operator-based framework for direct 
+inversion of ultrasonic full-waveform data based on the Unet Fourier Neural Operator (U-FNO), 
+extending the neural operator paradigm to ultrasonic NDT. By leveraging parameterized Fourier 
+kernels to globally capture intricate wave physics, U-FNO demonstrates improved inference ef -
+ficiency relative to classical FWI, and improved fidelity and robust reconstruction compared with 
+representative data-driven models and total focusing method (TFM). Numerical and experimental 
+results demonstrate that the proposed framework provides a promising direction for next- 
+generation computational wave imaging technology in ultrasonic NDT.
+1. Introduction
+Acoustic imaging seeks to infer hidden internal structures and unknown physical properties of materials by analyzing measured 
+wave signals [1] . It plays a critical role in a wide range of applications, including seismic inversion, underwater object detection, 
+biomedical imaging, and non-destructive testing (NDT). This task typically involves solving ill-posed and nonlinear inverse problems. 
+In particular, sensor data are generally available only at the surface or boundaries of an object, leading to a dimensional mismatch 
+between the limited observed data and the unknown parameter space. Additionally, the inherent inhomogeneity of the medium gives 
+rise to complex wave phenomena such as diffractions, scattering, and reflections. As a result, a single set of observations may 
+* Corresponding authors.
+E-mail addresses: lishuai.liu@ecust.edu.cn (L. Liu), yxxiang@ecust.edu.cn (Y. Xiang). 
+Contents lists available at ScienceDirect
+Mechanical Systems and Signal Processing
+journal homepag e: www.else vier.com/loc ate/ymss p
+https://doi.org/10.1016/j.ymssp.2026.114179
+Received 26 September 2025; Received in revised form 4 March 2026; Accepted 18 March 2026  
+Mechanical Systems and Signal Processing 251 (2026) 114179 
+Available online 7 April 2026 
+0888-3270/© 2026 Elsevier Ltd. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+correspond to multiple physically plausible solutions, thereby increasing both the difficulty and uncertainty of the inversion process.
+To address these challenges, various imaging methods have been developed, as shown in Fig. 1 . Early approaches, primarily based 
+on ray approximations, are computationally efficient and stable. Representative techniques include the synthesis aperture focusing 
+(SAFT) [2] , the total focusing method (TFM) [3] , the probabilistic diagnostic imaging (PDI) [4] , and plane wave imaging (PWI). 
+However, these methods are inherently limited to qualitative reconstruction, as the resulting images only approximate the spatial 
+variation of acoustic parameters. Ray-based tomography [5] , which estimates the sound velocity distribution of a medium based solely 
+on travel time, offers coarse quantitative analysis. It ignores wave diffractions and scattering, restricting resolution to the width of the 
+first Fresnel zone [6,7] . To improve ray-based methods while maintaining computational efficiency, wavefield extrapolation methods 
+such as phase shift migration (PSM) [8] and Stolt migration [9] adopt a one-way wave approximation to partially account for 
+diffraction effects. Diffraction tomography, leveraging linearized scattered field approximations (e.g., Born or Rytov approximations), 
+accounts for both diffraction and scattering [10] and enhances the resolution for simple defects. However, its applicability remains 
+confined to weak scattering and fails for complex defects with high velocity contrasts [11] .
+Full-waveform inversion (FWI) has emerged as a powerful method for quantitative subsurface reconstruction with high resolution 
+and accuracy by minimizing the mismatch between observed and synthetic data [12,13] . Its high resolution potential is due to the 
+numerical solution of the exact wave equation, which describes more completely the physics of wave propagation in heterogeneous 
+media, and can be realized with a resolution of half the wavelength of the dominant frequency [14,15] . However, directly transferring 
+FWI to ultrasonic NDT is challenging due to differences in frequency range, wave propagation characteristics, and the high acoustic 
+impedance contrast of materials. As a result, although FWI holds great promise for advancing ultrasonic NDT, its application has thus 
+far been restricted to a small number of preliminary studies. For instance, Rao et al. [16] developed an acoustic multiparametric FWI 
+method for the reconstruction of velocities and densities of metallic components. Further, they extended it to quantitative imaging of 
+guided-wave corrosion damage [17] . In addition, He et al. [18] investigated the application of FWI for reconstructing complex metal 
+components in a water bath environment. Their numerical evaluation demonstrated FWI has significant potential for accurately 
+recovering complex structural features. To further validate these findings, experimental studies on homogeneous materials were 
+subsequently conducted using accurate transducer modeling [19] . Bürchner et al. [20] quantitatively compared TFM, RTM, and FWI 
+methods for phased array full matrix capture (FMC) data across multiple metrics, highlighting the powerful potential of FWI for defect 
+identification and sizing. However, the FWI approach is computationally expensive, as each iteration requires forward modeling the 
+full wavefield in a nonlinear optimization framework. Moreover, its inherent nonlinearity and ill-posedness often lead to convergence 
+to local minima, making reconstructions highly sensitive to the quality of the initial model [13] . To address the aforementioned issues, 
+several physics-based approaches have been developed. These approaches encompass the development of regularization methods [21] , 
+the utilization of low-frequency information to construct an improved initial model [22] , the refinement of the convexity of the 
+objective function [23] , and Multi-scale optimization strategies [24] . Despite these advancements, physics-based FWI has not consis -
+tently succeeded in ultrasonic NDT inversion, underscoring the need for alternative solutions.
+Motivated by the rapid development of deep learning, which has demonstrated a strong ability to establish nonlinear mappings 
+between different data domains, researchers have suggested data-driven direct inversion methods to alleviate the optimization burden 
+of conventional FWI [25,26] . The primary objective of these methods is to transform the optimization problem of FWI into a supervised 
+learning task. This task involves constructing an inverse mapping from observed data to the Measurement structure by training neural 
+networks on paired data of waveforms and medium acoustic parameters, also referred to in the literatures as data-driven FWI [27 – 30] . 
+Data-driven direct inversion methods based on different neural network architectures have achieved notable success in seismic 
+exploration, particularly in terms of computational efficiency and inversion accuracy [25 – 31] . More recently, such methods have been 
+explored in ultrasound imaging. Suo et al. [32] developed an improved dual-encoder-based Unet with high-frequency feature 
+enhancement for the quantitative imaging of bone sound velocity and density, which addresses the highly nonlinear challenge of FWI 
+posed by high-contrast bone models. Lozenski et al. [33] further highlighted the computational advantages of learning FWI using CNN, 
+achieving reconstruction speeds three orders of magnitude faster than traditional FWI. Ren et al. [34] proposed a physics-embedded 
+neural network framework for accurate quantitative reconstruction of tumors in brain tissue by training forward convolutional net -
+works and inverse sub-neural networks to replace the finite-difference modeling and iterative optimization process of FWI. Rao et al.
+[35] proposed a full convolutional network (FCN) tailored to quantitatively detect defects in multi-layered bonded composites using 
+FMC. Liu et al. [36] developed an Unet-based method to fully utilize echo space represented by FMC to achieve super-resolution limit 
+and sub-wavelength defects visualization. Data-driven methods may be superior to traditional physics-based methods when the 
+Fig. 1. Acoustic imaging methods based on different theoretical assumptions.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+2 
+training and prediction data share similar distributions. However, even moderate distribution shifts between training and prediction 
+data may lead to considerable performance degradation [37] . Therefore, although data-driven methods can reduce computational costs 
+and mitigate local minimum problems compared to physics-based methods, their robustness and generalization capabilities remain 
+areas worthy of further research.
+Recently, a new paradigm known as neural operators has been developed to directly learn mappings between infinite-dimensional 
+function spaces [38 – 40] . Neural operators have been proven to have the powerful ability to accurately approximate both nonlinear 
+continuous functions (mapping from a function space to real numbers) and nonlinear operators (mapping from one function space to 
+another) [38] , thereby accelerating scientific simulation and engineering design in fields such as weather forecasting [41] and carbon 
+dioxide storage [42] . Among various neural operator architectures, the Fourier neural operator (FNO) [40] , which uses the fast Fourier 
+transform as an integral operator to learn the integral kernel in Fourier space from data, has demonstrated superior accuracy and 
+computational efficiency compared to other neural operator frameworks across a range of benchmark problems [43] . Unlike CNNs 
+restricted to local convolutions on discretized grids, FNO leverages global neural integral operators to learn continuous function 
+instead of discretized vectors, as shown in Fig. 2 . This property underpins its strong generalization, high accuracy and resolution- 
+invariance [40] . in wave propagation modeling, effectively capturing complex physical phenomena such as nonlinear effects [44] , 
+viscoelasticity [45] , and quantum mechanics [46] . Despite these advantages in forward modeling, the application of neural operators to 
+inverse problems remains relatively underexplored. Initial efforts have recently begun to investigate their potential in seismic 
+inversion. Lu et al. [47] incorporated FNO as the decoder within DeepONet to perform seismic inversion with variable source pa -
+rameters, demonstrating strong robustness to Gaussian noise in observed data. More recently, Huang et al. proposed a neural operator- 
+based FWI framework that employs a pretrained FNO as a surrogate forward model [48] and integrates wave-equation constraints into 
+the inversion objective, improving reconstruction quality while maintaining computational efficiency [49] .
+Inspired by these developments, we further advance the neural operator paradigm to ultrasonic NDT, addressing the highly ill- 
+posed inverse problem of FWI using phased array FMC data. We propose a U-FNO framework that integrates kernel parameteriza -
+tion in the Fourier domain to capture global wave defect interactions while retaining localized feature recovery through a U-Net path. 
+This design enables the accurate mapping from FMC datasets, including scattering, diffraction, and reflection signals, to the longi -
+tudinal wave velocity distribution of complex medium, thereby accelerating inversion efficiency. Compared with existing data-driven 
+FWI methods such as InversionNet [30] , U-FNO achieves higher fidelity and robustness in reconstructing defects with high contrast and 
+complex geometries.
+The remainder of this paper is structured as follows. Section 2 provides background information on physics-based and data-driven 
+FWI, followed by details on the design of the U-FNO. Section 3 presents the results of complex geometric defect inversion imaging and 
+compares the reconstruction accuracy and robustness of U-FNO and InversionNet. Section 4 validates the method with experimental 
+data and compares the reconstruction results with InversionNet and TFM. Section 5 discusses the limitations and directions for future 
+research. Finally, we share our conclusions in Section 6.
+2. Methods
+We first introduce the physics-based and data-driven frameworks for full waveform inversion, and then we detail the network 
+framework for Unet Fourier neural operators.
+Fig. 2. The difference between Convolutional neural networks (CNNs) and Fourier neural operators.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+3 
+2.1. Physics-based FWI
+FWI is typically based on elastic or acoustic wave equations that consider the effects of wave propagation in inhomogeneous media 
+and establish a relationship between observed waveform data at our sensors and a model of medium parameters (e.g., speed of sound, 
+density, and acoustic impedance) to reconstruct images of parameter distributions.
+Waveform forward modelling in 2D provides an accurate description of wave propagation and is the key to waveform inversion 
+algorithms. In the time domain, the two-dimensional constant density isotropic acoustic wave equation is described as follows: 
+∂
+2
+u ( x , y , t )
+∂ t
+2
+ 
+1
+c ( x , y )
+2
+(
+∂
+2
+u ( x , y , t )
+∂ x
+2
++
+∂
+2
+u ( x , y , t )
+∂ y
+2
+)
+= s ( x , y , t ) , (1) 
+where u ( x , y , t ) represents the acoustic pressure wavefield. c ( x , y ) stands for the spatial distribution of the sound velocity in an acoustic 
+medium in 2D, and s ( x , y , t ) is source function. In this paper, we use the finite difference time-domain method (FDTD) to solve the wave 
+equation [50] .
+The forward modeling problem present in Eq. (1) can be simplified as: 
+u = f ( m ) , (2) 
+where u is acoustic pressure wavefield, f represents the forward modeling operator, and m is the velocity model parameters. The 
+inversion process commences with a specified initial model of the medium parameters, and the synthetic wavefield of the initial model 
+is obtained by forward modelling. The mismatch between the experimentally measured observed wavefield and the synthetic 
+wavefield is employed as an objective function to update the medium model parameters, thereby converging on a solution that 
+generates synthetic data that are consistent with the observed data. The objective function of the inversion process can be described as 
+follows: 
+E ( m ) = min
+m
+(
+‖ d   f ( m )‖
+2
+2
++ λ R ( m )
+)
+, (3) 
+where d is an obverse waveform data set, λ is regularization weight parameter and R ( m ) represents regularization term. ‖ d   f ( m )‖
+2
+2 
+stands for the L
+2 
+norm of data mismatch. The regularization term is used to mitigate the ill-posedness of physics-based FWI and 
+stabilize its convergence. The ill-posedness is primarily attributable to incomplete data coverage and parameter cross-talk. Typically, 
+experimental measurements are conducted on the boundaries of the object to be measured, resulting in limited observed data. 
+Moreover, observed wavefield changes are due to the coupling of several acoustic parameters, making it difficult to accurately resolve 
+the contribution of individual acoustic parameters to the observed wavefield. The update of model parameters can be formulated as: 
+m
+k + 1
+= m
+k
+  α
+k
+g
+k
+, (4) 
+where m
+k 
+represents the velocity model parameters for the k -th iteration, α
+k 
+is the step length for the k -th iteration, g
+k
+=
+∂ E ( m
+k
+)
+∂ m 
+is the 
+gradient for the k -th iteration. The resolution of the FWI problem typically employs the adjoint-state method to compute the gradient, 
+necessitating forward wave propagation, backward wave propagation, and full-wavefield crosscorrelation in the time domain [13] . 
+This method is computationally intensive and can require a significant amount of time to reach convergence. In this paper, Deepwave 
+is employed, and the gradients are computed through reverse-mode automatic differentiation, which is mathematically equivalent to 
+the classical adjoint-state method [51] . Second-order optimization methods have been shown to accelerate the convergence rate by 
+computing the Hessian matrix of the model parameters of the objective function [52] . However, these methods require additional 
+computational resources.
+2.2. Data-driven FWI (Data-driven direct inversion)
+Ultrasonic FWI aims to reconstruct the acoustic parameters distribution of the object under test, often for the detection of defects 
+such as holes or through-thickness cracks in metallic materials. These defects can be simplified as regions of sound velocity anomalies 
+(e.g., air inside a hole, where the sound velocity reduces to about 340 m/s). By abstracting the complex defect structure into a non- 
+uniform medium with varying sound velocity, the problem of defect detection is transformed into an inverse reconstruction of a high- 
+contrast sound velocity model. Due to the high nonlinearity and ill-posedness of the objective function and its sensitivity to the initial 
+model, the traditional physics-based FWI method is prone to falling into local minima and struggles to accurately invert high-contrast 
+models, especially when low-frequency information is absent or the initial model is unreliable. In contrast, the data-driven approach 
+addresses these challenges by transforming the problem into an end-to-end mapping task. The key idea of the data-driven approach is 
+to create a training dataset of paired data consisting of velocity model m and corresponding waveform data d . This training dataset is 
+then used to train a deep neural network to learn the complex nonlinear mapping from d to m , allowing for direct estimation of the 
+velocity distribution from the actual observed data on the measured object. This practice can be formulated mathematically as follows: 
+̂m = h
+θ
+* ( d ) ≈ f
+  1
+( d ) ,
+s . t . θ
+*
+( Φ ) = argmin
+θ
+∑
+( m
+i
+, d
+i
+)∈ Φ
+L ( h
+θ
+( d
+i
+) , m
+i
+) ,
+(5) 
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+4 
+where θ are the trainable parameters for the neural network, h
+θ
+* ( ⋅ ) is the inversion operator with parameters θ
+*
+, L ( ⋅ , ⋅ ) represents a 
+loss function, and Φ is the training dataset with paired samples of ( m
+i
+, d
+i
+) . Compared to traditional FWI methods, this method is 
+characterized by generating a set of inverse operators rather than a single model inversion. This means that once training is complete, 
+when changing the reconstruction object, the neural network can quickly infer the answer due to the self-efficient large-scale parallel 
+computing architecture, without the need for re-iterative optimization.
+2.3. U-FNO architecture
+The goal of Fourier neural operator is to learn a mapping between two infinite dimensional spaces from a finite set of observed 
+input – output pairs. In the context of ultrasonic FWI, U-FNO is used to learn an inverse operator mapping of Eq. (5) from paired datasets 
+of velocity model m and FMC d . For Eq. (5) , we use for the loss function L1 norm.
+We discretize the input function in a finite-dimensional space, and specifically evaluate each predetermined exciter positions D
+E
+=
+{ x
+1
+, x
+2
+, x
+3
+⋯ x
+E
+} ⊂ D , receiver positions D
+R
+= { x
+1
+, x
+2
+, x
+3
+⋯ x
+R
+} ⊂ D at the surface and each receiver records at T time samples D
+T
+=
+{ t
+1
+, t
+2
+, t
+3
+⋯ t
+T
+} ⊂ D . Therefore, the discrete ultrasonic data for each exciter is a matrix of shapes ( T , R ) , The total observed data in discrete 
+form is a tensor of shape ( T , R , E ) . The output m of U-FNO is a function in the spatial domain, so it also needs to be discretized in a finite- 
+dimensional space. We evaluate m at the position W × H, where W and H correspond to the horizontal and vertical ranges of the 
+velocity map, respectively.
+U-FNO is formulated as an iterative architecture as 
+G
+θ
+: d ↦ z
+0
+↦ z
+1
+↦ ⋯ ↦ z
+N   1
+↦ m , (6) 
+where z
+j 
+for j = 0 , 1 , ⋯ , N   1 is a sequence of functions. Considering the balance of computational efficiency and performance, we use 
+one Fourier layer ( Fig. 3 (b)) and two U-Fourier layers ( Fig. 3 (c)) in U-FNO ( Fig. 3 (a)).
+First, the input observation data d is elevated to a higher-dimensional space through a linear transformation P. 
+z
+0
+= P ( d ) ∈ R
+T × R × C
+, (7) 
+Fig. 3. (a) The U-FNO model architecture. d is the input, P and Q are fully connected neural networks, and m is the output. (b) Fourier layer, 
+adapted from [40] . (c) U-Fourier layer, adapted from [53] . (d) Shapes of outputs.. z
+j
+, j = 0 , 1 , 2 , 3
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+5 
+where C is the number of hidden channels, controlling the dimensionality of the latent feature space in which the operator is learned, z
+0 
+is the output after passing through the linear layer. We map a function of dimensions T × R × C to W × H × 1 to generate the velocity 
+map m . However, the input and output dimensions are the same for the Fourier and Unet layers. To achieve this conversion, we add a 
+linear layer before the activation layer of each Fourier layer and U-Fourier layer.
+Next, we use one Fourier layer and two U-Fourier layers as a merged network: 
+z
+1
+= σ
+ 
+W
+ʹ
+0
+( K
+0
+( a ; θ ) z
+0
++ W
+0
+z
+0
+)
+)
+,
+z
+2
+= σ
+ 
+W
+ʹ
+1
+( K
+1
+( a ; θ ) z
+1
++ U
+1
+z
+1
++ W
+1
+z
+1
+)
+)
+,
+z
+3
+= σ
+ 
+W
+ʹ
+2
+( K
+2
+(( a ; θ ) z
+2
++ U
+2
+z
+2
++ W
+2
+z
+2
+) )
+)
+,
+(8) 
+where z
+1
+, z
+2 
+and z
+3 
+correspond to the outputs of Fourier, U-Fourier 1, and U-Fourier 2 in Table 1 . W
+i 
+and W
+ʹ
+i 
+are linear transformations. 
+U
+i 
+is a Unet CNN operator. σ is a non-linear activation function. K
+i
+( a ; θ ) is a kernel integral transformation parameterized by a neural 
+network. This is specifically described in neural operators as follows: 
+ 
+K ( a , θ ) z
+j
+)
+( x ) =
+∫
+D
+κ
+θ
+( x   y , a ) z
+j
+( y ) dy , ∀ x ∈ D . (9) 
+The main feature of the FNO method is that it formulates the operator learning task by directly parameterizing the integral kernel in 
+Fourier space. The integral kernel is represented by the fast Fourier transform(FFT) as 
+ 
+K ( a , θ ) z
+j
+)
+( x ) = F
+  1
+ 
+F ( κ
+θ
+) ⋅ F
+ 
+z
+j
+) )
+( x ) = F
+  1
+ 
+R
+θ
+⋅ F z
+j
+)
+( x ) , (10) 
+where F represents the a two-dimensional FFT, F
+  1 
+is its inverse. R
+θ 
+is the Fourier transform of a periodic function κ
+θ
+: D → R
+d z × d z 
+parameterized by θ . Notice κ
+θ 
+is a periodic function providing Fourier series expansion and works in the discrete mode k ∈ Z
+d 
+of the 
+Fourier transform. First, we truncate the at the maximum number of modes k
+max
+= | Z
+k max
+| =
+⃒
+⃒
+{
+k ∈ Z
+d
+: | k
+n
+| ≤ k
+max , j
+, f or n = 1 , ⋯ , d
+} ⃒
+⃒
+, 
+and then directly parameterize R as a complex-valued tensor of shape ( k
+max
+× d
+z
+× d
+z
+) with truncated Fourier coefficients therefore 
+drop θ from our notation. Multiplication by the weight tensor R is 
+ 
+R ⋅
+ 
+F z
+j
+))
+k , l
+=
+∑
+d v
+i = 1
+R
+k , l , n
+( F v
+t
+)
+k , n
+, k = 1 , ..., k
+max
+, n = 1 , ..., d
+v
+. (11) 
+In practice, we have found that choosing k
+max
+= 40 to be sufficient for all the tasks that we consider. For more details about FNO, please 
+refer to [40,53] . This signifies that the network parameters are defined and learned in Fourier space, and the coefficients corresponding 
+to the Fourier series representation of the output function are inferred from the dataset. This discrete invariance property also enables 
+zero-shot super-resolution techniques [40] .
+In contrast to the conventional Fourier layer, the U-Fourier layer incorporates the Unet path. The Fourier layer, due to the trun -
+cation of Fourier basis functions to a finite number, endows the network with noise resistance; however, this may result in the loss of 
+high-frequency information in the data. However, the Unet path has the capacity to enhance the representational capabilities of the 
+network architecture at higher frequencies by processing data on structured grids through local convolutions [53] .
+Finally, applying the nonlinear transformation Q to map the output z
+3 
+of the final U-Fourier layer to the velocity model. 
+m = Q ( z
+3
+) ∈ R
+W × H × 1
+. (12) 
+More details of the operations and shapes of U-FNO are summarized in Table 1 , and the detailed process is described in Algorithm 1.
+Algorithm 1 U-FNO for FWI
+Input : d : FMC datasets, m : true velocity models, ̂m : predicted velocity models, N : number of training sets, E : number of epochs, I : number of iterations of each epoch 
+updating velocity models, B : number of batches, lr : learning rate for training
+Step1: Consider the U-FNO framework with parameters θ for approximating the inverse operator.
+Step2: Generate 2D velocity models from training dataset
+Step3: Synthesize FMC data solving Eq.(3) by finite difference scheme
+( continued on next page )
+Table 1 
+U-FNO architecture. The merged network includes one Fourier layer and two U-Fourier layers.
+Operations Output shape
+Projection P Linear (128,64,1000)
+Fourier layer Add (Fourier2d + Conv1d), ReLu (128,64,1000)
+U-Fourier layer 1 Add (Fourier2d + Conv1d + UNet2d), Linear, ReLu (128,64,512)
+U-Fourier layer 2 Add (Fourier2d + Conv1d + UNet2d), Linear, ReLu (128,64,200)
+Projection Q Permute, Linear, ReLu, Linear, ReLu, (64,200)
+Permute, Linear, ReLu, Linear (200,200)
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+6 
+( continued )
+Algorithm 1 U-FNO for FWI
+Step4: Input all data pairs into the network and use the Adam algorithm to update the hyperparameters
+for e = 1, … , E do
+for b = 1, … , B do
+for n = 1, … , I do
+Sample training pairs ( m
+i
+, d
+i
+) from Φ
+Input d
+i 
+into the network to obtain ̂m
+i 
+given Eq. (6)
+Compute loss given Eq. (5) .
+Update parameters θ using the Adam optimizer with lr : θ
+m + 1
+= θ
+m
+  lr ∇
+θ
+L ( θ
+m
+)
+end for
+end for
+end for
+2.4. Quality evaluation of imaging results
+In this paper, the structural similarity index measure (SSIM), mean absolute error (MAE), root mean square error (RMSE), and L
+2 
+relative error are used to quantitatively evaluate the quality of inverse imaging. SSIM measures the differences between two images 
+based on brightness, contrast, and structure to better reflect the intuitive perception of the human eye [54] : 
+SSIM ( x , y ) =
+(
+2 μ
+x
+μ
+y
++ C
+1
+)
+ 
+2 σ
+xy
++ C
+2
+)
+(
+μ
+2
+x
++ μ
+2
+y
++ C
+1
+)(
+σ
+2
+x
++ σ
+2
+y
++ C
+2
+) , (14) 
+MAE ( x , y ) =
+1
+n
+∑
+| y   x | , (15) 
+RMSE =
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅̅̅̅̅̅̅̅̅̅̅̅̅ ̅
+1
+n
+∑
+( y   x )
+2
+√
+, (16) 
+L
+2
+=
+1
+n
+∑
+⃒
+⃒
+⃒
+⃒
+y   x
+y
+⃒
+⃒
+⃒
+⃒
+, (17) 
+where n is the number of samples. μ
+x
+, μ
+y
+, σ
+x
+, σ
+y 
+and σ
+xy 
+are the local mean, standard deviation, and cross-covariance of images x and y . 
+The regularization constants C
+1
+= 10
+  4 
+and C
+2
+= 9 × 10
+  4 
+avoid numerical instabilities when local mean and standard deviation are 
+close to zero. Therefore, greater SSIM, smaller MAE, RMSE and L
+2 
+relative error indicate a better velocity reconstruction.
+3. Numerical experiments
+3.1. Simulation setup
+The Extended Modified National Institute of Standards and Technology (EMNIST) dataset comprises handwritten character digits 
+derived from the NIST Special Database 19 and converted into a 28 × 28 pixel image format [55] . It serves as a core benchmark in 
+machine learning, particularly due to its rich structural variability and visual complexity. Owing to these characteristics, the EMNIST 
+dataset has also found widespread application in computational imaging tasks such as electromagnetic backscattering [56] and ul -
+trasound imaging [57] , where it is commonly used to evaluate model performance in handling complex scatterers or targets. In this 
+study, EMNIST patterns are employed to systematically generate geometrically diverse and topologically complex velocity distribu -
+tions. Such a benchmark, characterized by substantial structural variability beyond simple parametric inclusions, enables rigorous 
+evaluation of the inversion framework for reconstructing complex scatterers and provides a comprehensive assessment of its quan -
+titative inversion capability, robustness, and generalization performance.
+We constructed a sound velocity model dataset based on the letters subset of the EMNIST dataset, which includes only handwritten 
+samples of 26 uppercase and lowercase letters, excluding numeric digits. To satisfy the spatial resolution requirements of forward 
+modeling, each 28 × 28 pixel image was zero-padded and expanded to a resolution of 200 × 200 pixels. These high-resolution binary 
+images were then mapped to sound velocity distributions, where pixel intensity values were linearly translated to sound velocities 
+ranging from 1500 m/s to 5800 m/s. This mapping allows each pixel to represent local variations in acoustic properties, effectively 
+simulating complex internal defect patterns typically encountered in industrial inspection scenarios. A total of 6000 sound velocity 
+models were prepared. Among them, 4,500 were utilized for the training of the neural network, 500 were allocated as a validation set, 
+and the remaining 1,000 samples were designated for testing purposes. The EMNIST data format guarantees that each sample is 
+distinct and independent.
+To generate the paired dataset ( m , d ) required for network training, forward wavefield simulations were conducted by solving the 
+acoustic wave equation using a staggered-grid finite difference scheme, based on Eq. (1) . The computational domain was discretized 
+with second-order temporal and eighth-order spatial accuracy, using a spatial grid step of 0.2 mm to ensure numerical stability and 
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+7 
+precision [50] . The entire computational domain is 40 × 40 mm. Additionally, perfectly matched layers (PML) were implemented at 
+the lateral boundaries to eliminate artificial reflections. As illustrated in Fig. 4 , a 64-element linear phased array with an inter-element 
+spacing of 0.6 mm was placed along the model surface. Each array element was sequentially activated to emit a Ricker wavelet with a 
+center frequency of 2.25 MHz, while all elements simultaneously recorded the resulting wavefield. For each transmission, 1000 time 
+samples were collected, resulting in a final data cube of dimensions 64 (transmitters) × 64 (receivers) × 1000 (time steps). This full- 
+matrix capture (FMC) dataset contains rich information about the scattered wavefield induced by complex internal structures. The 
+time step was set to 2 × 10   8 s, and the total simulation time was 2 × 10   5 s. It is important to note that only longitudinal waves 
+were excited and recorded, and potential mode conversions between longitudinal and transverse waves were not considered in this 
+study.
+3.2. Inversion results
+To evaluate the proposed U-FNO network, we used InversionNet as the baseline model. InversionNet employs a fully convolutional 
+network (FCN) consisting of an encoder and decoder to perform the inversion process, and has been proven to be an effective seismic 
+inversion method, achieving state-of-the-art results on several benchmark datasets. The two methods were coded by the PyTorch 1.13 
+framework in the Python 3.9 environment, and trained using an Adam optimizer under the same parameter configuration as shown in 
+Table 2 . The observed data and velocity model were normalized to a range between   1 and 1 during training and testing. All ex -
+periments were completed on a computer equipped with an NVIDIA RTX A6000 graphics card (48 GB) and an Intel 4210R central 
+processing unit (CPU).
+Fig. 5 (a), (d), and (g) show three real velocity models randomly selected from the test set. Fig. 5 (b), (e), and(h) are the inversion 
+results of U-FNO, indicating that U-FNO can accurately reconstruct the geometry of different defects. Fig. 5 (c), (f), and(i) depict the 
+inversion results of InversionNet, which can roughly reconstruct the geometry of defects but produces redundant abnormal regions in 
+the details. This indicates that InversionNet may reconstruct inaccurately on new samples that it has not seen before. For a clearer 
+comparison, the vertical velocity profiles extracted from the models in Fig. 5 (a-i) at a horizontal position of x  = 21 mm were compared 
+and shown in Fig. 5 (j-m). Fig. 5 (j-m) describes the ground truth (black), U-FNO (blue), and InversionNet (red) predicted vertical 
+velocity profiles.
+In almost all cases, the predicted profile values by the proposed method are closer to the true velocity values and more consistent in 
+terms of spatial location. Furthermore, Fig. 6 illustrates the distribution of reconstruction errors for different methods on the test set, 
+indicating that U-FNO demonstrates superior proficiency in capturing intricate spatio-temporal relationships inherent in observed 
+data, thereby exhibiting enhanced accuracy in comparison to InversionNet. In addition, quantitative metrics for evaluating different 
+methods on the test set, including SSIM, MAE, RMSE, and L
+2 
+relative error are listed in Table 3 . The numerical results show that the 
+prediction results of U-FNO have smaller MAE, RMSE, L
+2 
+relative and greater SSIM, indicating that this method has higher accuracy 
+and generalization than the baseline method.
+To provide a fair comparison with conventional FWI, inversion experiments were conducted using the Deepwave [51] under 
+identical numerical settings and on the same GPU platform as the proposed method, ensuring consistency in both computational 
+configuration and hardware environment. Fig. 7 (a) – (c) present the ground-truth velocity models, corresponding to the same 
+Fig. 4. A schematic plot depicting a velocity model, in which the brown blocks indicate the position of sources and receivers, and blue structure 
+indicates a complex geometric defect model generated from the EMNIST letter dataset. (For interpretation of the references to colour in this figure 
+legend, the reader is referred to the web version of this article.)
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+8 
+parameter configurations as Fig. 6 (a), (d), and (g). Fig. 7 (d) – (f) show the FWI reconstruction results obtained from a homogeneous 
+initial model. For high-contrast velocity distributions, the FWI reconstruction does not converge to the true velocity model when 
+initialized from a homogeneous model. In contrast, the proposed framework achieves stable and accurate recovery under the same 
+experimental conditions. Table 4 summarizes the training and inference time comparison among FWI, InversionNet, and U-FNO. The 
+results show that neural-operator-based inversion requires higher computational cost during the offline training phase compared with 
+conventional FWI. Nevertheless, once trained, the learned inverse operator enables substantially faster reconstruction for datasets 
+acquired under similar measurement configurations.
+3.3. Effect of noise on inversion
+In consideration of the pervasive presence of noise in real-world scenarios, the present study investigates the impact of noise on the 
+proposed method. Gaussian noise with SNR = 6 dB and 20 dB is added to the observed data of the velocity model in Fig. 5 (g) as two test 
+Table 2 
+Network training configuration.
+Model Batchsize Learning rate samples Iterations k
+max 
+Fourier modes 
+(truncation order)
+U-FNO 32 1e
+-3
+4500 60,000 40
+InversionNet 32 1e
+-3
+4500 60,000 ​
+Fig. 5. U-FNO and InversionNet inversion results of the velocity model with complex geometric defects. (a), (d), and (g) show the true models for 
+the inversions. (b), (e), and (h) show the U-FNO inversion results corresponding to (a), (d), and (g), respectively. (c), (f), and (i) show the Inver -
+sionNet inversion results corresponding to (a), (d), and (g), respectively. (j), (k), and (m) show the one-dimensional velocity profiles at x = 21 mm 
+locations extracted from the true model, U-FNO inversion result, and InversionNet inversion result.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+9 
+Fig. 6. The distribution of reconstruction errors for 1000 test samples.
+Table 3 
+Quantitative evaluation indicators for inversion results of different models under 1,000 test samples.
+Model MAE RMSE SSIM L
+2 
+relative error Test time
+U-FNO 0.008466 0.0666 0.989006 0.06824 49 s
+InversionNet 0.008751 0.07078 0.987948 0.07379 26 s
+Fig. 7. FWI inversion results of the velocity model with complex geometric defects. (a), (b), and (c) show the true models for the inversions. (d), (e), 
+and (f) show the FWI inversion results corresponding to (a), (b), and (c), respectively.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+10 
+samples, and these are then input into the network. It is important to note that no retraining is necessary when adding noise to the 
+observed data. Fig. 8 shows the inversion results of U-FNO and InversionNet for two test samples. The true velocity model is shown in 
+Fig. 8 (a) and (d), while Fig. 8 (b) and (c) show the inversion results of U-FNO for observed data SNR of 20 dB and 6 dB, respectively. 
+This indicates that the proposed method maintains acceptable reconstruction quality under moderate noise levels. Fig. 8 (e) and (f) 
+show the inversion results of InversionNet for observed data SNR of 20 dB and 6 dB, respectively, demonstrating that when noise levels 
+are minimal, the network can approximately reconstruct the geometry of the defect; however, as noise levels reach a certain threshold, 
+the reconstruction becomes significantly inaccurate. Similarly, a comparison of the vertical velocity profiles of the reconstructed image 
+at y = 21 mm is shown in Fig. 8 (g). Table 5 lists the quantitative metrics of the inversion results for a single model under different SNR 
+levels, including SSIM, MAE, RMSE, and L
+2 
+relative error. The distribution of reconstruction errors for different methods on the test set 
+with 6 dB SNR is shown in Fig. 9 . These findings suggest that the proposed method exhibits enhanced robustness and stability.
+4. Experimental validation
+4.1. Experimental setup
+The proposed method was then experimentally verified and compared with the baseline model and the experimental setup is 
+approximately consistent with the simulation. As shown in Fig. 10 , the experimental setup uses the Pioneer Phased Array Acquisition 
+System (The Phased Array Company), which is equipped with 64 fully independent channels, enabling high-fidelity signal acquisition 
+and precise control of each array element. The device is connected to a linear phased array probe (2.25 MHz-128elts, IMASONIC, 
+France) operating at a center frequency of 2.25 MHz, with a 0.6 mm element pitch. Three Hastelloy C-276 specimens measuring 150 ×
+40 × 30 mm (longitudinal wave velocity 5724 m/s) were used. As a typical solid solution strengthened nickel-based high-temperature 
+alloy, Hastelloy C-276 is widely used in nuclear power and petrochemical fields due to its excellent combination of oxidation, 
+corrosion, and high temperature resistance [58] . The machinery of complex geometric defects is achieved through the utilization of 
+wire cutting technology. The configuration of the defects can be referenced in Fig. 11 (a), (d), and(g), which are freely designed using 
+spline curves to ensure that they are different from the training set. The three specimens were immersed in a water bath to establish 
+Table 4 
+Training and inference time comparison among FWI, InversionNet, and U-FNO.
+Model Iterations Training time /iteration inference time per reconstruction
+U-FNO 60,000 1.809 s 0.049 s
+InversionNet 60,000 1.059 s 0.026 s
+FWI 100 72.75 s 7275 s
+Fig. 8. U-FNO and InversionNet inversion results of the velocity model in Figs. 5 (g). (a) and (d) show the true model for the inversion. (b) and (c) 
+show the U-FNO inversion results of signals with SNR of 20 dB and 6 dB, respectively. (e) and (f) show the InversionNet inversion results of signals 
+with SNR of 6 dB and 25 dB, respectively. (g) shows the one-dimensional velocity profiles at y = 21 mm location extracted from the true model, U- 
+FNO, and InversionNet inversion result.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+11 
+acoustic coupling between the interfaces, thereby ensuring that sound waves undergo multiple scattering within the defects to provide 
+enhanced defect information, as shown in Fig. 10 . A 2.25 MHz Ricker wavelet was used as the excitation signal, and the array data were 
+recorded using FMC. Note that only channels 1 – 64 were used.
+4.2. Inversion results
+The FMC data of the three test specimens collected in the experiment were used as input for the network, and the inversion results 
+are shown in Fig. 11 . Fig. 11 (a) and (d) show two real velocity models through parametric experimental specimens with characteristics 
+similar to the training samples. Fig. 11 (b) and (e) are the inversion results of U-FNO. Fig. 11 (c) and (f) depict the inversion results of 
+InversionNet. Furthermore, a comparison of the horizontal velocity profiles of the reconstructed images at y = 21 mm is shown in 
+Fig. 11 (j) and (k). The findings demonstrate that the experimental and simulated results of the proposed method are in close 
+Table 5 
+Quantitative metrics of inversion results for a single sample with different SNR in observed data.
+Model SNR MAE RMSE SSIM L
+2 
+relative error
+U-FNO 20 dB 0.007482 0.047775 0.991512 0.054616
+6 dB 0.009676 0.057599 0.987443 0.065848
+InversionNet 20 dB 0.010650 0.073255 0.985376 0.083746
+6 dB 0.032916 0.177602 0.955610 0.203037
+Fig. 9. The distribution of reconstruction errors for 1000 test samples with 6db SNR.
+Fig. 10. Experiment setup consisting of a Pioneer Phased Array Acquisition System, a linear phased array, and three specimens.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+12 
+agreement, achieving high-precision reconstruction of high-contrast sound velocity models. In contrast, InversionNet is only capable of 
+reconstructing a portion of the defect geometry. Since these network models share the same training samples and training strategies, 
+accurate inversion results indicate that the proposed Fourier layer and U-Fourier layer make significant contributions to the accurate 
+reconstruction of defect velocity models. Specifically, the regularization effect introduced by the Fourier finite group truncation can 
+enhance the model's robustness, stability, and generalization performance. Furthermore, the Unet path has the capacity to facilitate 
+more accurate restoration of defect details by capturing lost high-frequency features.
+Although the proposed method accurately reconstructs the overall defect geometry, residual quantitative errors and localized 
+artifacts are still observed in the predicted velocity models. A possible reason is that the proposed method is based on the acoustic wave 
+equation, which means that shear waves and modal transitions contained in the experimental data are not considered during training, 
+resulting in this information being misinterpreted as defects and sound velocity anomalies. Note that although the elastic wave 
+equation is more suitable than the acoustic wave equation for describing material behavior, the acoustic equation can produce a good 
+kinematic L-wave approximation of the elastic wave equation, which not only reduces computational costs but also facilitates the 
+inverse algorithm [35] . Furthermore, further adjustments to training hyperparameters and more precise calibration of experimental 
+signals will also yield improved imaging performance. These topics will serve as future research directions for this work.
+Fig. 12 shows the qualitative images generated by TFM from the experimental measurement data of three specimens. The TFM 
+images provide a moderate display of the defect where the wave first arrives, and its position is generally consistent with the inversion 
+results of the proposed method. However, the overall geometry of the defect cannot be reconstructed. This is because TFM, based on 
+ray approximation, is not fully utilizing the additional defect information provided by wave diffraction and scattering effects. It is 
+noteworthy that the U-FNO-based ultrasonic FWI method can achieve quantitative reconstruction of the L-wave velocity, whereas the 
+TFM method can only recover the signal amplitude in decibels.
+Fig. 11. U-FNO and InversionNet inversion results of the parametric experimental specimens with complex geometric defects in the laboratory. (a), 
+(d), and (g) show the true models for the inversions. (b), (e), and (h) show the U-FNO inversion results corresponding to (a), (d), and (g), 
+respectively. (c), (f), and (i) show the InversionNet inversion results corresponding to (a), (d), and (g), respectively. (j), (k), and (m) show the one- 
+dimensional velocity profiles at y = 21 mm locations extracted from the true model, U-FNO inversion result, and InversionNet inversion result.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+13 
+4.3. Generalization ability
+Generalization ability is a critical yet challenging requirement for data-driven full-waveform inversion methods. It provides an 
+inverse operator for a sample set rather than a single inversion. In order to validate the network's capacity for generalization in training 
+datasets constructed using the EMNIST letters, a digital geometric defect specimen was specifically designed, as illustrated in Fig. 11
+(g), (h), and (i), which compare the inversion results of U-FNO and InversionNet, respectively. The findings demonstrate the efficacy of 
+the proposed method in accurately predicting the internal structure of the sample and capturing defects, and possess a degree of 
+generalization capability in velocity models that extends beyond the confines of the training datasets features. It is imperative to 
+emphasize that the proposed method is not merely concerned with the reconstruction of defect geometry, but rather with elucidating 
+the intricate nonlinear mapping relationship between FMC and the velocity distribution of the medium. The defect is characterized as a 
+velocity anomaly region, and the entire specimen is treated as an inhomogeneous medium in data-driven FWI methods.
+5. Discussion and limitations
+This study demonstrates that the proposed U-FNO outperforms InversionNet across multiple metrics, including MAE, RMSE, SSIM, 
+and L
+2 
+relative error, on the publicly available EMNIST Letter dataset. While both methods achieve comparable performance on noise- 
+free simulation data, InversionNet produces significantly inaccurate inversion results under noisy conditions (SNR = 6 dB). This 
+limitation is further amplified when applied to real experimental data, where InversionNet fails to maintain robustness. In contrast, U- 
+FNO consistently delivers superior inversion quality across both simulation and experimental scenarios. While the training of the U- 
+FNO model entails considerable computational cost (~30  h), the trained model enables highly efficient inference, processing 1,000 
+samples in just 49  s, thereby providing a substantial speedup over conventional FWI methods and supporting near real-time imaging in 
+FMC-based ultrasonic systems. The enhanced robustness and generalization of U-FNO can be attributed to its dual-path: The trainable 
+kernel R, parameterized in Fourier space with truncated high-frequency modes, captures global frequency-domain features, while the 
+Unet path restores localized high-frequency details. This synergistic design enables proficient handling of complex data patterns and 
+subtle correlations. Furthermore, unlike traditional physics-based FWI, U-FNO eliminates the need for an initial velocity model and 
+circumvents cycle-skipping issues. The present work addresses three major challenges in computational wave imaging: accuracy, 
+efficiency and robustness, particularly in the context of ill-posed inverse problems with data available only on single-sided boundaries. 
+Although the NDT problem serves as the main application scenario in this study, the proposed method is generalizable to other 
+computational imaging domains that face similar inverse problems, such as medical ultrasound tomography, radar imaging, and 
+seismic exploration.
+Despite the considerable progress represented by the current numerical findings and laboratory experiments, a number of inherent 
+limitations must be acknowledged.
+First, the current modeling configuration is restricted to a velocity range of 1500 – 5800 m/s, with validation primarily conducted on 
+water-filled defects embedded in a solid host medium. Although this represents a practically relevant inspection scenario, it does not 
+encompass more extreme impedance contrasts, such as air-filled defects, where the higher velocity contrast significantly increases the 
+difficulty of quantitative inversion. In such cases, the stronger scattering and mode-conversion effects necessitate more accurate 
+modeling, which may require solving the elastic wave equations to account for mode conversion, employing finer spatial discretization 
+to capture scattering in low-velocity regions, and additional inversion strategies to mitigate local minima and stabilize convergence, 
+inevitably increasing computational cost and further complicating the inversion process. Second, the most critical challenge lies in the 
+generalization capacity of the neural network under the supervised learning paradigm. Although the proposed method consistently 
+achieves high-fidelity reconstruction within the training distribution, significant deviations in acquisition settings, material properties, 
+or structural configurations may degrade performance. Such sensitivity to distribution shifts is inherent to supervised, data-driven 
+inversion approaches. Therefore, while robust results are expected within the learned parameter space, extrapolation to substan -
+tially different scenarios remains challenging. To mitigate these limitations, several potential strategies have been proposed. First, 
+Fig. 12. Conventional TFM image. (a) TFM results corresponding to the model in Fig. 11(a). (b)TFM results corresponding to the model in Fig. 11 
+(d). (c) TFM results corresponding to the model in Fig.11(g).
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+14 
+enhancing the diversity of the training dataset through mathematical randomization and geometric transformations, such as flipping, 
+warping, and cropping of known velocity models may improve generalization. Second, transfer learning can be employed to accelerate 
+adaptation to new domains by leveraging pre-trained knowledge. Third, incorporating physical constraints through an unsupervised 
+framework guided by the governing wave equations may reduce data dependency [49,59] , although this may compromise the benefits 
+provided by learned inverse operators, including efficiency.
+Currently, this work is limited to 2D inversion using ultrasound phased array techniques. However, the use of idealized 2D wave 
+propagation models and point-source transducers restricts its applicability to three-dimensional (3D) imaging scenarios. Extending the 
+approach to 3D requires more accurate modeling of wave physics, including the conversion between longitudinal and shear modes and 
+the directionality of the transducers to reduce image distortion. Moreover, 3D imaging involves substantially larger observed datasets, 
+which impose significant demands on computational resources. Advanced hardware and algorithmic optimizations will therefore be 
+essential to support efficient processing and high-quality 3D reconstructions. Recent studies on FNO-based 3D wave propagation 
+modeling have demonstrated the potential of neural operators to address high-dimensional inverse problems [60] . These insights will 
+guide future work toward a neural operator-based framework for more efficient and scalable ultrasound imaging solutions across 
+diverse applications.
+6. Conclusion
+In conclusion, we developed a U-FNO framework for direct inversion of ultrasonic full waveform data. By learning a nonlinear 
+inverse mapping from FMC data to the L-wave velocity field, the framework removes the need for repeated forward wave simulations 
+during each inversion and eliminates the reliance on having an initial velocity model and effectively circumvents cycle-skipping issues. 
+At the inference stage, it is far more efficient than classical FWI. Benefiting from this efficient inference mechanism, the trained U-FNO 
+model supports near real-time imaging in FMC-based ultrasonic systems. Unlike convolutional neural networks constrained by local 
+receptive fields, U-FNO leverages Fourier-space kernel parameterization to capture global wave-physics features, thereby enabling 
+high-fidelity reconstruction of complex geometric defects. Numerical simulations and experimental validations demonstrate that U- 
+FNO consistently outperforms ray-based TFM and FCN-based InversionNet in terms of accuracy and robustness. Future work will focus 
+on enhancing the generalization capability of the U-FNO framework, aiming to expand its applicability to a broader range of wave- 
+based imaging scenarios.
+CRediT authorship contribution statement
+Jiang Lu: Writing – original draft, Validation, Software, Methodology, Investigation, Data curation, Conceptualization. Lishuai 
+Liu: Writing – review & editing, Supervision, Funding acquisition, Formal analysis, Conceptualization. Xuan Li: Resources, Project 
+administration, Formal analysis, Data curation. Shijun Wang: Software, Resources, Formal analysis. Yanxun Xiang: Writing – review 
+& editing, Validation, Project administration, Funding acquisition, Formal analysis, Conceptualization.
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+Acknowledgment
+This work was supported by the National Natural Science Foundation of China (Grant Nos. 12422415, 12327807, 12374434, and 
+52321002) and the Shanghai Science and Technology Innovation Action Plan (No. 24TS1412200 and 24ZR1490900).
+Data availability
+Data will be made available on request.
+References
+[1] Claerbout, F. Jon, Toward a unified theory of reflector mapping, Geophysics, 36 (1971) 467, https://doi.org/10.1190/1.1440185.
+[2] J.H. Chang, T.K. Song, A New Synthetic Aperture focusing Method to Suppress the Diffraction of Ultrasound, IEEE Trans. Ultrason. Ferroelectr. Freq. Control 58 
+(2011) 327–337, https://doi.org/10.1109/tuffc.2011.1810.
+[3] C. Holmes, B.W. Drinkwater, P.D. Wilcox, Post-processing of the full matrix of ultrasonic transmit-receive array data for non-destructive evaluation, NDT & E 
+International 38 (2005) 701–711, https://doi.org/10.1016/j.ndteint.2005.04.002.
+[4] L. Sun, J. Wei, C. Peng, W. Hao, F. Teng, L. Fan, L. Zhang, Q. Sui, M. Jiang, Ultrasonic guided wave-based probabilistic diagnostic imaging method with Single- 
+Path-Scattering sparse reconstruction for Multi-damage detection in composite structures, Mech. Syst. Sig. Process. 223 (2025) 111858, https://doi.org/ 
+10.1016/j.ymssp.2024.111858.
+[5] Y. Bao, J.B. Jia, Improved Time-of-Flight Estimation Method for Acoustic Tomography System, IEEE Trans. Instrum. Meas. 69 (2020) 974–984, https://doi.org/ 
+10.1109/tim.2019.2908704.
+[6] P.R. Williamson, A guide to the limits of resolution imposed by scattering in ray tomography, Geophysics 56 (1991) 202–207, https://doi.org/10.1190/ 
+1.1443032.
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+15 
+[7] T. Alkhalifah, Full-model wavenumber inversion: an emphasis on the appropriate wavenumber continuation, Geophysics 81 (2016) R89 – R98, https://doi.org/ 
+10.1190/geo2015-0537.1 .
+[8] K. Ji, P. Zhao, C. Zhuo, H. Jin, M. Chen, J. Chen, S. Ye, J. Fu, Efficient phase shift migration for ultrasonic full-matrix imaging of multilayer composite structures, 
+Mech. Syst. Sig. Process. 174 (2022) 109114, https://doi.org/10.1016/j.ymssp.2022.109114 .
+[9] H.R. Stolt, Migration by Fourier transform, Geophysics 43 (1978) 23 – 48 .
+[10] K. Zhang, Z. Yin, Z.C. Li, Y.R. Chen, Wave equation tomographic velocity inversion method based on the Born/Rytov approximation, Appl. Geophys. 10 (2013) 
+314 – 322, https://doi.org/10.1007/s11770-013-0385-1 .
+[11] E.V. Malyarenko, M.K. Hinders, Ultrasonic Lamb wave diffraction tomography, Ultrasonics 39 (2001) 269 – 281, https://doi.org/10.1016/s0041-624x(01) 
+00055-5 .
+[12] A. Tarantola, Inversion of seismic reflection data in the acoustic approximation, Geophysics 49 (1984) 1259 – 1266, https://doi.org/10.1190/1.1441754 .
+[13] J. Virieux, S. Operto, An overview of full-waveform inversion in exploration geophysics, Geophysics 74 (2009) WCC1 – WCC26, https://doi.org/10.1190/ 
+1.3238367 .
+[14] M. Warner, A. Ratcliffe, T. Nangoo, J. Morgan, A. Umpleby, N. Shah, V. Vinje, I. 
+ˇ
+Stekl, L. Guasch, C. Win, G. Conroy, A. Bertrand, Anisotropic 3D full-waveform 
+inversion, Geophysics 78 (2013) R59 – R80, https://doi.org/10.1190/geo2012-0338.1 .
+[15] T. Alkhalifah, B.B. Sun, Z. Wu, Full model wavenumber inversion: Identifying sources of information for the elusive middle model wavenumbers, Geophysics 83 
+(2018) R597 – R610, https://doi.org/10.1190/geo2017-0775.1 .
+[16] J. Rao, J.Z. Yang, M. Ratassepp, Z. Fan, Multi-parameter reconstruction of velocity and density using ultrasonic tomography based on full waveform inversion, 
+Ultrasonics 101 (2020), https://doi.org/10.1016/j.ultras.2019.106004 .
+[17] J. Rao, M. Ratassepp, Z. Fan, Guided Wave Tomography based on Full Waveform Inversion, IEEE Trans. Ultrason. Ferroelectr. Freq. Control 63 (2016) 737 – 745, 
+https://doi.org/10.1109/TUFFC.2016.2536144 .
+[18] J.Z. He, J. Rao, J.D. Fleming, H.N. Gharti, L.T. Nguyen, G. Morrison, Numerical ultrasonic full waveform inversion (FWI) for complex structures in coupled 2D 
+solid/fluid media, Smart Mater. Struct. 30 (2021), https://doi.org/10.1088/1361-665X/ac0f44 .
+[19] M. Aktharuzzaman, S. Anwar, D. Borisov, J. He, Experimental full waveform inversion for elastic material characterization with accurate transducer modeling, 
+Mech. Syst. Sig. Process. 213 (2024) 111320, https://doi.org/10.1016/j.ymssp.2024.111320 .
+[20] T. Burchner, S. Schmid, L. Bergbreiter, E. Rank, S. Kollmannsberger, C.U. Grosse, Quantitative comparison of the total focusing method, reverse time migration, 
+and full waveform inversion for ultrasonic imaging, Ultrasonics 155 (2025) 107705, https://doi.org/10.1016/j.ultras.2025.107705 .
+[21] Y.Z. Lin, L.J. Huang, Acoustic- and elastic-waveform inversion using a modified total-variation regularization scheme, Geophys. J. Int. 200 (2015) 489 – 502, 
+https://doi.org/10.1093/gji/ggu393 .
+[22] G.C. Wang, S.Y. Yuan, S.X. Wang, Retrieving Low-Wavenumber Information in FWI: an Efficient solution for Cycle skipping, IEEE Geosci. Remote Sens. Lett. 16 
+(2019) 1125 – 1129, https://doi.org/10.1109/lgrs.2019.2892998 .
+[23] X.Q. Wu, Y.B. Li, C. Su, P.P. Li, W.J. Lin, Optimal transport assisted full waveform inversion for multiparameter imaging of soft tissues in ultrasound computed 
+tomography, Ultrasonics 147 (2025), https://doi.org/10.1016/j.ultras.2024.107505 .
+[24] P.P. Li, Y.B. Li, C. Su, Z.Y. Dong, W.J. Lin, Sobolev space norm regularized full waveform inversion for ultrasound computed tomography, Chin. Phys. B 34 
+(2025), https://doi.org/10.1088/1674-1056/adbbc0 .
+[25] F.S. Yang, J.W. Ma, Deep-learning inversion: a next-generation seismic velocity model building method, Geophysics 84 (2019) R585, https://doi.org/10.1190/ 
+geo2018-0249.1 .
+[26] V. Kazei, O. Ovcharenko, P. Plotnitskii, D. Peter, X. Zhang, T. Alkhalifah, Mapping full seismic waveforms to vertical velocity profiles by deep learning, 
+Geophysics 86 (2021) R711 – R721, https://doi.org/10.1190/geo2019-0473.1 .
+[27] Z.P. Zhang, Y.Z. Lin, Data-Driven Seismic Waveform Inversion: a Study on the Robustness and Generalization, IEEE Trans. Geosci. Remote Sens. 58 (2020) 
+6900 – 6913, https://doi.org/10.1109/tgrs.2020.2977635 .
+[28] S. Feng, Y. Lin, B. Wohlberg, Multiscale Data-Driven Seismic Full-Waveform Inversion with Field Data Study, IEEE Trans. Geosci. Remote Sens. 60 (2022) 1 – 14, 
+https://doi.org/10.1109/TGRS.2021.3114101 .
+[29] X.G. Huang, C. Wang, W.R. Ye, S. Greenhalgh, Y. Li, Data-Driven Ringed Residual U-Net Scheme for Full Waveform Inversion, IEEE Trans. Geosci. Remote Sens. 
+62 (2024), https://doi.org/10.1109/tgrs.2024.3436688 .
+[30] Y. Wu, Y.Z. Lin, InversionNet: an Efficient and Accurate Data-Driven Full Waveform Inversion, IEEE Trans. Comput. Imaging 6 (2020) 419 – 433, https://doi.org/ 
+10.1109/tci.2019.2956866 .
+[31] S. Yang, T. Alkhalifah, Y. Ren, B. Liu, Y. Li, P. Jiang, Well-Log Information-Assisted High-Resolution Waveform Inversion based on Deep Learning, IEEE Geosci. 
+Remote Sens. Lett. 20 (2023) 1 – 5, https://doi.org/10.1109/LGRS.2023.3234211 .
+[32] M. Suo, D. Zhang, H.Q. Yang, Y. Yang, Data-Driven full waveform inversion for ultrasonic bone quantitative imaging, Neural Comput. Applic. 35 (2023) 
+25027 – 25043, https://doi.org/10.1007/s00521-023-08464-6 .
+[33] L. Lozenski, H.C. Wang, F. Li, M. Anastasio, B. Wohlberg, Y.Z. Lin, U. Villa, Learned Full Waveform Inversion Incorporating Task Information for Ultrasound 
+Computed Tomography, IEEE Trans. Comput. Imaging 10 (2024) 69 – 82, https://doi.org/10.1109/tci.2024.3351529 .
+[34] J.H. Ren, J. Li, C. Liu, S.L. Chen, L. Liang, Y. Liu, Deep Learning with Physics-embedded Neural Network for Full Waveform Ultrasonic Brain Imaging, IEEE 
+Trans. Med. Imaging 43 (2024) 2332 – 2346, https://doi.org/10.1109/tmi.2024.3363144 .
+[35] J. Rao, F.S. Yang, H.D. Mo, S. Kollmannsberger, E. Rank, Quantitative reconstruction of defects in multi-layered bonded composites using fully convolutional 
+network-based ultrasonic inversion, J. Sound Vib. 542 (2023), https://doi.org/10.1016/j.jsv.2022.117418 .
+[36] L. Liu, W. Liu, D. Teng, Y. Xiang, F.-Z. Xuan, A multiscale residual U-net architecture for super-resolution ultrasonic phased array imaging from full matrix 
+capture data, J. Acoust. Soc. Am. 154 (2023) 2044 – 2054, https://doi.org/10.1121/10.0021171 .
+[37] V.N. Vapnik, An overview of statistical learning theory, IEEE Trans. Neural Netw. 10 (1999) 988 – 999, https://doi.org/10.1109/72.788640 .
+[38] L. Lu, P. Jin, G. Pang, Z. Zhang, G.E. Karniadakis, Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators, Nat. 
+Mach. Intell. 3 (2021) 218 – 229, https://doi.org/10.1038/s42256-021-00302-5 .
+[39] N. Kovachki, Z.Y. Li, B. Liu, K. Azizzadenesheli, K. Bhattacharya, A. Stuart, A. Anandkumar, Neural Operator: Learning Maps between Function Spaces with 
+applications to PDEs, J. Mach. Learn. Res. 24 (2023) .
+[40] Z. Li, N. Kovachki, K. Azizzadenesheli, B. Liu, K. Bhattacharya, A. Stuart, A. Anandkumar, Fourier Neural Operator for Parametric Partial Differential Equations, 
+In (2020) arXiv:2010.08895 .
+[41] T. Kurth S. Subramanian P. Harrington J. Pathak M. Mardani D. Hall A. Miele K. Kashinath A. Anandkumar FourCastNet: Accelerating Global High-Resolution 
+Weather Forecasting Using Adaptive Fourier Neural Operators 2023 Davos, SWITZERLAND.
+[42] G.G. Wen, Z.Y. Li, Q.R. Long, K. Azizzadenesheli, A. Anandkumar, S.M. Benson, Real-time high-resolution CO2 geological storage prediction using nested 
+Fourier neural operators, Energ. Environ. Sci. 16 (2023) 1732 – 1741, https://doi.org/10.1039/d2ee04204e .
+[43] L. Lu, X. Meng, S. Cai, Z. Mao, S. Goswami, Z. Zhang, G.E. Karniadakis, A comprehensive and fair comparison of two neural operators (with practical extensions) 
+based on FAIR data, Comput. Methods Appl. Mech. Eng. 393 (2022) 114778, https://doi.org/10.1016/j.cma.2022.114778 .
+[44] M. Zhong, Z. Yan, S.-F. Tian, Data-driven parametric soliton-rogon state transitions for nonlinear wave equations using deep learning with Fourier neural 
+operator, Commun. Theor. Phys. 75 (2023) 025001, https://doi.org/10.1088/1572-9494/acab55 .
+[45] Q. Hao, T. Alkhalifah, An acoustic eikonal equation for attenuating transversely isotropic media with a vertical symmetry axis, Geophysics 82 (2016) C9 – C20, 
+https://doi.org/10.1190/geo2016-0160.1 .
+[46] H.-M. Ren, S.-F. Tian, The evolution process of the solutions for the coupled nonlinear Schr ¨odinger equations via Fourier neural operator approach, Math. 
+Comput. Simul 239 (2026) 1082 – 1096, https://doi.org/10.1016/j.matcom.2025.07.059 .
+[47] M. Zhu, S.H. Feng, Y.Z. Lin, L. Lu, Fourier-DeepONet: Fourier-enhanced deep operator networks for full waveform inversion with improved accuracy, 
+generalizability, and robustness, Comput. Methods Appl. Mech. Eng. 416 (2023), https://doi.org/10.1016/j.cma.2023.116300 .
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+16 
+[48] X. Huang, T. Alkhalifah, Learned frequency-domain scattered wavefield solutions using neural operators, Geophys. J. Int. 241 (2025) 1467 – 1478, https://doi. 
+org/10.1093/gji/ggaf113 .
+[49] X. Huang, F. Wang, T. Alkhalifah, Physics-Informed Waveform Inversion using Pretrained Wavefield Neural Operators, IEEE Trans. Geosci. Remote Sens. 63 
+(2025) 1 – 14, https://doi.org/10.1109/TGRS.2025.3624025 .
+[50] E.J. Wang, J. Ba, Y. Liu, Time-space-domain implicit finite-difference methods for modeling acoustic wave equations, Geophysics 83 (2018) T175 – T193, 
+https://doi.org/10.1190/geo2017-0546.1 .
+[51] A. Pinto, G. Leite, M. Pereira, H. Yviquel, S. Rigo, G. Araujo, DeepWave: a Software Stack for Parallelizing Deep Learning Models used in Geophysics, in: In: 2024 
+IEEE 36th International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD), 2024, pp. 49 – 58 .
+[52] M. Alfarhan, M. Ravasi, F. Chen, T. Alkhalifah, Robust full waveform inversion with deep Hessian deblurring, Geophys. J. Int. 240 (2024) 303 – 316, https://doi. 
+org/10.1093/gji/ggae378 .
+[53] G.G. Wen, Z.Y. Li, K. Azizzadenesheli, A. Anandkumar, S.M. Benson, U-FNO-An enhanced Fourier neural operator-based deep-learning model for flow, Adv. 
+Water Resour. 163 (2022), https://doi.org/10.1016/j.advwatres.2022.104180 .
+[54] W. Zhou, A.C. Bovik, H.R. Sheikh, E.P. Simoncelli, Image quality assessment: from error visibility to structural similarity, IEEE Trans. Image Process. 13 (2004) 
+600 – 612, https://doi.org/10.1109/TIP.2003.819861 .
+[55] G. Cohen, S. Afshar, J. Tapson, A. van Schaik, EMNIST: an extension of MNIST to handwritten letters, In (2017) arXiv:1702.05373 .
+[56] J. Liu, H.L. Zhou, T. Ouyang, Q.G. Liu, Y.H. Wang, Physical Model-inspired Deep Unrolling Network for solving Nonlinear Inverse Scattering Problems, IEEE 
+Trans. Antennas Propag. 70 (2022) 1236 – 1249, https://doi.org/10.1109/tap.2021.3111281 .
+[57] J.K. Tong, J. Li, M. Lin, S.L. Chen, G.A. Chu, L.L. Lv, P.F. Zhang, Z.F. Tang, Y. Liu, Quantitative guided wave imaging with shear horizontal waves and deep 
+convolutional descent full waveform inversion, NDT & E International 145 (2024), https://doi.org/10.1016/j.ndteint.2024.103141 .
+[58] B. Guo, Y. Zhang, Z. Yang, D. Cui, F. He, J. Li, Z. Wang, X. Lin, J. Wang, Cracking mechanism of Hastelloy X superalloy during directed energy deposition 
+additive manufacturing, Addit. Manuf. 55 (2022), https://doi.org/10.1016/j.addma.2022.102792 .
+[59] Z. Xiao, J. Rao, S. Eisentr ¨ager, K.-V. Yuen, S.A. Hadigheh, Generative adversarial network-based ultrasonic full waveform inversion for high-density 
+polyethylene structures, Mech. Syst. Sig. Process. 224 (2025) 112160, https://doi.org/10.1016/j.ymssp.2024.112160 .
+[60] F. Lehmann, F. Gatti, M. Bertin, D. Clouteau, 3D elastic wave propagation with a Factorized Fourier Neural Operator (F-FNO), Comput. Methods Appl. Mech. 
+Eng. 420 (2024), https://doi.org/10.1016/j.cma.2023.116718 .
+J. Lu et al.                                                                                                                                                                                                               Mechanical Systems and Signal Processing 251 (2026) 114179 
+17 

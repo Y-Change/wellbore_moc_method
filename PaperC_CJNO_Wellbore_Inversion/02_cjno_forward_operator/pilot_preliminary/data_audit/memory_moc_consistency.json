@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "n_fail": 0,
+  "threshold": 0.02,
+  "rows": [
+    {
+      "name": "rec_algebra_and_zielke_fit",
+      "rel_l2_rec_vs_expsum": 4.28289279739043e-14,
+      "rel_l2_rec_vs_zielke": 0.007398223170951721,
+      "silent": false,
+      "pass": true,
+      "fit_is_report_only": true,
+      "n_steps": 400,
+      "Re": 800.0,
+      "note": "gate = recursion vs same exponential-sum convolution; Zielke gap is M=12 fit residual, not a solver bug"
+    },
+    {
+      "name": "tiny_joukowsky_snap_recon_vs_final_z",
+      "rel_l2_z": 2.2412378166375344e-16,
+      "silent": false,
+      "pass": true,
+      "inode": 24,
+      "n_snap": 22,
+      "n_steps": 21,
+      "wall_s": 0.14354469999999997,
+      "snap_H_present": true,
+      "note": "reconstructs z at one interior node from snap_Q; not a network memory gate"
+    }
+  ],
+  "cannot_certify": [
+    "neural_memory_channel_vs_MOC_zl_xt_pointwise",
+    "full_field_memory_on_pilot_npz"
+  ],
+  "scope": "solver-side consistency only; pilot training NPZ have snap_every=0"
+}

@@ -1,0 +1,91 @@
+{
+  "c_runs": [
+    {
+      "run_id": "r3_C_gates_20260906_223058_4eb48517",
+      "code_sha256_prefix": "358e4a6a",
+      "created_local": "2026-09-06T22:30:58",
+      "terminal_id": "538392",
+      "terminal_status": "failed",
+      "terminal_exit": 4294967295,
+      "terminal_elapsed_ms": 259492,
+      "terminal_ended_utc": "2026-09-06T14:35:13.564Z",
+      "run_meta_wall_s": 1291.396,
+      "stdout_last_stamp": "22:52:03",
+      "stdout_content": "twin+ref none/darcy for 4 cases; no refine/C-done line",
+      "metrics_present": true,
+      "metrics_fields": [
+        "n",
+        "alignment_all_pass",
+        "grad_status",
+        "newton_blocked",
+        "run_id",
+        "wall_clock_s"
+      ],
+      "stop_classification": "CONFLICTING_EVIDENCE",
+      "stop_note": "观察时终端记为 killed（259 s）。run 目录 stdout 时间戳延续到 22:52，metrics.wall=1291 s。不能唯一判定‘当时已死’还是‘kill 未生效后继续写完 twin’。不得把该 metrics 的 alignment_all_pass 当作完整 C 门完成。"
+    },
+    {
+      "run_id": "r3_C_gates_20260906_223531_c5f1025e",
+      "code_sha256_prefix": "82890a82",
+      "created_local": "2026-09-06T22:35:31",
+      "terminal_status": "observed_killed_then_files_continued",
+      "run_meta_wall_s": 1010.163,
+      "stdout_content": "refine + twin + zvb_rec nx=64 started; 16 min gap on first ZVB then remaining cases",
+      "metrics_present": true,
+      "metrics_fields": [
+        "n",
+        "alignment_all_pass",
+        "grad_status",
+        "newton_blocked"
+      ],
+      "stop_classification": "TIMEOUT_OR_KILLED_THEN_PARTIAL_CONTINUE",
+      "stop_note": "观察时仍在首案长窗 ZVB nx=64。终端曾记 killed。stdout 显示 22:35:35 启动 zvb_rec，22:51:43 才打出 twin 汇总。metrics 无 cases 明细。不得引用为完整 PASS。"
+    },
+    {
+      "run_id": "r3_C_gates_20260906_223918_f538d6f9",
+      "code_sha256_prefix": "542f26d4",
+      "created_local": "2026-09-06T22:39:18",
+      "terminal_status": "succeeded",
+      "terminal_elapsed_ms": 225961,
+      "run_meta_wall_s": 224.575,
+      "stdout_content": "C done; skipped full long-window Tensor ZVB",
+      "metrics_present": true,
+      "stop_classification": "COMPLETED",
+      "stop_note": "唯一正常结束的 C-gates 进程。"
+    }
+  ],
+  "shared_manifest": {
+    "path": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round3\\manifests\\production_rollout_gates.json",
+    "exists": true,
+    "source": "UNCERTAIN",
+    "note": "该 JSON 被多个 C 进程与事后手工补丁写过。same_grid_discrete_pass / continuum_0p5pct_gate 等字段来源不确定，Round4 不猜测补全，不以 latest 或该共享文件作为过门依据。",
+    "sha256": "01575c320725dd3d027683c4e20ae8c6dff2875f212cb72960fad13f42858369",
+    "keys": [
+      "F_definition",
+      "alignment_gate",
+      "case_ids",
+      "mini_loop_used",
+      "newton_block_error",
+      "newton_blocks_train_step",
+      "production_grad",
+      "production_grad_status",
+      "real_newton_failure",
+      "rows",
+      "wall_s",
+      "zvb_tensor"
+    ],
+    "case_ids": [
+      "pilot_01342",
+      "pilot_00163",
+      "pilot_00543",
+      "pilot_01320"
+    ]
+  },
+  "fixups_manifest": {
+    "path": "E:\\water_hammer_research\\wellbore_moc_method\\PaperC_CJNO_Wellbore_Inversion\\02_cjno_forward_operator\\pilot_round3\\manifests\\production_rollout_fixups.json",
+    "exists": true,
+    "sha256": "df991e6ec70c7c2bf5d3d73f01d19a9dc2a1efbea181a90e633da926a0d17a86",
+    "note": "frozen-IC causality FAIL on nx=32 kept; 15-step torch compare is pre-event and not a transient PASS"
+  },
+  "protocol": "do_not_cite_incomplete_or_shared_JSON_as_PASS"
+}

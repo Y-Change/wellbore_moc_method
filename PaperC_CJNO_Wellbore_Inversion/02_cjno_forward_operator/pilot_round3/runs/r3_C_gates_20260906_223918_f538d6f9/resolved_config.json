@@ -1,0 +1,19 @@
+{
+  "max_cases": 4,
+  "case_ids": [
+    "pilot_01342",
+    "pilot_00163",
+    "pilot_00543",
+    "pilot_01320"
+  ],
+  "F": {
+    "symbol": "F",
+    "discrete_def": "F^{n+1} = p_in^{n+1} - p_c^{n+1} = c1^{n->n+1} q^{n+1} + c0^{n->n+1}",
+    "units": "Pa",
+    "update_time": "after each successful cluster Newton at the new time level",
+    "not": "F=0 or copied mean pc"
+  },
+  "long_window": "t_s+t_c+2*(4L/a)+2*x1/a",
+  "alignment_gate": 0.005,
+  "not_learning_2pct_gate": true
+}

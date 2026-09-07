@@ -1,0 +1,108 @@
+{
+  "stage": 1,
+  "smoke": false,
+  "gates": {
+    "richardson_order_darcy_Cr1": {
+      "value": 1.7964586563131446,
+      "threshold": 1.8,
+      "comparison": ">=",
+      "status": "FAIL",
+      "Cr": 1.0,
+      "notes": "single-pipe Darcy cosine shut-in; L2 Richardson ||u_h-u_h/2||/||u_h/2-u_h/4||=1.038e+00/2.989e-01"
+    },
+    "three_grid_peak_diff_darcy_Cr1": {
+      "value": 9.294096478996447e-05,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "first_arrival_diff_darcy_Cr1": {
+      "value": 0.00015257200134643502,
+      "threshold": 0.002,
+      "comparison": "<",
+      "status": "PASS",
+      "Cr": 1.0,
+      "notes": ""
+    },
+    "richardson_order_darcy_Cr0.8": {
+      "value": 0.48141008569052157,
+      "threshold": 1.8,
+      "comparison": ">=",
+      "status": "REPORT",
+      "Cr": 0.8,
+      "notes": "single-pipe Darcy cosine shut-in; L2 Richardson ||u_h-u_h/2||/||u_h/2-u_h/4||=5.020e+02/3.596e+02 | Cr=1 is the acceptance baseline (Ghidaoui & Karney interpolation)"
+    },
+    "three_grid_peak_diff_darcy_Cr0.8": {
+      "value": 0.0019462451513508712,
+      "threshold": 0.005,
+      "comparison": "<",
+      "status": "REPORT",
+      "Cr": 0.8,
+      "notes": " | Cr=1 is the acceptance baseline (Ghidaoui & Karney interpolation)"
+    },
+    "first_arrival_diff_darcy_Cr0.8": {
+      "value": 0.001142462982391007,
+      "threshold": 0.002,
+      "comparison": "<",
+      "status": "REPORT",
+      "Cr": 0.8,
+      "notes": " | Cr=1 is the acceptance baseline (Ghidaoui & Karney interpolation)"
+    },
+    "newton_convergence_pilot2000": {
+      "value": null,
+      "threshold": 0.999,
+      "comparison": ">",
+      "status": "PENDING",
+      "Cr": 1.0,
+      "notes": "filled by generate_dataset.py --pilot; formal Sobol is blocked until PASS"
+    }
+  },
+  "details": {
+    "convergence_1.0": {
+      "peaks": {
+        "512": -409.81247688821645,
+        "1024": -410.0270154461705,
+        "2048": -410.065127294728
+      },
+      "arrivals": {
+        "512": 1.0618779971540793,
+        "1024": 1.0617713093400318,
+        "2048": 1.0617618862054465
+      },
+      "order": 1.7964586563131446,
+      "peak_diff": 9.294096478996447e-05,
+      "arr_diff": 0.00015257200134643502,
+      "t_s": 1.0,
+      "e_coarse": 1.038105268624485,
+      "e_fine": 0.2988501331548227
+    },
+    "convergence_0.8": {
+      "peaks": {
+        "512": -406.467976051277,
+        "1024": -407.5966902712298,
+        "2048": -408.39152028744206
+      },
+      "arrivals": {
+        "512": 1.061449732615748,
+        "1024": 1.0615569375074096,
+        "2048": 1.0616273444671664
+      },
+      "order": 0.48141008569052157,
+      "peak_diff": 0.0019462451513508712,
+      "arr_diff": 0.001142462982391007,
+      "t_s": 1.0,
+      "e_coarse": 502.03744695516934,
+      "e_fine": 359.5979741095213
+    }
+  },
+  "n_fail": 1,
+  "n_pending": 1,
+  "all_required_pass": false,
+  "run_id": "s1_validate_20260905_211205_24ae4565",
+  "code_digest": "ec1396be7b4344f3670036ff4be2669fe691ca6989dfc9461d1126678794a0cb",
+  "config_digest": "cd72e48ec139ed87ed1d17161067a3316444db85cbfec6ab5e613a037db87634",
+  "manifest_digest": "cd4596a25685fe412ccafbc35f9b00112fbe8cb18db9dcd7aac6c80edf6c490e",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3"
+}

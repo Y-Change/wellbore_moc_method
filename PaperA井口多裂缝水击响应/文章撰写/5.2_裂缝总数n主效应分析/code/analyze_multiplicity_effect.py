@@ -260,7 +260,7 @@ def plot_figure_5_2_supp(df_sub, df_metrics):
     ax.legend(loc="upper right", fontsize=6.5, handlelength=1.1, handletextpad=0.3, borderaxespad=0.2)
     ax.set_title("(b)", loc="left", fontsize=9.5, fontweight="bold", pad=5)
     
-    # --- (c) Topological Decay Exponent b vs n_total ---
+    # --- (c) Empirical index-envelope slope b vs n_total ---
     ax = axes[2]
     ax.set_box_aspect(4/5)
     for sp_val, col in zip(sel_spacings, palette_sp):
@@ -269,7 +269,7 @@ def plot_figure_5_2_supp(df_sub, df_metrics):
                 color=col, lw=1.1, markersize=3.6)
         
     ax.set_xlabel("Fracture Multiplicity $n_{total}$")
-    ax.set_ylabel("Topological Decay Rate $b$ ($-$)")
+    ax.set_ylabel(r"Empirical envelope slope $b$")
     ax.set_xlim(1.5, 8.5)
     ax.set_xticks([2, 3, 4, 5, 6, 7, 8])
     # Headroom expansion to 1.15 to ensure ZERO overlap with legend

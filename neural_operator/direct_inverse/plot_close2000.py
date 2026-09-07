@@ -128,7 +128,7 @@ def plot_waveform_gallery(manifest: dict, output_dir: str) -> str:
         row = by_band[band][0]
         t, h = _load_case_pressure(row["relative_path"])
         with np.load(os.path.join(ROOT, row["relative_path"].replace("/", os.sep)), allow_pickle=False) as npz:
-            x_f = np.asarray(npz["x_f"], dtype=float)
+            x_f = np.asarray(npz["x_f_aligned"] if "x_f_aligned" in npz else npz["x_f"], dtype=float)
         ax.plot(t, h, color=PALETTE["obs"], linewidth=1.0)
         ymin, ymax = np.percentile(h, [1, 99])
         pad = 0.08 * (ymax - ymin + 1e-6)

@@ -1,0 +1,506 @@
+{
+  "pdf": "PaperA井口多裂缝水击响应\\文章撰写\\Section3_可信度指数模型与方法论\\figures\\Figure_3_3_Physics_Informed_Dealiasing_Workflow.pdf",
+  "auditable": true,
+  "verdict": "FIX BEFORE DELIVERY",
+  "page_count": 1,
+  "visible_text_box_count": 47,
+  "text_trace_count": 106,
+  "stroke_path_count": 136,
+  "filled_region_count": 109,
+  "image_region_count": 0,
+  "summary": {
+    "fail": 13,
+    "warn": 7,
+    "contained_fill_overlays": 21,
+    "contained_image_overlays": 0
+  },
+  "thresholds": {
+    "text_inset_pt": 0.6,
+    "min_overlap_ratio": 0.05,
+    "clipping_tolerance_pt": 0.5
+  },
+  "findings": [
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "xp,1",
+      "text_bbox": [
+        58.4527587890625,
+        23.15606689453125,
+        67.26118469238281,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        63.4527587890625,
+        17.20001220703125,
+        63.4527587890625,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        2
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "xp,2",
+      "text_bbox": [
+        123.0207748413086,
+        23.15606689453125,
+        131.82920837402344,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        128.02076721191406,
+        17.20001220703125,
+        128.02076721191406,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        3
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 2 stroked path(s)",
+      "text": "Prior/transmission proxy Msens(x)",
+      "text_bbox": [
+        185.5145263671875,
+        339.90673828125,
+        262.95654296875,
+        346.56396484375
+      ],
+      "other_text": null,
+      "other_bbox": [
+        178.59906005859375,
+        335.3205871582031,
+        271.14654541015625,
+        425.2870178222656
+      ],
+      "object_count": 2,
+      "object_indexes": [
+        111,
+        112
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "xp,3",
+      "text_bbox": [
+        187.5887908935547,
+        23.15606689453125,
+        196.397216796875,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        192.5887908935547,
+        17.20001220703125,
+        192.5887908935547,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        4
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "xp,4",
+      "text_bbox": [
+        252.1568145751953,
+        23.15606689453125,
+        260.96527099609375,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        257.15679931640625,
+        17.20001220703125,
+        257.15679931640625,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        5
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Nominal prior window",
+      "text_bbox": [
+        286.134521484375,
+        340.87548828125,
+        339.2983093261719,
+        346.67547607421875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        307.7350769042969,
+        335.3205871582031,
+        335.7145690917969,
+        425.2870178222656
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        113
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "candidate",
+      "text_bbox": [
+        310.1154479980469,
+        70.929443359375,
+        333.3145446777344,
+        76.72943878173828
+      ],
+      "other_text": null,
+      "other_bbox": [
+        321.7248229980469,
+        17.20001220703125,
+        321.7248229980469,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        31
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Path",
+      "text_bbox": [
+        316.0841979980469,
+        64.98883056640625,
+        327.3660888671875,
+        70.78882598876953
+      ],
+      "other_text": null,
+      "other_bbox": [
+        321.7248229980469,
+        17.20001220703125,
+        321.7248229980469,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        31
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Non-perforation path candidate",
+      "text_bbox": [
+        361.9732666015625,
+        340.87548828125,
+        434.77398681640625,
+        346.67547607421875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        372.3031005859375,
+        335.3205871582031,
+        400.2825622558594,
+        425.2870178222656
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        114
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "candidate",
+      "text_bbox": [
+        374.6834716796875,
+        70.929443359375,
+        397.882568359375,
+        76.72943878173828
+      ],
+      "other_text": null,
+      "other_bbox": [
+        386.2928466796875,
+        17.20001220703125,
+        386.2928466796875,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        32
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Path",
+      "text_bbox": [
+        380.6522216796875,
+        64.98883056640625,
+        391.9341125488281,
+        70.78882598876953
+      ],
+      "other_text": null,
+      "other_bbox": [
+        386.2928466796875,
+        17.20001220703125,
+        386.2928466796875,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        32
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Raw Cepstrum P2D(x)",
+      "text_bbox": [
+        381.8795166015625,
+        21.73678207397461,
+        433.13812255859375,
+        28.394012451171875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        386.2928466796875,
+        17.20001220703125,
+        386.2928466796875,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        32
+      ]
+    },
+    {
+      "severity": "FAIL",
+      "kind": "text-stroke",
+      "page": 1,
+      "message": "Text is crossed by 1 stroked path(s)",
+      "text": "Noise Floor (0.20 a.u.)",
+      "text_bbox": [
+        381.8795166015625,
+        30.746150970458984,
+        434.68927001953125,
+        37.158935546875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        386.2928466796875,
+        17.20001220703125,
+        386.2928466796875,
+        107.16644287109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        32
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "xp,1",
+      "text_bbox": [
+        58.4527587890625,
+        23.15606689453125,
+        67.26118469238281,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        57.832759857177734,
+        23.711578369140625,
+        69.07276153564453,
+        30.37347412109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        38
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "xp,2",
+      "text_bbox": [
+        123.0207748413086,
+        23.15606689453125,
+        131.82920837402344,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        122.40077209472656,
+        23.711578369140625,
+        133.64077758789062,
+        30.37347412109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        39
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 2 filled region(s)",
+      "text": "Prior/transmission proxy Msens(x)",
+      "text_bbox": [
+        185.5145263671875,
+        339.90673828125,
+        262.95654296875,
+        346.56396484375
+      ],
+      "other_text": null,
+      "other_bbox": [
+        178.59906005859375,
+        335.3205871582031,
+        271.14654541015625,
+        425.2870178222656
+      ],
+      "object_count": 2,
+      "object_indexes": [
+        111,
+        112
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "xp,3",
+      "text_bbox": [
+        187.5887908935547,
+        23.15606689453125,
+        196.397216796875,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        186.9687957763672,
+        23.711578369140625,
+        198.2087860107422,
+        30.37347412109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        40
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "xp,4",
+      "text_bbox": [
+        252.1568145751953,
+        23.15606689453125,
+        260.96527099609375,
+        29.615915298461914
+      ],
+      "other_text": null,
+      "other_bbox": [
+        251.53680419921875,
+        23.711578369140625,
+        262.77679443359375,
+        30.37347412109375
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        41
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "Nominal prior window",
+      "text_bbox": [
+        286.134521484375,
+        340.87548828125,
+        339.2983093261719,
+        346.67547607421875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        307.7350769042969,
+        335.3205871582031,
+        335.7145690917969,
+        425.2870178222656
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        113
+      ]
+    },
+    {
+      "severity": "WARN",
+      "kind": "text-fill-edge",
+      "page": 1,
+      "message": "Text partially overlaps the edge of 1 filled region(s)",
+      "text": "Non-perforation path candidate",
+      "text_bbox": [
+        361.9732666015625,
+        340.87548828125,
+        434.77398681640625,
+        346.67547607421875
+      ],
+      "other_text": null,
+      "other_bbox": [
+        372.3031005859375,
+        335.3205871582031,
+        400.2825622558594,
+        425.2870178222656
+      ],
+      "object_count": 1,
+      "object_indexes": [
+        114
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+[10:57:10] writing under E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\data\cepstrum_pilot10\s1_cepstrum_pilot10_20260907_105707_52e354de
+[10:57:10] cases: pilot_01266, pilot_00404, pilot_00273, pilot_01413, pilot_01011, pilot_00944, pilot_01191, pilot_01890, pilot_00772, pilot_00984
+[10:57:10] pilot_01266: N=10 S=22.88m L=3659.0m a=1351.31m/s dt=0.002645s T=217.6s src=pilot_01266.npz
+[10:57:14] pilot_00404: N=8 S=21.84m L=4791.1m a=1336.30m/s dt=0.003502s T=287.8s src=pilot_00404.npz
+[10:57:16] pilot_00273: N=5 S=16.96m L=4805.0m a=1433.71m/s dt=0.003273s T=269.1s src=pilot_00273.npz
+[10:57:19] pilot_01413: N=4 S=36.58m L=4528.6m a=1329.05m/s dt=0.003326s T=273.6s src=pilot_01413.npz
+[10:57:21] pilot_01011: N=6 S=38.86m L=3216.3m a=1449.45m/s dt=0.002167s T=178.5s src=pilot_01011.npz
+[10:57:24] pilot_00944: N=4 S=28.12m L=4348.9m a=1402.85m/s dt=0.003029s T=249.0s src=pilot_00944.npz
+[10:57:26] pilot_01191: N=7 S=32.88m L=3231.0m a=1368.71m/s dt=0.002304s T=189.8s src=pilot_01191.npz
+[10:57:29] pilot_01890: N=7 S=29.57m L=3199.4m a=1300.48m/s dt=0.002403s T=197.8s src=pilot_01890.npz
+[10:57:31] pilot_00772: N=9 S=20.77m L=4886.8m a=1400.33m/s dt=0.00341s T=280.2s src=pilot_00772.npz
+[10:57:34] pilot_00984: N=5 S=28.28m L=4762.3m a=1343.92m/s dt=0.003464s T=284.5s src=pilot_00984.npz
+[10:57:37] ---- summary ----
+[10:57:37]   pilot_01266: 1D 1/10 (F1=0.18181818181818182) | 2Davg 3/10 (F1=0.3)
+[10:57:37]   pilot_00404: 1D 1/8 (F1=0.2222222222222222) | 2Davg 4/8 (F1=0.4444444444444445)
+[10:57:37]   pilot_00273: 1D 1/5 (F1=0.33333333333333337) | 2Davg 5/5 (F1=0.6666666666666666)
+[10:57:37]   pilot_01413: 1D 0/4 (F1=0.0) | 2Davg 4/4 (F1=0.5714285714285715)
+[10:57:37]   pilot_01011: 1D 1/6 (F1=0.15384615384615383) | 2Davg 5/6 (F1=0.625)
+[10:57:37]   pilot_00944: 1D 1/4 (F1=0.4) | 2Davg 3/4 (F1=0.4285714285714285)
+[10:57:37]   pilot_01191: 1D 1/7 (F1=0.16666666666666666) | 2Davg 3/7 (F1=0.3529411764705882)
+[10:57:37]   pilot_01890: 1D 1/7 (F1=0.25) | 2Davg 3/7 (F1=0.3529411764705882)
+[10:57:37]   pilot_00772: 1D 0/9 (F1=0.0) | 2Davg 4/9 (F1=0.4210526315789474)
+[10:57:37]   pilot_00984: 1D 1/5 (F1=0.13333333333333333) | 2Davg 2/5 (F1=0.26666666666666666)
+[10:57:37] CSV E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\data\cepstrum_pilot10\s1_cepstrum_pilot10_20260907_105707_52e354de\summary.csv
+[10:57:37] summary figure E:\water_hammer_research\wellbore_moc_method\PaperC_CJNO_Wellbore_Inversion\01_moc_benchmark\data\cepstrum_pilot10\s1_cepstrum_pilot10_20260907_105707_52e354de\summary_match.png

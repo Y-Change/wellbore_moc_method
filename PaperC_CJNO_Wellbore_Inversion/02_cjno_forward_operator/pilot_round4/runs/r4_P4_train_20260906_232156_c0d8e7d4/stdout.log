@@ -1,0 +1,8 @@
+[23:21:57] reset keeps attached pK: True
+[23:22:02] entry vs unroll grad -16.101768663382444 vs -16.101768663382444 match=True
+[23:22:36] K grad status=PASS rels=[1.5859182405603722e-05, 4.8373094692554205e-05, 0.0011569634666261431]
+[23:23:07] Cf grad status=FAIL rels=[0.004858430054949958, 1.0, 1.0]
+[23:23:38] Gl grad status=PASS rels=[8.913153725975166e-06, 0.005520668045553677, 0.028995325025911938]
+[23:24:21] memory-path grad status=PASS rels=[1.5728061138941717e-05, 3.295102127612693e-05, 5.518269075704306e-06]
+[23:24:23] max_iter=1 reason=stepped block=False opt=False step=False dyn=False
+[23:24:23] max_iter=0 reason=newton_fail block=True opt=True step=True dyn=True

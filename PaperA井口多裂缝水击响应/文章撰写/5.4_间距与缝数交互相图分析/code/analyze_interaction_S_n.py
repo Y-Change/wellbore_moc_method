@@ -197,7 +197,7 @@ def plot_figure_5_4(df_grid):
 
 
 def plot_figure_5_4_supp(df_grid):
-    """
+    r"""
     Figure 5.4 Supplementary / Extended Interaction Analysis:
     (a) Direct Comparison of Matched Span Configurations (L_span = 60, 100, 120, 200m)
     (b) 2D Heatmap of Total Detected Peak Sum \Sigma P(S, n_total)

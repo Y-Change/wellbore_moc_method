@@ -1,0 +1,23 @@
+{
+  "run_id": "r4_regressions_20260906_231446_aa6e3c2e",
+  "created": "2026-09-06T23:14:46",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "code_sha256": "9644a25dc769ef7846b1de77ccee6f8498da903a80885cdc51e62b0d21e59904",
+  "stage1_code_sha256": "c33752d9dc4c59463f55821bda0badfb4ab7af35ff23e281185befc13666c7b1",
+  "resolved_config": {
+    "stage": "regressions"
+  },
+  "env": {
+    "python": "3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.26.4",
+    "torch": "2.4.0",
+    "cuda": true,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Ti"
+  },
+  "protocol": "r4_run_dir_only_no_latest",
+  "status": "completed",
+  "wall_clock_s": 0.7456851005554199,
+  "ended": "2026-09-06T23:14:47"
+}

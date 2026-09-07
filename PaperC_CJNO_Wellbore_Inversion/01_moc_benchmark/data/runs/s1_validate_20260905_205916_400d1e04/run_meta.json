@@ -1,0 +1,38 @@
+{
+  "run_id": "s1_validate_20260905_205916_400d1e04",
+  "name": "s1_validate",
+  "seed": 20260905,
+  "started": "2026-09-05T20:59:16",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3",
+  "git_dirty_paperc": true,
+  "code_digest": "01249230e6812bb8c85e8a0de463c34df1172f35466da0de65f53e56b770fce9",
+  "config_digest": "e968b9d15da2970905564ba1efc9015c93a0c7f7b9418d0c7ad803f0e12d9292",
+  "manifest_digest": "",
+  "rng_bit_generator": "PCG64",
+  "rng_state": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 183689221403346250965162724379898408207,
+      "inc": 334385980949828057999651861194445765231
+    },
+    "has_uint32": 0,
+    "uinteger": 0
+  },
+  "environment": {
+    "python": "3.12.4",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "numba": "0.59.1",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "cpu_count": 16,
+    "hostname": "Change001",
+    "matplotlib": "3.8.4",
+    "torch": "2.2.0+cpu"
+  },
+  "argv": [
+    "validate.py"
+  ],
+  "wall_clock_s": 1.798215099988738
+}

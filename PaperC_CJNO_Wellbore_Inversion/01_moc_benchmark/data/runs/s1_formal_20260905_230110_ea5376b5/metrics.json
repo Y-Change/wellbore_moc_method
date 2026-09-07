@@ -1,0 +1,75 @@
+{
+  "stage": 1,
+  "formal_design": {
+    "mode": "formal",
+    "smoke": false,
+    "design_only": true,
+    "n_id": 26000,
+    "n_ood": 4000,
+    "split_counts": {
+      "train": 20000,
+      "val": 3000,
+      "id_test": 3000,
+      "ood": 4000
+    },
+    "leakage": [],
+    "ood_constraints": {
+      "dense_spacing": {
+        "n": 500,
+        "ok": true,
+        "notes": "spacing in [10,12)",
+        "min": 10.084409106335492,
+        "max": 11.990369473194493
+      },
+      "sparse_spacing": {
+        "n": 500,
+        "ok": true,
+        "notes": "spacing in [40,60]",
+        "min": 40.01265666298542,
+        "max": 59.9795924585359
+      },
+      "many_clusters": {
+        "n": 500,
+        "ok": true,
+        "notes": "N in [13,16]",
+        "min": 13,
+        "max": 16
+      },
+      "tail_viscosity": {
+        "n": 500,
+        "ok": true,
+        "notes": "nu > train high",
+        "min": 3.001086736940937e-06,
+        "max": 9.992140426032642e-06
+      },
+      "tail_compliance": {
+        "n": 500,
+        "ok": true,
+        "notes": "C_f > train high",
+        "min": 1.0036387556173512e-05,
+        "max": 4.991845905302834e-05
+      },
+      "uncooccurring": {
+        "n": 500,
+        "ok": true,
+        "notes": "high Q0 + dense-edge spacing + high I_f"
+      },
+      "deleted_cluster": {
+        "n": 500,
+        "ok": true,
+        "notes": "at least one cluster sum_CdA = 0"
+      },
+      "impedance_jump": {
+        "n": 500,
+        "ok": true,
+        "notes": "first-cluster Cd scaled by 3 or 1/3"
+      }
+    },
+    "design_path": "E:/water_hammer_research/wellbore_moc_method/PaperC_CJNO_Wellbore_Inversion/01_moc_benchmark/data/sobol_30000/design_formal.json"
+  },
+  "run_id": "s1_formal_20260905_230110_ea5376b5",
+  "code_digest": "7ed855e76f1e59abe2b520dba79af8da12da32bade7cfa23ff4eb09288bd53de",
+  "config_digest": "093d6b1ef8b22931fc3bfb4fd5714d615b7d36868b3bc371961cd4d3ada42a5c",
+  "manifest_digest": "",
+  "git_commit": "e26c741de3af2f489c472bf9363162d3988884a3"
+}

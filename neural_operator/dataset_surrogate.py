@@ -106,7 +106,7 @@ class FracturingMOCSurrogateDataset(Dataset):
 
         t = np.asarray(npz["t"])
         H_wh = np.asarray(npz["H_wh"])
-        x_f = np.asarray(npz["x_f"])
+        x_f = np.asarray(npz["x_f_aligned"] if "x_f_aligned" in npz else npz["x_f"])
         Cf = np.asarray(npz["Cf"])
         kleak = np.asarray(npz["kleak"])
         if t.ndim != 1 or H_wh.ndim != 1 or len(t) != len(H_wh):
@@ -137,7 +137,7 @@ class FracturingMOCSurrogateDataset(Dataset):
                 "source_file": os.path.abspath(filepath),
                 "tf": tf,
                 "n_frac": int(npz["n_frac"]) if "n_frac" in npz else int(len(npz["x_f"])),
-                "x_f": np.asarray(npz["x_f"], dtype=np.float32).copy(),
+                "x_f": np.asarray(npz["x_f_aligned"] if "x_f_aligned" in npz else npz["x_f"], dtype=np.float32).copy(),
                 "Cf": np.asarray(npz["Cf"], dtype=np.float32).copy(),
                 "kleak": np.asarray(npz["kleak"], dtype=np.float32).copy(),
                 "friction": friction,
@@ -154,7 +154,7 @@ class FracturingMOCSurrogateDataset(Dataset):
         try:
             t_raw = npz["t"]
             H_wh_raw = npz["H_wh"]
-            x_f = npz["x_f"]
+            x_f = np.asarray(npz["x_f_aligned"] if "x_f_aligned" in npz else npz["x_f"])
             Cf = npz["Cf"]
             kleak = npz["kleak"]
             tf = float(npz["tf"]) if "tf" in npz else t_raw[-1]
