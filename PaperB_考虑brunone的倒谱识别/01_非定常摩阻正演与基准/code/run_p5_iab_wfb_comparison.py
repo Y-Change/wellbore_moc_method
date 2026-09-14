@@ -220,11 +220,11 @@ def simulate_moc_p5(model_type: str, k_val: float = 0.0):
         V_new[1:-1] = Cp - ga * H_new[1:-1]
 
         # Fracture node
-        H_w, H_f, V_left_f, V_right_f, _ = solve_fracture_node(
+        H_f, V_left_f, V_right_f, _ = solve_fracture_node(
             Cp[i_f - 1], Cm[i_f - 1], H_prev[i_f], A, ga,
             CF, KLEAK, FRACTURE_CONFIG['H_ext'], dt
         )
-        H_new[i_f] = H_w
+        H_new[i_f] = H_f
         V_new[i_f] = V_left_f
 
         # Wellhead (node 0)

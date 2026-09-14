@@ -140,11 +140,11 @@ def simulate_dt(dt_val: float, k_val: float, case_label: str):
         H_new[1:-1] = (Cp + Cm) / (2.0 * ga)
         V_new[1:-1] = Cp - ga * H_new[1:-1]
 
-        H_w, H_f, V_left_f, V_right_f, _ = solve_fracture_node(
+        H_f, V_left_f, V_right_f, _ = solve_fracture_node(
             Cp[i_f - 1], Cm[i_f - 1], H_prev[i_f], A, ga,
             CF, KLEAK, FRACTURE_CONFIG['H_ext'], dt
         )
-        H_new[i_f] = H_w
+        H_new[i_f] = H_f
         V_new[i_f] = V_left_f
 
         # Wellhead

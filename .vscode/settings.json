@@ -13,6 +13,7 @@
   "latex-workshop.latex.outDir": "%DIR%",
   "latex-workshop.view.pdf.viewer": "tab",
   "workbench.editorAssociations": {
-    "*.pdf": "latex-workshop-pdf-hook"
+    "*.pdf": "latex-workshop-pdf-hook",
+    "*.h5": "default"
   }
 }

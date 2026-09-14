@@ -1,0 +1,5112 @@
+{
+  "metadata": {
+    "project": "fracture_parameter_sensitivity",
+    "schema_version": "moc_lhs_v2.1",
+    "description": "Simulation matrix for fracture parameter sensitivity ablation study across 6 physical dimensions + orthogonal interaction grid, paired with steady and Brunone unsteady friction models.",
+    "total_parameter_sets": 42,
+    "total_cases": 84,
+    "friction_models": [
+      "steady",
+      "brunone"
+    ],
+    "groups": [
+      "oat_xf",
+      "oat_ch",
+      "oat_kleak",
+      "oat_rp",
+      "oat_wi",
+      "oat_spacing",
+      "orthogonal"
+    ],
+    "baseline_case_id": 0
+  },
+  "baseline_wellbore": {
+    "L": 5000.0,
+    "D": 0.1397,
+    "rho": 1000.0,
+    "nu": 1e-06,
+    "a": 1450.0,
+    "roughness": 4.5e-05,
+    "V0": 1.0,
+    "H0": 300.0,
+    "H_ext": 100.0,
+    "theta": 0.0,
+    "toe_bc": "dead_end",
+    "tf": 40.0,
+    "tc": 0.05,
+    "ts": 0.5,
+    "dt": 0.001,
+    "wellhead_bc": "ramp",
+    "brunone_k_scale": 1.0
+  },
+  "baseline_fractures": {
+    "n_frac": 3,
+    "positions": [
+      4000.0,
+      4020.0,
+      4040.0
+    ],
+    "compliance_m2": [
+      1e-05,
+      1e-05,
+      1e-05
+    ],
+    "kleak": [
+      0.0001,
+      0.0001,
+      0.0001
+    ],
+    "Rp": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "inflow_weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ]
+  },
+  "cases": [
+    {
+      "case_id": 0,
+      "case_name": "case_00000",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 3500.0,
+      "param_description": "First fracture at 3500m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          3500.0,
+          3520.0,
+          3540.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260909
+    },
+    {
+      "case_id": 1,
+      "case_name": "case_00001",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 3500.0,
+      "param_description": "First fracture at 3500m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          3500.0,
+          3520.0,
+          3540.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260910
+    },
+    {
+      "case_id": 2,
+      "case_name": "case_00002",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 3800.0,
+      "param_description": "First fracture at 3800m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          3800.0,
+          3820.0,
+          3840.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260911
+    },
+    {
+      "case_id": 3,
+      "case_name": "case_00003",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 3800.0,
+      "param_description": "First fracture at 3800m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          3800.0,
+          3820.0,
+          3840.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260912
+    },
+    {
+      "case_id": 4,
+      "case_name": "case_00004",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4100.0,
+      "param_description": "First fracture at 4100m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4100.0,
+          4120.0,
+          4140.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260913
+    },
+    {
+      "case_id": 5,
+      "case_name": "case_00005",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4100.0,
+      "param_description": "First fracture at 4100m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4100.0,
+          4120.0,
+          4140.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260914
+    },
+    {
+      "case_id": 6,
+      "case_name": "case_00006",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4400.0,
+      "param_description": "First fracture at 4400m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4400.0,
+          4420.0,
+          4440.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260915
+    },
+    {
+      "case_id": 7,
+      "case_name": "case_00007",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4400.0,
+      "param_description": "First fracture at 4400m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4400.0,
+          4420.0,
+          4440.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260916
+    },
+    {
+      "case_id": 8,
+      "case_name": "case_00008",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4700.0,
+      "param_description": "First fracture at 4700m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4700.0,
+          4720.0,
+          4740.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260917
+    },
+    {
+      "case_id": 9,
+      "case_name": "case_00009",
+      "group": "oat_xf",
+      "param_name": "x_f",
+      "param_value": 4700.0,
+      "param_description": "First fracture at 4700m (spacing 20m)",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4700.0,
+          4720.0,
+          4740.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260918
+    },
+    {
+      "case_id": 10,
+      "case_name": "case_00010",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-07,
+      "param_description": "Head compliance C_H = 1.0e-07 m2",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260919
+    },
+    {
+      "case_id": 11,
+      "case_name": "case_00011",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-07,
+      "param_description": "Head compliance C_H = 1.0e-07 m2",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260920
+    },
+    {
+      "case_id": 12,
+      "case_name": "case_00012",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-06,
+      "param_description": "Head compliance C_H = 1.0e-06 m2",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260921
+    },
+    {
+      "case_id": 13,
+      "case_name": "case_00013",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-06,
+      "param_description": "Head compliance C_H = 1.0e-06 m2",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260922
+    },
+    {
+      "case_id": 14,
+      "case_name": "case_00014",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-05,
+      "param_description": "Head compliance C_H = 1.0e-05 m2",
+      "is_baseline": true,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260923
+    },
+    {
+      "case_id": 15,
+      "case_name": "case_00015",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 1e-05,
+      "param_description": "Head compliance C_H = 1.0e-05 m2",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260924
+    },
+    {
+      "case_id": 16,
+      "case_name": "case_00016",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 3e-05,
+      "param_description": "Head compliance C_H = 3.0e-05 m2",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          3e-05,
+          3e-05,
+          3e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260925
+    },
+    {
+      "case_id": 17,
+      "case_name": "case_00017",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 3e-05,
+      "param_description": "Head compliance C_H = 3.0e-05 m2",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          3e-05,
+          3e-05,
+          3e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260926
+    },
+    {
+      "case_id": 18,
+      "case_name": "case_00018",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 0.0001,
+      "param_description": "Head compliance C_H = 1.0e-04 m2",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260927
+    },
+    {
+      "case_id": 19,
+      "case_name": "case_00019",
+      "group": "oat_ch",
+      "param_name": "compliance_head_m2",
+      "param_value": 0.0001,
+      "param_description": "Head compliance C_H = 1.0e-04 m2",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260928
+    },
+    {
+      "case_id": 20,
+      "case_name": "case_00020",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0,
+      "param_description": "Leakoff coefficient k_leak = 0.0e+00 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260929
+    },
+    {
+      "case_id": 21,
+      "case_name": "case_00021",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0,
+      "param_description": "Leakoff coefficient k_leak = 0.0e+00 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260930
+    },
+    {
+      "case_id": 22,
+      "case_name": "case_00022",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 1e-05,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260931
+    },
+    {
+      "case_id": 23,
+      "case_name": "case_00023",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 1e-05,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260932
+    },
+    {
+      "case_id": 24,
+      "case_name": "case_00024",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 5e-05,
+      "param_description": "Leakoff coefficient k_leak = 5.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          5e-05,
+          5e-05,
+          5e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260933
+    },
+    {
+      "case_id": 25,
+      "case_name": "case_00025",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 5e-05,
+      "param_description": "Leakoff coefficient k_leak = 5.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          5e-05,
+          5e-05,
+          5e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260934
+    },
+    {
+      "case_id": 26,
+      "case_name": "case_00026",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0001,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-04 m^(5/2)/s",
+      "is_baseline": true,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260935
+    },
+    {
+      "case_id": 27,
+      "case_name": "case_00027",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0001,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260936
+    },
+    {
+      "case_id": 28,
+      "case_name": "case_00028",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0005,
+      "param_description": "Leakoff coefficient k_leak = 5.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0005,
+          0.0005,
+          0.0005
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260937
+    },
+    {
+      "case_id": 29,
+      "case_name": "case_00029",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.0005,
+      "param_description": "Leakoff coefficient k_leak = 5.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0005,
+          0.0005,
+          0.0005
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260938
+    },
+    {
+      "case_id": 30,
+      "case_name": "case_00030",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.001,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-03 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.001,
+          0.001,
+          0.001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260939
+    },
+    {
+      "case_id": 31,
+      "case_name": "case_00031",
+      "group": "oat_kleak",
+      "param_name": "kleak",
+      "param_value": 0.001,
+      "param_description": "Leakoff coefficient k_leak = 1.0e-03 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.001,
+          0.001,
+          0.001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260940
+    },
+    {
+      "case_id": 32,
+      "case_name": "case_00032",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 0.0,
+      "param_description": "Perforation resistance Rp = 0 s2/m5",
+      "is_baseline": true,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260941
+    },
+    {
+      "case_id": 33,
+      "case_name": "case_00033",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 0.0,
+      "param_description": "Perforation resistance Rp = 0 s2/m5",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260942
+    },
+    {
+      "case_id": 34,
+      "case_name": "case_00034",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 100.0,
+      "param_description": "Perforation resistance Rp = 100 s2/m5",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260943
+    },
+    {
+      "case_id": 35,
+      "case_name": "case_00035",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 100.0,
+      "param_description": "Perforation resistance Rp = 100 s2/m5",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260944
+    },
+    {
+      "case_id": 36,
+      "case_name": "case_00036",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 500.0,
+      "param_description": "Perforation resistance Rp = 500 s2/m5",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          500.0,
+          500.0,
+          500.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260945
+    },
+    {
+      "case_id": 37,
+      "case_name": "case_00037",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 500.0,
+      "param_description": "Perforation resistance Rp = 500 s2/m5",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          500.0,
+          500.0,
+          500.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260946
+    },
+    {
+      "case_id": 38,
+      "case_name": "case_00038",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 2000.0,
+      "param_description": "Perforation resistance Rp = 2000 s2/m5",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          2000.0,
+          2000.0,
+          2000.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260947
+    },
+    {
+      "case_id": 39,
+      "case_name": "case_00039",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 2000.0,
+      "param_description": "Perforation resistance Rp = 2000 s2/m5",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          2000.0,
+          2000.0,
+          2000.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260948
+    },
+    {
+      "case_id": 40,
+      "case_name": "case_00040",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 10000.0,
+      "param_description": "Perforation resistance Rp = 10000 s2/m5",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          10000.0,
+          10000.0,
+          10000.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260949
+    },
+    {
+      "case_id": 41,
+      "case_name": "case_00041",
+      "group": "oat_rp",
+      "param_name": "Rp",
+      "param_value": 10000.0,
+      "param_description": "Perforation resistance Rp = 10000 s2/m5",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          10000.0,
+          10000.0,
+          10000.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260950
+    },
+    {
+      "case_id": 42,
+      "case_name": "case_00042",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "uniform",
+      "param_description": "Flow split pattern: uniform [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]",
+      "is_baseline": true,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260951
+    },
+    {
+      "case_id": 43,
+      "case_name": "case_00043",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "uniform",
+      "param_description": "Flow split pattern: uniform [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260952
+    },
+    {
+      "case_id": 44,
+      "case_name": "case_00044",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "toe_dominant",
+      "param_description": "Flow split pattern: toe_dominant [0.1, 0.2, 0.7]",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.1,
+          0.2,
+          0.7
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260953
+    },
+    {
+      "case_id": 45,
+      "case_name": "case_00045",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "toe_dominant",
+      "param_description": "Flow split pattern: toe_dominant [0.1, 0.2, 0.7]",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.1,
+          0.2,
+          0.7
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260954
+    },
+    {
+      "case_id": 46,
+      "case_name": "case_00046",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "heel_dominant",
+      "param_description": "Flow split pattern: heel_dominant [0.7, 0.2, 0.1]",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.7,
+          0.2,
+          0.1
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260955
+    },
+    {
+      "case_id": 47,
+      "case_name": "case_00047",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "heel_dominant",
+      "param_description": "Flow split pattern: heel_dominant [0.7, 0.2, 0.1]",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.7,
+          0.2,
+          0.1
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260956
+    },
+    {
+      "case_id": 48,
+      "case_name": "case_00048",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "middle_dominant",
+      "param_description": "Flow split pattern: middle_dominant [0.1, 0.8, 0.1]",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.1,
+          0.8,
+          0.1
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260957
+    },
+    {
+      "case_id": 49,
+      "case_name": "case_00049",
+      "group": "oat_wi",
+      "param_name": "inflow_weight",
+      "param_value": "middle_dominant",
+      "param_description": "Flow split pattern: middle_dominant [0.1, 0.8, 0.1]",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.1,
+          0.8,
+          0.1
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260958
+    },
+    {
+      "case_id": 50,
+      "case_name": "case_00050",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 5.0,
+      "param_description": "Cluster spacing delta_x = 5.0 m",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4005.0,
+          4010.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 5.0
+      },
+      "seed": 20260959
+    },
+    {
+      "case_id": 51,
+      "case_name": "case_00051",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 5.0,
+      "param_description": "Cluster spacing delta_x = 5.0 m",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4005.0,
+          4010.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 5.0
+      },
+      "seed": 20260960
+    },
+    {
+      "case_id": 52,
+      "case_name": "case_00052",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 10.0,
+      "param_description": "Cluster spacing delta_x = 10.0 m",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260961
+    },
+    {
+      "case_id": 53,
+      "case_name": "case_00053",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 10.0,
+      "param_description": "Cluster spacing delta_x = 10.0 m",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260962
+    },
+    {
+      "case_id": 54,
+      "case_name": "case_00054",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 20.0,
+      "param_description": "Cluster spacing delta_x = 20.0 m",
+      "is_baseline": true,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260963
+    },
+    {
+      "case_id": 55,
+      "case_name": "case_00055",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 20.0,
+      "param_description": "Cluster spacing delta_x = 20.0 m",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4020.0,
+          4040.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 20.0
+      },
+      "seed": 20260964
+    },
+    {
+      "case_id": 56,
+      "case_name": "case_00056",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 35.0,
+      "param_description": "Cluster spacing delta_x = 35.0 m",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260965
+    },
+    {
+      "case_id": 57,
+      "case_name": "case_00057",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 35.0,
+      "param_description": "Cluster spacing delta_x = 35.0 m",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260966
+    },
+    {
+      "case_id": 58,
+      "case_name": "case_00058",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 50.0,
+      "param_description": "Cluster spacing delta_x = 50.0 m",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4050.0,
+          4100.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 50.0
+      },
+      "seed": 20260967
+    },
+    {
+      "case_id": 59,
+      "case_name": "case_00059",
+      "group": "oat_spacing",
+      "param_name": "delta_x",
+      "param_value": 50.0,
+      "param_description": "Cluster spacing delta_x = 50.0 m",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4050.0,
+          4100.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 50.0
+      },
+      "seed": 20260968
+    },
+    {
+      "case_id": 60,
+      "case_name": "case_00060",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260969
+    },
+    {
+      "case_id": 61,
+      "case_name": "case_00061",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260970
+    },
+    {
+      "case_id": 62,
+      "case_name": "case_00062",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260971
+    },
+    {
+      "case_id": 63,
+      "case_name": "case_00063",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260972
+    },
+    {
+      "case_id": 64,
+      "case_name": "case_00064",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260973
+    },
+    {
+      "case_id": 65,
+      "case_name": "case_00065",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260974
+    },
+    {
+      "case_id": 66,
+      "case_name": "case_00066",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260975
+    },
+    {
+      "case_id": 67,
+      "case_name": "case_00067",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-06_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-06 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260976
+    },
+    {
+      "case_id": 68,
+      "case_name": "case_00068",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260977
+    },
+    {
+      "case_id": 69,
+      "case_name": "case_00069",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260978
+    },
+    {
+      "case_id": 70,
+      "case_name": "case_00070",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260979
+    },
+    {
+      "case_id": 71,
+      "case_name": "case_00071",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260980
+    },
+    {
+      "case_id": 72,
+      "case_name": "case_00072",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260981
+    },
+    {
+      "case_id": 73,
+      "case_name": "case_00073",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260982
+    },
+    {
+      "case_id": 74,
+      "case_name": "case_00074",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260983
+    },
+    {
+      "case_id": 75,
+      "case_name": "case_00075",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-05_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-05 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260984
+    },
+    {
+      "case_id": 76,
+      "case_name": "case_00076",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260985
+    },
+    {
+      "case_id": 77,
+      "case_name": "case_00077",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_10_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=10m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260986
+    },
+    {
+      "case_id": 78,
+      "case_name": "case_00078",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260987
+    },
+    {
+      "case_id": 79,
+      "case_name": "case_00079",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_10_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=10m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4010.0,
+          4020.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 10.0
+      },
+      "seed": 20260988
+    },
+    {
+      "case_id": 80,
+      "case_name": "case_00080",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260989
+    },
+    {
+      "case_id": 81,
+      "case_name": "case_00081",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_35_kl_1e-05",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=35m, k_leak=1.0e-05 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          1e-05,
+          1e-05,
+          1e-05
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260990
+    },
+    {
+      "case_id": 82,
+      "case_name": "case_00082",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "steady",
+      "brunone_k_scale": 0.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260991
+    },
+    {
+      "case_id": 83,
+      "case_name": "case_00083",
+      "group": "orthogonal",
+      "param_name": "ch_spacing_kleak",
+      "param_value": "CH_1e-04_dx_35_kl_1e-04",
+      "param_description": "Orthogonal grid: C_H=1.0e-04 m2, delta_x=35m, k_leak=1.0e-04 m^(5/2)/s",
+      "is_baseline": false,
+      "friction": "brunone",
+      "brunone_k_scale": 1.0,
+      "wellbore": {
+        "L": 5000.0,
+        "D": 0.1397,
+        "rho": 1000.0,
+        "nu": 1e-06,
+        "a": 1450.0,
+        "roughness": 4.5e-05,
+        "V0": 1.0,
+        "H0": 300.0,
+        "H_ext": 100.0,
+        "theta": 0.0,
+        "toe_bc": "dead_end",
+        "tf": 40.0,
+        "tc": 0.05,
+        "ts": 0.5,
+        "dt": 0.001,
+        "wellhead_bc": "ramp",
+        "brunone_k_scale": 1.0
+      },
+      "fractures": {
+        "n_frac": 3,
+        "positions": [
+          4000.0,
+          4035.0,
+          4070.0
+        ],
+        "compliance_m2": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "kleak": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "Rp": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "inflow_weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "spacing_m": 35.0
+      },
+      "seed": 20260992
+    }
+  ]
+}
