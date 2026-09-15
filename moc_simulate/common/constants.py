@@ -27,3 +27,8 @@ WAVESPEED_DEFAULT: float = 1450.0 # 压裂井筒典型声学波速 [m/s]
 # 标准大气参数
 P_ATM: float = 101325.0           # 标准大气压 [Pa]
 H_ATM: float = 10.33              # 大气压当量清水水头 [m]
+
+# 封闭趾端压裂井口最大工作水头 [m]
+# 约 294 MPa (P = ρ g H)。足以覆盖单簇 + 默认 k_leak=1e-4 的研究算例 (~24 km)，
+# 同时切断现有 pilot 中 46~60 km 的非物理长尾。采样器可再收紧 h0_max。
+H0_MAX_WORKING: float = 30000.0

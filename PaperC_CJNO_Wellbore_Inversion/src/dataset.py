@@ -3,18 +3,19 @@
 PaperC_CJNO_Wellbore_Inversion.src.dataset
 
 水击波物理反演小样本预研数据集与数据管线 (PilotInversionDataset):
-1. 加载 1k 案例物理数据集 (moc_v2_1k_dataset.h5)，支持 800 train / 100 val / 100 test 确定性切分；
+1. 加载物理正向稳态 HDF5（默认 moc_v2_pilot_steady_100.h5），按源文件样本数做确定性切分；
 2. 全局等距降采样时域波形至 N_time=4096 点，并提取一阶波前差分通道；
 3. 在线/缓存提取 1D 空间深度倒谱特征并重采样至 N_ceps=1024 均匀空间网格；
 4. 构造真值高斯连续流体进入贡献密度场 m_alpha(x) (N_grid=500) 用于 Wasserstein-1D 距离监督；
 5. 封装支持变簇数 (Nc in [1..6]) 的掩码 (mask) 与批处理 collate 机制；
-6. 自动序列化缓存至本地 .npz 文件，实现毫秒级快速加载与训练。
+6. 缓存文件名绑定 HDF5 路径、内容指纹与样本数，禁止跨数据源复用旧 npz。
 """
 from __future__ import annotations
 
+import hashlib
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple
 import h5py
 import numpy as np
 import torch
@@ -24,8 +25,89 @@ from moc_simulate.v2.batch.torch_dataset import MocWellboreDataset, split_datase
 from moc_simulate.v2.signal.cepstrum_1d import compute_cepstrum_1d
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_H5_PATH = str(_PROJECT_ROOT / "data" / "datasets" / "moc_v2_1k_dataset.h5")
+DEFAULT_H5_PATH = str(_PROJECT_ROOT / "data" / "datasets" / "moc_v2_pilot_steady_100.h5")
 DEFAULT_CACHE_DIR = str(Path(__file__).resolve().parents[1] / "data")
+_H5_FALLBACKS = (
+    str(_PROJECT_ROOT / "data" / "datasets" / "moc_v2_pilot_steady_100.h5"),
+    str(_PROJECT_ROOT / "data" / "datasets" / "moc_v2_1k_dataset.h5"),
+    str(_PROJECT_ROOT / "data" / "datasets" / "moc_v2_1k_dataset_legacy_nonsteady_v1.h5"),
+)
+
+
+def fingerprint_h5_source(h5_path: str) -> Dict[str, Any]:
+    """
+    生成与数据源绑定的缓存指纹。
+    包含绝对路径、文件大小、mtime、HDF5 样本数/时域长度，以及文件头尾内容哈希，
+    避免切换 HDF5 后仍命中旧的 cache_1k_*.npz。
+    """
+    abs_path = os.path.abspath(h5_path)
+    st = os.stat(abs_path)
+    size = int(st.st_size)
+    mtime_ns = int(getattr(st, "st_mtime_ns", int(st.st_mtime * 1e9)))
+    with h5py.File(abs_path, "r") as f:
+        head_ds = f["waveforms/wellhead_head"]
+        n_samples = int(head_ds.shape[0])
+        n_time_raw = int(head_ds.shape[1])
+    with open(abs_path, "rb") as fh:
+        head_bytes = fh.read(65536)
+        if size > 65536:
+            fh.seek(max(0, size - 65536))
+            tail_bytes = fh.read(65536)
+        else:
+            tail_bytes = b""
+    content_token = hashlib.sha256(head_bytes + tail_bytes).hexdigest()[:16]
+    payload = "|".join(
+        [
+            abs_path.replace("\\", "/"),
+            str(size),
+            str(mtime_ns),
+            str(n_samples),
+            str(n_time_raw),
+            content_token,
+        ]
+    )
+    digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+    return {
+        "path": abs_path,
+        "digest": digest,
+        "n_samples": n_samples,
+        "n_time_raw": n_time_raw,
+        "size": size,
+    }
+
+
+def feature_cache_filename(
+    cache_dir: str,
+    n_time: int,
+    n_ceps: int,
+    n_grid: int,
+    digest: str,
+    n_samples: int,
+) -> str:
+    return os.path.join(
+        cache_dir,
+        f"cache_t{int(n_time)}_c{int(n_ceps)}_g{int(n_grid)}_{digest}_n{int(n_samples)}.npz",
+    )
+
+
+def raw_wave_cache_filename(cache_dir: str, digest: str, n_samples: int, n_time_raw: int) -> str:
+    return os.path.join(
+        cache_dir,
+        f"cache_raw_t{int(n_time_raw)}_{digest}_n{int(n_samples)}.npz",
+    )
+
+
+def _resolve_h5_path(h5_path: str) -> str:
+    requested = os.path.abspath(h5_path)
+    if os.path.exists(requested):
+        return requested
+    default_abs = os.path.abspath(DEFAULT_H5_PATH)
+    if requested != default_abs:
+        raise FileNotFoundError(f"找不到指定的 HDF5 数据集文件: {requested}")
+    for alt in _H5_FALLBACKS:
+        if os.path.exists(alt):
+            return os.path.abspath(alt)
+    raise FileNotFoundError(f"找不到指定的 HDF5 数据集文件: {requested}")
 
 
 class PilotInversionDataset(Dataset):
@@ -54,10 +136,8 @@ class PilotInversionDataset(Dataset):
     ):
         super().__init__()
         self.load_raw_wave = bool(load_raw_wave)
-        self.h5_path = os.path.abspath(h5_path)
-        if not os.path.exists(self.h5_path):
-            raise FileNotFoundError(f"找不到指定的 HDF5 数据集文件: {self.h5_path}")
-
+        self.h5_path = _resolve_h5_path(h5_path)
+        self.source_meta = fingerprint_h5_source(self.h5_path)
         self.split = str(split).strip().lower()
         self.split_ratios = split_ratios
         self.seed = seed
@@ -76,6 +156,11 @@ class PilotInversionDataset(Dataset):
 
         # 数据集索引划分
         n_total = len(all_data["n_frac"])
+        if n_total != int(self.source_meta["n_samples"]):
+            raise RuntimeError(
+                f"特征缓存样本数 {n_total} 与 HDF5 源 {self.h5_path} 的 "
+                f"{self.source_meta['n_samples']} 例不一致，已禁止使用污染缓存。"
+            )
         splits = split_dataset_indices(n_total, self.split_ratios, self.seed)
         if self.split not in splits:
             raise ValueError(f"无效的 split: {self.split}, 可选: {list(splits.keys())}")
@@ -104,20 +189,50 @@ class PilotInversionDataset(Dataset):
         else:
             self.raw_waveforms = None
 
+    def _feature_cache_path(self) -> Optional[str]:
+        if self.cache_dir is None:
+            return None
+        os.makedirs(self.cache_dir, exist_ok=True)
+        return feature_cache_filename(
+            self.cache_dir,
+            self.n_time,
+            self.n_ceps,
+            self.n_grid,
+            self.source_meta["digest"],
+            self.source_meta["n_samples"],
+        )
+
+    def _raw_cache_path(self) -> Optional[str]:
+        if self.cache_dir is None:
+            return None
+        os.makedirs(self.cache_dir, exist_ok=True)
+        return raw_wave_cache_filename(
+            self.cache_dir,
+            self.source_meta["digest"],
+            self.source_meta["n_samples"],
+            self.source_meta["n_time_raw"],
+        )
+
+    def _cache_matches_source(self, n_cached: int, digest: Optional[str] = None) -> bool:
+        if int(n_cached) != int(self.source_meta["n_samples"]):
+            return False
+        if digest is not None and str(digest) != str(self.source_meta["digest"]):
+            return False
+        return True
+
     def _load_or_build_raw_wave_cache(self, force_recompute: bool = False) -> np.ndarray:
-        """加载或构建 60,001 点原生 1000 Hz 波形缓存 (2, 60001)"""
-        raw_cache_file = None
-        if self.cache_dir is not None:
-            os.makedirs(self.cache_dir, exist_ok=True)
-            raw_cache_file = os.path.join(self.cache_dir, "cache_raw_1k_t60001.npz")
+        """加载或构建与当前 HDF5 指纹绑定的原生波形缓存"""
+        raw_cache_file = self._raw_cache_path()
 
         if raw_cache_file and os.path.exists(raw_cache_file) and not force_recompute:
             data = np.load(raw_cache_file)
-            return data["raw_waveforms"]
+            raw_wave_arr = data["raw_waveforms"]
+            cached_digest = str(data["source_digest"]) if "source_digest" in data.files else None
+            if self._cache_matches_source(raw_wave_arr.shape[0], cached_digest):
+                return raw_wave_arr
 
-        # 直接从 H5 读取并标准化
         with h5py.File(self.h5_path, "r") as f:
-            raw_heads = f["waveforms/wellhead_head"][:]  # (1000, 60001)
+            raw_heads = f["waveforms/wellhead_head"][:]
 
         h_mean = raw_heads.mean(axis=1, keepdims=True)
         h_std = raw_heads.std(axis=1, keepdims=True) + 1e-6
@@ -128,31 +243,38 @@ class PilotInversionDataset(Dataset):
         raw_wave_arr = np.stack([h_norm, dh_norm], axis=1).astype(np.float32)
 
         if raw_cache_file:
-            np.savez_compressed(raw_cache_file, raw_waveforms=raw_wave_arr)
+            np.savez_compressed(
+                raw_cache_file,
+                raw_waveforms=raw_wave_arr,
+                source_digest=np.array(self.source_meta["digest"]),
+                source_n=np.array(self.source_meta["n_samples"]),
+            )
         return raw_wave_arr
 
     def _load_or_build_cache(self, force_recompute: bool = False) -> Dict[str, np.ndarray]:
-        """加载或重新生成预研特征缓存 .npz 文件"""
-        cache_file = None
-        if self.cache_dir is not None:
-            os.makedirs(self.cache_dir, exist_ok=True)
-            cache_file = os.path.join(
-                self.cache_dir,
-                f"cache_1k_t{self.n_time}_c{self.n_ceps}_g{self.n_grid}.npz"
-            )
+        """加载或重新生成与当前 HDF5 指纹绑定的预研特征缓存 .npz"""
+        cache_file = self._feature_cache_path()
 
         if cache_file and os.path.exists(cache_file) and not force_recompute:
             data = np.load(cache_file)
-            return {k: data[k] for k in data.files}
+            payload = {k: data[k] for k in data.files if not k.startswith("source_")}
+            cached_digest = str(data["source_digest"]) if "source_digest" in data.files else None
+            n_cached = int(payload["n_frac"].shape[0]) if "n_frac" in payload else -1
+            if self._cache_matches_source(n_cached, cached_digest):
+                return payload
 
-        # 缓存不存在或强制重新计算
         data_dict = self._process_all_from_h5()
         if cache_file:
-            np.savez_compressed(cache_file, **data_dict)
+            np.savez_compressed(
+                cache_file,
+                **data_dict,
+                source_digest=np.array(self.source_meta["digest"]),
+                source_n=np.array(self.source_meta["n_samples"]),
+            )
         return data_dict
 
     def _process_all_from_h5(self) -> Dict[str, np.ndarray]:
-        """使用 MocWellboreDataset (in_memory=True) 提取并预处理 1,000 个案例"""
+        """使用 MocWellboreDataset (in_memory=True) 提取并预处理全部案例"""
         base_ds = MocWellboreDataset(
             h5_path=self.h5_path,
             split="all",

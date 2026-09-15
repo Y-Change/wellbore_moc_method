@@ -472,6 +472,7 @@ def _worker_execute_sim(spec_dict: dict) -> dict:
         fracture_inflow_weights=spec.weights,
         fracture_Kp=spec.Kp,
         H_ext=100.0,
+        steady_mode="prescribed_flow_split_legacy",
     )
 
     timestamps = res["timestamps"]

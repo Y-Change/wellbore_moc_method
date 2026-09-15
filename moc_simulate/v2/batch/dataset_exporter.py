@@ -139,7 +139,8 @@ def save_hdf5_dataset(
     pos_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
     cf_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
     kleak_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
-    weights_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
+    alpha_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
+    q_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
     kp_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.float32)
     type_ids_matrix = np.zeros((n_samples, actual_max_frac_dim), dtype=np.int32)
     type_names_list: List[List[str]] = [[""] * actual_max_frac_dim for _ in range(n_samples)]
@@ -149,8 +150,11 @@ def save_hdf5_dataset(
     hext_arr = np.zeros(n_samples, dtype=np.float32)
     v0_arr = np.zeros(n_samples, dtype=np.float32)
     h0_arr = np.zeros(n_samples, dtype=np.float32)
+    h0_realized_arr = np.zeros(n_samples, dtype=np.float32)
     has_fault_arr = np.zeros(n_samples, dtype=np.int32)
     fault_idx_arr = np.full(n_samples, -1, dtype=np.int32)
+    mass_residual_arr = np.zeros(n_samples, dtype=np.float32)
+    pre_shut_drift_arr = np.zeros(n_samples, dtype=np.float32)
 
     for i, r in enumerate(valid_results):
         wh_h = np.asarray(r["wellhead_head"], dtype=np.float32)
@@ -177,8 +181,18 @@ def save_hdf5_dataset(
                 cf_matrix[i, :nf] = np.asarray(meta["fracture_Cf"][:nf], dtype=np.float32)
             if "fracture_kleak" in meta and meta["fracture_kleak"] is not None:
                 kleak_matrix[i, :nf] = np.asarray(meta["fracture_kleak"][:nf], dtype=np.float32)
-            if "fracture_inflow_weights" in meta and meta["fracture_inflow_weights"] is not None:
-                weights_matrix[i, :nf] = np.asarray(meta["fracture_inflow_weights"][:nf], dtype=np.float32)
+            
+            # 稳态真实分流比与流量
+            alpha_data = r.get("fracture_alpha_ss", meta.get("fracture_alpha_ss", meta.get("fracture_inflow_weights", [])))
+            if alpha_data is not None and len(alpha_data) > 0:
+                nf_a = min(actual_max_frac_dim, len(alpha_data))
+                alpha_matrix[i, :nf_a] = np.asarray(alpha_data[:nf_a], dtype=np.float32)
+
+            q_data = r.get("fracture_Q_ss", meta.get("fracture_Q_ss", []))
+            if q_data is not None and len(q_data) > 0:
+                nf_q = min(actual_max_frac_dim, len(q_data))
+                q_matrix[i, :nf_q] = np.asarray(q_data[:nf_q], dtype=np.float32)
+
             if "fracture_Kp" in meta and meta["fracture_Kp"] is not None:
                 kp_matrix[i, :nf] = np.asarray(meta["fracture_Kp"][:nf], dtype=np.float32)
 
@@ -192,8 +206,22 @@ def save_hdf5_dataset(
         hext_arr[i] = float(meta.get("H_ext", 100.0))
         v0_arr[i] = float(meta.get("initial_velocity", 1.0))
         h0_arr[i] = float(meta.get("initial_head", 300.0))
+        h0_real = r.get("H0_realized", meta.get("H0_realized", meta.get("initial_head", 300.0)))
+        h0_realized_arr[i] = float(h0_real)
         has_fault_arr[i] = int(bool(meta.get("has_fault", False)))
         fault_idx_arr[i] = int(meta.get("fault_cluster_idx", -1))
+        mass_residual_arr[i] = float(r.get("steady_mass_residual", meta.get("steady_mass_residual", 0.0)))
+
+        p_drift = r.get("pre_shut_drift", meta.get("pre_shut_drift", None))
+        if p_drift is None:
+            ts = float(meta.get("pump_shut_time", 1.0))
+            m_pre = np.asarray(valid_results[i]["timestamps"]) <= ts
+            if np.any(m_pre):
+                wh_p = np.asarray(valid_results[i]["wellhead_head"])[m_pre]
+                p_drift = float(np.max(np.abs(wh_p - wh_p[0])))
+            else:
+                p_drift = 0.0
+        pre_shut_drift_arr[i] = float(p_drift)
 
     # 写入 HDF5
     str_dtype = h5py.string_dtype(encoding="utf-8")
@@ -220,7 +248,9 @@ def save_hdf5_dataset(
         grp_lab.create_dataset("fracture_positions", data=pos_matrix, **comp_kwargs)
         grp_lab.create_dataset("fracture_Cf", data=cf_matrix, **comp_kwargs)
         grp_lab.create_dataset("fracture_kleak", data=kleak_matrix, **comp_kwargs)
-        grp_lab.create_dataset("fracture_weights", data=weights_matrix, **comp_kwargs)
+        grp_lab.create_dataset("fracture_alpha_ss", data=alpha_matrix, **comp_kwargs)
+        grp_lab.create_dataset("fracture_Q_ss", data=q_matrix, **comp_kwargs)
+        grp_lab.create_dataset("fracture_weights", data=alpha_matrix, **comp_kwargs)  # 兼容层
         grp_lab.create_dataset("fracture_Kp", data=kp_matrix, **comp_kwargs)
         grp_lab.create_dataset("fracture_type_ids", data=type_ids_matrix, **comp_kwargs)
         grp_lab.create_dataset("fracture_types", data=np.array(type_names_list, dtype=object), dtype=str_dtype, **comp_kwargs)
@@ -229,10 +259,16 @@ def save_hdf5_dataset(
         grp_lab.create_dataset("H_ext", data=hext_arr)
         grp_lab.create_dataset("initial_velocity", data=v0_arr)
         grp_lab.create_dataset("initial_head", data=h0_arr)
+        grp_lab.create_dataset("initial_head_realized", data=h0_realized_arr)
         grp_lab.create_dataset("has_fault", data=has_fault_arr)
         grp_lab.create_dataset("fault_cluster_idx", data=fault_idx_arr)
 
-        # 4. 元数据属性
+        # 4. 诊断量
+        grp_diag = h5.create_group("diagnostics")
+        grp_diag.create_dataset("steady_mass_residual", data=mass_residual_arr)
+        grp_diag.create_dataset("pre_shut_drift", data=pre_shut_drift_arr)
+
+        # 5. 元数据属性
         h5.attrs["n_samples"] = n_samples
         h5.attrs["format_version"] = "2.0-moc"
         h5.attrs["lightweight"] = not has_valid_features
@@ -355,6 +391,22 @@ class Hdf5StreamWriter:
                 **comp_kwargs,
             )
             grp_lab.create_dataset(
+                "fracture_alpha_ss",
+                shape=(0, self.max_frac_dim),
+                maxshape=(None, self.max_frac_dim),
+                chunks=(self.chunk_size, self.max_frac_dim),
+                dtype=np.float32,
+                **comp_kwargs,
+            )
+            grp_lab.create_dataset(
+                "fracture_Q_ss",
+                shape=(0, self.max_frac_dim),
+                maxshape=(None, self.max_frac_dim),
+                chunks=(self.chunk_size, self.max_frac_dim),
+                dtype=np.float32,
+                **comp_kwargs,
+            )
+            grp_lab.create_dataset(
                 "fracture_weights",
                 shape=(0, self.max_frac_dim),
                 maxshape=(None, self.max_frac_dim),
@@ -391,13 +443,110 @@ class Hdf5StreamWriter:
             grp_lab.create_dataset("H_ext", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
             grp_lab.create_dataset("initial_velocity", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
             grp_lab.create_dataset("initial_head", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
+            grp_lab.create_dataset("initial_head_realized", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
             grp_lab.create_dataset("has_fault", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.int32)
             grp_lab.create_dataset("fault_cluster_idx", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.int32)
 
-        # 4. 基础属性
+        # 4. diagnostics 组
+        if "diagnostics" not in self.h5:
+            grp_diag = self.h5.create_group("diagnostics")
+            grp_diag.create_dataset("steady_mass_residual", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
+            grp_diag.create_dataset("pre_shut_drift", shape=(0,), maxshape=(None,), chunks=(self.chunk_size,), dtype=np.float32)
+
+        self._ensure_label_schema(str_dtype, comp_kwargs)
+
+        # 5. 基础属性
         self.h5.attrs["format_version"] = "2.0-moc"
         self.h5.attrs["lightweight"] = not self.export_features
         self.h5.attrs["max_frac_dim"] = self.max_frac_dim
+
+    def _ensure_label_schema(self, str_dtype, comp_kwargs: Dict[str, Any]) -> None:
+        """逐项补齐空文件中的缺失标签，或拒绝已有样本的旧 schema。"""
+        required = [
+            "n_frac",
+            "fracture_positions",
+            "fracture_Cf",
+            "fracture_kleak",
+            "fracture_alpha_ss",
+            "fracture_Q_ss",
+            "fracture_weights",
+            "fracture_Kp",
+            "fracture_type_ids",
+            "fracture_types",
+            "pump_closure_tc",
+            "wavespeed",
+            "H_ext",
+            "initial_velocity",
+            "initial_head",
+            "initial_head_realized",
+            "has_fault",
+            "fault_cluster_idx",
+        ]
+        n_existing = 0
+        if "waveforms" in self.h5 and "wellhead_head" in self.h5["waveforms"]:
+            n_existing = int(self.h5["waveforms"]["wellhead_head"].shape[0])
+        if "labels" not in self.h5:
+            self.h5.create_group("labels")
+        grp_lab = self.h5["labels"]
+        missing = [name for name in required if name not in grp_lab]
+        if not missing:
+            return
+        if n_existing > 0:
+            raise ValueError(
+                f"HDF5 标签 schema 过旧：已有 {n_existing} 个样本，但缺失数据集 {missing}。"
+                "拒绝续写旧格式文件，请重新导出或离线迁移。"
+            )
+        vec_float = {
+            "fracture_positions", "fracture_Cf", "fracture_kleak",
+            "fracture_alpha_ss", "fracture_Q_ss", "fracture_weights", "fracture_Kp",
+        }
+        vec_int = {"fracture_type_ids"}
+        vec_str = {"fracture_types"}
+        scalar_int = {"n_frac", "has_fault", "fault_cluster_idx"}
+        for name in missing:
+            if name in vec_float:
+                grp_lab.create_dataset(
+                    name,
+                    shape=(0, self.max_frac_dim),
+                    maxshape=(None, self.max_frac_dim),
+                    chunks=(self.chunk_size, self.max_frac_dim),
+                    dtype=np.float32,
+                    **comp_kwargs,
+                )
+            elif name in vec_int:
+                grp_lab.create_dataset(
+                    name,
+                    shape=(0, self.max_frac_dim),
+                    maxshape=(None, self.max_frac_dim),
+                    chunks=(self.chunk_size, self.max_frac_dim),
+                    dtype=np.int32,
+                    **comp_kwargs,
+                )
+            elif name in vec_str:
+                grp_lab.create_dataset(
+                    name,
+                    shape=(0, self.max_frac_dim),
+                    maxshape=(None, self.max_frac_dim),
+                    chunks=(self.chunk_size, self.max_frac_dim),
+                    dtype=str_dtype,
+                    **comp_kwargs,
+                )
+            elif name in scalar_int:
+                grp_lab.create_dataset(
+                    name,
+                    shape=(0,),
+                    maxshape=(None,),
+                    chunks=(self.chunk_size,),
+                    dtype=np.int32,
+                )
+            else:
+                grp_lab.create_dataset(
+                    name,
+                    shape=(0,),
+                    maxshape=(None,),
+                    chunks=(self.chunk_size,),
+                    dtype=np.float32,
+                )
 
     def get_num_samples(self) -> int:
         """获取当前文件中已成功写入的样本数"""
@@ -431,7 +580,8 @@ class Hdf5StreamWriter:
         pos_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
         cf_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
         kleak_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
-        weights_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
+        alpha_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
+        q_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
         kp_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.float32)
         type_ids_batch = np.zeros((batch_n, self.max_frac_dim), dtype=np.int32)
         type_names_batch: List[List[str]] = [[""] * self.max_frac_dim for _ in range(batch_n)]
@@ -441,8 +591,11 @@ class Hdf5StreamWriter:
         hext_batch = np.zeros(batch_n, dtype=np.float32)
         v0_batch = np.zeros(batch_n, dtype=np.float32)
         h0_batch = np.zeros(batch_n, dtype=np.float32)
+        h0_realized_batch = np.zeros(batch_n, dtype=np.float32)
         has_fault_batch = np.zeros(batch_n, dtype=np.int32)
         fault_idx_batch = np.full(batch_n, -1, dtype=np.int32)
+        mass_residual_batch = np.zeros(batch_n, dtype=np.float32)
+        pre_shut_drift_batch = np.zeros(batch_n, dtype=np.float32)
 
         for i, r in enumerate(valid_results):
             wh_h = np.asarray(r["wellhead_head"], dtype=np.float32)
@@ -469,8 +622,17 @@ class Hdf5StreamWriter:
                     cf_batch[i, :nf] = np.asarray(meta["fracture_Cf"][:nf], dtype=np.float32)
                 if "fracture_kleak" in meta and meta["fracture_kleak"] is not None:
                     kleak_batch[i, :nf] = np.asarray(meta["fracture_kleak"][:nf], dtype=np.float32)
-                if "fracture_inflow_weights" in meta and meta["fracture_inflow_weights"] is not None:
-                    weights_batch[i, :nf] = np.asarray(meta["fracture_inflow_weights"][:nf], dtype=np.float32)
+
+                alpha_data = r.get("fracture_alpha_ss", meta.get("fracture_alpha_ss", meta.get("fracture_inflow_weights", [])))
+                if alpha_data is not None and len(alpha_data) > 0:
+                    nf_a = min(self.max_frac_dim, len(alpha_data))
+                    alpha_batch[i, :nf_a] = np.asarray(alpha_data[:nf_a], dtype=np.float32)
+
+                q_data = r.get("fracture_Q_ss", meta.get("fracture_Q_ss", []))
+                if q_data is not None and len(q_data) > 0:
+                    nf_q = min(self.max_frac_dim, len(q_data))
+                    q_batch[i, :nf_q] = np.asarray(q_data[:nf_q], dtype=np.float32)
+
                 if "fracture_Kp" in meta and meta["fracture_Kp"] is not None:
                     kp_batch[i, :nf] = np.asarray(meta["fracture_Kp"][:nf], dtype=np.float32)
 
@@ -484,8 +646,22 @@ class Hdf5StreamWriter:
             hext_batch[i] = float(meta.get("H_ext", 100.0))
             v0_batch[i] = float(meta.get("initial_velocity", 1.0))
             h0_batch[i] = float(meta.get("initial_head", 300.0))
+            h0_real = r.get("H0_realized", meta.get("H0_realized", meta.get("initial_head", 300.0)))
+            h0_realized_batch[i] = float(h0_real)
             has_fault_batch[i] = int(bool(meta.get("has_fault", False)))
             fault_idx_batch[i] = int(meta.get("fault_cluster_idx", -1))
+            mass_residual_batch[i] = float(r.get("steady_mass_residual", meta.get("steady_mass_residual", 0.0)))
+
+            p_drift = r.get("pre_shut_drift", meta.get("pre_shut_drift", None))
+            if p_drift is None:
+                ts = float(meta.get("pump_shut_time", 1.0))
+                m_pre = np.asarray(r["timestamps"]) <= ts
+                if np.any(m_pre):
+                    wh_p = np.asarray(r["wellhead_head"])[m_pre]
+                    p_drift = float(np.max(np.abs(wh_p - wh_p[0])))
+                else:
+                    p_drift = 0.0
+            pre_shut_drift_batch[i] = float(p_drift)
 
         # 扩展并填充数据集
         grp_wave = self.h5["waveforms"]
@@ -508,8 +684,12 @@ class Hdf5StreamWriter:
         grp_lab["fracture_Cf"][cur_n:new_n] = cf_batch
         grp_lab["fracture_kleak"].resize((new_n, self.max_frac_dim))
         grp_lab["fracture_kleak"][cur_n:new_n] = kleak_batch
+        grp_lab["fracture_alpha_ss"].resize((new_n, self.max_frac_dim))
+        grp_lab["fracture_alpha_ss"][cur_n:new_n] = alpha_batch
+        grp_lab["fracture_Q_ss"].resize((new_n, self.max_frac_dim))
+        grp_lab["fracture_Q_ss"][cur_n:new_n] = q_batch
         grp_lab["fracture_weights"].resize((new_n, self.max_frac_dim))
-        grp_lab["fracture_weights"][cur_n:new_n] = weights_batch
+        grp_lab["fracture_weights"][cur_n:new_n] = alpha_batch
         grp_lab["fracture_Kp"].resize((new_n, self.max_frac_dim))
         grp_lab["fracture_Kp"][cur_n:new_n] = kp_batch
         grp_lab["fracture_type_ids"].resize((new_n, self.max_frac_dim))
@@ -527,10 +707,19 @@ class Hdf5StreamWriter:
         grp_lab["initial_velocity"][cur_n:new_n] = v0_batch
         grp_lab["initial_head"].resize((new_n,))
         grp_lab["initial_head"][cur_n:new_n] = h0_batch
+        grp_lab["initial_head_realized"].resize((new_n,))
+        grp_lab["initial_head_realized"][cur_n:new_n] = h0_realized_batch
         grp_lab["has_fault"].resize((new_n,))
         grp_lab["has_fault"][cur_n:new_n] = has_fault_batch
         grp_lab["fault_cluster_idx"].resize((new_n,))
         grp_lab["fault_cluster_idx"][cur_n:new_n] = fault_idx_batch
+
+        if "diagnostics" in self.h5:
+            grp_diag = self.h5["diagnostics"]
+            grp_diag["steady_mass_residual"].resize((new_n,))
+            grp_diag["steady_mass_residual"][cur_n:new_n] = mass_residual_batch
+            grp_diag["pre_shut_drift"].resize((new_n,))
+            grp_diag["pre_shut_drift"][cur_n:new_n] = pre_shut_drift_batch
 
         self.h5.attrs["n_samples"] = new_n
         self.h5.flush()
@@ -569,6 +758,7 @@ def load_hdf5_dataset(file_path: str) -> Dict[str, Any]:
         "waveforms": {},
         "features": {},
         "labels": {},
+        "diagnostics": {},
         "metadata": {},
     }
 
@@ -580,7 +770,7 @@ def load_hdf5_dataset(file_path: str) -> Dict[str, Any]:
             else:
                 dataset["metadata"][k] = val
 
-        for grp_name in ("waveforms", "features", "labels"):
+        for grp_name in ("waveforms", "features", "labels", "diagnostics"):
             if grp_name in h5:
                 grp = h5[grp_name]
                 for ds_name in grp:

@@ -23,7 +23,9 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 import numpy as np
 
-from moc_simulate.common.constants import G
+from moc_simulate.common.constants import G, H0_MAX_WORKING
+from moc_simulate.v2.core.moc_mesh import MocGrid
+from moc_simulate.v2.core.initial_field import InfeasibleSteadyStateError, solve_physical_steady_state
 
 try:
     from scipy.stats import qmc
@@ -184,6 +186,10 @@ class LhsSamplingBounds:
     fault_cf_min: float = 0.005              # 断层簇储能顺应性维持中等
     fault_cf_max: float = 0.012
 
+    # 工程工作包络与拒绝采样
+    h0_max: float = H0_MAX_WORKING           # 井口最大工作水头 [m]
+    reject_attempts: int = 50                # 单样本内层拒绝采样最大次数
+
 
 class LatinHypercubeSampler:
     """工程物理对齐的 LHS 样本生成器与物理力学联动采样基座"""
@@ -213,12 +219,24 @@ class LatinHypercubeSampler:
         wellbore_d = 0.1397
         wellbore_area = float(np.pi * (wellbore_d ** 2) / 4.0)
 
-        for i in range(n_samples):
+        u_pool = [u[k] for k in range(n_samples)]
+        n_outer_budget = n_samples * 30
+        while len(samples) < n_samples:
+            n_outer_budget -= 1
+            if n_outer_budget < 0:
+                raise RuntimeError(
+                    f"无法在工程水头上限 H0_max={float(b.h0_max):.0f} m 内采满 {n_samples} 个"
+                    f"满足水头/α 对比度/质量守恒约束的样本。单样本内层 "
+                    f"{int(b.reject_attempts)} 次拒绝后已放弃该候选，禁止沿用未通过约束的最后一次结果。"
+                )
+            u_i = u_pool.pop(0) if u_pool else self.rng.random(8)
+            i = len(samples)
+
             # 1. 簇数
             n_frac = int(self.rng.integers(b.n_frac_min, b.n_frac_max + 1))
 
             # 2. 空间几何排布 (起始位置 + 间距)
-            x_start = float(b.x_start_min + u[i, 0] * (b.x_start_max - b.x_start_min))
+            x_start = float(b.x_start_min + u_i[0] * (b.x_start_max - b.x_start_min))
             positions = [x_start]
             cur_x = x_start
             for _ in range(n_frac - 1):
@@ -238,129 +256,191 @@ class LatinHypercubeSampler:
                     positions = [x_start + (p - x_start) * scale for p in positions]
 
             # 3. 关泵斜坡动力学
-            tc = float(b.tc_min + u[i, 2] * (b.tc_max - b.tc_min))
+            tc = float(b.tc_min + u_i[2] * (b.tc_max - b.tc_min))
             ramp_type = str(self.rng.choice(b.ramp_types))
 
             # 4. 地层基准水头与井筒流体物性
-            H_ext = float(b.hext_min + u[i, 6] * (b.hext_max - b.hext_min))
-            wavespeed = float(b.wavespeed_min + u[i, 7] * (b.wavespeed_max - b.wavespeed_min))
+            H_ext = float(b.hext_min + u_i[6] * (b.hext_max - b.hext_min))
+            wavespeed = float(b.wavespeed_min + u_i[7] * (b.wavespeed_max - b.wavespeed_min))
             v0 = float(self.rng.uniform(b.v0_min, b.v0_max))
             total_q = v0 * wellbore_area
 
-            # 5. 稳态多簇分流权重 (Dirichlet 分布)
-            alpha_dir = float(self.rng.choice([0.5, 1.0, 2.0]))
-            weights = self.rng.dirichlet(np.full(n_frac, alpha_dir)).tolist()
-            w_avg = 1.0 / float(n_frac)
-
-            # 6. 基准射孔与物性参数 (未受冲蚀基态)
+            # 5. 基准射孔与物性参数 (未受冲蚀基态)
             np_holes = int(self.rng.choice(b.np_holes_choices))
-            dp_base = float(b.dp_perf_min + u[i, 3] * (b.dp_perf_max - b.dp_perf_min))
-            cd_base = float(b.cd_perf_min + u[i, 4] * (b.cd_perf_max - b.cd_perf_min))
+            dp_base = float(b.dp_perf_min + u_i[3] * (b.dp_perf_max - b.dp_perf_min))
+            cd_base = float(b.cd_perf_min + u_i[4] * (b.cd_perf_max - b.cd_perf_min))
 
             # 基准顺应性与滤失系数
             if b.coupling_mode == "physical":
-                cf_base = float(b.cf_base_min + u[i, 1] * (b.cf_base_max - b.cf_base_min))
-                kleak_base = float(b.kleak_base_min + u[i, 5] * (b.kleak_base_max - b.kleak_base_min))
+                cf_base = float(b.cf_base_min + u_i[1] * (b.cf_base_max - b.cf_base_min))
+                kleak_base = float(b.kleak_base_min + u_i[5] * (b.kleak_base_max - b.kleak_base_min))
             else:
-                cf_log = float(np.log10(b.cf_min) + u[i, 1] * (np.log10(b.cf_max) - np.log10(b.cf_min)))
+                cf_log = float(np.log10(b.cf_min) + u_i[1] * (np.log10(b.cf_max) - np.log10(b.cf_min)))
                 cf_base = float(10.0 ** cf_log)
-                kleak_log = float(b.kleak_log_min + u[i, 5] * (b.kleak_log_max - b.kleak_log_min))
+                kleak_log = float(b.kleak_log_min + u_i[5] * (b.kleak_log_max - b.kleak_log_min))
                 kleak_base = float(10.0 ** kleak_log)
 
+            grid = MocGrid.create(L=5000.0, wavespeed=wavespeed, dt=0.001, tf=20.0)
+            frac_indices, sorted_pos, order = grid.map_fracture_positions(positions)
+
+            # 6. 拒绝采样循环：先正向采样物性，再前向求解流量并过滤退化工况
             cf_list: List[float] = []
             kleak_list: List[float] = []
             kp_list: List[float] = []
             dp_list: List[float] = []
             cd_list: List[float] = []
-            types_list: List[str] = []
-
-            # 7. Type V 天然断层沟通激活判定
             has_fault = False
             fault_cluster_idx = -1
-            if b.p_fault > 0.0 and self.rng.uniform(0.0, 1.0) < b.p_fault and n_frac >= 1:
-                # 倾向于在进液适中或偏高簇中激活断层 (w in [0.10, 0.40])
-                cands = [idx for idx, w in enumerate(weights) if 0.10 <= w <= 0.40]
-                if not cands:
-                    cands = list(range(n_frac))
-                fault_cluster_idx = int(self.rng.choice(cands))
-                has_fault = True
+            alpha_orig = np.zeros(n_frac, dtype=np.float64)
+            q_orig = np.zeros(n_frac, dtype=np.float64)
+            H0_realized = 300.0
+            mass_residual = 0.0
 
-            # 8. 计算各簇参数 (物理联动模式 vs 独立扰动模式)
-            if b.coupling_mode == "physical":
-                for j in range(n_frac):
-                    wj = weights[j]
-                    rj = wj / w_avg
-                    is_fault_cluster = (has_fault and j == fault_cluster_idx)
+            for attempt in range(int(b.reject_attempts)):
+                cf_list = []
+                kleak_list = []
+                kp_list = []
+                dp_list = []
+                cd_list = []
 
-                    if wj < b.screenout_w_threshold:
-                        # Type IV: 砂堵死簇
-                        cf_j = float(self.rng.uniform(0.0002, b.screenout_cf_max))
-                        kleak_j = float(self.rng.uniform(1.0e-6, b.screenout_kleak_max))
-                        dp_j = float(dp_base * 0.70)
-                        cd_j = float(cd_base * 0.80)
-                        kp_j = float(self.rng.uniform(b.screenout_kp_min, 1.0e8))
-                    elif is_fault_cluster:
-                        # Type V: 沟通天然断层/强微裂缝簇
-                        cf_norm = cf_base * (rj ** b.alpha_cf) * np.exp(float(self.rng.normal(0, b.sigma_cf)))
-                        cf_j = float(np.clip(cf_norm, b.fault_cf_min, b.fault_cf_max))
-                        # 强滤失：基质滤失的 5~10 倍
-                        mult = float(self.rng.uniform(b.fault_leak_multiplier_min, b.fault_leak_multiplier_max))
-                        kleak_norm = kleak_base * (rj ** b.beta_leak) * np.exp(float(self.rng.normal(0, b.sigma_leak)))
-                        kleak_j = float(np.clip(kleak_norm * mult, b.fault_kleak_min, b.fault_kleak_max))
-                        # 射孔适度冲蚀
-                        dp_j = float(dp_base * (1.0 + b.delta_erode * rj))
-                        cd_j = float(min(b.cd_max, cd_base + b.delta_cd * rj))
+                # Type V 天然断层沟通激活判定
+                has_fault = False
+                fault_cluster_idx = -1
+                if b.p_fault > 0.0 and self.rng.uniform(0.0, 1.0) < b.p_fault and n_frac >= 1:
+                    fault_cluster_idx = int(self.rng.integers(0, n_frac))
+                    has_fault = True
+
+                if b.coupling_mode == "physical":
+                    alpha_dir = float(self.rng.choice([0.5, 1.0, 2.0]))
+                    xi_arr = self.rng.dirichlet(np.full(n_frac, alpha_dir)) * float(n_frac)
+
+                    for j in range(n_frac):
+                        is_fault_cluster = (has_fault and j == fault_cluster_idx)
+                        rj = float(xi_arr[j])
+
+                        if rj < b.screenout_w_threshold * n_frac and n_frac > 1 and not is_fault_cluster:
+                            # Type IV: 砂堵死簇
+                            cf_j = float(self.rng.uniform(0.0002, b.screenout_cf_max))
+                            kleak_j = float(self.rng.uniform(1.0e-6, b.screenout_kleak_max))
+                            dp_j = float(dp_base * 0.70)
+                            cd_j = float(cd_base * 0.80)
+                            kp_j = float(self.rng.uniform(b.screenout_kp_min, 1.0e8))
+                        elif is_fault_cluster:
+                            # Type V: 沟通天然断层/强微裂缝簇
+                            cf_norm = cf_base * (rj ** b.alpha_cf) * np.exp(float(self.rng.normal(0, b.sigma_cf)))
+                            cf_j = float(np.clip(cf_norm, b.fault_cf_min, b.fault_cf_max))
+                            mult = float(self.rng.uniform(b.fault_leak_multiplier_min, b.fault_leak_multiplier_max))
+                            kleak_norm = kleak_base * (rj ** b.beta_leak) * np.exp(float(self.rng.normal(0, b.sigma_leak)))
+                            kleak_j = float(np.clip(kleak_norm * mult, b.fault_kleak_min, b.fault_kleak_max))
+                            dp_j = float(dp_base * (1.0 + b.delta_erode * rj))
+                            cd_j = float(min(b.cd_max, cd_base + b.delta_cd * rj))
+                            ap = np_holes * np.pi * (dp_j ** 2) / 4.0
+                            kp_j = float(1.0 / (2.0 * G * (cd_j ** 2) * (ap ** 2)))
+                        else:
+                            # 正常发育簇：Type I, II, III
+                            cf_j = float(cf_base * (rj ** b.alpha_cf) * np.exp(float(self.rng.normal(0, b.sigma_cf))))
+                            kleak_j = float(kleak_base * (rj ** b.beta_leak) * np.exp(float(self.rng.normal(0, b.sigma_leak))))
+                            dp_j = float(dp_base * (1.0 + b.delta_erode * rj))
+                            cd_j = float(min(b.cd_max, cd_base + b.delta_cd * rj))
+                            ap = np_holes * np.pi * (dp_j ** 2) / 4.0
+                            kp_j = float(1.0 / (2.0 * G * (cd_j ** 2) * (ap ** 2)))
+
+                        cf_list.append(cf_j)
+                        kleak_list.append(kleak_j)
+                        dp_list.append(dp_j)
+                        cd_list.append(cd_j)
+                        kp_list.append(kp_j)
+                else:
+                    for j in range(n_frac):
+                        is_fault_cluster = (has_fault and j == fault_cluster_idx)
+                        cf_j = float(cf_base * self.rng.uniform(0.8, 1.2))
+                        kleak_j = float(kleak_base * self.rng.uniform(0.8, 1.2))
+                        if is_fault_cluster:
+                            cf_j = float(np.clip(cf_j, b.fault_cf_min, b.fault_cf_max))
+                            mult = float(self.rng.uniform(b.fault_leak_multiplier_min, b.fault_leak_multiplier_max))
+                            kleak_j = float(np.clip(kleak_j * mult, b.fault_kleak_min, b.fault_kleak_max))
+                        dp_j = dp_base
+                        cd_j = cd_base
                         ap = np_holes * np.pi * (dp_j ** 2) / 4.0
                         kp_j = float(1.0 / (2.0 * G * (cd_j ** 2) * (ap ** 2)))
-                    else:
-                        # 正常发育簇：Type I, II, III (按 Dirichlet 进液量幂律联动)
-                        cf_j = float(cf_base * (rj ** b.alpha_cf) * np.exp(float(self.rng.normal(0, b.sigma_cf))))
-                        kleak_j = float(kleak_base * (rj ** b.beta_leak) * np.exp(float(self.rng.normal(0, b.sigma_leak))))
-                        dp_j = float(dp_base * (1.0 + b.delta_erode * rj))
-                        cd_j = float(min(b.cd_max, cd_base + b.delta_cd * rj))
-                        ap = np_holes * np.pi * (dp_j ** 2) / 4.0
-                        kp_j = float(1.0 / (2.0 * G * (cd_j ** 2) * (ap ** 2)))
 
-                    cf_list.append(cf_j)
-                    kleak_list.append(kleak_j)
-                    dp_list.append(dp_j)
-                    cd_list.append(cd_j)
-                    kp_list.append(kp_j)
+                        cf_list.append(cf_j)
+                        kleak_list.append(kleak_j)
+                        dp_list.append(dp_j)
+                        cd_list.append(cd_j)
+                        kp_list.append(kp_j)
 
-                    ftype = classify_fracture_type(wj, cf_j, kleak_j, kp_j, is_fault=is_fault_cluster)
-                    types_list.append(ftype)
+                # 正向物理稳态求解真实稳态分流 alpha_realized 与井口水头 H0_realized
+                kleak_arr = np.array([kleak_list[k] for k in order], dtype=np.float64)
+                kp_arr = np.array([kp_list[k] for k in order], dtype=np.float64)
+                try:
+                    (
+                        H0_realized,
+                        _,
+                        _,
+                        _,
+                        _,
+                        q_frac_ss,
+                        alpha_realized,
+                        mass_residual,
+                    ) = solve_physical_steady_state(
+                        L=5000.0,
+                        N=grid.N,
+                        dx=grid.dx,
+                        D=wellbore_d,
+                        area=wellbore_area,
+                        nu=1.0e-6,
+                        K_D=0.045e-3 / wellbore_d,
+                        V0=v0,
+                        g=G,
+                        toe_bc="dead_end",
+                        frac_indices=frac_indices,
+                        frac_kleak_arr=kleak_arr,
+                        frac_Kp_arr=kp_arr,
+                        sorted_pos=sorted_pos,
+                        H_ext=H_ext,
+                        H0_max=float(b.h0_max),
+                    )
+                except InfeasibleSteadyStateError:
+                    continue
+
+                # 恢复为原始输入顺序
+                alpha_orig = np.zeros(n_frac, dtype=np.float64)
+                q_orig = np.zeros(n_frac, dtype=np.float64)
+                for k, orig_idx in enumerate(order):
+                    alpha_orig[orig_idx] = alpha_realized[k]
+                    q_orig[orig_idx] = q_frac_ss[k]
+
+                # 拒绝采样检验：排除全砂堵死簇或全均匀无对比度退化工况
+                if n_frac >= 2:
+                    spread = float(np.max(alpha_orig) - np.min(alpha_orig))
+                    # 动态归一化阈值：标称 Nc=4 时对应 spread>=0.03, max>=0.08
+                    if spread < (0.12 / n_frac):
+                        continue
+                    if np.max(alpha_orig) < (0.32 / n_frac):
+                        continue
+                if mass_residual > 1.0e-6:
+                    continue
+                if H0_realized <= H_ext + 10.0:
+                    continue
+                if H0_realized > float(b.h0_max):
+                    continue
+
+                break
             else:
-                # 传统独立扰动模式 (保留向后兼容)
-                for j in range(n_frac):
-                    is_fault_cluster = (has_fault and j == fault_cluster_idx)
-                    cf_j = float(cf_base * self.rng.uniform(0.8, 1.2))
-                    kleak_j = float(kleak_base * self.rng.uniform(0.8, 1.2))
-                    if is_fault_cluster:
-                        cf_j = float(np.clip(cf_j, b.fault_cf_min, b.fault_cf_max))
-                        mult = float(self.rng.uniform(b.fault_leak_multiplier_min, b.fault_leak_multiplier_max))
-                        kleak_j = float(np.clip(kleak_j * mult, b.fault_kleak_min, b.fault_kleak_max))
-                    dp_j = dp_base
-                    cd_j = cd_base
-                    ap = np_holes * np.pi * (dp_j ** 2) / 4.0
-                    kp_j = float(1.0 / (2.0 * G * (cd_j ** 2) * (ap ** 2)))
+                continue
 
-                    cf_list.append(cf_j)
-                    kleak_list.append(kleak_j)
-                    dp_list.append(dp_j)
-                    cd_list.append(cd_j)
-                    kp_list.append(kp_j)
-                    types_list.append(classify_fracture_type(weights[j], cf_j, kleak_j, kp_j, is_fault=is_fault_cluster))
-
-            # 9. 物理自洽计算所需的初始井口水头 H0
-            # 必须保证稳态裂缝水头 H_frac_ss = H_well_ss - dH_perf_ss > H_ext
-            dh_perf_max = 0.0
-            for j in range(n_frac):
-                qj = total_q * weights[j]
-                dh_perf_j = kp_list[j] * (qj ** 2)
-                if dh_perf_j > dh_perf_max:
-                    dh_perf_max = dh_perf_j
-
-            initial_head = float(max(300.0, H_ext + dh_perf_max + 100.0))
+            # 7. 根据正向求解得到的真实 alpha 计算裂缝类型
+            types_list = [
+                classify_fracture_type(
+                    alpha_orig[j],
+                    cf_list[j],
+                    kleak_list[j],
+                    kp_list[j],
+                    is_fault=(has_fault and j == fault_cluster_idx),
+                )
+                for j in range(n_frac)
+            ]
 
             samples.append({
                 "sample_id": i,
@@ -368,7 +448,6 @@ class LatinHypercubeSampler:
                 "fracture_positions": positions,
                 "fracture_Cf": cf_list,
                 "fracture_kleak": kleak_list,
-                "fracture_inflow_weights": weights,
                 "fracture_Kp": kp_list,
                 "fracture_dp": dp_list,
                 "fracture_cd": cd_list,
@@ -381,7 +460,11 @@ class LatinHypercubeSampler:
                 "perf_diameter": dp_base,
                 "perf_cd": cd_base,
                 "H_ext": H_ext,
-                "initial_head": initial_head,
+                "initial_head": H0_realized,
+                "H0_realized": H0_realized,
+                "fracture_alpha_ss": alpha_orig.tolist(),
+                "fracture_Q_ss": q_orig.tolist(),
+                "steady_mass_residual": mass_residual,
                 "wavespeed": wavespeed,
                 "initial_velocity": v0,
             })
@@ -616,14 +699,54 @@ def sample_preset_scenario(
             "'fault_leaking' (沟通断层强漏失型)。"
         )
 
-    # 计算自洽初始井口水头
-    dh_perf_max = 0.0
-    for j in range(n_frac):
-        qj = total_q * weights[j]
-        dh_perf_j = kp_list[j] * (qj ** 2)
-        if dh_perf_j > dh_perf_max:
-            dh_perf_max = dh_perf_j
-    initial_head = float(max(300.0, H_ext + dh_perf_max + 100.0))
+    # 前向物理稳态求解真实井口水头 H0* 与流量分布
+    grid = MocGrid.create(L=wellbore_length, wavespeed=wavespeed, dt=dt, tf=tf)
+    frac_indices, sorted_pos, order = grid.map_fracture_positions(positions)
+    (
+        H0_realized,
+        _,
+        _,
+        _,
+        _,
+        q_frac_ss,
+        alpha_realized,
+        mass_residual,
+    ) = solve_physical_steady_state(
+        L=wellbore_length,
+        N=grid.N,
+        dx=grid.dx,
+        D=wellbore_d,
+        area=wellbore_area,
+        nu=1.0e-6,
+        K_D=0.045e-3 / wellbore_d,
+        V0=v0,
+        g=G,
+        toe_bc="dead_end",
+        frac_indices=frac_indices,
+        frac_kleak_arr=np.array([kleak_list[k] for k in order], dtype=np.float64),
+        frac_Kp_arr=np.array([kp_list[k] for k in order], dtype=np.float64),
+        sorted_pos=sorted_pos,
+        H_ext=H_ext,
+        H0_max=np.inf,
+    )
+
+    alpha_orig = np.zeros(n_frac, dtype=np.float64)
+    q_orig = np.zeros(n_frac, dtype=np.float64)
+    for k, orig_idx in enumerate(order):
+        alpha_orig[orig_idx] = alpha_realized[k]
+        q_orig[orig_idx] = q_frac_ss[k]
+
+    # 根据真实稳态分流更新分类标签
+    types_list = [
+        classify_fracture_type(
+            alpha_orig[j],
+            cf_list[j],
+            kleak_list[j],
+            kp_list[j],
+            is_fault=(has_fault and j == fault_cluster_idx),
+        )
+        for j in range(n_frac)
+    ]
 
     scenario_dict = {
         "sample_id": 0,
@@ -632,7 +755,8 @@ def sample_preset_scenario(
         "fracture_positions": positions,
         "fracture_Cf": cf_list,
         "fracture_kleak": kleak_list,
-        "fracture_inflow_weights": weights,
+        "fracture_alpha_ss": alpha_orig.tolist(),
+        "fracture_Q_ss": q_orig.tolist(),
         "fracture_Kp": kp_list,
         "fracture_dp": dp_list,
         "fracture_cd": cd_list,
@@ -648,7 +772,9 @@ def sample_preset_scenario(
         "perf_diameter": dp_list[0],
         "perf_cd": cd_list[0],
         "H_ext": H_ext,
-        "initial_head": initial_head,
+        "initial_head": H0_realized,
+        "H0_realized": H0_realized,
+        "steady_mass_residual": mass_residual,
         "dt": dt,
         "tf": tf,
     }

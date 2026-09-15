@@ -351,3 +351,82 @@ class TestHdf5StreamWriter:
             assert loaded["labels"]["fracture_type_ids"][0, 1] == 2
             assert loaded["labels"]["fracture_type_ids"][3, 0] == 1
             assert loaded["labels"]["fracture_type_ids"][3, 1] == 0
+
+    def test_stream_writer_rejects_populated_old_schema(self):
+        import h5py
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "old_schema.h5")
+            with h5py.File(file_path, "w") as f:
+                g = f.create_group("waveforms")
+                g.create_dataset(
+                    "wellhead_head",
+                    data=np.zeros((1, 10), dtype=np.float32),
+                    maxshape=(None, 10),
+                )
+                g.create_dataset(
+                    "wellhead_velocity",
+                    data=np.zeros((1, 10), dtype=np.float32),
+                    maxshape=(None, 10),
+                )
+                lab = f.create_group("labels")
+                lab.create_dataset("n_frac", data=np.array([1], dtype=np.int32), maxshape=(None,))
+                lab.create_dataset(
+                    "fracture_positions",
+                    data=np.zeros((1, 6), dtype=np.float32),
+                    maxshape=(None, 6),
+                )
+            with pytest.raises(ValueError, match="schema 过旧"):
+                Hdf5StreamWriter(file_path=file_path, n_time=10, max_frac_dim=6)
+
+    def test_stream_writer_migrates_empty_old_schema(self):
+        import h5py
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "old_empty.h5")
+            n_time = 20
+            with h5py.File(file_path, "w") as f:
+                g = f.create_group("waveforms")
+                g.create_dataset(
+                    "wellhead_head",
+                    shape=(0, n_time),
+                    maxshape=(None, n_time),
+                    dtype=np.float32,
+                )
+                g.create_dataset(
+                    "wellhead_velocity",
+                    shape=(0, n_time),
+                    maxshape=(None, n_time),
+                    dtype=np.float32,
+                )
+                lab = f.create_group("labels")
+                lab.create_dataset("n_frac", shape=(0,), maxshape=(None,), dtype=np.int32)
+                lab.create_dataset(
+                    "fracture_positions",
+                    shape=(0, 6),
+                    maxshape=(None, 6),
+                    dtype=np.float32,
+                )
+            writer = Hdf5StreamWriter(file_path=file_path, n_time=n_time, max_frac_dim=6)
+            ts = np.linspace(0.0, 0.02, n_time, dtype=np.float32)
+            n = writer.append_batch([{
+                "sample_id": 0,
+                "status": "success",
+                "timestamps": ts,
+                "wellhead_head": np.full(n_time, 310.0, dtype=np.float32),
+                "wellhead_velocity": np.ones(n_time, dtype=np.float32),
+                "fracture_alpha_ss": [1.0],
+                "fracture_Q_ss": [0.01],
+                "sample_meta": {
+                    "fracture_positions": [4100.0],
+                    "fracture_Cf": [0.01],
+                    "fracture_kleak": [1e-4],
+                    "fracture_Kp": [3e5],
+                    "fracture_types": ["Type II: 均衡/正常发育簇"],
+                    "pump_closure_duration": 0.05,
+                    "wavespeed": 1450.0,
+                    "H_ext": 100.0,
+                },
+            }])
+            assert n == 1
+            writer.close()

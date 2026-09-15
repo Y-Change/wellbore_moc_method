@@ -12,7 +12,7 @@ MOC_V2 生产级水锤动力学主求解器 (WellboreMocV2Solver 与便捷函数
 """
 from __future__ import annotations
 
-from typing import Callable, Dict, List, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 import numpy as np
 
 from moc_simulate.common.constants import G
@@ -25,13 +25,19 @@ from moc_simulate.v2.core.friction import (
     brunone_k_vec,
     brunone_friction_Ju,
 )
-from moc_simulate.v2.core.initial_field import compute_steady_state_field
+from moc_simulate.v2.core.initial_field import (
+    compute_steady_state_field,
+    solve_physical_steady_state,
+)
 from moc_simulate.v2.core.fracture_node import solve_fracture_node_v2
 from moc_simulate.v2.core.boundary_condition import (
     compute_ramp_velocity,
     apply_wellhead_bc,
     apply_toe_bc,
 )
+
+STEADY_MODE_PHYSICAL = "physical_flow_control"
+STEADY_MODE_LEGACY = "prescribed_flow_split_legacy"
 
 
 def ensure_v2_config(cfg: Any) -> MocV2Config:
@@ -66,6 +72,41 @@ def ensure_v2_config(cfg: Any) -> MocV2Config:
     return MocV2Config(**kwargs)
 
 
+def resolve_steady_mode(
+    requested: Optional[str],
+    user_specified_weights: bool,
+    user_specified_kleak: bool,
+) -> str:
+    """
+    解析稳态求解模式。
+
+    迁移策略:
+    - 未指定 mode 且只给了人为权重 → 自动走历史分流模式 (兼容旧 V2 调用)
+    - 未指定 mode 且只给了 kleak / 两者都未给 → 正向物理模式
+    - 未指定 mode 却同时给了 kleak 与权重 → 拒绝，要求显式选择
+    - 显式 physical 时仍禁止混用权重
+    """
+    if requested is None:
+        if user_specified_weights and user_specified_kleak:
+            raise ValueError(
+                "同时传入 fracture_inflow_weights 与 fracture_kleak 时必须显式指定 "
+                "steady_mode='physical_flow_control'（忽略人为权重，仅用滤失正向求解）"
+                " 或 steady_mode='prescribed_flow_split_legacy'（按人为分流校准滤失）。"
+                " 禁止依赖默认值静默选择，以免历史脚本与新物理模式混用。"
+            )
+        if user_specified_weights:
+            return STEADY_MODE_LEGACY
+        return STEADY_MODE_PHYSICAL
+
+    mode = str(requested).strip()
+    if mode not in (STEADY_MODE_PHYSICAL, STEADY_MODE_LEGACY):
+        raise ValueError(
+            f"未知的稳态求解模式: '{requested}'。支持 '{STEADY_MODE_PHYSICAL}' (默认正向物理模式) "
+            f"与 '{STEADY_MODE_LEGACY}' (历史强制分流模式)。"
+        )
+    return mode
+
+
 class WellboreMocV2Solver:
     """MOC_V2 面向对象瞬变流求解器"""
 
@@ -86,6 +127,7 @@ class WellboreMocV2Solver:
         store_full_field: Optional[bool] = None,
         snapshot_times: Optional[Sequence[float]] = None,
         fracture_Rp: Optional[Sequence[float]] = None,
+        steady_mode: Optional[str] = None,
         **kwargs,
     ):
         self.cfg = ensure_v2_config(cfg)
@@ -135,40 +177,91 @@ class WellboreMocV2Solver:
             fracture_perf_cd=fracture_perf_cd,
         )
 
-        # 3. 计算稳态自洽场
-        (
-            self.H_init,
-            self.V_init,
-            self.H_frac_ss,
-            self.dH_perf_ss,
-            self.q_frac_ss,
-            calibrated_kleak_arr,
-        ) = compute_steady_state_field(
-            L=cfg.wellbore_length,
-            N=self.N,
-            dx=self.dx,
-            D=self.D,
-            area=self.area,
-            nu=self.nu,
-            K_D=self.K_D,
-            V0=cfg.initial_velocity,
-            H0=cfg.initial_head,
-            g=self.g,
-            toe_bc=cfg.toe_bc,
-            frac_indices=self.frac_indices,
-            w_arr=self.w_arr,
-            frac_Kp_arr=self.frac_Kp_arr,
-            sorted_pos=self.sorted_pos,
-            H_ext=self.H_ext,
-            raw_kleak_arr=self.raw_kleak_arr,
+        self.steady_mode = resolve_steady_mode(
+            requested=steady_mode,
+            user_specified_weights=self.user_specified_weights,
+            user_specified_kleak=self.user_specified_kleak,
         )
 
-        # 若调用方显式指定了裂缝滤失系数 (如 Type V 天然断层强滤失)，则物理仿真必须真实采用该设定值；
-        # 若未指定，则继承自洽校准滤失以维持与原 Step 4 纯数值稳态的逐位对标
-        if self.user_specified_kleak:
-            self.frac_kleak_arr = self.raw_kleak_arr
+        if self.steady_mode == STEADY_MODE_PHYSICAL:
+            if self.user_specified_weights and self.user_specified_kleak:
+                raise ValueError(
+                    "不可同时指定人为分流权重 (fracture_inflow_weights) 与物理滤失系数 (fracture_kleak)。"
+                    "人为指定流量分配与独立采样地层滤失属于互斥的稳态控制边界，严防非物理矛盾混用。"
+                )
+
+            if self.user_specified_weights:
+                raise ValueError(
+                    "在正向物理生产模式 'physical_flow_control' 下，各簇流量分流由地质工程物性正向确定，"
+                    "禁止显式传入人为分流权重 'fracture_inflow_weights'。如需复现历史人为分流工况，"
+                    "请显式指定 steady_mode='prescribed_flow_split_legacy'。"
+                )
+
+        # 3. 计算稳态自洽场
+        if self.steady_mode == STEADY_MODE_PHYSICAL:
+            self.frac_kleak_arr = self.raw_kleak_arr.copy()
+            (
+                self.H0_realized,
+                self.H_init,
+                self.V_init,
+                self.H_frac_ss,
+                self.dH_perf_ss,
+                self.q_frac_ss,
+                self.frac_alpha_ss,
+                self.steady_mass_residual,
+            ) = solve_physical_steady_state(
+                L=self.cfg.wellbore_length,
+                N=self.N,
+                dx=self.dx,
+                D=self.D,
+                area=self.area,
+                nu=self.nu,
+                K_D=self.K_D,
+                V0=self.cfg.initial_velocity,
+                g=self.g,
+                toe_bc=self.cfg.toe_bc,
+                frac_indices=self.frac_indices,
+                frac_kleak_arr=self.frac_kleak_arr,
+                frac_Kp_arr=self.frac_Kp_arr,
+                sorted_pos=self.sorted_pos,
+                H_ext=self.H_ext,
+                H0_guess=self.cfg.initial_head,
+            )
+            self.cfg.initial_head = self.H0_realized
         else:
+            (
+                self.H_init,
+                self.V_init,
+                self.H_frac_ss,
+                self.dH_perf_ss,
+                self.q_frac_ss,
+                calibrated_kleak_arr,
+            ) = compute_steady_state_field(
+                L=self.cfg.wellbore_length,
+                N=self.N,
+                dx=self.dx,
+                D=self.D,
+                area=self.area,
+                nu=self.nu,
+                K_D=self.K_D,
+                V0=self.cfg.initial_velocity,
+                H0=self.cfg.initial_head,
+                g=self.g,
+                toe_bc=self.cfg.toe_bc,
+                frac_indices=self.frac_indices,
+                w_arr=self.w_arr,
+                frac_Kp_arr=self.frac_Kp_arr,
+                sorted_pos=self.sorted_pos,
+                H_ext=self.H_ext,
+                raw_kleak_arr=self.raw_kleak_arr,
+            )
+            self.H0_realized = float(self.cfg.initial_head)
             self.frac_kleak_arr = calibrated_kleak_arr
+            Q_in = float(self.cfg.initial_velocity * self.area)
+            self.frac_alpha_ss = self.q_frac_ss / Q_in if Q_in > 0 else self.w_arr.copy()
+            self.steady_mass_residual = (
+                float(abs(Q_in - np.sum(self.q_frac_ss)) / Q_in) if Q_in > 0 else 0.0
+            )
 
     def _setup_fractures(
         self,
@@ -192,14 +285,21 @@ class WellboreMocV2Solver:
         raw_cd: Optional[List[float]] = None
 
         self.user_specified_kleak = False
+        self.user_specified_weights = False
+        if fracture_inflow_weights is not None:
+            self.user_specified_weights = True
+
         if fractures is not None and len(fractures) > 0:
             for f in fractures:
                 if isinstance(f, FractureConfig):
                     raw_pos.append(f.position)
                     raw_Cf.append(f.compliance)
                     raw_kleak.append(f.leakoff_coef)
-                    self.user_specified_kleak = True
+                    if f.leakoff_coef != 1.0e-4:
+                        self.user_specified_kleak = True
                     raw_w.append(f.inflow_weight)
+                    if f.inflow_weight != 1.0:
+                        self.user_specified_weights = True
                     if f.perforation is not None:
                         kp = f.perforation.compute_Kp(self.g)
                     else:
@@ -213,6 +313,8 @@ class WellboreMocV2Solver:
                     if "leakoff_coef" in f or "kleak" in f:
                         self.user_specified_kleak = True
                     raw_kleak.append(float(f.get("leakoff_coef", f.get("kleak", 1.0e-4))))
+                    if "inflow_weight" in f or "weight" in f:
+                        self.user_specified_weights = True
                     raw_w.append(float(f.get("inflow_weight", f.get("weight", 1.0))))
                     if raw_Kp is None:
                         raw_Kp = []
@@ -393,11 +495,12 @@ class WellboreMocV2Solver:
             V2 = V_prev_left[2:]
             H2 = H_prev[2:]
 
-            if use_quasi:
+            if self.steady_mode != "prescribed_flow_split_legacy" or use_quasi:
                 Re1 = reynolds(V1, D, nu)
                 Re2 = reynolds(V2, D, nu)
-                f1 = darcy_friction_factor(Re1, K_D, "quasi-steady")
-                f2 = darcy_friction_factor(Re2, K_D, "quasi-steady")
+                f_mode = "quasi-steady" if use_quasi else "steady"
+                f1 = darcy_friction_factor(Re1, K_D, f_mode)
+                f2 = darcy_friction_factor(Re2, K_D, f_mode)
                 J1 = friction_term_J(f1, D, V1, dt)
                 J2 = friction_term_J(f2, D, V2, dt)
             else:
@@ -571,6 +674,13 @@ class WellboreMocV2Solver:
             "velocity": full_vel_field,
             "head_field": full_head_field,
             "velocity_field": full_vel_field,
+            "H0_realized": self.H0_realized,
+            "q_frac_ss": self.q_frac_ss,
+            "fracture_alpha_ss": self.frac_alpha_ss,
+            "steady_mass_residual": self.steady_mass_residual,
+            "fracture_inflow_weights": self.frac_alpha_ss,
+            "fracture_weights": self.frac_alpha_ss,
+            "steady_mode": self.steady_mode,
         }
         if snapshots:
             res["snapshots"] = snapshots
@@ -595,6 +705,7 @@ def simulate_v2(
     store_full_field: Optional[bool] = None,
     snapshot_times: Optional[Sequence[float]] = None,
     fracture_Rp: Optional[Sequence[float]] = None,
+    steady_mode: Optional[str] = None,
     **kwargs,
 ) -> Dict[str, Any]:
     """
@@ -617,6 +728,7 @@ def simulate_v2(
         store_full_field=store_full_field,
         snapshot_times=snapshot_times,
         fracture_Rp=fracture_Rp,
+        steady_mode=steady_mode,
         **kwargs,
     )
     return solver.solve(progress_callback=progress_callback)

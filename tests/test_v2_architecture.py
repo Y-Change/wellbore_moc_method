@@ -135,6 +135,7 @@ class TestMocV2PhysicsEngines:
             fracture_positions=x_f,
             fracture_inflow_weights=weights,
             H_ext=100.0,
+            steady_mode="prescribed_flow_split_legacy",
         )
 
         # 1. 质量守恒：各簇稳态进液量之和等于总泵注量
@@ -272,6 +273,7 @@ class TestMocV2QuadConsistencyWithStep4:
             fracture_positions=x_f,
             fracture_Cf=Cf_list,
             H_ext=H_ext,
+            steady_mode="prescribed_flow_split_legacy",
         )
 
         # 3. 逐点浮点误差比对 (要求 max error < 1e-10)
@@ -561,7 +563,7 @@ class TestMocV2TypeVAndPhysicalCoupledSampler:
         samples = sampler.sample(n_samples=5)
 
         for s in samples:
-            weights = s["fracture_inflow_weights"]
+            weights = s.get("fracture_alpha_ss", s.get("fracture_inflow_weights"))
             cfs = s["fracture_Cf"]
             kleaks = s["fracture_kleak"]
             dps = s["fracture_dp"]
@@ -617,7 +619,8 @@ class TestMocV2TypeVAndPhysicalCoupledSampler:
         preset = sample_preset_scenario("screenout_dead")
         assert preset["n_frac"] == 4
         # 第 3 簇 (idx=2) 砂堵
-        assert preset["fracture_inflow_weights"][2] <= 0.02
+        alpha_val = preset.get("fracture_alpha_ss", preset.get("fracture_inflow_weights"))
+        assert alpha_val[2] <= 0.02
         assert preset["fracture_Cf"][2] < 0.001
         assert preset["fracture_kleak"][2] < 0.1e-4
         assert preset["fracture_Kp"][2] >= 5.0e7
@@ -714,7 +717,8 @@ class TestMocV2TypeVAndPhysicalCoupledSampler:
                 assert len(res["fracture_kleak"]) == nf
                 assert len(res["fracture_Kp"]) == nf
                 assert len(res["fracture_types"]) == nf
-                assert np.isclose(sum(res["fracture_inflow_weights"]), 1.0, atol=1e-6)
+                alpha = res.get("fracture_alpha_ss", res.get("fracture_inflow_weights"))
+                assert np.isclose(sum(alpha), 1.0, atol=1e-6)
 
                 if sc == "screenout_dead":
                     if nf == 1:
@@ -732,11 +736,11 @@ class TestMocV2TypeVAndPhysicalCoupledSampler:
                     assert res["fracture_kleak"][f_idx] >= 5.0e-4
 
                 if sc == "heel_dominant" and nf >= 2:
-                    assert res["fracture_inflow_weights"][0] > res["fracture_inflow_weights"][-1]
+                    assert alpha[0] > alpha[-1]
                     assert res["fracture_Cf"][0] > res["fracture_Cf"][-1]
 
                 if sc == "toe_dominant" and nf >= 2:
-                    assert res["fracture_inflow_weights"][-1] > res["fracture_inflow_weights"][0]
+                    assert alpha[-1] > alpha[0]
                     assert res["fracture_Cf"][-1] > res["fracture_Cf"][0]
 
     def test_lhs_sampler_single_cluster_fault_and_independent_mode(self):
@@ -775,6 +779,7 @@ class TestMocV2TypeVAndPhysicalCoupledSampler:
         solver_default = WellboreMocV2Solver(
             cfg=cfg,
             fracture_positions=[4100.0, 4120.0, 4140.0, 4160.0],
+            steady_mode="prescribed_flow_split_legacy",
         )
         assert not np.allclose(solver_default.frac_kleak_arr, [1.0e-4] * 4)
         assert len(solver_default.frac_kleak_arr) == 4

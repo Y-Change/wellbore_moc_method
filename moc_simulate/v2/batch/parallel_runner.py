@@ -39,15 +39,29 @@ def _run_single_simulation(sample: Dict[str, Any]) -> Dict[str, Any]:
             perf_cd=float(sample.get("perf_cd", 0.65)),
         )
 
-        sim_res = simulate_v2(
+        steady_mode = sample.get("steady_mode", "physical_flow_control")
+        sim_kwargs = dict(
             cfg=cfg,
+            fractures=sample.get("fractures"),
             fracture_positions=sample.get("fracture_positions"),
             fracture_Cf=sample.get("fracture_Cf"),
             fracture_kleak=sample.get("fracture_kleak"),
-            fracture_inflow_weights=sample.get("fracture_inflow_weights"),
             fracture_Kp=sample.get("fracture_Kp"),
             H_ext=float(sample.get("H_ext", 100.0)),
+            steady_mode=steady_mode,
         )
+        if steady_mode == "prescribed_flow_split_legacy":
+            sim_kwargs["fracture_inflow_weights"] = sample.get("fracture_inflow_weights")
+
+        sim_res = simulate_v2(**sim_kwargs)
+
+        # 计算关泵前零扰动最大水头漂移量 pre_shut_drift
+        mask_pre = sim_res["timestamps"] <= cfg.pump_shut_time
+        if np.any(mask_pre):
+            wh_pre = sim_res["wellhead_head"][mask_pre]
+            pre_shut_drift = float(np.max(np.abs(wh_pre - wh_pre[0])))
+        else:
+            pre_shut_drift = 0.0
 
         # 提取 1D 倒谱特征 (默认提取，轻量化模式下可通过 compute_cepstrum=False 跳过以节约算力)
         compute_ceps = bool(sample.get("compute_cepstrum", True))
@@ -66,6 +80,23 @@ def _run_single_simulation(sample: Dict[str, Any]) -> Dict[str, Any]:
             distances = None
 
         is_lightweight = bool(sample.get("lightweight", False))
+
+        # 更新 sample_meta
+        meta = dict(sample)
+        meta["H0_realized"] = sim_res["H0_realized"]
+        meta["fracture_alpha_ss"] = (
+            sim_res["fracture_alpha_ss"].tolist()
+            if hasattr(sim_res["fracture_alpha_ss"], "tolist")
+            else list(sim_res["fracture_alpha_ss"])
+        )
+        meta["fracture_Q_ss"] = (
+            sim_res["q_frac_ss"].tolist()
+            if hasattr(sim_res["q_frac_ss"], "tolist")
+            else list(sim_res["q_frac_ss"])
+        )
+        meta["steady_mass_residual"] = float(sim_res["steady_mass_residual"])
+        meta["pre_shut_drift"] = pre_shut_drift
+
         return {
             "sample_id": sample.get("sample_id", 0),
             "status": "success",
@@ -76,7 +107,12 @@ def _run_single_simulation(sample: Dict[str, Any]) -> Dict[str, Any]:
             "fracture_heads": None if is_lightweight else sim_res["fracture_heads"],
             "cepstrum": cepstrum,
             "distances": distances,
-            "sample_meta": sample,
+            "H0_realized": sim_res["H0_realized"],
+            "fracture_alpha_ss": meta["fracture_alpha_ss"],
+            "fracture_Q_ss": meta["fracture_Q_ss"],
+            "steady_mass_residual": meta["steady_mass_residual"],
+            "pre_shut_drift": pre_shut_drift,
+            "sample_meta": meta,
         }
     except Exception as e:
         return {

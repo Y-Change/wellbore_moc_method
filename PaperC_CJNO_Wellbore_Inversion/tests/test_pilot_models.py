@@ -4,8 +4,14 @@ Unit tests for PaperC models, loss functions, metrics, and pipeline.
 """
 import numpy as np
 import pytest
+import h5py
 import torch
-from PaperC_CJNO_Wellbore_Inversion.src.dataset import PilotInversionDataset
+from PaperC_CJNO_Wellbore_Inversion.src.dataset import (
+    PilotInversionDataset,
+    fingerprint_h5_source,
+    feature_cache_filename,
+)
+from moc_simulate.v2.batch.torch_dataset import split_dataset_indices
 from PaperC_CJNO_Wellbore_Inversion.src.models.resnet1d import ResNet1D
 from PaperC_CJNO_Wellbore_Inversion.src.models.fno1d import FNO1D
 from PaperC_CJNO_Wellbore_Inversion.src.models.deeponet import VanillaDeepONet
@@ -20,8 +26,11 @@ from PaperC_CJNO_Wellbore_Inversion.src.metrics import compute_inversion_metrics
 
 
 def test_dataset_and_models_pipeline():
-    dataset = PilotInversionDataset(split="val")
-    assert len(dataset) == 100
+    dataset = PilotInversionDataset(split="val", load_raw_wave=False)
+    with h5py.File(dataset.h5_path, "r") as f:
+        n_h5 = int(f["waveforms/wellhead_head"].shape[0])
+    expected_val = len(split_dataset_indices(n_h5, dataset.split_ratios, dataset.seed)["val"])
+    assert len(dataset) == expected_val
 
     loader = dataset.get_dataloader(batch_size=8, shuffle=False)
     batch = next(iter(loader))
@@ -200,3 +209,26 @@ def test_losses_edge_cases():
     l_w.backward()
     assert not torch.isnan(l_w)
     assert abs(l_w.item()) < 1e-3
+
+
+def test_h5_fingerprint_and_cache_name_are_source_specific(tmp_path):
+    """缓存文件名必须包含 HDF5 指纹与样本数，两个不同源不得共用 cache_1k_*.npz。"""
+    def _write(path, n):
+        with h5py.File(path, "w") as f:
+            g = f.create_group("waveforms")
+            g.create_dataset("wellhead_head", data=np.zeros((n, 16), dtype=np.float32))
+
+    p1 = tmp_path / "a.h5"
+    p2 = tmp_path / "b.h5"
+    _write(p1, 10)
+    _write(p2, 100)
+    f1 = fingerprint_h5_source(str(p1))
+    f2 = fingerprint_h5_source(str(p2))
+    assert f1["n_samples"] == 10
+    assert f2["n_samples"] == 100
+    assert f1["digest"] != f2["digest"]
+    n1 = feature_cache_filename(str(tmp_path), 4096, 1024, 500, f1["digest"], f1["n_samples"])
+    n2 = feature_cache_filename(str(tmp_path), 4096, 1024, 500, f2["digest"], f2["n_samples"])
+    assert n1 != n2
+    assert f1["digest"] in n1 and n1.endswith("_n10.npz")
+    assert "cache_1k_" not in n1.replace("\\", "/").split("/")[-1]
