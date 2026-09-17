@@ -1,0 +1,35 @@
+{
+  "model_name": "train_mean",
+  "n_params": 0,
+  "train_time_sec": 0.08178544044494629,
+  "best_metrics": {
+    "m_alpha_w1_m": 9.136754751520431,
+    "m_alpha_w1_median_m": 7.4109448662944954,
+    "m_alpha_corr": 0.9483662658430394,
+    "active_precision": 0.8861111111111111,
+    "active_recall": 1.0,
+    "active_f1": 0.9396170839469808,
+    "active_tp": 319,
+    "active_fp": 41,
+    "active_fn": 0,
+    "active_logY_mae": 0.36529698967933655,
+    "active_alpha_mae": 0.11109165847301483,
+    "design_alpha_mae": 0.12167678773403168,
+    "alpha_r2_design": 0.5807028631357343,
+    "simplex_max_dev": 1.1920928955078125e-07,
+    "simplex_mean_dev": 3.33786012163273e-08,
+    "n_design": 360,
+    "n_active": 319,
+    "val_loss": 0.9263846965936514,
+    "select_score": 0.2431180110834278
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "val_loss": 0.9263846965936514,
+      "m_alpha_w1_m": 9.136754751520431,
+      "active_f1": 0.9396170839469808
+    }
+  ],
+  "weight_path": "PaperC_CJNO_Wellbore_Inversion/output/alpha_newa\\weights\\train_mean_best.pt"
+}

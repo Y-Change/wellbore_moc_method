@@ -1,0 +1,35 @@
+{
+  "model_name": "uniform",
+  "n_params": 0,
+  "train_time_sec": 0.06635475158691406,
+  "best_metrics": {
+    "m_alpha_w1_m": 9.10945717960462,
+    "m_alpha_w1_median_m": 7.200217073439695,
+    "m_alpha_corr": 0.9494701648075166,
+    "active_precision": 0.8861111111111111,
+    "active_recall": 1.0,
+    "active_f1": 0.9396170839469808,
+    "active_tp": 319,
+    "active_fp": 41,
+    "active_fn": 0,
+    "active_logY_mae": 6.551090240478516,
+    "active_alpha_mae": 0.11023762077093124,
+    "design_alpha_mae": 0.12102869898080826,
+    "alpha_r2_design": 0.5832273504056449,
+    "simplex_max_dev": 0.0,
+    "simplex_mean_dev": 0.0,
+    "n_design": 360,
+    "n_active": 319,
+    "val_loss": 3.605874410042396,
+    "select_score": 0.24257205964511155
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "val_loss": 3.605874410042396,
+      "m_alpha_w1_m": 9.10945717960462,
+      "active_f1": 0.9396170839469808
+    }
+  ],
+  "weight_path": "PaperC_CJNO_Wellbore_Inversion/output/alpha_newa\\weights\\uniform_best.pt"
+}

@@ -239,18 +239,25 @@ class AcousticBiasedTransformer(nn.Module):
         cluster_tokens: torch.Tensor,       # (B, M, d_model) 来自到时提取
         positions: torch.Tensor,            # (B, M) [m]
         norm_positions: torch.Tensor,       # (B, M) [0, 1]
-        cond: torch.Tensor,                 # (B, 3)
+        cond: torch.Tensor,                 # (B, cond_dim)
         mask: Optional[torch.Tensor] = None,# (B, M) bool
+        wavespeed: Optional[torch.Tensor] = None,  # (B,) or (B, 1) [m/s]
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         返回:
             h: (B, M, d_model) 解耦簇表征
             attn_maps: (B, n_layers, n_heads, M, M) 注意力热力图
+
+        wavespeed 若给定则直接用于声学距离偏置；否则回退到旧 Pilot
+        约定 cond[:, 1] = (a - 1450) / 20。
         """
         B, M, _ = cluster_tokens.shape
 
         # 1. 声速解算
-        wavespeed = cond[:, 1:2] * 20.0 + 1450.0 # (B, 1)
+        if wavespeed is None:
+            wavespeed = cond[:, 1:2] * 20.0 + 1450.0  # (B, 1)
+        else:
+            wavespeed = wavespeed.reshape(B, 1).to(dtype=cluster_tokens.dtype)
 
         # 2. 坐标编码与工况注入
         pos_feat = self.pos_proj(self.pos_embed(norm_positions.unsqueeze(-1))) # (B, M, d_model)

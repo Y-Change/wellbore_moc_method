@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import concurrent.futures
 import os
-import sys
 from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 
@@ -27,7 +26,7 @@ def _run_single_simulation(sample: Dict[str, Any]) -> Dict[str, Any]:
             wavespeed=float(sample.get("wavespeed", 1450.0)),
             friction_model=str(sample.get("friction_model", "brunone")),
             dt=float(sample.get("dt", 1.0e-3)),
-            tf=float(sample.get("tf", 20.0)),  # 批处理默认 20s 覆盖主要水击混响
+            tf=float(sample.get("tf", 100.0)),  # 批处理默认 20s 覆盖主要水击混响
             pump_shut_time=float(sample.get("pump_shut_time", 1.0)),
             pump_closure_duration=float(sample.get("pump_closure_duration", 1.0)),
             ramp_type=str(sample.get("ramp_type", "linear")),

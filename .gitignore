@@ -22,3 +22,17 @@ skills/
 
 # Local caches / temp
 .pytest_cache/
+
+# Local literature archive; GitHub rejects files over 100 MB
+research_ob/文献/水击泄露检测分析/水击泄露检测发展-调研资料.zip
+
+# HDF5 simulation datasets and derived waveform/cepstrum caches
+*.h5
+*.hdf5
+**/alpha_cache/
+data/datasets/moc_v2_lhs10_full_curves/case_*.csv
+
+# Local agent worktrees and junk files
+.claude/worktrees/
+**/Untitled
+

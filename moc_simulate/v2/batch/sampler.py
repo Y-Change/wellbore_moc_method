@@ -3,19 +3,18 @@
 moc_simulate.v2.batch.sampler
 
 基于真实工程地质与压裂工况范围的物理自洽拉丁超立方采样器 (Latin Hypercube Sampler, LHS)
-对齐技术报告 2.6.3 与 2.6.4 节现场参数分布与 5 大典型物理构型联动：
-- 裂缝空间位置 x_f in [1000, 4800] m，多簇间距 10 ~ 50 m
-- 地质流体顺应性 C_f in [0.005, 0.03] m^2 (真实地质储量反弹)
-- 限流射孔流阻 K_p in [1.5e5, 1.8e6] s^2/m^5 (Np in [4, 16], dp in [8, 14] mm)
-- 现场关泵斜坡历时 t_c in [0.3, 2.0] s (单流阀落座物理历程)
-- 地层滤失系数 k_leak in [1e-5, 1.5e-3] m^{2.5}/s 与地层孔隙水头 H_ext in [50, 200] m
-- 支持物理力学强联动模式 (coupling_mode="physical"):
-    C_f,j = C_f,base * (w_j / w_avg)^0.85 * exp(eps_Cf)
-    k_leak,j = k_leak,base * (w_j / w_avg)^0.70 * exp(eps_leak)
-    d_p,j = d_p,0 * (1 + delta_erode * w_j / w_avg) -> K_p,j = 1 / (2*g*Cd^2*Ap^2)
-- 支持按先验概率 p_fault 激活 Type V 沟通天然断层/强微裂缝簇 (k_leak 放大 5~10 倍至 5e-4~15e-4 m^{2.5}/s)
-- 支持 Type IV 砂堵死簇判定 (w_j < 0.04 -> C_f < 0.001, k_leak < 0.1e-4, K_p > 5e7)
-- 提供 sample_preset_scenario 一键式现场工况生成接口
+对齐技术报告 2.6.3 与 2.6.4 节（以本文件实现为准）：
+- 裂缝空间位置：首簇 x_start in [1000, 4500] m，多簇间距 10 ~ 50 m，末簇 <= 4850 m
+- 物理联动默认 coupling_mode="physical"：Dirichlet 潜变量 r_j（E[r_j]=1）写物性，
+  再由封闭趾端稳态正演 alpha_ss = q_j / Q_0；r_j 不是进液比
+    C_f,j = C_f,base * r_j^0.85 * exp(eps_Cf)
+    k_leak,j = k_leak,base * r_j^0.70 * exp(eps_leak)
+    d_p,j = d_p,0 * (1 + delta_erode * r_j) -> K_p,j = 1 / (2*g*Cd^2*Ap^2)
+- 稳态分流由 k_leak 与 K_p 决定，C_f 不进入稳态代数分流
+- Type V：先验 p_fault 激活，k_leak 放大 5~10 倍至 5e-4~15e-4 m^{2.5}/s
+- Type IV：r_j < 0.04*N_c（且 N_c>1）时硬截断 C_f < 0.001, k_leak < 0.1e-4, K_p > 5e7
+- 类型标签由 classify_fracture_type 按实现 alpha 后验判定，不是联合采样盒子
+- 提供 sample_preset_scenario 一键式现场工况生成接口（先装配物性再正演 alpha）
 """
 from __future__ import annotations
 
@@ -92,8 +91,8 @@ def classify_fracture_type(
     is_fault: bool = False,
 ) -> str:
     """
-    根据物理力学参数界定裂缝类型分类 (Type I ~ Type V)
-    判定优先级准则：
+    根据已实现的稳态分流比与物性后验界定裂缝类型 (Type I ~ Type V)。
+    不是按 FRACTURE_TYPE_SPECS 联合盒子装配。判定优先级：
     1. Type IV (砂堵死簇)：进液断流 (w < 0.04) 或流阻发散 (Kp >= 5.0e7) 或微小无缝 (Cf < 0.001)
     2. Type V (沟通天然断层)：显式断层标记 (is_fault=True) 或拟达西滤失异常放大 (kleak >= 4.5e-4 且非砂堵)
     3. Type I (优势发育簇)：高进液分流比 (w >= 0.35)
@@ -117,11 +116,11 @@ class LhsSamplingBounds:
     # 空间拓扑
     n_frac_min: int = 1
     n_frac_max: int = 6
-    x_start_min: float = 1000.0
-    x_start_max: float = 4500.0
+    x_start_min: float = 4500.0
+    x_start_max: float = 4900.0
     spacing_min: float = 10.0
     spacing_max: float = 50.0
-    x_max: float = 4850.0  # 末簇最深空间位置上限 (保留盲端死水区)
+    x_max: float = 4950.0  # 末簇最深空间位置上限 (保留盲端死水区)
 
     # 基准顺应性 Cf [m^2] (对数均匀)
     cf_min: float = 0.005
@@ -135,8 +134,8 @@ class LhsSamplingBounds:
     cd_perf_max: float = 0.75
 
     # 关泵斜坡动力学
-    tc_min: float = 0.3          # 0.3 s
-    tc_max: float = 2.0          # 2.0 s
+    tc_min: float = 0.001          # 0.3 s
+    tc_max: float = 0.1          # 2.0 s
     ramp_types: tuple = ("linear", "cosine")
 
     # 地层基准滤失与水头
@@ -160,15 +159,15 @@ class LhsSamplingBounds:
     kleak_base_min: float = 0.8e-4
     kleak_base_max: float = 1.4e-4
 
-    # 进液-顺应性与进液-滤失幂律指数
-    alpha_cf: float = 0.85        # Cf ~ (w/w_avg)^0.85
-    beta_leak: float = 0.70       # kleak ~ (w/w_avg)^0.70
+    # 相对发育指数 r_j 与顺应性/滤失的幂律（r_j 不是实现进液比）
+    alpha_cf: float = 0.85        # Cf ~ r_j^0.85
+    beta_leak: float = 0.70       # kleak ~ r_j^0.70
     sigma_cf: float = 0.10        # Cf 对数正态随机扰动标差
     sigma_leak: float = 0.15      # kleak 对数正态随机扰动标差
 
     # 射孔磨料冲蚀动力学参数
-    delta_erode: float = 0.15     # 孔径冲蚀扩径增量系数: dp = dp0 * (1 + delta_erode * w/w_avg)
-    delta_cd: float = 0.05        # 孔流系数冲蚀钝化增量: cd = min(cd_max, cd0 + delta_cd * w/w_avg)
+    delta_erode: float = 0.15     # 孔径冲蚀扩径增量系数: dp = dp0 * (1 + delta_erode * r_j)
+    delta_cd: float = 0.05        # 孔流系数冲蚀钝化增量: cd = min(cd_max, cd0 + delta_cd * r_j)
     cd_max: float = 0.82
 
     # Type IV 砂堵死簇判定与截断

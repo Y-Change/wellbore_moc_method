@@ -1,0 +1,380 @@
+{
+  "dataset": "moc_v2_lhs10_full_curves",
+  "n_samples": 10,
+  "seed": 42,
+  "tf_s": 20.0,
+  "dt_s": 0.001,
+  "n_time": 20001,
+  "steady_mode": "physical_flow_control",
+  "toe_bc": "dead_end",
+  "friction_model": "brunone",
+  "sampling": "LatinHypercubeSampler + LhsSamplingBounds (current defaults)",
+  "pressure_definition": "P = rho * g * H, relative head (no burial hydrostatic column)",
+  "locations": {
+    "wellhead": "x=0, P_wh and Q_wh = V_wh * A",
+    "fracture_internal": "cavity H_frac / P_frac and perforation inflow q_p",
+    "fracture_external": "wellbore-side H_well / P_well at the cluster node",
+    "toe": "x=L dead-end, P_toe and Q_toe ≈ 0"
+  },
+  "hdf5": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves.h5",
+  "overview_png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\overview_wellhead.png",
+  "wall_time_s": 23.72995662689209,
+  "cases": [
+    {
+      "sample_id": 0,
+      "n_frac": 1,
+      "fracture_positions_m": [
+        2479.115383005413
+      ],
+      "fracture_types": [
+        "Type I: 优势发育主进液簇"
+      ],
+      "H0_realized_m": 25205.138006316527,
+      "H0_realized_MPa": 247.26240384196515,
+      "H_ext_m": 53.582904470144705,
+      "V0_m_s": 1.1072149078264366,
+      "tc_s": 1.344038353615065,
+      "ramp_type": "cosine",
+      "wavespeed_m_s": 1482.1393569472305,
+      "alpha_ss": [
+        1.000000000000015
+      ],
+      "Q_ss_m3s": [
+        0.01697128076160829
+      ],
+      "steady_mass_residual": 1.512785499520788e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_00_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_00.csv"
+    },
+    {
+      "sample_id": 1,
+      "n_frac": 5,
+      "fracture_positions_m": [
+        1305.160228563559,
+        1353.9881495393552,
+        1399.712994392243,
+        1440.8483342751936,
+        1458.6338825892722
+      ],
+      "fracture_types": [
+        "Type II: 均衡/正常发育簇",
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type IV: 砂堵闭合/未起裂死簇",
+        "Type II: 均衡/正常发育簇",
+        "Type I: 优势发育主进液簇"
+      ],
+      "H0_realized_m": 1820.06765671686,
+      "H0_realized_MPa": 17.854863712392397,
+      "H_ext_m": 148.34878701759004,
+      "V0_m_s": 1.126704702608924,
+      "tc_s": 0.9169643358804611,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1477.7276127821522,
+      "alpha_ss": [
+        0.3054483368128491,
+        0.13343890097775793,
+        0.016802889680069787,
+        0.18793774810571948,
+        0.356372124423594
+      ],
+      "Q_ss_m3s": [
+        0.0052750984004510705,
+        0.002304492276666111,
+        0.00029018621413741906,
+        0.00324568836995924,
+        0.006154553150060466
+      ],
+      "steady_mass_residual": 9.843816989491061e-15,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_01_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_01.csv"
+    },
+    {
+      "sample_id": 2,
+      "n_frac": 3,
+      "fracture_positions_m": [
+        4305.895324544458,
+        4347.124485785337,
+        4375.481116806871
+      ],
+      "fracture_types": [
+        "Type V: 沟通天然断层/强微裂缝簇",
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type II: 均衡/正常发育簇"
+      ],
+      "H0_realized_m": 666.0015516761356,
+      "H0_realized_MPa": 6.533475221942891,
+      "H_ext_m": 170.43952963407645,
+      "V0_m_s": 1.1981188371670257,
+      "tc_s": 1.5193027007612612,
+      "ramp_type": "cosine",
+      "wavespeed_m_s": 1411.068788786778,
+      "alpha_ss": [
+        0.6533003917636907,
+        0.08945972725874014,
+        0.2572398809774296
+      ],
+      "Q_ss_m3s": [
+        0.01199763121892928,
+        0.0016428963308881513,
+        0.004724119663293903
+      ],
+      "steady_mass_residual": 1.3961179148940396e-13,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_02_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_02.csv"
+    },
+    {
+      "sample_id": 3,
+      "n_frac": 5,
+      "fracture_positions_m": [
+        2827.5657760241834,
+        2853.906921773169,
+        2898.0430447038957,
+        2917.4006241385096,
+        2929.7327338060722
+      ],
+      "fracture_types": [
+        "Type I: 优势发育主进液簇",
+        "Type IV: 砂堵闭合/未起裂死簇",
+        "Type IV: 砂堵闭合/未起裂死簇",
+        "Type II: 均衡/正常发育簇",
+        "Type II: 均衡/正常发育簇"
+      ],
+      "H0_realized_m": 1201.9636305856307,
+      "H0_realized_MPa": 11.791263216045037,
+      "H_ext_m": 98.82856766138275,
+      "V0_m_s": 1.0055156304366786,
+      "tc_s": 1.240657429366404,
+      "ramp_type": "cosine",
+      "wavespeed_m_s": 1440.324902675658,
+      "alpha_ss": [
+        0.4528749388490363,
+        0.009053023993963656,
+        0.020458309231102596,
+        0.17406712457182158,
+        0.3435466033541453
+      ],
+      "Q_ss_m3s": [
+        0.006979909761418758,
+        0.00013952922788445357,
+        0.00031531255111446395,
+        0.002682799858673473,
+        0.00529489288223386
+      ],
+      "steady_mass_residual": 6.933291317695655e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_03_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_03.csv"
+    },
+    {
+      "sample_id": 4,
+      "n_frac": 4,
+      "fracture_positions_m": [
+        4035.961124651647,
+        4074.6367322180067,
+        4102.611192303758,
+        4123.500854777564
+      ],
+      "fracture_types": [
+        "Type II: 均衡/正常发育簇",
+        "Type II: 均衡/正常发育簇",
+        "Type II: 均衡/正常发育簇",
+        "Type II: 均衡/正常发育簇"
+      ],
+      "H0_realized_m": 2556.598353568134,
+      "H0_realized_MPa": 25.080229848503397,
+      "H_ext_m": 121.59635976423674,
+      "V0_m_s": 1.4318216775806891,
+      "tc_s": 1.9201755120831128,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1463.301860053175,
+      "alpha_ss": [
+        0.2743290656473742,
+        0.1648140791389628,
+        0.28969321783670887,
+        0.27116363737703575
+      ],
+      "Q_ss_m3s": [
+        0.006020650973234304,
+        0.0036171451378258644,
+        0.006357845275315809,
+        0.005951179884738659
+      ],
+      "steady_mass_residual": 8.157147703045419e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_04_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_04.csv"
+    },
+    {
+      "sample_id": 5,
+      "n_frac": 2,
+      "fracture_positions_m": [
+        3296.996828394684,
+        3311.132947103586
+      ],
+      "fracture_types": [
+        "Type II: 均衡/正常发育簇",
+        "Type I: 优势发育主进液簇"
+      ],
+      "H0_realized_m": 2057.591086785317,
+      "H0_realized_MPa": 20.184968561363963,
+      "H_ext_m": 194.18782431454738,
+      "V0_m_s": 0.9194150779758203,
+      "tc_s": 0.35095493265961764,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1457.1167189606977,
+      "alpha_ss": [
+        0.25933285856752747,
+        0.7406671414324608
+      ],
+      "Q_ss_m3s": [
+        0.003654701087816884,
+        0.010438002428445005
+      ],
+      "steady_mass_residual": 1.1693904581731232e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_05_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_05.csv"
+    },
+    {
+      "sample_id": 6,
+      "n_frac": 4,
+      "fracture_positions_m": [
+        1811.1265736087585,
+        1840.7548533829392,
+        1888.2679115819385,
+        1921.1370336769814
+      ],
+      "fracture_types": [
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type IV: 砂堵闭合/未起裂死簇",
+        "Type I: 优势发育主进液簇",
+        "Type I: 优势发育主进液簇"
+      ],
+      "H0_realized_m": 1781.6816227044465,
+      "H0_realized_MPa": 17.478296718730622,
+      "H_ext_m": 69.42251932060498,
+      "V0_m_s": 0.9868829641643255,
+      "tc_s": 1.7960156055792318,
+      "ramp_type": "cosine",
+      "wavespeed_m_s": 1402.1927096897803,
+      "alpha_ss": [
+        0.12927816737002004,
+        0.019158659617823055,
+        0.382738748558857,
+        0.46882442445330386
+      ],
+      "Q_ss_m3s": [
+        0.0019555707496355427,
+        0.00028981006702858726,
+        0.005789629576752387,
+        0.007091834219396679
+      ],
+      "steady_mass_residual": 3.89906815947935e-15,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_06_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_06.csv"
+    },
+    {
+      "sample_id": 7,
+      "n_frac": 4,
+      "fracture_positions_m": [
+        3639.379478561581,
+        3686.0199523670854,
+        3705.2285120028805,
+        3716.725014249928
+      ],
+      "fracture_types": [
+        "Type II: 均衡/正常发育簇",
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type I: 优势发育主进液簇"
+      ],
+      "H0_realized_m": 1075.2290365872805,
+      "H0_realized_MPa": 10.547996848921223,
+      "H_ext_m": 86.52145840278217,
+      "V0_m_s": 1.0596455987037072,
+      "tc_s": 0.6162345103182982,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1432.3500114258397,
+      "alpha_ss": [
+        0.20267309365532413,
+        0.12190164026392283,
+        0.09691325597707047,
+        0.5785120101035358
+      ],
+      "Q_ss_m3s": [
+        0.0032918453874788644,
+        0.0019799438839737706,
+        0.0015740789708190124,
+        0.009396274846917371
+      ],
+      "steady_mass_residual": 1.4674849512797844e-13,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_07_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_07.csv"
+    },
+    {
+      "sample_id": 8,
+      "n_frac": 5,
+      "fracture_positions_m": [
+        2177.8485879997934,
+        2223.4802876349345,
+        2269.218153222849,
+        2299.972487638307,
+        2322.6096497115386
+      ],
+      "fracture_types": [
+        "Type II: 均衡/正常发育簇",
+        "Type IV: 砂堵闭合/未起裂死簇",
+        "Type II: 均衡/正常发育簇",
+        "Type III: 受抑/欠发育弱进液簇",
+        "Type II: 均衡/正常发育簇"
+      ],
+      "H0_realized_m": 2277.46879370153,
+      "H0_realized_MPa": 22.34196886621201,
+      "H_ext_m": 136.78122990770706,
+      "V0_m_s": 1.2631628842174327,
+      "tc_s": 0.7149347826732797,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1425.9147135627536,
+      "alpha_ss": [
+        0.27182861863654584,
+        0.02302623881939602,
+        0.34167237585497917,
+        0.14145340934858494,
+        0.22201935734055755
+      ],
+      "Q_ss_m3s": [
+        0.005263046752855455,
+        0.0004458256531514573,
+        0.006615336152991043,
+        0.0027387694146649823,
+        0.004298657969066316
+      ],
+      "steady_mass_residual": 6.343390737355897e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_08_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_08.csv"
+    },
+    {
+      "sample_id": 9,
+      "n_frac": 1,
+      "fracture_positions_m": [
+        1401.308924356142
+      ],
+      "fracture_types": [
+        "Type V: 沟通天然断层/强微裂缝簇"
+      ],
+      "H0_realized_m": 1306.196881380455,
+      "H0_realized_MPa": 12.813791406342263,
+      "H_ext_m": 161.6445177148808,
+      "V0_m_s": 1.2859837049500205,
+      "tc_s": 1.1400885339128588,
+      "ramp_type": "linear",
+      "wavespeed_m_s": 1492.161017908936,
+      "alpha_ss": [
+        1.0000000000000209
+      ],
+      "Q_ss_m3s": [
+        0.019711431229194887
+      ],
+      "steady_mass_residual": 2.094541905566906e-14,
+      "png": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_09_curves.png",
+      "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_lhs10_full_curves\\case_09.csv"
+    }
+  ]
+}

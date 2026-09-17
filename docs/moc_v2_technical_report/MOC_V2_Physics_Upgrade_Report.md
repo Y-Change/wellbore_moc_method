@@ -506,6 +506,8 @@ $$H_{frac, j, 0} = H_0(x_j) - K_p q_{j,0}^2, \qquad q_{j,0} = k_{leak} \sqrt{H_{
 
 由于流体在流经第 1 至第 4 簇裂缝后，全部注入排量被多簇完全分流（$\sum_{j=1}^{N_c} q_{j,0} = Q_{pump}$），最深裂缝下游（$x > x_{N_c} = 4160\,\mathrm{m}$）直至封闭趾端桥塞（$x = 5000\,\mathrm{m}$）的管段流速严格恒等于零（$V_0(x) \equiv 0.0\,\mathrm{m/s}$），流速在死水区完全连续无断裂，沿程水头梯度严格为零，从源头上彻底消除了趾端动量阶跃激波。
 
+**生产路径（`steady_mode="physical_flow_control"`）**：井口排量 $Q_0=V_0 A$ 与各簇 $k_{leak,j},K_{p,j}$ 为已知量，联立上式用 Brent 反解实现井口水头 $H_0^*$（默认工程上限 $H_{0,\max}=30000\,\mathrm{m}$），使 $\sum_j q_{j,0}=Q_0$。分流比 $\alpha_j^{ss}=q_{j,0}/Q_0$ 是正演输出，写入 `fracture_alpha_ss`。历史对照模式 `prescribed_flow_split_legacy` 才按人为权重分流后再校准滤失。稳态代数分流不出现 $C_f$（顺应性只进入关泵后瞬态）。详见 2.6.4 节。
+
 #### 2.6.2 井口基准水头 $H_{wellhead, 0}$ 的物理实质与超静水范式论证
 油田现场施工工程师常关注的压力参数与水锤瞬变仿真参数之间存在重要的范式映射。在深入对齐压裂文献（Luo et al. 2020, 2022, 2023; Cramer 2019; Economides & Nolte 2000）的基础上，对井口初始水头 $H_{wellhead, 0}$ 的物理本质论证如下：
 
@@ -543,36 +545,46 @@ $$H_{frac, j, 0} = H_0(x_j) - K_p q_{j,0}^2, \qquad q_{j,0} = k_{leak} \sqrt{H_{
 
 在水平井大排量、大规模分段多簇水力压裂（Multi-Cluster Hydraulic Fracturing）施工中，由于层间非均质地应力差异、簇间诱导应力阴影（Stress Shadow Effect）动态挤压、射孔磨料非均匀冲蚀、暂堵转向以及天然构造断层与天然微裂缝系统的多尺度切割，各压裂簇的扩展形态与吸液能力表现出极强的不均匀性。大量分布式声波（DAS）、分布式温度（DTS）、井下微地震（Microseismic）以及产出剖面测井实测证实：在同一压裂段内，很少存在所有簇均匀同步扩展的理想状态；各簇稳态吸液量常呈现严重的分化，甚至出现“一簇独大、部分受抑、个别砂堵、某簇沟通大断层漏失”的极端复杂工程地质形态。
 
-本报告基于连续介质水动力学与断裂力学第一性原理，确立各簇初始稳态进液分流比 $w_j = q_{j,0} / Q_{pump}$ 与宏观水力顺应性 $C_{f, j}$、地层拟达西滤失系数 $k_{leak, j}$、以及限流射孔水力流阻 $K_{p, j}$ 之间的本质力学耦合机制，将水力压裂多簇裂缝系统完整划分为 **5 大典型物理构型分类（Type I 至 Type V）**。
+本报告将水力压裂多簇裂缝系统划分为 **5 大典型物理构型（Type I 至 Type V）**。实现上必须把两件事分开：**物性如何生成**，以及 **进液比如何得到**。当前生产采样器 `LatinHypercubeSampler`（默认 `coupling_mode="physical"`）**并不抽取进液比** $w_j$。Dirichlet 只给出相对发育潜变量 $r_j$，用来写 $C_f$、$k_{leak}$ 与射孔几何；封闭趾端稳态再正演出 $\alpha_j^{ss}=q_{j,0}/Q_0$，写入样本字段 `fracture_alpha_ss`。类型标签是正演之后用 `classify_fracture_type` 后验贴上的。
 
-##### 1. 物理力学联动模型控制方程体系（Physical Mechanics Coupling Equations）
+##### 1. 生产实现：相对发育潜变量、物性联动与稳态正演分流
 
-在现场稳态注水期向关泵水锤瞬变演进中，各簇流体力学与地质力学参数并非独立解耦的无序随机数，而是受控于如下物理力学联动规律：
+实现顺序固定为四步：抽 $r_j$ $\rightarrow$ 写各簇物性 $\rightarrow$ 反解 $H_0^*$ 与 $q_{j,0}$ $\rightarrow$ 由实现分流贴 Type I–V。不得再把 Dirichlet 样本读成 $w_j$。
 
-1. **稳态进液分流权重（Dirichlet 分布）**：
-   考虑水平井压裂段内 $N_c$ 个射孔簇的竞争分流，各簇进液比 $w_j$ 满足单纯形约束：
-   $$\mathbf{w} = (w_1, w_2, \dots, w_{N_c}) \sim \mathrm{Dirichlet}(\boldsymbol{\alpha}), \quad \sum_{j=1}^{N_c} w_j = 1.0, \quad w_{avg} = \frac{1}{N_c}$$
-   无量纲相对进液强度定义为 $r_j = \frac{w_j}{w_{avg}}$。
+1. **相对发育潜变量（不是进液比）**：
+   对 $N_c$ 簇抽取对称 Dirichlet 单纯形，再缩放使段内均值为 1：
+   $$\boldsymbol{\xi} \sim \mathrm{Dirichlet}(\alpha_{\mathrm{dir}}\mathbf{1}),\qquad
+   r_j = \xi_j N_c,\qquad
+   \alpha_{\mathrm{dir}} \in \{0.5,\,1.0,\,2.0\}$$
+   于是 $\mathbb{E}[r_j]=1$。$r_j=1$ 表示与段内平均相当发育，$r_j>1$ 更发育，$r_j<1$ 更受抑。$\alpha_{\mathrm{dir}}$ 越小，簇间差异越大。$r_j$ 只驱动物性，**不是** $\alpha_j^{ss}$。
 
-2. **裂缝水力顺应性进液正反馈联动（Compliance-Inflow Coupling Law）**：
-   根据经典三维 Penny 裂缝与二维 PKN 裂缝的弹性柔度推导，裂缝体积储量弹性变形顺应性 $C_p = \frac{dV_f}{dp}$ 与水力缝长 $L_f$、波及面积 $A_f$ 正向关联。注入流体体积越多、携砂量越大的簇，裂缝张开尺度与延伸体积越大，储集刚度越软，其宏观水力顺应性 $C_{f, j}$ 呈现幂律递增。叠加地质层理非均质性的对数正态随机扰动：
-   $$C_{f, j} = C_{f, base} \cdot \left( \frac{w_j}{w_{avg}} \right)^{\alpha_{cf}} \cdot \exp(\epsilon_{Cf, j}), \quad \alpha_{cf} \approx 0.85, \quad \epsilon_{Cf, j} \sim \mathcal{N}(0, \sigma_{cf}^2)$$
-   式中 $C_{f, base}$ 为段内基准宏观顺应性（$0.008\sim 0.012\,\mathrm{m^2}$），$\sigma_{cf} \approx 0.10$。
+2. **由 $r_j$ 写顺应性、滤失与射孔（正常簇）**：
+   物理含义仍是“更发育的簇缝更长、滤失面更大、孔眼冲蚀更强”，但自变量是潜变量而不是已实现的进液比。基准落在 Type II 附近（$C_{f,\mathrm{base}}\in[0.008,0.014]\,\mathrm{m^2}$，$k_{\mathrm{leak,base}}\in[0.8,1.4]\times 10^{-4}\,\mathrm{m^{2.5}/s}$）：
+   $$C_{f, j} = C_{f, base} \, r_j^{\alpha_{cf}} \exp(\epsilon_{Cf, j}), \quad \alpha_{cf} = 0.85, \quad \epsilon_{Cf, j} \sim \mathcal{N}(0, 0.10^2)$$
+   $$k_{leak, j} = k_{leak, base} \, r_j^{\beta_{leak}} \exp(\epsilon_{leak, j}), \quad \beta_{leak} = 0.70, \quad \epsilon_{leak, j} \sim \mathcal{N}(0, 0.15^2)$$
+   $$d_{p, j} = d_{p, 0} (1 + \delta_{erode} r_j), \quad C_{d, j} = \min(C_{d, max},\, C_{d, 0} + \delta_{Cd} r_j)$$
+   $$A_{p, j} = N_{p} \frac{\pi d_{p, j}^2}{4}, \qquad K_{p, j} = \frac{1}{2 g C_{d, j}^2 A_{p, j}^2}$$
+   其中 $\delta_{erode}=0.15$，$\delta_{Cd}=0.05$，$C_{d,max}=0.82$。$N_p\in\{4,6,8,12,16\}$，$d_{p,0}\in[8,12]\,\mathrm{mm}$，$C_{d,0}\in[0.60,0.75]$ 由 LHS 井级基态给出。$K_p$ 由射孔几何计算，正常簇不直接抽 $K_p$。
 
-3. **地层拟达西滤失系数暴露面积联动（Leakoff-Inflow Coupling Law）**：
-   依据 Carter 滤失理论与渗流力学边界积分，瞬时总滤失体积正比于裂缝湿润暴露总表面积 $A_{leak} \propto L_f h_f$。充分延伸的主进液簇开拓了更大的岩石渗透接触面，滤失能力相应增强：
-   $$k_{leak, j} = k_{leak, base} \cdot \left( \frac{w_j}{w_{avg}} \right)^{\beta_{leak}} \cdot \exp(\epsilon_{leak, j}), \quad \beta_{leak} \approx 0.70, \quad \epsilon_{leak, j} \sim \mathcal{N}(0, \sigma_{leak}^2)$$
-   式中 $k_{leak, base}$ 为基准滤失系数（$0.8\times 10^{-4}\sim 1.2\times 10^{-4}\,\mathrm{m^{2.5}/s}$），$\sigma_{leak} \approx 0.15$。
+   **稳态分流不用 $C_f$**。$C_f$ 只进入关泵后腔体储能 $C_f\,\mathrm{d}H/\mathrm{d}t$。能改变 $\alpha_j^{ss}$ 的是 $k_{leak}$、$K_p$ 以及沿程摩阻造成的各簇井筒水头差。
 
-4. **限流射孔高流速磨料冲蚀扩径动力学（Perforation Abrasive Erosion Dynamics）**：
-   高浓度石英砂或陶粒支撑剂在超百米秒速射流下穿透套管孔眼，射孔产生严重的冲蚀磨损。冲蚀量正比于累积通过的流体质量与加砂冲量，孔眼直径 $d_p$ 与孔流系数 $C_d$ 同步增长：
-   $$d_{p, j} = d_{p, 0} \left( 1 + \delta_{erode} \frac{w_j}{w_{avg}} \right), \quad C_{d, j} = \min\left( C_{d, max}, \, C_{d, 0} + \delta_{Cd} \frac{w_j}{w_{avg}} \right)$$
-   $$A_{p, j} = N_{p, j} \frac{\pi d_{p, j}^2}{4}, \qquad K_{p, j} = \frac{1}{2 g C_{d, j}^2 A_{p, j}^2}$$
-   式中 $\delta_{erode} \approx 0.15$，$\delta_{Cd} \approx 0.05$。由于节流流阻反比于通流面积平方（$K_p \propto d_p^{-4}$），主进液簇孔眼显著扩径，流阻暴跌至正常值的 $30\%\sim 50\%$；而受抑弱进液簇因携砂极少，孔眼近乎未扩径，流阻居高不下。流阻差异进一步加剧了分流失衡，形成工程与物理上的正反馈闭环。
+3. **Type IV / Type V 物性截断**：
+   - 砂堵（$N_c>1$、非断层簇，且 $r_j < 0.04 N_c$）：不再走幂律，改为 $C_f\in[2\times 10^{-4},10^{-3}]\,\mathrm{m^2}$，$k_{leak}\in[10^{-6},10^{-5}]\,\mathrm{m^{2.5}/s}$，$d_p=0.70\,d_{p,0}$，$C_d=0.80\,C_{d,0}$，$K_p$ 直接抽到 $[5\times 10^7, 10^8]\,\mathrm{s^2/m^5}$。
+   - 断层（先验 $p_{\mathrm{fault}}=0.15$ 随机点亮一簇）：$C_f$ 夹到 $[0.005,0.012]\,\mathrm{m^2}$，$k_{leak}$ 再乘 $5\sim 10$ 倍并夹到 $[5.0,15.0]\times 10^{-4}\,\mathrm{m^{2.5}/s}$。
+
+4. **封闭趾端正演进液比（样本真值）**：
+   给定 $Q_0=V_0 A$，第 $j$ 簇稳态分流闭式为
+   $$q_{j,0} = k_{leak,j}\sqrt{\frac{\max(0, H_{w,j}-H_{\mathrm{ext},j})}{1+k_{leak,j}^2 K_{p,j}}}$$
+   沿程 $\mathrm{d}H/\mathrm{d}x=-f V|V|/(2gD)$。生产模式 `physical_flow_control` 用 Brent 求 $H_0^*$，使 $R(H_0)=Q_0-\sum_j q_{j,0}=0$（默认 $H_{0,\max}=30000\,\mathrm{m}$）。实现分流比为
+   $$\alpha_j^{ss} = \frac{q_{j,0}}{Q_0}$$
+   多簇样本若 $\alpha$ 几乎无对比、质量残差过大、或 $H_0^*\le H_{\mathrm{ext}}+10\,\mathrm{m}$，则拒绝重抽。`coupling_mode="independent"` 不做 Dirichlet/幂律，各簇只在基态上乘 $0.8\sim 1.2$。
+
+5. **类型标签是后验分类，不是采样盒子**：
+   `classify_fracture_type` 优先级为 Type IV（$\alpha<0.04$ 或 $K_p\ge 5\times 10^7$ 或 $C_f<0.001$）$\rightarrow$ Type V（断层标记或 $k_{leak}\ge 4.5\times 10^{-4}$）$\rightarrow$ Type I（$\alpha\ge 0.35$）$\rightarrow$ Type III（$\alpha\le 0.15$）$\rightarrow$ Type II。因此单簇井在非断层时几乎必标 Type I（$\alpha=1$），物性却仍可停在 Type II 基态；Type V 的 $k_{leak}$ 放大后封闭趾端会抢走大部分排量，实现 $\alpha$ 常明显高于下表 $0.15\sim 0.35$ 的工程期望。下表是**特征靶区**，LHS **不强制** $(\alpha,C_f,k_{leak},K_p)$ 同时落入同一行。
 
 ##### 2. 水平井多簇 5 大典型裂缝类型物理特征剖析
 
-基于上述第一性原理联动体系，界定 5 大典型裂缝类型的地质工程成因、物理参数组合与水击-倒谱响应特征：
+下列参数组合是工程分类用的**典型特征靶区**（四簇段上的经验图像），不是 LHS 的联合抽样约束。LHS 标签由实现后的 $\alpha_j^{ss}$ 与物性按第 1 节规则后验判定。
 
 - **Type I: 优势发育主进液簇 (Dominant / Runaway Cluster)**：
   - **地质力学与工程成因**：处于压裂段内地应力相对低值凹陷区或天然脆性优质储层段，起裂压力最低率先破裂；随着排量向该簇汇聚，高携砂冲蚀使得射孔孔径大幅冲刷扩径，孔流阻力骤降，吸纳了全段 $35\%\sim 55\%$ 的总注入流体，裂缝产生“失控式（Runaway）”超级延伸。
@@ -597,7 +609,7 @@ $$H_{frac, j, 0} = H_0(x_j) - K_p q_{j,0}^2, \qquad q_{j,0} = k_{leak} \sqrt{H_{
 - **Type V: 沟通天然断层/强微裂缝簇 (Fault-Intersected / Thief Zone Cluster)**（**本版重点突破新增**）：
   - **地质力学与工程成因**：水平井水力裂缝在复杂构造断裂带扩展时，翼端直接切穿了区域导通性天然断层（Conductive Fault）、剪切滑动裂隙带或古潜山溶蚀缝洞系统。高压压裂流体瞬间灌入近乎无限边界的大尺度裂缝走廊，形成严重的流体“漏失走廊（Thief Zone）”。
   - **典型物理参数组合**：
-    * 稳态分流比适中或偏高：$w_j \in [0.15, 0.35]$（断层远场泄压阻力低，施工注水阶段吸纳大量流体）；
+    * 工程期望分流比适中或偏高：$w_j \in [0.15, 0.35]$。当前封闭趾端正演在 $k_{leak}$ 放大 $5\sim 10$ 倍后，该簇实现 $\alpha^{ss}$ 通常显著高于此区间（常成为段内主吸液簇）；
     * 宏观储能顺应性适中：$C_f \in [0.005, 0.012]\,\mathrm{m^2}$（断层带主要以走滑剪切或刚性张开为主，缝面并未形成理想柔性张性双翼储集腔，宏观体积顺应性维持常态）；
     * **超常强拟达西滤失系数（核心病态物理指纹）**：由于流体直接汇入高渗透天然裂隙网络，**滤失系数爆发式飙升至 $k_{leak} \in [5.0, 15.0]\times 10^{-4}\,\mathrm{m^{2.5}/s}$，较正常均衡发育裂缝高出整整 5~10 倍**；
     * 射孔参数受常规携砂冲蚀：孔径 $d_p \in [10.0, 12.0]\,\mathrm{mm}$，流阻 $K_p \in [3.0, 6.0]\times 10^5\,\mathrm{s^2/m^5}$。
@@ -609,7 +621,7 @@ $$H_{frac, j, 0} = H_0(x_j) - K_p q_{j,0}^2, \qquad q_{j,0} = k_{leak} \sqrt{H_{
 
 ##### 3. 5 大典型裂缝类型现场真实参数组合矩阵对照表
 
-下表给出了 5 大典型裂缝类型在油田现场工程尺度下的全要素参数范围、几何力学状态、水锤瞬变与倒谱响应的完整高密度对照矩阵：
+下表给出 5 大典型裂缝类型的工程特征靶区（地质成因、期望分流、物性量级与水击/倒谱指纹）。**LHS 生产路径不按行联合抽样**：先由 $r_j$ 生成 $C_f,k_{leak},K_p$，再正演 $\alpha^{ss}$，最后按分类优先级贴标签。因此同一行内 $\alpha$ 与三项物性不必同时命中；Type IV 因硬截断 $K_p$ 而最接近本表，Type V 的滤失可进表但实现分流常偏高，Type I/II/III 主要靠 $\alpha$ 阈值分档。
 
 | 裂缝类型分类 (Fracture Type) | 稳态分流比 $w_j$ | 水力顺应性 $C_f$ [$\mathrm{m^2}$] | 拟达西滤失系数 $k_{leak}$ [$\mathrm{m^{2.5}/s}$] | 射孔孔径 $d_p$ [$\mathrm{mm}$] 与流阻 $K_p$ [$\mathrm{s^2/m^5}$] | 地质工程诱因与缝网几何尺度 | 关泵水锤时域瞬变响应波形特征 | 倒谱域特征峰与诊断识别判据 |
 | :--- | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
@@ -617,16 +629,20 @@ $$H_{frac, j, 0} = H_0(x_j) - K_p q_{j,0}^2, \qquad q_{j,0} = k_{leak} \sqrt{H_{
 | **Type II: 均衡/正常发育簇** *(Balanced / Average)* | **$0.20\sim 0.30$** (均分基准) | **$0.008\sim 0.014$** (标准中等) | **$0.8\sim 1.6\times 10^{-4}$** (基准拟达西滤失) | $d_p = 10.0\sim 11.0\,\mathrm{mm}$<br>$K_p = 4.5\sim 6.5\times 10^5$ (标准) | 符合工程设计基准，应力阴影适度；主缝长 $L_f = 80\sim 120\,\mathrm{m}$，水力充分扩展 | 激发 $+180\sim +220\,\mathrm{m}$ 标准反弹水头，水锤振荡对称衰减，基线平稳过渡 | 倒谱特征峰清晰饱满，幅值适中，亚米级高精度定位检出率达 100% |
 | **Type III: 受抑/欠发育弱进液簇** *(Suppressed / Restricted)* | **$0.05\sim 0.15$** (受抑欠缺) | **$0.002\sim 0.006$** (短小狭窄) | **$0.2\sim 0.6\times 10^{-4}$** (微小滤失量) | $d_p = 9.0\sim 10.0\,\mathrm{mm}$<br>$K_p = 8.0\sim 18.0\times 10^5$ (高阻) | 遭两侧主簇应力阴影强力夹击挤压；缝长受限 $L_f < 40\,\mathrm{m}$，近井迂曲高阻 | 高射孔节流流阻抑制脉冲透射，缝内反弹极其微弱，水头波动受主簇波包淹没 | 倒谱特征峰低矮微弱 (较 Type I 低 10~15 dB)，需波前求导锐化滤波器方可稳定提取 |
 | **Type IV: 砂堵闭合/未起裂死簇** *(Screened-out / Inactive)* | **$< 0.04$** (断流死簇) | **$< 0.001$** (刚性无储能) | **$< 0.1\times 10^{-4}$** (近零滤失) | $d_p \le 8.0\,\mathrm{mm}$<br>$K_p > 5.0\times 10^7$ (完全堵死) | 孔眼被高浓度砂柱或砂塞完全堵死，或起裂失败；有效裂缝体积与延伸近乎归零 | 射孔截面呈刚性盲端全反射，无任何流体注入与反弹能量，完全无缝腔动态行为 | 裂缝对应特征倒谱峰完全缺失，反演算法自动输出“死簇/射孔堵塞”诊断警报 |
-| **Type V: 沟通天然断层/强微裂缝簇** *(Fault-Intersected / Thief)* | **$0.15\sim 0.35$** (适中或偏高) | **$0.005\sim 0.012$** (中等储能) | **$5.0\sim 15.0\times 10^{-4}$** (**超强滤失，高 5~10 倍**) | $d_p = 10.0\sim 12.0\,\mathrm{mm}$<br>$K_p = 3.0\sim 6.0\times 10^5$ (中等) | 水力裂缝切穿导通天然大断层或裂缝走廊，流体逃逸入远场无限深层导流通道 | 停泵后水头急速消退泄压，宏观大反弹峰被大幅拉平抹除，波形呈现超临界强阻尼快速衰亡 | 倒谱特征峰呈现强阻尼衰减畸变，基底展宽且峰值明显坍塌，构成断层沟通关键诊断指纹 |
+| **Type V: 沟通天然断层/强微裂缝簇** *(Fault-Intersected / Thief)* | **期望 $0.15\sim 0.35$；封闭趾端正演常更高** | **$0.005\sim 0.012$** (中等储能) | **$5.0\sim 15.0\times 10^{-4}$** (**超强滤失，高 5~10 倍**) | $d_p = 10.0\sim 12.0\,\mathrm{mm}$<br>$K_p = 3.0\sim 6.0\times 10^5$ (中等) | 水力裂缝切穿导通天然大断层或裂缝走廊，流体逃逸入远场无限深层导流通道 | 停泵后水头急速消退泄压，宏观大反弹峰被大幅拉平抹除，波形呈现超临界强阻尼快速衰亡 | 倒谱特征峰呈现强阻尼衰减畸变，基底展宽且峰值明显坍塌，构成断层沟通关键诊断指纹 |
 
 ##### 4. 现场典型预设工程工况生成体系
 
-为支撑水击波智能反演算法在不同工况下的训练与评测，本仿真器在批处理采样器 `moc_simulate.v2.batch.sampler` 中内置了一键式典型现场工况生成接口 `sample_preset_scenario(scenario_type)`，直接支持以下 5 种典型现场压裂工况的物理自洽装配：
-1. **完美均匀型（`perfect_uniform`）**：全段各簇进液分流严格对称（各占 $25\%$），均为标准 Type II 均衡发育簇，用于算法基准标定与无偏测试；
-2. **跟部突进型（`heel_dominant`）**：近井跟部首簇占据绝对主导（Type I，进液 $45\%\sim 50\%$），中部簇正常（Type II），趾端末簇遭受严重应力挤压受抑（Type III，进液 $\le 10\%$）；
-3. **趾端优势型（`toe_dominant`）**：远井趾端由于首破起裂形成优势扩展（Type I，进液 $\sim 48\%$），跟部簇转为欠发育受抑簇（Type III）；
-4. **单簇砂堵死簇型（`screenout_dead`）**：某一中间簇发生突发性砂堵（Type IV，进液 $< 1\%$，射孔流阻发散至 $K_p \ge 8\times 10^7\,\mathrm{s^2/m^5}$），其余簇被迫二次重新分配剩余排量；
-5. **沟通断层强漏失型（`fault_leaking`）**：某一裂缝簇切入天然大断层（Type V，滤失系数放大 5~10 倍至 $1.0\times 10^{-3}\,\mathrm{m^{2.5}/s}$），全井激发显著的超临界强阻尼泄水波形，重现真实油田窜漏断层时的水锤瞬变物理图景。
+为支撑水击波智能反演算法在不同工况下的训练与评测，批处理采样器 `moc_simulate.v2.batch.sampler` 提供两条路径：
+
+- **LHS 生产路径**（`LatinHypercubeSampler`）：按第 1 节生成物性并正演 $\alpha^{ss}$，类型为后验标签。这是训练数据的默认生成方式。
+- **预设工况路径**（`sample_preset_scenario`）：按下面 5 种现场图像**先装配**接近本表的 $C_f,k_{leak},d_p$ 组合，再同样调用 `solve_physical_steady_state` 得到实现 $H_0^*$ 与 $\alpha^{ss}$，并用实现分流**重贴**类型标签。预设里的设计权重只用于写物性，不作为最终 $\alpha$。
+
+1. **完美均匀型（`perfect_uniform`）**：各簇物性取标准 Type II；四簇时实现分流接近均分，用于基准标定；
+2. **跟部突进型（`heel_dominant`）**：近井首簇按 Type I 物性装配（大 $C_f$、大滤失、低 $K_p$），趾端按 Type III 装配，正演后跟部应占优；
+3. **趾端优势型（`toe_dominant`）**：远井末簇按 Type I 物性装配，跟部按 Type III 装配；
+4. **单簇砂堵死簇型（`screenout_dead`）**：某一簇 $K_p\ge 8\times 10^7\,\mathrm{s^2/m^5}$，正演后该簇实现进液应接近断流，其余簇重分配剩余排量；
+5. **沟通断层强漏失型（`fault_leaking`）**：某一簇 $k_{leak}$ 放大至约 $1.0\times 10^{-3}\,\mathrm{m^{2.5}/s}$，用于再现强阻尼泄水；封闭趾端下该簇实现 $\alpha$ 通常很高。
 
 ### 2.7 非线性耦合方程唯一物理实根定理与牛顿迭代收敛性
 

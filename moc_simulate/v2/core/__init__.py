@@ -18,7 +18,11 @@ from moc_simulate.v2.core.friction import (
     brunone_k_vec,
     brunone_friction_Ju,
 )
-from moc_simulate.v2.core.initial_field import compute_steady_state_field
+from moc_simulate.v2.core.initial_field import (
+    compute_steady_state_field,
+    solve_physical_steady_state,
+    InfeasibleSteadyStateError,
+)
 from moc_simulate.v2.core.fracture_node import solve_fracture_node_v2
 from moc_simulate.v2.core.boundary_condition import (
     compute_ramp_velocity,
@@ -42,6 +46,8 @@ __all__ = [
     "brunone_k_vec",
     "brunone_friction_Ju",
     "compute_steady_state_field",
+    "solve_physical_steady_state",
+    "InfeasibleSteadyStateError",
     "solve_fracture_node_v2",
     "compute_ramp_velocity",
     "compute_ramp_acceleration",

@@ -1,3 +1,5 @@
+model_reasoning_summary = "auto"
+web_search = "cached"
 [mcp_servers.codex]
 command = "codex"
 args = ["mcp-server"]

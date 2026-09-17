@@ -1,0 +1,108 @@
+{
+    "dataset_name": "MOC_V2_Physical_Steady_1k",
+    "format_version": "2.0-moc",
+    "total_samples": 1000,
+    "timestamps": {
+        "n_points": 61001,
+        "tf_seconds": 61.0,
+        "dt_seconds": 0.000999,
+        "sampling_rate_hz": 1000.0,
+        "pump_shut_time_s": 1.0
+    },
+    "storage": {
+        "hdf5_path": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_physical_steady_1k\\moc_v2_physical_steady_1k.h5",
+        "file_size_bytes": 81782179,
+        "file_size_mb": 77.99,
+        "uncompressed_raw_mb": 232.7,
+        "compression_algorithm": "gzip",
+        "compression_opts": 4,
+        "compression_ratio": 2.98
+    },
+    "physics_configuration": {
+        "steady_mode": "physical_flow_control",
+        "coupling_mode": "physical",
+        "wellbore_length_m": 5000.0,
+        "wellbore_diameter_m": 0.1397,
+        "friction_model": "brunone",
+        "n_frac_bounds": [
+            1,
+            6
+        ],
+        "x_start_bounds": [
+            1000.0,
+            4500.0
+        ],
+        "spacing_bounds": [
+            5.0,
+            40.0
+        ],
+        "x_max_cluster_m": 4850.0,
+        "pump_closure_duration_tc_bounds_s": [
+            0.001,
+            0.1
+        ],
+        "pump_shut_time_s": 1.0,
+        "tf_s": 61.0,
+        "h0_max_m": 30000.0,
+        "formation_pore_head_H_ext_bounds": [
+            50.0,
+            200.0
+        ]
+    },
+    "fracture_types_distribution": {
+        "Type I (Dominant)": {
+            "count": 783,
+            "percentage": 22.56
+        },
+        "Type II (Balanced)": {
+            "count": 1215,
+            "percentage": 35.0
+        },
+        "Type III (Suppressed)": {
+            "count": 803,
+            "percentage": 23.13
+        },
+        "Type IV (Screenout)": {
+            "count": 472,
+            "percentage": 13.6
+        },
+        "Type V (Fault-Intersected)": {
+            "count": 198,
+            "percentage": 5.7
+        }
+    },
+    "cluster_count_distribution": {
+        "1_clusters": 176,
+        "2_clusters": 169,
+        "3_clusters": 147,
+        "4_clusters": 180,
+        "5_clusters": 172,
+        "6_clusters": 156
+    },
+    "parameter_statistics": {
+        "wellhead_head_min_m": -15.690446853637695,
+        "wellhead_head_max_m": 29992.23046875,
+        "wellhead_head_mean_m": 5005.19677734375,
+        "H0_realized_min_m": 139.9706268310547,
+        "H0_realized_max_m": 29992.23046875,
+        "H0_realized_mean_m": 5110.26611328125,
+        "Cf_min_m2": 0.00020015824702568352,
+        "Cf_max_m2": 0.05812480300664902,
+        "Cf_mean_m2": 0.010428529208843566,
+        "kleak_min_m2.5_s": 1.0051131766886101e-06,
+        "kleak_max_m2.5_s": 0.001500000013038516,
+        "kleak_mean_m2.5_s": 0.00014458479749806534,
+        "tc_min_s": 0.0010972048621624708,
+        "tc_max_s": 0.09991700947284698,
+        "tc_mean_s": 0.05050071328878403,
+        "x_f_min_m": 4000.195556640625,
+        "x_f_max_m": 4850.0
+    },
+    "quality_assurance": {
+        "nan_count": 0,
+        "inf_count": 0,
+        "h0_above_cap_count": 0,
+        "joukowsky_wave_trough_below_Hext_count": 34,
+        "verification_status": "PASSED_100_PERCENT"
+    }
+}

@@ -84,6 +84,13 @@ def _safe_h5_slice(dset: Any, idx: np.ndarray) -> np.ndarray:
     return unique_data[inverse]
 
 
+def _alpha_dataset(grp_lab: Any):
+    """优先读实现分流 fracture_alpha_ss，旧文件回退 fracture_weights。"""
+    if "fracture_alpha_ss" in grp_lab:
+        return grp_lab["fracture_alpha_ss"]
+    return grp_lab["fracture_weights"]
+
+
 class MocWellboreDataset(Dataset):
     """
     水击瞬变流井口水头时程与多簇地质物理标签数据集。
@@ -201,7 +208,7 @@ class MocWellboreDataset(Dataset):
             self.mem_positions = np.asarray(_safe_h5_slice(grp_lab["fracture_positions"], idx), dtype=np.float32)
             self.mem_Cf = np.asarray(_safe_h5_slice(grp_lab["fracture_Cf"], idx), dtype=np.float32)
             self.mem_kleak = np.asarray(_safe_h5_slice(grp_lab["fracture_kleak"], idx), dtype=np.float32)
-            self.mem_weights = np.asarray(_safe_h5_slice(grp_lab["fracture_weights"], idx), dtype=np.float32)
+            self.mem_weights = np.asarray(_safe_h5_slice(_alpha_dataset(grp_lab), idx), dtype=np.float32)
             self.mem_Kp = np.asarray(_safe_h5_slice(grp_lab["fracture_Kp"], idx), dtype=np.float32)
 
             if "fracture_type_ids" in grp_lab:
@@ -297,7 +304,7 @@ class MocWellboreDataset(Dataset):
             pos = np.asarray(grp_lab["fracture_positions"][real_idx], dtype=np.float32)
             cf = np.asarray(grp_lab["fracture_Cf"][real_idx], dtype=np.float32)
             kleak = np.asarray(grp_lab["fracture_kleak"][real_idx], dtype=np.float32)
-            weights = np.asarray(grp_lab["fracture_weights"][real_idx], dtype=np.float32)
+            weights = np.asarray(_alpha_dataset(grp_lab)[real_idx], dtype=np.float32)
             kp = np.asarray(grp_lab["fracture_Kp"][real_idx], dtype=np.float32)
             type_ids = np.asarray(grp_lab["fracture_type_ids"][real_idx], dtype=np.int64) if "fracture_type_ids" in grp_lab else np.zeros_like(pos, dtype=np.int64)
             tc = float(grp_lab["pump_closure_tc"][real_idx])
@@ -357,6 +364,7 @@ class MocWellboreDataset(Dataset):
             "fracture_positions": torch.from_numpy(pos).float(),
             "fracture_Cf": torch.from_numpy(cf).float(),
             "fracture_kleak": torch.from_numpy(kleak).float(),
+            "fracture_alpha_ss": torch.from_numpy(weights).float(),
             "fracture_weights": torch.from_numpy(weights).float(),
             "fracture_Kp": torch.from_numpy(kp).float(),
             "fracture_type_ids": torch.from_numpy(type_ids).long(),

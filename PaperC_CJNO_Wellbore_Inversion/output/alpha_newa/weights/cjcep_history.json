@@ -1,0 +1,197 @@
+{
+  "model_name": "cjcep",
+  "n_params": 149540,
+  "train_time_sec": 84.41225099563599,
+  "best_metrics": {
+    "m_alpha_w1_m": 11.424350726737154,
+    "m_alpha_w1_median_m": 9.04028132759364,
+    "m_alpha_corr": 0.9131670229332909,
+    "active_precision": 0.8861111111111111,
+    "active_recall": 1.0,
+    "active_f1": 0.9396170839469808,
+    "active_tp": 319,
+    "active_fp": 41,
+    "active_fn": 0,
+    "active_logY_mae": 0.25701776146888733,
+    "active_alpha_mae": 0.11022666841745377,
+    "design_alpha_mae": 0.1210351288318634,
+    "alpha_r2_design": 0.5832666154103754,
+    "simplex_max_dev": 1.1920928955078125e-07,
+    "simplex_mean_dev": 1.1324882365215672e-08,
+    "n_design": 360,
+    "n_active": 319,
+    "val_loss": 0.9454372250116788,
+    "select_score": 0.2888699305877622
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 15.486694576740264,
+      "val_loss": 5.389847902151255,
+      "m_alpha_w1_m": 97.53581399265599,
+      "m_alpha_corr": 0.3066314256826969,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.3755500912666321,
+      "active_alpha_mae": 0.11023698002099991,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 2.011099195906139
+    },
+    {
+      "epoch": 2,
+      "train_loss": 5.520123031139374,
+      "val_loss": 5.379831754244291,
+      "m_alpha_w1_m": 97.53546055013578,
+      "m_alpha_corr": 0.2975651705624843,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.3417052626609802,
+      "active_alpha_mae": 0.11024259775876999,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 2.0110921270557345
+    },
+    {
+      "epoch": 3,
+      "train_loss": 5.4859202456474305
+    },
+    {
+      "epoch": 4,
+      "train_loss": 5.488638288974762,
+      "val_loss": 5.3521246543297405,
+      "m_alpha_w1_m": 97.52058677753594,
+      "m_alpha_corr": 0.3043927395987517,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.30002114176750183,
+      "active_alpha_mae": 0.11023792624473572,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 2.010794651603738
+    },
+    {
+      "epoch": 5,
+      "train_loss": 4.357389016151428
+    },
+    {
+      "epoch": 6,
+      "train_loss": 2.276512271165848,
+      "val_loss": 1.8694474880511944,
+      "m_alpha_w1_m": 29.147056512956805,
+      "m_alpha_corr": 0.5787103115529963,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.3059917092323303,
+      "active_alpha_mae": 0.11024202406406403,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.6433240463121552
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.7282599580287934
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.487951276898384,
+      "val_loss": 1.4953588155599742,
+      "m_alpha_w1_m": 21.562166443170195,
+      "m_alpha_corr": 0.6709609773874307,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.3163822889328003,
+      "active_alpha_mae": 0.11024028062820435,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.49162624491642304
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.3796998345851899
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.2460740834474564,
+      "val_loss": 1.1564466815728407,
+      "m_alpha_w1_m": 14.917361450495546,
+      "m_alpha_corr": 0.8406905507704291,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.29576823115348816,
+      "active_alpha_mae": 0.11023318767547607,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.3587301450629301
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.1621189111471175
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.1467365914583205,
+      "val_loss": 1.046333936544565,
+      "m_alpha_w1_m": 13.04382984438501,
+      "m_alpha_corr": 0.8872444235486102,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.27149498462677,
+      "active_alpha_mae": 0.1102297306060791,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.32125951294071936
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.090206454396248
+    },
+    {
+      "epoch": 14,
+      "train_loss": 1.077001126408577,
+      "val_loss": 1.0662130071566656,
+      "m_alpha_w1_m": 13.586189200483602,
+      "m_alpha_corr": 0.8923306672926998,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.26841771602630615,
+      "active_alpha_mae": 0.11023832112550735,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.3321067000626912
+    },
+    {
+      "epoch": 15,
+      "train_loss": 1.0489007651805877
+    },
+    {
+      "epoch": 16,
+      "train_loss": 1.0253370666503907,
+      "val_loss": 0.9676453654582684,
+      "m_alpha_w1_m": 11.812239449546734,
+      "m_alpha_corr": 0.9066165523947664,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.2575674057006836,
+      "active_alpha_mae": 0.11022789031267166,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.29662770504395386
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.9984307879209519
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.9928105652332306,
+      "val_loss": 0.9463468148158147,
+      "m_alpha_w1_m": 11.438142322359717,
+      "m_alpha_corr": 0.913938398750254,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.2570844888687134,
+      "active_alpha_mae": 0.11022842675447464,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.2891457625002135
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.9841740620136261
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.9719519251585007,
+      "val_loss": 0.9454372250116788,
+      "m_alpha_w1_m": 11.424350726737154,
+      "m_alpha_corr": 0.9131670229332909,
+      "active_f1": 0.9396170839469808,
+      "active_logY_mae": 0.25701776146888733,
+      "active_alpha_mae": 0.11022666841745377,
+      "simplex_max_dev": 1.1920928955078125e-07,
+      "select_score": 0.2888699305877622
+    }
+  ],
+  "weight_path": "PaperC_CJNO_Wellbore_Inversion/output/alpha_newa\\weights\\cjcep_best.pt"
+}

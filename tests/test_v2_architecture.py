@@ -29,7 +29,7 @@ from moc_simulate.v2.configs import (
     BoundaryConfig,
     SimulationConfig,
 )
-from moc_simulate.v2.core.moc_mesh import MocGrid, compute_riemann_invariants
+from moc_simulate.v2.core.moc_mesh import MocGrid
 from moc_simulate.v2.core.friction import (
     reynolds,
     darcy_friction_factor,

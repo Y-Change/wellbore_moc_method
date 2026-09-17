@@ -1,0 +1,38 @@
+{
+  "source_h5": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_physical_steady_1k_newa\\moc_v2_physical_steady_1k_x4500_4950.h5",
+  "n_samples": 1000,
+  "formulas": {
+    "T1": "prominent autocorr peak of post-shut dH/dt in [2*x1/1600, 2*x1/1200] s, else |dH/dt| first-echo in the same window",
+    "a_hat": "2*x1/T1 clipped to [1200, 1600] m/s; design wavespeed unused",
+    "Y_eq": "Re 1/(R_perf + 1/(G_leak + j*omega*Cf)), R=2*Kp*|q|, G=k^2/(2|q|)",
+    "omega_star": "2*pi/T1",
+    "y_active": "mask_design AND alpha>= 0.04",
+    "m_alpha": "Gaussian sigma=20.0 m on [0,5000.0] n=500, integral 1"
+  },
+  "constants": {
+    "alpha_active_threshold": 0.04,
+    "a_hat_min": 1200.0,
+    "a_hat_max": 1600.0,
+    "Y_eq_floor": 1e-10,
+    "post_shut_duration_s": 60.0,
+    "ts_s": 1.0
+  },
+  "statistics": {
+    "a_hat_ok_count": 1000,
+    "a_hat_ok_fraction": 1.0,
+    "a_hat_min": 1261.750244140625,
+    "a_hat_median": 1433.8740234375,
+    "a_hat_max": 1519.6334228515625,
+    "T1_median_s": 6.560723304748535,
+    "designed_clusters": 3471,
+    "active_clusters": 3005,
+    "active_fraction_among_designed": 0.8657,
+    "Y_eq_active_median": 0.0008310657576657832,
+    "Y_eq_inactive_designed_median": 0.0
+  },
+  "outputs": {
+    "csv": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_physical_steady_1k_newa\\case_labels_alpha_y.csv",
+    "npz": "E:\\water_hammer_research\\wellbore_moc_method\\data\\datasets\\moc_v2_physical_steady_1k_newa\\case_labels_alpha_y.npz"
+  },
+  "elapsed_s": 14.52
+}
